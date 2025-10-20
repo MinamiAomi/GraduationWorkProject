@@ -1,0 +1,26 @@
+{
+    "Model" : {
+        "sphere" : "sphere/sphere.gltf",
+        "plane" : "plane/plane.gltf",
+        "blind" : "room/blind.gltf",
+        "light" : "room/light.gltf",
+        "light_1" : "room/light_1.gltf",
+        "light_2" : "room/light_2.gltf",
+        "room" : "room/room.gltf",
+        "shelf" : "room/shelf.gltf",
+        "sofa" : "room/sofa.gltf",
+        "speaker" : "room/speaker.gltf",
+        "tv" : "room/tv.gltf",
+        "videoPlayer" : "room/videoPlayer.gltf",
+        "wall" : "room/wall.gltf",
+        "lamp" : "room/lamp.gltf",
+        "table" : "room/table.gltf",
+        "living_room" : "test_models/living_room/living_room.gltf",
+        "conference" : "test_models/conference/conference.gltf"
+    },
+    "Animation" : {
+        "human_abs" : "suit/suit.gltf",
+        "human_walk" : "SuitWalk/SuitWalk.gltf"
+    }
+    
+}

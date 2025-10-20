@@ -1,0 +1,495 @@
+{
+    "name": "scene",
+    "objects": [
+        {
+            "type": "CAMERA",
+            "name": "Camera",
+            "transform": {
+                "translate": [
+                    -20.0,
+                    10.0,
+                    150.0
+                ],
+                "rotate": [
+                    -0.0,
+                    90.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "camera": {
+
+            },
+            "collider": {
+                "type": "BOX",
+                "center":[
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "size":[
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Sofa",
+            "transform": {
+                "translate": [
+                    -18.825027465820312,
+                    3.14188289642334,
+                    -5.217350482940674
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "sofa",
+            "collider": {
+                "type": "BOX",
+                "center":[
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "size":[
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
+        },
+        {
+            "type": "MESH",
+            "name": "Speaker",
+            "transform": {
+                "translate": [
+                    0.0,
+                    5.2602972984313965,
+                    20.007299423217773
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "speaker"
+        },
+        {
+            "type": "MESH",
+            "name": "VideoPlayer",
+            "transform": {
+                "translate": [
+                    -8.711073875427246,
+                    4.462721347808838,
+                    19.80778694152832
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "videoPlayer"
+        },
+        {
+            "type": "MESH",
+            "name": "TV",
+            "transform": {
+                "translate": [
+                    -8.840560913085938,
+                    9.259103775024414,
+                    20.549280166625977
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "tv"
+        },
+        {
+            "type": "MESH",
+            "name": "Room",
+            "transform": {
+                "translate": [
+                    -11.419755935668945,
+                    18.869165420532227,
+                    -3.78798770904541
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "room"
+        },
+        {
+            "type": "MESH",
+            "name": "Blind",
+            "transform": {
+                "translate": [
+                    -24.789785385131836,
+                    14.125876426696777,
+                    -13.943506240844727
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "blind"
+        },
+        {
+            "type": "MESH",
+            "name": "Wall",
+            "transform": {
+                "translate": [
+                    -8.763035774230957,
+                    12.84817123413086,
+                    20.786157608032227
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "wall"
+        },
+        {
+            "type": "MESH",
+            "name": "Shelf",
+            "transform": {
+                "translate": [
+                    -8.79308032989502,
+                    1.7210149765014648,
+                    20.224037170410156
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "shelf"
+        },
+        {
+            "type": "MESH",
+            "name": "Light.002",
+            "transform": {
+                "translate": [
+                    -4.519715309143066,
+                    13.007755279541016,
+                    -5.06807804107666
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "light_2"
+        },
+        {
+            "type": "MESH",
+            "name": "Light.001",
+            "transform": {
+                "translate": [
+                    -8.794585227966309,
+                    14.428813934326172,
+                    -11.678627967834473
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "light_1"
+        },
+        {
+            "type": "MESH",
+            "name": "Light",
+            "transform": {
+                "translate": [
+                    -10.017129898071289,
+                    16.579158782958984,
+                    1.9832541942596436
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "light"
+        },
+        {
+            "type": "MESH",
+            "name": "Blind.001",
+            "transform": {
+                "translate": [
+                    -24.789785385131836,
+                    14.125876426696777,
+                    4.017499923706055
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "blind"
+        },
+        {
+            "type": "MESH",
+            "name": "Sofa.001",
+            "transform": {
+                "translate": [
+                    5.004280090332031,
+                    3.14188289642334,
+                    -5.217350006103516
+                ],
+                "rotate": [
+                    -0.0,
+                    179.99998474121094,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "sofa"
+        },
+        {
+            "type": "MESH",
+            "name": "Speaker.001",
+            "transform": {
+                "translate": [
+                    -17.615999221801758,
+                    5.2602972984313965,
+                    20.007299423217773
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "speaker"
+        },
+        {
+            "type": "MESH",
+            "name": "Lamp",
+            "transform": {
+                "translate": [
+                    7.513874530792236,
+                    6.7159810066223145,
+                    6.690410137176514
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "lamp"
+        },
+        {
+            "type": "MESH",
+            "name": "Table",
+            "transform": {
+                "translate": [
+                    -6.791786193847656,
+                    1.4356557130813599,
+                    -5.1328864097595215
+                ],
+                "rotate": [
+                    -0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "table"
+        },
+        {
+            "type": "MESH",
+            "name": "Ground",
+            "transform": {
+                "translate": [
+                    0.0,
+                    -0.5,
+                    0.0
+                ],
+                "rotate": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    10000.0,
+                    10000.0,
+                    10000.0
+                ]
+            },
+            "model_name": "plane"
+        },
+        {
+            "type": "MESH",
+            "name": "Sphere1",
+            "transform": {
+                "translate": [
+                    0.0,
+                    5.0,
+                    150.0
+                ],
+                "rotate": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "sphere"
+        },
+        {
+            "type": "MESH",
+            "name": "Sphere2",
+            "transform": {
+                "translate": [
+                    5.0,
+                    5.0,
+                    150.0
+                ],
+                "rotate": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "sphere"
+        },
+        {
+            "type": "MESH",
+            "name": "Sphere3",
+            "transform": {
+                "translate": [
+                    10.0,
+                    5.0,
+                    150.0
+                ],
+                "rotate": [
+                    -0.0,
+                    0.0,
+                    0.0
+                ],
+                "scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "model_name": "sphere"
+        }
+    ]
+}
