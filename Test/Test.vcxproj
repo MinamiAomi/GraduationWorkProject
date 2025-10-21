@@ -21,6 +21,8 @@
     <ClCompile Include="DemoGameObjectFactory.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
+    <ClCompile Include="RailCameraController.cpp" />
+    <ClCompile Include="RailCameraLoader.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -32,6 +34,9 @@
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="DebugCamera.h" />
+    <ClInclude Include="RailCameraController.h" />
+    <ClInclude Include="RailCameraData.h" />
+    <ClInclude Include="RailCameraLoader.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>

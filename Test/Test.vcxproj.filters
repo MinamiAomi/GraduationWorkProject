@@ -13,6 +13,18 @@
     <Filter Include="Game\Component">
       <UniqueIdentifier>{787af317-f60c-4c1f-8130-6e0279e570de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\RailCameraSystem">
+      <UniqueIdentifier>{2245a9b8-7bea-42ba-a566-ad3e0e4f99a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailCameraSystem\Controller">
+      <UniqueIdentifier>{82572a16-df14-40b9-831c-28456231c5b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailCameraSystem\Data">
+      <UniqueIdentifier>{04e11a2a-834b-43ea-91a2-76ef83755fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailCameraSystem\Loader">
+      <UniqueIdentifier>{fbfc21c5-b9b5-44d1-adba-f33f0bcc37ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -40,6 +52,12 @@
     <ClCompile Include="CameraComponent.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="RailCameraLoader.cpp">
+      <Filter>Game\RailCameraSystem\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="RailCameraController.cpp">
+      <Filter>Game\RailCameraSystem\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -65,6 +83,15 @@
     </ClInclude>
     <ClInclude Include="CameraComponent.h">
       <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCameraData.h">
+      <Filter>Game\RailCameraSystem\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCameraLoader.h">
+      <Filter>Game\RailCameraSystem\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCameraController.h">
+      <Filter>Game\RailCameraSystem\Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
