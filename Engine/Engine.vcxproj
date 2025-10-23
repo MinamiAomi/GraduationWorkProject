@@ -227,6 +227,7 @@
     <ClCompile Include="Graphics\Raytracing\TestRTRenderer.cpp" />
     <ClCompile Include="Graphics\Sky.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="Input\IMUDevice.cpp" />
     <ClCompile Include="Scene\SceneIO.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
     <ClInclude Include="Audio\AudioDevice.h" />
@@ -351,6 +352,7 @@
     <ClInclude Include="Graphics\Shader\Raytracing\Pathtracing\Pathtracing.h" />
     <ClInclude Include="Graphics\Sky.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Input\IMUDevice.h" />
     <ClInclude Include="Scene\SceneIO.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>

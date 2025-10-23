@@ -33,13 +33,6 @@ public:
 private:
     std::shared_ptr<DirectionalLight> sunLight_;
 
-    static const uint32_t kRowCount = 2;
-    static const uint32_t kColumnCount = 5;
-    struct PBRSphere {
-        ModelInstance model;
-        std::shared_ptr<Material> material;
-    };
-    PBRSphere spheres_[kRowCount][kColumnCount];
-    ModelInstance room_;
-    Sprite sprite_;
+    ModelInstance sofaModel_;
+    Transform sofaTransform_;
 };

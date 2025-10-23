@@ -423,6 +423,9 @@
     <ClCompile Include="Graphics\Raytracing\Pathtracer.cpp">
       <Filter>Graphics\Raytracing</Filter>
     </ClCompile>
+    <ClCompile Include="Input\IMUDevice.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\BaseScene.h">
@@ -826,6 +829,9 @@
     </ClInclude>
     <ClInclude Include="Graphics\SceneContext.h">
       <Filter>Graphics\Standard</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\IMUDevice.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

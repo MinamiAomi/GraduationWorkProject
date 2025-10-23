@@ -8,7 +8,6 @@
 
 #include "Input/Input.h"
 
-
 class Game;
 class GameWindow;
 class Graphics;
@@ -19,6 +18,7 @@ class SceneManager;
 class GameObjectManager;
 class AssetManager;
 class ThreadPool;
+class IMUDevice;
 
 #ifdef ENABLE_IMGUI
 namespace Editer {
@@ -48,6 +48,7 @@ public:
     static AssetManager* GetAssetManager();
     static GameObjectManager* GetGameObjectManager();
     static ThreadPool* GetThreadPool();
+    static IMUDevice* GetIMUDevice();
 #ifdef ENABLE_IMGUI
     static Editer::EditerManager* GetEditerManager();
 #endif ENABLE_IMGUI
