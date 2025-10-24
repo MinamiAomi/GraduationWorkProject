@@ -2,6 +2,7 @@
 
 #include <string>
 #include <sstream>
+#include <thread>
 
 std::vector<std::string> Split(const std::string& str, char delimiter) {
     std::vector<std::string> tokens;
@@ -15,7 +16,7 @@ std::vector<std::string> Split(const std::string& str, char delimiter) {
 
 void IMUDevice::Initialize() {
 
-    auto port = L"\\\\.\\COM5";
+    auto port = L"\\\\.\\COM6";
     // 接続
     hSerial_ = CreateFile(port, GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
     assert(hSerial_ != INVALID_HANDLE_VALUE);
@@ -30,6 +31,8 @@ void IMUDevice::Initialize() {
     dcbSerialParams.ByteSize = 8;
     dcbSerialParams.StopBits = ONESTOPBIT;
     dcbSerialParams.Parity = NOPARITY;
+
+    dcbSerialParams.fDtrControl = DTR_CONTROL_ENABLE;
 
     if (!SetCommState(hSerial_, &dcbSerialParams)) {
         assert(true);
@@ -60,10 +63,11 @@ void IMUDevice::Update() {
 
     auto data = Split(line, ',');
 
-    if (data.size() >= 9) {
-        acceleration_ = { std::stof(data[0]), std::stof(data[1]), std::stof(data[2]) };
-        gyroscope_ = { std::stof(data[3]), std::stof(data[4]), std::stof(data[5]) };
-        magnetometer_ = { std::stof(data[6]), std::stof(data[7]), std::stof(data[8]) };
+    if (data.size() >= 4) {
+        orientation_.w = -std::stof(data[0]);
+        orientation_.x = std::stof(data[1]);
+        orientation_.y = std::stof(data[3]);
+        orientation_.z = std::stof(data[2]);
     }
 }
 

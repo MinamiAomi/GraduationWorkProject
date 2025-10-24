@@ -31,33 +31,7 @@ void TestScene::OnUpdate() {
         sofaTransform_.rotate = Quaternion::identity;;
     }
 
-    // 1. 必要なデータを取得
-    Vector3 gyro = Engine::GetIMUDevice()->GetGyroscope(); // ジャイロ (rad/s と仮定)
-    Vector3 g = { -gyro.y, -gyro.z, gyro.x };
-
-    Quaternion current_q = sofaTransform_.rotate;        // 現在のソファの回転
-    //float dt = 1.0f / 60.0f;                 // 経過時間 (秒)
-
-    // 2. クォータニオンの微分方程式 (正しい式)
-    //    ジャイロ(g)によって、現在の回転(current_q)がどう変化するか(qDot)を計算
-    Quaternion qDot;
-    qDot.w = 0.5f * (-current_q.x * g.x - current_q.y * g.y - current_q.z * g.z);
-    qDot.x = 0.5f * (current_q.w * g.x + current_q.y * g.z - current_q.z * g.y);
-    qDot.y = 0.5f * (current_q.w * g.y - current_q.x * g.z + current_q.z * g.x);
-    qDot.z = 0.5f * (current_q.w * g.z + current_q.x * g.y - current_q.y * g.x);
-
-    // 3. 積分 (変化率を現在の回転に加算)
-    //    新しい回転 = 現在の回転 + (変化率 * 時間)
-    Quaternion new_q;
-    new_q.w = current_q.w + qDot.w;
-    new_q.x = current_q.x + qDot.x;
-    new_q.y = current_q.y + qDot.y;
-    new_q.z = current_q.z + qDot.z;
-
-    // 4. 正規化 (必須)
-    //    計算誤差でクォータニオンの長さが1でなくなるのを防ぐ
-    // 5. 最終的な回転を適用
-    sofaTransform_.rotate = new_q.Normalized();
+    sofaTransform_.rotate = Engine::GetIMUDevice()->GetOrientation();
     sofaTransform_.UpdateMatrix();
     sofaModel_.SetWorldMatrix(sofaTransform_.worldMatrix);
 }
