@@ -61,6 +61,7 @@ namespace RailCameraSystem {
 					key.frame = keyJson.value("frame", 0.0f);
 					key.interpolation = keyJson.value("interpolation", "LINEAR");
 
+
 					if (keyJson.contains("value") && keyJson["value"].is_object()) {
 						key.value.x = keyJson["value"].value("x", 0.0f);
 						key.value.y = keyJson["value"].value("y", 0.0f);

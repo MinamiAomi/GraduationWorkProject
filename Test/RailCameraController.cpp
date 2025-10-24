@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-RailCameraSystem::AnimationController::AnimationController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation> animationData)
+RailCameraSystem::RailCameraController::RailCameraController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation> animationData)
 {
 	if (!animationData) {
 		throw std::invalid_argument("AnimationData cannot be null.");
@@ -16,7 +16,7 @@ RailCameraSystem::AnimationController::AnimationController(std::shared_ptr<const
 	totalDurationFrames_ = float(animationData_->railCameraMetaData_.endFrame);
 }
 
-void RailCameraSystem::AnimationController::Update(float deltaTime)
+void RailCameraSystem::RailCameraController::Update(float deltaTime)
 {
 	//止められているor終了していたら再生しない
 	if (!isPlaying_ || IsFinished()) {
@@ -30,12 +30,13 @@ void RailCameraSystem::AnimationController::Update(float deltaTime)
 	//アニメーションの終了フレームを超えないようにクランプ
 	if (currentFrame_ > totalDurationFrames_) {
 		currentFrame_ = totalDurationFrames_;
-		//ポーズしておく
-		Pause();
+
+		//いったんループ
+		Loop();
 	}
 }
 
-Transform RailCameraSystem::AnimationController::GetCurrentTransform() const
+Transform RailCameraSystem::RailCameraController::GetCurrentTransform() const
 {
 
 	Transform transform;
@@ -61,24 +62,30 @@ Transform RailCameraSystem::AnimationController::GetCurrentTransform() const
 	return  transform;
 }
 
-void RailCameraSystem::AnimationController::Play()
+void RailCameraSystem::RailCameraController::Play()
 {
 	isPlaying_ = true;
 }
 
-void RailCameraSystem::AnimationController::Pause()
+void RailCameraSystem::RailCameraController::Pause()
 {
 	isPlaying_ = false;
 }
 
-void RailCameraSystem::AnimationController::Stop()
+void RailCameraSystem::RailCameraController::Stop()
 {
 	isPlaying_ = false;
 	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
 }
 
+void RailCameraSystem::RailCameraController::Loop()
+{
+	isPlaying_ = true;
+	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+}
+
 template<typename T>
-inline std::pair<size_t, size_t> RailCameraSystem::AnimationController::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
+inline std::pair<size_t, size_t> RailCameraSystem::RailCameraController::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
 {
 	if (keys.empty()) {
 		return { 0, 0 };
@@ -99,7 +106,7 @@ inline std::pair<size_t, size_t> RailCameraSystem::AnimationController::FindKeyf
 	return { keys.size() - 1, keys.size() - 1 };
 }
 
-float RailCameraSystem::AnimationController::InterpolateScalar(const RailCameraSystem::ScalarKeyframe& key1, const RailCameraSystem::ScalarKeyframe& key2, float currentFrame) const
+float RailCameraSystem::RailCameraController::InterpolateScalar(const RailCameraSystem::ScalarKeyframe& key1, const RailCameraSystem::ScalarKeyframe& key2, float currentFrame) const
 {
 	if (key1.frame == key2.frame) { return key1.value; }
 	float t = (currentFrame - key1.frame) / (key2.frame - key1.frame);
@@ -108,7 +115,7 @@ float RailCameraSystem::AnimationController::InterpolateScalar(const RailCameraS
 	return std::lerp(key1.value, key2.value, t);
 }
 
-Vector3 RailCameraSystem::AnimationController::InterpolatePosition(const RailCameraSystem::PositionKeyframe& key1, const RailCameraSystem::PositionKeyframe& key2, float currentFrame) const
+Vector3 RailCameraSystem::RailCameraController::InterpolatePosition(const RailCameraSystem::PositionKeyframe& key1, const RailCameraSystem::PositionKeyframe& key2, float currentFrame) const
 {
 	if (key1.frame == key2.frame) { return key1.value; }
 	float t = (currentFrame - key1.frame) / (key2.frame - key1.frame);
@@ -116,7 +123,7 @@ Vector3 RailCameraSystem::AnimationController::InterpolatePosition(const RailCam
 	return Vector3::Lerp(t, key1.value, key2.value);
 }
 
-Quaternion RailCameraSystem::AnimationController::InterpolateRotation(const RailCameraSystem::RotationKeyframe& key1, const RailCameraSystem::RotationKeyframe& key2, float currentFrame) const
+Quaternion RailCameraSystem::RailCameraController::InterpolateRotation(const RailCameraSystem::RotationKeyframe& key1, const RailCameraSystem::RotationKeyframe& key2, float currentFrame) const
 {
 	if (key1.frame == key2.frame) { return key1.value; }
 	float t = (currentFrame - key1.frame) / (key2.frame - key1.frame);

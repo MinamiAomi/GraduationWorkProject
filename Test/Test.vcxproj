@@ -29,12 +29,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="RailCameraDebugUtils.h" />
     <ClInclude Include="DemoComponentRegisterer.h" />
     <ClInclude Include="DemoGameObjectFactory.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="DebugCamera.h" />
     <ClInclude Include="RailCameraController.h" />
+    <ClInclude Include="RailCameraConverter.h" />
     <ClInclude Include="RailCameraData.h" />
     <ClInclude Include="RailCameraLoader.h" />
     <ClInclude Include="Test.h" />

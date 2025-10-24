@@ -9,9 +9,9 @@
 
 namespace RailCameraSystem {
 
-	class AnimationController {
+	class RailCameraController {
 	public:
-		explicit AnimationController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation>animationData);
+		explicit RailCameraController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation>animationData);
 
 		void Update(float deltaTime);
 
@@ -22,6 +22,8 @@ namespace RailCameraSystem {
 		void Pause();
 
 		void Stop();
+
+		void Loop();
 
 		bool IsPlaying() const { return isPlaying_; }
 

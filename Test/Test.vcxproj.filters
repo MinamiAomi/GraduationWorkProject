@@ -25,6 +25,12 @@
     <Filter Include="Game\RailCameraSystem\Loader">
       <UniqueIdentifier>{fbfc21c5-b9b5-44d1-adba-f33f0bcc37ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\RailCameraSystem\Converter">
+      <UniqueIdentifier>{b0561d18-e060-404e-8030-32ff35b4d14d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailCameraSystem\DebugUtils">
+      <UniqueIdentifier>{4e725bda-1e1d-4386-a001-dcf784bcb762}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -92,6 +98,12 @@
     </ClInclude>
     <ClInclude Include="RailCameraController.h">
       <Filter>Game\RailCameraSystem\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCameraConverter.h">
+      <Filter>Game\RailCameraSystem\Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCameraDebugUtils.h">
+      <Filter>Game\RailCameraSystem\DebugUtils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
