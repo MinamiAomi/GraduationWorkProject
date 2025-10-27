@@ -107,7 +107,7 @@ void TestScene::OnUpdate() {
 #endif // _DEBUG
 
 	//
-	RenderManager::GetInstance()->SetCamera(camera_);
+	//RenderManager::GetInstance()->SetCamera(camera_);
 }
 
 void TestScene::OnFinalize() {
