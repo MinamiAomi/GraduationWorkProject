@@ -3,114 +3,116 @@
 #include <fstream>
 #include <iostream>
 
-#include "Externals/nlohmann/json.hpp"
 namespace RailCameraSystem {
-	static Vector2 ParseVec2(const nlohmann::json& json, const std::string& key) {
+	/*static Vector2 ParseVec2(const nlohmann::json& json, const std::string& key) {
 		Vector2 result;
 		if (json.contains(key) && json[key].is_object()) {
 			result.x = json[key].value("x", 0.0f);
 			result.y = json[key].value("y", 0.0f);
 		}
 		return result;
-	}
+	}*/
 
 
 	std::optional<RailCameraAnimation> RailCameraSystem::AnimationLoader::LoadAnimation(const std::filesystem::path& filepath)
 	{
-		//ファイルを開く
-		std::ifstream fs(filepath);
-
-		//開けなかった場合エラー文とnullopt
-		if (!fs.is_open()) {
-			std::cerr << "Error : Failed to open animation file" << std::endl;
+		std::ifstream file(filepath);
+		if (!file.is_open()) {
+			std::cerr << "Error: Could not open file " << filepath << std::endl;
 			return std::nullopt;
 		}
+
+		nlohmann::json data;
+		try {
+			file >> data;
+		}
+		catch (nlohmann::json::parse_error& e) {
+			std::cerr << "Error: Failed to parse JSON file " << filepath << ". " << e.what() << std::endl;
+			return std::nullopt;
+		}
+
+		RailCameraAnimation animationData;
 
 		try {
-			nlohmann::json data = nlohmann::json::parse(fs);
-			RailCameraAnimation animationData;
+			// メタデータ
+			animationData.railCameraMetaData_.startFrame = data["metadata"]["start_frame"].get<int>();
+			animationData.railCameraMetaData_.endFrame = data["metadata"]["end_frame"].get<int>();
+			animationData.railCameraMetaData_.frameRate = data["metadata"]["frame_rate"].get<float>();
 
-			//メタデータの読み込み
-			if (data.contains("metadata") && data["metadata"].is_object()) {
-				const auto& meta = data["metadata"];
-				animationData.railCameraMetaData_.startFrame = meta.value("start_frame", 0);
-				animationData.railCameraMetaData_.endFrame = meta.value("end_frame", 0);
-				animationData.railCameraMetaData_.frameRate = meta.value("frame_rate", 0.0f);
+			// キーフレーム
+			for (const auto& key : data["curve_eval_time"]) {
+				animationData.evalTimeKeys_.push_back(ParseScalarKeyframe(key));
+			}
+			for (const auto& key : data["camera_location_keyframes"]) {
+				animationData.positionKeys_.push_back(ParsePositionKeyframe(key));
+			}
+			for (const auto& key : data["camera_rotation_keyframes"]) {
+				animationData.rotationKeys_.push_back(ParseRotationKeyframe(key));
 			}
 
-			//評価時間のキーフレームの読み込み
-			if (data.contains("curve_eval_time") && data["curve_eval_time"].is_array()) {
-				for (const auto& keyJson : data["curve_eval_time"]) {
-					ScalarKeyframe key;
-					key.frame = keyJson.value("frame", 0.0f);
-					key.value = keyJson.value("value", 0.0f);
-					key.interpolation = keyJson.value("interpolation", "LINEAR");
-					//ベジエなら格納
-					if (key.interpolation == "BEZIER") {
-						key.handle.left = ParseVec2(keyJson, "handle_left");
-						key.handle.right = ParseVec2(keyJson, "handle_right");
-					}
-					animationData.scalarKeys_.push_back(key);
-				}
-			}
-
-			//位置キーフレームの読み込み
-			if (data.contains("camera_location_keyframes") && data["camera_location_keyframes"].is_array()) {
-				for (const auto& keyJson : data["camera_location_keyframes"]) {
-					PositionKeyframe key;
-					key.frame = keyJson.value("frame", 0.0f);
-					key.interpolation = keyJson.value("interpolation", "LINEAR");
-
-
-					if (keyJson.contains("value") && keyJson["value"].is_object()) {
-						key.value.x = keyJson["value"].value("x", 0.0f);
-						key.value.y = keyJson["value"].value("y", 0.0f);
-						key.value.z = keyJson["value"].value("z", 0.0f);
-					}
-
-					if (key.interpolation == "BEZIER" && keyJson.contains("handles") && keyJson["handles"].is_object()) {
-						const auto& handles = keyJson["handles"];
-						if (handles.contains("x")) {
-							key.handles.x.left = ParseVec2(handles["x"], "left");
-							key.handles.x.right = ParseVec2(handles["x"], "right");
-						}
-						if (handles.contains("y")) {
-							key.handles.y.left = ParseVec2(handles["y"], "left");
-							key.handles.y.right = ParseVec2(handles["y"], "right");
-						}
-						if (handles.contains("z")) {
-							key.handles.z.left = ParseVec2(handles["z"], "left");
-							key.handles.z.right = ParseVec2(handles["z"], "right");
-						}
-					}
-
-					animationData.positionKeys_.push_back(key);
-				}
-
-				//回転キーフレームの読み込み
-				if (data.contains("camera_rotation_keyframes") && data["camera_rotation_keyframes"].is_array()) {
-					for (const auto& keyJson : data["camera_rotation_keyframes"]) {
-
-						RotationKeyframe key;
-						key.frame = keyJson.value("frame", 0.0f);
-						if (keyJson.contains("value") && keyJson["value"].is_object()) {
-							key.value.w = keyJson["value"].value("w", 0.0f);
-							key.value.x = keyJson["value"].value("x", 0.0f);
-							key.value.y = keyJson["value"].value("y", 0.0f);
-							key.value.z = keyJson["value"].value("z", 0.0f);
-						}
-						animationData.rotationKeys_.push_back(key);
-					}
-				}
-			}
-			return animationData;
 		}
-		//パース出来なかったった場合の例外処理nulloptを返す
-		catch (nlohmann::json::parse_error& e) {
-			std::cerr << "Json parse error" << e.what() << std::endl;
+		catch (nlohmann::json::exception& e) {
+			std::cerr << "Error: JSON structure mismatch. " << e.what() << std::endl;
 			return std::nullopt;
 		}
 
+		// データが空でないか基本的なチェック
+		if (animationData.evalTimeKeys_.empty() || animationData.positionKeys_.empty() || animationData.rotationKeys_.empty()) {
+			std::cerr << "Warning: Animation data contains empty keyframe tracks." << std::endl;
+		}
+
+		return animationData;
+	}
+
+	ScalarKeyframe AnimationLoader::ParseScalarKeyframe(const nlohmann::json& key)
+	{
+		ScalarKeyframe keyframe;
+		keyframe.frame = key["frame"].get<float>();
+		keyframe.value = key["value"].get<float>();
+
+
+		// 補間タイプを読み込む（存在しない場合はLINEAR）
+		keyframe.interpolation = key.value("interpolation", "LINEAR");
+
+		// 常にハンドルにデフォルト値を設定 (key.frame, key.value)
+		// これにより、BEZIERではないキーも有効なハンドル値を持つ
+		keyframe.handle.left = { keyframe.frame, keyframe.value };
+		keyframe.handle.right = { keyframe.frame, keyframe.value };
+
+		// BEZIER補間の場合、JSONからハンドル情報を読み込んで上書き
+		if (keyframe.interpolation == "BEZIER") {
+			if (key.contains("handle_left")) {
+				keyframe.handle.left.x = key["handle_left"]["x"].get<float>();
+				keyframe.handle.left.y = key["handle_left"]["y"].get<float>();
+			}
+			if (key.contains("handle_right")) {
+				keyframe.handle.right.x = key["handle_right"]["x"].get<float>();
+				keyframe.handle.right.y = key["handle_right"]["y"].get<float>();
+			}
+		}
+
+		return keyframe;
+	}
+
+	PositionKeyframe AnimationLoader::ParsePositionKeyframe(const nlohmann::json& key)
+	{
+		PositionKeyframe keyframe;
+		keyframe.frame = key["frame"].get<float>();
+		keyframe.value.x = key["value"]["x"].get<float>();
+		keyframe.value.y = key["value"]["y"].get<float>();
+		keyframe.value.z = key["value"]["z"].get<float>();
+		return keyframe;
+	}
+
+	RotationKeyframe AnimationLoader::ParseRotationKeyframe(const nlohmann::json& key)
+	{
+		RotationKeyframe keyframe;
+		keyframe.frame = key["frame"].get<float>();
+		keyframe.value.w = key["value"]["w"].get<float>();
+		keyframe.value.x = key["value"]["x"].get<float>();
+		keyframe.value.y = key["value"]["y"].get<float>();
+		keyframe.value.z = key["value"]["z"].get<float>();
+		return keyframe;
 	}
 
 

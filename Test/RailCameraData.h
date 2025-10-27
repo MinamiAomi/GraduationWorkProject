@@ -61,7 +61,7 @@ namespace RailCameraSystem {
 	public:
 		RailCameraMetaData railCameraMetaData_;
 
-		std::vector<ScalarKeyframe> scalarKeys_;
+		std::vector<ScalarKeyframe> evalTimeKeys_;
 		std::vector<PositionKeyframe> positionKeys_;
 		std::vector<RotationKeyframe> rotationKeys_;
 	};

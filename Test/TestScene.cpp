@@ -77,7 +77,7 @@ void TestScene::OnUpdate() {
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
-
+	railCameraController_->GetCurrentFrame();
 
 #ifdef _DEBUG
 	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
