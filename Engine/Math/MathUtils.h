@@ -1179,6 +1179,18 @@ public:
     inline constexpr Vector3 GetTranslate() const noexcept {
         return { m[3][0], m[3][1], m[3][2] };
     }
+
+    inline constexpr Vector3 GetRight() const noexcept {
+        return { m[0][0], m[0][1], m[0][2] };
+    }
+
+    inline constexpr Vector3 GetUp() const noexcept {
+        return { m[1][0], m[1][1], m[1][2] };
+    }
+
+    inline constexpr Vector3 GetForward() const noexcept {
+        return { m[2][0], m[2][1], m[2][2] };
+    }
     float Determinant() const noexcept;
     Matrix4x4 Adjugate() const noexcept;
     inline Matrix4x4 Inverse() const noexcept {

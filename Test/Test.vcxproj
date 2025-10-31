@@ -19,6 +19,7 @@
     <ClCompile Include="DebugCamera.cpp" />
     <ClCompile Include="DemoComponentRegisterer.cpp" />
     <ClCompile Include="DemoGameObjectFactory.cpp" />
+    <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="RailCameraController.cpp" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Flashlight.h" />
     <ClInclude Include="RailCameraDebugUtils.h" />
     <ClInclude Include="DemoComponentRegisterer.h" />
     <ClInclude Include="DemoGameObjectFactory.h" />

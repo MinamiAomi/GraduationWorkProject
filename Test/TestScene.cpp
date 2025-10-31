@@ -60,13 +60,16 @@ void TestScene::OnInitialize() {
 	}
 
 	camera_ = std::make_shared<Camera>();
+
+	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->Initialize(&camera_->GetTransform(),camera_.get());
 }
 
 void TestScene::OnUpdate() {
 
 	Engine::GetGameObjectManager()->Update();
 
-	railCameraController_->Update(0.01667f);
+	railCameraController_->Update(1.0f / 60.0f);
 	auto transform = railCameraController_->GetCurrentTransform();
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
 	transform.UpdateMatrix();
@@ -77,6 +80,9 @@ void TestScene::OnUpdate() {
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
+
+	flashlight_->Update();
+
 	railCameraController_->GetCurrentFrame();
 
 #ifdef _DEBUG
@@ -107,7 +113,7 @@ void TestScene::OnUpdate() {
 #endif // _DEBUG
 
 	//
-	//RenderManager::GetInstance()->SetCamera(camera_);
+	RenderManager::GetInstance()->SetCamera(camera_);
 }
 
 void TestScene::OnFinalize() {

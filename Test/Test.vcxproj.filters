@@ -31,6 +31,9 @@
     <Filter Include="Game\RailCameraSystem\DebugUtils">
       <UniqueIdentifier>{4e725bda-1e1d-4386-a001-dcf784bcb762}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Flashlight">
+      <UniqueIdentifier>{a922a671-c956-4964-92d9-a3ba492b0866}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -64,6 +67,7 @@
     <ClCompile Include="RailCameraController.cpp">
       <Filter>Game\RailCameraSystem\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="Flashlight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -104,6 +108,9 @@
     </ClInclude>
     <ClInclude Include="RailCameraDebugUtils.h">
       <Filter>Game\RailCameraSystem\DebugUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Flashlight.h">
+      <Filter>Game\Flashlight</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

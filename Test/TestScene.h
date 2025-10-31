@@ -14,6 +14,7 @@
 #include "Graphics/Sprite.h"
 
 #include "RailCameraController.h"
+#include "Flashlight.h"
 
 class TestScene :
 	public BaseScene {
@@ -47,6 +48,7 @@ private:
 	ModelInstance railCameraModel_;
 
 	std::unique_ptr<RailCameraSystem::RailCameraController> railCameraController_;
+	std::unique_ptr<Flashlight> flashlight_;
 
 	std::shared_ptr<Camera> camera_;
 };
