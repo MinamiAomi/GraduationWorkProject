@@ -34,6 +34,18 @@
     <Filter Include="Game\Flashlight">
       <UniqueIdentifier>{a922a671-c956-4964-92d9-a3ba492b0866}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\SceneObjectSystem">
+      <UniqueIdentifier>{85af7424-92a1-4764-a881-320c67fc6e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\SceneObjectSystem\Data">
+      <UniqueIdentifier>{380c7636-7773-4725-afd4-a22c33c38f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\SceneObjectSystem\Converter">
+      <UniqueIdentifier>{9e3dd84a-68f7-4512-8577-606532d3dd24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\SceneObjectSystem\Loader">
+      <UniqueIdentifier>{d2bab71d-57b0-46e5-bdae-b39b9710c5f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -68,6 +80,12 @@
       <Filter>Game\RailCameraSystem\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Flashlight.cpp" />
+    <ClCompile Include="SceneObjectLoader.cpp">
+      <Filter>Game\SceneObjectSystem\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObjectData.cpp">
+      <Filter>Game\SceneObjectSystem\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -111,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="Flashlight.h">
       <Filter>Game\Flashlight</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjectData.h">
+      <Filter>Game\SceneObjectSystem\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjectLoader.h">
+      <Filter>Game\SceneObjectSystem\Loader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

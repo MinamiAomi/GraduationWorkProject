@@ -11,6 +11,8 @@
 #include "RailCameraConverter.h"
 #include "RailCameraDebugUtils.h"
 
+#include "SceneObjectLoader.h"
+
 void TestScene::OnInitialize() {
 
 	sunLight_ = std::make_shared<DirectionalLight>();
@@ -47,9 +49,13 @@ void TestScene::OnInitialize() {
 	sprite_.SetPosition({ 200.0f, 200.0f });
 	sprite_.SetScale({ 200.0f, 200.0f });
 
+	camera_ = std::make_shared<Camera>();
+
+	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+
+#pragma region RailCameraSystem
 	railCameraModel_.SetModel(AssetManager::GetInstance()->modelMap.Get("sphere")->Get());
-
-
 	auto animationData = RailCameraSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
 		railCameraController_ = std::make_unique<RailCameraSystem::RailCameraController>
@@ -58,11 +64,22 @@ void TestScene::OnInitialize() {
 			);
 		railCameraController_->Play();
 	}
+#pragma endregion
 
-	camera_ = std::make_shared<Camera>();
+#pragma region SceneObjectSystem
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/staticMesh.json");
 
-	flashlight_ = std::make_unique<Flashlight>();
-	flashlight_->Initialize(&camera_->GetTransform(),camera_.get());
+	std::wostringstream woss;
+	for (const auto& obj : result) {
+
+		woss << L"オブジェクト名: " << obj.name.c_str() << L"\n"
+			<< L"モデル: " << obj.modelName.c_str() << L"\n"
+			<< L"位置: " << obj.transform.translate.x << L"," << obj.transform.translate.y << L"," << obj.transform.translate.y << L"\n"
+			<< L"OBB: " << obj.obbCollision.size.x << L"," << obj.obbCollision.size.y << L"," << obj.obbCollision.size.y << L"\n";
+		OutputDebugStringW(woss.str().c_str());
+	}
+#pragma endregion
+
 }
 
 void TestScene::OnUpdate() {

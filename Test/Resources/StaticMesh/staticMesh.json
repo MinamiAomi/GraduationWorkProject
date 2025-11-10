@@ -1,0 +1,86 @@
+{
+  "objects": [
+    {
+      "name": "Cube",
+      "model_name": "box",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          20.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "立方体",
+      "model_name": "bunny",
+      "srt": {
+        "translate": [
+          0.0,
+          8.0,
+          0.0
+        ],
+        "rotate": [
+          0.9634,
+          0.0,
+          0.2681,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          0.0,
+          8.0,
+          0.0
+        ],
+        "world_rotation_quat": [
+          0.9634,
+          0.0,
+          0.2681,
+          0.0
+        ],
+        "local_size": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": false
+    }
+  ]
+}
