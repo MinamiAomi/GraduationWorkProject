@@ -26,6 +26,7 @@
     <ClCompile Include="RailCameraLoader.cpp" />
     <ClCompile Include="SceneObjectData.cpp" />
     <ClCompile Include="SceneObjectLoader.cpp" />
+    <ClCompile Include="SceneObjectManager.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -43,8 +44,10 @@
     <ClInclude Include="RailCameraConverter.h" />
     <ClInclude Include="RailCameraData.h" />
     <ClInclude Include="RailCameraLoader.h" />
+    <ClInclude Include="SceneObjectConverter.h" />
     <ClInclude Include="SceneObjectData.h" />
     <ClInclude Include="SceneObjectLoader.h" />
+    <ClInclude Include="SceneObjectManager.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestScene.h" />
   </ItemGroup>

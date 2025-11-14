@@ -13,6 +13,7 @@
 
 #include "SceneObjectLoader.h"
 
+
 void TestScene::OnInitialize() {
 
 	sunLight_ = std::make_shared<DirectionalLight>();
@@ -67,8 +68,14 @@ void TestScene::OnInitialize() {
 #pragma endregion
 
 #pragma region SceneObjectSystem
+	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
+
+	sceneObjectManager_->Initialize();
+
 	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/staticMesh.json");
 
+	sceneObjectManager_->CreateObjects(result);
+#ifdef _DEBUG
 	std::wostringstream woss;
 	for (const auto& obj : result) {
 
@@ -78,6 +85,7 @@ void TestScene::OnInitialize() {
 			<< L"OBB: " << obj.obbCollision.size.x << L"," << obj.obbCollision.size.y << L"," << obj.obbCollision.size.y << L"\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
+#endif // _DEBUG
 #pragma endregion
 
 }
@@ -102,6 +110,7 @@ void TestScene::OnUpdate() {
 
 	railCameraController_->GetCurrentFrame();
 
+	sceneObjectManager_->Update();
 #ifdef _DEBUG
 	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 

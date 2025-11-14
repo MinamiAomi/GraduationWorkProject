@@ -12,7 +12,7 @@
 #endif // _DEBUG
 
 namespace SceneObjectSystem {
-	std::vector<SceneObjectSystem::SceneObject> SceneObjectSystem::SceneLoader::LoadSceneFromFile(const std::filesystem::path& filePath)
+	std::vector<SceneObjectSystem::SceneObjectData> SceneObjectSystem::SceneLoader::LoadSceneFromFile(const std::filesystem::path& filePath)
 	{
 		std::ifstream ifs(filePath);
 
@@ -33,7 +33,7 @@ namespace SceneObjectSystem {
 			j = nlohmann::json::parse(ifs);
 			const nlohmann::json& objectJson = j.at("objects");
 
-			return objectJson.get<std::vector<SceneObjectSystem::SceneObject>>();
+			return objectJson.get<std::vector<SceneObjectSystem::SceneObjectData>>();
 		}
 		catch (nlohmann::json::exception& e) {
 

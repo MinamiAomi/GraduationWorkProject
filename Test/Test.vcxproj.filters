@@ -46,6 +46,9 @@
     <Filter Include="Game\SceneObjectSystem\Loader">
       <UniqueIdentifier>{d2bab71d-57b0-46e5-bdae-b39b9710c5f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\SceneObjectSystem\Manager">
+      <UniqueIdentifier>{172d5624-042d-42d2-a498-bb6afa3103f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -85,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="SceneObjectData.cpp">
       <Filter>Game\SceneObjectSystem\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObjectManager.cpp">
+      <Filter>Game\SceneObjectSystem\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +141,12 @@
     </ClInclude>
     <ClInclude Include="SceneObjectLoader.h">
       <Filter>Game\SceneObjectSystem\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjectManager.h">
+      <Filter>Game\SceneObjectSystem\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjectConverter.h">
+      <Filter>Game\SceneObjectSystem\Converter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

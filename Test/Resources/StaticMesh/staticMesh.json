@@ -2,11 +2,11 @@
   "objects": [
     {
       "name": "Cube",
-      "model_name": "box",
+      "model_name": "testCube",
       "srt": {
         "translate": [
-          0.0,
-          0.0,
+          -15.0,
+          10.0,
           0.0
         ],
         "rotate": [
@@ -16,15 +16,56 @@
           0.0
         ],
         "scale": [
-          1.0,
-          1.0,
-          1.0
+          7.0,
+          7.0,
+          25.0
         ]
       },
       "obb_collision": {
         "world_center": [
+          -15.0,
+          10.0,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
           0.0,
           0.0,
+          0.0
+        ],
+        "local_size": [
+          14.0,
+          14.0,
+          25.0
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "Cube.001",
+      "model_name": "testCube",
+      "srt": {
+        "translate": [
+          -150.0,
+          -15.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          -150.0,
+          -15.0,
           0.0
         ],
         "world_rotation_quat": [
@@ -35,52 +76,93 @@
         ],
         "local_size": [
           20.0,
-          2.0,
-          2.0
+          20.0,
+          20.0
         ]
       },
       "is_emissive": true
     },
     {
-      "name": "立方体",
-      "model_name": "bunny",
+      "name": "Cube.002",
+      "model_name": "testCube",
       "srt": {
         "translate": [
-          0.0,
-          8.0,
+          -80.0,
+          20.0,
           0.0
         ],
         "rotate": [
-          0.9634,
+          1.0,
           0.0,
-          0.2681,
+          0.0,
           0.0
         ],
         "scale": [
-          1.0,
-          1.0,
-          1.0
+          25.0,
+          10.0,
+          10.0
         ]
       },
       "obb_collision": {
         "world_center": [
-          0.0,
-          8.0,
+          -80.0,
+          20.0,
           0.0
         ],
         "world_rotation_quat": [
-          0.9634,
+          1.0,
           0.0,
-          0.2681,
+          0.0,
           0.0
         ],
         "local_size": [
-          2.0,
-          2.0,
-          2.0
+          50.0,
+          20.0,
+          20.0
         ]
       },
-      "is_emissive": false
+      "is_emissive": true
+    },
+    {
+      "name": "Cube.003",
+      "model_name": "testCube",
+      "srt": {
+        "translate": [
+          -60.0,
+          -15.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          50.0,
+          5.0,
+          10.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          -60.0,
+          -15.0,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          100.0,
+          10.0,
+          20.0
+        ]
+      },
+      "is_emissive": true
     }
   ]
 }

@@ -9,7 +9,7 @@ namespace SceneObjectSystem {
 		j.at("local_size").get_to(o.size);
 	}
 
-	void from_json(const nlohmann::json& j, SceneObject& s) {
+	void from_json(const nlohmann::json& j, SceneObjectData& s) {
 		j.at("name").get_to(s.name);
 		j.at("model_name").get_to(s.modelName);
 		j.at("srt").get_to(s.transform);

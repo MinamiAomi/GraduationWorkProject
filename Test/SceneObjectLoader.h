@@ -8,6 +8,6 @@ namespace SceneObjectSystem {
 
 	class SceneLoader {
 	public:
-		static std::vector<SceneObjectSystem::SceneObject> LoadSceneFromFile(const std::filesystem::path& filePath);
+		static std::vector<SceneObjectSystem::SceneObjectData> LoadSceneFromFile(const std::filesystem::path& filePath);
 	};
 }
