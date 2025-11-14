@@ -10,7 +10,7 @@ void GameOverScene::OnInitialize() {
 	}
 	input_ = Input::GetInstance();
 
-	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
+	std::shared_ptr<Texture> texture = Texture::Load("Resources/GameOver.png");
 
 	sprite_.SetTexture(texture);
 	sprite_.SetTexcoordRect({ 0.0f, 0.0f }, { 1280.0f, 720.0f });

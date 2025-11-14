@@ -36,7 +36,7 @@ namespace SceneObjectSystem {
 			return objectJson.get<std::vector<SceneObjectSystem::SceneObjectData>>();
 		}
 		catch (nlohmann::json::exception& e) {
-
+			e;
 #ifdef _DEBUG
 			{
 				std::wostringstream woss;
