@@ -21,15 +21,6 @@ void GameScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
 
-	LevelLoader::Load("Resources/scene.json", *Engine::GetGameObjectManager());
-
-	std::shared_ptr<Texture> texture = Texture::Load("Resources/Sprite-0001.dds");
-
-	sprite_.SetTexture(texture);
-	sprite_.SetTexcoordRect({ 0.0f, 0.0f }, { 256.0f, 256.0f });
-	sprite_.SetPosition({ 200.0f, 200.0f });
-	sprite_.SetScale({ 200.0f, 200.0f });
-
 	camera_ = std::make_shared<Camera>();
 
 #pragma region Flashlight

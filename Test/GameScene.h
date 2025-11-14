@@ -39,9 +39,6 @@ public:
 private:
 	Input* input_;
 
-	Sprite sprite_;
-
-
 	std::shared_ptr<Camera> camera_;
 
 	std::unique_ptr<RailCameraSystem::RailCameraController> railCameraController_;
