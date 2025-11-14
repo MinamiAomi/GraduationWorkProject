@@ -12,7 +12,6 @@
 #include "Graphics/LightManager.h"
 #include "Audio/AudioSource.h"
 #include "Graphics/Skeleton.h"
-#include "GameObject/GameObjectManager.h"
 #include "Graphics/Sprite.h"
 
 #include "RailCameraController.h"

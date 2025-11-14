@@ -17,18 +17,12 @@
 
 #include "TitleScene.h"
 #include "GameScene.h"
-#include "DemoGameObjectFactory.h"
-#include "DemoComponentRegisterer.h"
 
 namespace {
     const char kResourceAssociationFile[] = "Resources/Association.json";
 }
 
 void Test::OnInitialize() {
-    auto gameObjectManager = Engine::GetGameObjectManager();
-    gameObjectManager->SetFactory<DemoGameObjectFactory>();
-    gameObjectManager->SetComponentRegisterer<DemoComponentRegisterer>();
-
     SceneManager* sceneManager = SceneManager::GetInstance();
     //シーン設定
 

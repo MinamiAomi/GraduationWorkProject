@@ -15,15 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="DebugCamera.cpp" />
-    <ClCompile Include="DemoComponentRegisterer.cpp" />
-    <ClCompile Include="DemoGameObjectFactory.cpp" />
     <ClCompile Include="GameClearScene.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
-    <ClCompile Include="LevelLoader.cpp" />
-    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="RailCameraController.cpp" />
     <ClCompile Include="RailCameraLoader.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
@@ -36,16 +31,11 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="GameClearScene.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="RailCameraDebugUtils.h" />
-    <ClInclude Include="DemoComponentRegisterer.h" />
-    <ClInclude Include="DemoGameObjectFactory.h" />
-    <ClInclude Include="LevelLoader.h" />
-    <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="DebugCamera.h" />
     <ClInclude Include="RailCameraController.h" />
     <ClInclude Include="RailCameraConverter.h" />

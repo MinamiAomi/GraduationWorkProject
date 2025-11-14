@@ -10,9 +10,6 @@
     <Filter Include="Game\Object">
       <UniqueIdentifier>{290ad31e-91cf-4cd6-b3fe-027fa36fb487}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Component">
-      <UniqueIdentifier>{787af317-f60c-4c1f-8130-6e0279e570de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\RailCameraSystem">
       <UniqueIdentifier>{2245a9b8-7bea-42ba-a566-ad3e0e4f99a4}</UniqueIdentifier>
     </Filter>
@@ -64,21 +61,6 @@
     <ClCompile Include="DebugCamera.cpp">
       <Filter>Game\Object</Filter>
     </ClCompile>
-    <ClCompile Include="MeshComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelLoader.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoGameObjectFactory.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoComponentRegisterer.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="RailCameraLoader.cpp">
       <Filter>Game\RailCameraSystem\Loader</Filter>
     </ClCompile>
@@ -119,21 +101,6 @@
     </ClInclude>
     <ClInclude Include="DebugCamera.h">
       <Filter>Game\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshComponent.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelLoader.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoGameObjectFactory.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoComponentRegisterer.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="RailCameraData.h">
       <Filter>Game\RailCameraSystem\Data</Filter>

@@ -35,16 +35,10 @@ namespace Debug {
     }
     void Log(const std::string& str) {
         OutputDebugStringA(str.c_str());
-#ifdef ENABLE_IMGUI
-        Engine::GetEditerManager()->GetConsoleView().AddLog(Editer::LogType::Normal, str);
-#endif // ENABLE_IMGUI
 
     }
     void Log(const std::wstring& str) {
         OutputDebugStringW(str.c_str());
-#ifdef ENABLE_IMGUI
-        Engine::GetEditerManager()->GetConsoleView().AddLog(Editer::LogType::Normal, ConvertString(str));
-#endif // ENABLE_IMGUI
     }
     void MsgBox(const std::string& text, const std::string& caption) {
         MessageBoxA(nullptr, text.c_str(), caption.c_str(), S_OK);

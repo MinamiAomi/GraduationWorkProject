@@ -6,7 +6,6 @@
 #include "Graphics/RenderManager.h"
 #include "Framework/AssetManager.h"
 #include "Graphics/Core/TextureLoader.h"
-#include "LevelLoader.h"
 
 #include "RailCameraLoader.h"
 #include "RailCameraConverter.h"
@@ -61,8 +60,6 @@ void GameScene::OnInitialize() {
 }
 
 void GameScene::OnUpdate() {
-
-	Engine::GetGameObjectManager()->Update();
 
 #pragma region RailCameraSystem
 	railCameraController_->Update(1.0f / 60.0f);
