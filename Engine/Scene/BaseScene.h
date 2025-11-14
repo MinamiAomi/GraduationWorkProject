@@ -1,5 +1,8 @@
 #pragma once
 
+#include <memory>
+struct PersistentData;
+
 class BaseScene {
 public:
     virtual ~BaseScene() {}
@@ -16,4 +19,6 @@ public:
     /// 終了処理
     /// </summary>
     virtual void OnFinalize() = 0 {}
+protected:
+    std::shared_ptr<PersistentData> persistentData_;
 };

@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "source": "Blender",
+    "coordinate_system_note": "Keyframes are in Blender's coordinate system (RHS, Z-up). Convert in game engine.",
+    "frame_rate": 24,
+    "start_frame": 0,
+    "end_frame": 400,
+    "initial_rotation_euler_rad": {
+      "x": 1.570796,
+      "y": 0.0,
+      "z": -1.570796
+    },
+    "initial_rotation_order": "XYZ"
+  },
+  "curve_eval_time": [
+    {
+      "frame": 0.0,
+      "value": 0.0,
+      "interpolation": "BEZIER",
+      "handle_left": {
+        "x": -28.0,
+        "y": 0.0
+      },
+      "handle_right": {
+        "x": 28.0,
+        "y": 0.0
+      }
+    },
+    {
+      "frame": 84.0,
+      "value": 45.5112,
+      "interpolation": "CONSTANT"
+    },
+    {
+      "frame": 116.0,
+      "value": 45.5112,
+      "interpolation": "BEZIER",
+      "handle_left": {
+        "x": 93.2104,
+        "y": 44.3004
+      },
+      "handle_right": {
+        "x": 135.0396,
+        "y": 46.5228
+      }
+    },
+    {
+      "frame": 250.0,
+      "value": 209.444,
+      "interpolation": "CONSTANT"
+    },
+    {
+      "frame": 295.0,
+      "value": 209.444,
+      "interpolation": "BEZIER",
+      "handle_left": {
+        "x": 292.0533,
+        "y": 208.62
+      },
+      "handle_right": {
+        "x": 313.2912,
+        "y": 214.5589
+      }
+    },
+    {
+      "frame": 400.0,
+      "value": 400.0,
+      "interpolation": "BEZIER",
+      "handle_left": {
+        "x": 365.2531,
+        "y": 401.9538
+      },
+      "handle_right": {
+        "x": 422.8345,
+        "y": 398.716
+      }
+    },
+    {
+      "frame": 427.0,
+      "value": 0.0,
+      "interpolation": "BEZIER",
+      "handle_left": {
+        "x": 418.0,
+        "y": 0.0
+      },
+      "handle_right": {
+        "x": 436.0,
+        "y": 0.0
+      }
+    }
+  ],
+  "camera_location_keyframes": [
+    {
+      "frame": 0.0,
+      "value": {
+        "x": -214.6636,
+        "y": -39.618,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 84.0,
+      "value": {
+        "x": -213.9636,
+        "y": -20.7821,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 116.0,
+      "value": {
+        "x": -213.9636,
+        "y": -20.7821,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 250.0,
+      "value": {
+        "x": -162.1397,
+        "y": 1.6769,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 295.0,
+      "value": {
+        "x": -162.1397,
+        "y": 1.6769,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 400.0,
+      "value": {
+        "x": -83.0289,
+        "y": 1.0752,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 427.0,
+      "value": {
+        "x": -214.6636,
+        "y": -39.618,
+        "z": 0.0
+      }
+    }
+  ],
+  "camera_rotation_keyframes": [
+    {
+      "frame": 0.0,
+      "value": {
+        "w": 0.5,
+        "x": 0.5,
+        "y": -0.5,
+        "z": -0.5
+      }
+    },
+    {
+      "frame": 84.0,
+      "value": {
+        "w": 0.5089,
+        "x": 0.5089,
+        "y": -0.4909,
+        "z": -0.4909
+      }
+    },
+    {
+      "frame": 116.0,
+      "value": {
+        "w": 0.5,
+        "x": 0.5,
+        "y": -0.5,
+        "z": -0.5
+      }
+    },
+    {
+      "frame": 250.0,
+      "value": {
+        "w": 0.568,
+        "x": 0.568,
+        "y": -0.4212,
+        "z": -0.4212
+      }
+    },
+    {
+      "frame": 295.0,
+      "value": {
+        "w": 0.5509,
+        "x": 0.5509,
+        "y": -0.4433,
+        "z": -0.4433
+      }
+    },
+    {
+      "frame": 400.0,
+      "value": {
+        "w": 0.5,
+        "x": 0.5,
+        "y": -0.5,
+        "z": -0.5
+      }
+    },
+    {
+      "frame": 427.0,
+      "value": {
+        "w": 0.5,
+        "x": 0.5,
+        "y": -0.5,
+        "z": -0.5
+      }
+    }
+  ]
+}

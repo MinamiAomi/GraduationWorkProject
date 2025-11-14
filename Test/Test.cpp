@@ -15,7 +15,8 @@
 #include "Graphics/Core/TextureLoader.h"
 #include "Debug/Debug.h"
 
-#include "TestScene.h"
+#include "TitleScene.h"
+#include "GameScene.h"
 #include "DemoGameObjectFactory.h"
 #include "DemoComponentRegisterer.h"
 
@@ -30,7 +31,15 @@ void Test::OnInitialize() {
 
     SceneManager* sceneManager = SceneManager::GetInstance();
     //シーン設定
-    sceneManager->ChangeScene<TestScene>(false);
+
+
+#ifdef _DEBUG
+    sceneManager->ChangeScene<GameScene>(false);
+#else
+    sceneManager->ChangeScene<TitleScene>(true);
+#endif 
+
+
 
     LoadResource();
 }

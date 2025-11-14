@@ -1,10 +1,19 @@
 #include "SceneManager.h"
 
+//ゲームと干渉しちゃうけどまあええか
+#include "../Test/PersistentData.h"
 #include "BaseScene.h"
 
 SceneManager* SceneManager::GetInstance() {
     static SceneManager instance;
     return &instance;
+}
+
+SceneManager::SceneManager() {
+    persistentData_ = std::make_shared<PersistentData>();
+}
+
+SceneManager::~SceneManager() {
 }
 
 void SceneManager::Update() {
@@ -37,11 +46,10 @@ void SceneManager::Finalize() {
         nextScene_->OnFinalize(); 
         nextScene_ = nullptr;
     }
+
+    persistentData_ = nullptr;
 }
 
-SceneManager::SceneManager() {
+std::shared_ptr<PersistentData> SceneManager::GetPersistentData() const {
+    return persistentData_;
 }
-
-SceneManager::~SceneManager() {
-}
-

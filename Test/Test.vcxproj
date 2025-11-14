@@ -19,26 +19,55 @@
     <ClCompile Include="DebugCamera.cpp" />
     <ClCompile Include="DemoComponentRegisterer.cpp" />
     <ClCompile Include="DemoGameObjectFactory.cpp" />
+    <ClCompile Include="GameClearScene.cpp" />
+    <ClCompile Include="GameOverScene.cpp" />
+    <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
+    <ClCompile Include="RailCameraController.cpp" />
+    <ClCompile Include="RailCameraLoader.cpp" />
+    <ClCompile Include="StageSelectScene.cpp" />
+    <ClCompile Include="SceneObjectData.cpp" />
+    <ClCompile Include="SceneObjectLoader.cpp" />
+    <ClCompile Include="SceneObjectManager.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="GameClearScene.h" />
+    <ClInclude Include="GameOverScene.h" />
+    <ClInclude Include="PersistentData.h" />
+    <ClInclude Include="Flashlight.h" />
+    <ClInclude Include="RailCameraDebugUtils.h" />
     <ClInclude Include="DemoComponentRegisterer.h" />
     <ClInclude Include="DemoGameObjectFactory.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="DebugCamera.h" />
+    <ClInclude Include="RailCameraController.h" />
+    <ClInclude Include="RailCameraConverter.h" />
+    <ClInclude Include="RailCameraData.h" />
+    <ClInclude Include="RailCameraLoader.h" />
+    <ClInclude Include="SceneObjectConverter.h" />
+    <ClInclude Include="SceneObjectData.h" />
+    <ClInclude Include="SceneObjectLoader.h" />
+    <ClInclude Include="SceneObjectManager.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="StageSelectScene.h" />
     <ClInclude Include="Test.h" />
-    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{3ad696e0-53ad-4678-8647-4b1a71075126}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Test.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

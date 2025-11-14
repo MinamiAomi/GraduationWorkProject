@@ -1,10 +1,13 @@
 #pragma once
 
 #include <memory>
+#include <string>
+#include <map>
 
 #include "SceneTransition.h"
 
 class BaseScene;
+struct PersistentData;
 
 class SceneManager {
 public:
@@ -38,9 +41,13 @@ public:
         }
     }
 
-    // ゲッター
+    std::shared_ptr<PersistentData> GetPersistentData() const;
 
+    // ゲッター
     SceneTransition& GetSceneTransition() { return sceneTransition_; }
+private:
+    // --- 永続オブジェクトを保持するコンテナ ---
+    std::shared_ptr<PersistentData> persistentData_;
 
 private:
     SceneManager();
