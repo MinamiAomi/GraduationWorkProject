@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "Engine/Input/Input.h"
+#include "Scene/SceneManager.h"
 #include "Math/Camera.h"
 #include "Math/Transform.h"
 #include "Math/Random.h"
@@ -15,7 +17,7 @@
 
 #include "RailCameraController.h"
 
-class TestScene :
+class GameScene :
 	public BaseScene {
 public:
 
@@ -33,15 +35,8 @@ public:
 	void OnFinalize() override;
 
 private:
-	std::shared_ptr<DirectionalLight> sunLight_;
+	Input* input_;
 
-	static const uint32_t kRowCount = 2;
-	static const uint32_t kColumnCount = 5;
-	struct PBRSphere {
-		ModelInstance model;
-		std::shared_ptr<Material> material;
-	};
-	PBRSphere spheres_[kRowCount][kColumnCount];
 	Sprite sprite_;
 
 	ModelInstance railCameraModel_;
