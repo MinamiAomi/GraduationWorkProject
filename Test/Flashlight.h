@@ -3,9 +3,11 @@
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
 #include "Math/Camera.h"
+#include "Graphics/Model.h"
 
 class Flashlight {
 public:
+
 	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
 	void Update();
 
@@ -18,6 +20,17 @@ private:
 	const float MinFocusRange = 100.0f;
 	const float MaxFocusRange = 500.0f;
 
+	class FlashlightModel {
+	public:
+		void Initialize(const Transform* parent);
+		void Update(const Vector3& direction);
+
+	private:
+		ModelInstance model_;
+		Transform transform_;
+	
+	};
+	
 	//移動
 	void Move();
 	//マウスカーソルのライト移動
@@ -31,6 +44,9 @@ private:
 
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
+	
+	FlashlightModel model_;
+
 	//ライト自信のTransform
 	Transform transform_;
 	//ワールド座標での注視点
