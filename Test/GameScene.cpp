@@ -21,7 +21,6 @@ void GameScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
 
-	LevelLoader::Load("Resources/scene.json", *Engine::GetGameObjectManager());
 
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/Sprite-0001.dds");
 
