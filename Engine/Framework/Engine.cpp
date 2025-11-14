@@ -68,11 +68,13 @@ void Engine::Run(Game* game) {
 
     while (g_gameWindow->ProcessMessage()) {
         g_input->Update();
-        g_sceneManager->Update();
 
 #ifdef ENABLE_IMGUI
         g_editerManager->Render();
 #endif // ENABLE_IMGUI
+
+        g_sceneManager->Update();
+
 
         g_renderManager->Render();
     }

@@ -1,5 +1,7 @@
 {
     "Model" : {
+      
+        "flashlight" : "Flashlight/light.gltf",
         "trolley" : "Trolley/trolley.gltf",
 
         "testCube" : "StaticMesh/testCube.gltf"

@@ -20,6 +20,10 @@
 #include "Flashlight.h"
 #include "Trolley.h"
 
+#ifdef _DEBUG
+#include "DebugCamera.h"
+#endif // _DEBUG
+
 class GameScene :
 	public BaseScene {
 public:
@@ -49,4 +53,9 @@ private:
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
 	
 	std::unique_ptr<Trolley> trolley_;
+
+#ifdef _DEBUG
+	std::unique_ptr<DebugCamera> debugCamera_;
+#endif // _DEBUG
+
 };

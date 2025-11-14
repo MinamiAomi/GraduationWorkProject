@@ -57,6 +57,11 @@ void GameScene::OnInitialize() {
 	trolley_->Initialize();
 #pragma endregion
 
+#ifdef _DEBUG
+	debugCamera_ = std::make_unique<DebugCamera>();
+	debugCamera_->Initialize();
+#endif // _DEBUG
+
 }
 
 void GameScene::OnUpdate() {
@@ -65,17 +70,6 @@ void GameScene::OnUpdate() {
 #pragma endregion
 
 #pragma region RailCameraSystem
-
-#ifdef _DEBUG
-	static bool isDebugCamera = false;
-	ImGui::Begin("GameScene");
-	if (ImGui::BeginMenu("DebugCamera")) {
-		ImGui::Checkbox("DebugCamera", &isDebugCamera);
-		ImGui::EndMenu();
-	}
-	ImGui::End();
-#endif // _DEBUG
-
 	railCameraController_->Update(1.0f / 60.0f);
 	auto transform = railCameraController_->GetCurrentTransform();
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
@@ -85,41 +79,50 @@ void GameScene::OnUpdate() {
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
 
-	//カメラのデバック用
+	trolley_->SetTransform(transform);
+
+	RenderManager::GetInstance()->SetCamera(camera_);
 #ifdef _DEBUG
-	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
+	static bool isDebugCamera = false;
+	ImGui::Begin("GameScene");
+	ImGui::Checkbox("DebugCamera", &isDebugCamera);
+	if (isDebugCamera) {
+		debugCamera_->Update();
 
-	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+		//線描画
+		auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
-	Vector4 color = { 0.0f,1.0f,1.0f,1.0 };
+		auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
-	//近平面
-	lineDrawer.AddLine(vertices[0], vertices[1], color); // 左下 -> 右下
-	lineDrawer.AddLine(vertices[1], vertices[2], color); // 右下 -> 右上
-	lineDrawer.AddLine(vertices[2], vertices[3], color); // 右上 -> 左上
-	lineDrawer.AddLine(vertices[3], vertices[0], color); // 左上 -> 左下
+		Vector4 color = { 0.0f,1.0f,1.0f,1.0 };
+
+		//近平面
+		lineDrawer.AddLine(vertices[0], vertices[1], color);
+		lineDrawer.AddLine(vertices[1], vertices[2], color);
+		lineDrawer.AddLine(vertices[2], vertices[3], color);
+		lineDrawer.AddLine(vertices[3], vertices[0], color);
 
 
-	//遠平面
-	lineDrawer.AddLine(vertices[4], vertices[5], color);
-	lineDrawer.AddLine(vertices[5], vertices[6], color);
-	lineDrawer.AddLine(vertices[6], vertices[7], color);
-	lineDrawer.AddLine(vertices[7], vertices[4], color);
+		//遠平面
+		lineDrawer.AddLine(vertices[4], vertices[5], color);
+		lineDrawer.AddLine(vertices[5], vertices[6], color);
+		lineDrawer.AddLine(vertices[6], vertices[7], color);
+		lineDrawer.AddLine(vertices[7], vertices[4], color);
 
-	//近平面と遠平面をつなぐ線
-	lineDrawer.AddLine(vertices[0], vertices[4], color);
-	lineDrawer.AddLine(vertices[1], vertices[5], color);
-	lineDrawer.AddLine(vertices[2], vertices[6], color);
-	lineDrawer.AddLine(vertices[3], vertices[7], color);
+		//近平面と遠平面をつなぐ線
+		lineDrawer.AddLine(vertices[0], vertices[4], color);
+		lineDrawer.AddLine(vertices[1], vertices[5], color);
+		lineDrawer.AddLine(vertices[2], vertices[6], color);
+		lineDrawer.AddLine(vertices[3], vertices[7], color);
+
+		RenderManager::GetInstance()->SetCamera(debugCamera_->GetCamera());
+	}
+	ImGui::End();
 
 	if (input_->IsKeyTrigger(DIK_SPACE)) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
-
-#endif // _DEBUG
-#pragma endregion
-
-	trolley_->SetTransform(transform);
+#endif 
 
 #pragma region Flashlight
 	flashlight_->Update();
@@ -129,8 +132,6 @@ void GameScene::OnUpdate() {
 	sceneObjectManager_->Update();
 #pragma endregion
 
-	//ここコメントアウトすればデバックカメラ使用可能
-	//RenderManager::GetInstance()->SetCamera(camera_);
 }
 
 void GameScene::OnFinalize() {
