@@ -1,6 +1,7 @@
 {
     "Model" : {
-        "testCube" : "StaticMesh/testCube.gltf"
+        "testCube" : "StaticMesh/testCube.gltf",
+        "flashlight" : "Flashlight/light.gltf"
     }
     
 }
