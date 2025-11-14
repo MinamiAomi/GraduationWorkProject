@@ -85,7 +85,6 @@
     <ClCompile Include="RailCameraController.cpp">
       <Filter>Game\RailCameraSystem\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="SceneObjectLoader.cpp">
       <Filter>Game\SceneObjectSystem\Loader</Filter>
     </ClCompile>
@@ -106,6 +105,9 @@
     </ClCompile>
     <ClCompile Include="StageSelectScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Flashlight.cpp">
+      <Filter>Game\Flashlight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
