@@ -31,7 +31,15 @@ void Test::OnInitialize() {
 
     SceneManager* sceneManager = SceneManager::GetInstance();
     //シーン設定
-    sceneManager->ChangeScene<TitleScene>(false);
+
+
+#ifdef _DEBUG
+    sceneManager->ChangeScene<GameScene>(false);
+#else
+    sceneManager->ChangeScene<TitleScene>(true);
+#endif 
+
+
 
     LoadResource();
 }

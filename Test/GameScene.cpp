@@ -18,9 +18,6 @@
 
 
 void GameScene::OnInitialize() {
-
-
-void GameScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
 

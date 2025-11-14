@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Graphics/LightManager.h"
+#include "Graphics/RenderManager.h"
 
 struct Score {
     uint32_t num;
@@ -21,5 +22,7 @@ struct PersistentData {
     PersistentData() {
         score_ = std::make_shared<Score>();
         sunLight_ = std::make_shared<DirectionalLight>();
+        sunLight_->direction = -Vector3::unitY;
+        RenderManager::GetInstance()->SetSunLight(sunLight_);
     }
 };

@@ -7,8 +7,7 @@
 void TitleScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	if (persistentData_) {
-		persistentData_->sunLight_->direction = -Vector3::unitY;
-		RenderManager::GetInstance()->SetSunLight(persistentData_->sunLight_);
+		
 	}
 	input_ = Input::GetInstance();
 
