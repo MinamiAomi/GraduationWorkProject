@@ -154,25 +154,8 @@
     <ClCompile Include="Audio\AudioDevice.cpp" />
     <ClCompile Include="Audio\AudioSource.cpp" />
     <ClCompile Include="Audio\Sound.cpp" />
-    <ClCompile Include="Collision\Collider.cpp" />
-    <ClCompile Include="Collision\CollisionManager.cpp" />
     <ClCompile Include="Debug\Debug.cpp" />
-    <ClCompile Include="Editer\ConsoleView.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Editer\EditerManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Editer\HierarchyView.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Editer\InspectorView.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Editer\ProjectView.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Editer\SceneView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Externals\ImGui\imgui.cpp">
@@ -214,10 +197,6 @@
     <ClCompile Include="Framework\SoundAsset.cpp" />
     <ClCompile Include="Framework\ThreadPool.cpp" />
     <ClCompile Include="Framework\TextureAsset.cpp" />
-    <ClCompile Include="GameObject\ComponentRegisterer.cpp" />
-    <ClCompile Include="GameObject\GameObject.cpp" />
-    <ClCompile Include="GameObject\GameObjectFactory.cpp" />
-    <ClCompile Include="GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Graphics\Animation.cpp" />
     <ClCompile Include="Graphics\Core\CommandManager.cpp" />
     <ClCompile Include="Graphics\ParticleCore.cpp" />
@@ -227,39 +206,13 @@
     <ClCompile Include="Graphics\Raytracing\TestRTRenderer.cpp" />
     <ClCompile Include="Graphics\Sky.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
-    <ClCompile Include="Scene\SceneIO.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
     <ClInclude Include="Audio\AudioDevice.h" />
     <ClInclude Include="Audio\AudioSource.h" />
     <ClInclude Include="Audio\Sound.h" />
-    <ClInclude Include="Editer\ConsoleView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Editer\EditerManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Editer\EditerView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Editer\HierarchyView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Editer\InspectorView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Editer\ProjectView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Editer\SceneView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="Editer\EditerInterface.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ExcludedFromBuild>
-    </ClInclude>
-    <None Include="Editer\ThumbnailRenderer.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </None>
     <ClInclude Include="Externals\ImGui\imgui_stdlib.h" />
     <ClInclude Include="File\JsonConverter.h" />
     <ClInclude Include="Framework\AnimationAsset.h" />
@@ -270,11 +223,6 @@
     <ClInclude Include="Framework\SoundAsset.h" />
     <ClInclude Include="Framework\TextureAsset.h" />
     <ClInclude Include="Framework\ThreadPool.h" />
-    <ClInclude Include="GameObject\Component.h" />
-    <ClInclude Include="GameObject\ComponentRegisterer.h" />
-    <ClInclude Include="GameObject\GameObject.h" />
-    <ClInclude Include="GameObject\GameObjectFactory.h" />
-    <ClInclude Include="GameObject\GameObjectManager.h" />
     <ClInclude Include="Graphics\Animation.h" />
     <ClCompile Include="Graphics\Bloom.cpp" />
     <ClCompile Include="Graphics\ComputeShader.cpp" />
@@ -351,12 +299,9 @@
     <ClInclude Include="Graphics\Shader\Raytracing\Pathtracing\Pathtracing.h" />
     <ClInclude Include="Graphics\Sky.h" />
     <ClInclude Include="Graphics\Texture.h" />
-    <ClInclude Include="Scene\SceneIO.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collision\Collider.h" />
-    <ClInclude Include="Collision\CollisionManager.h" />
     <ClInclude Include="Debug\Debug.h" />
     <ClInclude Include="Externals\DirectXTex\Include\BC.h" />
     <ClInclude Include="Externals\DirectXTex\Include\BCDirectCompute.h" />

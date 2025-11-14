@@ -23,15 +23,3 @@ void Asset::Load(const std::filesystem::path& path, const std::string& name) {
         state_ = State::Loaded;
         });
 }
-
-void Asset::RenderInInspectorView() {
-#ifdef ENABLE_IMGUI
-    if (ImGui::InputText("##Name", &editingName_, ImGuiInputTextFlags_EnterReturnsTrue)) {
-        name_ = editingName_;
-    }
-    std::string type[] = { "None", "Texture", "Model", "Material", "Animation", "Sound", };
-    ImGui::Text("Type  : %s", type[static_cast<uint32_t>(type_)].c_str());
-    std::string state[] = { "Unloaded", "Loading", "Loaded" };
-    ImGui::Text("State : %s", state[static_cast<uint32_t>(state_)].c_str());
-#endif // ENABLE_IMGUI
-}

@@ -9,7 +9,6 @@
 #include "Audio/AudioDevice.h"
 #include "Scene/SceneManager.h"
 #include "AssetManager.h"
-#include "GameObject/GameObjectManager.h"
 #include "ThreadPool.h"
 #ifdef ENABLE_IMGUI
 #include "Editer/EditerManager.h"
@@ -25,7 +24,6 @@ namespace {
     RenderManager* g_renderManager = nullptr;
     SceneManager* g_sceneManager = nullptr;
     AssetManager* g_assetManager = nullptr;
-    std::unique_ptr<GameObjectManager> g_gameObjectManager = nullptr;
 #ifdef ENABLE_IMGUI
     std::unique_ptr<Editer::EditerManager> g_editerManager = nullptr;
 #endif // ENABLE_IMGUI
@@ -59,9 +57,6 @@ void Engine::Run(Game* game) {
 
     g_sceneManager = SceneManager::GetInstance();
     g_assetManager = AssetManager::GetInstance();
-    g_gameObjectManager = std::make_unique<GameObjectManager>();
-    g_gameObjectManager->SetFactory<DefaultGameObjectFactory>();
-    g_gameObjectManager->SetComponentRegisterer<DefaultComponentRegisterer>();
 
 
 #ifdef ENABLE_IMGUI
@@ -87,7 +82,6 @@ void Engine::Run(Game* game) {
     g_editerManager.reset();
 #endif // ENABLE_IMGUI
     g_sceneManager->Finalize();
-    g_gameObjectManager.reset();
     g_game->OnFinalize();
 
     g_threadPool.reset();
@@ -127,10 +121,6 @@ SceneManager* Engine::GetSceneManager() {
 
 AssetManager* Engine::GetAssetManager() {
     return g_assetManager;;
-}
-
-GameObjectManager* Engine::GetGameObjectManager() {
-    return g_gameObjectManager.get();
 }
 
 ThreadPool* Engine::GetThreadPool() {

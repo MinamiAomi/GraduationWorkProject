@@ -12,7 +12,7 @@ void StageSelectScene::OnInitialize() {
 		persistentData_->score_->num = 0;
 	}
 
-	std::shared_ptr<Texture> texture = Texture::Load("Resources/GameClear.png");
+	std::shared_ptr<Texture> texture = Texture::Load("Resources/StageSelect.png");
 
 	sprite_.SetTexture(texture);
 	sprite_.SetTexcoordRect({ 0.0f, 0.0f }, { 1280.0f, 720.0f });

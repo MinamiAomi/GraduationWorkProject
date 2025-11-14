@@ -8,7 +8,6 @@
 #include <string>
 #include <filesystem>
 
-#include "Editer/EditerInterface.h"
 #include "Graphics/ImGuiManager.h"
 
 #ifdef ENABLE_IMGUI
@@ -18,8 +17,7 @@ struct ThumbnailData {
 };
 #endif
 
-class Asset :
-    public Editer::SelectableInEditer {
+class Asset {
 public:
     enum class Type {
         None,
@@ -42,11 +40,6 @@ public:
 
     virtual ~Asset() {}
 
-#ifdef ENABLE_IMGUI
-    // サムネイル画像を返す
-    virtual ThumbnailData GetThumbnail() = 0;
-#endif // ENABLE_IMGUI
-
     /// <summary>
     /// 読み込み
     /// </summary>
@@ -54,14 +47,9 @@ public:
     /// <param name="name">アセットの名前</param>
     void Load(const std::filesystem::path& path, const std::string& name = "");
 
-    virtual void RenderInInspectorView() override;
-
 
     void SetName(const std::string& name) {
         name_ = name;
-#ifdef ENABLE_IMGUI
-        editingName_ = name_;
-#endif // ENABLE_IMGUI
     }
 
     // ゲッター
@@ -85,8 +73,4 @@ protected:
     Type type_ = Type::None;
     State state_ = State::Unloaded;
 
-private:
-#ifdef ENABLE_IMGUI
-    std::string editingName_;
-#endif
 };
