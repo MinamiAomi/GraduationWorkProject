@@ -52,17 +52,19 @@ void TestScene::OnInitialize() {
 
 	camera_ = std::make_shared<Camera>();
 
+#pragma region Flashlight
 	flashlight_ = std::make_unique<Flashlight>();
 	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+#pragma endregion
 
 #pragma region RailCameraSystem
-	railCameraModel_.SetModel(AssetManager::GetInstance()->modelMap.Get("sphere")->Get());
 	auto animationData = RailCameraSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
 		railCameraController_ = std::make_unique<RailCameraSystem::RailCameraController>
 			(
 				std::make_shared<const RailCameraSystem::RailCameraAnimation>(*animationData)
 			);
+		//カメラ再生
 		railCameraController_->Play();
 	}
 #pragma endregion
@@ -75,17 +77,6 @@ void TestScene::OnInitialize() {
 	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
-#ifdef _DEBUG
-	std::wostringstream woss;
-	for (const auto& obj : result) {
-
-		woss << L"オブジェクト名: " << obj.name.c_str() << L"\n"
-			<< L"モデル: " << obj.modelName.c_str() << L"\n"
-			<< L"位置: " << obj.transform.translate.x << L"," << obj.transform.translate.y << L"," << obj.transform.translate.y << L"\n"
-			<< L"OBB: " << obj.obbCollision.size.x << L"," << obj.obbCollision.size.y << L"," << obj.obbCollision.size.y << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-#endif // _DEBUG
 #pragma endregion
 
 }
@@ -94,23 +85,16 @@ void TestScene::OnUpdate() {
 
 	Engine::GetGameObjectManager()->Update();
 
+#pragma region RailCameraSystem
 	railCameraController_->Update(1.0f / 60.0f);
 	auto transform = railCameraController_->GetCurrentTransform();
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
 	transform.UpdateMatrix();
-	railCameraModel_.SetWorldMatrix(transform.worldMatrix);
-
-
 
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
-
-	flashlight_->Update();
-
-	railCameraController_->GetCurrentFrame();
-
-	sceneObjectManager_->Update();
+	//カメラのデバック用
 #ifdef _DEBUG
 	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
@@ -137,8 +121,17 @@ void TestScene::OnUpdate() {
 	lineDrawer.AddLine(vertices[2], vertices[6], color);
 	lineDrawer.AddLine(vertices[3], vertices[7], color);
 #endif // _DEBUG
+#pragma endregion
 
-	//
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
+
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+	//ここコメントアウトすればデバックカメラ使用可能
 	RenderManager::GetInstance()->SetCamera(camera_);
 }
 

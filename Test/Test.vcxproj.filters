@@ -49,6 +49,9 @@
     <Filter Include="Game\SceneObjectSystem\Manager">
       <UniqueIdentifier>{172d5624-042d-42d2-a498-bb6afa3103f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Object\GameObject">
+      <UniqueIdentifier>{9db67596-5bc4-4be8-b210-ee3e6ff3a8fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
