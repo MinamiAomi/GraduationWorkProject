@@ -19,6 +19,8 @@
 #include "SceneObjectManager.h"
 
 #include "Flashlight.h"
+#include "Trolley.h"
+
 class GameScene :
 	public BaseScene {
 public:
@@ -46,4 +48,6 @@ private:
 	std::unique_ptr<Flashlight> flashlight_;
 	
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
+	
+	std::unique_ptr<Trolley> trolley_;
 };

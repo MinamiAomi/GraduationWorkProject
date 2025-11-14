@@ -50,13 +50,33 @@ void GameScene::OnInitialize() {
 	sceneObjectManager_->CreateObjects(result);
 #pragma endregion
 
+#pragma region Trolley
+	trolley_ = std::make_unique<Trolley>();
+	trolley_->Initialize();
+#pragma endregion
+
 }
 
 void GameScene::OnUpdate() {
 
 	Engine::GetGameObjectManager()->Update();
 
+#pragma region Trolley
+	trolley_->Update();
+#pragma endregion
+
 #pragma region RailCameraSystem
+
+#ifdef _DEBUG
+	static bool isDebugCamera = false;
+	ImGui::Begin("GameScene");
+	if (ImGui::BeginMenu("DebugCamera")) {
+		ImGui::Checkbox("DebugCamera", &isDebugCamera);
+		ImGui::EndMenu();
+	}
+	ImGui::End();
+#endif // _DEBUG
+
 	railCameraController_->Update(1.0f / 60.0f);
 	auto transform = railCameraController_->GetCurrentTransform();
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
@@ -65,6 +85,7 @@ void GameScene::OnUpdate() {
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
+
 	//カメラのデバック用
 #ifdef _DEBUG
 	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
@@ -99,6 +120,8 @@ void GameScene::OnUpdate() {
 #endif // _DEBUG
 #pragma endregion
 
+	trolley_->SetTransform(transform);
+
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
@@ -108,7 +131,7 @@ void GameScene::OnUpdate() {
 #pragma endregion
 
 	//ここコメントアウトすればデバックカメラ使用可能
-	RenderManager::GetInstance()->SetCamera(camera_);
+	//RenderManager::GetInstance()->SetCamera(camera_);
 }
 
 void GameScene::OnFinalize() {

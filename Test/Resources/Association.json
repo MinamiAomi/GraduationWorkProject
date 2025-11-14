@@ -1,5 +1,7 @@
 {
     "Model" : {
+        "trolley" : "Trolley/trolley.gltf",
+
         "testCube" : "StaticMesh/testCube.gltf"
     }
     
