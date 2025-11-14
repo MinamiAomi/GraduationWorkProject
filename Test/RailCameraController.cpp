@@ -69,22 +69,32 @@ Transform RailCameraSystem::RailCameraController::GetCurrentTransform() const
 	if (!posKeys.empty()) {
 		if (evalTime <= posKeys.front().frame) {
 			transform.translate = posKeys.front().value;
+#ifdef _DEBUG
 			{ std::wostringstream woss; woss << L"  Pos: Using first key.\n"; OutputDebugStringW(woss.str().c_str()); }
+#endif // _DEBUG
 		}
 		else if (evalTime >= posKeys.back().frame) {
 			transform.translate = posKeys.back().value;
+#ifdef _DEBUG
 			{ std::wostringstream woss; woss << L"  Pos: Using last key.\n"; OutputDebugStringW(woss.str().c_str()); }
+#endif // _DEBUG
 		}
 		else {
 			auto posIndices = FindKeyframeIndices(posKeys, evalTime);
+#ifdef _DEBUG
 			{ std::wostringstream woss; woss << L"  Pos Indices: (" << posIndices.first << L", " << posIndices.second << L")\n"; OutputDebugStringW(woss.str().c_str()); }
+#endif // _DEBUG
 			const auto& posKey1 = posKeys[posIndices.first];
 			const auto& posKey2 = posKeys[posIndices.second];
+#ifdef _DEBUG
 			{ std::wostringstream woss; woss << L"  Pos Key1 Frame: " << posKey1.frame << L", Pos Key2 Frame: " << posKey2.frame << L"\n"; OutputDebugStringW(woss.str().c_str()); }
+#endif // _DEBUG
 			float posFrameDiff = posKey2.frame - posKey1.frame;
 			float posT = (std::abs(posFrameDiff) < 0.0001f) ? 0.0f : (evalTime - posKey1.frame) / posFrameDiff;
 			posT = std::max(0.0f, std::min(1.0f, posT)); // クランプ
+#ifdef _DEBUG
 			{ std::wostringstream woss; woss << L"  Pos FrameDiff: " << posFrameDiff << L", posT: " << std::fixed << std::setprecision(4) << posT << L"\n"; OutputDebugStringW(woss.str().c_str()); }
+#endif // _DEBUG
 			transform.translate = InterpolatePosition(posKey1, posKey2, posT);
 		}
 	}
@@ -137,8 +147,8 @@ Transform RailCameraSystem::RailCameraController::GetCurrentTransform() const
 		std::wostringstream woss;
 		woss << L"  Final Rotation: (w:" << transform.rotate.w << L", x:" << transform.rotate.x << L", y:" << transform.rotate.y << L", z:" << transform.rotate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
-#endif // _DEBUG
 	}
+#endif // _DEBUG
 
 	return  transform;
 }
