@@ -88,8 +88,7 @@ void IMUDevice::Initialize() {
             response += readBuffer[0];
         }
 
-        response.erase(std::remove(response.begin(), response.end(), '\r'), response.end());
-        response.erase(std::remove(response.begin(), response.end(), '\n'), response.end());
+        std::erase_if(response, [](char c) { return c == '\n' || c == '\r'; });
 
         if (response == handshakeReceive) {
 #ifdef _DEBUG
@@ -120,6 +119,8 @@ void IMUDevice::Update() {
         }
         response += readBuffer[0];
     }
+
+    std::erase_if(response, [](char c) { return c == '\n' || c == '\r'; });
 
     auto data = Split(response, ',');
 
