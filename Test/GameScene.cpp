@@ -65,9 +65,6 @@ void GameScene::OnInitialize() {
 }
 
 void GameScene::OnUpdate() {
-#pragma region Trolley
-	trolley_->Update();
-#pragma endregion
 
 #pragma region RailCameraSystem
 	railCameraController_->Update(1.0f / 60.0f);
@@ -123,6 +120,10 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
 #endif 
+
+#pragma region Trolley
+	trolley_->Update();
+#pragma endregion
 
 #pragma region Flashlight
 	flashlight_->Update();

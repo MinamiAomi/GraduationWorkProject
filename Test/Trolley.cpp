@@ -9,12 +9,15 @@ Trolley::Trolley()
 
 void Trolley::Initialize()
 {
+	offset_ = { 0.0f,-1.3f,0.0f };
+	transform_.translate += offset_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 }
 
 void Trolley::Update()
 {
+	transform_.translate += offset_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 }
@@ -22,6 +25,4 @@ void Trolley::Update()
 void Trolley::SetTransform(const Transform& transform)
 {
 	transform_ = transform;
-	transform_.UpdateMatrix();
-	model_.SetWorldMatrix(transform_.worldMatrix);
 }

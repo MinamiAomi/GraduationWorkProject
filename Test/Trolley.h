@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine/Graphics/Model.h"
 
+#include "Math/MathUtils.h"
 #include "Math/Transform.h"
 
 class Trolley {
@@ -15,4 +16,6 @@ private:
 	ModelInstance model_;
 
 	Transform transform_;
+
+	Vector3 offset_;
 };
