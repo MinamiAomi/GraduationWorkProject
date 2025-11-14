@@ -101,14 +101,15 @@ void RenderManager::Render() {
     commandContext_.SetRenderTarget(finalImageBuffer_.GetRTV());
     commandContext_.SetViewportAndScissorRect(0, 0, finalImageBuffer_.GetWidth(), finalImageBuffer_.GetHeight());
 
+    
     postEffect_.Render(commandContext_, fxaa_.GetResult());
     spriteRenderer_.Render(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
 
     auto& swapChainBuffer = swapChain_.GetColorBuffer(targetSwapChainBufferIndex);
 
-#ifndef ENABLE_IMGUI
     commandContext_.CopyBuffer(swapChainBuffer, finalImageBuffer_);
-#else 
+
+#ifdef ENABLE_IMGUI
     // スワップチェーンに描画
     commandContext_.TransitionResource(swapChainBuffer, D3D12_RESOURCE_STATE_RENDER_TARGET);
     commandContext_.FlushResourceBarriers();
