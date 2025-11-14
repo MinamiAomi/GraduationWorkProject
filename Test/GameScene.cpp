@@ -15,6 +15,9 @@
 #include "GameOverScene.h"
 #include "SceneObjectLoader.h"
 
+#ifdef _DEBUG
+#include "Graphics/ImGuiManager.h"
+#endif // _DEBUG
 
 void GameScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
@@ -57,9 +60,6 @@ void GameScene::OnInitialize() {
 }
 
 void GameScene::OnUpdate() {
-
-	Engine::GetGameObjectManager()->Update();
-
 #pragma region Trolley
 	trolley_->Update();
 #pragma endregion
