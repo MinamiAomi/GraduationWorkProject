@@ -2,8 +2,8 @@
 
 Camera::Camera(ProjectionType projectionType) {
     projectionType_ = projectionType;
-    position_ = { 0.0f, 1.0f, -6.0f };
-    rotate_ = Quaternion::MakeLookRotation(-position_);
+    transform_.translate = { 0.0f, 1.0f, -6.0f };
+    transform_.rotate = Quaternion::MakeLookRotation(-transform_.translate);
 
     projection_.perspective.fovY = 45.0f * Math::ToRadian;
     projection_.perspective.aspectRaito = 1280.0f / 720.0f;
@@ -16,8 +16,9 @@ Camera::Camera(ProjectionType projectionType) {
 }
 
 void Camera::UpdateMatrices() {
+    transform_.UpdateMatrix();
     if (needUpdateing_) {
-        viewMatrix_ = Matrix4x4::MakeAffineInverse(Matrix4x4::MakeRotation(rotate_), position_);
+        viewMatrix_ = Matrix4x4::MakeAffineInverse(Matrix4x4::MakeRotation(transform_.rotate), transform_.translate);
 
         switch (projectionType_)
         {

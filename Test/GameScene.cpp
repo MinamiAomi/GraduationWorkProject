@@ -14,6 +14,10 @@
 
 #include "GameClearScene.h"
 #include "GameOverScene.h"
+#include "SceneObjectLoader.h"
+
+
+void GameScene::OnInitialize() {
 
 
 void GameScene::OnInitialize() {
@@ -29,38 +33,51 @@ void GameScene::OnInitialize() {
 	sprite_.SetPosition({ 200.0f, 200.0f });
 	sprite_.SetScale({ 200.0f, 200.0f });
 
-	railCameraModel_.SetModel(AssetManager::GetInstance()->modelMap.Get("sphere")->Get());
+	camera_ = std::make_shared<Camera>();
 
+#pragma region Flashlight
+	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+#pragma endregion
 
+#pragma region RailCameraSystem
 	auto animationData = RailCameraSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
 		railCameraController_ = std::make_unique<RailCameraSystem::RailCameraController>
 			(
 				std::make_shared<const RailCameraSystem::RailCameraAnimation>(*animationData)
 			);
+		//カメラ再生
 		railCameraController_->Play();
 	}
+#pragma endregion
 
-	camera_ = std::make_shared<Camera>();
+#pragma region SceneObjectSystem
+	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
+
+	sceneObjectManager_->Initialize();
+
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/staticMesh.json");
+
+	sceneObjectManager_->CreateObjects(result);
+#pragma endregion
+
 }
 
 void GameScene::OnUpdate() {
 
 	Engine::GetGameObjectManager()->Update();
 
-	railCameraController_->Update(0.01667f);
+#pragma region RailCameraSystem
+	railCameraController_->Update(1.0f / 60.0f);
 	auto transform = railCameraController_->GetCurrentTransform();
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
 	transform.UpdateMatrix();
-	railCameraModel_.SetWorldMatrix(transform.worldMatrix);
-
-
 
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
-	railCameraController_->GetCurrentFrame();
-
+	//カメラのデバック用
 #ifdef _DEBUG
 	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
@@ -92,9 +109,18 @@ void GameScene::OnUpdate() {
 	}
 
 #endif // _DEBUG
+#pragma endregion
 
-	//
-	//RenderManager::GetInstance()->SetCamera(camera_);
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
+
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+	//ここコメントアウトすればデバックカメラ使用可能
+	RenderManager::GetInstance()->SetCamera(camera_);
 }
 
 void GameScene::OnFinalize() {

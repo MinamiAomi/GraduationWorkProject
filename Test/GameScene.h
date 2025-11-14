@@ -16,7 +16,9 @@
 #include "Graphics/Sprite.h"
 
 #include "RailCameraController.h"
+#include "SceneObjectManager.h"
 
+#include "Flashlight.h"
 class GameScene :
 	public BaseScene {
 public:
@@ -39,9 +41,12 @@ private:
 
 	Sprite sprite_;
 
-	ModelInstance railCameraModel_;
+
+	std::shared_ptr<Camera> camera_;
 
 	std::unique_ptr<RailCameraSystem::RailCameraController> railCameraController_;
 
-	std::shared_ptr<Camera> camera_;
+	std::unique_ptr<Flashlight> flashlight_;
+	
+	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
 };
