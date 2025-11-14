@@ -168,14 +168,6 @@ namespace Editer {
             graphics->GetDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV),
             descriptor_,
             descriptor_);
-
-        int a = 10;
-        int b = 20;
-        int c = 30;
-        consoleView_->AddLog(LogType::Normal, "Normal");
-        consoleView_->AddLog(LogType::Warning, "Warning %d", a);
-        consoleView_->AddLog(LogType::Error, "Error %d", b);
-        consoleView_->AddLog(LogType::Information, "Normal %d", c);
     }
 
     void EditerManager::Render() {
@@ -183,17 +175,17 @@ namespace Editer {
         ImGui_ImplDX12_NewFrame();
         ImGui::NewFrame();
 
-        RenderDockingSpace();
+        //RenderDockingSpace();
 
-        auto gameObjectManager = Engine::GetGameObjectManager();
-        hierarchyView_->Render(*gameObjectManager);
-        inspectorView_->Render(selectedObject_);
-        consoleView_->Render();
+        //auto gameObjectManager = Engine::GetGameObjectManager();
+        //hierarchyView_->Render(*gameObjectManager);
+        //inspectorView_->Render(selectedObject_);
+        //consoleView_->Render();
     }
 
     void EditerManager::RenderToColorBuffer(CommandContext& commandContext) {
-        projectView_->Render();
-        sceneView_->Render(commandContext);
+        //projectView_->Render();
+        //sceneView_->Render(commandContext);
         ImGui::Render();
         ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandContext);
     }
