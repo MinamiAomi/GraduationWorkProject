@@ -1,0 +1,151 @@
+{
+  "objects": [
+    {
+      "name": "壊れた橋.001",
+      "model_name": "Brege",
+      "srt": {
+        "translate": [
+          -4.8576,
+          5.2889,
+          0.0173
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "壊れた橋.002",
+      "model_name": "Brege",
+      "srt": {
+        "translate": [
+          1.1424,
+          -3.7111,
+          0.0173
+        ],
+        "rotate": [
+          0.0353,
+          -0.8325,
+          -0.1069,
+          0.5424
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          0.3016,
+          -3.5096,
+          -0.3501
+        ],
+        "world_rotation_quat": [
+          0.0353,
+          -0.8325,
+          -0.1069,
+          0.5424
+        ],
+        "local_size": [
+          4.8031,
+          6.3466,
+          5.9368
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "壊れた橋.040",
+      "model_name": "Brege",
+      "srt": {
+        "translate": [
+          0.1424,
+          5.2889,
+          0.0173
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          0.1882,
+          5.0391,
+          0.9218
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          4.8031,
+          6.3466,
+          5.9368
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "crystal",
+      "model_name": "testCube",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "is_emissive": true
+    }
+  ]
+}
