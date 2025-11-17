@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "source": "Blender",
+    "coordinate_system_note": "Keyframes are in Blender's coordinate system (RHS, Z-up). Convert in game engine.",
+    "frame_rate": 24,
+    "start_frame": 1,
+    "end_frame": 240
+  },
+  "curve_eval_time": [],
+  "camera_location_keyframes": [
+    {
+      "frame": 1.0,
+      "value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    {
+      "frame": 240.0,
+      "value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  ],
+  "camera_rotation_keyframes": [
+    {
+      "frame": 1.0,
+      "value": {
+        "w": 0.7071,
+        "x": 0.7071,
+        "y": -0.0003,
+        "z": -0.0003
+      }
+    },
+    {
+      "frame": 240.0,
+      "value": {
+        "w": 0.7071,
+        "x": 0.7071,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  ]
+}
