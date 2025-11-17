@@ -85,7 +85,10 @@ void GameScene::OnUpdate() {
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
-	ImGui::Checkbox("DebugCamera", &isDebugCamera);
+	//デバックカメラ
+	if (ImGui::Checkbox("DebugCamera", &isDebugCamera)) {
+		debugCamera_->SetTransform(transform);
+	}
 	if (isDebugCamera) {
 		debugCamera_->Update();
 
