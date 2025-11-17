@@ -1,6 +1,30 @@
 {
   "objects": [
     {
+      "name": "ICO球.002",
+      "model_name": "ICO球.002",
+      "srt": {
+        "translate": [
+          9.0419,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.7071,
+          0.7071,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.01,
+          0.01,
+          0.01
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
       "name": "壊れた橋.001",
       "model_name": "Brege",
       "srt": {
@@ -104,6 +128,30 @@
           5.9368
         ]
       },
+      "is_emissive": false
+    },
+    {
+      "name": "Brege",
+      "model_name": "Brege",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
       "is_emissive": false
     }
   ]

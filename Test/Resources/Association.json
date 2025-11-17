@@ -5,7 +5,8 @@
         "trolley" : "Trolley/trolley.gltf",
 
         "testCube" : "StaticMesh/testCube.gltf",
-        "Brege" : "StaticMesh/Bridge/bridge.gltf"
+        "Brege" : "StaticMesh/Bridge/bridge.gltf",
+        "Stage" : "StaticMesh/StageModel/Stage.gltf"
     }
     
 }
