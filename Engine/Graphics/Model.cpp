@@ -242,23 +242,23 @@ std::shared_ptr<Model> Model::Load(const std::filesystem::path& path) {
     commandContext.TransitionResource(model->indexBuffer_, D3D12_RESOURCE_STATE_GENERIC_READ);
     commandContext.FlushResourceBarriers();
 
-    // レイトレ用にBLASを作成
-    std::vector<D3D12_RAYTRACING_GEOMETRY_DESC> blasDescs(model->meshes_.size());
-    for (uint32_t meshIndex = 0; meshIndex < blasDescs.size(); ++meshIndex) {
-        auto& mesh = model->meshes_[meshIndex];
-        auto& desc = blasDescs[meshIndex];
-        desc.Type = D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES;
-        desc.Flags = D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE;
-        desc.Triangles.VertexBuffer.StartAddress = model->vertexBuffer_.GetGPUVirtualAddress() + (uint64_t)mesh.vertexOffset * model->vertexBuffer_.GetElementSize();
-        desc.Triangles.VertexBuffer.StrideInBytes = model->vertexBuffer_.GetElementSize();
-        desc.Triangles.VertexFormat = DXGI_FORMAT_R32G32B32_FLOAT;
-        desc.Triangles.VertexCount = mesh.vertexCount;
-        desc.Triangles.IndexBuffer = model->indexBuffer_.GetGPUVirtualAddress() + (uint64_t)mesh.indexOffset * model->indexBuffer_.GetElementSize();
-        desc.Triangles.IndexFormat = DXGI_FORMAT_R32_UINT;
-        desc.Triangles.IndexCount = mesh.indexCount;
+    //// レイトレ用にBLASを作成
+    //std::vector<D3D12_RAYTRACING_GEOMETRY_DESC> blasDescs(model->meshes_.size());
+    //for (uint32_t meshIndex = 0; meshIndex < blasDescs.size(); ++meshIndex) {
+    //    auto& mesh = model->meshes_[meshIndex];
+    //    auto& desc = blasDescs[meshIndex];
+    //    desc.Type = D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES;
+    //    desc.Flags = D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE;
+    //    desc.Triangles.VertexBuffer.StartAddress = model->vertexBuffer_.GetGPUVirtualAddress() + (uint64_t)mesh.vertexOffset * model->vertexBuffer_.GetElementSize();
+    //    desc.Triangles.VertexBuffer.StrideInBytes = model->vertexBuffer_.GetElementSize();
+    //    desc.Triangles.VertexFormat = DXGI_FORMAT_R32G32B32_FLOAT;
+    //    desc.Triangles.VertexCount = mesh.vertexCount;
+    //    desc.Triangles.IndexBuffer = model->indexBuffer_.GetGPUVirtualAddress() + (uint64_t)mesh.indexOffset * model->indexBuffer_.GetElementSize();
+    //    desc.Triangles.IndexFormat = DXGI_FORMAT_R32_UINT;
+    //    desc.Triangles.IndexCount = mesh.indexCount;
 
-    }
-    model->blas_.Create(L"ModelBLAS", commandContext, blasDescs);
+    //}
+    //model->blas_.Create(L"ModelBLAS", commandContext, blasDescs);
     commandContext.Finish(true);
 
     return model;
