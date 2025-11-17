@@ -58,8 +58,6 @@ private:
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;
-
-	ModelInstance debugModel_;
 #endif // _DEBUG
 
 };
