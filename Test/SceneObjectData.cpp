@@ -13,7 +13,14 @@ namespace SceneObjectSystem {
 		j.at("name").get_to(s.name);
 		j.at("model_name").get_to(s.modelName);
 		j.at("srt").get_to(s.transform);
-		j.at("obb_collision").get_to(s.obbCollision);
+
+		//なかった場合nullopt
+		if (j.contains("obb_collision") && !j.at("obb_collision").is_null()) {
+			s.obbCollision = j.at("obb_collision").get<ObbCollision>();
+		}
+		else {
+			s.obbCollision = std::nullopt;
+		}
 		j.at("is_emissive").get_to(s.isEmissive);
 	}
 
