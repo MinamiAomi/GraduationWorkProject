@@ -1,0 +1,209 @@
+{
+  "objects": [
+    {
+      "name": "Cube",
+      "model_name": "Cube",
+      "srt": {
+        "translate": [
+          3.5691,
+          2.5992,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.59
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          3.5691,
+          2.5992,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "Cube.001",
+      "model_name": "Cube.001",
+      "srt": {
+        "translate": [
+          -3.1869,
+          10.6338,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          4.18,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          -3.1869,
+          10.6338,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "Cube.002",
+      "model_name": "Cube.002",
+      "srt": {
+        "translate": [
+          2.8198,
+          17.1651,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          5.38
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          2.8198,
+          17.1651,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "Cube.003",
+      "model_name": "Cube.003",
+      "srt": {
+        "translate": [
+          2.8198,
+          29.6154,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.88
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          2.8198,
+          29.6154,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": false
+    },
+    {
+      "name": "Cube.004",
+      "model_name": "Cube.004",
+      "srt": {
+        "translate": [
+          -3.9134,
+          22.3651,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          3.21,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          -3.9134,
+          22.3651,
+          0.0
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.0,
+          2.0,
+          2.0
+        ]
+      },
+      "is_emissive": false
+    }
+  ]
+}
