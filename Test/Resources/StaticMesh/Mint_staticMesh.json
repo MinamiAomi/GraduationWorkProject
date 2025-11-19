@@ -1,37 +1,438 @@
 {
   "objects": [
     {
+      "name": "Raile",
+      "model_name": "Raile",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.001",
+      "model_name": "Raile.001",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.002",
+      "model_name": "Raile.002",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.003",
+      "model_name": "Raile.003",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.004",
+      "model_name": "Raile.004",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.005",
+      "model_name": "Raile.005",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.006",
+      "model_name": "Raile.006",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.007",
+      "model_name": "Raile.007",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.008",
+      "model_name": "Raile.008",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.009",
+      "model_name": "Raile.009",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.010",
+      "model_name": "Raile.010",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "Raile.011",
+      "model_name": "Raile.011",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "グリッド",
+      "model_name": "グリッド",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "グリッド.001",
+      "model_name": "グリッド.001",
+      "srt": {
+        "translate": [
+          0.0,
+          21.4531,
+          0.0
+        ],
+        "rotate": [
+          0.5688,
+          -0.8225,
+          -0.0,
+          -0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "グリッド.002",
+      "model_name": "グリッド.002",
+      "srt": {
+        "translate": [
+          0.0,
+          -14.5469,
+          0.0
+        ],
+        "rotate": [
+          0.8402,
+          -0.5422,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "グリッド.003",
+      "model_name": "グリッド.003",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          44.7967
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": null,
+      "is_emissive": false
+    },
+    {
+      "name": "モンキー",
+      "model_name": "モンキー",
+      "srt": {
+        "translate": [
+          83.4376,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          0.7204,
+          0.0,
+          0.0,
+          -0.6935
+        ],
+        "scale": [
+          19.7261,
+          19.7261,
+          19.7261
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          83.4376,
+          0.0,
+          0.0
+        ],
+        "world_rotation_quat": [
+          0.7204,
+          0.0,
+          0.0,
+          -0.6935
+        ],
+        "local_size": [
+          2.7344,
+          1.7031,
+          1.9688
+        ]
+      },
+      "is_emissive": false
+    },
+    {
       "name": "ICO球.002",
       "model_name": "ICO球.002",
       "srt": {
         "translate": [
-          9.0419,
+          0.0,
           0.0,
           0.0
-        ],
-        "rotate": [
-          0.7071,
-          0.7071,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          0.01,
-          0.01,
-          0.01
-        ]
-      },
-      "obb_collision": null,
-      "is_emissive": false
-    },
-    {
-      "name": "壊れた橋.001",
-      "model_name": "Brege",
-      "srt": {
-        "translate": [
-          -4.8576,
-          5.2889,
-          0.0173
         ],
         "rotate": [
           1.0,
@@ -46,89 +447,7 @@
         ]
       },
       "obb_collision": null,
-      "is_emissive": false
-    },
-    {
-      "name": "壊れた橋.002",
-      "model_name": "Brege",
-      "srt": {
-        "translate": [
-          1.1424,
-          -3.7111,
-          0.0173
-        ],
-        "rotate": [
-          0.0353,
-          -0.8325,
-          -0.1069,
-          0.5424
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "obb_collision": {
-        "world_center": [
-          0.3016,
-          -3.5096,
-          -0.3501
-        ],
-        "world_rotation_quat": [
-          0.0353,
-          -0.8325,
-          -0.1069,
-          0.5424
-        ],
-        "local_size": [
-          4.8031,
-          6.3466,
-          5.9368
-        ]
-      },
-      "is_emissive": false
-    },
-    {
-      "name": "壊れた橋.040",
-      "model_name": "Brege",
-      "srt": {
-        "translate": [
-          0.1424,
-          5.2889,
-          0.0173
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "obb_collision": {
-        "world_center": [
-          0.1882,
-          5.0391,
-          0.9218
-        ],
-        "world_rotation_quat": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "local_size": [
-          4.8031,
-          6.3466,
-          5.9368
-        ]
-      },
-      "is_emissive": false
+      "is_emissive": true
     },
     {
       "name": "Brege",
