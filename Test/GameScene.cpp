@@ -43,13 +43,13 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region SceneObjectSystem
-	/*sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
+	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
 
 	sceneObjectManager_->Initialize();
 
 	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
-	sceneObjectManager_->CreateObjects(result);*/
+	sceneObjectManager_->CreateObjects(result);
 #pragma endregion
 
 #pragma region Trolley
@@ -60,9 +60,6 @@ void GameScene::OnInitialize() {
 #ifdef _DEBUG
 	debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
-	const auto& model = AssetManager::GetInstance()->modelMap.Get("Stage")->Get();
-	debugModel_.SetModel(model);
-	debugModel_.SetWorldMatrix(Matrix4x4::identity);
 #endif // _DEBUG
 
 }
@@ -85,7 +82,10 @@ void GameScene::OnUpdate() {
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
-	ImGui::Checkbox("DebugCamera", &isDebugCamera);
+	//デバックカメラ
+	if (ImGui::Checkbox("DebugCamera", &isDebugCamera)) {
+		debugCamera_->SetTransform(transform);
+	}
 	if (isDebugCamera) {
 		debugCamera_->Update();
 
@@ -133,7 +133,7 @@ void GameScene::OnUpdate() {
 #pragma endregion
 
 #pragma region SceneObjectSystem
-	//sceneObjectManager_->Update();
+	sceneObjectManager_->Update();
 #pragma endregion
 
 }

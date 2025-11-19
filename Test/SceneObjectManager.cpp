@@ -15,8 +15,11 @@ void SceneObjectSystem::SceneObjectManager::Initialize()
 
 void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData)
 {
+
 	const auto& assetManager = AssetManager::GetInstance();
 
+	stageObjects_.SetModel(assetManager->modelMap.Get("Stage")->Get());
+	stageObjects_.SetWorldMatrix(Matrix4x4::identity);
 	for (const auto& obj : objectData) {
 
 		auto sceneObject = std::make_unique<SceneObject>();

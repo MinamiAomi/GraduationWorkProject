@@ -16,6 +16,8 @@ namespace SceneObjectSystem {
 		//Blenderの値そのままデータだけ
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 	private:
+		//ステージ全体
+		ModelInstance stageObjects_;
 		//ゲームで使う方
 		std::vector<std::unique_ptr<SceneObjectSystem::SceneObject>> sceneObjects_;
 		//Blenderの値そのままデータだけ
