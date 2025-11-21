@@ -26,6 +26,7 @@ struct SphereCollider;
 struct BoxCollider;
 struct OBBCollider;
 struct ConeCollider;
+struct CapsuleCollider;
 struct Collider;
 
 struct Collider {
@@ -62,6 +63,7 @@ public:
     virtual bool CheckCollision(BoxCollider& other) = 0;
     virtual bool CheckCollision(OBBCollider& other) = 0;
     virtual bool CheckCollision(ConeCollider& other) = 0;
+    virtual bool CheckCollision(CapsuleCollider& other) = 0;
 
     virtual void OnCollision(Collider& other) {
         collidedWith.push_back(&other);
@@ -102,6 +104,7 @@ struct SphereCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+    bool CheckCollision(CapsuleCollider& other) override;
 
     void DrawDebug(const Vector4& color) const override;
 };
@@ -136,6 +139,7 @@ struct BoxCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+    bool CheckCollision(CapsuleCollider& other) override;
 
     void DrawDebug(const Vector4& color) const override;
 };
@@ -175,6 +179,7 @@ struct OBBCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+    bool CheckCollision(CapsuleCollider& other) override;
 
     void DrawDebug(const Vector4& color) const override;
 };
@@ -202,11 +207,133 @@ struct ConeCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+    bool CheckCollision(CapsuleCollider& other) override;
+
+    void DrawDebug(const Vector4& color) const override;
+};
+
+struct CapsuleCollider : public Collider {
+    float radius;
+    float height; 
+    Quaternion quaternion;
+
+    CapsuleCollider(CollisionCategory category, CollisionCategory mask, Vector3 pos, float r, float h, Quaternion rot)
+        : Collider(category, mask, pos), radius(r), height(h), quaternion(rot) {
+    }
+
+    Quaternion GetWorldOrientation() const {
+        if (parent) {
+            Quaternion parentWorldRot = parent->worldMatrix.GetRotate();
+            return parentWorldRot * quaternion;
+        }
+        return quaternion;
+    }
+
+    float GetWorldRadius() const {
+        if (parent) {
+            Vector3 s = parent->worldMatrix.GetScale();
+            float maxScaleXZ = std::max(std::abs(s.x), std::abs(s.z));
+            return radius * maxScaleXZ;
+        }
+        return radius;
+    }
+
+    float GetWorldHeight() const {
+        if (parent) {
+            Vector3 s = parent->worldMatrix.GetScale();
+            return height * std::abs(s.y);
+        }
+        return height;
+    }
+
+    void GetWorldSegment(Vector3& outStart, Vector3& outEnd) const {
+        Vector3 centerPos = GetWorldCenter();
+        Quaternion rot = GetWorldOrientation();
+        float h = GetWorldHeight();
+
+        // Y軸方向に伸びると仮定
+        // 中心から上下に h/2 ずつ
+        Vector3 offset = rot * Vector3(0, h * 0.5f, 0);
+        outStart = centerPos - offset;
+        outEnd = centerPos + offset;
+    }
+
+    bool CheckCollision(Collider& other) override;
+    bool CheckCollision(SphereCollider& other) override;
+    bool CheckCollision(BoxCollider& other) override;
+    bool CheckCollision(OBBCollider& other) override;
+    bool CheckCollision(ConeCollider& other) override;
+    bool CheckCollision(CapsuleCollider& other) override;
 
     void DrawDebug(const Vector4& color) const override;
 };
 
 #pragma region 当たり判定ヘルパー
+
+// 線分(p1-p2)と点(point)の最短距離の2乗を返す
+inline float DistSqPointSegment(const Vector3& p1, const Vector3& p2, const Vector3& point) {
+    Vector3 d = p2 - p1;
+    float lenSq = d.LengthSquare();
+    if (lenSq == 0.0f) return (point - p1).LengthSquare(); // 線分が点の場合
+
+    // 投影係数 t = Dot(ap, ab) / Dot(ab, ab)
+    float t = Vector3::Dot(point - p1, d) / lenSq;
+    t = std::clamp(t, 0.0f, 1.0f);
+
+    Vector3 closest = p1 + d * t;
+    return (point - closest).LengthSquare();
+}
+
+// 線分(p1-q1) と 線分(p2-q2) の最短距離の2乗を返す
+inline float DistSqSegmentSegment(const Vector3& p1, const Vector3& q1, const Vector3& p2, const Vector3& q2) {
+    Vector3 d1 = q1 - p1;
+    Vector3 d2 = q2 - p2;
+    Vector3 r = p1 - p2;
+    float a = d1.LengthSquare();
+    float e = d2.LengthSquare();
+    float f = Vector3::Dot(d2, r);
+
+    // 両方の線分が点の場合
+    if (a <= 1e-6f && e <= 1e-6f) return r.LengthSquare();
+
+    // 第1線分が点
+    if (a <= 1e-6f) return DistSqPointSegment(p2, q2, p1);
+
+    // 第2線分が点
+    if (e <= 1e-6f) return DistSqPointSegment(p1, q1, p2);
+
+    float c = Vector3::Dot(d1, r);
+    float b = Vector3::Dot(d1, d2);
+    float denom = a * e - b * b;
+
+    float s, t;
+
+    // 平行でない場合
+    if (denom != 0.0f) {
+        s = std::clamp((b * f - c * e) / denom, 0.0f, 1.0f);
+    }
+    else {
+        s = 0.0f; // 平行の場合、任意のs (ここでは0)
+    }
+
+    // sに基づいてtを計算
+    float tNom = b * s + f;
+    if (tNom < 0.0f) {
+        t = 0.0f;
+        s = std::clamp(-c / a, 0.0f, 1.0f);
+    }
+    else if (tNom > e) {
+        t = 1.0f;
+        s = std::clamp((b - c) / a, 0.0f, 1.0f);
+    }
+    else {
+        t = tNom / e;
+    }
+
+    Vector3 closestPoint1 = p1 + d1 * s;
+    Vector3 closestPoint2 = p2 + d2 * t;
+    return (closestPoint1 - closestPoint2).LengthSquare();
+}
 
 inline bool CheckOBBvsOBB(const OBBCollider& a, const OBBCollider& b) {
   
@@ -306,7 +433,6 @@ inline bool CheckOBBvsOBB(const OBBCollider& a, const OBBCollider& b) {
 }
 
 inline bool CheckConeVsSphere(const ConeCollider& cone, const SphereCollider& sphere) {
-
     Vector3 conePos = cone.GetWorldCenter();
     Quaternion coneRot = cone.GetWorldOrientation();
     Vector3 spherePos = sphere.GetWorldCenter();
@@ -316,16 +442,22 @@ inline bool CheckConeVsSphere(const ConeCollider& cone, const SphereCollider& sp
     Quaternion invRot = coneRot.Conjugate();
     Vector3 localPos = invRot * diff;
 
-    float axisY = localPos.y;
-    float axisR = sqrt(localPos.x * localPos.x + localPos.z * localPos.z);
     float coneH = cone.height;
     float coneR = cone.radius;
+
+    float axisY = localPos.y;
+    float axisR = sqrt(localPos.x * localPos.x + localPos.z * localPos.z);
+
     float edgeX = coneR;
     float edgeY = -coneH;
     float edgeLenSq = edgeX * edgeX + edgeY * edgeY;
     float pX = axisR;
     float pY = axisY - coneH;
-    float t = (pX * edgeX + pY * edgeY) / edgeLenSq;
+
+    float t = 0.0f;
+    if (edgeLenSq > 1e-6f) {
+        t = (pX * edgeX + pY * edgeY) / edgeLenSq;
+    }
     t = std::clamp(t, 0.0f, 1.0f);
     float closestX = t * edgeX;
     float closestY = coneH + t * edgeY;
@@ -367,6 +499,13 @@ inline bool SphereCollider::CheckCollision(SphereCollider& other) {
 inline bool SphereCollider::CheckCollision(BoxCollider& other) { return other.CheckCollision(*this); }
 inline bool SphereCollider::CheckCollision(OBBCollider& other) { return other.CheckCollision(*this); }
 inline bool SphereCollider::CheckCollision(ConeCollider& other) { return other.CheckCollision(*this); }
+inline bool SphereCollider::CheckCollision(CapsuleCollider& other) {
+    Vector3 p1, p2;
+    other.GetWorldSegment(p1, p2);
+    float distSq = DistSqPointSegment(p1, p2, GetWorldCenter());
+    float rSum = GetWorldRadius() + other.GetWorldRadius();
+    return distSq <= rSum * rSum;
+}
 
 inline bool BoxCollider::CheckCollision(Collider& other) { return other.CheckCollision(*this); }
 inline bool BoxCollider::CheckCollision(SphereCollider& other) {
@@ -393,6 +532,54 @@ inline bool BoxCollider::CheckCollision(OBBCollider& other) {
     return CheckOBBvsOBB(temp, other);
 }
 inline bool BoxCollider::CheckCollision(ConeCollider& other) { return other.CheckCollision(*this); }
+
+inline bool BoxCollider::CheckCollision(CapsuleCollider& other) {
+    Vector3 p1, p2;
+    other.GetWorldSegment(p1, p2); 
+    float capsuleRadius = other.GetWorldRadius();
+    float capsuleRadiusSq = capsuleRadius * capsuleRadius;
+
+    Vector3 boxMin = GetWorldMin();
+    Vector3 boxMax = GetWorldMax();
+
+    Vector3 d = p2 - p1;
+    float segLenSq = d.LengthSquare();
+
+    float t = 0.0f;
+    if (segLenSq > 1e-6f) {
+        // Boxの中心
+        Vector3 boxCenter = (boxMin + boxMax) * 0.5f;
+        t = Vector3::Dot(boxCenter - p1, d) / segLenSq;
+        t = std::clamp(t, 0.0f, 1.0f);
+    }
+
+    Vector3 closestOnSegment;
+    Vector3 closestOnBox;
+
+    for (int i = 0; i < 4; ++i) {
+        closestOnSegment = p1 + d * t;
+
+        closestOnBox.x = std::clamp(closestOnSegment.x, boxMin.x, boxMax.x);
+        closestOnBox.y = std::clamp(closestOnSegment.y, boxMin.y, boxMax.y);
+        closestOnBox.z = std::clamp(closestOnSegment.z, boxMin.z, boxMax.z);
+
+        if (segLenSq <= 1e-6f) {
+            break;
+        }
+
+        t = Vector3::Dot(closestOnBox - p1, d) / segLenSq;
+        t = std::clamp(t, 0.0f, 1.0f);
+    }
+
+    closestOnSegment = p1 + d * t;
+    closestOnBox.x = std::clamp(closestOnSegment.x, boxMin.x, boxMax.x);
+    closestOnBox.y = std::clamp(closestOnSegment.y, boxMin.y, boxMax.y);
+    closestOnBox.z = std::clamp(closestOnSegment.z, boxMin.z, boxMax.z);
+
+    float distSq = (closestOnSegment - closestOnBox).LengthSquare();
+
+    return distSq <= capsuleRadiusSq;
+}
 
 inline bool OBBCollider::CheckCollision(Collider& other) {
     return other.CheckCollision(*this);
@@ -423,6 +610,21 @@ inline bool OBBCollider::CheckCollision(BoxCollider& other) { return other.Check
 inline bool OBBCollider::CheckCollision(OBBCollider& other) { return CheckOBBvsOBB(*this, other); }
 inline bool OBBCollider::CheckCollision(ConeCollider& other) { return other.CheckCollision(*this); }
 
+inline bool OBBCollider::CheckCollision(CapsuleCollider& other) {
+    Vector3 p1, p2;
+    other.GetWorldSegment(p1, p2);
+    Vector3 obbCenter = GetWorldCenter();
+    // 線分上でOBB中心に近い点を探す（簡易）
+    // ※より厳密にはOBB空間に線分を持っていく必要があるが、簡易実装としてSphere近似
+    Vector3 d = p2 - p1;
+    float t = Vector3::Dot(obbCenter - p1, d) / d.LengthSquare();
+    t = std::clamp(t, 0.0f, 1.0f);
+    Vector3 closestOnSegment = p1 + d * t;
+
+    SphereCollider tempSphere(CollisionCategory::NONE, CollisionCategory::NONE, closestOnSegment, other.GetWorldRadius());
+    return CheckCollision(tempSphere);
+}
+
 inline bool ConeCollider::CheckCollision(Collider& other) { return other.CheckCollision(*this); }
 
 inline bool ConeCollider::CheckCollision(SphereCollider& other) {
@@ -430,17 +632,132 @@ inline bool ConeCollider::CheckCollision(SphereCollider& other) {
 }
 
 inline bool ConeCollider::CheckCollision(BoxCollider& other) {
-    // Boxを包含する球の判定で近似
-    float boxRadius = other.GetWorldSize().Length() * 0.5f; 
-    SphereCollider tempSphere(CollisionCategory::NONE, CollisionCategory::NONE, other.GetWorldCenter(), boxRadius);
-    return CheckConeVsSphere(*this, tempSphere);
+    float boxRadius = other.GetWorldSize().Length() * 0.5f;
+    float coneBoundingRadius = std::max(height, radius * 1.5f);
+
+    Vector3 conePos = GetWorldCenter();
+    Vector3 boxPos = other.GetWorldCenter();
+
+    if ((conePos - boxPos).LengthSquare() > std::pow(boxRadius + coneBoundingRadius, 2)) {
+        return false;
+    }
+
+    Quaternion coneRot = GetWorldOrientation();
+    Quaternion invConeRot = coneRot.Conjugate(); 
+
+    auto IsPointInCone = [&](const Vector3& point) -> bool {
+        Vector3 localPos = invConeRot * (point - conePos);
+
+        if (localPos.y < 0.0f || localPos.y > height) {
+            return false;
+        }
+
+        float rAtY = radius * (1.0f - (localPos.y / height));
+
+        return (localPos.x * localPos.x + localPos.z * localPos.z) <= (rAtY * rAtY);
+        };
+
+    Vector3 boxMin = other.GetWorldMin();
+    Vector3 boxMax = other.GetWorldMax();
+
+    Vector3 corners[8] = {
+        { boxMin.x, boxMin.y, boxMin.z }, { boxMax.x, boxMin.y, boxMin.z },
+        { boxMin.x, boxMax.y, boxMin.z }, { boxMax.x, boxMax.y, boxMin.z },
+        { boxMin.x, boxMin.y, boxMax.z }, { boxMax.x, boxMin.y, boxMax.z },
+        { boxMin.x, boxMax.y, boxMax.z }, { boxMax.x, boxMax.y, boxMax.z }
+    };
+
+    for (const auto& p : corners) {
+        if (IsPointInCone(p)) {
+            return true; 
+        }
+    }
+
+    Vector3 axisY = coneRot * Vector3(0, 1, 0);
+    const int checkCount = 3;
+
+    for (int i = 0; i <= checkCount; ++i) {
+        float t = static_cast<float>(i) / checkCount;
+        Vector3 pointOnAxis = conePos + axisY * (height * t);
+
+        float cx = std::clamp(pointOnAxis.x, boxMin.x, boxMax.x);
+        float cy = std::clamp(pointOnAxis.y, boxMin.y, boxMax.y);
+        float cz = std::clamp(pointOnAxis.z, boxMin.z, boxMax.z);
+        Vector3 closestOnBox = { cx, cy, cz };
+
+        if (IsPointInCone(closestOnBox)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 inline bool ConeCollider::CheckCollision(OBBCollider& other) {
-    // OBBを包含する球で近似
     float obbRadius = other.GetWorldSize().Length() * 0.5f;
-    SphereCollider tempSphere(CollisionCategory::NONE, CollisionCategory::NONE, other.GetWorldCenter(), obbRadius);
-    return CheckConeVsSphere(*this, tempSphere);
+    float coneBoundingRadius = std::max(height, radius * 1.5f);
+
+    Vector3 conePos = GetWorldCenter();
+    Vector3 obbPos = other.GetWorldCenter();
+
+    if ((conePos - obbPos).LengthSquare() > std::pow(obbRadius + coneBoundingRadius, 2)) {
+        return false;
+    }
+
+    Quaternion coneRot = GetWorldOrientation();
+    Quaternion invConeRot = coneRot.Conjugate(); 
+
+    Quaternion obbRot = other.GetWorldOrientation();
+    Quaternion invObbRot = obbRot.Conjugate();  
+    Vector3 obbExtents = other.GetWorldSize() * 0.5f;
+
+    auto IsPointInCone = [&](const Vector3& worldPoint) -> bool {
+        Vector3 localPos = invConeRot * (worldPoint - conePos);
+
+        if (localPos.y < 0.0f || localPos.y > height) return false;
+
+        float rAtY = radius * (1.0f - (localPos.y / height));
+        return (localPos.x * localPos.x + localPos.z * localPos.z) <= (rAtY * rAtY);
+        };
+
+    Vector3 cornersLocal[8] = {
+        {-obbExtents.x, -obbExtents.y, -obbExtents.z}, { obbExtents.x, -obbExtents.y, -obbExtents.z},
+        {-obbExtents.x,  obbExtents.y, -obbExtents.z}, { obbExtents.x,  obbExtents.y, -obbExtents.z},
+        {-obbExtents.x, -obbExtents.y,  obbExtents.z}, { obbExtents.x, -obbExtents.y,  obbExtents.z},
+        {-obbExtents.x,  obbExtents.y,  obbExtents.z}, { obbExtents.x,  obbExtents.y,  obbExtents.z}
+    };
+
+    for (const auto& offset : cornersLocal) {
+        Vector3 worldCorner = obbPos + (obbRot * offset);
+
+        if (IsPointInCone(worldCorner)) {
+            return true; 
+        }
+    }
+
+    Vector3 coneAxisY = coneRot * Vector3(0, 1, 0); 
+    const int checkCount = 3; 
+
+    for (int i = 0; i <= checkCount; ++i) {
+        float t = static_cast<float>(i) / checkCount;
+        Vector3 pointOnAxis = conePos + coneAxisY * (height * t);
+
+        Vector3 localPointInOBB = invObbRot * (pointOnAxis - obbPos);
+
+        Vector3 closestLocalInOBB = {
+            std::clamp(localPointInOBB.x, -obbExtents.x, obbExtents.x),
+            std::clamp(localPointInOBB.y, -obbExtents.y, obbExtents.y),
+            std::clamp(localPointInOBB.z, -obbExtents.z, obbExtents.z)
+        };
+
+        Vector3 closestPointWorld = obbPos + (obbRot * closestLocalInOBB);
+
+        if (IsPointInCone(closestPointWorld)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 inline bool ConeCollider::CheckCollision(ConeCollider& other) {
@@ -449,25 +766,108 @@ inline bool ConeCollider::CheckCollision(ConeCollider& other) {
     return false;
 }
 
+inline bool ConeCollider::CheckCollision(CapsuleCollider& other) {
+    float capH = other.GetWorldHeight();
+    float capR = other.GetWorldRadius();
+    float capBoundingR = (capH * 0.5f) + capR;
+
+    float coneBoundingR = std::max(height, radius * 1.5f);
+
+    Vector3 conePos = GetWorldCenter();
+    Vector3 capPos = other.GetWorldCenter();
+
+    if ((conePos - capPos).LengthSquare() > std::pow(capBoundingR + coneBoundingR, 2)) {
+        return false;
+    }
+
+    Vector3 capStart, capEnd;
+    other.GetWorldSegment(capStart, capEnd);
+
+    Quaternion coneRot = GetWorldOrientation();
+    Vector3 coneAxisY = coneRot * Vector3(0, 1, 0); // ローカルY軸
+    Vector3 coneTip = conePos + coneAxisY * height;
+
+    auto CheckSphere = [&](const Vector3& point) -> bool {
+        SphereCollider tempSphere(CollisionCategory::NONE, CollisionCategory::NONE, point, capR);
+        return CheckConeVsSphere(*this, tempSphere);
+        };
+
+    if (CheckSphere(capStart)) return true;
+    if (CheckSphere(capEnd)) return true;
+
+    Vector3 p1 = conePos;
+    Vector3 p2 = coneTip; 
+    Vector3 q1 = capStart; 
+    Vector3 q2 = capEnd;   
+
+    Vector3 d1 = p2 - p1;
+    Vector3 d2 = q2 - q1;
+    Vector3 r = p1 - q1;
+    float a = d1.LengthSquare();
+    float e = d2.LengthSquare();
+    float f = Vector3::Dot(d2, r);
+
+    float b = Vector3::Dot(d1, d2);
+    float c = Vector3::Dot(d1, r);
+    float denom = a * e - b * b;
+
+    float t = 0.0f; 
+
+    if (denom != 0.0f) {
+        t = (b * c - a * f) / denom;
+    }
+    else {
+        t = 0.5f;
+    }
+
+    t = std::clamp(t, 0.0f, 1.0f);
+
+    Vector3 closestOnCapsule = q1 + d2 * t;
+
+    if (t > 0.01f && t < 0.99f) {
+        if (CheckSphere(closestOnCapsule)) return true;
+    }
+
+    return false;
+}
+
+inline bool CapsuleCollider::CheckCollision(Collider& other) { return other.CheckCollision(*this); }
+inline bool CapsuleCollider::CheckCollision(SphereCollider& other) {
+    return other.CheckCollision(*this);
+}
+inline bool CapsuleCollider::CheckCollision(BoxCollider& other) {
+    return other.CheckCollision(*this);
+}
+inline bool CapsuleCollider::CheckCollision(OBBCollider& other) {
+    return other.CheckCollision(*this);
+}
+inline bool CapsuleCollider::CheckCollision(ConeCollider& other) {
+    return other.CheckCollision(*this);
+}
+
+inline bool CapsuleCollider::CheckCollision(CapsuleCollider& other) {
+    Vector3 p1, p2, q1, q2;
+    GetWorldSegment(p1, p2);
+    other.GetWorldSegment(q1, q2);
+
+    float distSq = DistSqSegmentSegment(p1, p2, q1, q2);
+    float rSum = GetWorldRadius() + other.GetWorldRadius();
+    return distSq <= rSum * rSum;
+}
+
 #pragma region DebugDraw
 
 inline void SphereCollider::DrawDebug(const Vector4& color) const {
     auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-
-    // World座標とWorld半径を使って描画
     lineDrawer.DrawSphere(GetWorldCenter(), GetWorldRadius(), color);
 }
 
 inline void BoxCollider::DrawDebug(const Vector4& color) const {
     auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-
-    // BoxColliderはAABB(回転しない)として扱うため、DrawBoxを使用
     lineDrawer.DrawBox(GetWorldCenter(), GetWorldSize(), color);
 }
 inline void OBBCollider::DrawDebug(const Vector4& color) const {
     auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-
-    // OBB専用描画関数を使用
     lineDrawer.ObbDraw(
         GetWorldCenter(),
         GetWorldSize(),
@@ -478,7 +878,6 @@ inline void OBBCollider::DrawDebug(const Vector4& color) const {
 
 inline void ConeCollider::DrawDebug(const Vector4& color) const {
     auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-
     lineDrawer.DrawCone(
         GetWorldCenter(),
         radius,
@@ -486,5 +885,25 @@ inline void ConeCollider::DrawDebug(const Vector4& color) const {
         GetWorldOrientation(),
         color
     );
+}
+
+inline void CapsuleCollider::DrawDebug(const Vector4& color) const {
+    auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+
+    Vector3 start, end;
+    GetWorldSegment(start, end);
+    float r = GetWorldRadius();
+
+    lineDrawer.DrawSphere(start, r, color);
+    lineDrawer.DrawSphere(end, r, color);
+
+    Quaternion rot = GetWorldOrientation();
+    Vector3 right = rot * Vector3(1, 0, 0) * r;
+    Vector3 fwd = rot * Vector3(0, 0, 1) * r;
+
+    lineDrawer.AddLine(start + right, end + right, color);
+    lineDrawer.AddLine(start - right, end - right, color);
+    lineDrawer.AddLine(start + fwd, end + fwd, color);
+    lineDrawer.AddLine(start - fwd, end - fwd, color);
 }
 #pragma endregion
