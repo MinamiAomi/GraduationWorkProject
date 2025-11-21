@@ -33,14 +33,17 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		sceneObject->transform.UpdateMatrix();
 
 
-		sceneObject->obbCollision = obj.obbCollision;
-		if (sceneObject->obbCollision) {
-			auto& obb = *sceneObject->obbCollision;
-
-			obb.center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obb.center);
-			obb.rotation = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obb.rotation);
+		if (obj.obbCollision) {
+			sceneObject->obbCollision = std::make_shared<OBBCollider>(
+				CollisionCategory::LIGHT,
+				CollisionCategory::PLAYER,
+				Vector3::zero,
+				Vector3::one,
+				Quaternion::identity);
+			sceneObject->obbCollision->get()->center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.obbCollision->center);
+			sceneObject->obbCollision->get()->quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.obbCollision->rotation);
+			sceneObject->obbCollision->get()->size = SceneObjectSystem::SceneObjectConverter::ConvertSizeToLeftHand(obj.obbCollision->size);
 		}
-
 
 		sceneObject->isEmissive = obj.isEmissive;
 
@@ -52,54 +55,12 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 
 void SceneObjectSystem::SceneObjectManager::Update()
 {
-
 	for (const auto& obj : sceneObjects_) {
 		obj->transform.UpdateMatrix();
 		obj->model_.SetWorldMatrix(obj->transform.worldMatrix);
-	}
-#ifdef _DEBUG
-	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-
-	const Vector4 obbColor = { 0.0f, 1.0f, 0.0f, 1.0f };
-
-	for (const auto& obj : sceneObjects_) {
-		const auto& obb = obj->obbCollision;
-		if (obb) {
-			Vector3 halfSize = obb->size * 0.5f;
-
-			Vector3 localCorners[8] = {
-				{ -halfSize.x, -halfSize.y, -halfSize.z },
-				{ +halfSize.x, -halfSize.y, -halfSize.z },
-				{ -halfSize.x, +halfSize.y, -halfSize.z },
-				{ +halfSize.x, +halfSize.y, -halfSize.z },
-				{ -halfSize.x, -halfSize.y, +halfSize.z },
-				{ +halfSize.x, -halfSize.y, +halfSize.z },
-				{ -halfSize.x, +halfSize.y, +halfSize.z },
-				{ +halfSize.x, +halfSize.y, +halfSize.z }
-			};
-
-			std::array<Vector3, 8> worldCorners;
-			for (int i = 0; i < 8; ++i) {
-				Vector3 rotatedCorner = obb->rotation * localCorners[i];
-
-				worldCorners[i] = obb->center + rotatedCorner;
-			}
-
-			lineDrawer.AddLine(worldCorners[0], worldCorners[1], obbColor);
-			lineDrawer.AddLine(worldCorners[1], worldCorners[3], obbColor);
-			lineDrawer.AddLine(worldCorners[3], worldCorners[2], obbColor);
-			lineDrawer.AddLine(worldCorners[2], worldCorners[0], obbColor);
-
-			lineDrawer.AddLine(worldCorners[4], worldCorners[5], obbColor);
-			lineDrawer.AddLine(worldCorners[5], worldCorners[7], obbColor);
-			lineDrawer.AddLine(worldCorners[7], worldCorners[6], obbColor);
-			lineDrawer.AddLine(worldCorners[6], worldCorners[4], obbColor);
-
-			lineDrawer.AddLine(worldCorners[0], worldCorners[4], obbColor);
-			lineDrawer.AddLine(worldCorners[1], worldCorners[5], obbColor);
-			lineDrawer.AddLine(worldCorners[2], worldCorners[6], obbColor);
-			lineDrawer.AddLine(worldCorners[3], worldCorners[7], obbColor);
+		if (obj->isEmissive &&
+			!obj->obbCollision->get()->GetCollidedWith().empty()) {
+			obj->isEmissive = false;
 		}
 	}
-#endif // _DEBUG
 }
