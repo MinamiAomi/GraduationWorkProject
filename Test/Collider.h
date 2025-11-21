@@ -14,6 +14,8 @@ enum class CollisionCategory : uint32_t {
     LIGHT = 1 << 1, // 2 (0b0010)
     ENEMY = 1 << 2, // 4 (0b0100)
     ITEM = 1 << 3, // 8 (0b1000)
+
+    ALL = ~0u
 };
 
 inline CollisionCategory operator|(CollisionCategory a, CollisionCategory b) {
@@ -38,8 +40,10 @@ private:
     std::vector<Collider*> collidedWith;
 public:
     // コンストラクタ
-    Collider(CollisionCategory category, uint32_t mask, Vector3 pos)
-        : categoryBits(category), maskBits(mask), center(pos) {
+    Collider(CollisionCategory category, CollisionCategory mask, Vector3 pos)
+        : categoryBits(category),
+        maskBits(static_cast<uint32_t>(mask)), 
+        center(pos) {
     }
     virtual ~Collider() {}
 
@@ -63,6 +67,8 @@ public:
         collidedWith.push_back(&other);
     }
 
+    virtual void DrawDebug(const Vector4& color) const = 0;
+
     void SetParent(const Transform* transform) {
         parent = transform;
     }
@@ -78,8 +84,8 @@ public:
 struct SphereCollider : public Collider {
     float radius;
 
-    SphereCollider(CollisionCategory category, uint32_t mask, Vector3 pos, float r)
-        : Collider(category, mask, pos), radius(r) {
+    SphereCollider(CollisionCategory category, CollisionCategory mask, Vector3 pos, float r)
+        : Collider(category, mask, pos), radius(r) { 
     }
 
     float GetWorldRadius() const {
@@ -96,12 +102,14 @@ struct SphereCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+
+    void DrawDebug(const Vector4& color) const override;
 };
 
 struct BoxCollider : public Collider {
     Vector3 size;
 
-    BoxCollider(CollisionCategory category, uint32_t mask, Vector3 pos, Vector3 s)
+    BoxCollider(CollisionCategory category, CollisionCategory mask, Vector3 pos, Vector3 s)
         : Collider(category, mask, pos), size(s) {
     }
     Vector3 GetWorldSize() const {
@@ -116,11 +124,11 @@ struct BoxCollider : public Collider {
         return size;
     }
     Vector3 GetWorldMin() const {
-        return GetWorldCenter() - (size * 0.5f);
+        return GetWorldCenter() - (GetWorldSize() * 0.5f);
     }
 
     Vector3 GetWorldMax() const {
-        return GetWorldCenter() + (size * 0.5f);
+        return GetWorldCenter() + (GetWorldSize() * 0.5f);
     }
 
     bool CheckCollision(Collider& other) override;
@@ -128,6 +136,8 @@ struct BoxCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+
+    void DrawDebug(const Vector4& color) const override;
 };
 
 struct OBBCollider : public Collider {
@@ -136,7 +146,7 @@ struct OBBCollider : public Collider {
 
 
 
-    OBBCollider(CollisionCategory category, uint32_t mask, Vector3 pos, Vector3 s, Quaternion rot)
+    OBBCollider(CollisionCategory category, CollisionCategory mask, Vector3 pos, Vector3 s, Quaternion rot)
         : Collider(category, mask, pos), size(s), quaternion(rot) {
     }
 
@@ -165,6 +175,8 @@ struct OBBCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+
+    void DrawDebug(const Vector4& color) const override;
 };
 
 struct ConeCollider : public Collider {
@@ -172,7 +184,7 @@ struct ConeCollider : public Collider {
     float height;
     Quaternion quaternion; 
 
-    ConeCollider(CollisionCategory category, uint32_t mask, Vector3 pos, float r, float h, Quaternion rot)
+    ConeCollider(CollisionCategory category, CollisionCategory mask, Vector3 pos, float r, float h, Quaternion rot)
         : Collider(category, mask, pos), radius(r), height(h), quaternion(rot) {
     }
 
@@ -190,6 +202,8 @@ struct ConeCollider : public Collider {
     bool CheckCollision(BoxCollider& other) override;
     bool CheckCollision(OBBCollider& other) override;
     bool CheckCollision(ConeCollider& other) override;
+
+    void DrawDebug(const Vector4& color) const override;
 };
 
 #pragma region 当たり判定ヘルパー
@@ -375,7 +389,7 @@ inline bool BoxCollider::CheckCollision(BoxCollider& other) {
 
 inline bool BoxCollider::CheckCollision(OBBCollider& other) {
     Quaternion id = Quaternion::identity;
-    OBBCollider temp(CollisionCategory::NONE, 0, GetWorldCenter(), GetWorldSize(), id);
+    OBBCollider temp(CollisionCategory::NONE, CollisionCategory::NONE, GetWorldCenter(), GetWorldSize(), id);
     return CheckOBBvsOBB(temp, other);
 }
 inline bool BoxCollider::CheckCollision(ConeCollider& other) { return other.CheckCollision(*this); }
@@ -418,14 +432,14 @@ inline bool ConeCollider::CheckCollision(SphereCollider& other) {
 inline bool ConeCollider::CheckCollision(BoxCollider& other) {
     // Boxを包含する球の判定で近似
     float boxRadius = other.GetWorldSize().Length() * 0.5f; 
-    SphereCollider tempSphere(CollisionCategory::NONE, 0, other.GetWorldCenter(), boxRadius);
+    SphereCollider tempSphere(CollisionCategory::NONE, CollisionCategory::NONE, other.GetWorldCenter(), boxRadius);
     return CheckConeVsSphere(*this, tempSphere);
 }
 
 inline bool ConeCollider::CheckCollision(OBBCollider& other) {
     // OBBを包含する球で近似
     float obbRadius = other.GetWorldSize().Length() * 0.5f;
-    SphereCollider tempSphere(CollisionCategory::NONE, 0, other.GetWorldCenter(), obbRadius);
+    SphereCollider tempSphere(CollisionCategory::NONE, CollisionCategory::NONE, other.GetWorldCenter(), obbRadius);
     return CheckConeVsSphere(*this, tempSphere);
 }
 
@@ -434,3 +448,43 @@ inline bool ConeCollider::CheckCollision(ConeCollider& other) {
     other;
     return false;
 }
+
+#pragma region DebugDraw
+
+inline void SphereCollider::DrawDebug(const Vector4& color) const {
+    auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+
+    // World座標とWorld半径を使って描画
+    lineDrawer.DrawSphere(GetWorldCenter(), GetWorldRadius(), color);
+}
+
+inline void BoxCollider::DrawDebug(const Vector4& color) const {
+    auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+
+    // BoxColliderはAABB(回転しない)として扱うため、DrawBoxを使用
+    lineDrawer.DrawBox(GetWorldCenter(), GetWorldSize(), color);
+}
+inline void OBBCollider::DrawDebug(const Vector4& color) const {
+    auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+
+    // OBB専用描画関数を使用
+    lineDrawer.ObbDraw(
+        GetWorldCenter(),
+        GetWorldSize(),
+        GetWorldOrientation(),
+        color
+    );
+}
+
+inline void ConeCollider::DrawDebug(const Vector4& color) const {
+    auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+
+    lineDrawer.DrawCone(
+        GetWorldCenter(),
+        radius,
+        height,
+        GetWorldOrientation(),
+        color
+    );
+}
+#pragma endregion
