@@ -615,6 +615,11 @@ public:
     inline Vector3 Axis() const noexcept {
         return Vector3{ x, y, z } *(1.0f / std::sin(std::acos(w)));
     }
+    inline void GetAxes(Vector3 outAxes[3]) const noexcept {
+        outAxes[0] = *this * Vector3(1, 0, 0); // Right
+        outAxes[1] = *this * Vector3(0, 1, 0); // Up
+        outAxes[2] = *this * Vector3(0, 0, 1); // Forward
+    }
     inline constexpr Quaternion Conjugate() const noexcept {
         return Quaternion{ -x, -y, -z, w };
     }

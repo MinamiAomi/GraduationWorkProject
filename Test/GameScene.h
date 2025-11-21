@@ -18,6 +18,9 @@
 #include "SceneObjectManager.h"
 
 #include "Flashlight.h"
+#include "Collider.h"
+#include "CollisionSystem.h"
+
 class GameScene :
 	public BaseScene {
 public:
@@ -45,4 +48,9 @@ private:
 	std::unique_ptr<Flashlight> flashlight_;
 	
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
+
+	std::unique_ptr<CollisionSystem> collisionSystem_;
+
+	std::shared_ptr<SphereCollider> test1_;
+	std::shared_ptr<BoxCollider> test2_;
 };

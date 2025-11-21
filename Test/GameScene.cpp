@@ -48,6 +48,13 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->CreateObjects(result);
 #pragma endregion
+	collisionSystem_ = std::make_unique<CollisionSystem>();
+	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER,static_cast<uint32_t>(CollisionCategory::ENEMY), Vector3{0.0f,0.0f,0.0f},1.0f);
+	test2_ = std::make_shared<BoxCollider>(CollisionCategory::ENEMY,
+		static_cast<uint32_t>(CollisionCategory::PLAYER | CollisionCategory::LIGHT),
+		Vector3{ 1.0f,0.0f,0.0f }, Vector3{1.0f,1.0f,1.0f});
+	collisionSystem_->RegisterCollider(test1_);
+	collisionSystem_->RegisterCollider(test2_);
 
 }
 
@@ -93,6 +100,8 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
 
+
+
 #endif // _DEBUG
 #pragma endregion
 
@@ -106,6 +115,28 @@ void GameScene::OnUpdate() {
 
 	//ここコメントアウトすればデバックカメラ使用可能
 	RenderManager::GetInstance()->SetCamera(camera_);
+
+	collisionSystem_->CheckCollisions();
+
+	const auto& collisions = test1_->GetCollidedWith();
+
+	if (collisions.empty()) {
+		//当たってない
+	}
+	else {
+		// リストをループして、カテゴリごとに処理を分岐
+		for (Collider* other : collisions) {
+
+			switch (other->categoryBits) {
+			case CollisionCategory::ENEMY:
+				// (ここでプレイヤーのHPを減らす処理など)
+				std::cout << "当たっています" << std::endl;
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }
 
 void GameScene::OnFinalize() {
