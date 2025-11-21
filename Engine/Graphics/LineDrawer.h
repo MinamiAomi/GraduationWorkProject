@@ -21,6 +21,9 @@ public:
     void Initialize(DXGI_FORMAT rtvFormat);
     void AddLine(const Vector3& start, const Vector3& end, const Vector4& color = Vector4::one);
     void ObbDraw(const Vector3& center, const Vector3& size, const Quaternion& rotation, const Vector4& color = Vector4::one);
+    void DrawBox(const Vector3& center, const Vector3& size, const Vector4& color = Vector4::one);
+    void DrawSphere(const Vector3& center, float radius, const Vector4& color = Vector4::one);
+    void DrawCone(const Vector3& center, float radius, float height, const Quaternion& rotation, const Vector4& color = Vector4::one);
     void Render(CommandContext& commandContext, const Camera& camera);
 
 private:

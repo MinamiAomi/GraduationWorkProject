@@ -3,8 +3,11 @@
 #include <vector>
 #include <memory>
 
+
 class CollisionSystem {
 public:
+
+    static bool isCollisionDebugDraw;
 
     void RegisterCollider(std::shared_ptr<Collider> collider) {
         colliders.push_back(collider);

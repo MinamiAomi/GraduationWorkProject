@@ -99,6 +99,113 @@ void LineDrawer::ObbDraw(const Vector3& center, const Vector3& size,  const Quat
 	AddLine(worldCorners[3], worldCorners[7], color);
 }
 
+void LineDrawer::DrawBox(const Vector3& center, const Vector3& size, const Vector4& color)
+{
+	Vector3 halfSize = size * 0.5f;
+	Vector3 min = center - halfSize;
+	Vector3 max = center + halfSize;
+
+	// 8頂点
+	Vector3 p0 = { min.x, min.y, min.z };
+	Vector3 p1 = { max.x, min.y, min.z };
+	Vector3 p2 = { min.x, max.y, min.z };
+	Vector3 p3 = { max.x, max.y, min.z };
+	Vector3 p4 = { min.x, min.y, max.z };
+	Vector3 p5 = { max.x, min.y, max.z };
+	Vector3 p6 = { min.x, max.y, max.z };
+	Vector3 p7 = { max.x, max.y, max.z };
+
+	// 前面 (Z-)
+	AddLine(p0, p1, color);
+	AddLine(p1, p3, color);
+	AddLine(p3, p2, color);
+	AddLine(p2, p0, color);
+
+	// 後面 (Z+)
+	AddLine(p4, p5, color);
+	AddLine(p5, p7, color);
+	AddLine(p7, p6, color);
+	AddLine(p6, p4, color);
+
+	// 側面接続
+	AddLine(p0, p4, color);
+	AddLine(p1, p5, color);
+	AddLine(p2, p6, color);
+	AddLine(p3, p7, color);
+}
+
+void LineDrawer::DrawSphere(const Vector3& center, float radius, const Vector4& color)
+{
+	const int kSegments = 16; // 分割数
+	const float kAngleStep = (2.0f * Math::Pi) / kSegments;
+
+	for (int i = 0; i < kSegments; ++i) {
+		float theta = i * kAngleStep;
+		float nextTheta = (i + 1) * kAngleStep;
+
+		float sin0 = std::sin(theta) * radius;
+		float cos0 = std::cos(theta) * radius;
+		float sin1 = std::sin(nextTheta) * radius;
+		float cos1 = std::cos(nextTheta) * radius;
+
+		// XY平面の円 
+		AddLine(
+			center + Vector3(cos0, sin0, 0.0f),
+			center + Vector3(cos1, sin1, 0.0f),
+			color
+		);
+
+		// XZ平面の円
+		AddLine(
+			center + Vector3(cos0, 0.0f, sin0),
+			center + Vector3(cos1, 0.0f, sin1),
+			color
+		);
+
+		// YZ平面の円
+		AddLine(
+			center + Vector3(0.0f, cos0, sin0),
+			center + Vector3(0.0f, cos1, sin1),
+			color
+		);
+	}
+}
+
+void LineDrawer::DrawCone(const Vector3& center, float radius, float height, const Quaternion& rotation, const Vector4& color)
+{
+	const int kSegments = 16;
+	const float kAngleStep = (2.0f * Math::Pi) / kSegments;
+	
+	// 先端の位置 (Y軸プラス方向を高さとする)
+	// 
+	Vector3 topLocal = { 0.0f, height, 0.0f };
+	Vector3 topWorld = center + (rotation * topLocal);
+
+	// 中心軸
+	AddLine(center, topWorld, color);
+
+	for (int i = 0; i < kSegments; ++i) {
+		float theta = i * kAngleStep;
+		float nextTheta = (i + 1) * kAngleStep;
+
+		// 底面の円周上の点 (XZ平面)
+		Vector3 p0Local = { std::cos(theta) * radius, 0.0f, std::sin(theta) * radius };
+		Vector3 p1Local = { std::cos(nextTheta) * radius, 0.0f, std::sin(nextTheta) * radius };
+
+		// 回転を適用してワールド座標へ
+		Vector3 p0World = center + (rotation * p0Local);
+		Vector3 p1World = center + (rotation * p1Local);
+
+		// 底面の円を描画
+		AddLine(p0World, p1World, color);
+
+		// 底面から先端への線 (4分割に1回引くなど間引くと見やすいですが、ここでは全て引きます)
+		if (i % 4 == 0) {
+			AddLine(p0World, topWorld, color);
+		}
+	}
+}
+
 void LineDrawer::Render(CommandContext& commandContext, const Camera& camera) {
 	assert(vertices_.size() % 2 == 0);
 	if (vertices_.empty()) { return; }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MathUtils.h"
+#include "Graphics/ImGuiManager.h"
 
 class Transform {
 public:
@@ -35,6 +36,14 @@ public:
             return;
         }
     }
+
+    void Debug(std::string name) {
+        ImGui::DragFloat3((name + " Scale").c_str(), &scale.x, 0.1f);
+        ImGui::DragFloat4((name + " Quaternion").c_str(), &rotate.x, 0.1f);
+        ImGui::DragFloat3((name + " Translate").c_str(), &translate.x, 0.1f);
+        UpdateMatrix();
+    }
+
     const Transform* GetParent() const { return parent_; }
 
     Vector3 scale = Vector3::one;

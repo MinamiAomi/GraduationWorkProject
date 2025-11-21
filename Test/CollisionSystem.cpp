@@ -1,7 +1,17 @@
 #include "CollisionSystem.h"
+#include "Engine/Graphics/ImGuiManager.h"
+
+bool CollisionSystem::isCollisionDebugDraw = false;
 
 void CollisionSystem::CheckCollisions()
 {
+    ImGui::Begin("GameScene");
+    if (ImGui::TreeNode("Collision")) {
+        ImGui::Checkbox("DebugDraw", &isCollisionDebugDraw);
+        ImGui::TreePop();
+    }
+    ImGui::End();
+
     //全Colliderの衝突情報をクリア
     for (const auto& weak_ptr : colliders) {
         if (auto ptr = weak_ptr.lock()) { // 生存確認
@@ -35,6 +45,18 @@ void CollisionSystem::CheckCollisions()
         colliders.end()
     );
 
+    if (isCollisionDebugDraw) {
+        for (const auto& weak_ptr : colliders) {
+            if (auto collider = weak_ptr.lock()) {
+
+                Vector4 color = { 1.0f, 1.0f, 0.0f, 1.0f }; 
+                if (!collider->GetCollidedWith().empty()) {
+                    color = { 1.0f, 0.0f, 0.0f, 1.0f }; 
+                }
+                collider->DrawDebug(color);
+            }
+        }
+    }
 }
 
 bool CollisionSystem::AreColliding(Collider& a, Collider& b)
