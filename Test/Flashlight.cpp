@@ -28,6 +28,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	addLightPower_ = 10.0f;
 	subLightPower_ = 0.1f;
 	isLighting_ = true;
+
+	collider_ = std::make_shared<ConeCollider>(CollisionCategory::PLAYER, static_cast<uint32_t>(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM), transform_.translate, fovAngle_, lightRange_, transform_.rotate);
 }
 
 void Flashlight::Update()
@@ -79,6 +81,8 @@ void Flashlight::Update()
 	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
 
 	UpdateLightPower();
+
+	UpdateCollision();
 #ifdef _DEBUG
 	// スポットライトの当たり判定描画
 	SpotLightDebugDraw();
@@ -86,10 +90,15 @@ void Flashlight::Update()
 
 }
 
-void Flashlight::OnCollision()
+void Flashlight::UpdateCollision()
 {
-	lightPower_ += addLightPower_;
-	lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
+	if (!collider_->GetCollidedWith().empty()) {
+		for (const auto& collider : collider_->GetCollidedWith()) {
+			collider;
+			lightPower_ += addLightPower_;
+			lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
+		}
+	}
 }
 
 void Flashlight::UpdateLightPower()

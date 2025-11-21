@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <memory>
 
 #include "Externals/nlohmann/json.hpp"
 
@@ -28,10 +29,10 @@ namespace SceneObjectSystem {
 		std::optional<ObbCollision> obbCollision;
 		bool isEmissive;
 	};
-	struct SceneObject{
+	struct SceneObject {
 		ModelInstance model_;
 		Transform transform;
-		std::optional<OBBCollider> obbCollision;
+		std::optional<std::shared_ptr<OBBCollider>> obbCollision;
 		bool isEmissive;
 	};
 

@@ -34,10 +34,13 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 
 
 		if (obj.obbCollision) {
-			auto& obb = *sceneObject->obbCollision;
-
-			obb.center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obb.center);
-			obb.quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obb.quaternion);
+			sceneObject->obbCollision = std::make_shared<OBBCollider>(
+				CollisionCategory::LIGHT,
+				static_cast<uint32_t>(CollisionCategory::PLAYER),
+				SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.obbCollision->center),
+				(obj.obbCollision->size),
+				SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.obbCollision->rotation)
+			);
 		}
 
 		sceneObject->isEmissive = obj.isEmissive;
@@ -55,18 +58,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		obj->transform.UpdateMatrix();
 		obj->model_.SetWorldMatrix(obj->transform.worldMatrix);
 		if (obj->isEmissive &&
-			!obj->obbCollision->GetCollidedWith().empty()) {
+			!obj->obbCollision->get()->GetCollidedWith().empty()) {
 			obj->isEmissive = false;
 		}
 	}
-#ifdef _DEBUG
-	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-
-	const Vector4 obbColor = { 0.0f, 1.0f, 0.0f, 1.0f };
-
-	for (const auto& obj : sceneObjects_) {
-		const auto& obb = obj->obbCollision;
-		lineDrawer.ObbDraw(obb->center, obb->size, obb->quaternion, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
-	}
-#endif // _DEBUG
 }

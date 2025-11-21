@@ -25,9 +25,21 @@ void GameScene::OnInitialize() {
 
 	camera_ = std::make_shared<Camera>();
 
+#pragma region CollisionSystem
+	collisionSystem_ = std::make_unique<CollisionSystem>();
+	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER, static_cast<uint32_t>(CollisionCategory::ENEMY), Vector3{ 0.0f,0.0f,0.0f }, 1.0f);
+	test2_ = std::make_shared<BoxCollider>(CollisionCategory::ENEMY,
+		static_cast<uint32_t>(CollisionCategory::PLAYER | CollisionCategory::LIGHT),
+		Vector3{ 1.0f,0.0f,0.0f }, Vector3{ 1.0f,1.0f,1.0f });
+	collisionSystem_->RegisterCollider(test1_);
+	collisionSystem_->RegisterCollider(test2_);
+#pragma endregion
+
+
 #pragma region Flashlight
 	flashlight_ = std::make_unique<Flashlight>();
 	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -50,14 +62,13 @@ void GameScene::OnInitialize() {
 	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
+
+	//Colliderセット
+	for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
+		collisionSystem_->RegisterCollider(collider->obbCollision.value());
+	}
 #pragma endregion
-	collisionSystem_ = std::make_unique<CollisionSystem>();
-	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER,static_cast<uint32_t>(CollisionCategory::ENEMY), Vector3{0.0f,0.0f,0.0f},1.0f);
-	test2_ = std::make_shared<BoxCollider>(CollisionCategory::ENEMY,
-		static_cast<uint32_t>(CollisionCategory::PLAYER | CollisionCategory::LIGHT),
-		Vector3{ 1.0f,0.0f,0.0f }, Vector3{1.0f,1.0f,1.0f});
-	collisionSystem_->RegisterCollider(test1_);
-	collisionSystem_->RegisterCollider(test2_);
+
 
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
