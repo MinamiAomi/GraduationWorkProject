@@ -8,6 +8,10 @@
 #include <iomanip>
 #include <sstream>
 #include <Windows.h>
+
+
+#include "Graphics/ImGuiManager.h"
+
 #endif // _DEBUG
 
 RailCameraSystem::RailCameraController::RailCameraController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation> animationData)
@@ -25,14 +29,24 @@ RailCameraSystem::RailCameraController::RailCameraController(std::shared_ptr<con
 
 void RailCameraSystem::RailCameraController::Update(float deltaTime)
 {
+#ifdef DEBUG
 	//止められているor終了していたら再生しない
 	if (!isPlaying_ || IsFinished() || !animationData_ || animationData_->evalTimeKeys_.empty()) {
 		return;
 	}
+#endif // _DEBUG
 
-	//デルタタイムをフレームの進みに変換
-	float frameIncrement = deltaTime * animationData_->railCameraMetaData_.frameRate * playbackSpeed_;
-	currentFrame_ += frameIncrement;
+
+
+#ifdef _DEBUG
+	if (isPlaying_) {
+#endif // _DEBUG
+		//デルタタイムをフレームの進みに変換
+		float frameIncrement = deltaTime * animationData_->railCameraMetaData_.frameRate * playbackSpeed_;
+		currentFrame_ += frameIncrement;
+#ifdef _DEBUG
+	}
+#endif // _DEBUG
 
 	//アニメーションの終了フレームを超えないようにクランプ
 	if (currentFrame_ > totalDurationFrames_) {
@@ -45,6 +59,69 @@ void RailCameraSystem::RailCameraController::Update(float deltaTime)
 		std::wostringstream woss;
 		woss << L"Current Frame: " << std::fixed << std::setprecision(2) << currentFrame_ << L"\n";
 		OutputDebugStringW(woss.str().c_str());
+
+		ImGui::Begin("GameScene");
+
+		if (ImGui::TreeNode("RailCamera")) {
+
+			if (isPlaying_) {
+				ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
+			}
+			else {
+				ImGui::TextColored(ImVec4(1, 1, 0, 1), "Status: Paused ||");
+			}
+
+			//区切り線
+			ImGui::Separator();
+
+			float minFrame = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+			float maxFrame = static_cast<float>(animationData_->railCameraMetaData_.endFrame);
+
+			// スライダーで直感的に位置を変更・確認できるようにする
+			ImGui::Text("Timeline");
+			ImGui::SliderFloat("##FrameSlider", &currentFrame_, minFrame, maxFrame, "Frame: %.2f");
+
+			// 進捗バー
+			float progress = (currentFrame_ - minFrame) / (maxFrame - minFrame);
+			ImGui::ProgressBar(progress, ImVec2(0.0f, 0.0f));
+
+			// 余白
+			ImGui::Spacing();
+
+
+			// 再生ボタン
+			if (ImGui::Button("Play")) {
+				Play();
+			}
+			//横並びに
+			ImGui::SameLine();
+
+			// 一時停止ボタン
+			if (ImGui::Button("Pause")) {
+				Pause();
+			}
+			//横並びに
+			ImGui::SameLine();
+
+			// 停止
+			if (ImGui::Button("Stop")) {
+				Stop();
+			}
+
+			ImGui::Separator();
+
+			if (ImGui::TreeNode("MetaDeta")) {
+				ImGui::Text("Start Frame : %d", animationData_->railCameraMetaData_.startFrame);
+				ImGui::Text("End Frame   : %d", animationData_->railCameraMetaData_.endFrame);
+				ImGui::InputFloat("Manual Input", &currentFrame_);
+				currentFrame_ = std::clamp(currentFrame_, float(animationData_->railCameraMetaData_.startFrame), float(animationData_->railCameraMetaData_.endFrame));
+
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
+		ImGui::End();
 	}
 #endif // _DEBUG
 

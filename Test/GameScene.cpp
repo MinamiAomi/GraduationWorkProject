@@ -15,6 +15,9 @@
 #include "GameOverScene.h"
 #include "SceneObjectLoader.h"
 
+#ifdef _DEBUG
+#include "Graphics/ImGuiManager.h"
+#endif // _DEBUG
 
 void GameScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
@@ -44,7 +47,7 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/staticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
 #pragma endregion
@@ -55,6 +58,16 @@ void GameScene::OnInitialize() {
 		Vector3{ 1.0f,0.0f,0.0f }, Vector3{1.0f,1.0f,1.0f});
 	collisionSystem_->RegisterCollider(test1_);
 	collisionSystem_->RegisterCollider(test2_);
+
+#pragma region Trolley
+	trolley_ = std::make_unique<Trolley>();
+	trolley_->Initialize();
+#pragma endregion
+
+#ifdef _DEBUG
+	debugCamera_ = std::make_unique<DebugCamera>();
+	debugCamera_->Initialize();
+#endif // _DEBUG
 
 }
 
@@ -69,40 +82,57 @@ void GameScene::OnUpdate() {
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
-	//カメラのデバック用
+
+	trolley_->SetTransform(transform);
+
+	RenderManager::GetInstance()->SetCamera(camera_);
 #ifdef _DEBUG
-	auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
+	static bool isDebugCamera = false;
+	ImGui::Begin("GameScene");
+	//デバックカメラ
+	if (ImGui::Checkbox("DebugCamera", &isDebugCamera)) {
+		debugCamera_->SetTransform(transform);
+	}
+	if (isDebugCamera) {
+		debugCamera_->Update();
 
-	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+		//線描画
+		auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
-	Vector4 color = { 0.0f,1.0f,1.0f,1.0 };
+		auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
-	//近平面
-	lineDrawer.AddLine(vertices[0], vertices[1], color); // 左下 -> 右下
-	lineDrawer.AddLine(vertices[1], vertices[2], color); // 右下 -> 右上
-	lineDrawer.AddLine(vertices[2], vertices[3], color); // 右上 -> 左上
-	lineDrawer.AddLine(vertices[3], vertices[0], color); // 左上 -> 左下
+		Vector4 color = { 0.0f,1.0f,1.0f,1.0 };
+
+		//近平面
+		lineDrawer.AddLine(vertices[0], vertices[1], color);
+		lineDrawer.AddLine(vertices[1], vertices[2], color);
+		lineDrawer.AddLine(vertices[2], vertices[3], color);
+		lineDrawer.AddLine(vertices[3], vertices[0], color);
 
 
-	//遠平面
-	lineDrawer.AddLine(vertices[4], vertices[5], color);
-	lineDrawer.AddLine(vertices[5], vertices[6], color);
-	lineDrawer.AddLine(vertices[6], vertices[7], color);
-	lineDrawer.AddLine(vertices[7], vertices[4], color);
+		//遠平面
+		lineDrawer.AddLine(vertices[4], vertices[5], color);
+		lineDrawer.AddLine(vertices[5], vertices[6], color);
+		lineDrawer.AddLine(vertices[6], vertices[7], color);
+		lineDrawer.AddLine(vertices[7], vertices[4], color);
 
-	//近平面と遠平面をつなぐ線
-	lineDrawer.AddLine(vertices[0], vertices[4], color);
-	lineDrawer.AddLine(vertices[1], vertices[5], color);
-	lineDrawer.AddLine(vertices[2], vertices[6], color);
-	lineDrawer.AddLine(vertices[3], vertices[7], color);
+		//近平面と遠平面をつなぐ線
+		lineDrawer.AddLine(vertices[0], vertices[4], color);
+		lineDrawer.AddLine(vertices[1], vertices[5], color);
+		lineDrawer.AddLine(vertices[2], vertices[6], color);
+		lineDrawer.AddLine(vertices[3], vertices[7], color);
+
+		RenderManager::GetInstance()->SetCamera(debugCamera_->GetCamera());
+	}
+	ImGui::End();
 
 	if (input_->IsKeyTrigger(DIK_SPACE)) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
+#endif 
 
-
-
-#endif // _DEBUG
+#pragma region Trolley
+	trolley_->Update();
 #pragma endregion
 
 #pragma region Flashlight
@@ -113,30 +143,6 @@ void GameScene::OnUpdate() {
 	sceneObjectManager_->Update();
 #pragma endregion
 
-	//ここコメントアウトすればデバックカメラ使用可能
-	RenderManager::GetInstance()->SetCamera(camera_);
-
-	collisionSystem_->CheckCollisions();
-
-	const auto& collisions = test1_->GetCollidedWith();
-
-	if (collisions.empty()) {
-		//当たってない
-	}
-	else {
-		// リストをループして、カテゴリごとに処理を分岐
-		for (Collider* other : collisions) {
-
-			switch (other->categoryBits) {
-			case CollisionCategory::ENEMY:
-				// (ここでプレイヤーのHPを減らす処理など)
-				std::cout << "当たっています" << std::endl;
-				break;
-			default:
-				break;
-			}
-		}
-	}
 }
 
 void GameScene::OnFinalize() {

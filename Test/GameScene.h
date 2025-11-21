@@ -18,6 +18,14 @@
 #include "SceneObjectManager.h"
 
 #include "Flashlight.h"
+#include "Trolley.h"
+
+#ifdef _DEBUG
+#include "DebugCamera.h"
+
+#include "Graphics/Model.h"
+#endif // _DEBUG
+
 #include "Collider.h"
 #include "CollisionSystem.h"
 
@@ -48,6 +56,13 @@ private:
 	std::unique_ptr<Flashlight> flashlight_;
 	
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
+	
+	std::unique_ptr<Trolley> trolley_;
+
+#ifdef _DEBUG
+	std::unique_ptr<DebugCamera> debugCamera_;
+#endif // _DEBUG
+
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 

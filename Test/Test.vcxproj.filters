@@ -49,6 +49,9 @@
     <Filter Include="Game\Object\GameObject">
       <UniqueIdentifier>{9db67596-5bc4-4be8-b210-ee3e6ff3a8fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Trolley">
+      <UniqueIdentifier>{980fab07-0d45-4df9-8d5f-6a1d64655842}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\Collision">
       <UniqueIdentifier>{99c51040-68fe-45b7-b94e-b4f392028749}</UniqueIdentifier>
     </Filter>
@@ -96,6 +99,9 @@
     </ClCompile>
     <ClCompile Include="CollisionSystem.cpp">
       <Filter>Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Trolley.cpp">
+      <Filter>Game\Trolley</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="CollisionSystem.h">
       <Filter>Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Trolley.h">
+      <Filter>Game\Trolley</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

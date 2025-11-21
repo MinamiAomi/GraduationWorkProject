@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <optional>
 
 #include "Externals/nlohmann/json.hpp"
 
@@ -22,13 +23,13 @@ namespace SceneObjectSystem {
 		std::string name;
 		std::string modelName;
 		Transform transform;
-		ObbCollision obbCollision;
+		std::optional<ObbCollision> obbCollision;
 		bool isEmissive;
 	};
 	struct SceneObject{
 		ModelInstance model_;
 		Transform transform;
-		ObbCollision obbCollision;
+		std::optional<ObbCollision> obbCollision;
 		bool isEmissive;
 	};
 

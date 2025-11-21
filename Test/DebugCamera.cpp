@@ -6,11 +6,6 @@
 void DebugCamera::Initialize() {
     camera_ = std::make_shared<Camera>();
     RenderManager::GetInstance()->SetCamera(camera_);
-
-    transform.rotate = Quaternion::MakeForXAxis(10.0f * Math::ToRadian);
-
-    eulerAngle_ = Vector3(10.0f, 0.0f, 0.0f) * Math::ToRadian;
-
 }
 
 void DebugCamera::Update() {
@@ -27,8 +22,10 @@ void DebugCamera::Update() {
 
     if (input->IsMousePressed(1)) {
         constexpr float rotSpeed = Math::ToRadian * 0.1f;
-        eulerAngle_.x += rotSpeed * static_cast<float>(mouseMoveY);
-        eulerAngle_.y += rotSpeed * static_cast<float>(mouseMoveX);
+        Quaternion rotX = Quaternion::MakeForXAxis(rotSpeed * static_cast<float>(mouseMoveY));
+        Quaternion rotY = Quaternion::MakeForYAxis(rotSpeed * static_cast<float>(mouseMoveX));
+        // 現在の回転に差分を掛ける
+        rotate = rotate * rotX * rotY;
     }
     else if (input->IsMousePressed(2)) {
         Vector3 cameraX = rotate.GetRight() * (-static_cast<float>(mouseMoveX) * 0.01f);
@@ -42,6 +39,6 @@ void DebugCamera::Update() {
 
 
     camera_->SetPosition(position + diffPosition);
-    camera_->SetRotate(Quaternion::MakeFromEulerAngle(eulerAngle_));
+    camera_->SetRotate(rotate);
     camera_->UpdateMatrices();
 }

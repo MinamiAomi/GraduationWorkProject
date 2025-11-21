@@ -8,21 +8,23 @@
 
 class DebugCamera {
 public:
-    /// <summary>
-    /// 初期化
-    /// </summary>
-    void Initialize();
-    /// <summary>
-    /// 更新
-    /// </summary>
-    void Update();
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Initialize();
+	/// <summary>
+	/// 更新
+	/// </summary>
+	void Update();
 
-    // ゲッター
-
-    const std::shared_ptr<Camera>& GetCamera() const { return camera_; }
-
+	// ゲッター
+	const std::shared_ptr<Camera>& GetCamera() const { return camera_; }
+	//セッター
+	void SetTransform(const Transform& t)
+	{
+		camera_->SetPosition(t.translate);
+		camera_->SetRotate(t.rotate);
+	}
 private:
-    Transform transform;
-    std::shared_ptr<Camera> camera_;
-    Vector3 eulerAngle_;
+	std::shared_ptr<Camera> camera_;
 };

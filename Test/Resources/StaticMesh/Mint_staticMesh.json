@@ -1,0 +1,45 @@
+{
+  "objects": [
+    {
+      "name": "ICO球.002",
+      "model_name": "testCube",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          9.1418,
+          -0.1391,
+          2.6562
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          5.6354,
+          5.6619,
+          6.7565
+        ]
+      },
+      "is_emissive": true
+    }
+  ]
+}
