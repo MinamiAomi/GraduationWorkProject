@@ -79,6 +79,19 @@ void GameScene::OnUpdate() {
 	trolley_->SetTransform(transform);
 
 	RenderManager::GetInstance()->SetCamera(camera_);
+#pragma region Trolley
+	trolley_->Update();
+#pragma endregion
+
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
+
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
@@ -123,18 +136,6 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
 #endif 
-
-#pragma region Trolley
-	trolley_->Update();
-#pragma endregion
-
-#pragma region Flashlight
-	flashlight_->Update();
-#pragma endregion
-
-#pragma region SceneObjectSystem
-	sceneObjectManager_->Update();
-#pragma endregion
 
 }
 
