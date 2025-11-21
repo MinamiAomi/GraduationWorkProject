@@ -36,7 +36,7 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		if (obj.obbCollision) {
 			sceneObject->obbCollision = std::make_shared<OBBCollider>(
 				CollisionCategory::LIGHT,
-				static_cast<uint32_t>(CollisionCategory::PLAYER),
+				(CollisionCategory::PLAYER),
 				SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.obbCollision->center),
 				(obj.obbCollision->size),
 				SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.obbCollision->rotation)

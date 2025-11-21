@@ -14,7 +14,7 @@ public:
 	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
 	void Update();
 
-	const std::shared_ptr<ConeCollider> GetCollider() const { return collider_; }
+	std::shared_ptr<ConeCollider> GetCollider() { return collider_; }
 
 private:
 	void UpdateCollision();
