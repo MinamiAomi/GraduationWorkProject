@@ -158,10 +158,12 @@ void GameScene::OnUpdate() {
 	}
 #endif 
 
+#ifdef _DEBUG
 	ImGui::Begin("test");
 	test1Transform_->Debug("test1");
 	test2Transform_->Debug("test2");
 	ImGui::End();
+#endif
 
 	collisionSystem_->CheckCollisions();
 
