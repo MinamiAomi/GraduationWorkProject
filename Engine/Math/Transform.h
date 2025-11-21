@@ -18,16 +18,16 @@ public:
     /// 親をセット
     /// </summary>
     /// <param name="parent"></param>
-    void SetParent(const Transform* parent) {
+    void SetParent(const Transform* parent, bool keepWorldTransform = true) {
         // 元々親がいた場合一度ワールド空間に戻す
-        if (parent_) {
+        if (parent_ && keepWorldTransform) {
             scale = worldMatrix.GetScale();
             rotate = worldMatrix.GetRotate();
             translate = worldMatrix.GetTranslate();
         }
         parent_ = parent;
         // 新しい親がいる場合親空間のローカルにする
-        if (parent_) {
+        if (parent_ && keepWorldTransform) {
             Matrix4x4 localMatrix = worldMatrix * parent_->worldMatrix.Inverse();
             scale = localMatrix.GetScale();
             rotate = localMatrix.GetRotate();
