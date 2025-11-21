@@ -10,8 +10,10 @@ public:
 	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
 	void Update();
 
+	void OnCollision();
 private:
-    void SpotLightDebugDraw() const;
+	void UpdateLightPower();
+	void SpotLightDebugDraw() const;
 	void DebugMove();
 
 	const Transform* parentTransform_ = nullptr;
@@ -31,5 +33,19 @@ private:
 	float fovAngle_ = 60.0f * Math::ToRadian;
 	// ライトの射程
 	float lightRange_ = 10.0f;
+
+#pragma region ライトの電池残量関連
+	//現在の残量
+	float lightPower_;
+	//最大値
+	float maxLightPower_;
+	//加算地
+	float addLightPower_;
+	//減算地
+	float subLightPower_;
+	//照らしているか
+	bool isLighting_;
+#pragma endregion
+
 	
 };

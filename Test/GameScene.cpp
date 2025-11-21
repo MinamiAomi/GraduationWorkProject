@@ -74,18 +74,38 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 
 #pragma region RailCameraSystem
+	//現在のスピードを代入
+	railCameraController_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
+	//更新
 	railCameraController_->Update(1.0f / 60.0f);
+	//現在のフレームのtransformを取得
 	auto transform = railCameraController_->GetCurrentTransform();
+	//座標変換
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
 	transform.UpdateMatrix();
-
+	//カメラにセット
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
 
-	trolley_->SetTransform(transform);
-
 	RenderManager::GetInstance()->SetCamera(camera_);
+#pragma endregion
+
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
+
+#pragma region Trolley
+	//カメラの座標をセット
+	trolley_->SetTransform(transform);
+	trolley_->Update();
+#pragma endregion
+
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
@@ -130,18 +150,6 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
 #endif 
-
-#pragma region Trolley
-	trolley_->Update();
-#pragma endregion
-
-#pragma region Flashlight
-	flashlight_->Update();
-#pragma endregion
-
-#pragma region SceneObjectSystem
-	sceneObjectManager_->Update();
-#pragma endregion
 
 }
 

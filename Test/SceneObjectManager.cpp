@@ -64,42 +64,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : sceneObjects_) {
 		const auto& obb = obj->obbCollision;
-		if (obb) {
-			Vector3 halfSize = obb->size * 0.5f;
-
-			Vector3 localCorners[8] = {
-				{ -halfSize.x, -halfSize.y, -halfSize.z },
-				{ +halfSize.x, -halfSize.y, -halfSize.z },
-				{ -halfSize.x, +halfSize.y, -halfSize.z },
-				{ +halfSize.x, +halfSize.y, -halfSize.z },
-				{ -halfSize.x, -halfSize.y, +halfSize.z },
-				{ +halfSize.x, -halfSize.y, +halfSize.z },
-				{ -halfSize.x, +halfSize.y, +halfSize.z },
-				{ +halfSize.x, +halfSize.y, +halfSize.z }
-			};
-
-			std::array<Vector3, 8> worldCorners;
-			for (int i = 0; i < 8; ++i) {
-				Vector3 rotatedCorner = obb->rotation * localCorners[i];
-
-				worldCorners[i] = obb->center + rotatedCorner;
-			}
-
-			lineDrawer.AddLine(worldCorners[0], worldCorners[1], obbColor);
-			lineDrawer.AddLine(worldCorners[1], worldCorners[3], obbColor);
-			lineDrawer.AddLine(worldCorners[3], worldCorners[2], obbColor);
-			lineDrawer.AddLine(worldCorners[2], worldCorners[0], obbColor);
-
-			lineDrawer.AddLine(worldCorners[4], worldCorners[5], obbColor);
-			lineDrawer.AddLine(worldCorners[5], worldCorners[7], obbColor);
-			lineDrawer.AddLine(worldCorners[7], worldCorners[6], obbColor);
-			lineDrawer.AddLine(worldCorners[6], worldCorners[4], obbColor);
-
-			lineDrawer.AddLine(worldCorners[0], worldCorners[4], obbColor);
-			lineDrawer.AddLine(worldCorners[1], worldCorners[5], obbColor);
-			lineDrawer.AddLine(worldCorners[2], worldCorners[6], obbColor);
-			lineDrawer.AddLine(worldCorners[3], worldCorners[7], obbColor);
-		}
+		lineDrawer.ObbDraw(obb->center, obb->size, obb->rotation, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
 	}
 #endif // _DEBUG
 }
