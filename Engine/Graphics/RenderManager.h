@@ -46,7 +46,6 @@ public:
     void SetCamera(const std::shared_ptr<Camera>& camera) { camera_ = camera; }
     void SetSunLight(const std::shared_ptr<DirectionalLight>& light) { sunLight_ = light; }
 
-    //LightManager& GetLightManager() { return lightManager_; }
     SwapChain& GetSwapChain() { return swapChain_; }
     ColorBuffer& GetFinalImageBuffer() { return fxaa_.GetResult(); }
     Transition& GetTransition() { return transition_; }
@@ -55,6 +54,7 @@ public:
     Skybox& GetSkybox() { return skybox_; }
     LightingRenderingPass& GetLightingRenderingPass() { return lightingRenderingPass_; }
     PostEffect& GetPostEffect() { return postEffect_; }
+    LightManager& GetLightManager() { return lightManager_; }
     Sky& GetSky() { return sky_; }
 
 private:
@@ -85,7 +85,7 @@ private:
     //Bloom bloom_;
     FXAA fxaa_;
     PostEffect postEffect_;
-    //LightManager lightManager_;
+    LightManager lightManager_;
     Sky sky_;
     Timer timer_;
     std::weak_ptr<const Camera> camera_;
