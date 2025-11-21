@@ -52,7 +52,7 @@ void GameScene::OnInitialize() {
 	sceneObjectManager_->CreateObjects(result);
 #pragma endregion
 	collisionSystem_ = std::make_unique<CollisionSystem>();
-	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER,CollisionCategory::ENEMY, Vector3{0.0f,0.0f,0.0f},1.0f);
+	test1_ = std::make_shared<CapsuleCollider>(CollisionCategory::PLAYER,CollisionCategory::ENEMY, Vector3{0.0f,0.0f,0.0f},1.0f,2.0f,Quaternion::identity);
 	test2_ = std::make_shared<ConeCollider>(CollisionCategory::ENEMY,
 		CollisionCategory::PLAYER | CollisionCategory::LIGHT,
 		Vector3{ 0.0f,0.0f,0.0f },1.0f,2.0f,Quaternion::identity);
