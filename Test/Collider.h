@@ -7,6 +7,8 @@
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
 #include "Engine/Graphics/RenderManager.h"
+#include "Externals/nlohmann/json.hpp"
+#include "Engine/File/JsonConverter.h"
 
 enum class CollisionCategory : uint32_t {
     NONE = 0,
@@ -434,3 +436,4 @@ inline bool ConeCollider::CheckCollision(ConeCollider& other) {
     other;
     return false;
 }
+

@@ -33,14 +33,12 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		sceneObject->transform.UpdateMatrix();
 
 
-		sceneObject->obbCollision = obj.obbCollision;
-		if (sceneObject->obbCollision) {
+		if (obj.obbCollision) {
 			auto& obb = *sceneObject->obbCollision;
 
 			obb.center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obb.center);
-			obb.rotation = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obb.rotation);
+			obb.quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obb.quaternion);
 		}
-
 
 		sceneObject->isEmissive = obj.isEmissive;
 
@@ -56,6 +54,10 @@ void SceneObjectSystem::SceneObjectManager::Update()
 	for (const auto& obj : sceneObjects_) {
 		obj->transform.UpdateMatrix();
 		obj->model_.SetWorldMatrix(obj->transform.worldMatrix);
+		if (obj->isEmissive &&
+			!obj->obbCollision->GetCollidedWith().empty()) {
+			obj->isEmissive = false;
+		}
 	}
 #ifdef _DEBUG
 	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
@@ -64,7 +66,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : sceneObjects_) {
 		const auto& obb = obj->obbCollision;
-		lineDrawer.ObbDraw(obb->center, obb->size, obb->rotation, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+		lineDrawer.ObbDraw(obb->center, obb->size, obb->quaternion, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
 	}
 #endif // _DEBUG
 }

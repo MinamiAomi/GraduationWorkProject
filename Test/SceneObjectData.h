@@ -11,6 +11,8 @@
 #include "Math/Transform.h"
 #include "Math/MathUtils.h"
 
+#include "Collider.h"
+
 namespace SceneObjectSystem {
 
 	struct ObbCollision {
@@ -29,7 +31,7 @@ namespace SceneObjectSystem {
 	struct SceneObject{
 		ModelInstance model_;
 		Transform transform;
-		std::optional<ObbCollision> obbCollision;
+		std::optional<OBBCollider> obbCollision;
 		bool isEmissive;
 	};
 
