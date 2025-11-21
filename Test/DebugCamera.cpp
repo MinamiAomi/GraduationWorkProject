@@ -41,4 +41,11 @@ void DebugCamera::Update() {
     camera_->SetPosition(position + diffPosition);
     camera_->SetRotate(Quaternion::MakeFromEulerAngle(eulerAngle_));
     camera_->UpdateMatrices();
+
+    /*auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+    camera_->GetTransform();
+
+
+    Vector3::unitX;*/
+
 }

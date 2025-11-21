@@ -105,6 +105,8 @@ void RenderManager::Render() {
     postEffect_.Render(commandContext_, fxaa_.GetResult());
     spriteRenderer_.Render(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
 
+    transition_.Dispatch(commandContext_, finalImageBuffer_);
+
     auto& swapChainBuffer = swapChain_.GetColorBuffer(targetSwapChainBufferIndex);
 
     commandContext_.CopyBuffer(swapChainBuffer, finalImageBuffer_);
