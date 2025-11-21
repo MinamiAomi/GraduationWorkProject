@@ -22,9 +22,14 @@ public:
 	//セッター
 	void SetTransform(const Transform& t)
 	{
+		eulerAngle_ = t.rotate.EulerAngle();
 		camera_->SetPosition(t.translate);
-		camera_->SetRotate(t.rotate);
+		camera_->SetRotate(Quaternion::MakeFromEulerAngle(eulerAngle_));
+		camera_->UpdateMatrices();
 	}
+
 private:
 	std::shared_ptr<Camera> camera_;
+	Vector3 eulerAngle_;
+
 };
