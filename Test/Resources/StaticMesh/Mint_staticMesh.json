@@ -1,3 +1,86 @@
 {
-  "objects": []
+  "objects": [
+    {
+      "name": "RANTAN.001",
+      "model_name": "RANTAN",
+      "srt": {
+        "translate": [
+          0.6028,
+          -16.4049,
+          10.7005
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          0.6028,
+          -16.4049,
+          13.5113
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.065,
+          2.065,
+          9.6619
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "RANTAN.002",
+      "model_name": "RANTAN",
+      "srt": {
+        "translate": [
+          0.6028,
+          12.5951,
+          10.7005
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "obb_collision": {
+        "world_center": [
+          0.6028,
+          12.5951,
+          13.5113
+        ],
+        "world_rotation_quat": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "local_size": [
+          2.065,
+          2.065,
+          9.6619
+        ]
+      },
+      "is_emissive": true
+    }
+  ]
 }
