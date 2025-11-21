@@ -27,9 +27,11 @@ void GameScene::OnInitialize() {
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER, CollisionCategory::ENEMY, Vector3{ 0.0f,0.0f,0.0f }, 1.0f);
-	test2_ = std::make_shared<ConeCollider>(CollisionCategory::ENEMY,
+	test2_ = std::make_shared<OBBCollider>(CollisionCategory::ENEMY,
 		CollisionCategory::PLAYER | CollisionCategory::LIGHT,
-		Vector3{ 0.0f,0.0f,0.0f }, 1.0f, 2.0f, Quaternion::identity);
+		Vector3{ 0.0f,0.0,0.0f }, 
+		Vector3{ 1.0f,1.0,1.0f } , 
+		Quaternion::identity);
 
 	test1Transform_ = std::make_unique<Transform>();
 	test2Transform_ = std::make_unique<Transform>();

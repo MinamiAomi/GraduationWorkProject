@@ -67,7 +67,7 @@ private:
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 
 	std::shared_ptr<SphereCollider> test1_;
-	std::shared_ptr<ConeCollider> test2_;
+	std::shared_ptr<OBBCollider> test2_;
 
 	std::unique_ptr<Transform> test1Transform_;
 	std::unique_ptr<Transform> test2Transform_;

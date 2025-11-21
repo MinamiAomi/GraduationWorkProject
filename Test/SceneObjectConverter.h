@@ -19,22 +19,23 @@ namespace SceneObjectSystem {
 
         static Quaternion ConvertRotateToLeftHand(const Quaternion& blenderRotate) {
             
-            Quaternion qConv, gameQuaternion;
-            qConv.w = blenderRotate.w;
-            qConv.x = blenderRotate.x;
-            qConv.y = -blenderRotate.z;
-            qConv.z = -blenderRotate.y;
+            Quaternion gameQuaternion;
+            gameQuaternion.w = blenderRotate.w;
+            gameQuaternion.x = blenderRotate.x;
+            gameQuaternion.y = -blenderRotate.z;
+            gameQuaternion.z = -blenderRotate.y;
 
-            const float halfAngle = (-90.0f * Math::ToRadian) * 0.5f;
-
-            Quaternion qFix;
-            qFix.w = std::cos(halfAngle);
-            qFix.x = std::sin(halfAngle);
-            qFix.y = 0.0f;
-            qFix.z = 0.0f;
-
-            gameQuaternion= qFix * qConv;
             return gameQuaternion;
+        }
+
+        static Vector3 ConvertSizeToLeftHand(const Vector3& blenderSize) {
+
+            Vector3 gameSize;
+            gameSize.x = blenderSize.x;
+            gameSize.y = blenderSize.z;
+            gameSize.z = blenderSize.y;
+
+            return gameSize;
         }
 
     };

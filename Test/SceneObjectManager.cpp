@@ -36,11 +36,13 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		if (obj.obbCollision) {
 			sceneObject->obbCollision = std::make_shared<OBBCollider>(
 				CollisionCategory::LIGHT,
-				(CollisionCategory::PLAYER),
-				SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.obbCollision->center),
-				(obj.obbCollision->size),
-				SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.obbCollision->rotation)
-			);
+				CollisionCategory::PLAYER,
+				Vector3::zero,
+				Vector3::one,
+				Quaternion::identity);
+			sceneObject->obbCollision->get()->center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.obbCollision->center);
+			sceneObject->obbCollision->get()->quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.obbCollision->rotation);
+			sceneObject->obbCollision->get()->size = SceneObjectSystem::SceneObjectConverter::ConvertSizeToLeftHand(obj.obbCollision->size);
 		}
 
 		sceneObject->isEmissive = obj.isEmissive;
@@ -53,7 +55,6 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 
 void SceneObjectSystem::SceneObjectManager::Update()
 {
-
 	for (const auto& obj : sceneObjects_) {
 		obj->transform.UpdateMatrix();
 		obj->model_.SetWorldMatrix(obj->transform.worldMatrix);

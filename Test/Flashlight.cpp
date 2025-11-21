@@ -29,7 +29,13 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	subLightPower_ = 0.1f;
 	isLighting_ = true;
 
-	collider_ = std::make_shared<ConeCollider>(CollisionCategory::PLAYER, (CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM), transform_.translate, fovAngle_, lightRange_, transform_.rotate);
+	collider_ = std::make_shared<ConeCollider>(
+		CollisionCategory::PLAYER,
+		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM),
+		Vector3::zero,
+		fovAngle_,
+		lightRange_,
+		Quaternion::identity);
 }
 
 void Flashlight::Update()
