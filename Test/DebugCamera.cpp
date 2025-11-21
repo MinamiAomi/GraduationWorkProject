@@ -24,7 +24,6 @@ void DebugCamera::Update() {
         constexpr float rotSpeed = Math::ToRadian * 0.1f;
         Quaternion rotX = Quaternion::MakeForXAxis(rotSpeed * static_cast<float>(mouseMoveY));
         Quaternion rotY = Quaternion::MakeForYAxis(rotSpeed * static_cast<float>(mouseMoveX));
-
         // 現在の回転に差分を掛ける
         rotate = rotate * rotX * rotY;
     }
