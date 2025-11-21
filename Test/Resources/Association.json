@@ -1,11 +1,12 @@
 {
-    "Model" : {
-        "flashlight" : "Flashlight/light.gltf",
-        "trolley" : "Trolley/trolley.gltf",
+  "Model": {
+    "flashlight": "Flashlight/light.gltf",
+    "trolley": "Trolley/trolley.gltf",
 
-        "testCube" : "StaticMesh/testCube.gltf",
-        "Brege" : "StaticMesh/Bridge/bridge.gltf",
-        "Stage" : "StaticMesh/StageModel/Stage.gltf"
-    }
+    "testCube": "StaticMesh/testCube.gltf",
+    "Brege": "StaticMesh/Bridge/bridge.gltf",
+    "Stage": "StaticMesh/StageModel/Stage.gltf",
+    "RANTAN": "StaticMesh/RANTAN.gltf"
+  }
     
 }
