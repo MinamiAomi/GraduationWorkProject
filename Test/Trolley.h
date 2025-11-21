@@ -10,13 +10,13 @@ public:
 
 	void Initialize();
 	void Update();
-	void TrollySpeedUpdate();
 
 	void OnCollision();
 
 	void SetTransform(const Transform& transform);
 	float GetTrollySpeed() const { return trollySpeed_; }
 private:
+	void UpdateTrollySpeed();
 	ModelInstance model_;
 
 	Transform transform_;
@@ -31,5 +31,8 @@ private:
 	//MaxSpeed時のスピード維持時間
 	int trollyFillUpTime_;
 	int trollyMaxFillUpTime_;
+#ifdef _DEBUG
+	bool isDebugTrollySpeed_ = true;
+#endif // _DEBUG
 #pragma endregion
 };

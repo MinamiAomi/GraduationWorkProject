@@ -30,7 +30,7 @@ void Trolley::Initialize()
 void Trolley::Update()
 {
 
-	TrollySpeedUpdate();
+	UpdateTrollySpeed();
 
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
@@ -44,16 +44,19 @@ void Trolley::Update()
 		}
 
 		if (ImGui::TreeNode("TrollerSpeed")) {
+			ImGui::Checkbox("IsDebug", &isDebugTrollySpeed_);
+
+			ImGui::Separator();
 
 			ImGui::SliderFloat("CurrentTrollySpeed", &trollySpeed_, 0.0f, maxTrollySpeed_, "Speed: %.2f");
-			ImGui::SliderInt("CurrentFillUpTime", &trollyFillUpTime_, 0, trollyFillUpTime_, "Time: %d");
+			ImGui::SliderInt("CurrentFillUpTime", &trollyFillUpTime_, 0, trollyMaxFillUpTime_, "Time: %d");
 
 			ImGui::Separator();
 
 			ImGui::DragFloat("MaxTrollySpeed", &maxTrollySpeed_, 0.01f);
 			ImGui::DragFloat("Deceleration", &trollyDeceleration_, 0.001f);
 			ImGui::DragFloat("Acceleration", &trollyAcceleration_, 0.001f);
-			ImGui::DragInt("MaxFillUpTime", &trollyFillUpTime_, 1);
+			ImGui::DragInt("MaxFillUpTime", &trollyMaxFillUpTime_, 1);
 			ImGui::TreePop();
 		}
 
@@ -64,12 +67,19 @@ void Trolley::Update()
 
 }
 
-void Trolley::TrollySpeedUpdate()
+void Trolley::UpdateTrollySpeed()
 {
 	//スピードがMaxだった場合
 	if (trollyFillUpTime_ <= 0) {
-		trollySpeed_ -= trollyDeceleration_;
-		trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
+#ifdef _DEBUG
+		if (!isDebugTrollySpeed_) {
+
+#endif // _DEBUG
+			trollySpeed_ -= trollyDeceleration_;
+			trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
+#ifdef _DEBUG
+		}
+#endif // DEBUG
 	}
 	else {
 		trollyFillUpTime_--;
