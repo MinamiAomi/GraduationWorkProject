@@ -5,12 +5,14 @@ bool CollisionSystem::isCollisionDebugDraw = false;
 
 void CollisionSystem::CheckCollisions()
 {
+#ifdef _DEBUG
     ImGui::Begin("GameScene");
     if (ImGui::TreeNode("Collision")) {
         ImGui::Checkbox("DebugDraw", &isCollisionDebugDraw);
         ImGui::TreePop();
     }
     ImGui::End();
+#endif
 
     //全Colliderの衝突情報をクリア
     for (const auto& weak_ptr : colliders) {

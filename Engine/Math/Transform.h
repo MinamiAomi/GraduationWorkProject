@@ -2,6 +2,7 @@
 
 #include "MathUtils.h"
 #include "Graphics/ImGuiManager.h"
+#include <string>
 
 class Transform {
 public:
@@ -38,9 +39,12 @@ public:
     }
 
     void Debug(std::string name) {
+        name;
+#ifdef _DEBUG
         ImGui::DragFloat3((name + " Scale").c_str(), &scale.x, 0.1f);
         ImGui::DragFloat4((name + " Quaternion").c_str(), &rotate.x, 0.1f);
         ImGui::DragFloat3((name + " Translate").c_str(), &translate.x, 0.1f);
+#endif
         UpdateMatrix();
     }
 
