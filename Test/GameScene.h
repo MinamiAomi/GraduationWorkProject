@@ -26,6 +26,9 @@
 #include "Graphics/Model.h"
 #endif // _DEBUG
 
+#include "Collider.h"
+#include "CollisionSystem.h"
+
 class GameScene :
 	public BaseScene {
 public:
@@ -60,4 +63,9 @@ private:
 	std::unique_ptr<DebugCamera> debugCamera_;
 #endif // _DEBUG
 
+
+	std::unique_ptr<CollisionSystem> collisionSystem_;
+
+	std::shared_ptr<SphereCollider> test1_;
+	std::shared_ptr<BoxCollider> test2_;
 };

@@ -25,9 +25,21 @@ void GameScene::OnInitialize() {
 
 	camera_ = std::make_shared<Camera>();
 
+#pragma region CollisionSystem
+	collisionSystem_ = std::make_unique<CollisionSystem>();
+	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER, static_cast<uint32_t>(CollisionCategory::ENEMY), Vector3{ 0.0f,0.0f,0.0f }, 1.0f);
+	test2_ = std::make_shared<BoxCollider>(CollisionCategory::ENEMY,
+		static_cast<uint32_t>(CollisionCategory::PLAYER | CollisionCategory::LIGHT),
+		Vector3{ 1.0f,0.0f,0.0f }, Vector3{ 1.0f,1.0f,1.0f });
+	collisionSystem_->RegisterCollider(test1_);
+	collisionSystem_->RegisterCollider(test2_);
+#pragma endregion
+
+
 #pragma region Flashlight
 	flashlight_ = std::make_unique<Flashlight>();
 	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -50,7 +62,13 @@ void GameScene::OnInitialize() {
 	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
+
+	//Colliderセット
+	for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
+		collisionSystem_->RegisterCollider(collider->obbCollision.value());
+	}
 #pragma endregion
+
 
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
@@ -67,18 +85,38 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 
 #pragma region RailCameraSystem
+	//現在のスピードを代入
+	railCameraController_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
+	//更新
 	railCameraController_->Update(1.0f / 60.0f);
+	//現在のフレームのtransformを取得
 	auto transform = railCameraController_->GetCurrentTransform();
+	//座標変換
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
 	transform.UpdateMatrix();
-
+	//カメラにセット
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
 
-	trolley_->SetTransform(transform);
-
 	RenderManager::GetInstance()->SetCamera(camera_);
+#pragma endregion
+
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
+
+#pragma region Trolley
+	//カメラの座標をセット
+	trolley_->SetTransform(transform);
+	trolley_->Update();
+#pragma endregion
+
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
@@ -123,18 +161,6 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
 #endif 
-
-#pragma region Trolley
-	trolley_->Update();
-#pragma endregion
-
-#pragma region Flashlight
-	flashlight_->Update();
-#pragma endregion
-
-#pragma region SceneObjectSystem
-	sceneObjectManager_->Update();
-#pragma endregion
 
 }
 
