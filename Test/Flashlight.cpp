@@ -91,13 +91,16 @@ void Flashlight::Update()
 	UpdateCollision();
 #ifdef _DEBUG
 	// スポットライトの当たり判定描画
-	SpotLightDebugDraw();
+	//SpotLightDebugDraw();
 #endif // _DEBUG
 
 }
 
 void Flashlight::UpdateCollision()
 {
+	collider_->center = transform_.translate;
+	collider_->quaternion = transform_.rotate;
+
 	if (!collider_->GetCollidedWith().empty()) {
 		for (const auto& collider : collider_->GetCollidedWith()) {
 			collider;
