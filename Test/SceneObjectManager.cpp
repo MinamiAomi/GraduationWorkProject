@@ -63,6 +63,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->isEmissive &&
 			!obj->collider->get()->GetCollidedWith().empty()) {
 			obj->isEmissive = false;
+			obj->collider = std::nullopt;
 		}
 	}
 }

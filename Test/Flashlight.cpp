@@ -41,6 +41,18 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 void Flashlight::Update()
 {
 #ifdef _DEBUG
+	ImGui::Begin("LightBatter");
+
+	ImGui::Checkbox("IsDebug", &isDebug_);
+
+	ImGui::Separator();
+
+	ImGui::VSliderFloat("##v_battery", ImVec2(40, 640), &battery_, 0.0f, maxBattery_, "%.1f");
+
+	ImGui::SameLine();
+	ImGui::Text("\n%.1f", battery_);
+
+	ImGui::End();
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("FlashLight")) {
 		if (ImGui::TreeNode("Light")) {
@@ -58,9 +70,8 @@ void Flashlight::Update()
 			ImGui::TreePop();
 		}
 		if (ImGui::TreeNode("LightPower")) {
-			ImGui::SliderFloat("CurrentBattery", &battery_, 0.0f, maxBattery_, "Power: %.2f");
 
-			ImGui::Separator();
+			//ImGui::Separator();
 
 			ImGui::DragFloat("Max", &maxBattery_, 1.0f);
 			ImGui::DragFloat("Add", &addBattery_, 10.0f);
@@ -112,6 +123,7 @@ void Flashlight::UpdateCollision()
 			if (collider->categoryBits == CollisionCategory::LIGHT) {
 				battery_ += addBattery_;
 				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+				isLighting_ = true;
 			}
 		}
 	}
@@ -120,8 +132,18 @@ void Flashlight::UpdateCollision()
 void Flashlight::UpdateLightPower()
 {
 	if (isLighting_) {
-		battery_ -= subBattery_;
-		battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+#ifdef _DEBUG
+		if (!isDebug_) {
+#endif // _DEBUG
+			battery_ -= subBattery_;
+			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+			//バッテリーがなくなった場合
+			if (battery_ <= 0.0f) {
+				isLighting_ = false;
+			}
+#ifdef _DEBUG
+		}
+#endif // _DEBUG
 	}
 }
 

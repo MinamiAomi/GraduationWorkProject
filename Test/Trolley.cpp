@@ -27,8 +27,8 @@ void Trolley::Initialize()
 	maxTrollySpeed_ = 1.0f;
 	trollySpeed_ = 1.0f;
 	trollyDeceleration_ = 0.001f;
-	trollyAcceleration_ = 0.001f;
-	trollyMaxFillUpTime_ = 30;
+	trollyAcceleration_ = 0.005f;
+	trollyMaxFillUpTime_ = 60;
 	trollyFillUpTime_ = trollyMaxFillUpTime_;
 
 
@@ -48,6 +48,28 @@ void Trolley::Update()
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
 #ifdef _DEBUG
+	ImGui::Begin("TrolleySpeed");
+	ImGui::Checkbox("IsDebug", &isDebugTrollySpeed_);
+
+	ImGui::Separator();
+
+	bool isFillingUp = (trollyFillUpTime_ > 0);
+
+	if (isFillingUp) {
+		ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(0.2f, 0.8f, 0.2f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.5f, 0.2f, 0.5f));
+
+		ImGui::TextColored(ImVec4(0.2f, 1.0f, 0.2f, 1.0f), "Status: FILLING UP! (%.1fs)", float(trollyFillUpTime_) / 60.0f);
+	}
+
+	ImGui::SliderFloat("Speed", &trollySpeed_, 0.0f, maxTrollySpeed_, "%.2f km/h");
+
+	if (isFillingUp) {
+		ImGui::PopStyleColor(2);
+	}
+
+	ImGui::End();
+
 	ImGui::Begin("GameScene");
 	if (ImGui::TreeNode("Troller")) {
 		if (ImGui::TreeNode("Troller")) {
@@ -61,10 +83,6 @@ void Trolley::Update()
 		}
 
 		if (ImGui::TreeNode("TrollerSpeed")) {
-			ImGui::Checkbox("IsDebug", &isDebugTrollySpeed_);
-
-			ImGui::Separator();
-
 			ImGui::SliderFloat("CurrentTrollySpeed", &trollySpeed_, 0.0f, maxTrollySpeed_, "Speed: %.2f");
 			ImGui::SliderInt("CurrentFillUpTime", &trollyFillUpTime_, 0, trollyMaxFillUpTime_, "Time: %d");
 
@@ -90,7 +108,6 @@ void Trolley::UpdateTrollySpeed()
 	if (trollyFillUpTime_ <= 0) {
 #ifdef _DEBUG
 		if (!isDebugTrollySpeed_) {
-
 #endif // _DEBUG
 			trollySpeed_ -= trollyDeceleration_;
 			trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
@@ -107,12 +124,19 @@ bool Trolley::UpdateCollision()
 {
 	bool result = false;
 	if (!chargerCollider_->GetCollidedWith().empty()) {
-		trollySpeed_ += trollyAcceleration_;
-		trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
-		result = true;
-		//スピードがMaxかどうか
-		if (trollySpeed_ >= maxTrollySpeed_) {
-			trollyFillUpTime_ = trollyMaxFillUpTime_;
+		for (const auto& collider : chargerCollider_->GetCollidedWith()) {
+			if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
+				//フラッシュライトが点灯しているか
+				if (flashlight_->GetIsLighting()) {
+					trollySpeed_ += trollyAcceleration_;
+					trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
+					result = true;
+					//スピードがMaxかどうか
+					if (trollySpeed_ >= maxTrollySpeed_) {
+						trollyFillUpTime_ = trollyMaxFillUpTime_;
+					}
+				}
+			}
 		}
 	}
 	return result;

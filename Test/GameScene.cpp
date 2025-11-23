@@ -88,16 +88,16 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider->collider.value());
 	}
 #pragma endregion
-	
+
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
 	trolley_->Initialize();
-		collisionSystem_->RegisterCollider(trolley_->GetCollider());
-
+	collisionSystem_->RegisterCollider(trolley_->GetCollider());
+	trolley_->SetFlashlight(flashlight_.get());
 #pragma endregion
 
 #ifdef _DEBUG
-	debugCamera_ = std::make_unique<DebugCamera>();
+		debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
 #endif // _DEBUG
 
