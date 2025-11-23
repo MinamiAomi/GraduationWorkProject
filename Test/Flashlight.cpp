@@ -33,8 +33,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 		CollisionCategory::PLAYER,
 		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM),
 		Vector3::zero,
-		fovAngle_,
-		lightRange_,
+		0.0f, 0.0f,
+
 		Quaternion::identity);
 }
 
@@ -98,8 +98,17 @@ void Flashlight::Update()
 
 void Flashlight::UpdateCollision()
 {
-	collider_->center = transform_.translate;
-	collider_->quaternion = transform_.rotate;
+
+	Quaternion colliderRotation = lightTransform_.worldMatrix.GetRotate() * Quaternion::MakeForXAxis(-90.0f * Math::ToRadian);
+
+	Vector3 heightOffset = colliderRotation * Vector3(0.0f, -lightRange_, 0.0f);
+
+	collider_->quaternion = colliderRotation;
+	collider_->height = lightRange_;
+	collider_->center = lightTransform_.worldMatrix.GetTranslate() + heightOffset;
+
+	collider_->radius = std::tan(fovAngle_ * 0.5f) * lightRange_;
+
 
 	if (!collider_->GetCollidedWith().empty()) {
 		for (const auto& collider : collider_->GetCollidedWith()) {
