@@ -26,11 +26,21 @@ void GameScene::OnInitialize() {
 	camera_ = std::make_shared<Camera>();
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
-	test1_ = std::make_shared<SphereCollider>(CollisionCategory::PLAYER, CollisionCategory::ENEMY, Vector3{ 0.0f,0.0f,0.0f }, 1.0f);
-	test2_ = std::make_shared<OBBCollider>(CollisionCategory::ENEMY,
+	test1_ = std::make_shared<CapsuleCollider>(
+		CollisionCategory::PLAYER, 
+		CollisionCategory::ENEMY, 
+		Vector3{ 0.0f,0.0f,0.0f },
+		10.0f,
+		10.0f,
+		Quaternion::identity
+	);
+	
+	test2_ = std::make_shared<ConeCollider>(
+		CollisionCategory::ENEMY,
 		CollisionCategory::PLAYER | CollisionCategory::LIGHT,
 		Vector3{ 0.0f,0.0,0.0f }, 
-		Vector3{ 1.0f,1.0,1.0f } , 
+		10.0f,
+		10.0f,
 		Quaternion::identity);
 
 	test1Transform_ = std::make_unique<Transform>();
@@ -75,7 +85,20 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider->obbCollision.value());
 	}
 #pragma endregion
-	
+	collisionSystem_ = std::make_unique<CollisionSystem>();
+	test1_ = std::make_shared<CapsuleCollider>(CollisionCategory::PLAYER,CollisionCategory::ENEMY, Vector3{0.0f,0.0f,0.0f},1.0f,2.0f,Quaternion::identity);
+	test2_ = std::make_shared<ConeCollider>(CollisionCategory::ENEMY,
+		CollisionCategory::PLAYER | CollisionCategory::LIGHT,
+		Vector3{ 0.0f,0.0f,0.0f },1.0f,2.0f,Quaternion::identity);
+
+	test1Transform_ = std::make_unique<Transform>();
+	test2Transform_ = std::make_unique<Transform>();
+
+	test1_->SetParent(test1Transform_.get());
+	test2_->SetParent(test2Transform_.get());
+
+	collisionSystem_->RegisterCollider(test1_);
+	collisionSystem_->RegisterCollider(test2_);
 
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
