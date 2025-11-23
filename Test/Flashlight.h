@@ -36,9 +36,9 @@ private:
 	// カメラの球面を移動するための角度y
 	float sphericalAngleY_ = 0.0f;
 	// ライトの視野角度
-	float fovAngle_ = 60.0f * Math::ToRadian;
+	float fovAngle_ = 15.0f * Math::ToRadian;
 	// ライトの射程
-	float lightRange_ = 10.0f;
+	float lightRange_ =40.0f;
 
 #pragma region ライトの電池残量関連
 	//現在の残量
