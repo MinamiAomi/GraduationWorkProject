@@ -52,8 +52,8 @@ void GameScene::OnInitialize() {
 
 	test2_->SetParent(test2Transform_.get());
 
-	collisionSystem_->RegisterCollider(test1_);
-	collisionSystem_->RegisterCollider(test2_);
+	//collisionSystem_->RegisterCollider(test1_);
+	//collisionSystem_->RegisterCollider(test2_);
 #pragma endregion
 
 #pragma region Flashlight
@@ -88,10 +88,11 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider->collider.value());
 	}
 #pragma endregion
-
+	
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
 	trolley_->Initialize();
+
 #pragma endregion
 
 #ifdef _DEBUG
