@@ -33,16 +33,18 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		sceneObject->transform.UpdateMatrix();
 
 
-		if (obj.obbCollision) {
-			sceneObject->obbCollision = std::make_shared<OBBCollider>(
+		if (obj.capsuleCollisionData) {
+			sceneObject->collider = std::make_shared<CapsuleCollider>(
 				CollisionCategory::LIGHT,
 				CollisionCategory::PLAYER,
 				Vector3::zero,
-				Vector3::one,
+				0.0f,
+				0.0f,
 				Quaternion::identity);
-			sceneObject->obbCollision->get()->center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.obbCollision->center);
-			sceneObject->obbCollision->get()->quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.obbCollision->rotation);
-			sceneObject->obbCollision->get()->size = SceneObjectSystem::SceneObjectConverter::ConvertSizeToLeftHand(obj.obbCollision->size);
+			sceneObject->collider->get()->center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.capsuleCollisionData->center);
+			sceneObject->collider->get()->quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.capsuleCollisionData->quaternion);
+			sceneObject->collider->get()->radius = obj.capsuleCollisionData->radius;
+			sceneObject->collider->get()->height = obj.capsuleCollisionData->height;
 		}
 
 		sceneObject->isEmissive = obj.isEmissive;
@@ -59,7 +61,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		obj->transform.UpdateMatrix();
 		obj->model_.SetWorldMatrix(obj->transform.worldMatrix);
 		if (obj->isEmissive &&
-			!obj->obbCollision->get()->GetCollidedWith().empty()) {
+			!obj->collider->get()->GetCollidedWith().empty()) {
 			obj->isEmissive = false;
 		}
 	}

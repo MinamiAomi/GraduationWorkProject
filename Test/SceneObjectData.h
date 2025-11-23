@@ -16,26 +16,27 @@
 
 namespace SceneObjectSystem {
 
-	struct ObbCollision {
+	struct CapsuleCollisionData {
 		Vector3 center;
-		Quaternion rotation;
-		Vector3 size;
+		float radius;
+		float height;
+		Quaternion quaternion;
 	};
 
 	struct SceneObjectData {
 		std::string name;
 		std::string modelName;
 		Transform transform;
-		std::optional<ObbCollision> obbCollision;
+		std::optional<CapsuleCollisionData> capsuleCollisionData;
 		bool isEmissive;
 	};
 	struct SceneObject {
 		ModelInstance model_;
 		Transform transform;
-		std::optional<std::shared_ptr<OBBCollider>> obbCollision;
+		std::optional<std::shared_ptr<CapsuleCollider>> collider;
 		bool isEmissive;
 	};
 
-	void from_json(const nlohmann::json& j, ObbCollision& o);
+	void from_json(const nlohmann::json& j, CapsuleCollisionData& o);
 	void from_json(const nlohmann::json& j, SceneObjectData& s);
 }
