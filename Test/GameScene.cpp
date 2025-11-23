@@ -49,8 +49,8 @@ void GameScene::OnInitialize() {
 	test1_->SetParent(test1Transform_.get());
 	test2_->SetParent(test2Transform_.get());
 
-	//collisionSystem_->RegisterCollider(test1_);
-	//collisionSystem_->RegisterCollider(test2_);
+	collisionSystem_->RegisterCollider(test1_);
+	collisionSystem_->RegisterCollider(test2_);
 #pragma endregion
 
 #pragma region Flashlight
