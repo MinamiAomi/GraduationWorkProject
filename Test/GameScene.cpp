@@ -92,6 +92,7 @@ void GameScene::OnInitialize() {
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
 	trolley_->Initialize();
+		collisionSystem_->RegisterCollider(trolley_->GetCollider());
 
 #pragma endregion
 

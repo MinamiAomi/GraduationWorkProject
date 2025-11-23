@@ -23,15 +23,15 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
 	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
 
-	maxLightPower_ = 100.0f;
-	lightPower_ = maxLightPower_;
-	addLightPower_ = 10.0f;
-	subLightPower_ = 0.1f;
+	maxBattery_ = 100.0f;
+	battery_ = maxBattery_;
+	addBattery_ = 10.0f;
+	subBattery_ = 0.1f;
 	isLighting_ = true;
 
 	collider_ = std::make_shared<ConeCollider>(
-		CollisionCategory::PLAYER,
-		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM),
+		CollisionCategory::FLASHLIGHT,
+		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM | CollisionCategory::PLAYER),
 		Vector3::zero,
 		0.0f, 0.0f,
 
@@ -58,17 +58,13 @@ void Flashlight::Update()
 			ImGui::TreePop();
 		}
 		if (ImGui::TreeNode("LightPower")) {
-			ImGui::SliderFloat("CurrentLightPower", &lightPower_, 0.0f, maxLightPower_, "Power: %.2f");
+			ImGui::SliderFloat("CurrentBattery", &battery_, 0.0f, maxBattery_, "Power: %.2f");
 
 			ImGui::Separator();
 
-			ImGui::DragFloat("Max", &maxLightPower_, 1.0f);
-			ImGui::DragFloat("Add", &addLightPower_, 10.0f);
-			ImGui::DragFloat("Sub", &subLightPower_, 0.1f);
-			if (ImGui::Button("Add")) {
-				lightPower_ += addLightPower_;
-				lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
-			}
+			ImGui::DragFloat("Max", &maxBattery_, 1.0f);
+			ImGui::DragFloat("Add", &addBattery_, 10.0f);
+			ImGui::DragFloat("Sub", &subBattery_, 0.1f);
 			ImGui::TreePop();
 		}
 
@@ -113,8 +109,10 @@ void Flashlight::UpdateCollision()
 	if (!collider_->GetCollidedWith().empty()) {
 		for (const auto& collider : collider_->GetCollidedWith()) {
 			collider;
-			lightPower_ += addLightPower_;
-			lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
+			if (collider->categoryBits == CollisionCategory::LIGHT) {
+				battery_ += addBattery_;
+				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+			}
 		}
 	}
 }
@@ -122,8 +120,8 @@ void Flashlight::UpdateCollision()
 void Flashlight::UpdateLightPower()
 {
 	if (isLighting_) {
-		lightPower_ -= subLightPower_;
-		lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
+		battery_ -= subBattery_;
+		battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 	}
 }
 

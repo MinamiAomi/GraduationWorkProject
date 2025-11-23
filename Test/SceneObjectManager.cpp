@@ -36,7 +36,7 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		if (obj.capsuleCollisionData) {
 			sceneObject->collider = std::make_shared<CapsuleCollider>(
 				CollisionCategory::LIGHT,
-				CollisionCategory::PLAYER,
+				CollisionCategory::FLASHLIGHT,
 				Vector3::zero,
 				0.0f,
 				0.0f,

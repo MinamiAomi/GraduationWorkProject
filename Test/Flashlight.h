@@ -42,13 +42,13 @@ private:
 
 #pragma region ライトの電池残量関連
 	//現在の残量
-	float lightPower_;
+	float battery_;
 	//最大値
-	float maxLightPower_;
+	float maxBattery_;
 	//加算地
-	float addLightPower_;
+	float addBattery_;
 	//減算地
-	float subLightPower_;
+	float subBattery_;
 	//照らしているか
 	bool isLighting_;
 #pragma endregion

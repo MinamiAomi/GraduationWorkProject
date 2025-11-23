@@ -10,12 +10,17 @@
 Trolley::Trolley()
 {
 	model_.SetModel(AssetManager::GetInstance()->modelMap.Get("trolley")->Get());
+	chargerCollider_ = std::make_shared<SphereCollider>(
+		CollisionCategory::PLAYER,
+		(CollisionCategory::FLASHLIGHT),
+		Vector3::zero,
+		0.0f
+	);
 }
-
 void Trolley::Initialize()
 {
-	offset_ = { 0.0f,-1.3f,0.0f };
-	transform_.translate += offset_;
+	trolleyOffset_ = { 0.0f,-1.3f,0.0f };
+	transform_.translate = trolleyOffset_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
@@ -25,12 +30,19 @@ void Trolley::Initialize()
 	trollyAcceleration_ = 0.001f;
 	trollyMaxFillUpTime_ = 30;
 	trollyFillUpTime_ = trollyMaxFillUpTime_;
+
+
+	chargerOffset_ = { 20.0f,-5.0f,0.0f };
+	chargerRadius_ = 1.5f;
 }
 
 void Trolley::Update()
 {
 
-	UpdateTrollySpeed();
+	bool isHit = UpdateCollision();
+	if (!isHit) {
+		UpdateTrollySpeed();
+	}
 
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
@@ -39,7 +51,12 @@ void Trolley::Update()
 	ImGui::Begin("GameScene");
 	if (ImGui::TreeNode("Troller")) {
 		if (ImGui::TreeNode("Troller")) {
-			ImGui::DragFloat3("Offset", &offset_.x, 0.01f);
+			ImGui::DragFloat3("Offset", &trolleyOffset_.x, 0.01f);
+			ImGui::TreePop();
+		}
+		if (ImGui::TreeNode("Charger")) {
+			ImGui::DragFloat3("Offset", &chargerOffset_.x, 0.01f);
+			ImGui::DragFloat("Radius", &chargerRadius_, 0.01f);
 			ImGui::TreePop();
 		}
 
@@ -86,18 +103,27 @@ void Trolley::UpdateTrollySpeed()
 	}
 }
 
-void Trolley::OnCollision()
+bool Trolley::UpdateCollision()
 {
-	trollySpeed_ += trollyAcceleration_;
-	trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
-	//スピードがMaxかどうか
-	if (trollySpeed_ >= maxTrollySpeed_) {
-		trollyFillUpTime_ = trollyMaxFillUpTime_;
+	bool result = false;
+	if (!chargerCollider_->GetCollidedWith().empty()) {
+		trollySpeed_ += trollyAcceleration_;
+		trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
+		result = true;
+		//スピードがMaxかどうか
+		if (trollySpeed_ >= maxTrollySpeed_) {
+			trollyFillUpTime_ = trollyMaxFillUpTime_;
+		}
 	}
+	return result;
 }
 
 void Trolley::SetTransform(const Transform& transform)
 {
 	transform_ = transform;
-	transform_.translate += offset_;
+
+	chargerCollider_->center = transform_.translate + chargerOffset_;
+	chargerCollider_->radius = chargerRadius_;
+
+	transform_.translate += trolleyOffset_;
 }

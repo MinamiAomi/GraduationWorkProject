@@ -12,10 +12,11 @@
 
 enum class CollisionCategory : uint32_t {
     NONE = 0,
-    PLAYER = 1 << 0, // 1 (0b0001)
-    LIGHT = 1 << 1, // 2 (0b0010)
-    ENEMY = 1 << 2, // 4 (0b0100)
-    ITEM = 1 << 3, // 8 (0b1000)
+    PLAYER = 1 << 0,
+    FLASHLIGHT = 1 << 1, 
+    LIGHT = 1 << 2,
+    ENEMY = 1 << 3, 
+    ITEM = 1 << 4, 
 
     ALL = ~0u
 };
