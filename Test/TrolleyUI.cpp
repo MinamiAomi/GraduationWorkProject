@@ -54,20 +54,17 @@ void TrolleyUI::Update()
 
 #ifdef _DEBUG
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-	if (ImGui::TreeNode("Troller")) {
-		if (ImGui::TreeNode("TrollerUI")) {
-			ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.01f);
-			ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.01f);
+	if (ImGui::TreeNode("TrollerUI")) {
+		ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.01f);
+		ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.01f);
 
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
-				JSON_OBJECT("TrollerUI");
-				JSON_SAVE(speedMeterOffset_);
-				JSON_SAVE(speedMeterNeedleOffset_);
-				JSON_ROOT();
-				JSON_CLOSE();
-			}
-			ImGui::TreePop();
+		if (ImGui::Button("Save")) {
+			JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
+			JSON_OBJECT("TrollerUI");
+			JSON_SAVE(speedMeterOffset_);
+			JSON_SAVE(speedMeterNeedleOffset_);
+			JSON_ROOT();
+			JSON_CLOSE();
 		}
 		ImGui::TreePop();
 	}
