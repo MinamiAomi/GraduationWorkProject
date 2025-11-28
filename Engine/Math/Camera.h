@@ -2,6 +2,7 @@
 
 #include "MathUtils.h"
 #include "Transform.h"
+#include "Geometry.h"
 
 class Camera {
 public:
@@ -33,6 +34,7 @@ public:
 	const Matrix4x4& GetViewMatrix() const { return viewMatrix_; }
 	const Matrix4x4& GetProjectionMatrix() const { return projectionMatrix_; }
 	const Matrix4x4& GetViewProjectionMatrix() const { return viewProjectionMatrix_; }
+	const Math::Frustum& GetFrustum() const { return frastum_; }
 
 	Vector3 GetForward() const { return transform_.rotate * Vector3::forward; }
 	Vector3 GetRight() const { return transform_.rotate * Vector3::right; }
@@ -58,6 +60,7 @@ private:
 	Matrix4x4 viewMatrix_;
 	Matrix4x4 projectionMatrix_;
 	Matrix4x4 viewProjectionMatrix_;
+	Math::Frustum frastum_;
 
 	bool needUpdateing_;
 };

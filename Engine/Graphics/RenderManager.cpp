@@ -75,6 +75,7 @@ void RenderManager::Render() {
     if (camera && sunLight) {
         // 影、スペキュラ
         modelSorter_.Sort(*camera);
+        lightManager_.UpdateActiveLights(*camera);
 
         geometryRenderingPass_.Render(commandContext_, *camera, modelSorter_);
 
