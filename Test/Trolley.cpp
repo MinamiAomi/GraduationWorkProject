@@ -43,6 +43,8 @@ void Trolley::Initialize()
 
 	trollyFillUpTime_ = trollyMaxFillUpTime_;
 	trollySpeed_ = maxTrollySpeed_;
+
+	trolleyUI_.Initialize(transform_);
 }
 
 void Trolley::Update()
@@ -55,6 +57,8 @@ void Trolley::Update()
 
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
+
+	trolleyUI_.Update();
 
 #ifdef _DEBUG
 	ImGui::Begin("TrolleySpeed");

@@ -17,6 +17,7 @@
   <ItemGroup>
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="DebugCamera.cpp" />
+    <ClCompile Include="FlashlightUI.cpp" />
     <ClCompile Include="GameClearScene.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
@@ -31,10 +32,12 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Trolley.cpp" />
+    <ClCompile Include="TrolleyUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionSystem.h" />
+    <ClInclude Include="FlashlightUI.h" />
     <ClInclude Include="GameClearScene.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="PersistentData.h" />
@@ -55,6 +58,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Trolley.h" />
+    <ClInclude Include="TrolleyUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

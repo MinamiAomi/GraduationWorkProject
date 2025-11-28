@@ -190,9 +190,9 @@ void Flashlight::UpdateLightPower()
 			battery_ -= subBattery_;
 			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 			//バッテリーがなくなった場合
-			if (battery_ <= 0.0f) {
-				isLighting_ = false;
-			}
+			//if (battery_ <= 0.0f) {
+			//	isLighting_ = false;
+			//}
 #ifdef _DEBUG
 		}
 #endif // _DEBUG
