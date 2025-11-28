@@ -9,6 +9,7 @@ namespace SceneObjectSystem {
 	public:
 		void Initialize();
 		void CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData);
+		void ResetObjects();
 		void Update();
 
 		//ゲームで使う方	

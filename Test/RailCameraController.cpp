@@ -48,12 +48,6 @@ void RailCameraSystem::RailCameraController::Update(float deltaTime)
 	}
 #endif // _DEBUG
 
-	//アニメーションの終了フレームを超えないようにクランプ
-	if (currentFrame_ > totalDurationFrames_) {
-		currentFrame_ = totalDurationFrames_;
-		//いったんループ
-		Loop();
-	}
 #ifdef _DEBUG
 	{
 		std::wostringstream woss;

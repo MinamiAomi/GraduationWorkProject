@@ -52,8 +52,8 @@ void GameScene::OnInitialize() {
 
 	test2_->SetParent(test2Transform_.get());
 
-	//collisionSystem_->RegisterCollider(test1_);
-	//collisionSystem_->RegisterCollider(test2_);
+	collisionSystem_->RegisterCollider(test1_);
+	collisionSystem_->RegisterCollider(test2_);
 #pragma endregion
 
 #pragma region Flashlight
@@ -106,6 +106,18 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 
 #pragma region RailCameraSystem
+	//一周終わったかどうか
+	if (railCameraController_->IsFinished()) {
+		//SceneObjectsリセット
+		sceneObjectManager_->ResetObjects();
+
+		//Colliderセット
+		for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider.value());
+		}
+		
+		railCameraController_->Loop();
+	}
 	//現在のスピードを代入
 	railCameraController_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
@@ -122,22 +134,17 @@ void GameScene::OnUpdate() {
 
 	RenderManager::GetInstance()->SetCamera(camera_);
 #pragma endregion
-
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
-
 #pragma region Trolley
 	//カメラの座標をセット
 	trolley_->SetTransform(transform);
 	trolley_->Update();
 #pragma endregion
-
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion
-
-
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
