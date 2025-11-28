@@ -1,7 +1,7 @@
 {
   "Model": {
     "flashlight": "Flashlight/light.gltf",
-    "trolley": "Trolley/trolley.gltf",
+    "trolley": "Trolley/Trolley/Trolley.gltf",
     "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
     "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
 
