@@ -2,10 +2,10 @@
     "Battery": {
         "batteryOffset_": [
             30.0,
-            -6.0,
+            -7.519999980926514,
             0.0
         ],
-        "batteryRadius_": 3.0
+        "batteryRadius_": 3.799999952316284
     },
     "TrollerSpeed": {
         "maxTrollySpeed_": 1.0,
