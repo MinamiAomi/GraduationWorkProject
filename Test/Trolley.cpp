@@ -2,6 +2,8 @@
 
 #include "Framework/AssetManager.h"
 
+#include "Engine/File/JsonConverter.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -10,7 +12,7 @@
 Trolley::Trolley()
 {
 	model_.SetModel(AssetManager::GetInstance()->modelMap.Get("trolley")->Get());
-	chargerCollider_ = std::make_shared<SphereCollider>(
+	batteryCollider_ = std::make_shared<SphereCollider>(
 		CollisionCategory::PLAYER,
 		(CollisionCategory::FLASHLIGHT),
 		Vector3::zero,
@@ -19,21 +21,31 @@ Trolley::Trolley()
 }
 void Trolley::Initialize()
 {
-	trolleyOffset_ = { 0.0f,-1.3f,0.0f };
+	JSON_OPEN("Resources/Data/Trolley/trolley.json");
+	JSON_OBJECT("TrollerSpeed");
+	JSON_LOAD(maxTrollySpeed_);
+	JSON_LOAD(trollyDeceleration_);
+	JSON_LOAD(trollyAcceleration_);
+	JSON_LOAD(trollyMaxFillUpTime_);
+	JSON_ROOT();
+	JSON_OBJECT("Trolley");
+	JSON_LOAD(trolleyOffset_);
+	JSON_ROOT();
+	JSON_OBJECT("Battery");
+	JSON_LOAD(batteryOffset_);
+	JSON_LOAD(batteryRadius_);
+	JSON_ROOT();
+	JSON_CLOSE();
+
 	transform_.translate = trolleyOffset_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
-	maxTrollySpeed_ = 1.0f;
-	trollySpeed_ = 1.0f;
-	trollyDeceleration_ = 0.001f;
-	trollyAcceleration_ = 0.005f;
-	trollyMaxFillUpTime_ = 60;
 	trollyFillUpTime_ = trollyMaxFillUpTime_;
+	trollySpeed_ = maxTrollySpeed_;
 
-
-	chargerOffset_ = { 20.0f,-5.0f,0.0f };
-	chargerRadius_ = 1.5f;
+	trolleyUI_.Initialize(transform_);
+	trolleyUI_.SetTrolley(this);
 }
 
 void Trolley::Update()
@@ -46,6 +58,8 @@ void Trolley::Update()
 
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
+
+	trolleyUI_.Update();
 
 #ifdef _DEBUG
 	ImGui::Begin("TrolleySpeed");
@@ -74,11 +88,28 @@ void Trolley::Update()
 	if (ImGui::TreeNode("Troller")) {
 		if (ImGui::TreeNode("Troller")) {
 			ImGui::DragFloat3("Offset", &trolleyOffset_.x, 0.01f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Trolley/trolley.json");
+				JSON_OBJECT("Trolley");
+				JSON_SAVE(trolleyOffset_);
+				JSON_ROOT();
+				JSON_CLOSE();
+			}
+
 			ImGui::TreePop();
 		}
-		if (ImGui::TreeNode("Charger")) {
-			ImGui::DragFloat3("Offset", &chargerOffset_.x, 0.01f);
-			ImGui::DragFloat("Radius", &chargerRadius_, 0.01f);
+		if (ImGui::TreeNode("Battery")) {
+			ImGui::DragFloat3("Offset", &batteryOffset_.x, 0.01f);
+			ImGui::DragFloat("Radius", &batteryRadius_, 0.01f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Trolley/trolley.json");
+				JSON_OBJECT("Battery");
+				JSON_SAVE(batteryOffset_);
+				JSON_SAVE(batteryRadius_);
+				JSON_ROOT();
+				JSON_CLOSE();
+			}
+
 			ImGui::TreePop();
 		}
 
@@ -92,6 +123,16 @@ void Trolley::Update()
 			ImGui::DragFloat("Deceleration", &trollyDeceleration_, 0.001f);
 			ImGui::DragFloat("Acceleration", &trollyAcceleration_, 0.001f);
 			ImGui::DragInt("MaxFillUpTime", &trollyMaxFillUpTime_, 1);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Trolley/trolley.json");
+				JSON_OBJECT("TrollerSpeed");
+				JSON_SAVE(maxTrollySpeed_);
+				JSON_SAVE(trollyDeceleration_);
+				JSON_SAVE(trollyAcceleration_);
+				JSON_SAVE(trollyMaxFillUpTime_);
+				JSON_ROOT();
+				JSON_CLOSE();
+			}
 			ImGui::TreePop();
 		}
 
@@ -123,8 +164,8 @@ void Trolley::UpdateTrollySpeed()
 bool Trolley::UpdateCollision()
 {
 	bool result = false;
-	if (!chargerCollider_->GetCollidedWith().empty()) {
-		for (const auto& collider : chargerCollider_->GetCollidedWith()) {
+	if (!batteryCollider_->GetCollidedWith().empty()) {
+		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
 			if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
 				//フラッシュライトが点灯しているか
 				if (flashlight_->GetIsLighting()) {
@@ -146,8 +187,8 @@ void Trolley::SetTransform(const Transform& transform)
 {
 	transform_ = transform;
 
-	chargerCollider_->center = transform_.translate + chargerOffset_;
-	chargerCollider_->radius = chargerRadius_;
+	batteryCollider_->center = transform_.translate + batteryOffset_;
+	batteryCollider_->radius = batteryRadius_;
 
 	transform_.translate += trolleyOffset_;
 }

@@ -9,6 +9,7 @@
 #include "Collider.h"
 
 #include "Flashlight.h"
+#include "TrolleyUI.h"
 
 class Trolley {
 public:
@@ -19,9 +20,13 @@ public:
 
 	bool UpdateCollision();
 
-	std::shared_ptr<SphereCollider> GetCollider() { return chargerCollider_; }
+	std::shared_ptr<SphereCollider> GetCollider() { return batteryCollider_; }
 	void SetTransform(const Transform& transform);
+	//速度
 	float GetTrollySpeed() const { return trollySpeed_; }
+	//速度の割合(MAX = 1.0f)
+	float GetTrollySpeedRatio() const { return trollySpeed_ / maxTrollySpeed_; }
+
 	void SetFlashlight(const Flashlight* flashlight) { flashlight_ = flashlight; }
 private:
 	void UpdateTrollySpeed();
@@ -33,6 +38,8 @@ private:
 
 	const Flashlight* flashlight_;
 
+	TrolleyUI trolleyUI_;
+
 #pragma region トロッコスピード関連
 	float maxTrollySpeed_;
 	float trollySpeed_;
@@ -42,9 +49,9 @@ private:
 	int trollyFillUpTime_;
 	int trollyMaxFillUpTime_;
 
-	std::shared_ptr<SphereCollider> chargerCollider_;
-	Vector3 chargerOffset_;
-	float chargerRadius_;
+	std::shared_ptr<SphereCollider> batteryCollider_;
+	Vector3 batteryOffset_;
+	float batteryRadius_;
 #ifdef _DEBUG
 	bool isDebugTrollySpeed_ = true;
 #endif // _DEBUG

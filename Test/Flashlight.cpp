@@ -3,8 +3,10 @@
 #include "Engine/Graphics/RenderManager.h"
 #include "Engine/Graphics/GameWindow.h"
 #include "Engine/Input/Input.h"
+#include "Engine/File/JsonConverter.h"
 
 #include "Engine/Framework/AssetManager.h"
+
 
 void Flashlight::Initialize(const Transform* parentTransform, const Camera* parentCamera)
 {
@@ -23,11 +25,24 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
 	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
 
-	maxBattery_ = 100.0f;
+	JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
+	JSON_OBJECT("light");
+	JSON_LOAD(distanceFromCamera_);
+	JSON_LOAD(fovAngle_);
+	JSON_LOAD(lightRange_);
+	JSON_ROOT();
+	JSON_OBJECT("battery");
+	JSON_LOAD(maxBattery_);
+	JSON_LOAD(addBattery_);
+	JSON_LOAD(subBattery_);
+	JSON_LOAD(isLighting_);
+	JSON_ROOT();
+	JSON_CLOSE();
+
+	sphericalAngleX_ = 0.0f;
+	sphericalAngleY_ = 0.0f;
+
 	battery_ = maxBattery_;
-	addBattery_ = 10.0f;
-	subBattery_ = 0.1f;
-	isLighting_ = true;
 
 	collider_ = std::make_shared<ConeCollider>(
 		CollisionCategory::FLASHLIGHT,
@@ -67,15 +82,33 @@ void Flashlight::Update()
 			ImGui::DragFloat("FovAngle", &fovAngleDegree, 1.0f, 1.0f, 90.0f);
 			fovAngle_ = fovAngleDegree * Math::ToRadian;
 			ImGui::SliderFloat("LightRange", &lightRange_, 1.0f, 100.0f);
+
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
+				JSON_OBJECT("light");
+				JSON_SAVE(distanceFromCamera_);
+				JSON_SAVE(fovAngle_);
+				JSON_SAVE(lightRange_);
+				JSON_ROOT();
+				JSON_CLOSE();
+			}
 			ImGui::TreePop();
 		}
-		if (ImGui::TreeNode("LightPower")) {
-
-			//ImGui::Separator();
+		if (ImGui::TreeNode("Battery")) {
 
 			ImGui::DragFloat("Max", &maxBattery_, 1.0f);
 			ImGui::DragFloat("Add", &addBattery_, 10.0f);
 			ImGui::DragFloat("Sub", &subBattery_, 0.1f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
+				JSON_OBJECT("battery");
+				JSON_SAVE(maxBattery_);
+				JSON_SAVE(addBattery_);
+				JSON_SAVE(subBattery_);
+				JSON_SAVE(isLighting_);
+				JSON_ROOT();
+				JSON_CLOSE();
+			}
 			ImGui::TreePop();
 		}
 
@@ -119,11 +152,30 @@ void Flashlight::UpdateCollision()
 
 	if (!collider_->GetCollidedWith().empty()) {
 		for (const auto& collider : collider_->GetCollidedWith()) {
-			collider;
-			if (collider->categoryBits == CollisionCategory::LIGHT) {
+
+			switch (collider->categoryBits)
+			{
+			case CollisionCategory::NONE:
+				break;
+			case CollisionCategory::PLAYER:
+				break;
+			case CollisionCategory::FLASHLIGHT:
+				break;
+			case CollisionCategory::LIGHT:
+			{
 				battery_ += addBattery_;
 				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 				isLighting_ = true;
+			}
+			break;
+			case CollisionCategory::ENEMY:
+				break;
+			case CollisionCategory::ITEM:
+				break;
+			case CollisionCategory::ALL:
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -138,9 +190,9 @@ void Flashlight::UpdateLightPower()
 			battery_ -= subBattery_;
 			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 			//バッテリーがなくなった場合
-			if (battery_ <= 0.0f) {
-				isLighting_ = false;
-			}
+			//if (battery_ <= 0.0f) {
+			//	isLighting_ = false;
+			//}
 #ifdef _DEBUG
 		}
 #endif // _DEBUG
