@@ -103,6 +103,12 @@
     <ClCompile Include="Trolley.cpp">
       <Filter>Game\Trolley</Filter>
     </ClCompile>
+    <ClCompile Include="FlashlightUI.cpp">
+      <Filter>Game\Flashlight</Filter>
+    </ClCompile>
+    <ClCompile Include="TrolleyUI.cpp">
+      <Filter>Game\Trolley</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -167,6 +173,12 @@
       <Filter>Game\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Trolley.h">
+      <Filter>Game\Trolley</Filter>
+    </ClInclude>
+    <ClInclude Include="FlashlightUI.h">
+      <Filter>Game\Flashlight</Filter>
+    </ClInclude>
+    <ClInclude Include="TrolleyUI.h">
       <Filter>Game\Trolley</Filter>
     </ClInclude>
   </ItemGroup>

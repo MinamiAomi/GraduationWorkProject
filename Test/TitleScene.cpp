@@ -3,6 +3,7 @@
 #include "PersistentData.h"
 #include "StageSelectScene.h"
 #include "Graphics/RenderManager.h"
+#include "Engine/Framework/AssetManager.h"
 
 void TitleScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
@@ -10,14 +11,19 @@ void TitleScene::OnInitialize() {
 		
 	}
 	input_ = Input::GetInstance();
+	camera_ = std::make_shared<Camera>();
+	camera_->UpdateMatrices();
 
-	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
+	RenderManager::GetInstance()->SetCamera(camera_);
 
-	sprite_.SetTexture(texture);
-	sprite_.SetTexcoordRect({ 0.0f, 0.0f }, { 1280.0f, 720.0f });
-	sprite_.SetPosition({ 1280.0f / 2.0f, 720.0f / 2.0f });
-	sprite_.SetScale({ 1280.0f, 720.0f });
-
+	stoneModels_[0] = std::make_unique<ModelInstance>();
+	stoneTransforms_[0] = std::make_unique<Transform>();
+	
+	auto assetManager = AssetManager::GetInstance();
+	stoneModels_[0]->SetModel(assetManager->modelMap.Get("O")->Get());
+	stoneTransforms_[0]->translate = Vector3{0.0f,0.0f,0.0f};
+	stoneTransforms_[0]->UpdateMatrix();
+	stoneModels_[0]->SetWorldMatrix(stoneTransforms_[0]->worldMatrix);
 }
 
 void TitleScene::OnUpdate() {

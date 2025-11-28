@@ -59,16 +59,11 @@ private:
 	
 	std::unique_ptr<Trolley> trolley_;
 
+	std::unique_ptr<CollisionSystem> collisionSystem_;
+
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;
 #endif // _DEBUG
 
 
-	std::unique_ptr<CollisionSystem> collisionSystem_;
-
-	std::shared_ptr<CapsuleCollider> test1_;
-	std::shared_ptr<ConeCollider> test2_;
-
-	std::unique_ptr<Transform> test1Transform_;
-	std::unique_ptr<Transform> test2Transform_;
 };
