@@ -64,7 +64,7 @@ namespace JsonHelper {
 #define STRINGIFY_HELPER(x) #x
 #endif
 #ifndef STRINGIFY
-#define STRINGIFY(x) STRINGIFY_HELPER(x)
+//#define STRINGIFY(x) STRINGIFY_HELPER(x)
 #endif
 
 /// ファイルを開く

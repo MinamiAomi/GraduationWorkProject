@@ -45,6 +45,7 @@ void Trolley::Initialize()
 	trollySpeed_ = maxTrollySpeed_;
 
 	trolleyUI_.Initialize(transform_);
+	trolleyUI_.SetTrolley(this);
 }
 
 void Trolley::Update()

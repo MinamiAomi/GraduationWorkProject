@@ -15,11 +15,11 @@ private:
 	const Trolley* trolley_;
 
 	ModelInstance speedMeterModel_;
-	ModelInstance needleModel_;
+	ModelInstance speedMeterNeedleModel_;
 
 	Transform speedMeterTransform_;
-	Transform needleTransform_;
+	Transform speedMeterNeedleTransform_;
 
 	Vector3 speedMeterOffset_;
-	Vector3 needleOffset_;
+	Vector3 speedMeterNeedleOffset_;
 };
