@@ -2,8 +2,6 @@
   "Model": {
     "flashlight": "Flashlight/light.gltf",
     "trolley": "Trolley/Trolley/Trolley.gltf",
-    "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
-    "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
 
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
