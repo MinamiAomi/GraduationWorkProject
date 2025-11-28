@@ -38,9 +38,11 @@ void TrolleyUI::Initialize(const Transform& transform)
 
 void TrolleyUI::Update()
 {
-
-	speedMeterNeedleTransform_.rotate = Quaternion::Slerp(trolley_->GetTrollySpeedRatio(),Quaternion::MakeForZAxis(270.0f), Quaternion::MakeForZAxis(-90.0f)) ;
-
+	speedMeterNeedleTransform_.rotate = Quaternion::Slerp(
+		trolley_->GetTrollySpeedRatio(),
+		Quaternion::MakeForZAxis(90.0f * Math::ToRadian),
+		Quaternion::MakeForZAxis(-90.0f * Math::ToRadian)
+	);
 	speedMeterTransform_.translate = speedMeterOffset_;
 	speedMeterNeedleTransform_.translate = speedMeterNeedleOffset_;
 
