@@ -1,7 +1,7 @@
 {
   "Model": {
     "flashlight": "Flashlight/light.gltf",
-    "trolley": "Trolley/trolley.gltf",
+    "trolley": "Trolley/Trolley/Trolley.gltf",
 
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
