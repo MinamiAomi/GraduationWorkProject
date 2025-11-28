@@ -15,6 +15,8 @@ void SceneObjectSystem::SceneObjectManager::Initialize()
 
 void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData)
 {
+	sceneObjects_.clear();
+	sceneObjectData_.clear();
 
 	const auto& assetManager = AssetManager::GetInstance();
 
