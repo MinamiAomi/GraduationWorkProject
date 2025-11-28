@@ -13,7 +13,7 @@
 void TrolleyUI::Initialize(const Transform& transform)
 {
 	JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
-	JSON_OBJECT("TrollerSpeed");
+	JSON_OBJECT("TrollerUI");
 	JSON_LOAD(speedMeterOffset_);
 	JSON_LOAD(speedMeterNeedleOffset_);
 	JSON_ROOT();
@@ -56,8 +56,8 @@ void TrolleyUI::Update()
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("Troller")) {
 		if (ImGui::TreeNode("TrollerUI")) {
-			ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.1f);
-			ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.1f);
+			ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.01f);
+			ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.01f);
 
 			if (ImGui::Button("Save")) {
 				JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
