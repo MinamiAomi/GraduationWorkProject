@@ -26,27 +26,30 @@ void GameScene::OnInitialize() {
 	camera_ = std::make_shared<Camera>();
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
+
 	test1_ = std::make_shared<CapsuleCollider>(
-		CollisionCategory::PLAYER, 
-		CollisionCategory::ENEMY, 
+		CollisionCategory::PLAYER,
+		CollisionCategory::ENEMY,
 		Vector3{ 0.0f,0.0f,0.0f },
-		10.0f,
-		10.0f,
+		0.0f,
+		0.0f,
 		Quaternion::identity
 	);
-	
+
 	test2_ = std::make_shared<ConeCollider>(
 		CollisionCategory::ENEMY,
 		CollisionCategory::PLAYER | CollisionCategory::LIGHT,
-		Vector3{ 0.0f,0.0,0.0f }, 
-		10.0f,
-		10.0f,
+		Vector3{ 0.0f,0.0,0.0f },
+		0.0f,
+		0.0f,
 		Quaternion::identity);
 
 	test1Transform_ = std::make_unique<Transform>();
 	test2Transform_ = std::make_unique<Transform>();
 
 	test1_->SetParent(test1Transform_.get());
+
+
 	test2_->SetParent(test2Transform_.get());
 
 	collisionSystem_->RegisterCollider(test1_);
@@ -82,18 +85,19 @@ void GameScene::OnInitialize() {
 
 	//Colliderセット
 	for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-		collisionSystem_->RegisterCollider(collider->obbCollision.value());
+		collisionSystem_->RegisterCollider(collider->collider.value());
 	}
 #pragma endregion
-	
+
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
 	trolley_->Initialize();
-
+	collisionSystem_->RegisterCollider(trolley_->GetCollider());
+	trolley_->SetFlashlight(flashlight_.get());
 #pragma endregion
 
 #ifdef _DEBUG
-	debugCamera_ = std::make_unique<DebugCamera>();
+		debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
 #endif // _DEBUG
 
@@ -182,6 +186,9 @@ void GameScene::OnUpdate() {
 #ifdef _DEBUG
 	ImGui::Begin("test");
 	test1Transform_->Debug("test1");
+	ImGui::DragFloat("height", &test1_->height, 0.1f);
+	ImGui::DragFloat("radius", &test1_->radius, 0.1f);
+	;
 	test2Transform_->Debug("test2");
 	ImGui::End();
 #endif

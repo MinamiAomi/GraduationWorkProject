@@ -23,24 +23,36 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
 	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
 
-	maxLightPower_ = 100.0f;
-	lightPower_ = maxLightPower_;
-	addLightPower_ = 10.0f;
-	subLightPower_ = 0.1f;
+	maxBattery_ = 100.0f;
+	battery_ = maxBattery_;
+	addBattery_ = 10.0f;
+	subBattery_ = 0.1f;
 	isLighting_ = true;
 
 	collider_ = std::make_shared<ConeCollider>(
-		CollisionCategory::PLAYER,
-		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM),
+		CollisionCategory::FLASHLIGHT,
+		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM | CollisionCategory::PLAYER),
 		Vector3::zero,
-		fovAngle_,
-		lightRange_,
+		0.0f, 0.0f,
+
 		Quaternion::identity);
 }
 
 void Flashlight::Update()
 {
 #ifdef _DEBUG
+	ImGui::Begin("LightBatter");
+
+	ImGui::Checkbox("IsDebug", &isDebug_);
+
+	ImGui::Separator();
+
+	ImGui::VSliderFloat("##v_battery", ImVec2(40, 640), &battery_, 0.0f, maxBattery_, "%.1f");
+
+	ImGui::SameLine();
+	ImGui::Text("\n%.1f", battery_);
+
+	ImGui::End();
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("FlashLight")) {
 		if (ImGui::TreeNode("Light")) {
@@ -58,17 +70,12 @@ void Flashlight::Update()
 			ImGui::TreePop();
 		}
 		if (ImGui::TreeNode("LightPower")) {
-			ImGui::SliderFloat("CurrentLightPower", &lightPower_, 0.0f, maxLightPower_, "Power: %.2f");
 
-			ImGui::Separator();
+			//ImGui::Separator();
 
-			ImGui::DragFloat("Max", &maxLightPower_, 1.0f);
-			ImGui::DragFloat("Add", &addLightPower_, 10.0f);
-			ImGui::DragFloat("Sub", &subLightPower_, 0.1f);
-			if (ImGui::Button("Add")) {
-				lightPower_ += addLightPower_;
-				lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
-			}
+			ImGui::DragFloat("Max", &maxBattery_, 1.0f);
+			ImGui::DragFloat("Add", &addBattery_, 10.0f);
+			ImGui::DragFloat("Sub", &subBattery_, 0.1f);
 			ImGui::TreePop();
 		}
 
@@ -98,14 +105,26 @@ void Flashlight::Update()
 
 void Flashlight::UpdateCollision()
 {
-	collider_->center = transform_.translate;
-	collider_->quaternion = transform_.rotate;
+
+	Quaternion colliderRotation = lightTransform_.worldMatrix.GetRotate() * Quaternion::MakeForXAxis(-90.0f * Math::ToRadian);
+
+	Vector3 heightOffset = colliderRotation * Vector3(0.0f, -lightRange_, 0.0f);
+
+	collider_->quaternion = colliderRotation;
+	collider_->height = lightRange_;
+	collider_->center = lightTransform_.worldMatrix.GetTranslate() + heightOffset;
+
+	collider_->radius = std::tan(fovAngle_ * 0.5f) * lightRange_;
+
 
 	if (!collider_->GetCollidedWith().empty()) {
 		for (const auto& collider : collider_->GetCollidedWith()) {
 			collider;
-			lightPower_ += addLightPower_;
-			lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
+			if (collider->categoryBits == CollisionCategory::LIGHT) {
+				battery_ += addBattery_;
+				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+				isLighting_ = true;
+			}
 		}
 	}
 }
@@ -113,8 +132,18 @@ void Flashlight::UpdateCollision()
 void Flashlight::UpdateLightPower()
 {
 	if (isLighting_) {
-		lightPower_ -= subLightPower_;
-		lightPower_ = std::clamp(lightPower_, 0.0f, maxLightPower_);
+#ifdef _DEBUG
+		if (!isDebug_) {
+#endif // _DEBUG
+			battery_ -= subBattery_;
+			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+			//バッテリーがなくなった場合
+			if (battery_ <= 0.0f) {
+				isLighting_ = false;
+			}
+#ifdef _DEBUG
+		}
+#endif // _DEBUG
 	}
 }
 

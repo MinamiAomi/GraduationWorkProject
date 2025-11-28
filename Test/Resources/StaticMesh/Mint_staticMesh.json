@@ -21,22 +21,19 @@
           1.0
         ]
       },
-      "obb_collision": {
-        "world_center": [
+      "capsule_collision": {
+        "center": [
           0.6028,
           -16.4049,
           13.5113
         ],
-        "world_rotation_quat": [
+        "radius": 1.0325,
+        "height": 9.6619,
+        "quaternion": [
           0.0,
           0.0,
           0.0,
           1.0
-        ],
-        "local_size": [
-          2.065,
-          2.065,
-          9.6619
         ]
       },
       "is_emissive": true
@@ -62,22 +59,19 @@
           1.0
         ]
       },
-      "obb_collision": {
-        "world_center": [
+      "capsule_collision": {
+        "center": [
           0.6028,
           12.5951,
           13.5113
         ],
-        "world_rotation_quat": [
+        "radius": 1.0325,
+        "height": 9.6619,
+        "quaternion": [
           0.0,
           0.0,
           0.0,
           1.0
-        ],
-        "local_size": [
-          2.065,
-          2.065,
-          9.6619
         ]
       },
       "is_emissive": true

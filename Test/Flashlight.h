@@ -16,6 +16,7 @@ public:
 
 	std::shared_ptr<ConeCollider> GetCollider() { return collider_; }
 
+	bool GetIsLighting() const { return isLighting_; }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
@@ -36,22 +37,25 @@ private:
 	// カメラの球面を移動するための角度y
 	float sphericalAngleY_ = 0.0f;
 	// ライトの視野角度
-	float fovAngle_ = 60.0f * Math::ToRadian;
+	float fovAngle_ = 15.0f * Math::ToRadian;
 	// ライトの射程
-	float lightRange_ = 10.0f;
+	float lightRange_ = 40.0f;
 
 #pragma region ライトの電池残量関連
 	//現在の残量
-	float lightPower_;
+	float battery_;
 	//最大値
-	float maxLightPower_;
+	float maxBattery_;
 	//加算地
-	float addLightPower_;
+	float addBattery_;
 	//減算地
-	float subLightPower_;
+	float subBattery_;
 	//照らしているか
 	bool isLighting_;
 #pragma endregion
 
 	std::shared_ptr<ConeCollider> collider_;
+#ifdef _DEBUG
+	bool isDebug_ = true;
+#endif // _DEBUG
 };
