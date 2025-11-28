@@ -26,34 +26,6 @@ void GameScene::OnInitialize() {
 	camera_ = std::make_shared<Camera>();
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
-
-	test1_ = std::make_shared<CapsuleCollider>(
-		CollisionCategory::PLAYER,
-		CollisionCategory::ENEMY,
-		Vector3{ 0.0f,0.0f,0.0f },
-		0.0f,
-		0.0f,
-		Quaternion::identity
-	);
-
-	test2_ = std::make_shared<ConeCollider>(
-		CollisionCategory::ENEMY,
-		CollisionCategory::PLAYER | CollisionCategory::LIGHT,
-		Vector3{ 0.0f,0.0,0.0f },
-		0.0f,
-		0.0f,
-		Quaternion::identity);
-
-	test1Transform_ = std::make_unique<Transform>();
-	test2Transform_ = std::make_unique<Transform>();
-
-	test1_->SetParent(test1Transform_.get());
-
-
-	test2_->SetParent(test2Transform_.get());
-
-	collisionSystem_->RegisterCollider(test1_);
-	collisionSystem_->RegisterCollider(test2_);
 #pragma endregion
 
 #pragma region Flashlight
@@ -145,6 +117,9 @@ void GameScene::OnUpdate() {
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion
+#pragma region CollisionSystem
+	collisionSystem_->CheckCollisions();
+#pragma endregion
 #ifdef _DEBUG
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
@@ -189,39 +164,6 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
 #endif 
-
-#ifdef _DEBUG
-	ImGui::Begin("test");
-	test1Transform_->Debug("test1");
-	ImGui::DragFloat("height", &test1_->height, 0.1f);
-	ImGui::DragFloat("radius", &test1_->radius, 0.1f);
-	;
-	test2Transform_->Debug("test2");
-	ImGui::End();
-#endif
-
-	collisionSystem_->CheckCollisions();
-
-	const auto& collisions = test1_->GetCollidedWith();
-
-	if (collisions.empty()) {
-		//当たってない
-	}
-	else {
-		// リストをループして、カテゴリごとに処理を分岐
-		for (Collider* other : collisions) {
-
-			switch (other->categoryBits) {
-			case CollisionCategory::ENEMY:
-				// (ここでプレイヤーのHPを減らす処理など)
-				std::cout << "当たっています" << std::endl;
-				break;
-			default:
-				break;
-			}
-		}
-	}
-
 }
 
 void GameScene::OnFinalize() {

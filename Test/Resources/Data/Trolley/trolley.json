@@ -1,0 +1,23 @@
+{
+    "Battery": {
+        "batteryOffset_": [
+            30.0,
+            -6.0,
+            0.0
+        ],
+        "batteryRadius_": 3.0
+    },
+    "TrollerSpeed": {
+        "maxTrollySpeed_": 1.0,
+        "trollyAcceleration_": 0.0010000000474974513,
+        "trollyDeceleration_": 0.0010000000474974513,
+        "trollyMaxFillUpTime_": 60
+    },
+    "Trolley": {
+        "trolleyOffset_": [
+            0.0,
+            -1.2999999523162842,
+            0.0
+        ]
+    }
+}
