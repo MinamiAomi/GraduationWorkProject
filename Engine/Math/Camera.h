@@ -25,6 +25,8 @@ public:
 	void SetPerspective(float fovY, float aspectRaito, float nearClip, float farClip);
 	void SetOrthographic(float width, float height, float nearClip, float farClip);
 
+	void SetFov(float radius) { projection_.perspective.fovY = radius; }
+
 	// ゲッター
 	const Transform& GetTransform() const { return transform_; }
 	float GetNearClip() const { return nearClip_; }
