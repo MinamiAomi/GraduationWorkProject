@@ -37,14 +37,21 @@ void GameScene::OnInitialize() {
 #pragma region RailCameraSystem
 	auto animationData = RailCameraSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
-		railCameraController_ = std::make_unique<RailCameraSystem::RailCameraController>
+		railCameraAnimationPlayer_ = std::make_unique<RailCameraSystem::RailCameraAnimationPlayer>
 			(
 				std::make_shared<const RailCameraSystem::RailCameraAnimation>(*animationData)
 			);
 		//カメラ再生
-		railCameraController_->Play();
+		railCameraAnimationPlayer_->Play();
 	}
 #pragma endregion
+
+#pragma region RailCameraDollySystem
+	railCameraDollySystem_ = std::make_unique<RailCameraSystem::RailCameraDollySystem>();
+	railCameraDollySystem_->SetRailCameraAnimationPlayer(railCameraAnimationPlayer_.get());
+	railCameraDollySystem_->Initialize();
+#pragma endregion
+
 
 #pragma region SceneObjectSystem
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
@@ -76,10 +83,11 @@ void GameScene::OnInitialize() {
 }
 
 void GameScene::OnUpdate() {
+	float deltaTime = 1.0f / 60.0f;
 
 #pragma region RailCameraSystem
 	//一周終わったかどうか
-	if (railCameraController_->IsFinished()) {
+	if (railCameraAnimationPlayer_->IsFinished()) {
 		//SceneObjectsリセット
 		sceneObjectManager_->ResetObjects();
 
@@ -87,15 +95,14 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider.value());
 		}
-		
-		railCameraController_->Loop();
+		railCameraAnimationPlayer_->Loop();
 	}
 	//現在のスピードを代入
-	railCameraController_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
+	railCameraAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
-	railCameraController_->Update(1.0f / 60.0f);
+	railCameraAnimationPlayer_->Update(deltaTime);
 	//現在のフレームのtransformを取得
-	auto transform = railCameraController_->GetCurrentTransform();
+	auto transform = railCameraAnimationPlayer_->GetCurrentTransform();
 	//座標変換
 	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
 	transform.UpdateMatrix();
@@ -103,9 +110,15 @@ void GameScene::OnUpdate() {
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
-	camera_->SetFov(railCameraController_->GetFov());
-	RenderManager::GetInstance()->SetCamera(camera_);
 #pragma endregion
+
+#pragma region RailCameraDollySystem
+	railCameraDollySystem_->Update(deltaTime);
+	camera_->SetFov(railCameraDollySystem_->GetFov());
+#pragma endregion
+	RenderManager::GetInstance()->SetCamera(camera_);
+
+
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
