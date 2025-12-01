@@ -16,8 +16,10 @@ namespace RailCameraSystem {
 		void SetRailCameraAnimationPlayer(const RailCameraSystem::RailCameraAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
 
 		float GetFov()const { return currentFov_; }
+		Quaternion GetRotation() const { return currentRotation_; }
 	private:
 		void UpdateFov(float deltaTime);
+		void UpdateLookAhead(float deltaTime);
 
 		const RailCameraSystem::RailCameraAnimationPlayer* railCameraAnimationPlayer_;
 #pragma region FOV
@@ -30,6 +32,10 @@ namespace RailCameraSystem {
 		float referenceMaxSpeed_ = 30.0f;
 		float currentRealSpeed_ = 0.0f;
 #pragma endregion
+#pragma region Look Ahead
+		Quaternion currentRotation_;
+#pragma endregion
+
 
 	};
 }

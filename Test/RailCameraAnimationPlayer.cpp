@@ -335,6 +335,126 @@ float RailCameraSystem::RailCameraAnimationPlayer::GetCurrentFrame() const
 	return result;
 }
 
+Vector3 RailCameraSystem::RailCameraAnimationPlayer::EvaluatePosition(float frame) const
+{
+	if (!animationData_) {
+		return { 0.0f, 0.0f, 0.0f };
+	}
+
+	float evalTime = 0.0f;
+
+	if (!animationData_->evalTimeKeys_.empty()) {
+		const auto& keys = animationData_->evalTimeKeys_;
+
+		if (frame <= keys.front().frame) {
+			evalTime = keys.front().value;
+		}
+		else if (frame >= keys.back().frame) {
+			evalTime = keys.back().value;
+		}
+		else {
+			auto indices = FindKeyframeIndices(keys, frame);
+			const auto& key1 = keys[indices.first];
+			const auto& key2 = keys[indices.second];
+
+			if (indices.first == indices.second) {
+				evalTime = key1.value;
+			}
+			else {
+				float frameDiff = key2.frame - key1.frame;
+				float t = (std::abs(frameDiff) < 0.0001f) ? 0.0f : (frame - key1.frame) / frameDiff;
+				t = std::max(0.0f, std::min(1.0f, t));
+
+				evalTime = InterpolateScalar(key1, key2, t);
+			}
+		}
+	}
+
+	Vector3 resultPosition = { 0.0f, 0.0f, 0.0f };
+
+	const auto& posKeys = animationData_->positionKeys_;
+	if (!posKeys.empty()) {
+		if (evalTime <= posKeys.front().frame) {
+			resultPosition = posKeys.front().value;
+		}
+		else if (evalTime >= posKeys.back().frame) {
+			resultPosition = posKeys.back().value;
+		}
+		else {
+			auto posIndices = FindKeyframeIndices(posKeys, evalTime);
+			const auto& posKey1 = posKeys[posIndices.first];
+			const auto& posKey2 = posKeys[posIndices.second];
+
+			float posFrameDiff = posKey2.frame - posKey1.frame;
+			float posT = (std::abs(posFrameDiff) < 0.0001f) ? 0.0f : (evalTime - posKey1.frame) / posFrameDiff;
+			posT = std::max(0.0f, std::min(1.0f, posT));
+
+			resultPosition = InterpolatePosition(posKey1, posKey2, posT);
+		}
+	}
+
+	return resultPosition;
+}
+Quaternion RailCameraSystem::RailCameraAnimationPlayer::EvaluateRotation(float frame) const
+{
+	if (!animationData_) {
+		return Quaternion::identity;
+	}
+
+	float evalTime = 0.0f;
+
+	if (!animationData_->evalTimeKeys_.empty()) {
+		const auto& keys = animationData_->evalTimeKeys_;
+
+		if (frame <= keys.front().frame) {
+			evalTime = keys.front().value;
+		}
+		else if (frame >= keys.back().frame) {
+			evalTime = keys.back().value;
+		}
+		else {
+			auto indices = FindKeyframeIndices(keys, frame);
+			const auto& key1 = keys[indices.first];
+			const auto& key2 = keys[indices.second];
+
+			if (indices.first == indices.second) {
+				evalTime = key1.value;
+			}
+			else {
+				float frameDiff = key2.frame - key1.frame;
+				float t = (std::abs(frameDiff) < 0.0001f) ? 0.0f : (frame - key1.frame) / frameDiff;
+				t = std::max(0.0f, std::min(1.0f, t));
+
+				evalTime = InterpolateScalar(key1, key2, t);
+			}
+		}
+	}
+
+	Quaternion resultRotation;
+
+	const auto& rotKeys = animationData_->rotationKeys_;
+	if (!rotKeys.empty()) {
+		if (evalTime <= rotKeys.front().frame) {
+			resultRotation = rotKeys.front().value;
+		}
+		else if (evalTime >= rotKeys.back().frame) {
+			resultRotation = rotKeys.back().value;
+		}
+		else {
+			auto rotIndices = FindKeyframeIndices(rotKeys, evalTime);
+			const auto& rotKey1 = rotKeys[rotIndices.first];
+			const auto& rotKey2 = rotKeys[rotIndices.second];
+
+			float rotFrameDiff = rotKey2.frame - rotKey1.frame;
+			float rotT = (std::abs(rotFrameDiff) < 0.0001f) ? 0.0f : (evalTime - rotKey1.frame) / rotFrameDiff;
+			rotT = std::max(0.0f, std::min(1.0f, rotT));
+
+			resultRotation = InterpolateRotation(rotKey1, rotKey2, rotT);
+		}
+	}
+
+	return resultRotation;
+}
 template<typename T>
 inline std::pair<size_t, size_t> RailCameraSystem::RailCameraAnimationPlayer::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
 {

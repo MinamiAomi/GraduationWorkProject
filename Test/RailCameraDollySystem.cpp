@@ -32,7 +32,7 @@ void RailCameraSystem::RailCameraDollySystem::Reset()
 void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 {
 	UpdateFov(deltaTime);
-
+	UpdateLookAhead(deltaTime);
 #ifdef _DEBUG
 	ImGui::Begin("GameScene");
 	if (ImGui::TreeNode("Dolly")) {
@@ -96,4 +96,21 @@ void RailCameraSystem::RailCameraDollySystem::UpdateFov(float deltaTime)
 
 	currentFov_ = std::lerp(currentFov_, targetFov, interpolationFactor);
 
+}
+
+void RailCameraSystem::RailCameraDollySystem::UpdateLookAhead(float deltaTime)
+{
+	Vector3 currentPosition = railCameraAnimationPlayer_->GetCurrentTransform().translate;
+
+	float lookAheadFrames = 30.0f;
+	float futureFrame = railCameraAnimationPlayer_->GetCurrentFrame() + lookAheadFrames;
+
+	Vector3 targetPosition = railCameraAnimationPlayer_->EvaluatePosition(futureFrame);
+
+	Vector3 forwardVector = (targetPosition - currentPosition).Normalized();
+
+	Quaternion targetRotation = Quaternion::MakeLookRotation(forwardVector);
+
+	float rotationSmoothness = 5.0f * deltaTime;
+	currentRotation_ = Quaternion::Slerp(rotationSmoothness, currentRotation_, targetRotation);
 }
