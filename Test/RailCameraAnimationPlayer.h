@@ -35,6 +35,10 @@ namespace RailCameraSystem {
 		void SetCurrentFrame(int frame);
 		float GetCurrentFrame() const;
 
+		//指定されてフレームの座標
+		Vector3 EvaluatePosition(float frame) const;
+		// 指定したフレームにおける回転
+		Quaternion EvaluateRotation(float frame) const;
 	private:
 		/// <summary>
 		/// 指定されたフレームに対応するキーフレームのインデックスペアを探す

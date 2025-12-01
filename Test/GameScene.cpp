@@ -115,6 +115,7 @@ void GameScene::OnUpdate() {
 #pragma region RailCameraDollySystem
 	railCameraDollySystem_->Update(deltaTime);
 	camera_->SetFov(railCameraDollySystem_->GetFov());
+	//camera_->SetRotate(railCameraDollySystem_->GetRotation());
 #pragma endregion
 	RenderManager::GetInstance()->SetCamera(camera_);
 
