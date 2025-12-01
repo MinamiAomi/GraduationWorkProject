@@ -8,20 +8,11 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				0,
-				1
+				0
 			]
 		}
 	],
 	"nodes":[
-		{
-			"name":"raile",
-			"translation":[
-				0,
-				1.6547716856002808,
-				0
-			]
-		},
 		{
 			"mesh":0,
 			"name":"\u30b8\u30aa\u30e1\u30c8\u30ea\u30fc\u30ce\u30fc\u30c9"
@@ -46,67 +37,67 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":83714,
+			"count":54016,
 			"max":[
-				92.90225982666016,
-				46.69068908691406,
-				4.220277309417725
+				11.044442176818848,
+				24.127544403076172,
+				11.804795265197754
 			],
 			"min":[
-				-37.68550109863281,
-				-4.966487884521484,
-				-51.69880294799805
+				-18.964317321777344,
+				-4.956419467926025,
+				-15.373571395874023
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":83714,
+			"count":54016,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":83714,
+			"count":54016,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
-			"componentType":5125,
-			"count":288348,
+			"componentType":5123,
+			"count":224412,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":1004568,
+			"byteLength":648192,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1004568,
-			"byteOffset":1004568,
+			"byteLength":648192,
+			"byteOffset":648192,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":669712,
-			"byteOffset":2009136,
+			"byteLength":432128,
+			"byteOffset":1296384,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1153392,
-			"byteOffset":2678848,
+			"byteLength":448824,
+			"byteOffset":1728512,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":3832240,
+			"byteLength":2177336,
 			"uri":"Stage.bin"
 		}
 	]
