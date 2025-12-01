@@ -34,6 +34,8 @@ namespace RailCameraSystem {
 
 		void SetCurrentFrame(int frame);
 		float GetCurrentFrame() const;
+
+		float GetFov()const { return currentFov_; }
 	private:
 		/// <summary>
 		/// 指定されたフレームに対応するキーフレームのインデックスペアを探す
@@ -57,11 +59,26 @@ namespace RailCameraSystem {
 		float FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 		Vector2 EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 
+		//Fov
+		void UpdateFov();
+
 		std::shared_ptr<const RailCameraAnimation> animationData_;
 		float currentFrame_;
 		float totalDurationFrames_;
 		bool isPlaying_;
 		float playbackSpeed_;
+		float maxPlaybackSpeed_;
+
+#pragma region FOV
+		float currentFov_;
+		float baseFov_ = 45.0f * Math::ToRadian;
+		float maxFov_ = 90.0f * Math::ToRadian;
+		//変化の追従速度(大きいほどきびきび、小さいほどぬるぬる)
+		float fovLerpSpeed_ = 5.0f;
+		Vector3 preCameraPosition_;
+		float referenceMaxSpeed_ = 30.0f;
+		float currentRealSpeed_ = 0.0f;
+#pragma endregion
 	};
 
 }

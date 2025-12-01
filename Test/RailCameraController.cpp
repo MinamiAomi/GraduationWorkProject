@@ -4,14 +4,15 @@
 #include <algorithm>
 #include <stdexcept>
 #include <iostream> 
+
+#include "Engine/File/JsonConverter.h"
+
 #ifdef _DEBUG
 #include <iomanip>
 #include <sstream>
 #include <Windows.h>
 
-
 #include "Graphics/ImGuiManager.h"
-
 #endif // _DEBUG
 
 RailCameraSystem::RailCameraController::RailCameraController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation> animationData)
@@ -21,10 +22,31 @@ RailCameraSystem::RailCameraController::RailCameraController(std::shared_ptr<con
 	}
 	animationData_ = animationData;
 	isPlaying_ = false;
-	playbackSpeed_ = 1.0f;
+
 	//メタデータからアニメーションの開始と終了の位置を取得
 	currentFrame_ = float(animationData_->railCameraMetaData_.startFrame);
 	totalDurationFrames_ = float(animationData_->railCameraMetaData_.endFrame);
+	JSON_OPEN("Resources/Data/Trolley/trolley.json");
+	JSON_OBJECT("TrollerSpeed");
+	JSON_LOAD_BY_NAME("maxTrollySpeed_", maxPlaybackSpeed_);
+	JSON_CLOSE();
+
+	playbackSpeed_ = maxPlaybackSpeed_;
+
+
+	JSON_OPEN("Resources/Data/RailCamera/railCamera.json");
+	JSON_OBJECT("Fov");
+	JSON_LOAD(baseFov_);
+	JSON_LOAD(maxFov_);
+	JSON_LOAD(fovLerpSpeed_);
+	JSON_LOAD(referenceMaxSpeed_);
+	JSON_ROOT();
+	JSON_CLOSE();
+
+	currentRealSpeed_ = 0.0f;
+	currentFov_ = baseFov_;
+
+	preCameraPosition_ = GetCurrentTransform().translate;
 }
 
 void RailCameraSystem::RailCameraController::Update(float deltaTime)
@@ -44,6 +66,20 @@ void RailCameraSystem::RailCameraController::Update(float deltaTime)
 		//デルタタイムをフレームの進みに変換
 		float frameIncrement = deltaTime * animationData_->railCameraMetaData_.frameRate * playbackSpeed_;
 		currentFrame_ += frameIncrement;
+
+		Vector3 currentPos = GetCurrentTransform().translate;
+
+		if (deltaTime > 0.0001f) {
+			float distance = (currentPos - preCameraPosition_).Length();
+			currentRealSpeed_ = distance / deltaTime;
+		}
+		else {
+			currentRealSpeed_ = 0.0f;
+		}
+
+		preCameraPosition_ = currentPos;
+
+		UpdateFov();
 #ifdef _DEBUG
 	}
 #endif // _DEBUG
@@ -109,6 +145,32 @@ void RailCameraSystem::RailCameraController::Update(float deltaTime)
 				ImGui::Text("End Frame   : %d", animationData_->railCameraMetaData_.endFrame);
 				ImGui::InputFloat("Manual Input", &currentFrame_);
 				currentFrame_ = std::clamp(currentFrame_, float(animationData_->railCameraMetaData_.startFrame), float(animationData_->railCameraMetaData_.endFrame));
+
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Fov")) {
+				ImGui::Text("Real Speed: %.2f / MaxRef: %.2f", currentRealSpeed_, referenceMaxSpeed_);
+				ImGui::Spacing();
+				ImGui::Separator();
+				float baseFov = baseFov_ * Math::ToDegree;
+				float maxFov = maxFov_ * Math::ToDegree;
+				ImGui::DragFloat("BaseFov", &baseFov, 1.0f, 0.0f, 90.0f);
+				ImGui::DragFloat("MaxFov", &maxFov, 1.0f, baseFov, 90.0f);
+				ImGui::DragFloat("LerpSpeed", &fovLerpSpeed_, 1.0f, 0.0f);
+				ImGui::DragFloat("ReferenceMaxSpeed", &referenceMaxSpeed_, 1.0f, 0.0f);
+				baseFov_ = baseFov * Math::ToRadian;
+				maxFov_ = maxFov * Math::ToRadian;
+				if (ImGui::Button("Save")) {
+					JSON_OPEN("Resources/Data/RailCamera/railCamera.json");
+					JSON_OBJECT("Fov");
+					JSON_SAVE(baseFov_);
+					JSON_SAVE(maxFov_);
+					JSON_SAVE(fovLerpSpeed_);
+					JSON_SAVE(referenceMaxSpeed_);
+					JSON_ROOT();
+					JSON_CLOSE();
+				}
 
 				ImGui::TreePop();
 			}
@@ -238,12 +300,18 @@ void RailCameraSystem::RailCameraController::Stop()
 {
 	isPlaying_ = false;
 	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+	preCameraPosition_ = GetCurrentTransform().translate;
+	currentRealSpeed_ = 0.0f;
+	currentFov_ = baseFov_;
 }
 
 void RailCameraSystem::RailCameraController::Loop()
 {
 	isPlaying_ = true;
 	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+	preCameraPosition_ = GetCurrentTransform().translate;
+	currentRealSpeed_ = 0.0f;
+	currentFov_ = baseFov_;
 }
 
 void RailCameraSystem::RailCameraController::SetCurrentFrame(int frame)
@@ -485,4 +553,19 @@ Vector2 RailCameraSystem::RailCameraController::EvaluateBezier(float t, const Ve
 	float y = uuu * p0.y + 3.0f * uu * t * p1.y + 3.0f * u * tt * p2.y + ttt * p3.y;
 
 	return { x, y };
+}
+
+void RailCameraSystem::RailCameraController::UpdateFov()
+{
+	// 空間上の速度(currentRealSpeed_) を基準速度(referenceMaxSpeed_)で割る
+		// これで「実際の見た目の速さ」に対する割合が出ます
+	float speedRatio = std::clamp(currentRealSpeed_ / referenceMaxSpeed_, 0.0f, 1.0f);
+
+	float t = speedRatio * speedRatio;
+
+	float targetFov = Math::Lerp(t, baseFov_, maxFov_);
+
+	float interpolationFactor = std::clamp(fovLerpSpeed_ * (1.0f / 60.0f), 0.0f, 1.0f);
+
+	currentFov_ = std::lerp(currentFov_, targetFov, interpolationFactor);
 }

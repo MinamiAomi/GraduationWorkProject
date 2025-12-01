@@ -69,7 +69,7 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #ifdef _DEBUG
-		debugCamera_ = std::make_unique<DebugCamera>();
+	debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
 #endif // _DEBUG
 
@@ -103,7 +103,7 @@ void GameScene::OnUpdate() {
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
 	camera_->UpdateMatrices();
-
+	camera_->SetFov(railCameraController_->GetFov());
 	RenderManager::GetInstance()->SetCamera(camera_);
 #pragma endregion
 #pragma region Flashlight
