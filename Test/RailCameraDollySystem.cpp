@@ -16,6 +16,11 @@ void RailCameraSystem::RailCameraDollySystem::Initialize()
 	JSON_LOAD(fovLerpSpeed_);
 	JSON_LOAD(referenceMaxSpeed_);
 	JSON_ROOT();
+	JSON_OBJECT("Banking");
+	JSON_LOAD(bankingAmount_);
+	JSON_LOAD(bankingSmoothTime_);
+	JSON_LOAD(lookAheadForBank_);
+	JSON_ROOT();
 	JSON_CLOSE();
 
 	Reset();
@@ -27,12 +32,15 @@ void RailCameraSystem::RailCameraDollySystem::Reset()
 	currentFov_ = baseFov_;
 
 	preCameraPosition_ = railCameraAnimationPlayer_->GetCurrentTransform().translate;
+
+	currentBankAngle_ = 0.0f;
 }
 
 void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 {
 	UpdateFov(deltaTime);
 	UpdateLookAhead(deltaTime);
+	UpdateBanking(deltaTime);
 #ifdef _DEBUG
 	ImGui::Begin("GameScene");
 	if (ImGui::TreeNode("Dolly")) {
@@ -60,6 +68,23 @@ void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 				JSON_CLOSE();
 			}
 
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("Banking")) {
+			ImGui::DragFloat("Amount", &bankingAmount_, 1.0f, 0.0f);
+			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
+			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/RailCamera/dollySystem.json");
+				JSON_OBJECT("Banking");
+				JSON_SAVE(bankingAmount_);
+				JSON_SAVE(bankingSmoothTime_);
+				JSON_SAVE(lookAheadForBank_);
+				JSON_ROOT();
+				JSON_CLOSE();
+
+			}
 			ImGui::TreePop();
 		}
 		ImGui::TreePop();
@@ -113,4 +138,33 @@ void RailCameraSystem::RailCameraDollySystem::UpdateLookAhead(float deltaTime)
 
 	float rotationSmoothness = 5.0f * deltaTime;
 	currentRotation_ = Quaternion::Slerp(rotationSmoothness, currentRotation_, targetRotation);
+}
+
+void RailCameraSystem::RailCameraDollySystem::UpdateBanking(float deltaTime)
+{
+	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
+
+	Transform currentTrans = railCameraAnimationPlayer_->GetCurrentTransform();
+	Vector3 myPosition = currentTrans.translate;
+	Quaternion baseRotation = currentTrans.rotate;
+
+	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
+	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
+
+	Vector3 forwardNow = baseRotation * Vector3::unitZ;
+
+	Vector3 dirToFuture = (posFuture - posNow).Normalized();
+
+	Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
+
+	float turnIntensity = curveCross.y;
+
+	float targetBankAngle = -turnIntensity * currentRealSpeed_ * bankingAmount_;
+
+	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+
+	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
+	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
+	currentRotation_ =  bankRotation* baseRotation;
+
 }

@@ -20,7 +20,7 @@ namespace RailCameraSystem {
 	private:
 		void UpdateFov(float deltaTime);
 		void UpdateLookAhead(float deltaTime);
-
+		void UpdateBanking(float deltaTime);
 		const RailCameraSystem::RailCameraAnimationPlayer* railCameraAnimationPlayer_;
 #pragma region FOV
 		float currentFov_;
@@ -33,7 +33,18 @@ namespace RailCameraSystem {
 		float currentRealSpeed_ = 0.0f;
 #pragma endregion
 #pragma region Look Ahead
+		//Quaternion currentRotation_;
+#pragma endregion
+#pragma region Banking
 		Quaternion currentRotation_;
+		float currentBankAngle_ = 0.0f;
+
+		//バンクの強さ（大きいほど傾く）
+		float bankingAmount_ = 30.0f;
+		// 傾きの追従速度（ヌルヌル具合）
+		float bankingSmoothTime_ = 5.0f;
+		// 何フレーム先のカーブを読むか
+		float lookAheadForBank_ = 20.0f;
 #pragma endregion
 
 

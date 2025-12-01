@@ -109,14 +109,14 @@ void GameScene::OnUpdate() {
 	//カメラにセット
 	camera_->SetPosition(transform.translate);
 	camera_->SetRotate(transform.rotate);
-	camera_->UpdateMatrices();
 #pragma endregion
 
 #pragma region RailCameraDollySystem
 	railCameraDollySystem_->Update(deltaTime);
 	camera_->SetFov(railCameraDollySystem_->GetFov());
-	//camera_->SetRotate(railCameraDollySystem_->GetRotation());
+	camera_->SetRotate(railCameraDollySystem_->GetRotation());
 #pragma endregion
+	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
 
 
