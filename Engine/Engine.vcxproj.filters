@@ -611,9 +611,6 @@
     <ClInclude Include="Graphics\GeometryRenderingPass.h">
       <Filter>Graphics\Standard</Filter>
     </ClInclude>
-    <ClInclude Include="ModelScene.h">
-      <Filter>Graphics\Standard</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\LightingRenderingPass.h">
       <Filter>Graphics\Standard</Filter>
     </ClInclude>

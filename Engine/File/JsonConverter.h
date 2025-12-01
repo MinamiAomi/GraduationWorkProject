@@ -60,11 +60,13 @@ namespace JsonHelper {
     bool Load(Quaternion& value, const std::string& name);
     bool Load(std::string& value, const std::string& name);
 }
-#ifndef STRINGIFY_HELPER
-#define STRINGIFY_HELPER(x) #x
+
+// 名前を JSON_STRINGIFY に変更して衝突を避ける
+#ifndef JSON_STRINGIFY_HELPER
+#define JSON_STRINGIFY_HELPER(x) #x
 #endif
-#ifndef STRINGIFY
-//#define STRINGIFY(x) STRINGIFY_HELPER(x)
+#ifndef JSON_STRINGIFY
+#define JSON_STRINGIFY(x) JSON_STRINGIFY_HELPER(x)
 #endif
 
 /// ファイルを開く
@@ -84,9 +86,15 @@ namespace JsonHelper {
 #define JSON_OBJECT(x) (JsonHelper::Object(x))
 // 引数に与えた変数の名前でセーブ
 #define JSON_SAVE_BY_NAME(name, x) (JsonHelper::Save(x, name))
-#define JSON_SAVE(x) (JsonHelper::Save(x, STRINGIFY(x)))
+
+// ★ここを変更 (STRINGIFY -> JSON_STRINGIFY)
+#define JSON_SAVE(x) (JsonHelper::Save(x, JSON_STRINGIFY(x)))
+
 // 引数に与えた変数の名前でロード
 // 読み込めたらTrue
 #define JSON_LOAD_BY_NAME(name, x) (JsonHelper::Load(x, name))
-#define JSON_LOAD(x) (JsonHelper::Load(x, STRINGIFY(x)))
+
+// ★ここを変更 (STRINGIFY -> JSON_STRINGIFY)
+#define JSON_LOAD(x) (JsonHelper::Load(x, JSON_STRINGIFY(x)))
+
 #define JSON_PARENT() (JsonHelper::Parent())
