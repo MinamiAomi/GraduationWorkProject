@@ -22,27 +22,22 @@ void LightingRenderingPass::Initialize(uint32_t width, uint32_t height) {
 
     // ルートシグネチャ
     {
-        CD3DX12_DESCRIPTOR_RANGE albedoRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
-        CD3DX12_DESCRIPTOR_RANGE metallicRoughnessRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 1);
-        CD3DX12_DESCRIPTOR_RANGE normalRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 2);
-        CD3DX12_DESCRIPTOR_RANGE depthRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 3);
-        CD3DX12_DESCRIPTOR_RANGE irradianceRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 4);
-        CD3DX12_DESCRIPTOR_RANGE radianceRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 5);
+        CD3DX12_DESCRIPTOR_RANGE albedoRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 1);
+        CD3DX12_DESCRIPTOR_RANGE metallicRoughnessRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 2);
+        CD3DX12_DESCRIPTOR_RANGE normalRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 3);
+        CD3DX12_DESCRIPTOR_RANGE depthRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 4);
 
         CD3DX12_ROOT_PARAMETER rootParameters[RootIndex::NumRootParameters]{};
         rootParameters[RootIndex::Scene].InitAsConstantBufferView(0);
-        //rootParameters[RootIndex::LightList].InitAsShaderResourceView(0);
         rootParameters[RootIndex::Sky].InitAsConstantBufferView(1);
+        rootParameters[RootIndex::LightList].InitAsShaderResourceView(0);
         rootParameters[RootIndex::Albedo].InitAsDescriptorTable(1, &albedoRange);
         rootParameters[RootIndex::MetallicRoughness].InitAsDescriptorTable(1, &metallicRoughnessRange);
         rootParameters[RootIndex::Normal].InitAsDescriptorTable(1, &normalRange);
         rootParameters[RootIndex::Depth].InitAsDescriptorTable(1, &depthRange);
-        rootParameters[RootIndex::Irradiance].InitAsDescriptorTable(1, &irradianceRange);
-        rootParameters[RootIndex::Radiance].InitAsDescriptorTable(1, &radianceRange);
 
-        CD3DX12_STATIC_SAMPLER_DESC staticSamplerDesc[2]{};
+        CD3DX12_STATIC_SAMPLER_DESC staticSamplerDesc[1]{};
         staticSamplerDesc[0].Init(0, D3D12_FILTER_MIN_MAG_MIP_POINT, D3D12_TEXTURE_ADDRESS_MODE_CLAMP, D3D12_TEXTURE_ADDRESS_MODE_CLAMP, D3D12_TEXTURE_ADDRESS_MODE_CLAMP);
-        staticSamplerDesc[1].Init(1, D3D12_FILTER_MIN_MAG_MIP_LINEAR, D3D12_TEXTURE_ADDRESS_MODE_WRAP, D3D12_TEXTURE_ADDRESS_MODE_WRAP, D3D12_TEXTURE_ADDRESS_MODE_WRAP);
 
         D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc{};
         rootSignatureDesc.NumParameters = _countof(rootParameters);
@@ -121,14 +116,9 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.SetPipelineState(pipelineState_);
     commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    TextureResource* irradianceTexture = irradianceTexture_ ? irradianceTexture_.get() : &DefaultTexture::BlackCubeMap;
-    TextureResource* radianceTexture = radianceTexture_ ? radianceTexture_.get() : &DefaultTexture::BlackCubeMap;
-
     SceneData sceneData;
     sceneData.viewProjectionInverseMatrix = camera.GetViewProjectionMatrix().Inverse();
     sceneData.cameraPosition = camera.GetPosition();
-    auto& cubeMap = irradianceTexture->GetDesc();
-    sceneData.irradianceMipCount = (uint32_t)(cubeMap.MipLevels - 2);
     sceneData.lightColor = { light.color.GetR(), light.color.GetG(), light.color.GetB() };
     sceneData.lightDirection = light.direction;
 
@@ -156,8 +146,6 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughness().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Normal, geometryRenderingPass.GetNormal().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Depth, geometryRenderingPass.GetDepth().GetSRV());
-    commandContext.SetDescriptorTable(RootIndex::Irradiance, irradianceTexture->GetSRV());
-    commandContext.SetDescriptorTable(RootIndex::Radiance, radianceTexture->GetSRV());
 
     commandContext.Draw(3);
 
@@ -169,7 +157,6 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
         Matrix4x4 viewProjectionInverseMatrix;
         Vector3 cameraPosition;
         uint32_t lightCount;
-
     };
 
     enum LightType : uint32_t {
@@ -180,15 +167,16 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
 
     struct Light {
         Vector3 color;
-        float intensity;
+        float intensity = 1.0f;
         Vector3 position;
-        float range;
-        Vector3 direction;
-        float decay;
-        float angle;
-        float falloffStartAngle;
-        uint32_t type;
-        float pad;
+        float range = 1.0f;
+        Vector3 direction = Vector3::unitX;
+        float decay = 1.0f;
+        float cosOuter = 1.0f;
+        float cosInner = 0.8f;
+        float pad1 = 0.0f;
+        float pad2 = 0.0f;
+        uint32_t type = 0;
     };
 
     struct SkyParameter {
@@ -209,19 +197,14 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
         float exposure;
     };
 
-    SceneData sceneData;
-    sceneData.viewProjectionInverseMatrix = camera.GetViewProjectionMatrix().Inverse();
-    sceneData.cameraPosition = camera.GetPosition();
-    sceneData.lightCount = 0;
-
     // 個々のプログラムを変更中
-    std::vector<Light> lightData(16);
+    std::vector<Light> lightData;
     for (auto& it : lightManager.GetDirectionalLights()) {
         if (auto src = it.lock()) {
             Light dest;
             dest.color = static_cast<Vector3>(src->color);
             dest.intensity = src->intensity;
-            dest.direction = src->direction;
+            dest.direction = src->direction.Normalized();
             dest.type = LightType::Directional;
             lightData.emplace_back(dest);
         }
@@ -247,14 +230,19 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
             dest.intensity = src->intensity;
             dest.position = src->position;
             dest.range = src->range;
-            dest.direction = src->direction;
+            dest.direction = src->direction.Normalized();
             dest.decay = src->decay;
-            dest.angle = src->angle;
-            dest.falloffStartAngle = src->falloffStartAngle;
+            dest.cosOuter = std::cos(src->angle);
+            dest.cosInner = std::cos(src->falloffStartAngle);
             dest.type = LightType::Spot;
             lightData.emplace_back(dest);
         }
     }
+
+    SceneData sceneData;
+    sceneData.viewProjectionInverseMatrix = camera.GetViewProjectionMatrix().Inverse();
+    sceneData.cameraPosition = camera.GetPosition();
+    sceneData.lightCount = static_cast<uint32_t>(lightData.size());
 
     commandContext.BeginEvent(L"LightingRenderingPass::Render");
 
@@ -272,9 +260,6 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.SetRootSignature(rootSignature_);
     commandContext.SetPipelineState(pipelineState_);
     commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    TextureResource* irradianceTexture = irradianceTexture_ ? irradianceTexture_.get() : &DefaultTexture::BlackCubeMap;
-    TextureResource* radianceTexture = radianceTexture_ ? radianceTexture_.get() : &DefaultTexture::BlackCubeMap;
 
     SkyParameter skyParameter;
     skyParameter.sunPosition = RenderManager::GetInstance()->GetSky().GetSunDirection();
@@ -295,14 +280,18 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     skyParameter.exposure = 0.05f;
 
     commandContext.SetDynamicConstantBufferView(RootIndex::Scene, sizeof(sceneData), &sceneData);
-    //commandContext.SetDynamicShaderResourceView(RootIndex::LightList, lightData.size() * sizeof(lightData[0]), lightData.data());
     commandContext.SetDynamicConstantBufferView(RootIndex::Sky, sizeof(skyParameter), &skyParameter);
+    if (sceneData.lightCount > 0) {
+        commandContext.SetDynamicShaderResourceView(RootIndex::LightList, lightData.size() * sizeof(lightData[0]), lightData.data());
+    }
+    else {
+        Light dummyLightData{};
+        commandContext.SetDynamicShaderResourceView(RootIndex::LightList, sizeof(dummyLightData), &dummyLightData);
+    }
     commandContext.SetDescriptorTable(RootIndex::Albedo, geometryRenderingPass.GetAlbedo().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughness().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Normal, geometryRenderingPass.GetNormal().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Depth, geometryRenderingPass.GetDepth().GetSRV());
-    commandContext.SetDescriptorTable(RootIndex::Irradiance, irradianceTexture->GetSRV());
-    commandContext.SetDescriptorTable(RootIndex::Radiance, radianceTexture->GetSRV());
 
     commandContext.Draw(3);
 

@@ -28,7 +28,7 @@ void PointLight::DrawImGui(const std::string& label) {
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Position", &position.x, 0.1f);
         ImGui::DragFloat("Intensity", &intensity, 0.01f, 0.0f, 100.0f);
-        ImGui::DragFloat("decay", &intensity, 0.1f, 0.0f, 10.0f);
+        ImGui::DragFloat("decay", &decay, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }
 #endif //ENABLE_IMGUI
@@ -57,7 +57,7 @@ void SpotLight::DrawImGui(const std::string& label) {
         float falloffStartAngleDegree = falloffStartAngle * Math::ToDegree;
         ImGui::DragFloat("FalloffStartAngle", &falloffStartAngleDegree, 0.1f, 0.0f, angleDegree);
         falloffStartAngle = falloffStartAngleDegree * Math::ToRadian;
-        ImGui::DragFloat("Decay", &intensity, 0.1f, 0.0f, 10.0f);
+        ImGui::DragFloat("Decay", &decay, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }
 #endif //ENABLE_IMGUI

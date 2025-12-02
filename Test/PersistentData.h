@@ -23,6 +23,8 @@ struct PersistentData {
         score_ = std::make_shared<Score>();
         sunLight_ = std::make_shared<DirectionalLight>();
         sunLight_->direction = -Vector3::unitY;
+        sunLight_->color = Color(0.3f, 0.3f, 0.3f);
         RenderManager::GetInstance()->SetSunLight(sunLight_);
+        RenderManager::GetInstance()->GetLightManager().Add(sunLight_);
     }
 };
