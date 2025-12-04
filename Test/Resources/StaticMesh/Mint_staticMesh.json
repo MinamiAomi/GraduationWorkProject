@@ -75,6 +75,234 @@
         ]
       },
       "is_emissive": true
+    },
+    {
+      "name": "Crystal.001",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          104.9521,
+          -22.2871,
+          0.2209
+        ],
+        "rotate": [
+          -0.514,
+          -0.2772,
+          -0.5484,
+          0.5985
+        ],
+        "scale": [
+          1.9394,
+          1.9394,
+          1.9394
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          105.6591,
+          -19.5902,
+          0.9279
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          -0.514,
+          -0.2772,
+          -0.5484,
+          0.5985
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.002",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          173.1698,
+          -84.5388,
+          5.4708
+        ],
+        "rotate": [
+          -0.633,
+          -0.0191,
+          -0.7333,
+          0.2472
+        ],
+        "scale": [
+          1.9394,
+          1.9394,
+          1.9394
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          175.8574,
+          -83.5784,
+          5.8279
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          -0.633,
+          -0.0191,
+          -0.7333,
+          0.2472
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.003",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          46.3491,
+          -139.8341,
+          101.7621
+        ],
+        "rotate": [
+          -0.7714,
+          0.6221,
+          -0.1192,
+          0.061
+        ],
+        "scale": [
+          2.7488,
+          2.7488,
+          2.7488
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          46.9652,
+          -139.82,
+          98.9526
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          -0.7714,
+          0.6221,
+          -0.1192,
+          0.061
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.004",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          84.7451,
+          -153.7651,
+          69.2255
+        ],
+        "rotate": [
+          0.2472,
+          -0.1647,
+          -0.7404,
+          0.6029
+        ],
+        "scale": [
+          2.7488,
+          2.7488,
+          2.7488
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          83.2324,
+          -153.751,
+          71.6718
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.2472,
+          -0.1647,
+          -0.7404,
+          0.6029
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.005",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          70.883,
+          -176.9382,
+          77.859
+        ],
+        "rotate": [
+          -0.425,
+          0.0277,
+          -0.3893,
+          0.8167
+        ],
+        "scale": [
+          0.9732,
+          0.9732,
+          0.9732
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          71.8844,
+          -174.848,
+          79.5623
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          -0.425,
+          0.0277,
+          -0.3893,
+          0.8167
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.006",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          125.1687,
+          -144.3964,
+          42.431
+        ],
+        "rotate": [
+          -0.1028,
+          0.2146,
+          -0.4129,
+          0.8792
+        ],
+        "scale": [
+          2.6347,
+          2.6347,
+          2.6347
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          126.4488,
+          -144.1751,
+          44.9972
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          -0.1028,
+          0.2146,
+          -0.4129,
+          0.8792
+        ]
+      },
+      "is_emissive": true
     }
   ]
 }
