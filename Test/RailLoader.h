@@ -3,14 +3,14 @@
 #include <optional>
 #include <filesystem>
 
-#include "RailCameraData.h"
+#include "RailData.h"
 
 #include "Externals/nlohmann/json.hpp"
 
-namespace RailCameraSystem {
+namespace RailSystem {
 	class AnimationLoader {
 	public:
-		static std::optional<RailCameraAnimation> LoadAnimation(const std::filesystem::path& filepath);
+		static std::optional<RailAnimation> LoadAnimation(const std::filesystem::path& filepath);
 	private:
 		static ScalarKeyframe ParseScalarKeyframe(const nlohmann::json& key);
 		static PositionKeyframe ParsePositionKeyframe(const nlohmann::json& key);

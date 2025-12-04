@@ -56,6 +56,7 @@ void Trolley::Update()
 		UpdateTrollySpeed();
 	}
 
+	transform_.translate = trolleyOffset_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
@@ -181,14 +182,4 @@ bool Trolley::UpdateCollision()
 		}
 	}
 	return result;
-}
-
-void Trolley::SetTransform(const Transform& transform)
-{
-	transform_ = transform;
-
-	batteryCollider_->center = transform_.translate + batteryOffset_;
-	batteryCollider_->radius = batteryRadius_;
-
-	transform_.translate += trolleyOffset_;
 }

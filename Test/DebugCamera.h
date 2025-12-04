@@ -22,19 +22,19 @@ public:
 	//セッター
 	void SetTransform(const Transform& t)
 	{
-        Vector3 forward = t.rotate.GetForward();
+		Vector3 forward = t.worldMatrix.GetForward();
 
-        eulerAngle_.y = std::atan2(forward.x, forward.z);
-        eulerAngle_.x = std::asin(-forward.y);
+		eulerAngle_.y = std::atan2(forward.x, forward.z);
+		eulerAngle_.x = std::asin(-forward.y);
 		eulerAngle_.z = 0.0f;
-        
-		Quaternion rotY = Quaternion::MakeFromAngleAxis( eulerAngle_.y, Vector3::up);
-        Quaternion rotX = Quaternion::MakeFromAngleAxis(eulerAngle_.x, Vector3(1.0f, 0.0f, 0.0f));
 
-        camera_->SetRotate(rotY * rotX);
+		Quaternion rotY = Quaternion::MakeFromAngleAxis(eulerAngle_.y, Vector3::up);
+		Quaternion rotX = Quaternion::MakeFromAngleAxis(eulerAngle_.x, Vector3(1.0f, 0.0f, 0.0f));
 
-        camera_->SetPosition(t.translate);
-        camera_->UpdateMatrices();
+		camera_->SetRotate(rotY * rotX);
+
+		camera_->SetPosition(t.worldMatrix.GetTranslate());
+		camera_->UpdateMatrices();
 	}
 
 private:

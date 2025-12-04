@@ -1,4 +1,4 @@
-#include "RailCameraDollySystem.h"
+#include "RailCameraSystem.h"
 
 #include "Engine/File/JsonConverter.h"
 
@@ -7,9 +7,10 @@
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
 
-void RailCameraSystem::RailCameraDollySystem::Initialize()
+void RailSystem::RailCameraSystem::Initialize()
 {
-	JSON_OPEN("Resources/Data/RailCamera/dollySystem.json");
+	JSON_OPEN("Resources/Data/RailCamera/railCameraSystem.json");
+	JSON_LOAD(cameraOffset_);
 	JSON_OBJECT("Fov");
 	JSON_LOAD(baseFov_);
 	JSON_LOAD(maxFov_);
@@ -26,25 +27,40 @@ void RailCameraSystem::RailCameraDollySystem::Initialize()
 	Reset();
 }
 
-void RailCameraSystem::RailCameraDollySystem::Reset()
+void RailSystem::RailCameraSystem::Reset()
 {
 	currentRealSpeed_ = 0.0f;
 	currentFov_ = baseFov_;
 
-	preCameraPosition_ = railCameraAnimationPlayer_->GetCurrentTransform().translate;
+	transform_.translate = cameraOffset_;
+	transform_.UpdateMatrix();
+
+	preCameraPosition_ = transform_.worldMatrix.GetTranslate();
 
 	currentBankAngle_ = 0.0f;
 }
 
-void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
+void RailSystem::RailCameraSystem::Update(float deltaTime)
 {
 	UpdateFov(deltaTime);
 	//UpdateLookAhead(deltaTime);
 	//UpdateBanking(deltaTime);
+
+	transform_.translate = cameraOffset_;
+
+	transform_.UpdateMatrix();
 #ifdef _DEBUG
 	ImGui::Begin("GameScene");
-	if (ImGui::TreeNode("Dolly")) {
-
+	if (ImGui::TreeNode("RailCamera")) {
+		if (ImGui::TreeNode("Offset")) {
+			ImGui::DragFloat3("Offset", &cameraOffset_.x, 0.1f, 0.0f, 90.0f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/RailCamera/railCameraSystem.json");
+				JSON_SAVE(cameraOffset_);
+				JSON_CLOSE();
+			}
+			ImGui::TreePop();
+		}
 		if (ImGui::TreeNode("Fov")) {
 			ImGui::Text("Real Speed: %.2f / MaxRef: %.2f", currentRealSpeed_, referenceMaxSpeed_);
 			ImGui::Spacing();
@@ -57,8 +73,9 @@ void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 			ImGui::DragFloat("ReferenceMaxSpeed", &referenceMaxSpeed_, 1.0f, 0.0f);
 			baseFov_ = baseFov * Math::ToRadian;
 			maxFov_ = maxFov * Math::ToRadian;
+
 			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/RailCamera/dollySystem.json");
+				JSON_OPEN("Resources/Data/RailCamera/railCameraSystem.json");
 				JSON_OBJECT("Fov");
 				JSON_SAVE(baseFov_);
 				JSON_SAVE(maxFov_);
@@ -76,7 +93,7 @@ void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
 			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
 			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/RailCamera/dollySystem.json");
+				JSON_OPEN("Resources/Data/RailCamera/railCameraSystem.json");
 				JSON_OBJECT("Banking");
 				JSON_SAVE(bankingAmount_);
 				JSON_SAVE(bankingSmoothTime_);
@@ -94,9 +111,9 @@ void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 
 }
 
-void RailCameraSystem::RailCameraDollySystem::UpdateFov(float deltaTime)
+void RailSystem::RailCameraSystem::UpdateFov(float deltaTime)
 {
-	Vector3 currentPos = railCameraAnimationPlayer_->GetCurrentTransform().translate;
+	Vector3 currentPos = transform_.worldMatrix.GetTranslate();
 
 	if (deltaTime > 0.0001f) {
 		float distance = (currentPos - preCameraPosition_).Length();
@@ -123,9 +140,9 @@ void RailCameraSystem::RailCameraDollySystem::UpdateFov(float deltaTime)
 
 }
 
-void RailCameraSystem::RailCameraDollySystem::UpdateLookAhead(float deltaTime)
+void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 {
-	Vector3 currentPosition = railCameraAnimationPlayer_->GetCurrentTransform().translate;
+	Vector3 currentPosition = transform_.GetParent()->translate;
 
 	float lookAheadFrames = 30.0f;
 	float futureFrame = railCameraAnimationPlayer_->GetCurrentFrame() + lookAheadFrames;
@@ -140,11 +157,11 @@ void RailCameraSystem::RailCameraDollySystem::UpdateLookAhead(float deltaTime)
 	currentRotation_ = Quaternion::Slerp(rotationSmoothness, currentRotation_, targetRotation);
 }
 
-void RailCameraSystem::RailCameraDollySystem::UpdateBanking(float deltaTime)
+void RailSystem::RailCameraSystem::UpdateBanking(float deltaTime)
 {
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
-	Transform currentTrans = railCameraAnimationPlayer_->GetCurrentTransform();
+	Transform currentTrans = *transform_.GetParent();
 	Vector3 myPosition = currentTrans.translate;
 	Quaternion baseRotation = currentTrans.rotate;
 

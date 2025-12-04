@@ -20,8 +20,14 @@ public:
 
 	bool UpdateCollision();
 
+	void SetParent(const Transform& transform) {
+		transform_.SetParent(&transform);
+		transform_.UpdateMatrix();
+	}
+	const Transform& GetTransform() { return transform_; }
+
 	std::shared_ptr<SphereCollider> GetCollider() { return batteryCollider_; }
-	void SetTransform(const Transform& transform);
+
 	//速度
 	float GetTrollySpeed() const { return trollySpeed_; }
 	//速度の割合(MAX = 1.0f)

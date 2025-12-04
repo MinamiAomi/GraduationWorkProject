@@ -2,10 +2,11 @@
 
 #include <memory>
 
-#include "RailCameraAnimationPlayer.h"
+#include "RailAnimationPlayer.h"
+#include "Math/Transform.h"
 
-namespace RailCameraSystem {
-	class RailCameraDollySystem {
+namespace RailSystem {
+	class RailCameraSystem {
 	public:
 		void Initialize();
 
@@ -13,15 +14,22 @@ namespace RailCameraSystem {
 
 		void Update(float deltaTime);
 
-		void SetRailCameraAnimationPlayer(const RailCameraSystem::RailCameraAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
-
+		void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
+		void SetParent(const Transform& transform) { transform_ = transform; }
 		float GetFov()const { return currentFov_; }
-		Quaternion GetRotation() const { return currentRotation_; }
+		const Transform& GetTransform()const { return transform_; }
+		const Quaternion& GetLocalRotation() const { return transform_.rotate; }
+		const Quaternion GetWorldRotation() const { return transform_.worldMatrix.GetRotate(); }
+		const Vector3& GetLocalTranslate() const { return transform_.translate; }
+		const Vector3 GetWorldTranslate() const { return transform_.worldMatrix.GetTranslate(); }
 	private:
 		void UpdateFov(float deltaTime);
 		void UpdateLookAhead(float deltaTime);
 		void UpdateBanking(float deltaTime);
-		const RailCameraSystem::RailCameraAnimationPlayer* railCameraAnimationPlayer_;
+		const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer_;
+
+		Vector3 cameraOffset_;
+		Transform transform_;
 #pragma region FOV
 		float currentFov_;
 		float baseFov_ = 45.0f * Math::ToRadian;
@@ -46,8 +54,5 @@ namespace RailCameraSystem {
 		// 何フレーム先のカーブを読むか
 		float lookAheadForBank_ = 20.0f;
 #pragma endregion
-
-
-
 	};
 }

@@ -1,9 +1,9 @@
-#include "RailCameraLoader.h"
+#include "RailLoader.h"
 
 #include <fstream>
 #include <iostream>
 
-namespace RailCameraSystem {
+namespace RailSystem {
 	/*static Vector2 ParseVec2(const nlohmann::json& json, const std::string& key) {
 		Vector2 result;
 		if (json.contains(key) && json[key].is_object()) {
@@ -14,7 +14,7 @@ namespace RailCameraSystem {
 	}*/
 
 
-	std::optional<RailCameraAnimation> RailCameraSystem::AnimationLoader::LoadAnimation(const std::filesystem::path& filepath)
+	std::optional<RailAnimation> RailSystem::AnimationLoader::LoadAnimation(const std::filesystem::path& filepath)
 	{
 		std::ifstream file(filepath);
 		if (!file.is_open()) {
@@ -31,7 +31,7 @@ namespace RailCameraSystem {
 			return std::nullopt;
 		}
 
-		RailCameraAnimation animationData;
+		RailAnimation animationData;
 
 		try {
 			// メタデータ

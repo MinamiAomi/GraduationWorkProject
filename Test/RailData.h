@@ -6,7 +6,7 @@
 
 #include "Math/MathUtils.h"
 
-namespace RailCameraSystem {
+namespace RailSystem {
 
 	/// <summary>
 	/// ベジエ用のハンドル
@@ -48,7 +48,7 @@ namespace RailCameraSystem {
 		std::string interpolation;
 	};
 
-	struct RailCameraMetaData {
+	struct RailMetaData {
 		int startFrame;
 		int endFrame;
 		float frameRate;
@@ -57,9 +57,9 @@ namespace RailCameraSystem {
 	/// <summary>
 	/// Jsonファイル全体を保存する
 	/// </summary>
-	class RailCameraAnimation {
+	class RailAnimation {
 	public:
-		RailCameraMetaData railCameraMetaData_;
+		RailMetaData railCameraMetaData_;
 
 		std::vector<ScalarKeyframe> evalTimeKeys_;
 		std::vector<PositionKeyframe> positionKeys_;

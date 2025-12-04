@@ -7,9 +7,9 @@
 #include "Framework/AssetManager.h"
 #include "Graphics/Core/TextureLoader.h"
 
-#include "RailCameraLoader.h"
-#include "RailCameraConverter.h"
-#include "RailCameraDebugUtils.h"
+#include "RailLoader.h"
+#include "RailConverter.h"
+#include "RailDebugUtils.h"
 
 #include "GameClearScene.h"
 #include "GameOverScene.h"
@@ -34,24 +34,33 @@ void GameScene::OnInitialize() {
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion
 
-#pragma region RailCameraSystem
-	auto animationData = RailCameraSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
+#pragma region RailSystem
+	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
-		railCameraAnimationPlayer_ = std::make_unique<RailCameraSystem::RailCameraAnimationPlayer>
+		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
-				std::make_shared<const RailCameraSystem::RailCameraAnimation>(*animationData)
+				std::make_shared<const RailSystem::RailAnimation>(*animationData)
 			);
 		//カメラ再生
-		railCameraAnimationPlayer_->Play();
+		railAnimationPlayer_->Play();
 	}
+
 #pragma endregion
 
-#pragma region RailCameraDollySystem
-	railCameraDollySystem_ = std::make_unique<RailCameraSystem::RailCameraDollySystem>();
-	railCameraDollySystem_->SetRailCameraAnimationPlayer(railCameraAnimationPlayer_.get());
-	railCameraDollySystem_->Initialize();
+#pragma region Trolley
+	trolley_ = std::make_unique<Trolley>();
+	trolley_->SetParent(railAnimationPlayer_->GetTransform());
+	trolley_->SetFlashlight(flashlight_.get());
+	trolley_->Initialize();
+	collisionSystem_->RegisterCollider(trolley_->GetCollider());
 #pragma endregion
 
+#pragma region RailCameraSystem
+	railCameraSystem_ = std::make_unique<RailSystem::RailCameraSystem>();
+	railCameraSystem_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+	railCameraSystem_->SetParent(trolley_->GetTransform());
+	railCameraSystem_->Initialize();
+#pragma endregion
 
 #pragma region SceneObjectSystem
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
@@ -68,13 +77,6 @@ void GameScene::OnInitialize() {
 	}
 #pragma endregion
 
-#pragma region Trolley
-	trolley_ = std::make_unique<Trolley>();
-	trolley_->Initialize();
-	collisionSystem_->RegisterCollider(trolley_->GetCollider());
-	trolley_->SetFlashlight(flashlight_.get());
-#pragma endregion
-
 #ifdef _DEBUG
 	debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
@@ -85,9 +87,9 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 
-#pragma region RailCameraSystem
+#pragma region RailSystem
 	//一周終わったかどうか
-	if (railCameraAnimationPlayer_->IsFinished()) {
+	if (railAnimationPlayer_->IsFinished()) {
 		//SceneObjectsリセット
 		sceneObjectManager_->ResetObjects();
 
@@ -95,39 +97,32 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider.value());
 		}
-		railCameraAnimationPlayer_->Loop();
+		railAnimationPlayer_->Loop();
 	}
 	//現在のスピードを代入
-	railCameraAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
+	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
-	railCameraAnimationPlayer_->Update(deltaTime);
-	//現在のフレームのtransformを取得
-	auto transform = railCameraAnimationPlayer_->GetCurrentTransform();
-	//座標変換
-	transform = RailCameraSystem::RailCameraConverter::ConvertToLeftHand(transform);
-	transform.UpdateMatrix();
-	//カメラにセット
-	camera_->SetPosition(transform.translate);
-	camera_->SetRotate(transform.rotate);
+	railAnimationPlayer_->Update(deltaTime);
+#pragma endregion
+#pragma region Trolley
+	//カメラの座標をセット
+	trolley_->Update();
 #pragma endregion
 
-#pragma region RailCameraDollySystem
-	railCameraDollySystem_->Update(deltaTime);
-	camera_->SetFov(railCameraDollySystem_->GetFov());
-	//camera_->SetRotate(railCameraDollySystem_->GetRotation());
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
+
+#pragma region RailCameraSystem
+	railCameraSystem_->Update(deltaTime);
+	camera_->SetFov(railCameraSystem_->GetFov());
+	camera_->SetRotate(railCameraSystem_->GetWorldRotation());
+	camera_->SetPosition(railCameraSystem_->GetWorldTranslate());
 #pragma endregion
 	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
 
 
-#pragma region Flashlight
-	flashlight_->Update();
-#pragma endregion
-#pragma region Trolley
-	//カメラの座標をセット
-	trolley_->SetTransform(transform);
-	trolley_->Update();
-#pragma endregion
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion
@@ -139,13 +134,13 @@ void GameScene::OnUpdate() {
 	ImGui::Begin("GameScene");
 	//デバックカメラ
 	if (ImGui::Checkbox("DebugCamera", &isDebugCamera)) {
-		debugCamera_->SetTransform(transform);
+		debugCamera_->SetTransform(railCameraSystem_->GetTransform());
 	}
 	if (isDebugCamera) {
 		debugCamera_->Update();
 
 		//線描画
-		auto vertices = RailCameraSystem::RailCameraDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
+		auto vertices = RailSystem::RailDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
 		auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
