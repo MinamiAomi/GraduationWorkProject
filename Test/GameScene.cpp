@@ -105,7 +105,6 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->Update(deltaTime);
 #pragma endregion
 #pragma region Trolley
-	//カメラの座標をセット
 	trolley_->Update();
 #pragma endregion
 

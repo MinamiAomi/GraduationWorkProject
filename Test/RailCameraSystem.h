@@ -41,7 +41,8 @@ namespace RailSystem {
 		float currentRealSpeed_ = 0.0f;
 #pragma endregion
 #pragma region Look Ahead
-		//Quaternion currentRotation_;
+		Quaternion currentLookRotation_;
+		float futureFrame_;
 #pragma endregion
 #pragma region Banking
 		Quaternion currentRotation_;

@@ -294,8 +294,9 @@ Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
 			resultPosition = InterpolatePosition(posKey1, posKey2, posT);
 		}
 	}
-
-	return resultPosition;
+	
+	
+	return RailSystem::RailConverter::ConvertToLeftHand(resultPosition);
 }
 Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 {
@@ -355,7 +356,8 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 		}
 	}
 
-	return resultRotation;
+
+	return  RailSystem::RailConverter::ConvertToLeftHand(resultRotation);
 }
 void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 {
@@ -442,16 +444,17 @@ void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 	}
 	{
 		std::wostringstream woss;
-		woss << L"  Final Position: (" << transform_.translate.x << L", " << transform_.translate.y << L", " << transform_.translate.z << L")\n";
+		woss << L"  Final Position: (" << convertTransform_.translate.x << L", " << convertTransform_.translate.y << L", " << convertTransform_.translate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
 	{
 		std::wostringstream woss;
-		woss << L"  Final Rotation: (w:" << transform_.rotate.w << L", x:" << transform_.rotate.x << L", y:" << transform_.rotate.y << L", z:" << transform_.rotate.z << L")\n";
+		woss << L"  Final Rotation: (w:" << convertTransform_.rotate.w << L", x:" << convertTransform_.rotate.x << L", y:" << convertTransform_.rotate.y << L", z:" << convertTransform_.rotate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
 #endif // _DEBUG
 }
+
 template<typename T>
 inline std::pair<size_t, size_t> RailSystem::RailAnimationPlayer::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
 {
