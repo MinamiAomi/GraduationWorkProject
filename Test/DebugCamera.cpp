@@ -37,15 +37,11 @@ void DebugCamera::Update() {
         diffPosition += cameraZ;
     }
 
+    Quaternion rotY = Quaternion::MakeFromAngleAxis(eulerAngle_.y,Vector3(0.0f, 1.0f, 0.0f) );
+    Quaternion rotX = Quaternion::MakeFromAngleAxis(eulerAngle_.x,Vector3(1.0f, 0.0f, 0.0f));
+    camera_->SetRotate(rotY * rotX);
 
     camera_->SetPosition(position + diffPosition);
-    camera_->SetRotate(Quaternion::MakeFromEulerAngle(eulerAngle_));
     camera_->UpdateMatrices();
-
-    /*auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
-    camera_->GetTransform();
-
-
-    Vector3::unitX;*/
 
 }

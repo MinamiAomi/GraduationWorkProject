@@ -112,7 +112,9 @@
     <ClCompile Include="TrolleyUI.cpp">
       <Filter>Game\Trolley</Filter>
     </ClCompile>
-    <ClCompile Include="RailCameraDollySystem.cpp" />
+    <ClCompile Include="RailCameraDollySystem.cpp">
+      <Filter>Game\RailCameraSystem\Dolly</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
