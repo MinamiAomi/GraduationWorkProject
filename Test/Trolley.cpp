@@ -35,6 +35,11 @@ void Trolley::Initialize()
 	JSON_LOAD(batteryOffset_);
 	JSON_LOAD(batteryRadius_);
 	JSON_ROOT();
+	JSON_OBJECT("Banking");
+	JSON_LOAD(bankingAmount_);
+	JSON_LOAD(bankingSmoothTime_);
+	JSON_LOAD(lookAheadForBank_);
+	JSON_ROOT();
 	JSON_CLOSE();
 
 	transform_.translate = trolleyOffset_;
@@ -56,7 +61,12 @@ void Trolley::Update()
 		UpdateTrollySpeed();
 	}
 
+	UpdateBanking();
+
+	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
+
 	transform_.translate = trolleyOffset_;
+	transform_.rotate = bankRotation;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
@@ -137,6 +147,23 @@ void Trolley::Update()
 			ImGui::TreePop();
 		}
 
+		if (ImGui::TreeNode("Banking")) {
+			ImGui::DragFloat("Amount", &bankingAmount_, 1.0f, 0.0f);
+			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
+			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Trolley/Trolley.json");
+				JSON_OBJECT("Banking");
+				JSON_SAVE(bankingAmount_);
+				JSON_SAVE(bankingSmoothTime_);
+				JSON_SAVE(lookAheadForBank_);
+				JSON_ROOT();
+				JSON_CLOSE();
+
+			}
+			ImGui::TreePop();
+		}
+
 		ImGui::TreePop();
 	}
 	ImGui::End();
@@ -160,6 +187,31 @@ void Trolley::UpdateTrollySpeed()
 	else {
 		trollyFillUpTime_--;
 	}
+}
+
+void Trolley::UpdateBanking()
+{
+	/*float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
+
+	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
+	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
+
+	Vector3 forwardNow = currentLookRotation_ * Vector3(0, 0, 1);
+
+	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
+	Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
+
+	Vector3 dirToFuture = (posFuture - posNow).Normalized();
+
+	Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
+
+	float turnIntensity = Vector3::Dot(curveCross, railUpVector);
+
+	float targetBankAngle = -turnIntensity * currentRealSpeed_ * bankingAmount_;
+
+	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+
+	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);*/
 }
 
 bool Trolley::UpdateCollision()

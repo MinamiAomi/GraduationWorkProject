@@ -36,6 +36,8 @@ public:
 	void SetFlashlight(const Flashlight* flashlight) { flashlight_ = flashlight; }
 private:
 	void UpdateTrollySpeed();
+	void UpdateBanking();
+
 	ModelInstance model_;
 
 	Transform transform_;
@@ -54,6 +56,19 @@ private:
 	//MaxSpeed時のスピード維持時間
 	int trollyFillUpTime_;
 	int trollyMaxFillUpTime_;
+#pragma endregion
+
+#pragma region Banking
+	Quaternion currentRotation_;
+	float currentBankAngle_ = 0.0f;
+
+	//バンクの強さ（大きいほど傾く）
+	float bankingAmount_ = 30.0f;
+	// 傾きの追従速度（ヌルヌル具合）
+	float bankingSmoothTime_ = 5.0f;
+	// 何フレーム先のカーブを読むか
+	float lookAheadForBank_ = 20.0f;
+#pragma endregion
 
 	std::shared_ptr<SphereCollider> batteryCollider_;
 	Vector3 batteryOffset_;

@@ -20,11 +20,6 @@ void RailSystem::RailCameraSystem::Initialize()
 	JSON_OBJECT("LookAhead");
 	JSON_LOAD(futureFrame_);
 	JSON_ROOT();
-	JSON_OBJECT("Banking");
-	JSON_LOAD(bankingAmount_);
-	JSON_LOAD(bankingSmoothTime_);
-	JSON_LOAD(lookAheadForBank_);
-	JSON_ROOT();
 	JSON_CLOSE();
 
 	Reset();
@@ -39,8 +34,6 @@ void RailSystem::RailCameraSystem::Reset()
 	transform_.UpdateMatrix();
 
 	preCameraPosition_ = transform_.worldMatrix.GetTranslate();
-
-	currentBankAngle_ = 0.0f;
 }
 
 void RailSystem::RailCameraSystem::Update(float deltaTime)
@@ -53,6 +46,8 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
 
 	Quaternion targetWorldRotation = currentLookRotation_ * bankRotation;
+
+	transform_.translate = cameraOffset_;
 
 	if (transform_.GetParent()) {
 		Quaternion parentRotation = transform_.GetParent()->worldMatrix.GetRotate();
