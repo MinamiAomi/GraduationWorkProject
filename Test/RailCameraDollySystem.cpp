@@ -39,8 +39,8 @@ void RailCameraSystem::RailCameraDollySystem::Reset()
 void RailCameraSystem::RailCameraDollySystem::Update(float deltaTime)
 {
 	UpdateFov(deltaTime);
-	UpdateLookAhead(deltaTime);
-	UpdateBanking(deltaTime);
+	//UpdateLookAhead(deltaTime);
+	//UpdateBanking(deltaTime);
 #ifdef _DEBUG
 	ImGui::Begin("GameScene");
 	if (ImGui::TreeNode("Dolly")) {
