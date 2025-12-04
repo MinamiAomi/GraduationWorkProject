@@ -8,7 +8,7 @@
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
     "Stage": "StaticMesh/StageModel/Stage.gltf",
-    "Crystal": "StaticMesh/LightObject/Crystal.gltf",
+    "Crystal": "LightObject/Crystal.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf"
   }
     
