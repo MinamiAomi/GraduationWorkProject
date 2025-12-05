@@ -5,6 +5,9 @@
 #include <memory>
 
 #include "Math/MathUtils.h"
+#include "Math/Camera.h"
+#include "Math/Color.h"
+
 
 class DirectionalLight {
 public:
@@ -22,10 +25,10 @@ public:
     PointLight();
     void DrawImGui(const std::string& label);
 
-    Vector3 color;
+    Color color;
     Vector3 position;
     float intensity;
-    float radius;
+    float range;
     float decay;
     bool isActive;
 };
@@ -35,11 +38,11 @@ public:
     SpotLight();
     void DrawImGui(const std::string& label);
 
-    Vector3 color;
+    Color color;
     Vector3 position;
     Vector3 direction;
     float intensity;
-    float distance;
+    float range;
     float angle;
     float falloffStartAngle;
     float decay;
@@ -49,19 +52,17 @@ public:
 
 class LightManager {
 public:
+    void UpdateActiveLights(const Camera& camera);
+
     void Add(const std::shared_ptr<DirectionalLight>& light);
     void Add(const std::shared_ptr<PointLight>& light);
     void Add(const std::shared_ptr<SpotLight>& light);
 
-    void Remove(const std::shared_ptr<DirectionalLight>& light);
-    void Remove(const std::shared_ptr<PointLight>& light);
-    void Remove(const std::shared_ptr<SpotLight>& light);
-
     void Reset();
-    
-    const std::list<std::shared_ptr<DirectionalLight>>& GetDirectionalLights() const { return directionalLights_; }
-    const std::list<std::shared_ptr<PointLight>>& GetPointLights() const { return pointLights_; }
-    const std::list<std::shared_ptr<SpotLight>>& GetSpotLights() const { return spotLights_; }
+
+    const std::list<std::weak_ptr<DirectionalLight>>& GetDirectionalLights() const { return directionalLights_; }
+    const std::list<std::weak_ptr<PointLight>>& GetPointLights() const { return pointLights_; }
+    const std::list<std::weak_ptr<SpotLight>>& GetSpotLights() const { return spotLights_; }
 
     const std::vector<std::weak_ptr<DirectionalLight>>& GetActiveDirectionalLights() const { return activeDirectionalLights_; }
     const std::vector<std::weak_ptr<PointLight>>& GetActivePointLights() const { return activePointLights_; }
