@@ -9,7 +9,7 @@
 class TitleScene :
 	public BaseScene {
 public:
-
+	static const uint32_t stoneNum = 15;
 	/// <summary>
 	/// 初期化
 	/// </summary>
