@@ -87,7 +87,7 @@ void ModelRenderer::Render(CommandContext& commandContext, const Camera& camera,
     scene.viewMatrix = camera.GetViewMatrix();
     scene.projectionMatrix = camera.GetProjectionMatrix();
     scene.cameraPosition = camera.GetPosition();
-    scene.sunLightColor = sunLight.color;
+    scene.sunLightColor = static_cast<Vector3>(sunLight.color);
     scene.sunLightDirection = sunLight.direction;
     scene.sunLightIntensity = sunLight.intensity;
     commandContext.SetDynamicConstantBufferView(RootIndex::Scene, sizeof(scene), &scene);

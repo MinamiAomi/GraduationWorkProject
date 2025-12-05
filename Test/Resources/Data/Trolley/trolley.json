@@ -7,13 +7,26 @@
     "Battery": {
         "batteryOffset_": [
             0.0,
-            -13.0,
-            30.0
+            -15.0,
+            20.0
         ],
         "batteryRadius_": 3.0
     },
     "TrollerSpeed": {
+        "accelerationRate_": 0.20000000298023224,
+        "batteryAfterBurst_": 30.0,
+        "batteryAfterNitro_": 80.0,
+        "burstDuration_": 2.0,
+        "burstSpeed_": 0.30000001192092896,
+        "burstThreshold_": 110.0,
+        "decelerationRate_": 0.10000000149011612,
+        "maxNormalCharge_": 100.0,
+        "maxSpeed_": 1.0,
         "maxTrollySpeed_": 1.0,
+        "nitroChargeTime_": 3.0,
+        "nitroDuration_": 3.0,
+        "nitroSpeed_": 1.5,
+        "nitroThreshold_": 100.0,
         "trollyAcceleration_": 0.0010000000474974513,
         "trollyDeceleration_": 0.0010000000474974513,
         "trollyMaxFillUpTime_": 60

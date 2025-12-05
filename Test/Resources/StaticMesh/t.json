@@ -305,13 +305,127 @@
       "is_emissive": true
     },
     {
+      "name": "Crystal.007",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          0.0,
+          -7.7172,
+          9.3685
+        ],
+        "rotate": [
+          0.7071,
+          0.7071,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          -0.1952,
+          -10.5852,
+          9.464
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.7071,
+          0.7071,
+          0.0,
+          0.0
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.008",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          0.0,
+          6.9517,
+          9.3685
+        ],
+        "rotate": [
+          0.7071,
+          0.0,
+          0.0,
+          0.7071
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          -0.0955,
+          6.7565,
+          12.2366
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.7071,
+          0.0,
+          0.0,
+          0.7071
+        ]
+      },
+      "is_emissive": true
+    },
+    {
+      "name": "Crystal.009",
+      "model_name": "Crystal",
+      "srt": {
+        "translate": [
+          -9.9735,
+          0.0,
+          9.3685
+        ],
+        "rotate": [
+          0.7071,
+          0.0,
+          0.7071,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          -7.1055,
+          0.0955,
+          9.5637
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.7071,
+          0.0,
+          0.7071,
+          0.0
+        ]
+      },
+      "is_emissive": true
+    },
+    {
       "name": "Crystal",
-      "model_name": "aaaaa",
+      "model_name": "Crystal",
       "srt": {
         "translate": [
           0.0,
           0.0,
-          0.0
+          9.3685
         ],
         "rotate": [
           1.0,
@@ -329,7 +443,7 @@
         "center": [
           -0.1952,
           0.0955,
-          2.8681
+          12.2366
         ],
         "radius": 2.9516,
         "height": 7.8564,

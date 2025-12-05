@@ -23,10 +23,19 @@ void Trolley::Initialize()
 {
 	JSON_OPEN("Resources/Data/Trolley/trolley.json");
 	JSON_OBJECT("TrollerSpeed");
-	JSON_LOAD(maxTrollySpeed_);
-	JSON_LOAD(trollyDeceleration_);
-	JSON_LOAD(trollyAcceleration_);
-	JSON_LOAD(trollyMaxFillUpTime_);
+	JSON_LOAD(maxSpeed_);
+	JSON_LOAD(burstSpeed_);
+	JSON_LOAD(nitroSpeed_);
+	JSON_LOAD(accelerationRate_);
+	JSON_LOAD(decelerationRate_);
+	JSON_LOAD(maxNormalCharge_);
+	JSON_LOAD(nitroThreshold_);
+	JSON_LOAD(burstThreshold_);
+	JSON_LOAD(nitroChargeTime_);
+	JSON_LOAD(nitroDuration_);
+	JSON_LOAD(burstDuration_);
+	JSON_LOAD(batteryAfterNitro_);
+	JSON_LOAD(batteryAfterBurst_);
 	JSON_ROOT();
 	JSON_OBJECT("Trolley");
 	JSON_LOAD(trolleyOffset_);
@@ -45,9 +54,17 @@ void Trolley::Initialize()
 	transform_.translate = trolleyOffset_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
+	trollyState_ = State::Normal;
+	currentSpeed_ = 0.0f;
 
-	trollyFillUpTime_ = trollyMaxFillUpTime_;
-	trollySpeed_ = maxTrollySpeed_;
+	currentCharge_ = 100.0f;
+
+
+	nitroAccumulateTimer_ = 0.0f;
+
+	stateTimer_ = 0.0f;
+
+	isHitFlashlight_ = false;
 
 	batteryTransform_.translate = batteryOffset_;
 	batteryTransform_.SetParent(&transform_);
@@ -63,11 +80,8 @@ void Trolley::Initialize()
 void Trolley::Update(float deltaTime)
 {
 
-	bool isHit = UpdateCollision();
-	if (!isHit) {
-		UpdateTrollySpeed();
-	}
-
+	UpdateCollision();
+	UpdateState(deltaTime);
 	UpdateBanking(deltaTime);
 
 	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
@@ -77,129 +91,103 @@ void Trolley::Update(float deltaTime)
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
+	batteryTransform_.translate = batteryOffset_;
 	batteryTransform_.UpdateMatrix();
 	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
+	batteryCollider_->radius = batteryRadius_;
 
 	trolleyUI_.Update();
 
 #ifdef _DEBUG
-	ImGui::Begin("TrolleySpeed");
-	ImGui::Checkbox("IsDebug", &isDebugTrollySpeed_);
-
-	ImGui::Separator();
-
-	bool isFillingUp = (trollyFillUpTime_ > 0);
-
-	if (isFillingUp) {
-		ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(0.2f, 0.8f, 0.2f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.5f, 0.2f, 0.5f));
-
-		ImGui::TextColored(ImVec4(0.2f, 1.0f, 0.2f, 1.0f), "Status: FILLING UP! (%.1fs)", float(trollyFillUpTime_) / 60.0f);
-	}
-
-	ImGui::SliderFloat("Speed", &trollySpeed_, 0.0f, maxTrollySpeed_, "%.2f km/h");
-
-	if (isFillingUp) {
-		ImGui::PopStyleColor(2);
-	}
-
-	ImGui::End();
-
-	ImGui::Begin("GameScene");
-	if (ImGui::TreeNode("Troller")) {
-		if (ImGui::TreeNode("Troller")) {
-			ImGui::DragFloat3("Offset", &trolleyOffset_.x, 0.01f);
-
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/trolley.json");
-				JSON_OBJECT("Trolley");
-				JSON_SAVE(trolleyOffset_);
-				JSON_ROOT();
-				JSON_CLOSE();
-			}
-
-			ImGui::TreePop();
-		}
-		if (ImGui::TreeNode("Battery")) {
-			ImGui::DragFloat3("Offset", &batteryOffset_.x, 0.01f);
-			ImGui::DragFloat("Radius", &batteryRadius_, 0.01f);
-			batteryTransform_.translate = batteryOffset_;
-			batteryTransform_.UpdateMatrix();
-			batteryCollider_->radius = batteryRadius_;
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/trolley.json");
-				JSON_OBJECT("Battery");
-				JSON_SAVE(batteryOffset_);
-				JSON_SAVE(batteryRadius_);
-				JSON_ROOT();
-				JSON_CLOSE();
-			}
-
-			ImGui::TreePop();
-		}
-
-		if (ImGui::TreeNode("TrollerSpeed")) {
-			ImGui::SliderFloat("CurrentTrollySpeed", &trollySpeed_, 0.0f, maxTrollySpeed_, "Speed: %.2f");
-			ImGui::SliderInt("CurrentFillUpTime", &trollyFillUpTime_, 0, trollyMaxFillUpTime_, "Time: %d");
-
-			ImGui::Separator();
-
-			ImGui::DragFloat("MaxTrollySpeed", &maxTrollySpeed_, 0.01f);
-			ImGui::DragFloat("Deceleration", &trollyDeceleration_, 0.001f);
-			ImGui::DragFloat("Acceleration", &trollyAcceleration_, 0.001f);
-			ImGui::DragInt("MaxFillUpTime", &trollyMaxFillUpTime_, 1);
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/trolley.json");
-				JSON_OBJECT("TrollerSpeed");
-				JSON_SAVE(maxTrollySpeed_);
-				JSON_SAVE(trollyDeceleration_);
-				JSON_SAVE(trollyAcceleration_);
-				JSON_SAVE(trollyMaxFillUpTime_);
-				JSON_ROOT();
-				JSON_CLOSE();
-			}
-			ImGui::TreePop();
-		}
-
-		if (ImGui::TreeNode("Banking")) {
-			ImGui::DragFloat("Amount", &bankingAmount_, 1.0f, 0.0f);
-			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
-			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/trolley.json");
-				JSON_OBJECT("Banking");
-				JSON_SAVE(bankingAmount_);
-				JSON_SAVE(bankingSmoothTime_);
-				JSON_SAVE(lookAheadForBank_);
-				JSON_ROOT();
-				JSON_CLOSE();
-
-			}
-			ImGui::TreePop();
-		}
-
-		ImGui::TreePop();
-	}
-	ImGui::End();
+	DrawImGui();
 #endif // _DEBUG
 
 }
 
-void Trolley::UpdateTrollySpeed()
+void Trolley::UpdateState(float deltaTime)
 {
-	//スピードがMaxだった場合
-	if (trollyFillUpTime_ <= 0) {
-#ifdef _DEBUG
-		if (!isDebugTrollySpeed_) {
-#endif // _DEBUG
-			trollySpeed_ -= trollyDeceleration_;
-			trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
-#ifdef _DEBUG
+	if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
+
+		if (isHitFlashlight_) {
+			currentCharge_ += accelerationRate_ * deltaTime * 60.0f;
 		}
-#endif // DEBUG
+		else {
+#ifdef _DEBUG
+			if (!isDebugTrollySpeed_)
+#endif
+			{
+				currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
+			}
+		}
 	}
-	else {
-		trollyFillUpTime_--;
+
+	currentCharge_ = std::clamp(currentCharge_, 0.0f, burstThreshold_);
+
+	switch (trollyState_)
+	{
+	case Trolley::State::Normal:
+	{
+		currentSpeed_ = std::lerp(0.0f, maxSpeed_, currentCharge_ / maxNormalCharge_);
+		//チャージが満タンならオーバーチャージに移行
+		if (currentCharge_ > maxNormalCharge_) {
+			OnOverchargeState();
+		}
+	}
+	break;
+	case Trolley::State::Overcharge:
+	{
+		currentSpeed_ = maxSpeed_;
+
+		//バースト判定
+		if (currentCharge_ >= burstThreshold_) {
+			OnBurstState();
+			return;
+		}
+
+		//ノーマル判定
+		if (currentCharge_ <= maxNormalCharge_) {
+			OnNormalState();
+			return;
+		}
+
+		//ニトロ判定
+		if (currentCharge_ >= nitroThreshold_) {
+			nitroAccumulateTimer_ += deltaTime;
+			// 規定時間維持できたら発動
+			if (nitroAccumulateTimer_ >= nitroChargeTime_) {
+				OnNitroState();
+			}
+		}
+		else {
+			nitroAccumulateTimer_ -= deltaTime;
+			nitroAccumulateTimer_ = std::max(nitroAccumulateTimer_, 0.0f);
+		}
+	}
+	break;
+	case Trolley::State::Nitro:
+	{
+		currentSpeed_ = nitroSpeed_;
+
+		stateTimer_ += deltaTime;
+		// ニトロ終了判定
+		if (stateTimer_ >= nitroDuration_) {
+			RecoverFromNitro();
+		}
+	}
+	break;
+	case Trolley::State::Burst:
+	{
+		currentSpeed_ = burstSpeed_;
+
+		stateTimer_ += deltaTime;
+		// バースト復帰判定
+		if (stateTimer_ >= burstDuration_) {
+			RecoverFromBurst();
+		}
+	}
+	break;
+	default:
+		break;
 	}
 }
 
@@ -228,24 +216,219 @@ void Trolley::UpdateBanking(float deltaTime)
 	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
 }
 
-bool Trolley::UpdateCollision()
+void Trolley::OnNormalState()
 {
-	bool result = false;
+	trollyState_ = State::Normal;
+	stateTimer_ = 0.0f;
+}
+
+void Trolley::OnOverchargeState()
+{
+	trollyState_ = Trolley::State::Overcharge;
+	nitroAccumulateTimer_ = 0.0f;
+}
+
+void Trolley::OnNitroState()
+{
+	trollyState_ = State::Nitro;
+	stateTimer_ = 0.0f;
+}
+
+void Trolley::RecoverFromNitro()
+{
+	trollyState_ = State::Normal;
+	currentCharge_ = batteryAfterNitro_;
+	stateTimer_ = 0.0f;
+}
+
+void Trolley::RecoverFromBurst()
+{
+	trollyState_ = State::Normal;
+	stateTimer_ = 0.0f;
+}
+
+void Trolley::OnBurstState()
+{
+	trollyState_ = State::Burst;
+	stateTimer_ = 0.0f;
+	currentCharge_ = batteryAfterBurst_;
+}
+#ifdef _DEBUG
+void Trolley::DrawImGui() {
+	// =================================================================================
+	// 1. ステータス表示ウィンドウ (リアルタイム監視用)
+	//    プレイ中ずっと出しておきたい情報はここ
+	// =================================================================================
+	ImGui::Begin("Trolley Statusあいうえおアイウエオ亜伊宇江御");
+
+	// --- 現在の状態 (色付きテキスト) ---
+	const char* stateStr = "";
+	ImVec4 stateColor = ImVec4(1, 1, 1, 1);
+	switch (trollyState_) {
+	case State::Normal:
+		stateStr = "NORMAL";
+		stateColor = ImVec4(0.2f, 0.9f, 0.2f, 1.0f); // 緑
+		break;
+	case State::Overcharge:
+		stateStr = "OVERCHARGE";
+		stateColor = ImVec4(1.0f, 0.8f, 0.0f, 1.0f); // 黄色
+		break;
+	case State::Nitro:
+		stateStr = "NITRO";
+		stateColor = ImVec4(0.0f, 1.0f, 1.0f, 1.0f); // 水色
+		break;
+	case State::Burst:
+		stateStr = "BURST";
+		stateColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤
+		break;
+	}
+	ImGui::TextColored(stateColor, "STATE: %s", stateStr);
+
+	// --- 速度表示 ---
+	ImGui::SliderFloat("Speed", &currentSpeed_, 0.0f, nitroSpeed_, "km/h: %.2f");
+
+	ImGui::Separator();
+
+	// --- バッテリーゲージ ---
+	// 全体(0~BurstThreshold)に対する割合
+	float batteryRatio = currentCharge_ / burstThreshold_;
+
+	// ゲージの色分け
+	if (trollyState_ == State::Burst)
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.0f, 0.2f, 0.2f, 1.0f)); // 赤
+	else if (currentCharge_ >= nitroThreshold_)
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // オレンジ
+	else
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.2f, 0.8f, 0.2f, 1.0f)); // 緑
+
+	char buf[32];
+	sprintf_s(buf, "Charge: %.1f", currentCharge_);
+	ImGui::ProgressBar(batteryRatio, ImVec2(-1.0f, 0.0f), buf);
+	ImGui::PopStyleColor();
+
+	// --- ニトロ蓄積ゲージ (Overcharge時のみ表示) ---
+	if (trollyState_ == State::Overcharge) {
+		float nitroRatio = nitroAccumulateTimer_ / nitroChargeTime_;
+		ImGui::TextColored(ImVec4(0, 1, 1, 1), "Nitro Casting...");
+		ImGui::SameLine();
+		ImGui::ProgressBar(nitroRatio, ImVec2(-1.0f, 0.0f), "HOLD!");
+	}
+
+	// --- デバッグ用スイッチ ---
+	ImGui::Separator();
+	ImGui::Checkbox("isDebugTrollySpeed", &isDebugTrollySpeed_);
+
+	ImGui::End();
+
+
+	// =================================================================================
+	// 2. パラメータ調整ウィンドウ (GameSceneタブ内)
+	//    レベルデザイン調整用。JSON保存機能付き。
+	// =================================================================================
+	ImGui::Begin("GameScene");
+
+	if (ImGui::TreeNode("Troller")) {
+		if (ImGui::TreeNode("Offset")) {
+			ImGui::DragFloat3("Trolley Offset", &trolleyOffset_.x, 0.01f);
+			ImGui::DragFloat3("Battery Offset", &batteryOffset_.x, 0.01f);
+			ImGui::DragFloat("Battery Radius", &batteryRadius_, 0.01f);
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("Speed")) {
+			// パラメータをグループ分けして表示
+			if (ImGui::TreeNode("Speed & Accel")) {
+				ImGui::DragFloat("Max Speed", &maxSpeed_, 0.01f);
+				ImGui::DragFloat("Nitro Speed", &nitroSpeed_, 0.01f);
+				ImGui::DragFloat("Burst Speed (Slow)", &burstSpeed_, 0.01f);
+				ImGui::DragFloat("Accel Rate", &accelerationRate_, 0.1f);
+				ImGui::DragFloat("Decel Rate", &decelerationRate_, 0.1f);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Battery Thresholds")) {
+				ImGui::DragFloat("Normal Max (100%)", &maxNormalCharge_, 1.0f, 0.0f, nitroThreshold_);
+				ImGui::DragFloat("Nitro Threshold", &nitroThreshold_, 1.0f, maxNormalCharge_, burstThreshold_);
+				ImGui::DragFloat("Burst Threshold", &burstThreshold_, 1.0f, nitroThreshold_, 300.0f);
+
+				ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "Result Values:");
+				ImGui::DragFloat("After Nitro Charge", &batteryAfterNitro_, 1.0f);
+				ImGui::DragFloat("After Burst Charge", &batteryAfterBurst_, 1.0f);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Timings")) {
+				ImGui::DragFloat("Nitro Hold Time (sec)", &nitroChargeTime_, 0.1f);
+				ImGui::DragFloat("Nitro Duration (sec)", &nitroDuration_, 0.1f);
+				ImGui::DragFloat("Burst Duration (sec)", &burstDuration_, 0.1f);
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("Banking")) {
+			ImGui::DragFloat("Banking Amount", &bankingAmount_, 0.1f);
+			ImGui::DragFloat("Smooth Time", &bankingSmoothTime_, 0.01f);
+			ImGui::DragFloat("Look Ahead", &lookAheadForBank_, 0.01f);
+			ImGui::Separator();
+
+			ImGui::TreePop();
+		}
+		ImGui::Separator();
+
+		// 保存ボタンを一番上に配置
+		if (ImGui::Button("Save", ImVec2(-1.0f, 0.0f))) {
+			JSON_OPEN("Resources/Data/Trolley/trolley.json");
+
+			JSON_OBJECT("TrollerSpeed");
+			JSON_SAVE(maxSpeed_);
+			JSON_SAVE(burstSpeed_);
+			JSON_SAVE(nitroSpeed_);
+			JSON_SAVE(accelerationRate_);
+			JSON_SAVE(decelerationRate_);
+			JSON_SAVE(maxNormalCharge_);
+			JSON_SAVE(nitroThreshold_);
+			JSON_SAVE(burstThreshold_);
+			JSON_SAVE(nitroChargeTime_);
+			JSON_SAVE(nitroDuration_);
+			JSON_SAVE(burstDuration_);
+			JSON_SAVE(batteryAfterNitro_);
+			JSON_SAVE(batteryAfterBurst_);
+			JSON_ROOT();
+			JSON_OBJECT("Trolley");
+			JSON_SAVE(trolleyOffset_);
+			JSON_ROOT();
+			JSON_OBJECT("Battery");
+			JSON_SAVE(batteryOffset_);
+			JSON_SAVE(batteryRadius_);
+			JSON_ROOT();
+			JSON_OBJECT("Banking");
+			JSON_SAVE(bankingAmount_);
+			JSON_SAVE(bankingSmoothTime_);
+			JSON_SAVE(lookAheadForBank_);
+			JSON_ROOT();
+			JSON_CLOSE();
+		}
+
+		ImGui::TreePop(); // Trolley Controller
+	}
+
+	ImGui::End();
+}
+#endif
+void Trolley::UpdateCollision()
+{
+	isHitFlashlight_ = false;
 	if (!batteryCollider_->GetCollidedWith().empty()) {
 		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
 			if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
 				//フラッシュライトが点灯しているか
 				if (flashlight_->GetIsLighting()) {
-					trollySpeed_ += trollyAcceleration_;
-					trollySpeed_ = std::clamp(trollySpeed_, 0.0f, maxTrollySpeed_);
-					result = true;
-					//スピードがMaxかどうか
-					if (trollySpeed_ >= maxTrollySpeed_) {
-						trollyFillUpTime_ = trollyMaxFillUpTime_;
-					}
+					isHitFlashlight_ = true;
+					break;
 				}
 			}
 		}
 	}
-	return result;
 }

@@ -6,6 +6,7 @@
 #include "Math/Transform.h"
 #include "Math/Camera.h"
 #include "Graphics/Model.h"
+#include "Graphics/LightManager.h"
 
 #include "Collider.h"
 
@@ -26,6 +27,7 @@ private:
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
 
+	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
 	Transform lightTransform_;
 	//ライト自信のTransform
