@@ -31,6 +31,7 @@ void SpotLightObject::Debug(const std::string& label)
 	bool openTree = ImGui::TreeNode(label.c_str());
 	if (openTree) {
 		ImGui::DragFloat3( "offset", &offset_.x, 0.01f);
+		ImGui::DragFloat3("direction", &direction_.x, 0.01f);
 		light_->DrawImGui(label + "lightSetting");
 		ImGui::TreePop();
 	}
