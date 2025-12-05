@@ -2,6 +2,8 @@
 
 #include "ImGuiManager.h"
 
+
+
 DirectionalLight::DirectionalLight() : color(Color::white), direction(Vector3::down), intensity(1.0f), isActive(true) {}
 
 void DirectionalLight::DrawImGui(const std::string& label) {
