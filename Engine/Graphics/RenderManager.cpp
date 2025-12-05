@@ -75,6 +75,7 @@ void RenderManager::Render() {
     if (camera && sunLight) {
         // 影、スペキュラ
         modelSorter_.Sort(*camera);
+        lightManager_.UpdateActiveLights(*camera);
 
         geometryRenderingPass_.Render(commandContext_, *camera, modelSorter_);
 
@@ -101,7 +102,7 @@ void RenderManager::Render() {
     commandContext_.SetRenderTarget(finalImageBuffer_.GetRTV());
     commandContext_.SetViewportAndScissorRect(0, 0, finalImageBuffer_.GetWidth(), finalImageBuffer_.GetHeight());
 
-    
+
     postEffect_.Render(commandContext_, fxaa_.GetResult());
     spriteRenderer_.Render(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
 
