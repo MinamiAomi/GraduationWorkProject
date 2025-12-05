@@ -70,9 +70,13 @@ private:
 	float lookAheadForBank_ = 20.0f;
 #pragma endregion
 
+#pragma region Battery
+	Transform batteryTransform_;
 	std::shared_ptr<SphereCollider> batteryCollider_;
 	Vector3 batteryOffset_;
 	float batteryRadius_;
+#pragma endregion
+
 #ifdef _DEBUG
 	bool isDebugTrollySpeed_ = true;
 #endif // _DEBUG

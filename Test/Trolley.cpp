@@ -49,6 +49,13 @@ void Trolley::Initialize()
 	trollyFillUpTime_ = trollyMaxFillUpTime_;
 	trollySpeed_ = maxTrollySpeed_;
 
+	batteryTransform_.translate = batteryOffset_;
+	batteryTransform_.SetParent(&transform_);
+	batteryTransform_.UpdateMatrix();
+
+	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
+	batteryCollider_->radius = batteryRadius_;
+
 	trolleyUI_.Initialize(transform_);
 	trolleyUI_.SetTrolley(this);
 }
@@ -69,6 +76,9 @@ void Trolley::Update()
 	transform_.rotate = bankRotation;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
+
+	batteryTransform_.UpdateMatrix();
+	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
 
 	trolleyUI_.Update();
 
@@ -99,6 +109,7 @@ void Trolley::Update()
 	if (ImGui::TreeNode("Troller")) {
 		if (ImGui::TreeNode("Troller")) {
 			ImGui::DragFloat3("Offset", &trolleyOffset_.x, 0.01f);
+
 			if (ImGui::Button("Save")) {
 				JSON_OPEN("Resources/Data/Trolley/trolley.json");
 				JSON_OBJECT("Trolley");
@@ -112,6 +123,9 @@ void Trolley::Update()
 		if (ImGui::TreeNode("Battery")) {
 			ImGui::DragFloat3("Offset", &batteryOffset_.x, 0.01f);
 			ImGui::DragFloat("Radius", &batteryRadius_, 0.01f);
+			batteryTransform_.translate = batteryOffset_;
+			batteryTransform_.UpdateMatrix();
+			batteryCollider_->radius = batteryRadius_;
 			if (ImGui::Button("Save")) {
 				JSON_OPEN("Resources/Data/Trolley/trolley.json");
 				JSON_OBJECT("Battery");
