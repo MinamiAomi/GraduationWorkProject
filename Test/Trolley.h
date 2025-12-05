@@ -8,6 +8,7 @@
 
 #include "Collider.h"
 
+#include "RailAnimationPlayer.h"
 #include "Flashlight.h"
 #include "TrolleyUI.h"
 
@@ -16,7 +17,7 @@ public:
 	Trolley();
 
 	void Initialize();
-	void Update();
+	void Update(float deltaTime);
 
 	bool UpdateCollision();
 
@@ -34,9 +35,12 @@ public:
 	float GetTrollySpeedRatio() const { return trollySpeed_ / maxTrollySpeed_; }
 
 	void SetFlashlight(const Flashlight* flashlight) { flashlight_ = flashlight; }
+	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
 private:
 	void UpdateTrollySpeed();
-	void UpdateBanking();
+	void UpdateBanking(float deltaTime);
+
+	const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer_;
 
 	ModelInstance model_;
 
@@ -63,11 +67,11 @@ private:
 	float currentBankAngle_ = 0.0f;
 
 	//バンクの強さ（大きいほど傾く）
-	float bankingAmount_ = 30.0f;
+	float bankingAmount_;
 	// 傾きの追従速度（ヌルヌル具合）
-	float bankingSmoothTime_ = 5.0f;
+	float bankingSmoothTime_;
 	// 何フレーム先のカーブを読むか
-	float lookAheadForBank_ = 20.0f;
+	float lookAheadForBank_ ;
 #pragma endregion
 
 #pragma region Battery

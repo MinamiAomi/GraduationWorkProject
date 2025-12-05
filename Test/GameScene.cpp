@@ -50,6 +50,7 @@ void GameScene::OnInitialize() {
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
 	trolley_->SetParent(railAnimationPlayer_->GetTransform());
+	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
 	trolley_->Initialize();
 	collisionSystem_->RegisterCollider(trolley_->GetCollider());
@@ -105,7 +106,7 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->Update(deltaTime);
 #pragma endregion
 #pragma region Trolley
-	trolley_->Update();
+	trolley_->Update(deltaTime);
 #pragma endregion
 
 #pragma region Flashlight

@@ -60,7 +60,7 @@ void Trolley::Initialize()
 	trolleyUI_.SetTrolley(this);
 }
 
-void Trolley::Update()
+void Trolley::Update(float deltaTime)
 {
 
 	bool isHit = UpdateCollision();
@@ -68,7 +68,7 @@ void Trolley::Update()
 		UpdateTrollySpeed();
 	}
 
-	UpdateBanking();
+	UpdateBanking(deltaTime);
 
 	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
 
@@ -166,7 +166,7 @@ void Trolley::Update()
 			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
 			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
 			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/Trolley.json");
+				JSON_OPEN("Resources/Data/Trolley/trolley.json");
 				JSON_OBJECT("Banking");
 				JSON_SAVE(bankingAmount_);
 				JSON_SAVE(bankingSmoothTime_);
@@ -203,14 +203,14 @@ void Trolley::UpdateTrollySpeed()
 	}
 }
 
-void Trolley::UpdateBanking()
+void Trolley::UpdateBanking(float deltaTime)
 {
-	/*float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
+	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
 	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
 	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
 
-	Vector3 forwardNow = currentLookRotation_ * Vector3(0, 0, 1);
+	Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
 
 	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
 	Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
@@ -221,11 +221,11 @@ void Trolley::UpdateBanking()
 
 	float turnIntensity = Vector3::Dot(curveCross, railUpVector);
 
-	float targetBankAngle = -turnIntensity * currentRealSpeed_ * bankingAmount_;
+	float targetBankAngle = -turnIntensity * railCameraAnimationPlayer_->GetRealSpeed() * bankingAmount_;
 
 	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
 
-	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);*/
+	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
 }
 
 bool Trolley::UpdateCollision()

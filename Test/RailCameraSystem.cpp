@@ -27,25 +27,16 @@ void RailSystem::RailCameraSystem::Initialize()
 
 void RailSystem::RailCameraSystem::Reset()
 {
-	currentRealSpeed_ = 0.0f;
 	currentFov_ = baseFov_;
 
 	transform_.translate = cameraOffset_;
 	transform_.UpdateMatrix();
-
-	preCameraPosition_ = transform_.worldMatrix.GetTranslate();
 }
 
 void RailSystem::RailCameraSystem::Update(float deltaTime)
 {
 	UpdateFov(deltaTime);
-
 	UpdateLookAhead(deltaTime);
-	UpdateBanking(deltaTime);
-
-	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
-
-	Quaternion targetWorldRotation = currentLookRotation_ * bankRotation;
 
 	transform_.translate = cameraOffset_;
 
@@ -54,9 +45,9 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 		transform_.rotate = parentRotation.Inverse() * currentLookRotation_;
 	}
 	else {
-		transform_.rotate = targetWorldRotation;
+		transform_.rotate = currentLookRotation_;
 	}
-	
+
 	transform_.UpdateMatrix();
 
 #ifdef _DEBUG
@@ -72,7 +63,7 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 			ImGui::TreePop();
 		}
 		if (ImGui::TreeNode("Fov")) {
-			ImGui::Text("Real Speed: %.2f / MaxRef: %.2f", currentRealSpeed_, referenceMaxSpeed_);
+			ImGui::Text("MaxRef: %.2f", referenceMaxSpeed_);
 			ImGui::Spacing();
 			ImGui::Separator();
 			float baseFov = baseFov_ * Math::ToDegree;
@@ -108,22 +99,6 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 			}
 			ImGui::TreePop();
 		}
-		if (ImGui::TreeNode("Banking")) {
-			ImGui::DragFloat("Amount", &bankingAmount_, 1.0f, 0.0f);
-			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
-			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/RailCamera/railCameraSystem.json");
-				JSON_OBJECT("Banking");
-				JSON_SAVE(bankingAmount_);
-				JSON_SAVE(bankingSmoothTime_);
-				JSON_SAVE(lookAheadForBank_);
-				JSON_ROOT();
-				JSON_CLOSE();
-
-			}
-			ImGui::TreePop();
-		}
 		ImGui::TreePop();
 	}
 	ImGui::End();
@@ -133,20 +108,9 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 
 void RailSystem::RailCameraSystem::UpdateFov(float deltaTime)
 {
-	Vector3 currentPos = transform_.worldMatrix.GetTranslate();
 
-	if (deltaTime > 0.0001f) {
-		float distance = (currentPos - preCameraPosition_).Length();
-		currentRealSpeed_ = distance / deltaTime;
-	}
-	else {
-		currentRealSpeed_ = 0.0f;
-	}
-
-	preCameraPosition_ = currentPos;
-
-
-	float speedRatio = std::clamp(currentRealSpeed_ / referenceMaxSpeed_, 0.0f, 1.0f);
+	deltaTime;
+	float speedRatio = std::clamp(railCameraAnimationPlayer_->GetRealSpeed() / referenceMaxSpeed_, 0.0f, 1.0f);
 
 	float t = speedRatio * speedRatio;
 
@@ -163,51 +127,23 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 
 	transform_.UpdateMatrix();
 	Vector3 currentPos = transform_.worldMatrix.GetTranslate();
-	Quaternion currentRotate= transform_.GetParent()->worldMatrix.GetRotate();
+	Quaternion currentRotate = transform_.GetParent()->worldMatrix.GetRotate();
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 	float futureFrame = currentFrame + futureFrame_;
 	Vector3 targetPos = railCameraAnimationPlayer_->EvaluatePosition(futureFrame);
 
-	Vector3 diff = targetPos - currentPos;
-	Vector3 forwardVector;
+	Vector3 forwardVector = (targetPos - currentPos).Normalized();
 
-	if (diff.LengthSquare() < 0.0001f) {
-		forwardVector = currentLookRotation_ * Vector3(0, 0, 1);
-	}
-	else {
-		forwardVector = diff.Normalized();
+	Vector3 upVector = Vector3::up;
+
+	if (transform_.GetParent()) {
+		Quaternion parentRotation = transform_.GetParent()->worldMatrix.GetRotate();
+		upVector = parentRotation * Vector3::up;
 	}
 
-	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
-	Vector3 upVector = blenderRotation * Vector3(0, 1, 0);
 
 	Quaternion targetRotation = Quaternion::MakeLookRotation(forwardVector, upVector);
 
 	float t = std::clamp(deltaTime * 5.0f, 0.0f, 1.0f);
 	currentLookRotation_ = Quaternion::Slerp(t, currentLookRotation_, targetRotation);
-}
-
-void RailSystem::RailCameraSystem::UpdateBanking(float deltaTime)
-{
-	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
-
-	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
-	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
-
-	Vector3 forwardNow = currentLookRotation_ * Vector3(0, 0, 1);
-
-	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
-	Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
-
-	Vector3 dirToFuture = (posFuture - posNow).Normalized();
-
-	Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
-
-	float turnIntensity = Vector3::Dot(curveCross, railUpVector);
-
-	float targetBankAngle = -turnIntensity * currentRealSpeed_ * bankingAmount_;
-
-	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
-
-	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
 }

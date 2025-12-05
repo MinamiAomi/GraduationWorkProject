@@ -30,6 +30,12 @@ RailSystem::RailAnimationPlayer::RailAnimationPlayer(std::shared_ptr<const RailS
 	JSON_OBJECT("TrollerSpeed");
 	JSON_LOAD_BY_NAME("maxTrollySpeed_", playbackSpeed_);
 	JSON_CLOSE();
+
+	transform_.UpdateMatrix();
+	convertTransform_ = RailSystem::RailConverter::ConvertToLeftHand(transform_);
+	convertTransform_.UpdateMatrix();
+
+	preCameraPosition_ = EvaluatePosition(0.0f);
 }
 
 void RailSystem::RailAnimationPlayer::Update(float deltaTime)
@@ -49,8 +55,17 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 		//デルタタイムをフレームの進みに変換
 		float frameIncrement = deltaTime * animationData_->railCameraMetaData_.frameRate * playbackSpeed_;
 		currentFrame_ += frameIncrement;
-
+		
 		CalculateCurrentTransform();
+
+		if (deltaTime > 0.0001f) {
+			float distance = (transform_.worldMatrix.GetTranslate() - preCameraPosition_).Length();
+			realSpeed_= distance / deltaTime;
+		}
+		else {
+			realSpeed_ = 0.0f;
+		}
+		preCameraPosition_ = transform_.worldMatrix.GetTranslate();
 #ifdef _DEBUG
 	}
 	else {
@@ -77,6 +92,10 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 
 			//区切り線
 			ImGui::Separator();
+
+			ImGui::Text("RealSpeed:%.2f", realSpeed_);
+			// 余白
+			ImGui::Spacing();
 
 			float minFrame = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
 			float maxFrame = static_cast<float>(animationData_->railCameraMetaData_.endFrame);

@@ -1,5 +1,9 @@
 {
-    "Banking": {},
+    "Banking": {
+        "bankingAmount_": 5.0,
+        "bankingSmoothTime_": 1.0,
+        "lookAheadForBank_": 5.0
+    },
     "Battery": {
         "batteryOffset_": [
             0.0,
