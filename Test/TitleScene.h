@@ -33,4 +33,5 @@ private:
 	std::shared_ptr<Camera> camera_;
 	std::unique_ptr<ModelInstance> stoneModels_[stoneNum];
 	std::unique_ptr<Transform> stoneTransforms_[stoneNum];
+	Vector3 stonePositions_[stoneNum];
 };
