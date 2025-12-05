@@ -9,9 +9,9 @@
 
 namespace RailCameraSystem {
 
-	class RailCameraController {
+	class RailCameraAnimationPlayer {
 	public:
-		explicit RailCameraController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation>animationData);
+		explicit RailCameraAnimationPlayer(std::shared_ptr<const RailCameraSystem::RailCameraAnimation>animationData);
 
 		void Update(float deltaTime);
 
@@ -34,6 +34,7 @@ namespace RailCameraSystem {
 
 		void SetCurrentFrame(int frame);
 		float GetCurrentFrame() const;
+
 	private:
 		/// <summary>
 		/// 指定されたフレームに対応するキーフレームのインデックスペアを探す
@@ -62,6 +63,7 @@ namespace RailCameraSystem {
 		float totalDurationFrames_;
 		bool isPlaying_;
 		float playbackSpeed_;
+
 	};
 
 }

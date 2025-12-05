@@ -33,9 +33,9 @@ public:
     explicit Color(uint32_t rgba) : rgba_(Convert(rgba)) {}
     explicit Color(const Vector4& rgba) : rgba_(rgba) {}
 
-    operator const Vector4& () noexcept { return rgba_; }
-    operator Vector3 () noexcept { return { rgba_.x, rgba_.y, rgba_.z }; }
-    operator uint32_t() noexcept { return Convert(rgba_); }
+    explicit operator const Vector4& () const noexcept { return rgba_; }
+    explicit operator Vector3 () const noexcept { return { rgba_.x, rgba_.y, rgba_.z }; }
+    explicit operator uint32_t() const noexcept { return Convert(rgba_); }
 
     bool operator==(const Color& other) { return rgba_ == other.rgba_; };
     bool operator!=(const Color& other) { return rgba_ != other.rgba_; };
@@ -54,6 +54,8 @@ public:
     float GetG() const { return rgba_.y; }
     float GetB() const { return rgba_.z; }
     float GetA() const { return rgba_.w; }
+
+    float* GetAddress() { return &rgba_.x; }
 
 private:
     Vector4 rgba_;

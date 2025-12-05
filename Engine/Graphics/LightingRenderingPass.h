@@ -16,6 +16,7 @@ public:
     struct RootIndex {
         enum Parameters {
             Scene,
+            //LightList,
             Sky,
             Albedo,
             MetallicRoughness,
@@ -30,6 +31,7 @@ public:
 
     void Initialize(uint32_t width, uint32_t height);
     void Render(CommandContext& commandContext, GeometryRenderingPass& geometryRenderingPass, const Camera& camera, const DirectionalLight& light);
+    void Render(CommandContext& commandContext, GeometryRenderingPass& geometryRenderingPass, const Camera& camera, const LightManager& lightManager);
 
     void SetIrradianceTexture(const std::shared_ptr<TextureResource>& texture) { irradianceTexture_ = texture; }
     void SetRadianceTexture(const std::shared_ptr<TextureResource>& texture) { radianceTexture_ = texture; }

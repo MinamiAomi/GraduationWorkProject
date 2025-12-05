@@ -8,7 +8,18 @@
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
     "Stage": "StaticMesh/StageModel/Stage.gltf",
-    "RANTAN": "StaticMesh/RANTAN.gltf"
+    "RANTAN": "StaticMesh/RANTAN.gltf",
+    "O":"Ore_no_Tousougeki/O.gltf",
+    "r":"Ore_no_Tousougeki/r.gltf",
+    "e":"Ore_no_Tousougeki/e.gltf",
+    "n":"Ore_no_Tousougeki/n.gltf",
+    "o":"Ore_no_Tousougeki/smallO.gltf",
+    "T":"Ore_no_Tousougeki/T.gltf",
+    "u":"Ore_no_Tousougeki/u.gltf",
+    "s":"Ore_no_Tousougeki/s.gltf",
+    "g":"Ore_no_Tousougeki/g.gltf",
+    "k":"Ore_no_Tousougeki/k.gltf",
+    "i":"Ore_no_Tousougeki/i.gltf"
   }
     
 }
