@@ -121,6 +121,9 @@
     <ClCompile Include="LightObject.cpp">
       <Filter>Game\LightObject</Filter>
     </ClCompile>
+    <ClCompile Include="SpotLightObject.cpp">
+      <Filter>Game\LightObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -197,6 +200,9 @@
       <Filter>Game\RailCameraSystem\Dolly</Filter>
     </ClInclude>
     <ClInclude Include="LightObject.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightObject.h">
       <Filter>Game\LightObject</Filter>
     </ClInclude>
   </ItemGroup>
