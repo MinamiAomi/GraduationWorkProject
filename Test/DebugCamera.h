@@ -1,44 +1,40 @@
 #pragma once
-
 #include <memory>
 
-#include "Math/MathUtils.h"
-#include "Math/Transform.h"
+#include "Core/ColorBuffer.h"
+#include "Core/RootSignature.h"
+#include "Core/PipelineState.h"
+#include "Core/TextureResource.h"
 #include "Math/Camera.h"
+#include "LightManager.h"
 
-class DebugCamera {
+class CommandContext;
+class GeometryRenderingPass;
+
+class LightingRenderingPass {
 public:
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	void Initialize();
-	/// <summary>
-	/// 更新
-	/// </summary>
-	void Update();
+    struct RootIndex {
+        enum Parameters {
+            Scene,
+            Sky,
+            LightList,
+            Albedo,
+            MetallicRoughness,
+            Normal,
+            Depth,
 
-	// ゲッター
-	const std::shared_ptr<Camera>& GetCamera() const { return camera_; }
-	//セッター
-	void SetTransform(const Transform& t)
-	{
-		Vector3 forward = t.worldMatrix.GetForward();
+            NumRootParameters
+        };
+    };
 
-		eulerAngle_.y = std::atan2(forward.x, forward.z);
-		eulerAngle_.x = std::asin(-forward.y);
-		eulerAngle_.z = 0.0f;
+    void Initialize(uint32_t width, uint32_t height);
+    void Render(CommandContext& commandContext, GeometryRenderingPass& geometryRenderingPass, const Camera& camera, const DirectionalLight& light);
+    void Render(CommandContext& commandContext, GeometryRenderingPass& geometryRenderingPass, const Camera& camera, const LightManager& lightManager);
 
-		Quaternion rotY = Quaternion::MakeFromAngleAxis(eulerAngle_.y, Vector3::up);
-		Quaternion rotX = Quaternion::MakeFromAngleAxis(eulerAngle_.x, Vector3(1.0f, 0.0f, 0.0f));
-
-		camera_->SetRotate(rotY * rotX);
-
-		camera_->SetPosition(t.worldMatrix.GetTranslate());
-		camera_->UpdateMatrices();
-	}
+    ColorBuffer& GetResult() { return result_; }
 
 private:
-	std::shared_ptr<Camera> camera_;
-	Vector3 eulerAngle_;
-
+    ColorBuffer result_;
+    RootSignature rootSignature_;
+    PipelineState pipelineState_;
 };
