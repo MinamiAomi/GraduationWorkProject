@@ -53,12 +53,27 @@ private:
 	TrolleyUI trolleyUI_;
 
 #pragma region トロッコスピード関連
+
+	float maxBatteryTrollySpeed_;
 	float maxTrollySpeed_;
 	float trollySpeed_;
 	float trollyDeceleration_;
 	float trollyAcceleration_;
+
+	//過充電後の充電量
+	float afterOverchargeBattery_ = 30.0f;
+	float afterNitroBattery_ = 80.0f;
+
+	//バーストするまでの時間
+	float maxBurstTime_ = 300.0f;
+	//過充電ニトロまでの時間
+	float maxOverchargeTime_ = 180.0f;
+
 	//MaxSpeed時のスピード維持時間
 	int trollyFillUpTime_;
+	//オーバーチャージしちゃう量
+	int trollyMaxOverChargeFillUpTime_;
+	//何秒間過充電するか
 	int trollyMaxFillUpTime_;
 #pragma endregion
 
@@ -71,7 +86,7 @@ private:
 	// 傾きの追従速度（ヌルヌル具合）
 	float bankingSmoothTime_;
 	// 何フレーム先のカーブを読むか
-	float lookAheadForBank_ ;
+	float lookAheadForBank_;
 #pragma endregion
 
 #pragma region Battery
