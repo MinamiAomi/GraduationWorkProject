@@ -14,6 +14,7 @@ public:
     Vector3 color;
     Vector3 direction;
     float intensity;
+    bool isActive;
 };
 
 class PointLight {
@@ -26,6 +27,7 @@ public:
     float intensity;
     float radius;
     float decay;
+    bool isActive;
 };
 
 class SpotLight {
@@ -41,6 +43,8 @@ public:
     float angle;
     float falloffStartAngle;
     float decay;
+    bool isActive;
+    bool useVolumeLight;
 };
 
 class LightManager {
@@ -59,9 +63,17 @@ public:
     const std::list<std::shared_ptr<PointLight>>& GetPointLights() const { return pointLights_; }
     const std::list<std::shared_ptr<SpotLight>>& GetSpotLights() const { return spotLights_; }
 
+    const std::vector<std::weak_ptr<DirectionalLight>>& GetActiveDirectionalLights() const { return activeDirectionalLights_; }
+    const std::vector<std::weak_ptr<PointLight>>& GetActivePointLights() const { return activePointLights_; }
+    const std::vector<std::weak_ptr<SpotLight>>& GetActiveSpotLights() const { return activeSpotLights_; }
+
 private:
-    std::list<std::shared_ptr<DirectionalLight>> directionalLights_;
-    std::list<std::shared_ptr<PointLight>> pointLights_;
-    std::list<std::shared_ptr<SpotLight>> spotLights_;
+    std::list<std::weak_ptr<DirectionalLight>> directionalLights_;
+    std::list<std::weak_ptr<PointLight>> pointLights_;
+    std::list<std::weak_ptr<SpotLight>> spotLights_;
+
+    std::vector<std::weak_ptr<DirectionalLight>> activeDirectionalLights_;
+    std::vector<std::weak_ptr<PointLight>> activePointLights_;
+    std::vector<std::weak_ptr<SpotLight>> activeSpotLights_;
 
 };

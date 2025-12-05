@@ -39,7 +39,7 @@ void GeometryRenderingPass::Initialize(uint32_t width, uint32_t height) {
     rootSignatureDesc.AddConstantBufferView(1);
     rootSignatureDesc.AddConstantBufferView(2);
     rootSignatureDesc.AddDescriptorTable().AddSRVDescriptors(BINDLESS_RESOURCE_MAX, 0, 1);
-    rootSignatureDesc.AddStaticSampler(0, D3D12_FILTER_ANISOTROPIC);
+    rootSignatureDesc.AddStaticSampler(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR);
     rootSignatureDesc.AddFlag(D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
     rootSignature_.Create(L"GeometryRenderingPass RootSignature", rootSignatureDesc);
 

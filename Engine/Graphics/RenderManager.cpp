@@ -78,7 +78,7 @@ void RenderManager::Render() {
 
         geometryRenderingPass_.Render(commandContext_, *camera, modelSorter_);
 
-        lightingRenderingPass_.Render(commandContext_, geometryRenderingPass_, *camera, *sunLight);
+        lightingRenderingPass_.Render(commandContext_, geometryRenderingPass_, *camera, lightManager_);
 
         commandContext_.TransitionResource(lightingRenderingPass_.GetResult(), D3D12_RESOURCE_STATE_RENDER_TARGET);
         commandContext_.TransitionResource(geometryRenderingPass_.GetDepth(), D3D12_RESOURCE_STATE_DEPTH_READ);
