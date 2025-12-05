@@ -27,7 +27,7 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 
 		auto sceneObject = std::make_unique<SceneObject>();
 
-		sceneObject->model_.SetModel(assetManager->modelMap.Get(obj.modelName)->Get());
+		sceneObject->model.SetModel(assetManager->modelMap.Get(obj.modelName)->Get());
 
 		//blender->左手座標系
 		sceneObject->transform = obj.transform;
@@ -51,7 +51,20 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 			sceneObject->collider->get()->height = obj.capsuleCollisionData->height;
 		}
 
+
 		sceneObject->isEmissive = obj.isEmissive;
+
+		sceneObject->lightObject.Initialize(&sceneObject->transform);
+		
+		
+		PointLight pointLight;
+		pointLight.intensity = 8.0f;
+		pointLight.range = 20.0f;
+		pointLight.decay = 1.0f;
+		pointLight.color = Color(0.1f, 0.3f, 0.5f, 1.0f);
+
+		sceneObject->lightObject.SetLightSetting(pointLight);
+		sceneObject->lightObject.SetOffset(Vector3(0.0f, 5.0f, 0.0f));
 
 		sceneObjects_.push_back(std::move(sceneObject));
 
@@ -71,7 +84,7 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 
 		auto sceneObject = std::make_unique<SceneObject>();
 
-		sceneObject->model_.SetModel(assetManager->modelMap.Get(obj->modelName)->Get());
+		sceneObject->model.SetModel(assetManager->modelMap.Get(obj->modelName)->Get());
 
 		//blender->左手座標系
 		sceneObject->transform = obj->transform;
@@ -97,6 +110,17 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 
 		sceneObject->isEmissive = obj->isEmissive;
 
+		sceneObject->lightObject.Initialize(&sceneObject->transform);
+
+		PointLight pointLight;
+		pointLight.intensity = 8.0f;
+		pointLight.range = 20.0f;
+		pointLight.decay = 1.0f;
+		pointLight.color = Color(0.1f, 0.3f, 0.5f, 1.0f);
+
+		sceneObject->lightObject.SetLightSetting(pointLight);
+		sceneObject->lightObject.SetOffset(Vector3(0.0f, 5.0f, 0.0f));
+
 		sceneObjects_.push_back(std::move(sceneObject));
 	}
 
@@ -106,7 +130,9 @@ void SceneObjectSystem::SceneObjectManager::Update()
 {
 	for (const auto& obj : sceneObjects_) {
 		obj->transform.UpdateMatrix();
-		obj->model_.SetWorldMatrix(obj->transform.worldMatrix);
+		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+		
+		obj->lightObject.Update();
 		if (obj->isEmissive &&
 			!obj->collider->get()->GetCollidedWith().empty()) {
 			obj->isEmissive = false;

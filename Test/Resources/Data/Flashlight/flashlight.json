@@ -6,8 +6,8 @@
         "subBattery_": 0.1
     },
     "light": {
-        "distanceFromCamera_": 10.0,
-        "fovAngle_": 0.2617993950843811,
-        "lightRange_": 40.0
+        "distanceFromCamera_": 0.0,
+        "fovAngle_": 0.34906572103500366,
+        "lightRange_": 50.16600036621094
     }
 }

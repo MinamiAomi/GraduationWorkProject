@@ -14,6 +14,8 @@
 
 #include "Collider.h"
 
+#include "LightObject.h"
+
 namespace SceneObjectSystem {
 
 	struct CapsuleCollisionData {
@@ -32,9 +34,10 @@ namespace SceneObjectSystem {
 	};
 
 	struct SceneObject {
-		ModelInstance model_;
+		ModelInstance model;
 		Transform transform;
 		std::optional<std::shared_ptr<CapsuleCollider>> collider;
+		LightObject lightObject;
 		bool isEmissive;
 	};
 
