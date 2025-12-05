@@ -29,6 +29,7 @@ public:
 
     void Initialize(uint32_t width, uint32_t height);
     void Render(CommandContext& commandContext, GeometryRenderingPass& geometryRenderingPass, const Camera& camera, const DirectionalLight& light);
+    void Render(CommandContext& commandContext, GeometryRenderingPass& geometryRenderingPass, const Camera& camera, const LightManager& lightManager);
 
     ColorBuffer& GetResult() { return result_; }
 
