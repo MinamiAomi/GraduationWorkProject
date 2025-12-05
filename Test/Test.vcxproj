@@ -25,6 +25,7 @@
     <ClCompile Include="RailAnimationPlayer.cpp" />
     <ClCompile Include="RailCameraSystem.cpp" />
     <ClCompile Include="RailLoader.cpp" />
+    <ClCompile Include="SpotLightObject.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="SceneObjectData.cpp" />
     <ClCompile Include="SceneObjectLoader.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="SceneObjectLoader.h" />
     <ClInclude Include="SceneObjectManager.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SpotLightObject.h" />
     <ClInclude Include="StageSelectScene.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="GameScene.h" />
