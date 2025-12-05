@@ -5,7 +5,7 @@ void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3
 	light_ = std::make_shared<SpotLight>();
 	if (parentTransform != nullptr) {
 		parentTransform_ = parentTransform;
-		lightTransform_.SetParent(parentTransform_,false);
+		lightTransform_.SetParent(parentTransform_, false);
 	}
 	lightTransform_.translate = offset_;
 	lightTransform_.UpdateMatrix();
@@ -27,11 +27,11 @@ void SpotLightObject::Debug(const std::string& label)
 #ifdef ENABLE_IMGUI
 	bool openTree = ImGui::TreeNode(label.c_str());
 	if (openTree) {
-		ImGui::DragFloat3( "offset", &offset_.x, 0.01f);
+		ImGui::DragFloat3("offset", &offset_.x, 0.01f);
 		light_->DrawImGui(label + "lightSetting");
 		ImGui::TreePop();
 	}
 #endif //ENABLE_IMGUI
-	
+
 }
 #endif // _DEBUG
