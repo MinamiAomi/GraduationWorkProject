@@ -5,6 +5,7 @@
 DirectionalLight::DirectionalLight() : color(Color::white), direction(Vector3::down), intensity(1.0f), isActive(true) {}
 
 void DirectionalLight::DrawImGui(const std::string& label) {
+
     (void)label;
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());

@@ -8,6 +8,7 @@
 #include "Math/Camera.h"
 #include "Math/Color.h"
 
+
 class DirectionalLight {
 public:
     DirectionalLight();
