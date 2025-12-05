@@ -28,12 +28,6 @@ void GameScene::OnInitialize() {
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
 
-#pragma region Flashlight
-	flashlight_ = std::make_unique<Flashlight>();
-	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
-	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
-#pragma endregion
-
 #pragma region RailSystem
 	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
@@ -45,6 +39,12 @@ void GameScene::OnInitialize() {
 		railAnimationPlayer_->Play();
 	}
 
+#pragma endregion
+
+#pragma region Flashlight
+	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion
 
 #pragma region Trolley

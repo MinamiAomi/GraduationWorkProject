@@ -1,7 +1,7 @@
 #include "SceneObjectManager.h"
 #include "Framework/AssetManager.h"
 
-#include "SceneObjectConverter.h"
+#include "RailConverter.h"
 
 #ifdef _DEBUG
 #include "Graphics/RenderManager.h"
@@ -30,8 +30,8 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 
 		//blender->左手座標系
 		sceneObject->transform = obj.transform;
-		sceneObject->transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(sceneObject->transform.translate);
-		sceneObject->transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(sceneObject->transform.rotate);
+		sceneObject->transform.translate = RailSystem::RailConverter::ConvertToLeftHand(sceneObject->transform.translate);
+		sceneObject->transform.rotate = RailSystem::RailConverter::ConvertToLeftHand(sceneObject->transform.rotate);
 		sceneObject->transform.UpdateMatrix();
 
 
@@ -43,8 +43,8 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 				0.0f,
 				0.0f,
 				Quaternion::identity);
-			sceneObject->collider->get()->center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj.capsuleCollisionData->center);
-			sceneObject->collider->get()->quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj.capsuleCollisionData->quaternion);
+			sceneObject->collider->get()->center = RailSystem::RailConverter::ConvertToLeftHand(obj.capsuleCollisionData->center);
+			sceneObject->collider->get()->quaternion = RailSystem::RailConverter::ConvertToLeftHand(obj.capsuleCollisionData->quaternion);
 			sceneObject->collider->get()->radius = obj.capsuleCollisionData->radius;
 			sceneObject->collider->get()->height = obj.capsuleCollisionData->height;
 		}
@@ -73,8 +73,8 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 
 		//blender->左手座標系
 		sceneObject->transform = obj->transform;
-		sceneObject->transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(sceneObject->transform.translate);
-		sceneObject->transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(sceneObject->transform.rotate);
+		sceneObject->transform.translate = RailSystem::RailConverter::ConvertToLeftHand(sceneObject->transform.translate);
+		sceneObject->transform.rotate = RailSystem::RailConverter::ConvertToLeftHand(sceneObject->transform.rotate);
 		sceneObject->transform.UpdateMatrix();
 
 
@@ -86,8 +86,8 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 				0.0f,
 				0.0f,
 				Quaternion::identity);
-			sceneObject->collider->get()->center = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(obj->capsuleCollisionData->center);
-			sceneObject->collider->get()->quaternion = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(obj->capsuleCollisionData->quaternion);
+			sceneObject->collider->get()->center = RailSystem::RailConverter::ConvertToLeftHand(obj->capsuleCollisionData->center);
+			sceneObject->collider->get()->quaternion = RailSystem::RailConverter::ConvertToLeftHand(obj->capsuleCollisionData->quaternion);
 			sceneObject->collider->get()->radius = obj->capsuleCollisionData->radius;
 			sceneObject->collider->get()->height = obj->capsuleCollisionData->height;
 		}
