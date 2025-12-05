@@ -21,6 +21,7 @@
     <ClCompile Include="GameClearScene.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
+    <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="RailCameraAnimationPlayer.cpp" />
     <ClCompile Include="RailCameraDollySystem.cpp" />
     <ClCompile Include="RailCameraLoader.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="FlashlightUI.h" />
     <ClInclude Include="GameClearScene.h" />
     <ClInclude Include="GameOverScene.h" />
+    <ClInclude Include="LightObject.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="RailCameraDebugUtils.h" />
