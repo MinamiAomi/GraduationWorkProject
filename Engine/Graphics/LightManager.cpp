@@ -2,8 +2,6 @@
 
 #include "ImGuiManager.h"
 
-
-
 DirectionalLight::DirectionalLight() : color(Color::white), direction(Vector3::down), intensity(1.0f), isActive(true) {}
 
 void DirectionalLight::DrawImGui(const std::string& label) {
@@ -12,7 +10,7 @@ void DirectionalLight::DrawImGui(const std::string& label) {
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());
     if (openTree) {
-        ImGui::Checkbox("isActive", &isActive);
+        ImGui::Checkbox("IsActive", &isActive);
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Direction", &direction.x, 0.01f, -1.0f, 1.0f);
         direction = direction.Normalized();
@@ -57,7 +55,7 @@ void SpotLight::DrawImGui(const std::string& label) {
         ImGui::DragFloat3("Direction", &direction.x, 0.01f, -1.0f, 1.0f);
         direction = direction.Normalized();
         ImGui::DragFloat("Intensity", &intensity, 0.01f, 0.0f, 100.0f);
-        ImGui::DragFloat("Distance", &distance, 0.01f, 0.1f, 100.0f);
+        ImGui::DragFloat("Distance", &range, 0.01f, 0.1f, 100.0f);
         float angleDegree = angle * Math::ToDegree;
         ImGui::DragFloat("Angle", &angleDegree, 0.1f, 0.0f, 180.0f);
         angle = angleDegree * Math::ToRadian;
@@ -73,10 +71,6 @@ void SpotLight::DrawImGui(const std::string& label) {
 void LightManager::Add(const std::shared_ptr<DirectionalLight>& light) { directionalLights_.emplace_back(light); }
 void LightManager::Add(const std::shared_ptr<PointLight>& light) { pointLights_.emplace_back(light); }
 void LightManager::Add(const std::shared_ptr<SpotLight>& light) { spotLights_.emplace_back(light); }
-
-void LightManager::Remove(const std::shared_ptr<DirectionalLight>& light) { directionalLights_.remove(light); }
-void LightManager::Remove(const std::shared_ptr<PointLight>& light) { pointLights_.remove(light); }
-void LightManager::Remove(const std::shared_ptr<SpotLight>& light) { spotLights_.remove(light); }
 
 void LightManager::Reset() {
     directionalLights_.clear();
