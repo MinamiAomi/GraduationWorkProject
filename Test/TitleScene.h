@@ -4,12 +4,17 @@
 #include "Engine/Input/Input.h"
 #include "Scene/SceneManager.h"
 #include "Graphics/Sprite.h"
+#include "Math/Camera.h"
+#include "Math/Transform.h"
+#include "Graphics/Model.h"
 
 
 class TitleScene :
 	public BaseScene {
 public:
+
 	static const uint32_t stoneNum = 15;
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
