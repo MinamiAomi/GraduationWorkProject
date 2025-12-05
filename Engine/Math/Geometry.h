@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <array>
 
 #include "MathUtils.h"
 
@@ -169,7 +170,97 @@ namespace Math {
         float distance;
     };
 
-   
+    class Frustum {
+    public:
+        enum Side {
+            Near = 0,
+            Far,
+            Left,
+            Right,
+            Top, 
+            Bottom,
+            Count
+        };
+
+        Frustum() = default;
+
+        void Set(const Matrix4x4& vp) {
+
+            planes[Side::Left].normal.x = vp.m[0][3] + vp.m[0][0];
+            planes[Side::Left].normal.y = vp.m[1][3] + vp.m[1][0];
+            planes[Side::Left].normal.z = vp.m[2][3] + vp.m[2][0];
+            planes[Side::Left].distance = -(vp.m[3][3] + vp.m[3][0]);
+        
+            planes[Side::Right].normal.x = vp.m[0][3] - vp.m[0][0];
+            planes[Side::Right].normal.y = vp.m[1][3] - vp.m[1][0];
+            planes[Side::Right].normal.z = vp.m[2][3] - vp.m[2][0];
+            planes[Side::Right].distance = -(vp.m[3][3] - vp.m[3][0]);
+
+            planes[Side::Bottom].normal.x = vp.m[0][3] + vp.m[0][1];
+            planes[Side::Bottom].normal.y = vp.m[1][3] + vp.m[1][1];
+            planes[Side::Bottom].normal.z = vp.m[2][3] + vp.m[2][1];
+            planes[Side::Bottom].distance = -(vp.m[3][3] + vp.m[3][1]);
+
+            planes[Side::Top].normal.x = vp.m[0][3] - vp.m[0][1];
+            planes[Side::Top].normal.y = vp.m[1][3] - vp.m[1][1];
+            planes[Side::Top].normal.z = vp.m[2][3] - vp.m[2][1];
+            planes[Side::Top].distance = -(vp.m[3][3] - vp.m[3][1]);
+
+            planes[Side::Near].normal.x = vp.m[0][3] + vp.m[0][2];
+            planes[Side::Near].normal.y = vp.m[1][3] + vp.m[1][2];
+            planes[Side::Near].normal.z = vp.m[2][3] + vp.m[2][2];
+            planes[Side::Near].distance = -(vp.m[3][3] + vp.m[3][2]);
+
+            planes[Side::Far].normal.x = vp.m[0][3] - vp.m[0][2];
+            planes[Side::Far].normal.y = vp.m[1][3] - vp.m[1][2];
+            planes[Side::Far].normal.z = vp.m[2][3] - vp.m[2][2];
+            planes[Side::Far].distance = -(vp.m[3][3] - vp.m[3][2]);
+        
+            for (auto& plane : planes) {
+                float length = plane.normal.Length();
+                if (length > 1e-5f) {
+                    float invLength = 1.0f / length;
+                    plane.normal *= invLength;
+                    plane.distance *= invLength;
+                }
+            }
+        }
+
+        bool Intersects(const Sphere& sphere) const {
+            for (const auto& plane : planes) {
+                float dist = Dot(plane.normal, sphere.center) - plane.distance;
+                if (dist < -sphere.radius) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        bool InersectsSpotLight(const Vector3& position, const Vector3& direction, float range, float angle) const {
+            Sphere boundingSphere;
+            boundingSphere.center = position;
+            boundingSphere.radius = range;
+            
+            float offset = range * 0.5f;
+            boundingSphere.center = position + direction * offset;
+            boundingSphere.radius = range * 0.5f / std::cos(angle);
+
+            return Intersects(boundingSphere);
+        }
+
+        bool Contains(const Vector3& point) const {
+            for (const auto& plane : planes) {
+                float dist = Dot(plane.normal, point) - plane.distance;
+                if (dist < 0.0f) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        std::array<Plane, Side::Count> planes;
+    };
+
     bool IsCollision(const Sphere& sphere1, const Sphere& sphere2);
     bool IsCollision(const Sphere& sphere, const AABB& aabb);
     bool IsCollision(const Sphere& sphere, const OBB& obb);

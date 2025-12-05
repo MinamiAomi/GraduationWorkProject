@@ -14,7 +14,8 @@
 #include "Graphics/Skeleton.h"
 #include "Graphics/Sprite.h"
 
-#include "RailCameraController.h"
+#include "RailCameraAnimationPlayer.h"
+#include "RailCameraDollySystem.h"
 #include "SceneObjectManager.h"
 
 #include "Flashlight.h"
@@ -51,7 +52,8 @@ private:
 
 	std::shared_ptr<Camera> camera_;
 
-	std::unique_ptr<RailCameraSystem::RailCameraController> railCameraController_;
+	std::unique_ptr<RailCameraSystem::RailCameraAnimationPlayer> railCameraAnimationPlayer_;
+	std::unique_ptr<RailCameraSystem::RailCameraDollySystem> railCameraDollySystem_;
 
 	std::unique_ptr<Flashlight> flashlight_;
 	

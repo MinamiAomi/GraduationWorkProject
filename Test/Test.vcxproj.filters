@@ -13,9 +13,6 @@
     <Filter Include="Game\RailCameraSystem">
       <UniqueIdentifier>{2245a9b8-7bea-42ba-a566-ad3e0e4f99a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RailCameraSystem\Controller">
-      <UniqueIdentifier>{82572a16-df14-40b9-831c-28456231c5b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\RailCameraSystem\Data">
       <UniqueIdentifier>{04e11a2a-834b-43ea-91a2-76ef83755fd1}</UniqueIdentifier>
     </Filter>
@@ -55,6 +52,12 @@
     <Filter Include="Game\Collision">
       <UniqueIdentifier>{99c51040-68fe-45b7-b94e-b4f392028749}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\RailCameraSystem\AnimationPlayer">
+      <UniqueIdentifier>{82572a16-df14-40b9-831c-28456231c5b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailCameraSystem\Dolly">
+      <UniqueIdentifier>{9add3b22-1f5e-4350-b2bd-27b3fd254a13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -70,8 +73,8 @@
     <ClCompile Include="RailCameraLoader.cpp">
       <Filter>Game\RailCameraSystem\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="RailCameraController.cpp">
-      <Filter>Game\RailCameraSystem\Controller</Filter>
+    <ClCompile Include="RailCameraAnimationPlayer.cpp">
+      <Filter>Game\RailCameraSystem\AnimationPlayer</Filter>
     </ClCompile>
     <ClCompile Include="SceneObjectLoader.cpp">
       <Filter>Game\SceneObjectSystem\Loader</Filter>
@@ -106,7 +109,12 @@
     <ClCompile Include="FlashlightUI.cpp">
       <Filter>Game\Flashlight</Filter>
     </ClCompile>
-    <ClCompile Include="TrolleyUI.cpp" />
+    <ClCompile Include="TrolleyUI.cpp">
+      <Filter>Game\Trolley</Filter>
+    </ClCompile>
+    <ClCompile Include="RailCameraDollySystem.cpp">
+      <Filter>Game\RailCameraSystem\Dolly</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -124,8 +132,8 @@
     <ClInclude Include="RailCameraLoader.h">
       <Filter>Game\RailCameraSystem\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraController.h">
-      <Filter>Game\RailCameraSystem\Controller</Filter>
+    <ClInclude Include="RailCameraAnimationPlayer.h">
+      <Filter>Game\RailCameraSystem\AnimationPlayer</Filter>
     </ClInclude>
     <ClInclude Include="RailCameraConverter.h">
       <Filter>Game\RailCameraSystem\Converter</Filter>
@@ -178,6 +186,9 @@
     </ClInclude>
     <ClInclude Include="TrolleyUI.h">
       <Filter>Game\Trolley</Filter>
+    </ClInclude>
+    <ClInclude Include="RailCameraDollySystem.h">
+      <Filter>Game\RailCameraSystem\Dolly</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

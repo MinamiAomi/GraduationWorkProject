@@ -1,0 +1,8 @@
+{
+    "Fov": {
+        "baseFov_": 0.7853981852531433,
+        "fovLerpSpeed_": 1.0,
+        "maxFov_": 1.0471975803375244,
+        "referenceMaxSpeed_": 6.0
+    }
+}

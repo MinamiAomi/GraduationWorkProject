@@ -21,7 +21,8 @@
     <ClCompile Include="GameClearScene.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
-    <ClCompile Include="RailCameraController.cpp" />
+    <ClCompile Include="RailCameraAnimationPlayer.cpp" />
+    <ClCompile Include="RailCameraDollySystem.cpp" />
     <ClCompile Include="RailCameraLoader.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="SceneObjectData.cpp" />
@@ -44,10 +45,11 @@
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="RailCameraDebugUtils.h" />
     <ClInclude Include="DebugCamera.h" />
-    <ClInclude Include="RailCameraController.h" />
+    <ClInclude Include="RailCameraAnimationPlayer.h" />
     <ClInclude Include="RailCameraConverter.h" />
     <ClInclude Include="RailCameraData.h" />
     <ClInclude Include="RailCameraLoader.h" />
+    <ClInclude Include="RailCameraDollySystem.h" />
     <ClInclude Include="SceneObjectConverter.h" />
     <ClInclude Include="SceneObjectData.h" />
     <ClInclude Include="SceneObjectLoader.h" />

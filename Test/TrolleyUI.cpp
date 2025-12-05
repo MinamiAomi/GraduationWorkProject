@@ -13,7 +13,7 @@
 void TrolleyUI::Initialize(const Transform& transform)
 {
 	JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
-	JSON_OBJECT("TrollerSpeed");
+	JSON_OBJECT("TrollerUI");
 	JSON_LOAD(speedMeterOffset_);
 	JSON_LOAD(speedMeterNeedleOffset_);
 	JSON_ROOT();
@@ -38,9 +38,11 @@ void TrolleyUI::Initialize(const Transform& transform)
 
 void TrolleyUI::Update()
 {
-
-	speedMeterNeedleTransform_.rotate = Quaternion::Slerp(trolley_->GetTrollySpeedRatio(),Quaternion::MakeForZAxis(270.0f), Quaternion::MakeForZAxis(-90.0f)) ;
-
+	speedMeterNeedleTransform_.rotate = Quaternion::Slerp(
+		trolley_->GetTrollySpeedRatio(),
+		Quaternion::MakeForZAxis(90.0f * Math::ToRadian),
+		Quaternion::MakeForZAxis(-90.0f * Math::ToRadian)
+	);
 	speedMeterTransform_.translate = speedMeterOffset_;
 	speedMeterNeedleTransform_.translate = speedMeterNeedleOffset_;
 
@@ -52,20 +54,17 @@ void TrolleyUI::Update()
 
 #ifdef _DEBUG
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-	if (ImGui::TreeNode("Troller")) {
-		if (ImGui::TreeNode("TrollerUI")) {
-			ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.1f);
-			ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.1f);
+	if (ImGui::TreeNode("TrollerUI")) {
+		ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.01f);
+		ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.01f);
 
-			if (ImGui::Button("Save")) {
-				JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
-				JSON_OBJECT("TrollerUI");
-				JSON_SAVE(speedMeterOffset_);
-				JSON_SAVE(speedMeterNeedleOffset_);
-				JSON_ROOT();
-				JSON_CLOSE();
-			}
-			ImGui::TreePop();
+		if (ImGui::Button("Save")) {
+			JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
+			JSON_OBJECT("TrollerUI");
+			JSON_SAVE(speedMeterOffset_);
+			JSON_SAVE(speedMeterNeedleOffset_);
+			JSON_ROOT();
+			JSON_CLOSE();
 		}
 		ImGui::TreePop();
 	}

@@ -1,33 +1,38 @@
-#include "RailCameraController.h"
+#include "RailCameraAnimationPlayer.h"
 
 #include <cmath>
 #include <algorithm>
 #include <stdexcept>
 #include <iostream> 
+
+#include "Engine/File/JsonConverter.h"
+
 #ifdef _DEBUG
 #include <iomanip>
 #include <sstream>
 #include <Windows.h>
 
-
 #include "Graphics/ImGuiManager.h"
-
 #endif // _DEBUG
 
-RailCameraSystem::RailCameraController::RailCameraController(std::shared_ptr<const RailCameraSystem::RailCameraAnimation> animationData)
+RailCameraSystem::RailCameraAnimationPlayer::RailCameraAnimationPlayer(std::shared_ptr<const RailCameraSystem::RailCameraAnimation> animationData)
 {
 	if (!animationData) {
 		throw std::invalid_argument("AnimationData cannot be null.");
 	}
 	animationData_ = animationData;
 	isPlaying_ = false;
-	playbackSpeed_ = 1.0f;
+
 	//メタデータからアニメーションの開始と終了の位置を取得
 	currentFrame_ = float(animationData_->railCameraMetaData_.startFrame);
 	totalDurationFrames_ = float(animationData_->railCameraMetaData_.endFrame);
+	JSON_OPEN("Resources/Data/Trolley/trolley.json");
+	JSON_OBJECT("TrollerSpeed");
+	JSON_LOAD_BY_NAME("maxTrollySpeed_", playbackSpeed_);
+	JSON_CLOSE();
 }
 
-void RailCameraSystem::RailCameraController::Update(float deltaTime)
+void RailCameraSystem::RailCameraAnimationPlayer::Update(float deltaTime)
 {
 #ifdef DEBUG
 	//止められているor終了していたら再生しない
@@ -112,7 +117,6 @@ void RailCameraSystem::RailCameraController::Update(float deltaTime)
 
 				ImGui::TreePop();
 			}
-
 			ImGui::TreePop();
 		}
 		ImGui::End();
@@ -121,7 +125,7 @@ void RailCameraSystem::RailCameraController::Update(float deltaTime)
 
 }
 
-Transform RailCameraSystem::RailCameraController::GetCurrentTransform() const
+Transform RailCameraSystem::RailCameraAnimationPlayer::GetCurrentTransform() const
 {
 
 	Transform transform;
@@ -224,36 +228,37 @@ Transform RailCameraSystem::RailCameraController::GetCurrentTransform() const
 	return  transform;
 }
 
-void RailCameraSystem::RailCameraController::Play()
+void RailCameraSystem::RailCameraAnimationPlayer::Play()
 {
 	isPlaying_ = true;
 }
 
-void RailCameraSystem::RailCameraController::Pause()
+void RailCameraSystem::RailCameraAnimationPlayer::Pause()
 {
 	isPlaying_ = false;
 }
 
-void RailCameraSystem::RailCameraController::Stop()
+void RailCameraSystem::RailCameraAnimationPlayer::Stop()
 {
 	isPlaying_ = false;
 	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+	
 }
 
-void RailCameraSystem::RailCameraController::Loop()
+void RailCameraSystem::RailCameraAnimationPlayer::Loop()
 {
 	isPlaying_ = true;
 	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
 }
 
-void RailCameraSystem::RailCameraController::SetCurrentFrame(int frame)
+void RailCameraSystem::RailCameraAnimationPlayer::SetCurrentFrame(int frame)
 {
 	if (!animationData_) return;
 	// フレーム番号をアニメーション範囲内にクランプする
 	currentFrame_ = float((std::max)(animationData_->railCameraMetaData_.startFrame, (std::min)(animationData_->railCameraMetaData_.endFrame, frame)));
 }
 
-float RailCameraSystem::RailCameraController::GetCurrentFrame() const
+float RailCameraSystem::RailCameraAnimationPlayer::GetCurrentFrame() const
 {
 	if (!animationData_ || animationData_->evalTimeKeys_.empty()) {
 		return 0.0f;
@@ -331,7 +336,7 @@ float RailCameraSystem::RailCameraController::GetCurrentFrame() const
 }
 
 template<typename T>
-inline std::pair<size_t, size_t> RailCameraSystem::RailCameraController::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
+inline std::pair<size_t, size_t> RailCameraSystem::RailCameraAnimationPlayer::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
 {
 	if (keys.empty()) return { 0, 0 };
 
@@ -372,7 +377,7 @@ inline std::pair<size_t, size_t> RailCameraSystem::RailCameraController::FindKey
 	return { prevIndex, nextIndex };
 }
 
-float RailCameraSystem::RailCameraController::GetCurrentEvalTime() const
+float RailCameraSystem::RailCameraAnimationPlayer::GetCurrentEvalTime() const
 {
 	if (!animationData_ || animationData_->evalTimeKeys_.empty()) {
 		return 0.0f;
@@ -391,7 +396,7 @@ float RailCameraSystem::RailCameraController::GetCurrentEvalTime() const
 	return InterpolateScalar(key1, key2, std::max(0.0f, std::min(1.0f, t)));
 }
 
-float RailCameraSystem::RailCameraController::InterpolateScalar(const RailCameraSystem::ScalarKeyframe& key1, const RailCameraSystem::ScalarKeyframe& key2, float currentFrame) const
+float RailCameraSystem::RailCameraAnimationPlayer::InterpolateScalar(const RailCameraSystem::ScalarKeyframe& key1, const RailCameraSystem::ScalarKeyframe& key2, float currentFrame) const
 {
 	if (currentFrame <= 0.0f) return key1.value;
 	if (currentFrame >= 1.0f) return key2.value;
@@ -417,7 +422,7 @@ float RailCameraSystem::RailCameraController::InterpolateScalar(const RailCamera
 	return std::lerp(key1.value, key2.value, currentFrame);
 }
 
-Vector3 RailCameraSystem::RailCameraController::InterpolatePosition(const RailCameraSystem::PositionKeyframe& key1, const RailCameraSystem::PositionKeyframe& key2, float currentFrame) const
+Vector3 RailCameraSystem::RailCameraAnimationPlayer::InterpolatePosition(const RailCameraSystem::PositionKeyframe& key1, const RailCameraSystem::PositionKeyframe& key2, float currentFrame) const
 {
 	if (currentFrame <= 0.0f) return key1.value;
 	if (currentFrame >= 1.0f) return key2.value;
@@ -425,14 +430,14 @@ Vector3 RailCameraSystem::RailCameraController::InterpolatePosition(const RailCa
 	return Vector3::Lerp(currentFrame, key1.value, key2.value);
 }
 
-Quaternion RailCameraSystem::RailCameraController::InterpolateRotation(const RailCameraSystem::RotationKeyframe& key1, const RailCameraSystem::RotationKeyframe& key2, float currentFrame) const
+Quaternion RailCameraSystem::RailCameraAnimationPlayer::InterpolateRotation(const RailCameraSystem::RotationKeyframe& key1, const RailCameraSystem::RotationKeyframe& key2, float currentFrame) const
 {
 	if (currentFrame <= 0.0f) return key1.value;
 	if (currentFrame >= 1.0f) return key2.value;
 	return Quaternion::Slerp(currentFrame, key1.value, key2.value);
 }
 
-float RailCameraSystem::RailCameraController::FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const
+float RailCameraSystem::RailCameraAnimationPlayer::FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const
 {
 	// X軸を0-1に正規化するための準備
 	float frameRange = p3.x - p0.x;
@@ -473,7 +478,7 @@ float RailCameraSystem::RailCameraController::FindBezierTForX(float targetX, con
 	return t_guess;
 }
 
-Vector2 RailCameraSystem::RailCameraController::EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const
+Vector2 RailCameraSystem::RailCameraAnimationPlayer::EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const
 {
 	float u = 1.0f - t;
 	float tt = t * t;

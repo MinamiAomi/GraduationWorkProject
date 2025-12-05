@@ -153,7 +153,7 @@ void RaytracingRenderer::Render(CommandContext& commandContext, const Camera& ca
     scene.cameraPosition = camera.GetPosition();
     scene.sunLightDirection = sunLight.direction;
     scene.sunLightIntensity = sunLight.intensity;
-    scene.sunLightColor = sunLight.color;
+    scene.sunLightColor = static_cast<Vector3>(sunLight.color);
     auto sceneCB = commandContext.TransfarUploadBuffer(sizeof(scene), &scene);
     sceneCB;
     commandList;
