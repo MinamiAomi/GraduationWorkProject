@@ -31,7 +31,7 @@ void TestScene::OnUpdate() {
         sofaTransform_.rotate = Quaternion::identity;;
     }
 
-    sofaTransform_.rotate = Engine::GetIMUDevice()->GetOrientation();
+    //sofaTransform_.rotate = Engine::GetIMUDevice()->GetOrientation();
     sofaTransform_.UpdateMatrix();
     sofaModel_.SetWorldMatrix(sofaTransform_.worldMatrix);
 }

@@ -27,7 +27,7 @@ namespace {
     SceneManager* g_sceneManager = nullptr;
     AssetManager* g_assetManager = nullptr;
     std::unique_ptr<GameObjectManager> g_gameObjectManager = nullptr;
-    std::unique_ptr<IMUDevice> g_imuDevice = nullptr;
+//    std::unique_ptr<IMUDevice> g_imuDevice = nullptr;
 #ifdef ENABLE_IMGUI
     std::unique_ptr<Editer::EditerManager> g_editerManager = nullptr;
 #endif // ENABLE_IMGUI
@@ -65,8 +65,8 @@ void Engine::Run(Game* game) {
     g_gameObjectManager->SetFactory<DefaultGameObjectFactory>();
     g_gameObjectManager->SetComponentRegisterer<DefaultComponentRegisterer>();
 
-    g_imuDevice = std::make_unique<IMUDevice>();
-    g_imuDevice->Initialize();
+//    g_imuDevice = std::make_unique<IMUDevice>();
+//    g_imuDevice->Initialize();
 
 #ifdef ENABLE_IMGUI
     g_editerManager = std::make_unique<Editer::EditerManager>();
@@ -77,7 +77,7 @@ void Engine::Run(Game* game) {
 
     while (g_gameWindow->ProcessMessage()) {
         g_input->Update();
-        g_imuDevice->Update();
+//        g_imuDevice->Update();
         g_sceneManager->Update();
 
 #ifdef ENABLE_IMGUI
@@ -95,8 +95,8 @@ void Engine::Run(Game* game) {
     g_gameObjectManager.reset();
     g_game->OnFinalize();
 
-    g_imuDevice->Finalize();
-    g_imuDevice.reset();
+//    g_imuDevice->Finalize();
+//    g_imuDevice.reset();
 
     g_threadPool.reset();
     g_audioDevice->Finalize();
@@ -145,9 +145,9 @@ ThreadPool* Engine::GetThreadPool() {
     return g_threadPool.get();
 }
 
-IMUDevice* Engine::GetIMUDevice() {
-    return g_imuDevice.get();
-}
+//IMUDevice* Engine::GetIMUDevice() {
+//    return g_imuDevice.get();
+//}
 
 #ifdef ENABLE_IMGUI
 Editer::EditerManager* Engine::GetEditerManager() {

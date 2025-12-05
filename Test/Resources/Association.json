@@ -16,6 +16,13 @@
         "lamp" : "room/lamp.gltf",
         "table" : "room/table.gltf",
         "apple" : "Apple/apple.gltf"
+    },
+    "Texture" : {
+        "DCUI_Back" : "TestResource/Back.png",
+        "DCUI_Circle" : "TestResource/Circle.png",
+        "DCUI_Triangle" : "TestResource/Triangle.png",
+        "DUCI_ConnectionSettings" : "TestResource/ConnectionSettings.png",
+        "DUCI_FindLightDevice" : "TestResource/FoundLightDevice.png",
+        "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png"
     }
-    
 }

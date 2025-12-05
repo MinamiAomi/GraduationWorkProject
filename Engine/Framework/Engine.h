@@ -48,7 +48,7 @@ public:
     static AssetManager* GetAssetManager();
     static GameObjectManager* GetGameObjectManager();
     static ThreadPool* GetThreadPool();
-    static IMUDevice* GetIMUDevice();
+//    static IMUDevice* GetIMUDevice();
 #ifdef ENABLE_IMGUI
     static Editer::EditerManager* GetEditerManager();
 #endif ENABLE_IMGUI
