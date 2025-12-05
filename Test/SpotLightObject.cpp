@@ -1,6 +1,7 @@
 #include "SpotLightObject.h"
 
 void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3& offset, const Quaternion& quaternion) {
+	quaternion;
 	offset_ = offset;
 	light_ = std::make_shared<SpotLight>();
 	if (parentTransform != nullptr) {
