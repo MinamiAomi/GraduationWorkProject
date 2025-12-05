@@ -12,7 +12,7 @@ void DirectionalLight::DrawImGui(const std::string& label) {
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());
     if (openTree) {
-        ImGui::Checkbox("IsActive", &isActive);
+        ImGui::Checkbox("isActive", &isActive);
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Direction", &direction.x, 0.01f, -1.0f, 1.0f);
         direction = direction.Normalized();

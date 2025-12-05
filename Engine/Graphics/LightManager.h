@@ -6,15 +6,12 @@
 
 #include "Math/MathUtils.h"
 
-
-
-
 class DirectionalLight {
 public:
     DirectionalLight();
     void DrawImGui(const std::string& label);
 
-    Vector3 color;
+    Color color;
     Vector3 direction;
     float intensity;
     bool isActive;
