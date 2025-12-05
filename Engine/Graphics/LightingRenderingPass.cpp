@@ -199,7 +199,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
 
     // 個々のプログラムを変更中
     std::vector<Light> lightData;
-    for (auto& it : lightManager.GetDirectionalLights()) {
+    for (auto& it : lightManager.GetActiveDirectionalLights()) {
         if (auto src = it.lock()) {
             Light dest;
             dest.color = static_cast<Vector3>(src->color);
