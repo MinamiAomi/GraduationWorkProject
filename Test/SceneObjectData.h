@@ -30,6 +30,7 @@ namespace SceneObjectSystem {
 		std::optional<CapsuleCollisionData> capsuleCollisionData;
 		bool isEmissive;
 	};
+
 	struct SceneObject {
 		ModelInstance model_;
 		Transform transform;
