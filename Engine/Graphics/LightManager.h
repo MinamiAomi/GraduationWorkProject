@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include <memory>
+#include <vector>
 
 #include "Math/MathUtils.h"
 #include "Math/Camera.h"
