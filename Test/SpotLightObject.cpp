@@ -1,8 +1,8 @@
 #include "SpotLightObject.h"
 
-void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3& offset, const Quaternion& quaternion) {
-	quaternion;
+void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3& offset, const Vector3& direction) {
 	offset_ = offset;
+	direction_ = direction;
 	light_ = std::make_shared<SpotLight>();
 	if (parentTransform != nullptr) {
 		parentTransform_ = parentTransform;
@@ -11,12 +11,14 @@ void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3
 	lightTransform_.translate = offset_;
 	lightTransform_.UpdateMatrix();
 	light_->position = lightTransform_.worldMatrix.GetTranslate();
+	light_->direction = lightTransform_.worldMatrix.ApplyRotation(direction_);
 	RenderManager::GetInstance()->GetLightManager().Add(light_);
 }
 
 void SpotLightObject::Update() {
 	lightTransform_.translate = offset_;
 	lightTransform_.UpdateMatrix();
+	light_->direction = lightTransform_.worldMatrix.ApplyRotation(direction_);
 	light_->position = lightTransform_.worldMatrix.GetTranslate();
 }
 
@@ -28,7 +30,8 @@ void SpotLightObject::Debug(const std::string& label)
 #ifdef ENABLE_IMGUI
 	bool openTree = ImGui::TreeNode(label.c_str());
 	if (openTree) {
-		ImGui::DragFloat3("offset", &offset_.x, 0.01f);
+		ImGui::DragFloat3( "offset", &offset_.x, 0.01f);
+		ImGui::DragFloat3("direction", &direction_.x, 0.01f);
 		light_->DrawImGui(label + "lightSetting");
 		ImGui::TreePop();
 	}
