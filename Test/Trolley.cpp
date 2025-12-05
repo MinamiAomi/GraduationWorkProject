@@ -35,6 +35,11 @@ void Trolley::Initialize()
 	JSON_LOAD(batteryOffset_);
 	JSON_LOAD(batteryRadius_);
 	JSON_ROOT();
+	JSON_OBJECT("Banking");
+	JSON_LOAD(bankingAmount_);
+	JSON_LOAD(bankingSmoothTime_);
+	JSON_LOAD(lookAheadForBank_);
+	JSON_ROOT();
 	JSON_CLOSE();
 
 	transform_.translate = trolleyOffset_;
@@ -44,11 +49,18 @@ void Trolley::Initialize()
 	trollyFillUpTime_ = trollyMaxFillUpTime_;
 	trollySpeed_ = maxTrollySpeed_;
 
+	batteryTransform_.translate = batteryOffset_;
+	batteryTransform_.SetParent(&transform_);
+	batteryTransform_.UpdateMatrix();
+
+	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
+	batteryCollider_->radius = batteryRadius_;
+
 	trolleyUI_.Initialize(transform_);
 	trolleyUI_.SetTrolley(this);
 }
 
-void Trolley::Update()
+void Trolley::Update(float deltaTime)
 {
 
 	bool isHit = UpdateCollision();
@@ -56,9 +68,17 @@ void Trolley::Update()
 		UpdateTrollySpeed();
 	}
 
+	UpdateBanking(deltaTime);
+
+	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
+
 	transform_.translate = trolleyOffset_;
+	transform_.rotate = bankRotation;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
+
+	batteryTransform_.UpdateMatrix();
+	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
 
 	trolleyUI_.Update();
 
@@ -89,6 +109,7 @@ void Trolley::Update()
 	if (ImGui::TreeNode("Troller")) {
 		if (ImGui::TreeNode("Troller")) {
 			ImGui::DragFloat3("Offset", &trolleyOffset_.x, 0.01f);
+
 			if (ImGui::Button("Save")) {
 				JSON_OPEN("Resources/Data/Trolley/trolley.json");
 				JSON_OBJECT("Trolley");
@@ -102,6 +123,9 @@ void Trolley::Update()
 		if (ImGui::TreeNode("Battery")) {
 			ImGui::DragFloat3("Offset", &batteryOffset_.x, 0.01f);
 			ImGui::DragFloat("Radius", &batteryRadius_, 0.01f);
+			batteryTransform_.translate = batteryOffset_;
+			batteryTransform_.UpdateMatrix();
+			batteryCollider_->radius = batteryRadius_;
 			if (ImGui::Button("Save")) {
 				JSON_OPEN("Resources/Data/Trolley/trolley.json");
 				JSON_OBJECT("Battery");
@@ -137,6 +161,23 @@ void Trolley::Update()
 			ImGui::TreePop();
 		}
 
+		if (ImGui::TreeNode("Banking")) {
+			ImGui::DragFloat("Amount", &bankingAmount_, 1.0f, 0.0f);
+			ImGui::DragFloat("SmoothTime", &bankingSmoothTime_, 1.0f, 0.0f);
+			ImGui::DragFloat("LookAheadForBank", &lookAheadForBank_, 1.0f, 0.0f);
+			if (ImGui::Button("Save")) {
+				JSON_OPEN("Resources/Data/Trolley/trolley.json");
+				JSON_OBJECT("Banking");
+				JSON_SAVE(bankingAmount_);
+				JSON_SAVE(bankingSmoothTime_);
+				JSON_SAVE(lookAheadForBank_);
+				JSON_ROOT();
+				JSON_CLOSE();
+
+			}
+			ImGui::TreePop();
+		}
+
 		ImGui::TreePop();
 	}
 	ImGui::End();
@@ -160,6 +201,31 @@ void Trolley::UpdateTrollySpeed()
 	else {
 		trollyFillUpTime_--;
 	}
+}
+
+void Trolley::UpdateBanking(float deltaTime)
+{
+	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
+
+	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
+	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
+
+	Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
+
+	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
+	Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
+
+	Vector3 dirToFuture = (posFuture - posNow).Normalized();
+
+	Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
+
+	float turnIntensity = Vector3::Dot(curveCross, railUpVector);
+
+	float targetBankAngle = -turnIntensity * railCameraAnimationPlayer_->GetRealSpeed() * bankingAmount_;
+
+	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+
+	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
 }
 
 bool Trolley::UpdateCollision()

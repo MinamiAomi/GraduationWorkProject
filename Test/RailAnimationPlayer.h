@@ -29,6 +29,8 @@ namespace RailSystem {
 
 		bool IsFinished() const { return currentFrame_ >= totalDurationFrames_; }
 
+		float GetRealSpeed() const { return realSpeed_; }
+
 		void SetPlaybackSpeed(float speed) { playbackSpeed_ = speed; }
 		float GetPlaybackSpeed() const { return playbackSpeed_; }
 
@@ -75,6 +77,8 @@ namespace RailSystem {
 		Transform transform_;
 		//左手座標系に変換された後
 		Transform convertTransform_;
+		Vector3 preCameraPosition_;
+		float realSpeed_;
 	};
 
 }

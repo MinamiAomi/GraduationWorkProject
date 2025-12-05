@@ -8,25 +8,13 @@ namespace RailSystem {
 	class RailConverter {
 	public:
 
-		static Transform ConvertToLeftHand(const Transform& blenderTransform) {
-			Transform gameTransform;
+		static Quaternion ConvertToLeftHand(const Quaternion& blenderTransform) {
+			Quaternion result;
 
-            gameTransform.translate.x = blenderTransform.translate.x;
-            gameTransform.translate.y = blenderTransform.translate.z;
-            gameTransform.translate.z = blenderTransform.translate.y;
-
-
-
-            gameTransform.rotate.w = blenderTransform.rotate.w;
-            gameTransform.rotate.x = -blenderTransform.rotate.x;
-            gameTransform.rotate.y = -blenderTransform.rotate.z;
-            gameTransform.rotate.z = -blenderTransform.rotate.y;
-			
-			Quaternion qConv;
-			qConv.w = blenderTransform.rotate.w;
-			qConv.x = -blenderTransform.rotate.x; 
-			qConv.y = -blenderTransform.rotate.z; 
-			qConv.z = -blenderTransform.rotate.y;
+			result.w = blenderTransform.w;
+			result.x = -blenderTransform.x;
+			result.y = -blenderTransform.z;
+			result.z = -blenderTransform.y;
 
 			const float angle = 90.0f * Math::ToRadian;
 
@@ -36,9 +24,26 @@ namespace RailSystem {
 			qFix.y = 0.0f;
 			qFix.z = 0.0f;
 
-			gameTransform.rotate = qConv * qFix;
+			return result * qFix;
+		}
+
+		static Vector3 ConvertToLeftHand(const Vector3& blenderTransform) {
+			Vector3 result;
+
+			result.x = blenderTransform.x;
+			result.y = blenderTransform.z;
+			result.z = blenderTransform.y;
+
+			return result;
+		}
+
+		static Transform ConvertToLeftHand(const Transform& blenderTransform) {
+			Transform gameTransform;
+			gameTransform.translate = RailConverter::ConvertToLeftHand(blenderTransform.translate);
+			gameTransform.rotate = RailConverter::ConvertToLeftHand(blenderTransform.rotate);
 			return gameTransform;
 		}
+
 
 	};
 

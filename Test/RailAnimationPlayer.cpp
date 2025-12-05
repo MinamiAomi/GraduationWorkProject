@@ -30,6 +30,12 @@ RailSystem::RailAnimationPlayer::RailAnimationPlayer(std::shared_ptr<const RailS
 	JSON_OBJECT("TrollerSpeed");
 	JSON_LOAD_BY_NAME("maxTrollySpeed_", playbackSpeed_);
 	JSON_CLOSE();
+
+	transform_.UpdateMatrix();
+	convertTransform_ = RailSystem::RailConverter::ConvertToLeftHand(transform_);
+	convertTransform_.UpdateMatrix();
+
+	preCameraPosition_ = EvaluatePosition(0.0f);
 }
 
 void RailSystem::RailAnimationPlayer::Update(float deltaTime)
@@ -49,8 +55,17 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 		//デルタタイムをフレームの進みに変換
 		float frameIncrement = deltaTime * animationData_->railCameraMetaData_.frameRate * playbackSpeed_;
 		currentFrame_ += frameIncrement;
-
+		
 		CalculateCurrentTransform();
+
+		if (deltaTime > 0.0001f) {
+			float distance = (transform_.worldMatrix.GetTranslate() - preCameraPosition_).Length();
+			realSpeed_= distance / deltaTime;
+		}
+		else {
+			realSpeed_ = 0.0f;
+		}
+		preCameraPosition_ = transform_.worldMatrix.GetTranslate();
 #ifdef _DEBUG
 	}
 	else {
@@ -77,6 +92,10 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 
 			//区切り線
 			ImGui::Separator();
+
+			ImGui::Text("RealSpeed:%.2f", realSpeed_);
+			// 余白
+			ImGui::Spacing();
 
 			float minFrame = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
 			float maxFrame = static_cast<float>(animationData_->railCameraMetaData_.endFrame);
@@ -294,8 +313,9 @@ Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
 			resultPosition = InterpolatePosition(posKey1, posKey2, posT);
 		}
 	}
-
-	return resultPosition;
+	
+	
+	return RailSystem::RailConverter::ConvertToLeftHand(resultPosition);
 }
 Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 {
@@ -355,7 +375,8 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 		}
 	}
 
-	return resultRotation;
+
+	return  RailSystem::RailConverter::ConvertToLeftHand(resultRotation);
 }
 void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 {
@@ -442,16 +463,17 @@ void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 	}
 	{
 		std::wostringstream woss;
-		woss << L"  Final Position: (" << transform_.translate.x << L", " << transform_.translate.y << L", " << transform_.translate.z << L")\n";
+		woss << L"  Final Position: (" << convertTransform_.translate.x << L", " << convertTransform_.translate.y << L", " << convertTransform_.translate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
 	{
 		std::wostringstream woss;
-		woss << L"  Final Rotation: (w:" << transform_.rotate.w << L", x:" << transform_.rotate.x << L", y:" << transform_.rotate.y << L", z:" << transform_.rotate.z << L")\n";
+		woss << L"  Final Rotation: (w:" << convertTransform_.rotate.w << L", x:" << convertTransform_.rotate.x << L", y:" << convertTransform_.rotate.y << L", z:" << convertTransform_.rotate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
 #endif // _DEBUG
 }
+
 template<typename T>
 inline std::pair<size_t, size_t> RailSystem::RailAnimationPlayer::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
 {

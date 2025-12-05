@@ -1,11 +1,16 @@
 {
+    "Banking": {
+        "bankingAmount_": 5.0,
+        "bankingSmoothTime_": 1.0,
+        "lookAheadForBank_": 5.0
+    },
     "Battery": {
         "batteryOffset_": [
-            30.0,
-            -7.519999980926514,
-            0.0
+            0.0,
+            -13.0,
+            30.0
         ],
-        "batteryRadius_": 3.799999952316284
+        "batteryRadius_": 3.0
     },
     "TrollerSpeed": {
         "maxTrollySpeed_": 1.0,
