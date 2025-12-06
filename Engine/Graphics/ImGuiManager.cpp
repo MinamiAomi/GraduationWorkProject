@@ -21,21 +21,6 @@ void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
     auto& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-    // フォント読み込み
-    ImFont* font = io.Fonts->AddFontFromFileTTF(
-        "Resources/Fonts/meiryo.ttc",
-        18.0f,
-        nullptr,
-        io.Fonts->GetGlyphRangesJapanese()
-    );
-
-    // ★このチェックを追加してください★
-    if (font == nullptr) {
-        // 読み込み失敗！パスが間違っているか、ファイルがロックされています。
-        // 試しに別のフォント (msgothic.ttc) を読み込んでみてください。
-        font = io.Fonts->AddFontFromFileTTF("c:/Windows/Fonts/msgothic.ttc", 18.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
-    }
-
     ImGui::StyleColorsDark();
     ImGui::StyleColorsClassic();
 

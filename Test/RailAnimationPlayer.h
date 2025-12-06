@@ -67,6 +67,11 @@ namespace RailSystem {
 		float FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 		Vector2 EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 
+#ifdef _DEBUG
+		void DrawImGui();
+#endif // _DEBUG
+
+
 		std::shared_ptr<const RailAnimation> animationData_;
 		float currentFrame_;
 		float totalDurationFrames_;

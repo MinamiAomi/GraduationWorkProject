@@ -6,6 +6,21 @@
 
 class Transform {
 public:
+#ifdef _DEBUG
+    bool IsMatrixNaN(const Matrix4x4& m) {
+        // 4x4 = 16要素すべてをチェック
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                // 行列の要素へのアクセス方法は m.m[i][j] や m[i][j] など環境に合わせてください
+                if (std::isnan(m.m[i][j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+#endif // _DEBUG
+
     /// <summary>
     /// ワールド行列を更新
     /// </summary>
@@ -14,6 +29,10 @@ public:
         if (parent_) {
             worldMatrix *= parent_->worldMatrix;
         }
+#ifdef _DEBUG
+        assert(!IsMatrixNaN(worldMatrix) && "Detected NaN in WorldMatrix!");
+#endif // _DEBUG
+
     }
 
     /// <summary>

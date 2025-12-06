@@ -24,7 +24,7 @@ void TrolleyUI::Initialize(const Transform& transform)
 	speedMeterNeedleTransform_.translate = speedMeterNeedleOffset_;
 
 	speedMeterTransform_.SetParent(&transform);
-	speedMeterNeedleTransform_.SetParent(&transform);
+	speedMeterNeedleTransform_.SetParent(&speedMeterTransform_);
 
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
@@ -53,12 +53,17 @@ void TrolleyUI::Update()
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
 
 #ifdef _DEBUG
-	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-	if (ImGui::TreeNode("TrollerUI")) {
-		ImGui::DragFloat3("SpeedMeterOffset", &speedMeterOffset_.x, 0.01f);
-		ImGui::DragFloat3("NeedleOffset", &speedMeterNeedleOffset_.x, 0.01f);
+	DrawImGui();
+#endif // _DEBUG
 
-		if (ImGui::Button("Save")) {
+}
+
+#ifdef _DEBUG
+void TrolleyUI::DrawImGui()
+{
+	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
+	if (ImGui::TreeNode("トロッコUI (TrollerUI)")) {
+		if (ImGui::Button("Save", ImVec2(-1.0f, 0.0f))) {
 			JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
 			JSON_OBJECT("TrollerUI");
 			JSON_SAVE(speedMeterOffset_);
@@ -66,9 +71,15 @@ void TrolleyUI::Update()
 			JSON_ROOT();
 			JSON_CLOSE();
 		}
+		ImGui::Separator();
+
+		ImGui::DragFloat3("スピードメーターオフセット", &speedMeterOffset_.x, 0.01f);
+		ImGui::DragFloat3("はぴーどメーターの針オフセット", &speedMeterNeedleOffset_.x, 0.01f);
+
+
 		ImGui::TreePop();
 	}
 	ImGui::End();
-#endif // _DEBUG
-
 }
+
+#endif // _DEBUG

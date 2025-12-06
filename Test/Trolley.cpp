@@ -198,22 +198,35 @@ void Trolley::UpdateBanking(float deltaTime)
 	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
 	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
 
-	Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
+	Vector3 diff = posFuture - posNow;
 
-	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
-	Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
+	float targetBankAngle = 0.0f;
 
-	Vector3 dirToFuture = (posFuture - posNow).Normalized();
+	if (diff.LengthSquare() > 1e-5f) {
 
-	Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
+		Vector3 dirToFuture = diff.Normalized();
 
-	float turnIntensity = Vector3::Dot(curveCross, railUpVector);
+		Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
 
-	float targetBankAngle = -turnIntensity * railCameraAnimationPlayer_->GetRealSpeed() * bankingAmount_;
+		Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
+		Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
 
-	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+		Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
 
-	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
+		float turnIntensity = Vector3::Dot(curveCross, railUpVector);
+
+		targetBankAngle = -turnIntensity * railCameraAnimationPlayer_->GetRealSpeed() * bankingAmount_;
+
+		targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+	}
+
+	if (std::isfinite(targetBankAngle)) {
+		currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
+	}
+
+	if (!std::isfinite(currentBankAngle_)) {
+		currentBankAngle_ = 0.0f;
+	}
 }
 
 void Trolley::OnNormalState()
@@ -253,15 +266,16 @@ void Trolley::OnBurstState()
 	stateTimer_ = 0.0f;
 	currentCharge_ = batteryAfterBurst_;
 }
+
 #ifdef _DEBUG
 void Trolley::DrawImGui() {
 	// =================================================================================
 	// 1. ステータス表示ウィンドウ (リアルタイム監視用)
-	//    プレイ中ずっと出しておきたい情報はここ
+	//    プレイ中ずっと出しておきたい情報は視認性重視
 	// =================================================================================
-	ImGui::Begin("Trolley Statusあいうえおアイウエオ亜伊宇江御");
+	ImGui::Begin("Trolley Status");
 
-	// --- 現在の状態 (色付きテキスト) ---
+	// --- 現在の状態 (英語のまま) ---
 	const char* stateStr = "";
 	ImVec4 stateColor = ImVec4(1, 1, 1, 1);
 	switch (trollyState_) {
@@ -282,10 +296,12 @@ void Trolley::DrawImGui() {
 		stateColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤
 		break;
 	}
+	// STATEは見出しなので英語のまま強調
 	ImGui::TextColored(stateColor, "STATE: %s", stateStr);
 
 	// --- 速度表示 ---
-	ImGui::SliderFloat("Speed", &currentSpeed_, 0.0f, nitroSpeed_, "km/h: %.2f");
+	// 単位や意味がわかるように日本語を添える
+	ImGui::SliderFloat("現在のトロッコ速度 (Speed)", &currentSpeed_, 0.0f, nitroSpeed_, "%.2f km/h");
 
 	ImGui::Separator();
 
@@ -302,82 +318,36 @@ void Trolley::DrawImGui() {
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.2f, 0.8f, 0.2f, 1.0f)); // 緑
 
 	char buf[32];
-	sprintf_s(buf, "Charge: %.1f", currentCharge_);
+	// 数値だけだと何かわからないので日本語追加
+	sprintf_s(buf, "充電量: %.1f", currentCharge_);
 	ImGui::ProgressBar(batteryRatio, ImVec2(-1.0f, 0.0f), buf);
 	ImGui::PopStyleColor();
 
 	// --- ニトロ蓄積ゲージ (Overcharge時のみ表示) ---
-	if (trollyState_ == State::Overcharge) {
+	if (trollyState_ == State::Overcharge && currentCharge_ >= nitroThreshold_) {
 		float nitroRatio = nitroAccumulateTimer_ / nitroChargeTime_;
-		ImGui::TextColored(ImVec4(0, 1, 1, 1), "Nitro Casting...");
+
+		ImGui::TextColored(ImVec4(0, 1, 1, 1), "Nitro Readying..."); // 雰囲気重視で英語
 		ImGui::SameLine();
-		ImGui::ProgressBar(nitroRatio, ImVec2(-1.0f, 0.0f), "HOLD!");
+		ImGui::ProgressBar(nitroRatio, ImVec2(-1.0f, 0.0f), "HOLD!"); // ゲーム的な指示は英語で
 	}
 
 	// --- デバッグ用スイッチ ---
 	ImGui::Separator();
-	ImGui::Checkbox("isDebugTrollySpeed", &isDebugTrollySpeed_);
+	// 変数名そのままだとプランナーが触りづらいので機能名にする
+	ImGui::Checkbox("デバッグ：自然減速を停止", &isDebugTrollySpeed_);
 
 	ImGui::End();
 
 
 	// =================================================================================
 	// 2. パラメータ調整ウィンドウ (GameSceneタブ内)
-	//    レベルデザイン調整用。JSON保存機能付き。
+	//    レベルデザイン調整用。意味を誤解しないよう詳細な日本語にする。
 	// =================================================================================
 	ImGui::Begin("GameScene");
 
-	if (ImGui::TreeNode("Troller")) {
-		if (ImGui::TreeNode("Offset")) {
-			ImGui::DragFloat3("Trolley Offset", &trolleyOffset_.x, 0.01f);
-			ImGui::DragFloat3("Battery Offset", &batteryOffset_.x, 0.01f);
-			ImGui::DragFloat("Battery Radius", &batteryRadius_, 0.01f);
-			ImGui::TreePop();
-		}
-
-		if (ImGui::TreeNode("Speed")) {
-			// パラメータをグループ分けして表示
-			if (ImGui::TreeNode("Speed & Accel")) {
-				ImGui::DragFloat("Max Speed", &maxSpeed_, 0.01f);
-				ImGui::DragFloat("Nitro Speed", &nitroSpeed_, 0.01f);
-				ImGui::DragFloat("Burst Speed (Slow)", &burstSpeed_, 0.01f);
-				ImGui::DragFloat("Accel Rate", &accelerationRate_, 0.1f);
-				ImGui::DragFloat("Decel Rate", &decelerationRate_, 0.1f);
-				ImGui::TreePop();
-			}
-
-			if (ImGui::TreeNode("Battery Thresholds")) {
-				ImGui::DragFloat("Normal Max (100%)", &maxNormalCharge_, 1.0f, 0.0f, nitroThreshold_);
-				ImGui::DragFloat("Nitro Threshold", &nitroThreshold_, 1.0f, maxNormalCharge_, burstThreshold_);
-				ImGui::DragFloat("Burst Threshold", &burstThreshold_, 1.0f, nitroThreshold_, 300.0f);
-
-				ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "Result Values:");
-				ImGui::DragFloat("After Nitro Charge", &batteryAfterNitro_, 1.0f);
-				ImGui::DragFloat("After Burst Charge", &batteryAfterBurst_, 1.0f);
-				ImGui::TreePop();
-			}
-
-			if (ImGui::TreeNode("Timings")) {
-				ImGui::DragFloat("Nitro Hold Time (sec)", &nitroChargeTime_, 0.1f);
-				ImGui::DragFloat("Nitro Duration (sec)", &nitroDuration_, 0.1f);
-				ImGui::DragFloat("Burst Duration (sec)", &burstDuration_, 0.1f);
-				ImGui::TreePop();
-			}
-
-			ImGui::TreePop();
-		}
-
-		if (ImGui::TreeNode("Banking")) {
-			ImGui::DragFloat("Banking Amount", &bankingAmount_, 0.1f);
-			ImGui::DragFloat("Smooth Time", &bankingSmoothTime_, 0.01f);
-			ImGui::DragFloat("Look Ahead", &lookAheadForBank_, 0.01f);
-			ImGui::Separator();
-
-			ImGui::TreePop();
-		}
-		ImGui::Separator();
-
-		// 保存ボタンを一番上に配置
+	if (ImGui::TreeNode("トロッコ制御 (Trolley)")) {
+		// 保存ボタン
 		if (ImGui::Button("Save", ImVec2(-1.0f, 0.0f))) {
 			JSON_OPEN("Resources/Data/Trolley/trolley.json");
 
@@ -411,12 +381,69 @@ void Trolley::DrawImGui() {
 			JSON_CLOSE();
 		}
 
+		ImGui::Separator();
+
+		if (ImGui::TreeNode("基本座標 (Transform)")) {
+			ImGui::DragFloat3("本体オフセット", &trolleyOffset_.x, 0.01f);
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("当たり判定 (Collision)")) {
+			ImGui::DragFloat3("判定オフセット", &batteryOffset_.x, 0.01f);
+			ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
+
+			if (ImGui::TreeNode("速度・加速度 (Speed & Accel)")) {
+				ImGui::DragFloat("通常時の最高速度", &maxSpeed_, 0.01f);
+				ImGui::DragFloat("ニトロ時の最高速度", &nitroSpeed_, 0.01f);
+				ImGui::DragFloat("バースト時の最高速度", &burstSpeed_, 0.01f);
+				ImGui::Spacing();
+				ImGui::DragFloat("光を当てた時の加速量", &accelerationRate_, 0.1f);
+				ImGui::DragFloat("自然減速量", &decelerationRate_, 0.1f);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("しきい値・バッテリー容量 (Thresholds)")) {
+				// スライダーの説明を具体的に
+				ImGui::DragFloat("通常上限 (100%)", &maxNormalCharge_, 1.0f, 0.0f, nitroThreshold_);
+				ImGui::DragFloat("ニトロ発動ライン", &nitroThreshold_, 1.0f, maxNormalCharge_, burstThreshold_);
+				ImGui::DragFloat("バースト発生ライン", &burstThreshold_, 1.0f, nitroThreshold_, 300.0f);
+
+				ImGui::Spacing();
+				ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "イベント終了後の残量");
+				ImGui::DragFloat("ニトロ終了後", &batteryAfterNitro_, 1.0f);
+				ImGui::DragFloat("バースト終了後", &batteryAfterBurst_, 1.0f);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("時間制御 (Timings)")) {
+				ImGui::DragFloat("ニトロ発動に必要な維持時間", &nitroChargeTime_, 0.1f, 0.0f, 10.0f, "%.1f秒");
+				ImGui::DragFloat("ニトロ持続時間", &nitroDuration_, 0.1f, 0.0f, 10.0f, "%.1f秒");
+				ImGui::DragFloat("バースト演出時間", &burstDuration_, 0.1f, 0.0f, 10.0f, "%.1f秒");
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("バンキング (傾き演出)")) {
+			ImGui::DragFloat("傾きの強さ (Amount)", &bankingAmount_, 0.1f);
+			ImGui::DragFloat("追従速度 (Smooth)", &bankingSmoothTime_, 0.01f);
+			ImGui::DragFloat("カーブの先読み距離", &lookAheadForBank_, 0.01f);
+			ImGui::TreePop();
+		}
+
+		
 		ImGui::TreePop(); // Trolley Controller
 	}
 
 	ImGui::End();
 }
 #endif
+
 void Trolley::UpdateCollision()
 {
 	isHitFlashlight_ = false;
