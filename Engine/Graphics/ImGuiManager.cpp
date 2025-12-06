@@ -9,23 +9,40 @@
 #include "Core/Graphics.h"
 #include "Core/SwapChain.h"
 #include "Core/CommandContext.h"
-
-ImGuiManager* ImGuiManager::GetInstance() {
-    static ImGuiManager instance;
-    return &instance;
-}
-
+#include <string> 
+#include <assert.h>
 void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
 #ifdef ENABLE_IMGUI
     auto graphics = Graphics::GetInstance();
     descriptor_ = graphics->AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
     auto& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+    // フォント読み込み
+    ImFont* font = io.Fonts->AddFontFromFileTTF(
+        "Resources/Fonts/meiryo.ttc",
+        18.0f,
+        nullptr,
+        io.Fonts->GetGlyphRangesJapanese()
+    );
+
+    // ★このチェックを追加してください★
+    if (font == nullptr) {
+        // 読み込み失敗！パスが間違っているか、ファイルがロックされています。
+        // 試しに別のフォント (msgothic.ttc) を読み込んでみてください。
+        font = io.Fonts->AddFontFromFileTTF("c:/Windows/Fonts/msgothic.ttc", 18.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
+    }
+
     ImGui::StyleColorsDark();
     ImGui::StyleColorsClassic();
+
+    // Win32 Init
     ImGui_ImplWin32_Init(hWnd);
+
+    // DX12 Init (ここでフォントテクスチャがGPUに作られます)
     ImGui_ImplDX12_Init(
         graphics->GetDevice(),
         SwapChain::kNumBuffers,
@@ -35,31 +52,5 @@ void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
         descriptor_);
 #else
     hWnd; rtvFormat;
-#endif ENABLE_IMGUI
-}
-
-void ImGuiManager::NewFrame() {
-#ifdef ENABLE_IMGUI
-    ImGui_ImplWin32_NewFrame();
-    ImGui_ImplDX12_NewFrame();
-    ImGui::NewFrame();
 #endif // ENABLE_IMGUI
-}
-
-void ImGuiManager::Render(CommandContext& commandContext) {
-#ifdef ENABLE_IMGUI
-    ImGui::Render();
-    ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandContext);
-#else
-    commandContext;
-#endif // ENABLE_IMGUI
-}
-
-void ImGuiManager::Shutdown() {
-#ifdef ENABLE_IMGUI
-    ImGui_ImplDX12_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
-#endif // ENABLE_IMGUI
-
 }
