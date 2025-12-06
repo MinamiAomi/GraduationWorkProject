@@ -23,6 +23,10 @@ private:
 	void UpdateLightPower();
 	void SpotLightDebugDraw() const;
 	void DebugMove();
+#ifdef _DEBUG
+	void DrawImGui();
+#endif // _DEBUG
+
 
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;

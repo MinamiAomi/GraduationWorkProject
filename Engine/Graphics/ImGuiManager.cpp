@@ -21,11 +21,30 @@ void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
     descriptor_ = graphics->AllocateDescriptor(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
     auto& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+    // --- フォント読み込み ---
+    // パス区切り文字を \\ に修正
+    ImFont* font = io.Fonts->AddFontFromFileTTF(
+        "c:/Windows/Fonts/meiryo.ttc",
+        18.0f,
+        nullptr,
+        io.Fonts->GetGlyphRangesJapanese()
+    );
+
+    // 読み込みチェック（失敗したらここで止まります）
+    // 止まった場合、パスが間違っているかファイルがありません
+    assert(font != nullptr);
+
     ImGui::StyleColorsDark();
     ImGui::StyleColorsClassic();
+
+    // Win32 Init
     ImGui_ImplWin32_Init(hWnd);
+
+    // DX12 Init (ここでフォントテクスチャがGPUに作られます)
     ImGui_ImplDX12_Init(
         graphics->GetDevice(),
         SwapChain::kNumBuffers,
@@ -35,7 +54,7 @@ void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
         descriptor_);
 #else
     hWnd; rtvFormat;
-#endif ENABLE_IMGUI
+#endif // ENABLE_IMGUI
 }
 
 void ImGuiManager::NewFrame() {

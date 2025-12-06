@@ -65,69 +65,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
 void Flashlight::Update()
 {
+
 #ifdef _DEBUG
-    static bool isDebugDraw = false;
-
-    ImGui::Begin("LightBatter");
-
-    ImGui::Checkbox("IsDebug", &isDebug_);
-
-    ImGui::Separator();
-
-    ImGui::VSliderFloat("##v_battery", ImVec2(40, 640), &battery_, 0.0f, maxBattery_, "%.1f");
-
-    ImGui::SameLine();
-    ImGui::Text("\n%.1f", battery_);
-
-    ImGui::End();
-    ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-    if (ImGui::TreeNode("FlashLight")) {
-        ImGui::Checkbox("DebugDraw", &isDebugDraw);
-        if (ImGui::TreeNode("Light")) {
-            ImGui::DragFloat3("BaseTransform", &transform_.translate.x, 0.1f);
-
-            ImGui::DragFloat("DistanceFromCamera", &distanceFromCamera_, 0.1f, 0.0f, 50.0f);
-            Vector2 sphericalAnglesDegrees = { Math::ToDegree * sphericalAngleX_, Math::ToDegree * sphericalAngleY_ };
-            ImGui::SliderFloat2("SphericalAngles", &sphericalAnglesDegrees.x, -90, 90);
-            sphericalAngleX_ = Math::ToRadian * sphericalAnglesDegrees.x;
-            sphericalAngleY_ = Math::ToRadian * sphericalAnglesDegrees.y;
-            float fovAngleDegree = fovAngle_ * Math::ToDegree;
-            ImGui::DragFloat("FovAngle", &fovAngleDegree, 1.0f, 1.0f, 90.0f);
-            fovAngle_ = fovAngleDegree * Math::ToRadian;
-            ImGui::SliderFloat("LightRange", &lightRange_, 1.0f, 100.0f);
-
-            if (ImGui::Button("Save")) {
-                JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
-                JSON_OBJECT("light");
-                JSON_SAVE(distanceFromCamera_);
-                JSON_SAVE(fovAngle_);
-                JSON_SAVE(lightRange_);
-                JSON_ROOT();
-                JSON_CLOSE();
-            }
-            ImGui::TreePop();
-        }
-        if (ImGui::TreeNode("Battery")) {
-
-            ImGui::DragFloat("Max", &maxBattery_, 1.0f);
-            ImGui::DragFloat("Add", &addBattery_, 10.0f);
-            ImGui::DragFloat("Sub", &subBattery_, 0.1f);
-            if (ImGui::Button("Save")) {
-                JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
-                JSON_OBJECT("battery");
-                JSON_SAVE(maxBattery_);
-                JSON_SAVE(addBattery_);
-                JSON_SAVE(subBattery_);
-                JSON_SAVE(isLighting_);
-                JSON_ROOT();
-                JSON_CLOSE();
-            }
-            ImGui::TreePop();
-        }
-        spotLight_->DrawImGui("SpotLight");
-        ImGui::TreePop();
-    }
-    ImGui::End();
     DebugMove();
 #endif // _DEBUG
 
@@ -147,13 +86,10 @@ void Flashlight::Update()
     spotLight_->direction = lightTransform_.worldMatrix.GetForward();
     spotLight_->range = lightRange_;
     spotLight_->angle = fovAngle_ * 0.5f;
-#ifdef _DEBUG
-    // スポットライトの当たり判定描画
-    if (isDebugDraw) {
-        SpotLightDebugDraw();
-    }
-#endif // _DEBUG
 
+#ifdef _DEBUG
+    DrawImGui();
+#endif // _DEBUG
 }
 
 void Flashlight::UpdateCollision()
@@ -263,3 +199,149 @@ void Flashlight::DebugMove() {
         sphericalAngleX_ -= anglerSpeed;
     }
 }
+
+#ifdef _DEBUG
+void Flashlight::DrawImGui()
+{
+    static bool isDebugDraw = true;
+    // =================================================================================
+        // 1. ステータス表示 & 操作ウィンドウ (リアルタイム用)
+        //    プレイ中に残量をいじってテストできるようにSliderに変更
+        // =================================================================================
+    ImGui::Begin("Flashlight Status");
+
+    // --- 状態表示 ---
+    if (isLighting_) {
+        ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.5f, 1.0f), "STATE: LIGHT ON");
+    }
+    else {
+        ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "STATE: OFF");
+    }
+
+    ImGui::Separator();
+
+    // --- バッテリー操作スライダー ---
+    // 残量割合計算
+    float batteryRatio = 0.0f;
+    if (maxBattery_ > 0.0f) {
+        batteryRatio = battery_ / maxBattery_;
+    }
+
+    // 残量に応じて「スライダーのつまみ」の色を変える (視認性確保)
+    ImVec4 sliderColor;
+    if (batteryRatio < 0.2f)
+        sliderColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤 (ピンチ)
+    else if (batteryRatio < 0.5f)
+        sliderColor = ImVec4(1.0f, 0.8f, 0.0f, 1.0f); // 黄 (注意)
+    else
+        sliderColor = ImVec4(0.2f, 0.8f, 0.2f, 1.0f); // 緑 (安全)
+
+    // スライダーの色を変更して描画
+    ImGui::PushStyleColor(ImGuiCol_SliderGrab, sliderColor);
+    ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, sliderColor);
+
+    // ここをProgressBarからSliderFloatに変更し、直接 battery_ をいじれるようにしました
+    ImGui::Text("現在の残量 (操作可)");
+    ImGui::SliderFloat("##BatterySlider", &battery_, 0.0f, maxBattery_, "%.1f");
+
+    ImGui::PopStyleColor(2); // 色設定を戻す
+
+    // 数値をテキストでも補足
+    ImGui::SameLine();
+    ImGui::TextColored(sliderColor, "%.0f%%", batteryRatio * 100.0f);
+
+
+    // --- デバッグスイッチ ---
+    ImGui::Separator();
+    ImGui::Checkbox("デバッグ：システム有効化 (IsDebug)", &isDebug_);
+    ImGui::Checkbox("デバッグ：当たり判定描画 (Show Collider)", &isDebugDraw);
+
+    ImGui::End();
+
+    // =================================================================================
+    // 2. パラメータ調整ウィンドウ (GameSceneタブ内)
+    //    各種数値の設定。ツリー構造で見やすく整理。
+    // =================================================================================
+    ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
+
+    if (ImGui::TreeNode("懐中電灯制御 (FlashLight)")) {
+        // 保存ボタン (配置場所を考慮)
+        if (ImGui::Button("Save", ImVec2(-1.0f, 0.0f))) {
+            JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
+            JSON_OBJECT("light");
+            JSON_SAVE(distanceFromCamera_);
+            JSON_SAVE(fovAngle_);
+            JSON_SAVE(lightRange_);
+            JSON_ROOT();
+            JSON_OBJECT("battery");
+            JSON_SAVE(maxBattery_);
+            JSON_SAVE(addBattery_);
+            JSON_SAVE(subBattery_);
+            JSON_SAVE(isLighting_);
+            JSON_ROOT();
+            JSON_CLOSE();
+        }
+
+        ImGui::Separator();
+        // --------------------------------------------------------
+        // ライトの基本設定
+        // --------------------------------------------------------
+        if (ImGui::TreeNode("ライト挙動設定 (Light Settings)")) {
+            ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "位置・角度調整");
+            ImGui::DragFloat3("基本座標オフセット", &transform_.translate.x, 0.1f);
+            ImGui::DragFloat("カメラからの距離", &distanceFromCamera_, 0.1f, 0.0f, 50.0f, "%.1fm");
+
+            // 角度計算 (Radian <-> Degree)
+            Vector2 sphericalAnglesDegrees = { Math::ToDegree * sphericalAngleX_, Math::ToDegree * sphericalAngleY_ };
+            if (ImGui::SliderFloat2("照射角度 (X, Y)", &sphericalAnglesDegrees.x, -90.0f, 90.0f, "%.1f deg")) {
+                sphericalAngleX_ = Math::ToRadian * sphericalAnglesDegrees.x;
+                sphericalAngleY_ = Math::ToRadian * sphericalAnglesDegrees.y;
+            }
+
+            ImGui::Spacing();
+            ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "ライト性能");
+
+            // FOV計算
+            float fovAngleDegree = fovAngle_ * Math::ToDegree;
+            if (ImGui::DragFloat("照射範囲 (FOV)", &fovAngleDegree, 1.0f, 1.0f, 90.0f, "%.1f deg")) {
+                fovAngle_ = fovAngleDegree * Math::ToRadian;
+            }
+
+            ImGui::DragFloat("光の届く距離 (Range)", &lightRange_, 0.1f, 1.0f, 100.0f, "%.1fm");
+
+            ImGui::TreePop();
+        }
+
+        // --------------------------------------------------------
+        // バッテリー設定
+        // --------------------------------------------------------
+        if (ImGui::TreeNode("バッテリー設定 (Battery Params)")) {
+            
+            ImGui::DragFloat("最大容量 (Max)", &maxBattery_, 1.0f, 1.0f, 1000.0f);
+
+            // 単位や用途がわかるように補足
+            ImGui::DragFloat("回復量 (Add)", &addBattery_, 1.0f, 0.0f, maxBattery_, "+%.1f / item");
+            ImGui::DragFloat("消費速度 (Drain)", &subBattery_, 0.01f, 0.0f, 10.0f, "-%.2f / frame");
+
+            ImGui::TreePop();
+        }
+
+        // --------------------------------------------------------
+        // 内部コンポーネント
+        // --------------------------------------------------------
+        // 必要に応じてツリー化
+        if (ImGui::TreeNode("内部スポットライト (Inner SpotLight)")) {
+            spotLight_->DrawImGui("SpotLight");
+            ImGui::TreePop();
+        }
+
+        ImGui::TreePop();
+    }
+    ImGui::End();
+
+    // スポットライトの当たり判定描画 (デバッグフラグがONの時のみ)
+    if (isDebugDraw) {
+        SpotLightDebugDraw();
+    }
+}
+#endif // _DEBUG

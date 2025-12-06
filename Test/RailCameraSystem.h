@@ -25,8 +25,13 @@ namespace RailSystem {
 	private:
 		void UpdateFov(float deltaTime);
 		void UpdateLookAhead(float deltaTime);
+#ifdef _DEBUG
+		void DrawImGui();
+#endif // _DEBUG
+
 		const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer_;
 
+		Vector3 pointOfGazeOffset_;
 		Vector3 cameraOffset_;
 		Transform transform_;
 #pragma region FOV
