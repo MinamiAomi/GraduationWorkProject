@@ -73,9 +73,16 @@ void GameScene::OnInitialize() {
 	sceneObjectManager_->CreateObjects(result);
 
 	//Colliderセット
-	for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-		collisionSystem_->RegisterCollider(collider->collider.value());
+	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
 	}
+	for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+	for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+
 #pragma endregion
 
 #ifdef _DEBUG
@@ -95,8 +102,14 @@ void GameScene::OnUpdate() {
 		sceneObjectManager_->ResetObjects();
 
 		//Colliderセット
-		for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider.value());
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		railAnimationPlayer_->Loop();
 	}

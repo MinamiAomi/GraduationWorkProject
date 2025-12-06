@@ -198,22 +198,35 @@ void Trolley::UpdateBanking(float deltaTime)
 	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
 	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
 
-	Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
+	Vector3 diff = posFuture - posNow;
 
-	Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
-	Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
+	float targetBankAngle = 0.0f;
 
-	Vector3 dirToFuture = (posFuture - posNow).Normalized();
+	if (diff.LengthSquare() > 1e-5f) {
 
-	Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
+		Vector3 dirToFuture = diff.Normalized();
 
-	float turnIntensity = Vector3::Dot(curveCross, railUpVector);
+		Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
 
-	float targetBankAngle = -turnIntensity * railCameraAnimationPlayer_->GetRealSpeed() * bankingAmount_;
+		Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
+		Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
 
-	targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+		Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
 
-	currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
+		float turnIntensity = Vector3::Dot(curveCross, railUpVector);
+
+		targetBankAngle = -turnIntensity * railCameraAnimationPlayer_->GetRealSpeed() * bankingAmount_;
+
+		targetBankAngle = std::clamp(targetBankAngle, -45.0f * Math::ToRadian, 45.0f * Math::ToRadian);
+	}
+
+	if (std::isfinite(targetBankAngle)) {
+		currentBankAngle_ = std::lerp(currentBankAngle_, targetBankAngle, deltaTime * bankingSmoothTime_);
+	}
+
+	if (!std::isfinite(currentBankAngle_)) {
+		currentBankAngle_ = 0.0f;
+	}
 }
 
 void Trolley::OnNormalState()

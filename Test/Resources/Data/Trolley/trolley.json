@@ -1,13 +1,13 @@
 {
     "Banking": {
-        "bankingAmount_": 5.0,
+        "bankingAmount_": 1.0,
         "bankingSmoothTime_": 1.0,
-        "lookAheadForBank_": 5.0
+        "lookAheadForBank_": 10.0
     },
     "Battery": {
         "batteryOffset_": [
             0.0,
-            -15.0,
+            -8.0,
             20.0
         ],
         "batteryRadius_": 3.0
@@ -34,7 +34,7 @@
     "Trolley": {
         "trolleyOffset_": [
             0.0,
-            0.7400000095367432,
+            2.0,
             0.0
         ]
     }

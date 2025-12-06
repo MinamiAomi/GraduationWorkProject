@@ -8,6 +8,7 @@
 
 #include <Math/MathUtils.h>
 #include <Math/Transform.h>
+#include <Math/Color.h>
 
 
 void to_json(nlohmann::json& json, const bool& value);
@@ -31,6 +32,9 @@ void from_json(const nlohmann::json& json, Vector4& value);
 void from_json(const nlohmann::json& json, Quaternion& value);
 void from_json(const nlohmann::json& json, std::string& value);
 void from_json(const nlohmann::json& json, Transform& value);
+
+//RGB(A入ってないよ)
+void from_json(const nlohmann::json& j, Color& p);
 
 namespace JsonHelper {
 

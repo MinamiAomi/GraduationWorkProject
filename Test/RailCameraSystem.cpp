@@ -86,7 +86,11 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 	float futureFrame = currentFrame + futureFrame_;
 	Vector3 targetPos = railCameraAnimationPlayer_->EvaluatePosition(futureFrame) + pointOfGazeOffset_;
 
-	Vector3 forwardVector = (targetPos - currentPos).Normalized();
+
+	Vector3 forwardVector = Vector3::forward;
+	if ((targetPos - currentPos).LengthSquare() > 1e-05f) {
+		forwardVector = (targetPos - currentPos).Normalized();
+	}
 
 	Vector3 upVector = Vector3::up;
 

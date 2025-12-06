@@ -3,6 +3,7 @@
     {
       "name": "RANTAN.001",
       "model_name": "RANTAN",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           0.6028,
@@ -36,11 +37,27 @@
           0.0
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -0.4
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 1.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "RANTAN.002",
       "model_name": "RANTAN",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           0.6028,
@@ -74,11 +91,27 @@
           0.0
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -0.4
+        ],
+        "color": [
+          0.1044,
+          0.027,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 1.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.001",
       "model_name": "Crystal",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           104.9521,
@@ -112,11 +145,27 @@
           -0.5484
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          3.0
+        ],
+        "color": [
+          0.3219,
+          0.1915,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 3.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.002",
       "model_name": "Crystal",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           173.1698,
@@ -150,11 +199,27 @@
           -0.7333
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          3.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.003",
       "model_name": "Crystal",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           46.3491,
@@ -188,11 +253,27 @@
           -0.1192
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          3.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.004",
       "model_name": "Crystal",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           84.7451,
@@ -226,11 +307,27 @@
           -0.7404
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          3.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.005",
       "model_name": "Crystal",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           70.883,
@@ -264,11 +361,27 @@
           -0.3893
         ]
       },
-      "is_emissive": true
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.006",
       "model_name": "Crystal",
+      "type": "EMITTER",
       "srt": {
         "translate": [
           125.1687,
@@ -302,159 +415,22 @@
           -0.4129
         ]
       },
-      "is_emissive": true
-    },
-    {
-      "name": "Crystal.007",
-      "model_name": "Crystal",
-      "srt": {
-        "translate": [
+      "point_light": {
+        "offset": [
           0.0,
-          -7.7172,
-          9.3685
-        ],
-        "rotate": [
-          0.7071,
-          0.7071,
           0.0,
-          0.0
+          2.73
         ],
-        "scale": [
+        "color": [
           1.0,
           1.0,
           1.0
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          -0.1952,
-          -10.5852,
-          9.464
         ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7071,
-          0.7071,
-          0.0,
-          0.0
-        ]
-      },
-      "is_emissive": true
-    },
-    {
-      "name": "Crystal.008",
-      "model_name": "Crystal",
-      "srt": {
-        "translate": [
-          0.0,
-          6.9517,
-          9.3685
-        ],
-        "rotate": [
-          0.7071,
-          0.0,
-          0.0,
-          0.7071
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          -0.0955,
-          6.7565,
-          12.2366
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7071,
-          0.0,
-          0.0,
-          0.7071
-        ]
-      },
-      "is_emissive": true
-    },
-    {
-      "name": "Crystal.009",
-      "model_name": "Crystal",
-      "srt": {
-        "translate": [
-          -9.9735,
-          0.0,
-          9.3685
-        ],
-        "rotate": [
-          0.7071,
-          0.0,
-          0.7071,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          -7.1055,
-          0.0955,
-          9.5637
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7071,
-          0.0,
-          0.7071,
-          0.0
-        ]
-      },
-      "is_emissive": true
-    },
-    {
-      "name": "Crystal",
-      "model_name": "Crystal",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          9.3685
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          -0.1952,
-          0.0955,
-          12.2366
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ]
-      },
-      "is_emissive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     }
   ]
 }
