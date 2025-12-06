@@ -143,11 +143,6 @@ void GameScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
-
-	ImGui::Begin("ウィンドウタイトル");
-	ImGui::Text("日本語のテストです");
-	ImGui::End();
-
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
 	//デバックカメラ
