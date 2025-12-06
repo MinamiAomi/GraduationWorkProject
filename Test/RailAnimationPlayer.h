@@ -29,6 +29,8 @@ namespace RailSystem {
 
 		bool IsFinished() const { return currentFrame_ >= totalDurationFrames_; }
 
+		float GetRealSpeed() const { return realSpeed_; }
+
 		void SetPlaybackSpeed(float speed) { playbackSpeed_ = speed; }
 		float GetPlaybackSpeed() const { return playbackSpeed_; }
 
@@ -65,6 +67,11 @@ namespace RailSystem {
 		float FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 		Vector2 EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 
+#ifdef _DEBUG
+		void DrawImGui();
+#endif // _DEBUG
+
+
 		std::shared_ptr<const RailAnimation> animationData_;
 		float currentFrame_;
 		float totalDurationFrames_;
@@ -75,6 +82,8 @@ namespace RailSystem {
 		Transform transform_;
 		//左手座標系に変換された後
 		Transform convertTransform_;
+		Vector3 preCameraPosition_;
+		float realSpeed_;
 	};
 
 }

@@ -1,14 +1,21 @@
 {
-    "Banking": {},
+    "Banking": {
+        "bankingAmount_": 1.0,
+        "bankingSmoothTime_": 1.0,
+        "lookAheadForBank_": 10.0
+    },
     "Fov": {
         "baseFov_": 0.7853981852531433,
         "fovLerpSpeed_": 1.0,
         "maxFov_": 1.0471975803375244,
-        "referenceMaxSpeed_": 6.0
+        "referenceMaxSpeed_": 38.0
+    },
+    "LookAhead": {
+        "futureFrame_": 10.0
     },
     "cameraOffset_": [
         0.0,
-        2.700000047683716,
+        2.0,
         0.0
     ]
 }

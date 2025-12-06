@@ -6,6 +6,7 @@
 #include "Math/Transform.h"
 #include "Math/Camera.h"
 #include "Graphics/Model.h"
+#include "Graphics/LightManager.h"
 
 #include "Collider.h"
 
@@ -22,10 +23,15 @@ private:
 	void UpdateLightPower();
 	void SpotLightDebugDraw() const;
 	void DebugMove();
+#ifdef _DEBUG
+	void DrawImGui();
+#endif // _DEBUG
+
 
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
 
+	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
 	Transform lightTransform_;
 	//ライト自信のTransform

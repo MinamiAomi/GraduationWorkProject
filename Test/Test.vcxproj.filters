@@ -58,6 +58,9 @@
     <Filter Include="Game\RailSystem\Camera">
       <UniqueIdentifier>{9add3b22-1f5e-4350-b2bd-27b3fd254a13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\LightObject">
+      <UniqueIdentifier>{222db5f3-ca9e-43c7-bfd9-fc74ed0a8458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -114,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="RailCameraSystem.cpp">
       <Filter>Game\RailSystem\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Game\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightObject.cpp">
+      <Filter>Game\LightObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +198,12 @@
     </ClInclude>
     <ClInclude Include="RailCameraSystem.h">
       <Filter>Game\RailSystem\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightObject.h">
+      <Filter>Game\LightObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

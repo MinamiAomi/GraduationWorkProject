@@ -12,6 +12,10 @@ public:
 
 	void SetTrolley(const Trolley* trolley) { trolley_ = trolley; }
 private:
+#ifdef _DEBUG
+	void DrawImGui();
+#endif // _DEBUG
+
 	const Trolley* trolley_;
 
 	ModelInstance speedMeterModel_;

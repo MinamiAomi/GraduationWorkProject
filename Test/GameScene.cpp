@@ -28,14 +28,8 @@ void GameScene::OnInitialize() {
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
 
-#pragma region Flashlight
-	flashlight_ = std::make_unique<Flashlight>();
-	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
-	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
-#pragma endregion
-
 #pragma region RailSystem
-	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
+	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/t.json");
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
@@ -47,9 +41,16 @@ void GameScene::OnInitialize() {
 
 #pragma endregion
 
+#pragma region Flashlight
+	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
+#pragma endregion
+
 #pragma region Trolley
 	trolley_ = std::make_unique<Trolley>();
 	trolley_->SetParent(railAnimationPlayer_->GetTransform());
+	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
 	trolley_->Initialize();
 	collisionSystem_->RegisterCollider(trolley_->GetCollider());
@@ -67,14 +68,21 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
 	//Colliderセット
-	for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-		collisionSystem_->RegisterCollider(collider->collider.value());
+	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
 	}
+	for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+	for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+
 #pragma endregion
 
 #ifdef _DEBUG
@@ -94,8 +102,14 @@ void GameScene::OnUpdate() {
 		sceneObjectManager_->ResetObjects();
 
 		//Colliderセット
-		for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider.value());
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		railAnimationPlayer_->Loop();
 	}
@@ -105,8 +119,7 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->Update(deltaTime);
 #pragma endregion
 #pragma region Trolley
-	//カメラの座標をセット
-	trolley_->Update();
+	trolley_->Update(deltaTime);
 #pragma endregion
 
 #pragma region Flashlight

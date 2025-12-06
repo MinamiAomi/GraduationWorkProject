@@ -30,6 +30,12 @@ RailSystem::RailAnimationPlayer::RailAnimationPlayer(std::shared_ptr<const RailS
 	JSON_OBJECT("TrollerSpeed");
 	JSON_LOAD_BY_NAME("maxTrollySpeed_", playbackSpeed_);
 	JSON_CLOSE();
+
+	transform_.UpdateMatrix();
+	convertTransform_ = RailSystem::RailConverter::ConvertToLeftHand(transform_);
+	convertTransform_.UpdateMatrix();
+
+	preCameraPosition_ = EvaluatePosition(0.0f);
 }
 
 void RailSystem::RailAnimationPlayer::Update(float deltaTime)
@@ -51,6 +57,15 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 		currentFrame_ += frameIncrement;
 
 		CalculateCurrentTransform();
+
+		if (deltaTime > 0.0001f) {
+			float distance = (transform_.worldMatrix.GetTranslate() - preCameraPosition_).Length();
+			realSpeed_ = distance / deltaTime;
+		}
+		else {
+			realSpeed_ = 0.0f;
+		}
+		preCameraPosition_ = transform_.worldMatrix.GetTranslate();
 #ifdef _DEBUG
 	}
 	else {
@@ -59,73 +74,7 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 #endif // _DEBUG
 
 #ifdef _DEBUG
-	{
-		std::wostringstream woss;
-		woss << L"Current Frame: " << std::fixed << std::setprecision(2) << currentFrame_ << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-
-		ImGui::Begin("GameScene");
-
-		if (ImGui::TreeNode("RailAnimationPlayer")) {
-
-			if (isPlaying_) {
-				ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
-			}
-			else {
-				ImGui::TextColored(ImVec4(1, 1, 0, 1), "Status: Paused ||");
-			}
-
-			//区切り線
-			ImGui::Separator();
-
-			float minFrame = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
-			float maxFrame = static_cast<float>(animationData_->railCameraMetaData_.endFrame);
-
-			// スライダーで直感的に位置を変更・確認できるようにする
-			ImGui::Text("Timeline");
-			ImGui::SliderFloat("##FrameSlider", &currentFrame_, minFrame, maxFrame, "Frame: %.2f");
-			ImGui::InputFloat("##Frame", &currentFrame_);
-			currentFrame_ = std::clamp(currentFrame_, float(animationData_->railCameraMetaData_.startFrame), float(animationData_->railCameraMetaData_.endFrame));
-
-			// 進捗バー
-			float progress = (currentFrame_ - minFrame) / (maxFrame - minFrame);
-			ImGui::ProgressBar(progress, ImVec2(0.0f, 0.0f));
-
-			// 余白
-			ImGui::Spacing();
-
-
-			// 再生ボタン
-			if (ImGui::Button("Play")) {
-				Play();
-			}
-			//横並びに
-			ImGui::SameLine();
-
-			// 一時停止ボタン
-			if (ImGui::Button("Pause")) {
-				Pause();
-			}
-			//横並びに
-			ImGui::SameLine();
-
-			// 停止
-			if (ImGui::Button("Stop")) {
-				Stop();
-			}
-
-			ImGui::Separator();
-
-			if (ImGui::TreeNode("MetaDeta")) {
-				ImGui::Text("Start Frame : %d", animationData_->railCameraMetaData_.startFrame);
-				ImGui::Text("End Frame   : %d", animationData_->railCameraMetaData_.endFrame);
-
-				ImGui::TreePop();
-			}
-			ImGui::TreePop();
-		}
-		ImGui::End();
-	}
+	DrawImGui();
 #endif // _DEBUG
 
 }
@@ -295,7 +244,8 @@ Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
 		}
 	}
 
-	return resultPosition;
+
+	return RailSystem::RailConverter::ConvertToLeftHand(resultPosition);
 }
 Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 {
@@ -355,7 +305,8 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 		}
 	}
 
-	return resultRotation;
+
+	return  RailSystem::RailConverter::ConvertToLeftHand(resultRotation);
 }
 void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 {
@@ -442,16 +393,17 @@ void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 	}
 	{
 		std::wostringstream woss;
-		woss << L"  Final Position: (" << transform_.translate.x << L", " << transform_.translate.y << L", " << transform_.translate.z << L")\n";
+		woss << L"  Final Position: (" << convertTransform_.translate.x << L", " << convertTransform_.translate.y << L", " << convertTransform_.translate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
 	{
 		std::wostringstream woss;
-		woss << L"  Final Rotation: (w:" << transform_.rotate.w << L", x:" << transform_.rotate.x << L", y:" << transform_.rotate.y << L", z:" << transform_.rotate.z << L")\n";
+		woss << L"  Final Rotation: (w:" << convertTransform_.rotate.w << L", x:" << convertTransform_.rotate.x << L", y:" << convertTransform_.rotate.y << L", z:" << convertTransform_.rotate.z << L")\n";
 		OutputDebugStringW(woss.str().c_str());
 	}
 #endif // _DEBUG
 }
+
 template<typename T>
 inline std::pair<size_t, size_t> RailSystem::RailAnimationPlayer::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
 {
@@ -587,3 +539,79 @@ Vector2 RailSystem::RailAnimationPlayer::EvaluateBezier(float t, const Vector2& 
 
 	return { x, y };
 }
+
+#ifdef _DEBUG
+
+
+void RailSystem::RailAnimationPlayer::DrawImGui()
+{
+	{
+		std::wostringstream woss;
+		woss << L"Current Frame: " << std::fixed << std::setprecision(2) << currentFrame_ << L"\n";
+		OutputDebugStringW(woss.str().c_str());
+
+		ImGui::Begin("RailAnimationPlayer");
+		if (isPlaying_) {
+			ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
+		}
+		else {
+			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Status: Paused ||");
+		}
+
+		//区切り線
+		ImGui::Separator();
+
+		ImGui::Text("現実速度（傾きやFOVはこの速度参照）:%.2f", realSpeed_);
+		// 余白
+		ImGui::Spacing();
+
+		float minFrame = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+		float maxFrame = static_cast<float>(animationData_->railCameraMetaData_.endFrame);
+
+		// スライダーで直感的に位置を変更・確認できるようにする
+		ImGui::Text("Timeline");
+		ImGui::SliderFloat("##FrameSlider", &currentFrame_, minFrame, maxFrame, "Frame: %.2f");
+		ImGui::InputFloat("##Frame", &currentFrame_);
+		currentFrame_ = std::clamp(currentFrame_, float(animationData_->railCameraMetaData_.startFrame), float(animationData_->railCameraMetaData_.endFrame));
+
+		// 進捗バー
+		float progress = (currentFrame_ - minFrame) / (maxFrame - minFrame);
+		ImGui::ProgressBar(progress, ImVec2(0.0f, 0.0f));
+
+		// 余白
+		ImGui::Spacing();
+
+
+		// 再生ボタン
+		if (ImGui::Button("Play")) {
+			Play();
+		}
+		//横並びに
+		ImGui::SameLine();
+
+		// 一時停止ボタン
+		if (ImGui::Button("Pause")) {
+			Pause();
+		}
+		//横並びに
+		ImGui::SameLine();
+
+		// 停止
+		if (ImGui::Button("Stop")) {
+			Stop();
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::TreeNode("Json情報")) {
+			ImGui::Text("最初のフレーム: %d", animationData_->railCameraMetaData_.startFrame);
+			ImGui::Text("最後のフレーム : %d", animationData_->railCameraMetaData_.endFrame);
+			ImGui::Text("フレームレート : %d", animationData_->railCameraMetaData_.frameRate);
+
+			ImGui::TreePop();
+		}
+		ImGui::End();
+	}
+}
+
+#endif // _DEBUG

@@ -21,7 +21,7 @@ namespace SceneObjectSystem {
             
             Quaternion gameQuaternion;
             gameQuaternion.w = blenderRotate.w;
-            gameQuaternion.x = blenderRotate.x;
+            gameQuaternion.x = -blenderRotate.x;
             gameQuaternion.y = -blenderRotate.z;
             gameQuaternion.z = -blenderRotate.y;
 
