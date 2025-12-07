@@ -15,8 +15,7 @@
 				4,
 				5,
 				6,
-				7,
-				8
+				7
 			]
 		}
 	],
@@ -64,31 +63,22 @@
 		},
 		{
 			"mesh":5,
-			"name":"ICO\u7403",
-			"scale":[
-				10.926923751831055,
-				10.926923751831055,
-				10.926923751831055
-			]
-		},
-		{
-			"mesh":6,
-			"name":"Crystal.001",
+			"name":"signBoard.001",
 			"rotation":[
-				0.11155199259519577,
-				0.942512035369873,
-				-0.020178938284516335,
-				0.31435656547546387
+				0,
+				0.8327029943466187,
+				0,
+				0.5537199378013611
 			],
 			"scale":[
-				5.408134460449219,
-				5.408135414123535,
-				5.408135414123535
+				2.899963140487671,
+				2.899963140487671,
+				2.899963140487671
 			],
 			"translation":[
-				557.3825073242188,
-				-15.836210250854492,
-				-49.70101547241211
+				46.565467834472656,
+				-5.148928642272949,
+				-2.067134380340576
 			]
 		}
 	],
@@ -120,7 +110,7 @@
 		},
 		{
 			"doubleSided":true,
-			"name":"crystal",
+			"name":"signboard.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":1
@@ -210,7 +200,7 @@
 			]
 		},
 		{
-			"name":"ICO\u7403",
+			"name":"\u7acb\u65b9\u4f53.006",
 			"primitives":[
 				{
 					"attributes":{
@@ -218,20 +208,7 @@
 						"NORMAL":25,
 						"TEXCOORD_0":26
 					},
-					"indices":27
-				}
-			]
-		},
-		{
-			"name":"\u5186.002",
-			"primitives":[
-				{
-					"attributes":{
-						"POSITION":28,
-						"NORMAL":29,
-						"TEXCOORD_0":30
-					},
-					"indices":31,
+					"indices":27,
 					"material":2
 				}
 			]
@@ -255,8 +232,8 @@
 		},
 		{
 			"mimeType":"image/png",
-			"name":"crystal",
-			"uri":"crystal.png"
+			"name":"signboard",
+			"uri":"signboard.png"
 		}
 	],
 	"accessors":[
@@ -467,69 +444,35 @@
 		{
 			"bufferView":24,
 			"componentType":5126,
-			"count":195,
+			"count":436,
 			"max":[
-				0.7236073017120361,
-				1,
-				0.9999999403953552
+				1.6244484186172485,
+				3.86238431930542,
+				0.19652295112609863
 			],
 			"min":[
-				-0.9510578513145447,
-				-1,
-				-0.9999999403953552
+				-1.6244484186172485,
+				-0.19652295112609863,
+				-0.19652295112609863
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":25,
 			"componentType":5126,
-			"count":195,
+			"count":436,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":26,
 			"componentType":5126,
-			"count":195,
+			"count":436,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":27,
 			"componentType":5123,
-			"count":195,
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":28,
-			"componentType":5126,
-			"count":398,
-			"max":[
-				1.544446587562561,
-				6.796265125274658,
-				2.8560843467712402
-			],
-			"min":[
-				-1.9348986148834229,
-				-1.0601356029510498,
-				-3.0470261573791504
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":29,
-			"componentType":5126,
-			"count":398,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":30,
-			"componentType":5126,
-			"count":398,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":31,
-			"componentType":5123,
-			"count":528,
+			"count":708,
 			"type":"SCALAR"
 		}
 	],
@@ -680,50 +623,26 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":2340,
+			"byteLength":5232,
 			"byteOffset":15152584,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2340,
-			"byteOffset":15154924,
+			"byteLength":5232,
+			"byteOffset":15157816,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1560,
-			"byteOffset":15157264,
+			"byteLength":3488,
+			"byteOffset":15163048,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":390,
-			"byteOffset":15158824,
-			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":4776,
-			"byteOffset":15159216,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4776,
-			"byteOffset":15163992,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":3184,
-			"byteOffset":15168768,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1056,
-			"byteOffset":15171952,
+			"byteLength":1416,
+			"byteOffset":15166536,
 			"target":34963
 		}
 	],
@@ -735,7 +654,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":15173008,
+			"byteLength":15167952,
 			"uri":"LEVEL1.bin"
 		}
 	]
