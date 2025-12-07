@@ -23,8 +23,8 @@
     "Crystal": "LightObject/Crystal.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf"
   },
-  "Sprite":{
-    "white1x1":"white1x1.png"
+  "Texture":{
+    "white2x2":"white2x2.png"
   }
     
 }

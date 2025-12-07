@@ -234,11 +234,13 @@ void Trolley::OnNormalState()
 {
 	trollyState_ = State::Normal;
 	stateTimer_ = 0.0f;
+	nitroAccumulateTimer_ = 0.0f;
 }
 
 void Trolley::OnOverchargeState()
 {
 	trollyState_ = Trolley::State::Overcharge;
+	stateTimer_ = 0.0f;
 	nitroAccumulateTimer_ = 0.0f;
 }
 
@@ -246,6 +248,8 @@ void Trolley::OnNitroState()
 {
 	trollyState_ = State::Nitro;
 	stateTimer_ = 0.0f;
+	nitroAccumulateTimer_ = 0.0f;
+
 }
 
 void Trolley::RecoverFromNitro()
@@ -253,12 +257,14 @@ void Trolley::RecoverFromNitro()
 	trollyState_ = State::Normal;
 	currentCharge_ = batteryAfterNitro_;
 	stateTimer_ = 0.0f;
+	nitroAccumulateTimer_ = 0.0f;
 }
 
 void Trolley::RecoverFromBurst()
 {
 	trollyState_ = State::Normal;
 	stateTimer_ = 0.0f;
+	nitroAccumulateTimer_ = 0.0f;
 }
 
 void Trolley::OnBurstState()
@@ -266,6 +272,7 @@ void Trolley::OnBurstState()
 	trollyState_ = State::Burst;
 	stateTimer_ = 0.0f;
 	currentCharge_ = batteryAfterBurst_;
+	nitroAccumulateTimer_ = 0.0f;
 }
 
 #ifdef _DEBUG

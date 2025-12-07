@@ -3,7 +3,7 @@
 #include "Math/Transform.h"
 #include "Math/MathUtils.h"
 #include "Graphics/Model.h"
-
+#include "Graphics/Sprite.h"
 class Trolley;
 class TrolleyUI {
 public:
@@ -26,4 +26,9 @@ private:
 
 	Vector3 speedMeterOffset_;
 	Vector3 speedMeterNeedleOffset_;
+
+	Sprite chargeUI_;
+	Sprite overChargeUI_;
+	Sprite nitroUI_;
+
 };

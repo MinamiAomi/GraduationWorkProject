@@ -33,6 +33,14 @@ public:
 	//速度の割合(MAX = 1.0f)
 	float GetTrollySpeedRatio() const { return currentSpeed_ / maxSpeed_; }
 
+	float GetCurrentCharge() const { return currentCharge_; }
+	float GetMaxNormalCharge() const { return maxNormalCharge_; }
+	
+	float GetBurstThreshold() const { return burstThreshold_; }
+
+	float GetNitroAccumulateTimer() const { return nitroAccumulateTimer_; }
+	float GetNitroChargeTime() const { return nitroChargeTime_; }
+
 	void SetFlashlight(const Flashlight* flashlight) { flashlight_ = flashlight; }
 	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
 private:
