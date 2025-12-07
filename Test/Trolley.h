@@ -5,15 +5,21 @@
 
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
+#include "Math/Random.h"
 
 #include "Collider.h"
-
 #include "RailAnimationPlayer.h"
 #include "Flashlight.h"
 #include "TrolleyUI.h"
 
 class Trolley {
 public:
+	enum class State {
+		Normal,
+		Overcharge,
+		Nitro,
+		Burst,
+	};
 	Trolley();
 
 	void Initialize();
@@ -35,7 +41,7 @@ public:
 
 	float GetCurrentCharge() const { return currentCharge_; }
 	float GetMaxNormalCharge() const { return maxNormalCharge_; }
-	
+
 	float GetBurstThreshold() const { return burstThreshold_; }
 
 	float GetNitroAccumulateTimer() const { return nitroAccumulateTimer_; }
@@ -43,6 +49,8 @@ public:
 
 	void SetFlashlight(const Flashlight* flashlight) { flashlight_ = flashlight; }
 	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
+
+	const State& GetState()const { return trollyState_; }
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);
@@ -57,7 +65,7 @@ private:
 #ifdef _DEBUG
 	void DrawImGui();
 #endif // _DEBUG
-
+	Random::RandomNumberGenerator rnd_;
 	const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer_;
 
 	ModelInstance model_;
@@ -71,42 +79,37 @@ private:
 	TrolleyUI trolleyUI_;
 
 #pragma region トロッコスピード関連
-	enum class State {
-		Normal,
-		Overcharge,
-		Nitro,
-		Burst,
-	} trollyState_ = State::Normal;
+	State trollyState_ = State::Normal;
 
 	//通常時の最高速度
 	float maxSpeed_ = 1.0f;
 	//バースト時の最高速度
-	float burstSpeed_ = 0.3f;        
+	float burstSpeed_ = 0.3f;
 	//ニトロ時の最高速度
 	float nitroSpeed_ = 1.5f;
 	// 光を当てた時の加速
-	float accelerationRate_ = 1.0f;  
+	float accelerationRate_ = 1.0f;
 	// 自然減速
-	float decelerationRate_ = 0.5f;  
+	float decelerationRate_ = 0.5f;
 
 	// 通常時のMAX
-	float maxNormalCharge_ = 100.0f; 
+	float maxNormalCharge_ = 100.0f;
 	// ニトロ発動判定ライン
-	float nitroThreshold_ = 140.0f;  
+	float nitroThreshold_ = 140.0f;
 	// バースト発生ライン
-	float burstThreshold_ = 150.0f;  
+	float burstThreshold_ = 150.0f;
 
 	// ニトロ発動に必要な維持時間
-	float nitroChargeTime_ = 3.0f;   
+	float nitroChargeTime_ = 3.0f;
 	// ニトロ持続時間
-	float nitroDuration_ = 3.0f;     
+	float nitroDuration_ = 3.0f;
 	// バースト演出時間
-	float burstDuration_ = 2.0f;     
+	float burstDuration_ = 2.0f;
 
 	// ニトロ終了後のバッテリー量
-	float batteryAfterNitro_ = 80.0f; 
+	float batteryAfterNitro_ = 80.0f;
 	// バースト後のバッテリー量
-	float batteryAfterBurst_ = 30.0f; 
+	float batteryAfterBurst_ = 30.0f;
 
 	float currentSpeed_ = 0.0f;
 	// バッテリー残量
@@ -115,7 +118,7 @@ private:
 	// ニトロ発動条件を満たしている時間累積
 	float nitroAccumulateTimer_ = 0.0f;
 	// 現在のステートに滞在している時間
-	float stateTimer_ = 0.0f;           
+	float stateTimer_ = 0.0f;
 
 	bool isHitFlashlight_ = false;
 #pragma endregion
@@ -138,6 +141,11 @@ private:
 	Vector3 batteryOffset_;
 	float batteryRadius_;
 #pragma endregion
+
+#pragma region Shake
+	Quaternion shakeRotation_;
+#pragma endregion
+
 
 #ifdef _DEBUG
 	bool isDebugTrollySpeed_ = false;

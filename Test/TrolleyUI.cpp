@@ -43,12 +43,21 @@ void TrolleyUI::Initialize(const Transform& transform)
 	chargeUI_.SetScale({ 300.0f,30.0f });
 	chargeUI_.SetAnchor({ 0.0f,0.5f });
 	chargeUI_.SetColor({ 0.2f,0.2f,0.7f,1.0f });
+	chargeUI_.SetDrawOrder(0);
 
 	overChargeUI_.SetPosition({ 915.0f,50.0f });
 	overChargeUI_.SetScale({ 300.0f,30.0f });
 	overChargeUI_.SetAnchor({ 0.0f,0.5f });
 	overChargeUI_.SetColor({ 0.7f,0.2f,0.2f,1.0f });
 	overChargeUI_.SetDrawOrder(1);
+
+	nitroBurstUI_.SetPosition({ 915.0f,50.0f });
+	nitroBurstUI_.SetScale({ 300.0f,30.0f });
+	nitroBurstUI_.SetAnchor({ 0.0f,0.5f });
+	nitroBurstUI_.SetColor({ 0.7f,0.7f,0.2f,1.0f });
+	nitroBurstUI_.SetIsActive(false);
+	nitroBurstUI_.SetDrawOrder(2);
+
 
 	nitroUI_.SetPosition({ 915.0f,77.0f });
 	nitroUI_.SetScale({ 300.0f,5.0f });
@@ -83,7 +92,12 @@ void TrolleyUI::Update()
 	chargeUI_.SetScale({ std::lerp(0.0f,300.0f,chargeT),30.0f });
 	nitroUI_.SetScale({ std::lerp(0.0f,300.0f,nitroT),5.0f });
 	overChargeUI_.SetScale({ std::lerp(0.0f,300.0f,overChargeT),30.0f });
-
+	if (trolley_->GetState()==Trolley::State::Nitro) {
+		nitroBurstUI_.SetIsActive(true);
+	}
+	else {
+		nitroBurstUI_.SetIsActive(false);
+	}
 #ifdef _DEBUG
 	DrawImGui();
 	chargeUI_.DrawImGui("ChargeUI");
