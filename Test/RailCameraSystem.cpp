@@ -124,6 +124,7 @@ void RailSystem::RailCameraSystem::DrawImGui()
 			// --- Root階層 (Offset) ---
 			// 元のJSON構造を維持するためにRootで保存
 			JSON_SAVE(cameraOffset_);
+			JSON_SAVE(pointOfGazeOffset_);
 
 			// --- Fov階層 ---
 			JSON_OBJECT("Fov");

@@ -57,7 +57,7 @@ void Trolley::Initialize()
 	trollyState_ = State::Normal;
 	currentSpeed_ = 0.0f;
 
-	currentCharge_ = 100.0f;
+	currentCharge_ = maxNormalCharge_ * 0.5f;
 
 
 	nitroAccumulateTimer_ = 0.0f;
@@ -106,89 +106,90 @@ void Trolley::Update(float deltaTime)
 
 void Trolley::UpdateState(float deltaTime)
 {
-	if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
-
-		if (isHitFlashlight_) {
-			currentCharge_ += accelerationRate_ * deltaTime * 60.0f;
-		}
-		else {
 #ifdef _DEBUG
-			if (!isDebugTrollySpeed_)
-#endif
-			{
+	if (!isDebugTrollySpeed_) {
+#endif // _DEBUG
+		if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
+
+			if (isHitFlashlight_) {
+				currentCharge_ += accelerationRate_ * deltaTime * 60.0f;
+			}
+			else {
 				currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
 			}
 		}
-	}
 
-	currentCharge_ = std::clamp(currentCharge_, 0.0f, burstThreshold_);
+		currentCharge_ = std::clamp(currentCharge_, 0.0f, burstThreshold_);
 
-	switch (trollyState_)
-	{
-	case Trolley::State::Normal:
-	{
-		currentSpeed_ = std::lerp(0.0f, maxSpeed_, currentCharge_ / maxNormalCharge_);
-		//チャージが満タンならオーバーチャージに移行
-		if (currentCharge_ > maxNormalCharge_) {
-			OnOverchargeState();
-		}
-	}
-	break;
-	case Trolley::State::Overcharge:
-	{
-		currentSpeed_ = maxSpeed_;
-
-		//バースト判定
-		if (currentCharge_ >= burstThreshold_) {
-			OnBurstState();
-			return;
-		}
-
-		//ノーマル判定
-		if (currentCharge_ <= maxNormalCharge_) {
-			OnNormalState();
-			return;
-		}
-
-		//ニトロ判定
-		if (currentCharge_ >= nitroThreshold_) {
-			nitroAccumulateTimer_ += deltaTime;
-			// 規定時間維持できたら発動
-			if (nitroAccumulateTimer_ >= nitroChargeTime_) {
-				OnNitroState();
+		switch (trollyState_)
+		{
+		case Trolley::State::Normal:
+		{
+			currentSpeed_ = std::lerp(0.0f, maxSpeed_, currentCharge_ / maxNormalCharge_);
+			//チャージが満タンならオーバーチャージに移行
+			if (currentCharge_ > maxNormalCharge_) {
+				OnOverchargeState();
 			}
 		}
-		else {
-			nitroAccumulateTimer_ -= deltaTime;
-			nitroAccumulateTimer_ = std::max(nitroAccumulateTimer_, 0.0f);
-		}
-	}
-	break;
-	case Trolley::State::Nitro:
-	{
-		currentSpeed_ = nitroSpeed_;
-
-		stateTimer_ += deltaTime;
-		// ニトロ終了判定
-		if (stateTimer_ >= nitroDuration_) {
-			RecoverFromNitro();
-		}
-	}
-	break;
-	case Trolley::State::Burst:
-	{
-		currentSpeed_ = burstSpeed_;
-
-		stateTimer_ += deltaTime;
-		// バースト復帰判定
-		if (stateTimer_ >= burstDuration_) {
-			RecoverFromBurst();
-		}
-	}
-	break;
-	default:
 		break;
+		case Trolley::State::Overcharge:
+		{
+			currentSpeed_ = maxSpeed_;
+
+			//バースト判定
+			if (currentCharge_ >= burstThreshold_) {
+				OnBurstState();
+				return;
+			}
+
+			//ノーマル判定
+			if (currentCharge_ <= maxNormalCharge_) {
+				OnNormalState();
+				return;
+			}
+
+			//ニトロ判定
+			if (currentCharge_ >= nitroThreshold_) {
+				nitroAccumulateTimer_ += deltaTime;
+				// 規定時間維持できたら発動
+				if (nitroAccumulateTimer_ >= nitroChargeTime_) {
+					OnNitroState();
+				}
+			}
+			else {
+				nitroAccumulateTimer_ -= deltaTime;
+				nitroAccumulateTimer_ = std::max(nitroAccumulateTimer_, 0.0f);
+			}
+		}
+		break;
+		case Trolley::State::Nitro:
+		{
+			currentSpeed_ = nitroSpeed_;
+
+			stateTimer_ += deltaTime;
+			// ニトロ終了判定
+			if (stateTimer_ >= nitroDuration_) {
+				RecoverFromNitro();
+			}
+		}
+		break;
+		case Trolley::State::Burst:
+		{
+			currentSpeed_ = burstSpeed_;
+
+			stateTimer_ += deltaTime;
+			// バースト復帰判定
+			if (stateTimer_ >= burstDuration_) {
+				RecoverFromBurst();
+			}
+		}
+		break;
+		default:
+			break;
+		}
+#ifdef _DEBUG
 	}
+#endif // _DEBUG
 }
 
 void Trolley::UpdateBanking(float deltaTime)
@@ -436,7 +437,7 @@ void Trolley::DrawImGui() {
 			ImGui::TreePop();
 		}
 
-		
+
 		ImGui::TreePop(); // Trolley Controller
 	}
 

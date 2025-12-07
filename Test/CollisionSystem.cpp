@@ -13,8 +13,12 @@ void CollisionSystem::CheckCollisions()
     }
     ImGui::End();
 #endif
+    //死んでいるコライダー削除（俺が追加）
+    colliders.erase(
+        std::remove_if(colliders.begin(), colliders.end(),
+            [](const std::weak_ptr<Collider>& wp) { return wp.expired(); }),
+        colliders.end());
 
-    //全Colliderの衝突情報をクリア
     for (const auto& weak_ptr : colliders) {
         if (auto ptr = weak_ptr.lock()) { // 生存確認
             ptr->ClearCollisionInfo();
