@@ -61,6 +61,11 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
         0.0f, 0.0f,
 
         Quaternion::identity);
+
+    flashlightUI_.SetFlashlight(this);
+    flashlightUI_.Initialize();
+
+  
 }
 
 void Flashlight::Update()
@@ -87,6 +92,7 @@ void Flashlight::Update()
     spotLight_->range = lightRange_;
     spotLight_->angle = fovAngle_ * 0.5f;
 
+    flashlightUI_.Update();
 #ifdef _DEBUG
     DrawImGui();
 #endif // _DEBUG

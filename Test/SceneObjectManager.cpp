@@ -61,7 +61,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 		obj->lightObject.Update();
 		//何かに当ったら
-		if (!obj->collider->GetCollidedWith().empty()) {
+		if (obj->collider &&
+			!obj->collider->GetCollidedWith().empty()) {
 			obj->collider = nullptr;
 			obj->lightObject.SetHp(0.0f);
 		}
@@ -126,7 +127,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 		{
 			auto enemyObject = std::make_unique<EnemyObject>();
 			InitializeCommonObject(enemyObject, data);
-			
+
 			enemyObjects_.push_back(std::move(enemyObject));
 		}
 		break;

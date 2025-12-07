@@ -80,6 +80,11 @@ Vector4 Color::Convert(uint32_t rgba) {
     return result;
 }
 
+Vector4 Color::Convert(Color color)
+{
+    return Vector4(color.rgba_);
+}
+
 void Color::SetR(uint8_t r) {
     constexpr float reci = 1.0f / 255.0f;
     rgba_.x = std::clamp(float(r) * reci, 0.0f, 1.0f);
