@@ -22,6 +22,9 @@
     "i":"Ore_no_Tousougeki/i.gltf",
     "Crystal": "LightObject/Crystal.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf"
+  },
+  "Texture":{
+    "white2x2":"white2x2.png"
   }
     
 }

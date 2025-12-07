@@ -34,6 +34,26 @@ void TrolleyUI::Initialize(const Transform& transform)
 	speedMeterNeedleModel_.SetModel(assetManager->modelMap.Get("speedMeterNeedle")->Get());
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
+
+	chargeUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+	overChargeUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+	nitroUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+
+	chargeUI_.SetPosition({ 915.0f,50.0f });
+	chargeUI_.SetScale({ 300.0f,30.0f });
+	chargeUI_.SetAnchor({ 0.0f,0.5f });
+	chargeUI_.SetColor({ 0.2f,0.2f,0.7f,1.0f });
+
+	overChargeUI_.SetPosition({ 915.0f,50.0f });
+	overChargeUI_.SetScale({ 300.0f,30.0f });
+	overChargeUI_.SetAnchor({ 0.0f,0.5f });
+	overChargeUI_.SetColor({ 0.7f,0.2f,0.2f,1.0f });
+	overChargeUI_.SetDrawOrder(1);
+
+	nitroUI_.SetPosition({ 915.0f,77.0f });
+	nitroUI_.SetScale({ 300.0f,5.0f });
+	nitroUI_.SetAnchor({ 0.0f,0.5f });
+	nitroUI_.SetColor({ 0.7f,0.7f,0.2f,1.0f });
 }
 
 void TrolleyUI::Update()
@@ -52,8 +72,23 @@ void TrolleyUI::Update()
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
 
+	float currentCharge = trolley_->GetCurrentCharge();
+	float maxNormalChargeTime = trolley_->GetMaxNormalCharge();
+	float burstThreshold = trolley_->GetBurstThreshold();
+
+	float chargeT = std::clamp(trolley_->GetCurrentCharge() / trolley_->GetMaxNormalCharge(), 0.0f, 1.0f);
+	float nitroT = std::clamp(trolley_->GetNitroAccumulateTimer() / trolley_->GetNitroChargeTime(), 0.0f, 1.0f);
+	float overChargeT = std::clamp((currentCharge - maxNormalChargeTime) / (burstThreshold - maxNormalChargeTime), 0.0f, 1.0f);
+
+	chargeUI_.SetScale({ std::lerp(0.0f,300.0f,chargeT),30.0f });
+	nitroUI_.SetScale({ std::lerp(0.0f,300.0f,nitroT),5.0f });
+	overChargeUI_.SetScale({ std::lerp(0.0f,300.0f,overChargeT),30.0f });
+
 #ifdef _DEBUG
 	DrawImGui();
+	chargeUI_.DrawImGui("ChargeUI");
+	overChargeUI_.DrawImGui("OverChargeUI");
+	nitroUI_.DrawImGui("NitroUI");
 #endif // _DEBUG
 
 }
