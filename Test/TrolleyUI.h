@@ -30,5 +30,6 @@ private:
 	Sprite chargeUI_;
 	Sprite overChargeUI_;
 	Sprite nitroUI_;
+	Sprite nitroBurstUI_;
 
 };

@@ -87,7 +87,7 @@ void Trolley::Update(float deltaTime)
 	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
 
 	transform_.translate = trolleyOffset_;
-	transform_.rotate = bankRotation;
+	transform_.rotate = bankRotation * shakeRotation_;
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
@@ -176,11 +176,26 @@ void Trolley::UpdateState(float deltaTime)
 		case Trolley::State::Burst:
 		{
 			currentSpeed_ = burstSpeed_;
-
 			stateTimer_ += deltaTime;
+
+			//シェイク
+			float timeRate = stateTimer_ / burstDuration_;
+			float decay = std::lerp(1.0f, 0.0f, std::clamp(timeRate, 0.0f, 1.0f));
+
+			float maxShakeAngle = 2.0f * Math::ToRadian;
+			float currentShake = maxShakeAngle * decay;
+
+			Vector3 noiseEuler = {
+			rnd_.NextFloatRange(-1.0f, 1.0f) * currentShake,
+			rnd_.NextFloatRange(-1.0f, 1.0f) * currentShake,
+			rnd_.NextFloatRange(-1.0f, 1.0f) * currentShake
+			};
+
+			shakeRotation_ = Quaternion::MakeFromEulerAngle(noiseEuler);
 			// バースト復帰判定
 			if (stateTimer_ >= burstDuration_) {
 				RecoverFromBurst();
+				shakeRotation_ = Quaternion::identity;
 			}
 		}
 		break;
