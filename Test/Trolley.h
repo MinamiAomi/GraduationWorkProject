@@ -3,6 +3,8 @@
 
 #include "Engine/Graphics/Model.h"
 
+#include "Graphics/LightManager.h"
+
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
 #include "Math/Random.h"
@@ -76,6 +78,15 @@ private:
 	const Flashlight* flashlight_;
 
 	TrolleyUI trolleyUI_;
+
+#pragma region テールランプ
+	std::shared_ptr<SpotLight> teilLight_;
+	Transform teilLightTransform_;
+	float teilLightRange_;
+	float teilFovAngle_;
+	float teilIntensity;
+	Vector3 teilOffset_;
+#pragma endregion
 
 #pragma region トロッコスピード関連
 	State trollyState_ = State::Normal;

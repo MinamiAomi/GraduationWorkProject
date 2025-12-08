@@ -19,6 +19,12 @@ Trolley::Trolley()
 		0.0f
 	);
 
+	teilLight_ = std::make_shared<SpotLight>();
+
+	RenderManager::GetInstance()->GetLightManager().Add(teilLight_);
+
+	teilLightTransform_.SetParent(&transform_);
+
 	trolleyUI_.SetTrolley(this);
 
 }
@@ -76,6 +82,16 @@ void Trolley::Initialize()
 	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
 	batteryCollider_->radius = batteryRadius_;
 
+	teilOffset_ = { 0.0f,5.0f,-2.0f };
+	teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate() + teilOffset_;
+	teilLight_->direction = teilLightTransform_.worldMatrix.GetForward();
+	teilLight_->color = Color(Vector4(0.7f, 0.65f, 0.2f, 1.0f));
+	teilLight_->intensity = 3.0f;
+	teilLight_->range = 25.0f;
+	teilLight_->angle = 45.0f * Math::ToRadian;
+	teilLight_->falloffStartAngle = 15.0f * Math::ToRadian;
+	teilLight_->decay = 1.0f;
+
 	trolleyUI_.Initialize(transform_);
 }
 
@@ -91,6 +107,8 @@ void Trolley::Update(float deltaTime)
 	transform_.translate = trolleyOffset_;
 	transform_.rotate = bankRotation * shakeRotation_;
 	transform_.UpdateMatrix();
+	teilLightTransform_.translate = teilOffset_;
+	teilLightTransform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
 	batteryTransform_.translate = batteryOffset_;
@@ -98,10 +116,16 @@ void Trolley::Update(float deltaTime)
 	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
 	batteryCollider_->radius = batteryRadius_;
 
+	teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate();
+	teilLight_->direction = -teilLightTransform_.worldMatrix.GetForward();
+
+
 	trolleyUI_.Update();
 
 #ifdef _DEBUG
 	DrawImGui();
+	teilLight_->DrawImGui("teilLight_");
+	ImGui::DragFloat3("teilOffset_", &teilOffset_.x, 0.1f);
 #endif // _DEBUG
 
 }

@@ -15,11 +15,11 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u5186\u67f1.002"
+			"name":"\u5186\u67f1.001"
 		},
 		{
 			"mesh":1,
-			"name":"\u5186\u67f1.003"
+			"name":"\u5186\u67f1.002"
 		},
 		{
 			"mesh":2,
@@ -35,9 +35,44 @@
 			"name":"Trolley"
 		}
 	],
+	"materials":[
+		{
+			"doubleSided":true,
+			"name":"Wheel",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":0
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Battery",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":1
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"name":"Trolley.001",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":2
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		}
+	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1.002",
+			"name":"\u5186\u67f1.004",
 			"primitives":[
 				{
 					"attributes":{
@@ -45,12 +80,13 @@
 						"NORMAL":1,
 						"TEXCOORD_0":2
 					},
-					"indices":3
+					"indices":3,
+					"material":0
 				}
 			]
 		},
 		{
-			"name":"\u5186\u67f1.003",
+			"name":"\u5186\u67f1.002",
 			"primitives":[
 				{
 					"attributes":{
@@ -58,7 +94,8 @@
 						"NORMAL":5,
 						"TEXCOORD_0":6
 					},
-					"indices":7
+					"indices":7,
+					"material":0
 				}
 			]
 		},
@@ -71,7 +108,8 @@
 						"NORMAL":9,
 						"TEXCOORD_0":10
 					},
-					"indices":11
+					"indices":11,
+					"material":1
 				}
 			]
 		},
@@ -84,9 +122,41 @@
 						"NORMAL":13,
 						"TEXCOORD_0":14
 					},
-					"indices":15
+					"indices":15,
+					"material":2
 				}
 			]
+		}
+	],
+	"textures":[
+		{
+			"sampler":0,
+			"source":0
+		},
+		{
+			"sampler":0,
+			"source":1
+		},
+		{
+			"sampler":0,
+			"source":2
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"WheelTex",
+			"uri":"WheelTex.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"BatteryTex",
+			"uri":"BatteryTex.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"TrolleyTex",
+			"uri":"TrolleyTex.png"
 		}
 	],
 	"accessors":[
@@ -127,29 +197,29 @@
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":522,
+			"count":514,
 			"max":[
-				1.817004919052124,
-				-1.0822890996932983,
-				2.434203624725342
+				1.8170039653778076,
+				-1.0822888612747192,
+				2.441195249557495
 			],
 			"min":[
-				-1.809349536895752,
-				-2.1547725200653076,
-				1.3617191314697266
+				-1.8093507289886475,
+				-2.1547722816467285,
+				1.3687107563018799
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":522,
+			"count":514,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5126,
-			"count":522,
+			"count":514,
 			"type":"VEC2"
 		},
 		{
@@ -161,7 +231,7 @@
 		{
 			"bufferView":8,
 			"componentType":5126,
-			"count":197,
+			"count":205,
 			"max":[
 				0.29911065101623535,
 				1.4012399911880493,
@@ -177,13 +247,13 @@
 		{
 			"bufferView":9,
 			"componentType":5126,
-			"count":197,
+			"count":205,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":10,
 			"componentType":5126,
-			"count":197,
+			"count":205,
 			"type":"VEC2"
 		},
 		{
@@ -195,7 +265,7 @@
 		{
 			"bufferView":12,
 			"componentType":5126,
-			"count":818,
+			"count":826,
 			"max":[
 				1.711384892463684,
 				1.3124747276306152,
@@ -211,13 +281,13 @@
 		{
 			"bufferView":13,
 			"componentType":5126,
-			"count":818,
+			"count":826,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":14,
 			"componentType":5126,
-			"count":818,
+			"count":826,
 			"type":"VEC2"
 		},
 		{
@@ -254,44 +324,44 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":6264,
+			"byteLength":6168,
 			"byteOffset":18064,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6264,
-			"byteOffset":24328,
+			"byteLength":6168,
+			"byteOffset":24232,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":4176,
-			"byteOffset":30592,
+			"byteLength":4112,
+			"byteOffset":30400,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1488,
-			"byteOffset":34768,
+			"byteOffset":34512,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":2364,
-			"byteOffset":36256,
+			"byteLength":2460,
+			"byteOffset":36000,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2364,
-			"byteOffset":38620,
+			"byteLength":2460,
+			"byteOffset":38460,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1576,
-			"byteOffset":40984,
+			"byteLength":1640,
+			"byteOffset":40920,
 			"target":34962
 		},
 		{
@@ -302,32 +372,38 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":9816,
+			"byteLength":9912,
 			"byteOffset":43304,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":9816,
-			"byteOffset":53120,
+			"byteLength":9912,
+			"byteOffset":53216,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6544,
-			"byteOffset":62936,
+			"byteLength":6608,
+			"byteOffset":63128,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2952,
-			"byteOffset":69480,
+			"byteOffset":69736,
 			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9728,
+			"minFilter":9984
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":72432,
+			"byteLength":72688,
 			"uri":"Trolley.bin"
 		}
 	]
