@@ -21,6 +21,7 @@ public:
             Albedo,
             MetallicRoughness,
             Normal,
+            Emissive,
             Depth,
 
             NumRootParameters

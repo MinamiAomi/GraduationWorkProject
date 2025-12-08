@@ -24,8 +24,17 @@
     "Crystal": "LightObject/Crystal.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf"
   },
-  "Texture":{
+  "Texture" : {
+    "DCUI_Back" : "TestResource/Back.png",
+    "DCUI_Circle" : "TestResource/Circle.png",
+    "DCUI_Triangle" : "TestResource/Triangle.png",
+    "DCUI_ConnectionSettings" : "TestResource/ConnectionSettings.png",
+    "DCUI_GameStart" : "TestResource/GameStart.png",
+    "DCUI_Quit" : "TestResource/Quit.png",
+    "DUCI_FindLightDevice" : "TestResource/FindLightDevice.png",
+    "DUCI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
+    "DUCI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
+    "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png"
     "white2x2":"white2x2.png"
   }
-    
 }

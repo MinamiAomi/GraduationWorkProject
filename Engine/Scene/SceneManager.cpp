@@ -3,6 +3,7 @@
 //ゲームと干渉しちゃうけどまあええか
 #include "../Test/PersistentData.h"
 #include "BaseScene.h"
+#include "BaseGameSystem.h"
 
 SceneManager* SceneManager::GetInstance() {
     static SceneManager instance;
@@ -32,6 +33,10 @@ void SceneManager::Update() {
         currentScene_->OnInitialize();
     }
 
+    if (gameSystem_ != nullptr) {
+        gameSystem_->OnUpdate();
+    }
+
     if (currentScene_) {
         currentScene_->OnUpdate();
     }
@@ -47,7 +52,18 @@ void SceneManager::Finalize() {
         nextScene_ = nullptr;
     }
 
+    if (gameSystem_ != nullptr) {
+        gameSystem_->OnFinalize();
+    }
+
     persistentData_ = nullptr;
+}
+
+bool SceneManager::IsTerminateSystem() const {
+    if (gameSystem_ != nullptr) {
+        return gameSystem_->IsTerminateSystem();
+    }
+    return false;
 }
 
 std::shared_ptr<PersistentData> SceneManager::GetPersistentData() const {
