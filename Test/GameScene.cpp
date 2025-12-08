@@ -100,6 +100,8 @@ void GameScene::OnInitialize() {
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
+
+#ifdef DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -108,9 +110,10 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
+#endif // _DEBUG
 
 #pragma region RailSystem
-	
+
 	//現在のスピードを代入
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
@@ -144,6 +147,28 @@ void GameScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
+	//一周終わったかどうか
+	if (railAnimationPlayer_->IsFinished()) {
+		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		trolley_->Initialize();
+		railCameraSystem_->Initialize();
+		deadline_->Initialize();
+
+		//SceneObjectsリセット
+		sceneObjectManager_->ResetObjects();
+
+		//Colliderセット
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		railAnimationPlayer_->Loop();
+	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
 	//デバックカメラ
@@ -187,8 +212,12 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
 	}
 
-	
+
 #endif
+
+#ifdef DEBUG
+
+
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
@@ -197,27 +226,8 @@ void GameScene::OnUpdate() {
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
-		//flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
-		//trolley_->Initialize();
-		//railCameraSystem_->Initialize();
-		//deadline_->Initialize();
-
-		////SceneObjectsリセット
-		//sceneObjectManager_->ResetObjects();
-
-		////Colliderセット
-		//for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
-		//	collisionSystem_->RegisterCollider(collider->collider);
-		//}
-		//for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-		//	collisionSystem_->RegisterCollider(collider->collider);
-		//}
-		//for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
-		//	collisionSystem_->RegisterCollider(collider->collider);
-		//}
-
-		//railAnimationPlayer_->Loop();
 	}
+#endif // DEBUG
 }
 
 void GameScene::OnFinalize() {
