@@ -29,7 +29,7 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region RailSystem
-	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
+	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/t.json");
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
@@ -37,6 +37,9 @@ void GameScene::OnInitialize() {
 			);
 		//カメラ再生
 		railAnimationPlayer_->Play();
+	}
+	else {
+		assert(0);
 	}
 
 #pragma endregion
@@ -164,15 +167,15 @@ void GameScene::OnUpdate() {
 	// 余白
 	ImGui::Spacing();
 
-	float minFrame = static_cast<float>(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.startFrame);
-	float maxFrame = static_cast<float>(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.endFrame);
+	float minFrame = static_cast<float>(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame);
+	float maxFrame = static_cast<float>(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
 
 	// スライダーで直感的に位置を変更・確認できるようにする
 	ImGui::Text("Timeline");
 	float currentFrame = railAnimationPlayer_->GetCurrentFrame();
 	ImGui::SliderFloat("##FrameSlider", &currentFrame, minFrame, maxFrame, "Frame: %.2f");
 	ImGui::InputFloat("##Frame", &currentFrame);
-	currentFrame = std::clamp(currentFrame, float(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.endFrame));
+	currentFrame = std::clamp(currentFrame, float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame));
 	railAnimationPlayer_->SetCurrentFrame(currentFrame);
 
 	// 進捗バー
@@ -223,9 +226,9 @@ void GameScene::OnUpdate() {
 	ImGui::Separator();
 
 	if (ImGui::TreeNode("Json情報")) {
-		ImGui::Text("最初のフレーム: %d", railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.startFrame);
-		ImGui::Text("最後のフレーム : %d", railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.endFrame);
-		ImGui::Text("フレームレート : %d", railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.frameRate);
+		ImGui::Text("最初のフレーム: %d", railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame);
+		ImGui::Text("最後のフレーム : %d", railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
+		ImGui::Text("フレームレート : %d", railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.frameRate);
 
 		ImGui::TreePop();
 	}

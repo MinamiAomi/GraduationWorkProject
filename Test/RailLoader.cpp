@@ -45,19 +45,25 @@ namespace RailSystem {
 
 		try {
 			// メタデータ
-			animationData.railCameraMetaData_.startFrame = data["metadata"]["start_frame"].get<int>();
-			animationData.railCameraMetaData_.endFrame = data["metadata"]["end_frame"].get<int>();
-			animationData.railCameraMetaData_.frameRate = data["metadata"]["frame_rate"].get<float>();
+			animationData.railMetaData_.startFrame = data["metadata"]["start_frame"].get<int>();
+			animationData.railMetaData_.endFrame = data["metadata"]["end_frame"].get<int>();
+			animationData.railMetaData_.frameRate = data["metadata"]["frame_rate"].get<float>();
 
 			// キーフレーム
 			for (const auto& key : data["curve_eval_time"]) {
 				animationData.evalTimeKeys_.push_back(ParseScalarKeyframe(key));
 			}
-			for (const auto& key : data["camera_location_keyframes"]) {
-				animationData.positionKeys_.push_back(ParsePositionKeyframe(key));
+			for (const auto& key : data["rail_world_position"]) {
+				animationData.railAnimation_.positionKeys.push_back(ParsePositionKeyframe(key));
 			}
-			for (const auto& key : data["camera_rotation_keyframes"]) {
-				animationData.rotationKeys_.push_back(ParseRotationKeyframe(key));
+			for (const auto& key : data["rail_world_rotation"]) {
+				animationData.railAnimation_.rotationKeys.push_back(ParseRotationKeyframe(key));
+			}
+			for (const auto& key : data["camera_local_position"]) {
+				animationData.cameraAnimation_.positionKeys.push_back(ParsePositionKeyframe(key));
+			}
+			for (const auto& key : data["camera_local_rotation"]) {
+				animationData.cameraAnimation_.rotationKeys.push_back(ParseRotationKeyframe(key));
 			}
 
 		}
@@ -70,7 +76,11 @@ namespace RailSystem {
 		}
 
 		// データが空でないか基本的なチェック
-		if (animationData.evalTimeKeys_.empty() || animationData.positionKeys_.empty() || animationData.rotationKeys_.empty()) {
+		if (animationData.evalTimeKeys_.empty() ||
+			animationData.railAnimation_.positionKeys.empty() || 
+			animationData.railAnimation_.rotationKeys.empty() ||
+			animationData.cameraAnimation_.positionKeys.empty() ||
+			animationData.cameraAnimation_.rotationKeys.empty()) {
 			std::cerr << "Warning: Animation data contains empty keyframe tracks." << std::endl;
 		}
 

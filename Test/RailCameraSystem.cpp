@@ -37,6 +37,8 @@ void RailSystem::RailCameraSystem::Reset()
 
 	UpdateFov(1.0f / 60.0f);
 	UpdateLookAhead(1.0f / 60.0f);
+
+	currentLookRotation_ = Quaternion::identity;
 }
 
 void RailSystem::RailCameraSystem::Update(float deltaTime)
@@ -44,11 +46,15 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 	UpdateFov(deltaTime);
 	UpdateLookAhead(deltaTime);
 
-	transform_.translate = cameraOffset_;
+	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
+
+	Vector3 localPos = railCameraAnimationPlayer_->EvaluateCameraPosition(currentFrame);
+	Quaternion localRotation = railCameraAnimationPlayer_->EvaluateCameraRotation(currentFrame);
+
+	transform_.translate = localPos + cameraOffset_;
 
 	if (transform_.GetParent()) {
-		Quaternion parentRotation = transform_.GetParent()->worldMatrix.GetRotate();
-		transform_.rotate = parentRotation.Inverse() * currentLookRotation_;
+		transform_.rotate = currentLookRotation_ * localRotation;
 	}
 	else {
 		transform_.rotate = currentLookRotation_;
@@ -79,13 +85,11 @@ void RailSystem::RailCameraSystem::UpdateFov(float deltaTime)
 }
 void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 {
-
 	transform_.UpdateMatrix();
-	Vector3 currentPos = transform_.worldMatrix.GetTranslate();
-	Quaternion currentRotate = transform_.GetParent()->worldMatrix.GetRotate();
+	Vector3 currentPos = transform_.translate;
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 	float futureFrame = currentFrame + futureFrame_;
-	Vector3 targetPos = railCameraAnimationPlayer_->EvaluatePosition(futureFrame) + pointOfGazeOffset_;
+	Vector3 targetPos = railCameraAnimationPlayer_->EvaluateCameraPosition(futureFrame) + pointOfGazeOffset_;
 
 
 	Vector3 forwardVector = Vector3::forward;

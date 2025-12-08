@@ -75,7 +75,7 @@ void Deadline::DrawImGui()
 		ImGui::Separator();
 
 		auto railAnimationData = railAnimationPlayer_->GetRailAnimationDate();
-		ImGui::DragFloat("スタート位置オフセット", &startFrame_, 0.1f, float(railAnimationData->railCameraMetaData_.startFrame), float(railAnimationData->railCameraMetaData_.endFrame));
+		ImGui::DragFloat("スタート位置オフセット", &startFrame_, 0.1f, float(railAnimationData->railMetaData_.startFrame), float(railAnimationData->railMetaData_.endFrame));
 
 		ImGui::Separator();
 		ImGui::Text("--- 追跡パラメータ調整 ---");
