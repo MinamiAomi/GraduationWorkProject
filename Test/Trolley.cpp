@@ -66,7 +66,7 @@ void Trolley::Initialize()
 	trollyState_ = State::Normal;
 	currentSpeed_ = 0.0f;
 
-	currentCharge_ = maxNormalCharge_ * 0.5f;
+	currentCharge_ = 0.0f;
 
 
 	nitroAccumulateTimer_ = 0.0f;

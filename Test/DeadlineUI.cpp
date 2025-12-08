@@ -8,7 +8,7 @@
 DeadlineUI::DeadlineUI()
 {
 	auto assetManager = AssetManager::GetInstance();
-	monster_.SetModel(assetManager->modelMap.Get("trolley")->Get());
+	monster_.SetModel(assetManager->modelMap.Get("monster")->Get());
 }
 
 void DeadlineUI::Initialize()

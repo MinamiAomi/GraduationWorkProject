@@ -2,6 +2,10 @@
 
 #include <fstream>
 #include <iostream>
+#ifdef _DEBUG
+#include <assert.h>
+#endif // _DEBUG
+
 
 namespace RailSystem {
 	/*static Vector2 ParseVec2(const nlohmann::json& json, const std::string& key) {
@@ -19,6 +23,9 @@ namespace RailSystem {
 		std::ifstream file(filepath);
 		if (!file.is_open()) {
 			std::cerr << "Error: Could not open file " << filepath << std::endl;
+#ifdef _DEBUG
+			assert(0);
+#endif // _DEBUG
 			return std::nullopt;
 		}
 
@@ -28,6 +35,9 @@ namespace RailSystem {
 		}
 		catch (nlohmann::json::parse_error& e) {
 			std::cerr << "Error: Failed to parse JSON file " << filepath << ". " << e.what() << std::endl;
+#ifdef _DEBUG
+			assert(0);
+#endif // _DEBUG
 			return std::nullopt;
 		}
 
@@ -53,6 +63,9 @@ namespace RailSystem {
 		}
 		catch (nlohmann::json::exception& e) {
 			std::cerr << "Error: JSON structure mismatch. " << e.what() << std::endl;
+#ifdef _DEBUG
+			assert(0);
+#endif // _DEBUG
 			return std::nullopt;
 		}
 

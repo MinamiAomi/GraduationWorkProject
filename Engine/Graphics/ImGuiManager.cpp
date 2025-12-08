@@ -9,12 +9,8 @@
 #include "Core/Graphics.h"
 #include "Core/SwapChain.h"
 #include "Core/CommandContext.h"
-
-ImGuiManager* ImGuiManager::GetInstance() {
-    static ImGuiManager instance;
-    return &instance;
-}
-
+#include <string> 
+#include <assert.h>
 void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
 #ifdef ENABLE_IMGUI
     auto graphics = Graphics::GetInstance();
@@ -24,19 +20,6 @@ void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
 
     auto& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-
-    // --- フォント読み込み ---
-    // パス区切り文字を \\ に修正
-    ImFont* font = io.Fonts->AddFontFromFileTTF(
-        "c:/Windows/Fonts/meiryo.ttc",
-        18.0f,
-        nullptr,
-        io.Fonts->GetGlyphRangesJapanese()
-    );
-
-    // 読み込みチェック（失敗したらここで止まります）
-    // 止まった場合、パスが間違っているかファイルがありません
-    assert(font != nullptr);
 
     ImGui::StyleColorsDark();
     ImGui::StyleColorsClassic();
@@ -55,30 +38,4 @@ void ImGuiManager::Initialize(HWND hWnd, DXGI_FORMAT rtvFormat) {
 #else
     hWnd; rtvFormat;
 #endif // ENABLE_IMGUI
-}
-
-void ImGuiManager::NewFrame() {
-#ifdef ENABLE_IMGUI
-    ImGui_ImplWin32_NewFrame();
-    ImGui_ImplDX12_NewFrame();
-    ImGui::NewFrame();
-#endif // ENABLE_IMGUI
-}
-
-void ImGuiManager::Render(CommandContext& commandContext) {
-#ifdef ENABLE_IMGUI
-    ImGui::Render();
-    ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandContext);
-#else
-    commandContext;
-#endif // ENABLE_IMGUI
-}
-
-void ImGuiManager::Shutdown() {
-#ifdef ENABLE_IMGUI
-    ImGui_ImplDX12_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
-#endif // ENABLE_IMGUI
-
 }

@@ -4,10 +4,11 @@
     "trolley": "Trolley/Trolley/Trolley.gltf",
     "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
     "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
-
+    
+    "monster": "OODAMA/OODAMA.gltf",
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
-    "Stage": "StaticMesh/StageModel/Stage.gltf",
+    "Stage": "StaticMesh/StageModel/LEVEL1.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf",
     "O":"Ore_no_Tousougeki/O.gltf",
     "r":"Ore_no_Tousougeki/r.gltf",
