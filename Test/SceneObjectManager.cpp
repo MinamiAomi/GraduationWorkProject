@@ -51,7 +51,6 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 	enemyObjects_.clear();
 
 	BuildRuntimeObjects();
-
 }
 
 void SceneObjectSystem::SceneObjectManager::Update()
