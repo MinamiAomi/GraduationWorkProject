@@ -80,7 +80,7 @@ private:
 
     ModelRenderer modelRenderer;
     Transition transition_;
-    //Bloom bloom_;
+    Bloom bloom_;
     FXAA fxaa_;
     PostEffect postEffect_;
     LightManager lightManager_;

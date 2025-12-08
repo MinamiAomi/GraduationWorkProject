@@ -101,8 +101,12 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
             if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
                 pointLightObject->model.SetModel(modelHandle->Get());
-                // 発光マテリアルを設定
+                // エラーマテリアル
                 pointLightObject->material = std::make_shared<Material>();
+                pointLightObject->material->albedo = { 1.0f, 0.2f, 0.6f };
+                pointLightObject->material->emissive = { 1.0f, 1.0f, 1.0f };
+                
+                // 発光マテリアルを設定
                 if (!modelHandle->Get()->GetMaterials().empty()) {
                     auto& originalMaterials = modelHandle->Get()->GetMaterials().at(0);
                     (*pointLightObject->material) = originalMaterials;
