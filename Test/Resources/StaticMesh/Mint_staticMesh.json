@@ -6,9 +6,9 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          557.3825,
-          49.701,
-          -15.8362
+          559.5588,
+          61.2298,
+          -2.8564
         ],
         "rotate": [
           0.3144,
@@ -17,16 +17,16 @@
           0.9425
         ],
         "scale": [
-          5.4081,
-          5.4081,
-          5.4081
+          3.6684,
+          3.6684,
+          3.6684
         ]
       },
       "capsule_collision": {
         "center": [
-          558.1176,
-          49.4159,
-          -13.0701
+          560.2939,
+          60.9446,
+          -0.0903
         ],
         "radius": 2.9516,
         "height": 7.8564,
@@ -50,6 +50,60 @@
         ],
         "intensity": 10.0,
         "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "RANTAN.001",
+      "model_name": "RANTAN",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          7.0998,
+          -3.6714,
+          3.8819
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          7.0998,
+          -3.6714,
+          6.6927
+        ],
+        "radius": 1.0325,
+        "height": 9.6619,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
         "decay": 1.0,
         "isActive": true
       }
