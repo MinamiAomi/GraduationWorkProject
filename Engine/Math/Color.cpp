@@ -71,13 +71,18 @@ Vector4 Color::Convert(uint32_t rgba) {
     constexpr float reci = 1.0f / 255.0f;
     auto GetElement = [&](uint32_t index) {
         return ((rgba & (0xFFu << index)) >> (8 * index)) * reci;
-    };
+        };
     Vector4 result;
     result.x = std::clamp(GetElement(3), 0.0f, 1.0f);
     result.y = std::clamp(GetElement(2), 0.0f, 1.0f);
     result.z = std::clamp(GetElement(1), 0.0f, 1.0f);
     result.w = std::clamp(GetElement(0), 0.0f, 1.0f);
     return result;
+}
+
+Vector4 Color::Convert(Color color)
+{
+    return Vector4(color.rgba_);
 }
 
 void Color::SetR(uint8_t r) {

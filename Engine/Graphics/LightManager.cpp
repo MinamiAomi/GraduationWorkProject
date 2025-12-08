@@ -2,13 +2,15 @@
 
 #include "ImGuiManager.h"
 
-DirectionalLight::DirectionalLight() : color(Color::white), direction(Vector3::down), intensity(1.0f) {}
+DirectionalLight::DirectionalLight() : color(Color::white), direction(Vector3::down), intensity(1.0f), isActive(true) {}
 
 void DirectionalLight::DrawImGui(const std::string& label) {
+
     (void)label;
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());
     if (openTree) {
+        ImGui::Checkbox("IsActive", &isActive);
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Direction", &direction.x, 0.01f, -1.0f, 1.0f);
         direction = direction.Normalized();
@@ -18,17 +20,19 @@ void DirectionalLight::DrawImGui(const std::string& label) {
 #endif //ENABLE_IMGUI
 }
 
-PointLight::PointLight() : color(Color::white), position(Vector3::zero), intensity(1.0f), range(1.0f), decay(1.0f) {}
+PointLight::PointLight() : color(Color::white), position(Vector3::zero), intensity(1.0f), range(1.0f), decay(1.0f), isActive(true) {}
 
 void PointLight::DrawImGui(const std::string& label) {
     (void)label;
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());
     if (openTree) {
+        ImGui::Checkbox("IsActive", &isActive);
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Position", &position.x, 0.1f);
         ImGui::DragFloat("Intensity", &intensity, 0.01f, 0.0f, 100.0f);
-        ImGui::DragFloat("decay", &intensity, 0.1f, 0.0f, 10.0f);
+        ImGui::DragFloat("Range", &range, 0.01f, 0.0f, 100.0f);
+        ImGui::DragFloat("decay", &decay, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }
 #endif //ENABLE_IMGUI
@@ -37,7 +41,7 @@ void PointLight::DrawImGui(const std::string& label) {
 SpotLight::SpotLight() :
     color(Color::white), position(Vector3::zero), direction(-Vector3::unitY),
     intensity(1.0f), range(1.0f), angle(60.0f * Math::ToRadian),
-    falloffStartAngle(45.0f * Math::ToRadian), decay(1.0f) {
+    falloffStartAngle(45.0f * Math::ToRadian), decay(1.0f), isActive(true), useVolumeLight(false) {
 }
 
 void SpotLight::DrawImGui(const std::string& label) {
@@ -45,6 +49,7 @@ void SpotLight::DrawImGui(const std::string& label) {
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());
     if (openTree) {
+        ImGui::Checkbox("IsActive", &isActive);
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Position", &position.x, 0.1f);
         ImGui::DragFloat3("Direction", &direction.x, 0.01f, -1.0f, 1.0f);
@@ -57,7 +62,7 @@ void SpotLight::DrawImGui(const std::string& label) {
         float falloffStartAngleDegree = falloffStartAngle * Math::ToDegree;
         ImGui::DragFloat("FalloffStartAngle", &falloffStartAngleDegree, 0.1f, 0.0f, angleDegree);
         falloffStartAngle = falloffStartAngleDegree * Math::ToRadian;
-        ImGui::DragFloat("Decay", &intensity, 0.1f, 0.0f, 10.0f);
+        ImGui::DragFloat("Decay", &decay, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }
 #endif //ENABLE_IMGUI
@@ -74,11 +79,15 @@ void LightManager::Reset() {
 }
 
 void LightManager::UpdateActiveLights(const Camera& camera) {
+    activeDirectionalLights_.clear();
     activePointLights_.clear();
     activeSpotLights_.clear();
 
     for (auto it = directionalLights_.begin(); it != directionalLights_.end();) {
         if (auto light = it->lock()) {
+            if (light->isActive) {
+                activeDirectionalLights_.push_back(light);
+            }
             ++it;
         }
         else {
@@ -89,8 +98,10 @@ void LightManager::UpdateActiveLights(const Camera& camera) {
 
     for (auto it = pointLights_.begin(); it != pointLights_.end();) {
         if (auto light = it->lock()) {
-            if (camera.GetFrustum().Intersects({ light->position, light->range })) {
-                activePointLights_.push_back(light);
+            if (light->isActive) {
+                if (camera.GetFrustum().Intersects({ light->position, light->range })) {
+                    activePointLights_.push_back(light);
+                }
             }
             ++it;
         }
@@ -101,8 +112,10 @@ void LightManager::UpdateActiveLights(const Camera& camera) {
 
     for (auto it = spotLights_.begin(); it != spotLights_.end();) {
         if (auto light = it->lock()) {
-            if (camera.GetFrustum().InersectsSpotLight(light->position, light->direction, light->range, light->angle)) {
-                activeSpotLights_.push_back(light);
+            if (light->isActive) {
+                if (camera.GetFrustum().InersectsSpotLight(light->position, light->direction, light->range, light->angle)) {
+                    activeSpotLights_.push_back(light);
+                }
             }
             ++it;
         }

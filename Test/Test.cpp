@@ -33,6 +33,8 @@ void Test::OnInitialize() {
     sceneManager->ChangeScene<TitleScene>(true);
 #endif 
 
+
+
     LoadResource();
 }
 

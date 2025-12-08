@@ -7,7 +7,7 @@
 
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
-    "Stage": "StaticMesh/StageModel/Stage.gltf",
+    "Stage": "StaticMesh/StageModel/LEVEL1.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf",
     "O":"Ore_no_Tousougeki/O.gltf",
     "r":"Ore_no_Tousougeki/r.gltf",
@@ -17,9 +17,14 @@
     "T":"Ore_no_Tousougeki/T.gltf",
     "u":"Ore_no_Tousougeki/u.gltf",
     "s":"Ore_no_Tousougeki/s.gltf",
-    "g":"Ore_no_Tousougeki/g.gltf",
+    "G":"Ore_no_Tousougeki/G.gltf",
     "k":"Ore_no_Tousougeki/k.gltf",
-    "i":"Ore_no_Tousougeki/i.gltf"
+    "i":"Ore_no_Tousougeki/i.gltf",
+    "Crystal": "LightObject/Crystal.gltf",
+    "RANTAN": "StaticMesh/RANTAN.gltf"
+  },
+  "Texture":{
+    "white2x2":"white2x2.png"
   }
     
 }

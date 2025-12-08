@@ -177,7 +177,7 @@ namespace Math {
             Far,
             Left,
             Right,
-            Top, 
+            Top,
             Bottom,
             Count
         };
@@ -190,7 +190,7 @@ namespace Math {
             planes[Side::Left].normal.y = vp.m[1][3] + vp.m[1][0];
             planes[Side::Left].normal.z = vp.m[2][3] + vp.m[2][0];
             planes[Side::Left].distance = -(vp.m[3][3] + vp.m[3][0]);
-        
+
             planes[Side::Right].normal.x = vp.m[0][3] - vp.m[0][0];
             planes[Side::Right].normal.y = vp.m[1][3] - vp.m[1][0];
             planes[Side::Right].normal.z = vp.m[2][3] - vp.m[2][0];
@@ -215,7 +215,7 @@ namespace Math {
             planes[Side::Far].normal.y = vp.m[1][3] - vp.m[1][2];
             planes[Side::Far].normal.z = vp.m[2][3] - vp.m[2][2];
             planes[Side::Far].distance = -(vp.m[3][3] - vp.m[3][2]);
-        
+
             for (auto& plane : planes) {
                 float length = plane.normal.Length();
                 if (length > 1e-5f) {
@@ -240,7 +240,7 @@ namespace Math {
             Sphere boundingSphere;
             boundingSphere.center = position;
             boundingSphere.radius = range;
-            
+
             float offset = range * 0.5f;
             boundingSphere.center = position + direction * offset;
             boundingSphere.radius = range * 0.5f / std::cos(angle);

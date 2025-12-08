@@ -6,7 +6,9 @@
 #include "Math/Transform.h"
 #include "Math/Camera.h"
 #include "Graphics/Model.h"
+#include "Graphics/LightManager.h"
 
+#include "FlashlightUI.h"
 #include "Collider.h"
 
 class Flashlight {
@@ -15,19 +17,27 @@ public:
 	void Update();
 
 	std::shared_ptr<ConeCollider> GetCollider() { return collider_; }
-
+	float GetBattery() const { return battery_; }
+	float GetMaxBattery() const { return maxBattery_; }
 	bool GetIsLighting() const { return isLighting_; }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
 	void SpotLightDebugDraw() const;
 	void DebugMove();
+#ifdef _DEBUG
+	void DrawImGui();
+#endif // _DEBUG
+
 
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
 
+	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
 	Transform lightTransform_;
+	FlashlightUI flashlightUI_;
+
 	//ライト自信のTransform
 	Transform transform_;
 	// カメラからの距離

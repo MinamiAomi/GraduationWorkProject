@@ -79,7 +79,7 @@ private:
     Skybox skybox_;
     LineDrawer lineDrawer_;
     ParticleCore particleCore_;
-    
+
     ModelRenderer modelRenderer;
     Transition transition_;
     //Bloom bloom_;
