@@ -10,6 +10,17 @@
 #endif // _DEBUG
 
 
+TrolleyUI::TrolleyUI()
+{
+	auto assetManager = AssetManager::GetInstance();
+	speedMeterModel_.SetModel(assetManager->modelMap.Get("speedMeter")->Get());
+	speedMeterNeedleModel_.SetModel(assetManager->modelMap.Get("speedMeterNeedle")->Get());
+
+	chargeUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+	overChargeUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+	nitroUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+}
+
 void TrolleyUI::Initialize(const Transform& transform)
 {
 	JSON_OPEN("Resources/Data/Trolley/trolleyUI.json");
@@ -29,15 +40,11 @@ void TrolleyUI::Initialize(const Transform& transform)
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
 
-	auto assetManager = AssetManager::GetInstance();
-	speedMeterModel_.SetModel(assetManager->modelMap.Get("speedMeter")->Get());
-	speedMeterNeedleModel_.SetModel(assetManager->modelMap.Get("speedMeterNeedle")->Get());
+	
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
 
-	chargeUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
-	overChargeUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
-	nitroUI_.SetTexture(AssetManager::GetInstance()->textureMap.Get("white2x2")->Get());
+	
 
 	chargeUI_.SetPosition({ 915.0f,50.0f });
 	chargeUI_.SetScale({ 300.0f,30.0f });
@@ -123,7 +130,7 @@ void TrolleyUI::DrawImGui()
 		ImGui::Separator();
 
 		ImGui::DragFloat3("スピードメーターオフセット", &speedMeterOffset_.x, 0.01f);
-		ImGui::DragFloat3("はぴーどメーターの針オフセット", &speedMeterNeedleOffset_.x, 0.01f);
+		ImGui::DragFloat3("スピードメーターの針オフセット", &speedMeterNeedleOffset_.x, 0.01f);
 
 
 		ImGui::TreePop();

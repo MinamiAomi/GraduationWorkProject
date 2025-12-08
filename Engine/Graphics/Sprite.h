@@ -50,6 +50,6 @@ private:
     Vector2 texcoordBase_ = {  0.0f,  0.0f };
     Vector2 texcoordSize_ = { 64.0f, 64.0f };
     Vector4 color_ = Vector4::one;
-    uint8_t drawOrder_ = 0; // 小さいほど上に描画される レイヤーを表す値
+    uint8_t drawOrder_ = 0; // 小さいほど上に描画される レイヤーを表す値（ほんとに？）
     bool isActive_ = true;
 };

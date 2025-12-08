@@ -7,6 +7,7 @@
 class Trolley;
 class TrolleyUI {
 public:
+	TrolleyUI();
 	void Initialize(const Transform& transform);
 	void Update();
 
