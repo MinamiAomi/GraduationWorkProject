@@ -291,9 +291,9 @@ void GameScene::OnUpdate() {
 	}
 	ImGui::End();
 
-	if (input_->IsKeyTrigger(DIK_SPACE)) {
-		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
-	}
+	//if (input_->IsKeyTrigger(DIK_SPACE)) {
+	//	SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+	//}
 
 
 #endif
