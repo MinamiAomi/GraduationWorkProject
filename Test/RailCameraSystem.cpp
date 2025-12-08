@@ -3,6 +3,8 @@
 #include "Engine/File/JsonConverter.h"
 #include "RailConverter.h"
 
+#include "Engine/Input/Input.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -79,31 +81,60 @@ void RailSystem::RailCameraSystem::UpdateFov(float deltaTime)
 void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 {
 
+	bool isLookingBack = Input::GetInstance()->IsKeyPressed(DIK_Q);
+
 	transform_.UpdateMatrix();
 	Vector3 currentPos = transform_.worldMatrix.GetTranslate();
-	Quaternion currentRotate = transform_.GetParent()->worldMatrix.GetRotate();
+
+	float minFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.startFrame);
+	float maxFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.endFrame);
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
-	float futureFrame = currentFrame + futureFrame_;
-	Vector3 targetPos = railCameraAnimationPlayer_->EvaluatePosition(futureFrame) + pointOfGazeOffset_;
 
-
-	Vector3 forwardVector = Vector3::forward;
-	if ((targetPos - currentPos).LengthSquare() > 1e-05f) {
-		forwardVector = (targetPos - currentPos).Normalized();
+	float targetFrame = 0.0f;
+	if (isLookingBack) {
+		targetFrame = currentFrame - futureFrame_;
+	}
+	else {
+		targetFrame = currentFrame + futureFrame_;
 	}
 
-	Vector3 upVector = Vector3::up;
+	targetFrame = std::clamp(targetFrame, minFrame, maxFrame);
 
-	if (transform_.GetParent()) {
-		Quaternion parentRotation = transform_.GetParent()->worldMatrix.GetRotate();
-		upVector = parentRotation * Vector3::up;
+	Vector3 targetPos = railCameraAnimationPlayer_->EvaluatePosition(targetFrame) + transform_.GetParent()->translate + pointOfGazeOffset_;
+
+
+	Vector3 diff = targetPos - currentPos;
+
+	if (diff.LengthSquare() <= 1e-05f) {
+		if (isLookingBack) {
+			float tempFutureFrame = std::clamp(currentFrame + futureFrame_, minFrame, maxFrame);
+			Vector3 futurePos = railCameraAnimationPlayer_->EvaluatePosition(tempFutureFrame) + transform_.GetParent()->translate + pointOfGazeOffset_;
+
+			diff = -(futurePos - currentPos);
+		}
+		else {
+			float tempPastFrame = std::clamp(currentFrame - futureFrame_, minFrame, maxFrame);
+			Vector3 pastPos = railCameraAnimationPlayer_->EvaluatePosition(tempPastFrame) + transform_.GetParent()->translate + pointOfGazeOffset_;
+
+			diff = -(pastPos - currentPos);
+		}
 	}
 
+	if (diff.LengthSquare() > 1e-05f) {
 
-	Quaternion targetRotation = Quaternion::MakeLookRotation(forwardVector, upVector);
+		Vector3 forwardVector = diff.Normalized();
 
-	float t = std::clamp(deltaTime * 5.0f, 0.0f, 1.0f);
-	currentLookRotation_ = Quaternion::Slerp(t, currentLookRotation_, targetRotation);
+		Vector3 upVector = Vector3::up;
+		if (transform_.GetParent()) {
+			Quaternion parentRotation = transform_.GetParent()->worldMatrix.GetRotate();
+			upVector = parentRotation * Vector3::up;
+		}
+
+		Quaternion targetRotation = Quaternion::MakeLookRotation(forwardVector, upVector);
+
+		float t = std::clamp(deltaTime * 5.0f, 0.0f, 1.0f);
+		currentLookRotation_ = Quaternion::Slerp(t, currentLookRotation_, targetRotation);
+	}
 }
 
 #ifdef _DEBUG
