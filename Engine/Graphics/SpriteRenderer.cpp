@@ -125,7 +125,7 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
                 { 1.0f, 1.0f },
                 { 1.0f, 0.0f },
             };
-            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->size_, instance->rotate_, instance->position_);
+            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_);
 
             for (auto& vertex : localVertices) {
                 vertex = vertex * matrix;

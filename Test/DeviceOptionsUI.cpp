@@ -70,7 +70,7 @@ void DeviceOptionsUI::Initialize() {
         auto& sprite = sprites_[i] = std::make_unique<Sprite>();
         sprite->SetTexture(assetManager->textureMap.Get(guiContact[i].texture)->Get());
         sprite->SetPosition(guiContact[i].position);
-        sprite->SetSize(guiContact[i].size);
+        sprite->SetScale(guiContact[i].size);
         sprite->SetColor(guiContact[i].color);
     }
 }

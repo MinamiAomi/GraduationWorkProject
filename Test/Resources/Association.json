@@ -4,7 +4,6 @@
     "trolley": "Trolley/Trolley/Trolley.gltf",
     "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
     "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
-    
     "monster": "OODAMA/OODAMA.gltf",
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
@@ -21,8 +20,7 @@
     "G":"Ore_no_Tousougeki/G.gltf",
     "k":"Ore_no_Tousougeki/k.gltf",
     "i":"Ore_no_Tousougeki/i.gltf",
-    "Crystal": "LightObject/Crystal.gltf",
-    "RANTAN": "StaticMesh/RANTAN.gltf"
+    "Crystal": "LightObject/Crystal.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -34,7 +32,7 @@
     "DUCI_FindLightDevice" : "TestResource/FindLightDevice.png",
     "DUCI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
     "DUCI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
-    "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png"
+    "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
     "white2x2":"white2x2.png"
   }
 }

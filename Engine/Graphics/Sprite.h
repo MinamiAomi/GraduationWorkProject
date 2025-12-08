@@ -26,7 +26,7 @@ public:
     void SetTexture(const std::shared_ptr<Texture>& texture) { texture_ = texture; }
     void SetPosition(const Vector2& position) { position_ = position; }
     void SetRotate(float rotate) { rotate_ = rotate; }
-    void SetSize(const Vector2& size) { size_ = size; }
+    void SetScale(const Vector2& scale) { scale_ = scale; }
     void SetAnchor(const Vector2& anchor) { anchor_ = anchor; }
     void SetUVRect(const Rect& rect, UVMode mode = UVMode::Texcoord) { uvRect_ = rect, uvMode_ = mode; }
     void SetColor(const Color& color) { color_ = color; }
@@ -51,7 +51,7 @@ private:
     std::shared_ptr<Texture> texture_;
     Vector2 position_;
     float rotate_ = 0.0f;
-    Vector2 size_ = Vector2::one;
+    Vector2 scale_ = Vector2::one;
     Vector2 anchor_ = { 0.5f,0.5f };
     Rect uvRect_;
     UVMode uvMode_ = UVMode::Texcoord;

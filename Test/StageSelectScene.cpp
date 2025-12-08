@@ -17,7 +17,7 @@ void StageSelectScene::OnInitialize() {
 	sprite_.SetTexture(texture);
 	sprite_.SetUVRect({ { 0.0f, 0.0f }, { 1280.0f, 720.0f } });
 	sprite_.SetPosition({ 1280.0f / 2.0f, 720.0f / 2.0f });
-	sprite_.SetSize({ 1280.0f, 720.0f });
+	sprite_.SetScale({ 1280.0f, 720.0f });
 
 }
 
