@@ -21,6 +21,7 @@ struct Material {
     float metallic;
     float3 emissive;
     float roughness;
+    float emissiveThreshold;
     uint albedoMapIndex;
     uint metallicRoughnessMapIndex;
     uint normalMapIndex;

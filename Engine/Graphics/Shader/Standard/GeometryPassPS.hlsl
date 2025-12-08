@@ -51,8 +51,11 @@ PSOutput main(PSInput input) {
     float3 normal = GetNormal(normalize(input.normal), normalize(input.tangent), input.texcoord);
     output.normal.xyz = (normal + 1.0f) * 0.5f;
     output.normal.w = 1.0f;
-  
-    float3 emissive = albedo.rgb * g_Material.emissive;    
+    
+    float3 emissive = albedo.rgb * g_Material.emissive;
+    if (dot(albedo.rgb, float3(0.2125f, 0.7154f, 0.0721f)) < g_Material.emissiveThreshold) {
+        emissive = float3(0.0f, 0.0f, 0.0f);
+    }
     output.emissive.xyz = emissive;
     output.emissive.w = 1.0f;
         
