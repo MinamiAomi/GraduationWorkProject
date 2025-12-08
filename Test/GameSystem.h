@@ -12,7 +12,14 @@ public:
     void OnFinalize() override;
     bool IsTerminateSystem() const override;
     
+    void Quit();
 
 private:
+    GameSystem() = default;
+    ~GameSystem() = default;
+    GameSystem(const GameSystem&) = delete;
+    GameSystem& operator=(const GameSystem&) = delete;
+
+    bool isTerminate_ = false;
 
 };

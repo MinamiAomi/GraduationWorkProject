@@ -14,5 +14,9 @@ void GameSystem::OnFinalize() {
 }
 
 bool GameSystem::IsTerminateSystem() const {
-    return false;
+    return isTerminate_;
+}
+
+void GameSystem::Quit() {
+    isTerminate_ = true;
 }
