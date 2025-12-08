@@ -13,6 +13,7 @@
 
 class Flashlight {
 public:
+	Flashlight();
 	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
 	void Update();
 

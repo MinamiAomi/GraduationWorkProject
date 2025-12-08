@@ -18,6 +18,9 @@ Trolley::Trolley()
 		Vector3::zero,
 		0.0f
 	);
+
+	trolleyUI_.SetTrolley(this);
+
 }
 void Trolley::Initialize()
 {
@@ -57,7 +60,7 @@ void Trolley::Initialize()
 	trollyState_ = State::Normal;
 	currentSpeed_ = 0.0f;
 
-	currentCharge_ = maxNormalCharge_ * 0.5f;
+	currentCharge_ = 0.0f;
 
 
 	nitroAccumulateTimer_ = 0.0f;
@@ -74,7 +77,6 @@ void Trolley::Initialize()
 	batteryCollider_->radius = batteryRadius_;
 
 	trolleyUI_.Initialize(transform_);
-	trolleyUI_.SetTrolley(this);
 }
 
 void Trolley::Update(float deltaTime)

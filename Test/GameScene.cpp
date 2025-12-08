@@ -84,6 +84,12 @@ void GameScene::OnInitialize() {
 	}
 
 #pragma endregion
+#pragma region Deadline
+	deadline_ = std::make_unique<Deadline>();
+	deadline_->SetAnimationPlayer(railAnimationPlayer_.get());
+	deadline_->Initialize();
+#pragma endregion
+
 
 #ifdef _DEBUG
 	debugCamera_ = std::make_unique<DebugCamera>();
@@ -95,24 +101,19 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 
-#pragma region RailSystem
+#ifdef DEBUG
+	if (deadline_->IsGameOver()) {
+		return;
+	}
+
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
-		//SceneObjectsリセット
-		sceneObjectManager_->ResetObjects();
-
-		//Colliderセット
-		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		railAnimationPlayer_->Loop();
+		return;
 	}
+#endif // _DEBUG
+
+#pragma region RailSystem
+
 	//現在のスピードを代入
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
@@ -134,15 +135,40 @@ void GameScene::OnUpdate() {
 #pragma endregion
 	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
-
-
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion
+#pragma region Deadline
+	deadline_->Update(deltaTime);
+#pragma endregion
+
+
 #pragma region CollisionSystem
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
+	//一周終わったかどうか
+	if (railAnimationPlayer_->IsFinished()) {
+		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		trolley_->Initialize();
+		railCameraSystem_->Initialize();
+		deadline_->Initialize();
+
+		//SceneObjectsリセット
+		sceneObjectManager_->ResetObjects();
+
+		//Colliderセット
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		railAnimationPlayer_->Loop();
+	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
 	//デバックカメラ
@@ -183,9 +209,25 @@ void GameScene::OnUpdate() {
 	ImGui::End();
 
 	if (input_->IsKeyTrigger(DIK_SPACE)) {
+		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+	}
+
+
+#endif
+
+#ifdef DEBUG
+
+
+	//ゲームオーバー
+	if (deadline_->IsGameOver()) {
+		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+	}
+
+	//一周終わったかどうか
+	if (railAnimationPlayer_->IsFinished()) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
-#endif 
+#endif // DEBUG
 }
 
 void GameScene::OnFinalize() {
