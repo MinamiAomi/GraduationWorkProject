@@ -102,88 +102,16 @@ void RailSystem::RailAnimationPlayer::Loop()
 	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
 }
 
-void RailSystem::RailAnimationPlayer::SetCurrentFrame(int frame)
+void RailSystem::RailAnimationPlayer::SetCurrentFrame(float frame)
 {
 	if (!animationData_) return;
 	// フレーム番号をアニメーション範囲内にクランプする
-	currentFrame_ = float((std::max)(animationData_->railCameraMetaData_.startFrame, (std::min)(animationData_->railCameraMetaData_.endFrame, frame)));
+	currentFrame_ = float((std::max)(float(animationData_->railCameraMetaData_.startFrame), (std::min)(float(animationData_->railCameraMetaData_.endFrame), frame)));
 }
 
 float RailSystem::RailAnimationPlayer::GetCurrentFrame() const
 {
-	if (!animationData_ || animationData_->evalTimeKeys_.empty()) {
-		return 0.0f;
-	}
-	const auto& keys = animationData_->evalTimeKeys_;
-
-	// アニメーション範囲外の処理
-	if (currentFrame_ <= keys.front().frame) return keys.front().value;
-	if (currentFrame_ >= keys.back().frame) return keys.back().value;
-
-
-
-	auto indices = FindKeyframeIndices(keys, currentFrame_);
-
-
-	const auto& key1 = keys[indices.first];
-	const auto& key2 = keys[indices.second];
-
-
-	// 同じインデックス -> キーフレーム上にいる
-	if (indices.first == indices.second) {
-		return key1.value;
-	}
-
-	// 補間係数 t_norm を計算
-	float frameDiff = key2.frame - key1.frame;
-	// ゼロ除算を避ける
-	float t_norm = (std::abs(frameDiff) < 0.0001f) ? 0.0f : (currentFrame_ - key1.frame) / frameDiff;
-
-	// t_norm を 0.0 - 1.0 の範囲にクランプ
-	t_norm = std::max(0.0f, std::min(1.0f, t_norm));
-
-
-	// スカラー値の補間を実行
-	float result = InterpolateScalar(key1, key2, t_norm);
-
-
-#ifdef _DEBUG
-	{
-		std::wostringstream woss;
-		woss << L"--- GetCurrentEvalTime --- CurrentFrame: " << std::fixed << std::setprecision(4) << currentFrame_ << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-	{
-		std::wostringstream woss;
-		woss << L"  Found Indices: (" << indices.first << L", " << indices.second << L")\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-
-	{
-		std::wostringstream woss;
-		woss << L"  Key1 Frame: " << key1.frame << L", Value: " << key1.value
-			<< L" | Key2 Frame: " << key2.frame << L", Value: " << key2.value << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-
-	{
-		std::wostringstream woss;
-		woss << L"  On Keyframe. Returning value: " << key1.value << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-	{
-		std::wostringstream woss;
-		woss << L"  FrameDiff: " << frameDiff << L", t_norm: " << t_norm << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-	{
-		std::wostringstream woss;
-		woss << L"  Interpolated EvalTime: " << result << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-#endif // _DEBUG
-
-	return result;
+	return currentFrame_;
 }
 
 Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
@@ -557,68 +485,6 @@ void RailSystem::RailAnimationPlayer::DrawImGui()
 		std::wostringstream woss;
 		woss << L"Current Frame: " << std::fixed << std::setprecision(2) << currentFrame_ << L"\n";
 		OutputDebugStringW(woss.str().c_str());
-
-		ImGui::Begin("RailAnimationPlayer");
-		if (isPlaying_) {
-			ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
-		}
-		else {
-			ImGui::TextColored(ImVec4(1, 1, 0, 1), "Status: Paused ||");
-		}
-
-		//区切り線
-		ImGui::Separator();
-
-		ImGui::Text("現実速度（傾きやFOVはこの速度参照）:%.2f", realSpeed_);
-		// 余白
-		ImGui::Spacing();
-
-		float minFrame = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
-		float maxFrame = static_cast<float>(animationData_->railCameraMetaData_.endFrame);
-
-		// スライダーで直感的に位置を変更・確認できるようにする
-		ImGui::Text("Timeline");
-		ImGui::SliderFloat("##FrameSlider", &currentFrame_, minFrame, maxFrame, "Frame: %.2f");
-		ImGui::InputFloat("##Frame", &currentFrame_);
-		currentFrame_ = std::clamp(currentFrame_, float(animationData_->railCameraMetaData_.startFrame), float(animationData_->railCameraMetaData_.endFrame));
-
-		// 進捗バー
-		float progress = (currentFrame_ - minFrame) / (maxFrame - minFrame);
-		ImGui::ProgressBar(progress, ImVec2(0.0f, 0.0f));
-
-		// 余白
-		ImGui::Spacing();
-
-
-		// 再生ボタン
-		if (ImGui::Button("Play")) {
-			Play();
-		}
-		//横並びに
-		ImGui::SameLine();
-
-		// 一時停止ボタン
-		if (ImGui::Button("Pause")) {
-			Pause();
-		}
-		//横並びに
-		ImGui::SameLine();
-
-		// 停止
-		if (ImGui::Button("Stop")) {
-			Stop();
-		}
-
-		ImGui::Separator();
-
-		if (ImGui::TreeNode("Json情報")) {
-			ImGui::Text("最初のフレーム: %d", animationData_->railCameraMetaData_.startFrame);
-			ImGui::Text("最後のフレーム : %d", animationData_->railCameraMetaData_.endFrame);
-			ImGui::Text("フレームレート : %d", animationData_->railCameraMetaData_.frameRate);
-
-			ImGui::TreePop();
-		}
-		ImGui::End();
 	}
 }
 

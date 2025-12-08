@@ -80,8 +80,10 @@ void RailSystem::RailCameraSystem::UpdateFov(float deltaTime)
 
 void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 {
+	auto input = Input::GetInstance();
 
-	bool isLookingBack = Input::GetInstance()->IsKeyPressed(DIK_Q);
+	bool isLookingBack = input->IsKeyPressed(DIK_Q);
+	bool preIsLookingBank = input->IsKeyRelease(DIK_Q);
 
 	transform_.UpdateMatrix();
 	Vector3 currentPos = transform_.worldMatrix.GetTranslate();
@@ -132,8 +134,19 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 
 		Quaternion targetRotation = Quaternion::MakeLookRotation(forwardVector, upVector);
 
-		float t = std::clamp(deltaTime * 5.0f, 0.0f, 1.0f);
-		currentLookRotation_ = Quaternion::Slerp(t, currentLookRotation_, targetRotation);
+		//Q押していたら
+		if (isLookingBack) {
+			currentLookRotation_ = targetRotation;
+		}
+		//Q離していたら
+		else if (preIsLookingBank) {
+			currentLookRotation_ = targetRotation;
+		}
+		//通常時
+		else {
+			float t = std::clamp(deltaTime * 5.0f, 0.0f, 1.0f);
+			currentLookRotation_ = Quaternion::Slerp(t, currentLookRotation_, targetRotation);
+		}
 	}
 }
 
