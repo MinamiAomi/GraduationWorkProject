@@ -30,8 +30,7 @@
     "DCUI_Quit" : "TestResource/Quit.png",
     "DUCI_FindLightDevice" : "TestResource/FindLightDevice.png",
     "DUCI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
+    "DUCI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
     "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png"
-}
-   
-  
+  }
 }

@@ -115,7 +115,10 @@
     <ClCompile Include="RailCameraDollySystem.cpp">
       <Filter>Game\RailCameraSystem\Dolly</Filter>
     </ClCompile>
-    <ClCompile Include="DeviceOptions.cpp" />
+    <ClCompile Include="DeviceOptionsUI.cpp" />
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -191,7 +194,10 @@
     <ClInclude Include="RailCameraDollySystem.h">
       <Filter>Game\RailCameraSystem\Dolly</Filter>
     </ClInclude>
-    <ClInclude Include="DeviceOptions.h" />
+    <ClInclude Include="DeviceOptionsUI.h" />
+    <ClInclude Include="GameSystem.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Test.rc" />

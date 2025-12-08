@@ -737,6 +737,9 @@
     <ClInclude Include="Graphics\SceneContext.h">
       <Filter>Graphics\Standard</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\BaseGameSystem.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Lighting.hlsli">

@@ -36,12 +36,10 @@ void RenderManager::Initialize() {
     lightingRenderingPass_.Initialize(swapChainBuffer.GetWidth(), swapChainBuffer.GetHeight());
     skybox_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat(), geometryRenderingPass_.GetDepth().GetFormat());
     lineDrawer_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat());
-    //particleCore_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat());
     spriteRenderer_.Initialize(finalImageBuffer_);
     //bloom_.Initialize(&lightingRenderingPass_.GetResult());
     postEffect_.Initialize(finalImageBuffer_);
 
-    //    modelRenderer.Initialize(mainColorBuffer_, mainDepthBuffer_);
     transition_.Initialize();
 
     fxaa_.Initialize(&lightingRenderingPass_.GetResult());
@@ -91,8 +89,6 @@ void RenderManager::Render() {
         commandContext_.SetRenderTarget(lightingRenderingPass_.GetResult().GetRTV());
         commandContext_.SetViewportAndScissorRect(0, 0, lightingRenderingPass_.GetResult().GetWidth(), lightingRenderingPass_.GetResult().GetHeight());
         lineDrawer_.Render(commandContext_, *camera);
-
-        //particleCore_.Render(commandContext_, *camera);
     }
 
     //bloom_.Render(commandContext_);

@@ -62,8 +62,6 @@ private:
     RenderManager(const RenderManager&) = delete;
     RenderManager& operator=(const RenderManager&) = delete;
 
-    void ShowDockingSpace();
-
     Graphics* graphics_ = nullptr;
     SwapChain swapChain_;
     CommandContext commandContext_;
