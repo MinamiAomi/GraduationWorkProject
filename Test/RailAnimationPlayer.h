@@ -36,7 +36,7 @@ namespace RailSystem {
 
 		const RailAnimation* GetRailAnimationDate() const {return animationData_.get();}
 
-		void SetCurrentFrame(int frame);
+		void SetCurrentFrame(float frame);
 		float GetCurrentFrame() const;
 
 		//指定されてフレームの座標
