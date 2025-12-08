@@ -6,32 +6,33 @@
 #include "Engine/File/JsonConverter.h"
 
 #include "Engine/Framework/AssetManager.h"
+#include "RailAnimationPlayer.h"
 
 Flashlight::Flashlight()
 {
-    auto assetManager = AssetManager::GetInstance();
-    lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
+	auto assetManager = AssetManager::GetInstance();
+	lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
 
-    spotLight_ = std::make_shared<SpotLight>();
-    spotLight_->position = lightTransform_.worldMatrix.GetTranslate();
-    spotLight_->direction = lightTransform_.worldMatrix.GetForward();
-    spotLight_->color = Color::white;
-    spotLight_->intensity = 5.0f;
-    spotLight_->range = lightRange_;
-    spotLight_->angle = fovAngle_ * 0.5f;
-    spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
-    spotLight_->decay = 1.0f;
-    RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
+	spotLight_ = std::make_shared<SpotLight>();
+	spotLight_->position = lightTransform_.worldMatrix.GetTranslate();
+	spotLight_->direction = lightTransform_.worldMatrix.GetForward();
+	spotLight_->color = Color::white;
+	spotLight_->intensity = 5.0f;
+	spotLight_->range = lightRange_;
+	spotLight_->angle = fovAngle_ * 0.5f;
+	spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
+	spotLight_->decay = 1.0f;
+	RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
 
-    collider_ = std::make_shared<ConeCollider>(
-        CollisionCategory::FLASHLIGHT,
-        (CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM | CollisionCategory::PLAYER),
-        Vector3::zero,
-        0.0f, 0.0f,
+	collider_ = std::make_shared<ConeCollider>(
+		CollisionCategory::FLASHLIGHT,
+		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM | CollisionCategory::PLAYER),
+		Vector3::zero,
+		0.0f, 0.0f,
 
-        Quaternion::identity);
-    
-    flashlightUI_.SetFlashlight(this);
+		Quaternion::identity);
+
+	flashlightUI_.SetFlashlight(this);
 }
 
 void Flashlight::Initialize(const Transform* parentTransform, const Camera* parentCamera)
@@ -45,32 +46,33 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	transform_.translate = kFlashLightOffset;
 	transform_.UpdateMatrix();
 
-    lightTransform_.SetParent(&transform_);
-    lightTransform_.UpdateMatrix();
-  
-    lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
+	lightTransform_.SetParent(&transform_);
+	lightTransform_.UpdateMatrix();
 
-    JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
-    JSON_OBJECT("light");
-    JSON_LOAD(distanceFromCamera_);
-    JSON_LOAD(fovAngle_);
-    JSON_LOAD(lightRange_);
-    JSON_ROOT();
-    JSON_OBJECT("battery");
-    JSON_LOAD(maxBattery_);
-    JSON_LOAD(addBattery_);
-    JSON_LOAD(subBattery_);
-    JSON_LOAD(isLighting_);
-    JSON_ROOT();
-    JSON_CLOSE();
+	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
+
+	JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
+	JSON_OBJECT("light");
+	JSON_LOAD(distanceFromCamera_);
+	JSON_LOAD(fovAngle_);
+	JSON_LOAD(lightRange_);
+	JSON_ROOT();
+	JSON_OBJECT("battery");
+	JSON_LOAD(maxBattery_);
+	JSON_LOAD(addBattery_);
+	JSON_LOAD(subBattery_);
+	JSON_LOAD(startFrame_);
+	JSON_LOAD(isLighting_);
+	JSON_ROOT();
+	JSON_CLOSE();
 
 	sphericalAngleX_ = 0.0f;
 	sphericalAngleY_ = 0.0f;
 
 	battery_ = maxBattery_;
 
-  
-    flashlightUI_.Initialize();
+
+	flashlightUI_.Initialize();
 
 
 }
@@ -156,12 +158,17 @@ void Flashlight::UpdateLightPower()
 #ifdef _DEBUG
 		if (!isDebug_) {
 #endif // _DEBUG
-			battery_ -= subBattery_;
-			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+			if (railAnimationPlayer_->GetCurrentFrame() >= startFrame_) {
+				battery_ -= subBattery_;
+				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
+			}
 			//バッテリーがなくなった場合
-			//if (battery_ <= 0.0f) {
-			//	isLighting_ = false;
-			//}
+			if (battery_ <= 0.0f) {
+				isLighting_ = false;
+			}
+			else {
+				isLighting_ = true;
+			}
 #ifdef _DEBUG
 		}
 #endif // _DEBUG
@@ -290,6 +297,7 @@ void Flashlight::DrawImGui()
 			JSON_SAVE(maxBattery_);
 			JSON_SAVE(addBattery_);
 			JSON_SAVE(subBattery_);
+			JSON_SAVE(startFrame_);
 			JSON_SAVE(isLighting_);
 			JSON_ROOT();
 			JSON_CLOSE();
@@ -335,6 +343,8 @@ void Flashlight::DrawImGui()
 			// 単位や用途がわかるように補足
 			ImGui::DragFloat("回復量 (Add)", &addBattery_, 1.0f, 0.0f, maxBattery_, "+%.1f / item");
 			ImGui::DragFloat("消費速度 (Drain)", &subBattery_, 0.01f, 0.0f, 10.0f, "-%.2f / frame");
+			ImGui::DragFloat("消費が始まるフレーム (Start)", &startFrame_, 0.1f, float(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.endFrame), "%.2f / frame目");
+
 
 			ImGui::TreePop();
 		}
