@@ -15,12 +15,25 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u5186\u67f1"
+			"name":"FlashLight"
+		}
+	],
+	"materials":[
+		{
+			"doubleSided":true,
+			"name":"FlashLight",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":0
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
 		}
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1",
+			"name":"\u7403",
 			"primitives":[
 				{
 					"attributes":{
@@ -28,76 +41,96 @@
 						"NORMAL":1,
 						"TEXCOORD_0":2
 					},
-					"indices":3
+					"indices":3,
+					"material":0
 				}
 			]
+		}
+	],
+	"textures":[
+		{
+			"sampler":0,
+			"source":0
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"FlashLightTex",
+			"uri":"FlashLightTex.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":448,
+			"count":192,
 			"max":[
-				0.37174248695373535,
-				0.37174245715141296,
-				1
+				0.3615444302558899,
+				0.3616526126861572,
+				0.9931925535202026
 			],
 			"min":[
-				-0.37174248695373535,
-				-0.37174251675605774,
-				-0.9999999403953552
+				-0.36139151453971863,
+				-0.36128324270248413,
+				-1.0014405250549316
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":448,
+			"count":192,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":448,
+			"count":192,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":756,
+			"count":348,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":5376,
+			"byteLength":2304,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":5376,
-			"byteOffset":5376,
+			"byteLength":2304,
+			"byteOffset":2304,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3584,
-			"byteOffset":10752,
+			"byteLength":1536,
+			"byteOffset":4608,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1512,
-			"byteOffset":14336,
+			"byteLength":696,
+			"byteOffset":6144,
 			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9728,
+			"minFilter":9984
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":15848,
+			"byteLength":6840,
 			"uri":"light.bin"
 		}
 	]
