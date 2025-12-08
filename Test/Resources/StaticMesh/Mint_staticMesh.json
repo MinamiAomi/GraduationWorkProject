@@ -6,9 +6,9 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          559.5588,
-          61.2298,
-          -2.8564
+          210.8836,
+          59.0011,
+          -1.2509
         ],
         "rotate": [
           0.3144,
@@ -17,16 +17,16 @@
           0.9425
         ],
         "scale": [
-          3.6684,
-          3.6684,
-          3.6684
+          4.6684,
+          4.6684,
+          4.6684
         ]
       },
       "capsule_collision": {
         "center": [
-          560.2939,
-          60.9446,
-          -0.0903
+          211.6187,
+          58.7159,
+          1.5152
         ],
         "radius": 2.9516,
         "height": 7.8564,
@@ -60,7 +60,7 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          7.0998,
+          12.4833,
           -3.6714,
           3.8819
         ],
@@ -78,7 +78,7 @@
       },
       "capsule_collision": {
         "center": [
-          7.0998,
+          12.4833,
           -3.6714,
           6.6927
         ],
@@ -104,6 +104,1842 @@
         ],
         "intensity": 5.0,
         "range": 5.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.002",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          269.4646,
+          178.1481,
+          -1.9068
+        ],
+        "rotate": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          271.3467,
+          177.6452,
+          0.2093
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.003",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          280.5987,
+          229.5497,
+          -1.7411
+        ],
+        "rotate": [
+          0.3992,
+          0.2512,
+          -0.0105,
+          -0.8817
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          279.4792,
+          229.1012,
+          0.8701
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3992,
+          0.2512,
+          -0.0105,
+          -0.8817
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.004",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          291.2643,
+          304.9849,
+          -2.5669
+        ],
+        "rotate": [
+          0.8906,
+          -0.2648,
+          -0.1511,
+          0.3374
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          289.7884,
+          305.9727,
+          -0.3043
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8906,
+          -0.2648,
+          -0.1511,
+          0.3374
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.005",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          325.25,
+          364.4569,
+          -1.8393
+        ],
+        "rotate": [
+          0.9169,
+          -0.236,
+          0.0123,
+          0.3215
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          324.6675,
+          365.6721,
+          0.7017
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9169,
+          -0.236,
+          0.0123,
+          0.3215
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.006",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          415.9258,
+          390.2369,
+          6.3473
+        ],
+        "rotate": [
+          0.1441,
+          -0.9455,
+          -0.2821,
+          0.0759
+        ],
+        "scale": [
+          1.1648,
+          1.2169,
+          1.3386
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          415.168,
+          390.711,
+          3.6135
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.1441,
+          -0.9455,
+          -0.2821,
+          0.0759
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.007",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          331.7266,
+          357.5083,
+          -1.807
+        ],
+        "rotate": [
+          0.9364,
+          -0.1868,
+          0.1448,
+          -0.2595
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          332.6628,
+          358.4776,
+          0.7341
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9364,
+          -0.1868,
+          0.1448,
+          -0.2595
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.008",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          473.7376,
+          406.4166,
+          -2.1334
+        ],
+        "rotate": [
+          0.9683,
+          0.192,
+          -0.0438,
+          -0.1535
+        ],
+        "scale": [
+          0.7017,
+          0.7331,
+          0.8064
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          473.1667,
+          405.5341,
+          0.544
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9683,
+          0.192,
+          -0.0438,
+          -0.1535
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.009",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          568.4146,
+          408.7236,
+          5.6874
+        ],
+        "rotate": [
+          0.3692,
+          0.9155,
+          0.1045,
+          -0.1207
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          567.8436,
+          406.6251,
+          3.805
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3692,
+          0.9155,
+          0.1045,
+          -0.1207
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.010",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          538.3996,
+          399.1023,
+          3.7716
+        ],
+        "rotate": [
+          0.2493,
+          -0.9552,
+          -0.1559,
+          0.0346
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          537.8286,
+          400.2968,
+          1.2182
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.2493,
+          -0.9552,
+          -0.1559,
+          0.0346
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.011",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          727.955,
+          397.5044,
+          -3.1836
+        ],
+        "rotate": [
+          0.9791,
+          -0.1276,
+          -0.0823,
+          -0.1356
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          727.434,
+          398.4217,
+          -0.5078
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9791,
+          -0.1276,
+          -0.0823,
+          -0.1356
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.012",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          780.0417,
+          404.0701,
+          -2.6606
+        ],
+        "rotate": [
+          0.9431,
+          0.1388,
+          -0.273,
+          0.1298
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          778.4783,
+          403.1716,
+          -0.4198
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9431,
+          0.1388,
+          -0.273,
+          0.1298
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.013",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          837.7249,
+          427.8119,
+          -8.175
+        ],
+        "rotate": [
+          0.941,
+          -0.3219,
+          -0.0331,
+          0.0994
+        ],
+        "scale": [
+          2.4575,
+          2.5676,
+          2.8244
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          837.156,
+          429.5634,
+          -5.9656
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.941,
+          -0.3219,
+          -0.0331,
+          0.0994
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.014",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          834.9421,
+          470.1115,
+          0.592
+        ],
+        "rotate": [
+          0.9715,
+          0.1774,
+          0.1566,
+          -0.0139
+        ],
+        "scale": [
+          2.4475,
+          2.5171,
+          2.6771
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          835.6227,
+          469.1943,
+          3.2318
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9715,
+          0.1774,
+          0.1566,
+          -0.0139
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.015",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          844.3333,
+          454.5186,
+          -7.0626
+        ],
+        "rotate": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ],
+        "scale": [
+          2.4475,
+          2.5171,
+          2.6771
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          845.014,
+          455.6682,
+          -4.5155
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.016",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          816.6902,
+          449.3817,
+          -1.3563
+        ],
+        "rotate": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          817.3709,
+          450.5313,
+          1.1909
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.017",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          820.2951,
+          454.3748,
+          -2.1916
+        ],
+        "rotate": [
+          0.9621,
+          -0.1958,
+          0.0069,
+          -0.1898
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          820.3999,
+          455.601,
+          0.4081
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9621,
+          -0.1958,
+          0.0069,
+          -0.1898
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.018",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          832.1611,
+          451.7744,
+          -6.3258
+        ],
+        "rotate": [
+          0.8782,
+          -0.0131,
+          0.0523,
+          0.4752
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          832.2029,
+          451.8727,
+          -3.4515
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8782,
+          -0.0131,
+          0.0523,
+          0.4752
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.019",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          833.8246,
+          443.7334,
+          -7.1103
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          832.7739,
+          443.5215,
+          -4.4412
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.020",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          841.3536,
+          457.9423,
+          -5.4232
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          840.3029,
+          457.7305,
+          -2.7541
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.021",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          855.9987,
+          475.3163,
+          -5.1609
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          854.9481,
+          475.1044,
+          -2.4918
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.022",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          858.6533,
+          458.016,
+          -6.9493
+        ],
+        "rotate": [
+          0.8569,
+          -0.2608,
+          -0.0406,
+          0.4429
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          857.6026,
+          459.0872,
+          -4.4955
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8569,
+          -0.2608,
+          -0.0406,
+          0.4429
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.023",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          850.8622,
+          483.6896,
+          19.6483
+        ],
+        "rotate": [
+          0.2963,
+          0.8452,
+          -0.4442,
+          -0.0221
+        ],
+        "scale": [
+          3.4975,
+          3.5971,
+          3.8256
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          849.8116,
+          482.4174,
+          17.2923
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.2963,
+          0.8452,
+          -0.4442,
+          -0.0221
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.024",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          823.7814,
+          467.7547,
+          21.1765
+        ],
+        "rotate": [
+          0.0168,
+          0.8955,
+          -0.4149,
+          -0.1601
+        ],
+        "scale": [
+          3.4975,
+          3.5971,
+          3.8256
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          822.7308,
+          468.1332,
+          18.5258
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.0168,
+          0.8955,
+          -0.4149,
+          -0.1601
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.025",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          886.5308,
+          451.0487,
+          -16.9636
+        ],
+        "rotate": [
+          0.7887,
+          0.1016,
+          -0.0442,
+          -0.6047
+        ],
+        "scale": [
+          4.5903,
+          4.721,
+          5.021
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          886.0166,
+          450.954,
+          -14.1352
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.7887,
+          0.1016,
+          -0.0442,
+          -0.6047
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.026",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          864.9904,
+          465.0031,
+          0.918
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          863.9398,
+          464.7913,
+          3.5872
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.027",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.9803,
+          466.9735,
+          0.4414
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          861.9297,
+          466.7617,
+          3.1105
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.028",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          869.2573,
+          464.0461,
+          1.6454
+        ],
+        "rotate": [
+          0.7096,
+          -0.0306,
+          -0.4813,
+          0.5138
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          867.1397,
+          462.6491,
+          3.001
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.7096,
+          -0.0306,
+          -0.4813,
+          0.5138
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.029",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          870.8892,
+          467.7396,
+          2.9924
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          869.8386,
+          467.5277,
+          5.6615
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.030",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          863.6295,
+          451.8481,
+          -2.5158
+        ],
+        "rotate": [
+          0.74,
+          -0.211,
+          -0.0204,
+          0.6384
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          862.6449,
+          452.492,
+          0.1089
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.74,
+          -0.211,
+          -0.0204,
+          0.6384
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.031",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          867.2225,
+          456.3515,
+          -2.8068
+        ],
+        "rotate": [
+          0.9513,
+          -0.0012,
+          -0.3064,
+          0.0325
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          865.386,
+          456.3838,
+          -0.5933
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.9513,
+          -0.0012,
+          -0.3064,
+          0.0325
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.032",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          856.1198,
+          450.8627,
+          -1.1394
+        ],
+        "rotate": [
+          0.8403,
+          -0.2047,
+          0.0799,
+          0.4957
+        ],
+        "scale": [
+          1.1265,
+          1.1585,
+          1.2321
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          855.7437,
+          451.9608,
+          1.4923
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.8403,
+          -0.2047,
+          0.0799,
+          0.4957
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.033",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.609,
+          471.3123,
+          -0.9802
+        ],
+        "rotate": [
+          0.5124,
+          0.1207,
+          -0.1448,
+          -0.8378
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          861.7689,
+          471.7866,
+          1.7295
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.5124,
+          0.1207,
+          -0.1448,
+          -0.8378
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.034",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.7152,
+          470.0713,
+          -1.147
+        ],
+        "rotate": [
+          0.4727,
+          0.2319,
+          0.0455,
+          -0.849
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          861.8751,
+          469.3212,
+          1.4996
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.4727,
+          0.2319,
+          0.0455,
+          -0.849
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.035",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.5153,
+          472.4069,
+          -1.8333
+        ],
+        "rotate": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          860.6566,
+          471.6567,
+          0.2296
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.0,
+          0.7456,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
         "decay": 1.0,
         "isActive": true
       }
