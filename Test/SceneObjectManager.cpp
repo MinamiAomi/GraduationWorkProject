@@ -95,6 +95,15 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 		{
 			auto pointLightObject = std::make_unique<PointLightObject>();
 
+			const auto& assetManager = AssetManager::GetInstance();
+
+			//kokomoderu
+
+			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+				pointLightObject->model.SetModel(modelHandle->Get());
+			}
+
+
 			InitializeCommonObject(pointLightObject, data);
 
 			if (data.pointLightData) {
@@ -117,6 +126,14 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 		case SceneObjectSystem::ObjectType::Emitter:
 		{
 			auto emitterObject = std::make_unique<EmitterObject>();
+		
+			const auto& assetManager = AssetManager::GetInstance();
+
+			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+				emitterObject->model.SetModel(modelHandle->Get());
+			}
+
+
 			InitializeCommonObject(emitterObject, data);
 
 			emitterObjects_.push_back(std::move(emitterObject));
@@ -126,6 +143,14 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 		case SceneObjectSystem::ObjectType::Enemy:
 		{
 			auto enemyObject = std::make_unique<EnemyObject>();
+
+			const auto& assetManager = AssetManager::GetInstance();
+
+			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+				enemyObject->model.SetModel(modelHandle->Get());
+			}
+
+
 			InitializeCommonObject(enemyObject, data);
 
 			enemyObjects_.push_back(std::move(enemyObject));
