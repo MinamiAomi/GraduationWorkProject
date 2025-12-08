@@ -34,6 +34,8 @@ namespace RailSystem {
 		void SetPlaybackSpeed(float speed) { playbackSpeed_ = speed; }
 		float GetPlaybackSpeed() const { return playbackSpeed_; }
 
+		const RailAnimation* GetRailAnimationDate() const {return animationData_.get();}
+
 		void SetCurrentFrame(int frame);
 		float GetCurrentFrame() const;
 
@@ -41,7 +43,8 @@ namespace RailSystem {
 		Vector3 EvaluatePosition(float frame) const;
 		// 指定したフレームにおける回転
 		Quaternion EvaluateRotation(float frame) const;
-
+		//指定したフレームにおけるTransform
+		Transform EvaluateTransform(float frame) const;
 	private:
 
 		void CalculateCurrentTransform();

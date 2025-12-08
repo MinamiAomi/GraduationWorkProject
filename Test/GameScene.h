@@ -20,6 +20,7 @@
 
 #include "Flashlight.h"
 #include "Trolley.h"
+#include "Deadline.h"
 
 #ifdef _DEBUG
 #include "DebugCamera.h"
@@ -54,6 +55,7 @@ private:
 
 	std::unique_ptr<RailSystem::RailAnimationPlayer> railAnimationPlayer_;
 	std::unique_ptr<RailSystem::RailCameraSystem> railCameraSystem_;
+	std::unique_ptr<Deadline> deadline_;
 
 	std::unique_ptr<Flashlight> flashlight_;
 	

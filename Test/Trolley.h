@@ -25,7 +25,6 @@ public:
 	void Initialize();
 	void Update(float deltaTime);
 
-
 	void SetParent(const Transform& transform) {
 		transform_.SetParent(&transform);
 		transform_.UpdateMatrix();

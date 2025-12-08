@@ -61,6 +61,9 @@
     <Filter Include="Game\LightObject">
       <UniqueIdentifier>{222db5f3-ca9e-43c7-bfd9-fc74ed0a8458}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Deadline">
+      <UniqueIdentifier>{bf185b34-956c-498f-a258-3853b8ebc304}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -123,6 +126,12 @@
     </ClCompile>
     <ClCompile Include="SpotLightObject.cpp">
       <Filter>Game\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Deadline.cpp">
+      <Filter>Game\Deadline</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadlineUI.cpp">
+      <Filter>Game\Deadline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +213,12 @@
     </ClInclude>
     <ClInclude Include="SpotLightObject.h">
       <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Deadline.h">
+      <Filter>Game\Deadline</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadlineUI.h">
+      <Filter>Game\Deadline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

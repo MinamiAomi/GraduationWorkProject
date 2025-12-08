@@ -8,6 +8,7 @@
 class Flashlight;
 class FlashlightUI {
 public:
+	FlashlightUI();
 	void Initialize();
 	void Update();
 

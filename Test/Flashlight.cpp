@@ -7,6 +7,33 @@
 
 #include "Engine/Framework/AssetManager.h"
 
+Flashlight::Flashlight()
+{
+    auto assetManager = AssetManager::GetInstance();
+    lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
+
+    spotLight_ = std::make_shared<SpotLight>();
+    spotLight_->position = lightTransform_.worldMatrix.GetTranslate();
+    spotLight_->direction = lightTransform_.worldMatrix.GetForward();
+    spotLight_->color = Color::white;
+    spotLight_->intensity = 5.0f;
+    spotLight_->range = lightRange_;
+    spotLight_->angle = fovAngle_ * 0.5f;
+    spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
+    spotLight_->decay = 1.0f;
+    RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
+
+    collider_ = std::make_shared<ConeCollider>(
+        CollisionCategory::FLASHLIGHT,
+        (CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM | CollisionCategory::PLAYER),
+        Vector3::zero,
+        0.0f, 0.0f,
+
+        Quaternion::identity);
+    
+    flashlightUI_.SetFlashlight(this);
+}
+
 void Flashlight::Initialize(const Transform* parentTransform, const Camera* parentCamera)
 {
     const Vector3 kFlashLightOffset = { 0.0f,0.0f,0.0f };
@@ -20,20 +47,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
     lightTransform_.SetParent(&transform_);
     lightTransform_.UpdateMatrix();
-    auto assetManager = AssetManager::GetInstance();
-    lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
+  
     lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
-
-    spotLight_ = std::make_shared<SpotLight>();
-    spotLight_->position = lightTransform_.worldMatrix.GetTranslate();
-    spotLight_->direction = lightTransform_.worldMatrix.GetForward();
-    spotLight_->color = Color::white;
-    spotLight_->intensity = 5.0f;
-    spotLight_->range = lightRange_;
-    spotLight_->angle = fovAngle_ * 0.5f;
-    spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
-    spotLight_->decay = 1.0f;
-    RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
 
     JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
     JSON_OBJECT("light");
@@ -54,15 +69,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
     battery_ = maxBattery_;
 
-    collider_ = std::make_shared<ConeCollider>(
-        CollisionCategory::FLASHLIGHT,
-        (CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::ITEM | CollisionCategory::PLAYER),
-        Vector3::zero,
-        0.0f, 0.0f,
-
-        Quaternion::identity);
-
-    flashlightUI_.SetFlashlight(this);
+  
     flashlightUI_.Initialize();
 
   

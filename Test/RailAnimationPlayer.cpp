@@ -308,6 +308,14 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 
 	return  RailSystem::RailConverter::ConvertToLeftHand(resultRotation);
 }
+Transform RailSystem::RailAnimationPlayer::EvaluateTransform(float frame) const
+{
+	Transform result;
+	result.translate = EvaluatePosition(frame);
+	result.rotate = EvaluateRotation(frame);
+	result.UpdateMatrix();
+	return result;
+}
 void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 {
 	if (!animationData_ || animationData_->positionKeys_.empty() || animationData_->rotationKeys_.empty()) {
