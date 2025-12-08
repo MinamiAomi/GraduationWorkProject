@@ -115,6 +115,7 @@
     <ClCompile Include="RailCameraDollySystem.cpp">
       <Filter>Game\RailCameraSystem\Dolly</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceOptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -190,6 +191,7 @@
     <ClInclude Include="RailCameraDollySystem.h">
       <Filter>Game\RailCameraSystem\Dolly</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceOptions.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Test.rc" />

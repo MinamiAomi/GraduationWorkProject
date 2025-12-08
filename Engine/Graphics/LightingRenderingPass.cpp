@@ -25,7 +25,8 @@ void LightingRenderingPass::Initialize(uint32_t width, uint32_t height) {
         CD3DX12_DESCRIPTOR_RANGE albedoRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 1);
         CD3DX12_DESCRIPTOR_RANGE metallicRoughnessRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 2);
         CD3DX12_DESCRIPTOR_RANGE normalRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 3);
-        CD3DX12_DESCRIPTOR_RANGE depthRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 4);
+        CD3DX12_DESCRIPTOR_RANGE emissiveRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 4);
+        CD3DX12_DESCRIPTOR_RANGE depthRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 5);
 
         CD3DX12_ROOT_PARAMETER rootParameters[RootIndex::NumRootParameters]{};
         rootParameters[RootIndex::Scene].InitAsConstantBufferView(0);
@@ -34,6 +35,7 @@ void LightingRenderingPass::Initialize(uint32_t width, uint32_t height) {
         rootParameters[RootIndex::Albedo].InitAsDescriptorTable(1, &albedoRange);
         rootParameters[RootIndex::MetallicRoughness].InitAsDescriptorTable(1, &metallicRoughnessRange);
         rootParameters[RootIndex::Normal].InitAsDescriptorTable(1, &normalRange);
+        rootParameters[RootIndex::Emissive].InitAsDescriptorTable(1, &emissiveRange);
         rootParameters[RootIndex::Depth].InitAsDescriptorTable(1, &depthRange);
 
         CD3DX12_STATIC_SAMPLER_DESC staticSamplerDesc[1]{};
@@ -249,6 +251,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.TransitionResource(geometryRenderingPass.GetAlbedo(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetMetallicRoughness(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetNormal(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+    commandContext.TransitionResource(geometryRenderingPass.GetEmissive(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetDepth(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(result_, D3D12_RESOURCE_STATE_RENDER_TARGET);
     commandContext.FlushResourceBarriers();
@@ -291,6 +294,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.SetDescriptorTable(RootIndex::Albedo, geometryRenderingPass.GetAlbedo().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughness().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Normal, geometryRenderingPass.GetNormal().GetSRV());
+    commandContext.SetDescriptorTable(RootIndex::Emissive, geometryRenderingPass.GetEmissive().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Depth, geometryRenderingPass.GetDepth().GetSRV());
 
     commandContext.Draw(3);

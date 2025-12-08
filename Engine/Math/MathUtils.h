@@ -1223,4 +1223,8 @@ public:
 #pragma endregion
 };
 
-
+class Rect {
+public:
+    Vector2 base;
+    Vector2 size;
+};
