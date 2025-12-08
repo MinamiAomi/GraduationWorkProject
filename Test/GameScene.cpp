@@ -43,6 +43,7 @@ void GameScene::OnInitialize() {
 
 #pragma region Flashlight
 	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion

@@ -11,6 +11,10 @@
 #include "FlashlightUI.h"
 #include "Collider.h"
 
+namespace RailSystem {
+	class RailAnimationPlayer;
+}
+
 class Flashlight {
 public:
 	Flashlight();
@@ -21,6 +25,7 @@ public:
 	float GetBattery() const { return battery_; }
 	float GetMaxBattery() const { return maxBattery_; }
 	bool GetIsLighting() const { return isLighting_; }
+	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
@@ -33,6 +38,8 @@ private:
 
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
+
+	const RailSystem::RailAnimationPlayer* railAnimationPlayer_;
 
 	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
@@ -63,6 +70,8 @@ private:
 	float subBattery_;
 	//照らしているか
 	bool isLighting_;
+	//何フレーム目まで減らないか
+	float startFrame_;
 #pragma endregion
 
 	std::shared_ptr<ConeCollider> collider_;
