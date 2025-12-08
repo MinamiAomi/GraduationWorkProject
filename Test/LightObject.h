@@ -20,6 +20,9 @@ public:
 	void SetHp(float hp) {
 		hp_ = hp;
 	}
+	float GetHp() {
+		return hp_;
+	}
 	void SetOffset(const Vector3& offset) { offset_ = offset; }
 	void SetLightSetting(const PointLight& pointLightSetting) {
 		light_->color = pointLightSetting.color;
