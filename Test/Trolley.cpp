@@ -237,8 +237,8 @@ void Trolley::UpdateBanking(float deltaTime)
 {
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
-	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
-	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
+	Vector3 posNow = railCameraAnimationPlayer_->EvaluateRailPosition(currentFrame);
+	Vector3 posFuture = railCameraAnimationPlayer_->EvaluateRailPosition(currentFrame + lookAheadForBank_);
 
 	Vector3 diff = posFuture - posNow;
 
@@ -250,7 +250,7 @@ void Trolley::UpdateBanking(float deltaTime)
 
 		Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
 
-		Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
+		Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRailRotation(currentFrame);
 		Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
 
 		Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);

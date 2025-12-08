@@ -343,7 +343,7 @@ void Flashlight::DrawImGui()
 			// 単位や用途がわかるように補足
 			ImGui::DragFloat("回復量 (Add)", &addBattery_, 1.0f, 0.0f, maxBattery_, "+%.1f / item");
 			ImGui::DragFloat("消費速度 (Drain)", &subBattery_, 0.01f, 0.0f, 10.0f, "-%.2f / frame");
-			ImGui::DragFloat("消費が始まるフレーム (Start)", &startFrame_, 0.1f, float(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railCameraMetaData_.endFrame), "%.2f / frame目");
+			ImGui::DragFloat("消費が始まるフレーム (Start)", &startFrame_, 0.1f, float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame), "%.2f / frame目");
 
 
 			ImGui::TreePop();

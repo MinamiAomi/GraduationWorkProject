@@ -13,10 +13,10 @@ DeadlineUI::DeadlineUI()
 
 void DeadlineUI::Initialize()
 {
-	monster_.SetWorldMatrix(deadline_->GetAnimationPlayer()->EvaluateTransform(deadline_->GetCurrenFrame()).worldMatrix);
+	monster_.SetWorldMatrix(deadline_->GetAnimationPlayer()->EvaluateRailTransform(deadline_->GetCurrenFrame()).worldMatrix);
 }
 
 void DeadlineUI::Update()
 {
-	monster_.SetWorldMatrix(deadline_->GetAnimationPlayer()->EvaluateTransform(deadline_->GetCurrenFrame()).worldMatrix);
+	monster_.SetWorldMatrix(deadline_->GetAnimationPlayer()->EvaluateRailTransform(deadline_->GetCurrenFrame()).worldMatrix);
 }

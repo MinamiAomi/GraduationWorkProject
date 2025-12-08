@@ -9,130 +9,168 @@
 
 void SceneObjectSystem::SceneObjectManager::Initialize()
 {
-	pointLightObjects_.clear();
-	emitterObjects_.clear();
-	enemyObjects_.clear();
-	sceneObjectData_.clear();
+    pointLightObjects_.clear();
+    emitterObjects_.clear();
+    enemyObjects_.clear();
+    sceneObjectData_.clear();
 }
 
 void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData)
 {
-	sceneObjectData_.clear();
+    sceneObjectData_.clear();
 
-	const auto& assetManager = AssetManager::GetInstance();
-	stageObjects_.SetModel(assetManager->modelMap.Get("Stage")->Get());
-	stageObjects_.SetWorldMatrix(Matrix4x4::identity);
+    const auto& assetManager = AssetManager::GetInstance();
+    stageObjects_.SetModel(assetManager->modelMap.Get("Stage")->Get());
+    stageObjects_.SetWorldMatrix(Matrix4x4::identity);
 
-	for (const auto& rawObj : objectData) {
-		auto convertedObj = std::make_unique<SceneObjectData>(rawObj);
+    for (const auto& rawObj : objectData) {
+        auto convertedObj = std::make_unique<SceneObjectData>(rawObj);
 
-		convertedObj->transform.scale = SceneObjectConverter::ConvertSizeToLeftHand(rawObj.transform.scale);
-		convertedObj->transform.rotate = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.transform.rotate);
-		convertedObj->transform.translate = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.transform.translate);
+        convertedObj->transform.scale = SceneObjectConverter::ConvertSizeToLeftHand(rawObj.transform.scale);
+        convertedObj->transform.rotate = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.transform.rotate);
+        convertedObj->transform.translate = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.transform.translate);
 
-		auto& col = convertedObj->capsuleCollisionData.value();
-		col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.capsuleCollisionData->center);
-		col.quaternion = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.capsuleCollisionData->quaternion);
+        auto& col = convertedObj->capsuleCollisionData.value();
+        col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.capsuleCollisionData->center);
+        col.quaternion = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.capsuleCollisionData->quaternion);
 
-		if (convertedObj->pointLightData) {
-			convertedObj->pointLightData->offset = SceneObjectConverter::ConvertTranslateToLeftHand(convertedObj->pointLightData->offset);
-		}
+        if (convertedObj->pointLightData) {
+            convertedObj->pointLightData->offset = SceneObjectConverter::ConvertTranslateToLeftHand(convertedObj->pointLightData->offset);
+        }
 
-		sceneObjectData_.push_back(std::move(convertedObj));
-	}
+        sceneObjectData_.push_back(std::move(convertedObj));
+    }
 
-	BuildRuntimeObjects();
+    BuildRuntimeObjects();
 }
 
 void SceneObjectSystem::SceneObjectManager::ResetObjects()
 {
-	pointLightObjects_.clear();
-	emitterObjects_.clear();
-	enemyObjects_.clear();
+    pointLightObjects_.clear();
+    emitterObjects_.clear();
+    enemyObjects_.clear();
 
-	BuildRuntimeObjects();
+    BuildRuntimeObjects();
+
 }
 
 void SceneObjectSystem::SceneObjectManager::Update()
 {
-	for (const auto& obj : pointLightObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-		obj->lightObject.Update();
-		//何かに当ったら
-		if (obj->collider &&
-			!obj->collider->GetCollidedWith().empty()) {
-			obj->collider = nullptr;
-			obj->lightObject.SetHp(0.0f);
-		}
-	}
+    for (const auto& obj : pointLightObjects_) {
+        obj->transform.UpdateMatrix();
+        obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+        obj->lightObject.Update();
+        //何かに当ったら
+        if (obj->collider &&
+            !obj->collider->GetCollidedWith().empty()) {
+            obj->collider = nullptr;
+            obj->lightObject.SetHp(0.0f);
+        }
+    }
 
-	for (const auto& obj : emitterObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-
-
-	}
+    for (const auto& obj : emitterObjects_) {
+        obj->transform.UpdateMatrix();
+        obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 
 
-	for (const auto& obj : enemyObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+    }
 
 
-	}
+    for (const auto& obj : enemyObjects_) {
+        obj->transform.UpdateMatrix();
+        obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+
+
+    }
 }
 
 void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 {
-	for (const auto& objDataPtr : sceneObjectData_) {
-		const auto& data = *objDataPtr;
+    for (const auto& objDataPtr : sceneObjectData_) {
+        const auto& data = *objDataPtr;
 
-		switch (data.type)
-		{
-		case SceneObjectSystem::ObjectType::PointLight:
-		{
-			auto pointLightObject = std::make_unique<PointLightObject>();
+        switch (data.type)
+        {
+        case SceneObjectSystem::ObjectType::PointLight:
+        {
+            auto pointLightObject = std::make_unique<PointLightObject>();
 
-			InitializeCommonObject(pointLightObject, data);
+            const auto& assetManager = AssetManager::GetInstance();
 
-			if (data.pointLightData) {
-				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
+            //kokomoderu
 
-				PointLight pointLight;
-				pointLight.intensity = data.pointLightData->intensity;
-				pointLight.range = data.pointLightData->range;
-				pointLight.decay = 1.0f;
-				pointLight.color = data.pointLightData->color;
+            if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+                pointLightObject->model.SetModel(modelHandle->Get());
+                // エラーマテリアル
+                pointLightObject->material = std::make_shared<Material>();
+                pointLightObject->material->albedo = { 1.0f, 0.2f, 0.6f };
+                pointLightObject->material->emissive = { 1.0f, 1.0f, 1.0f };
+                
+                // 発光マテリアルを設定
+                if (!modelHandle->Get()->GetMaterials().empty()) {
+                    auto& originalMaterials = modelHandle->Get()->GetMaterials().at(0);
+                    (*pointLightObject->material) = originalMaterials;
+                    pointLightObject->material->emissive = { 1.0f, 1.0f, 1.0f };
+                }
+                pointLightObject->model.SetMaterial(pointLightObject->material);
+            }
 
-				pointLightObject->lightObject.SetLightSetting(pointLight);
-				pointLightObject->lightObject.SetOffset(data.pointLightData->offset);
-			}
 
-			pointLightObjects_.push_back(std::move(pointLightObject));
-		}
-		break;
+            InitializeCommonObject(pointLightObject, data);
 
-		case SceneObjectSystem::ObjectType::Emitter:
-		{
-			auto emitterObject = std::make_unique<EmitterObject>();
-			InitializeCommonObject(emitterObject, data);
+            if (data.pointLightData) {
+                pointLightObject->lightObject.Initialize(&pointLightObject->transform);
 
-			emitterObjects_.push_back(std::move(emitterObject));
-		}
-		break;
+                PointLight pointLight;
+                pointLight.intensity = data.pointLightData->intensity;
+                pointLight.range = data.pointLightData->range;
+                pointLight.decay = 1.0f;
+                pointLight.color = data.pointLightData->color;
 
-		case SceneObjectSystem::ObjectType::Enemy:
-		{
-			auto enemyObject = std::make_unique<EnemyObject>();
-			InitializeCommonObject(enemyObject, data);
+                pointLightObject->lightObject.SetLightSetting(pointLight);
+                pointLightObject->lightObject.SetOffset(data.pointLightData->offset);
+            }
 
-			enemyObjects_.push_back(std::move(enemyObject));
-		}
-		break;
+            pointLightObjects_.push_back(std::move(pointLightObject));
+        }
+        break;
 
-		default:
-			break;
-		}
-	}
+        case SceneObjectSystem::ObjectType::Emitter:
+        {
+            auto emitterObject = std::make_unique<EmitterObject>();
+
+            const auto& assetManager = AssetManager::GetInstance();
+
+            if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+                emitterObject->model.SetModel(modelHandle->Get());
+            }
+
+
+            InitializeCommonObject(emitterObject, data);
+
+            emitterObjects_.push_back(std::move(emitterObject));
+        }
+        break;
+
+        case SceneObjectSystem::ObjectType::Enemy:
+        {
+            auto enemyObject = std::make_unique<EnemyObject>();
+
+            const auto& assetManager = AssetManager::GetInstance();
+
+            if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+                enemyObject->model.SetModel(modelHandle->Get());
+            }
+
+
+            InitializeCommonObject(enemyObject, data);
+
+            enemyObjects_.push_back(std::move(enemyObject));
+        }
+        break;
+
+        default:
+            break;
+        }
+    }
 }

@@ -24,18 +24,18 @@ RailSystem::RailAnimationPlayer::RailAnimationPlayer(std::shared_ptr<const RailS
 	isPlaying_ = false;
 
 	//メタデータからアニメーションの開始と終了の位置を取得
-	currentFrame_ = float(animationData_->railCameraMetaData_.startFrame);
-	totalDurationFrames_ = float(animationData_->railCameraMetaData_.endFrame);
+	currentFrame_ = float(animationData_->railMetaData_.startFrame);
+	totalDurationFrames_ = float(animationData_->railMetaData_.endFrame);
 	JSON_OPEN("Resources/Data/Trolley/trolley.json");
 	JSON_OBJECT("TrollerSpeed");
 	JSON_LOAD_BY_NAME("maxTrollySpeed_", playbackSpeed_);
 	JSON_CLOSE();
 
-	transform_.UpdateMatrix();
-	convertTransform_ = RailSystem::RailConverter::ConvertToLeftHand(transform_);
-	convertTransform_.UpdateMatrix();
+	railTransform_.UpdateMatrix();
+	convertRailTransform_ = RailSystem::RailConverter::ConvertToLeftHand(railTransform_);
+	convertRailTransform_.UpdateMatrix();
 
-	preCameraPosition_ = EvaluatePosition(0.0f);
+	preCameraPosition_ = EvaluateRailPosition(0.0f);
 }
 
 void RailSystem::RailAnimationPlayer::Update(float deltaTime)
@@ -53,19 +53,19 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 	if (isPlaying_) {
 #endif // _DEBUG
 		//デルタタイムをフレームの進みに変換
-		float frameIncrement = deltaTime * animationData_->railCameraMetaData_.frameRate * playbackSpeed_;
+		float frameIncrement = deltaTime * animationData_->railMetaData_.frameRate * playbackSpeed_;
 		currentFrame_ += frameIncrement;
 
 		CalculateCurrentTransform();
 
 		if (deltaTime > 0.0001f) {
-			float distance = (transform_.worldMatrix.GetTranslate() - preCameraPosition_).Length();
+			float distance = (railTransform_.worldMatrix.GetTranslate() - preCameraPosition_).Length();
 			realSpeed_ = distance / deltaTime;
 		}
 		else {
 			realSpeed_ = 0.0f;
 		}
-		preCameraPosition_ = transform_.worldMatrix.GetTranslate();
+		preCameraPosition_ = railTransform_.worldMatrix.GetTranslate();
 #ifdef _DEBUG
 	}
 	else {
@@ -92,21 +92,21 @@ void RailSystem::RailAnimationPlayer::Pause()
 void RailSystem::RailAnimationPlayer::Stop()
 {
 	isPlaying_ = false;
-	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+	currentFrame_ = static_cast<float>(animationData_->railMetaData_.startFrame);
 
 }
 
 void RailSystem::RailAnimationPlayer::Loop()
 {
 	isPlaying_ = true;
-	currentFrame_ = static_cast<float>(animationData_->railCameraMetaData_.startFrame);
+	currentFrame_ = static_cast<float>(animationData_->railMetaData_.startFrame);
 }
 
 void RailSystem::RailAnimationPlayer::SetCurrentFrame(float frame)
 {
 	if (!animationData_) return;
 	// フレーム番号をアニメーション範囲内にクランプする
-	currentFrame_ = float((std::max)(float(animationData_->railCameraMetaData_.startFrame), (std::min)(float(animationData_->railCameraMetaData_.endFrame), frame)));
+	currentFrame_ = float((std::max)(float(animationData_->railMetaData_.startFrame), (std::min)(float(animationData_->railMetaData_.endFrame), frame)));
 }
 
 float RailSystem::RailAnimationPlayer::GetCurrentFrame() const
@@ -114,7 +114,7 @@ float RailSystem::RailAnimationPlayer::GetCurrentFrame() const
 	return currentFrame_;
 }
 
-Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
+Vector3 RailSystem::RailAnimationPlayer::EvaluateRailPosition(float frame) const
 {
 	if (!animationData_) {
 		return { 0.0f, 0.0f, 0.0f };
@@ -151,7 +151,7 @@ Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
 
 	Vector3 resultPosition = { 0.0f, 0.0f, 0.0f };
 
-	const auto& posKeys = animationData_->positionKeys_;
+	const auto& posKeys = animationData_->railAnimation_.positionKeys;
 	if (!posKeys.empty()) {
 		if (evalTime <= posKeys.front().frame) {
 			resultPosition = posKeys.front().value;
@@ -175,7 +175,7 @@ Vector3 RailSystem::RailAnimationPlayer::EvaluatePosition(float frame) const
 
 	return RailSystem::RailConverter::ConvertToLeftHand(resultPosition);
 }
-Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
+Quaternion RailSystem::RailAnimationPlayer::EvaluateRailRotation(float frame) const
 {
 	if (!animationData_) {
 		return Quaternion::identity;
@@ -212,7 +212,7 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 
 	Quaternion resultRotation;
 
-	const auto& rotKeys = animationData_->rotationKeys_;
+	const auto& rotKeys = animationData_->railAnimation_.rotationKeys;
 	if (!rotKeys.empty()) {
 		if (evalTime <= rotKeys.front().frame) {
 			resultRotation = rotKeys.front().value;
@@ -232,74 +232,184 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateRotation(float frame) const
 			resultRotation = InterpolateRotation(rotKey1, rotKey2, rotT);
 		}
 	}
-
-
 	return  RailSystem::RailConverter::ConvertToLeftHand(resultRotation);
 }
-Transform RailSystem::RailAnimationPlayer::EvaluateTransform(float frame) const
+
+
+Transform RailSystem::RailAnimationPlayer::EvaluateRailTransform(float frame) const
 {
 	Transform result;
-	result.translate = EvaluatePosition(frame);
-	result.rotate = EvaluateRotation(frame);
+	result.translate = EvaluateRailPosition(frame);
+	result.rotate = EvaluateRailRotation(frame);
+	result.UpdateMatrix();
+	return result;
+}
+
+Vector3 RailSystem::RailAnimationPlayer::EvaluateCameraPosition(float frame) const
+{
+	if (!animationData_) {
+		return { 0.0f, 0.0f, 0.0f };
+	}
+
+	float evalTime = 0.0f;
+
+	if (!animationData_->evalTimeKeys_.empty()) {
+		const auto& keys = animationData_->evalTimeKeys_;
+
+		if (frame <= keys.front().frame) {
+			evalTime = keys.front().value;
+		}
+		else if (frame >= keys.back().frame) {
+			evalTime = keys.back().value;
+		}
+		else {
+			auto indices = FindKeyframeIndices(keys, frame);
+			const auto& key1 = keys[indices.first];
+			const auto& key2 = keys[indices.second];
+
+			if (indices.first == indices.second) {
+				evalTime = key1.value;
+			}
+			else {
+				float frameDiff = key2.frame - key1.frame;
+				float t = (std::abs(frameDiff) < 0.0001f) ? 0.0f : (frame - key1.frame) / frameDiff;
+				t = std::max(0.0f, std::min(1.0f, t));
+
+				evalTime = InterpolateScalar(key1, key2, t);
+			}
+		}
+	}
+
+	Vector3 resultPosition = { 0.0f, 0.0f, 0.0f };
+
+	const auto& posKeys = animationData_->cameraAnimation_.positionKeys;
+	if (!posKeys.empty()) {
+		if (evalTime <= posKeys.front().frame) {
+			resultPosition = posKeys.front().value;
+		}
+		else if (evalTime >= posKeys.back().frame) {
+			resultPosition = posKeys.back().value;
+		}
+		else {
+			auto posIndices = FindKeyframeIndices(posKeys, evalTime);
+			const auto& posKey1 = posKeys[posIndices.first];
+			const auto& posKey2 = posKeys[posIndices.second];
+
+			float posFrameDiff = posKey2.frame - posKey1.frame;
+			float posT = (std::abs(posFrameDiff) < 0.0001f) ? 0.0f : (evalTime - posKey1.frame) / posFrameDiff;
+			posT = std::max(0.0f, std::min(1.0f, posT));
+
+			resultPosition = InterpolatePosition(posKey1, posKey2, posT);
+		}
+	}
+
+
+	return RailSystem::RailConverter::ConvertToLeftHand(resultPosition);
+}
+Quaternion RailSystem::RailAnimationPlayer::EvaluateCameraRotation(float frame) const
+{
+	if (!animationData_) {
+		return Quaternion::identity;
+	}
+
+	float evalTime = 0.0f;
+
+	if (!animationData_->evalTimeKeys_.empty()) {
+		const auto& keys = animationData_->evalTimeKeys_;
+
+		if (frame <= keys.front().frame) {
+			evalTime = keys.front().value;
+		}
+		else if (frame >= keys.back().frame) {
+			evalTime = keys.back().value;
+		}
+		else {
+			auto indices = FindKeyframeIndices(keys, frame);
+			const auto& key1 = keys[indices.first];
+			const auto& key2 = keys[indices.second];
+
+			if (indices.first == indices.second) {
+				evalTime = key1.value;
+			}
+			else {
+				float frameDiff = key2.frame - key1.frame;
+				float t = (std::abs(frameDiff) < 0.0001f) ? 0.0f : (frame - key1.frame) / frameDiff;
+				t = std::max(0.0f, std::min(1.0f, t));
+
+				evalTime = InterpolateScalar(key1, key2, t);
+			}
+		}
+	}
+
+	Quaternion resultRotation;
+
+	const auto& rotKeys = animationData_->cameraAnimation_.rotationKeys;
+	if (!rotKeys.empty()) {
+		if (evalTime <= rotKeys.front().frame) {
+			resultRotation = rotKeys.front().value;
+		}
+		else if (evalTime >= rotKeys.back().frame) {
+			resultRotation = rotKeys.back().value;
+		}
+		else {
+			auto rotIndices = FindKeyframeIndices(rotKeys, evalTime);
+			const auto& rotKey1 = rotKeys[rotIndices.first];
+			const auto& rotKey2 = rotKeys[rotIndices.second];
+
+			float rotFrameDiff = rotKey2.frame - rotKey1.frame;
+			float rotT = (std::abs(rotFrameDiff) < 0.0001f) ? 0.0f : (evalTime - rotKey1.frame) / rotFrameDiff;
+			rotT = std::max(0.0f, std::min(1.0f, rotT));
+
+			resultRotation = InterpolateRotation(rotKey1, rotKey2, rotT);
+		}
+	}
+	return  RailSystem::RailConverter::ConvertCameraToLeftHand(resultRotation);
+}
+
+
+Transform RailSystem::RailAnimationPlayer::EvaluateCameraTransform(float frame) const
+{
+	Transform result;
+	result.translate = EvaluateCameraPosition(frame);
+	result.rotate = EvaluateCameraRotation(frame);
 	result.UpdateMatrix();
 	return result;
 }
 void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 {
-	if (!animationData_ || animationData_->positionKeys_.empty() || animationData_->rotationKeys_.empty()) {
+	if (!animationData_ || animationData_->railAnimation_.positionKeys.empty() || animationData_->railAnimation_.rotationKeys.empty()) {
 		return;
 	}
 
 	float evalTime = GetCurrentEvalTime();
 
 	// 位置キーフレーム
-	const auto& posKeys = animationData_->positionKeys_;
+	const auto& posKeys = animationData_->railAnimation_.positionKeys;
 	if (!posKeys.empty()) {
 		if (evalTime <= posKeys.front().frame) {
-			transform_.translate = posKeys.front().value;
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Pos: Using first key.\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
+			railTransform_.translate = posKeys.front().value;
 		}
 		else if (evalTime >= posKeys.back().frame) {
-			transform_.translate = posKeys.back().value;
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Pos: Using last key.\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
+			railTransform_.translate = posKeys.back().value;
 		}
 		else {
 			auto posIndices = FindKeyframeIndices(posKeys, evalTime);
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Pos Indices: (" << posIndices.first << L", " << posIndices.second << L")\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
 			const auto& posKey1 = posKeys[posIndices.first];
 			const auto& posKey2 = posKeys[posIndices.second];
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Pos Key1 Frame: " << posKey1.frame << L", Pos Key2 Frame: " << posKey2.frame << L"\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
 			float posFrameDiff = posKey2.frame - posKey1.frame;
 			float posT = (std::abs(posFrameDiff) < 0.0001f) ? 0.0f : (evalTime - posKey1.frame) / posFrameDiff;
 			posT = std::max(0.0f, std::min(1.0f, posT)); // クランプ
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Pos FrameDiff: " << posFrameDiff << L", posT: " << std::fixed << std::setprecision(4) << posT << L"\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
-			transform_.translate = InterpolatePosition(posKey1, posKey2, posT);
+			railTransform_.translate = InterpolatePosition(posKey1, posKey2, posT);
 		}
 	}
 	// 回転キーフレーム
-	const auto& rotKeys = animationData_->rotationKeys_;
+	const auto& rotKeys = animationData_->railAnimation_.rotationKeys;
 	if (!rotKeys.empty()) {
 		if (evalTime <= rotKeys.front().frame) {
-			transform_.rotate = rotKeys.front().value;
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Rot: Using first key.\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
+			railTransform_.rotate = rotKeys.front().value;
 		}
 		else if (evalTime >= rotKeys.back().frame) {
-			transform_.rotate = rotKeys.back().value;
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Rot: Using last key.\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
+			railTransform_.rotate = rotKeys.back().value;
 		}
 		else {
 			auto rotIndices = FindKeyframeIndices(rotKeys, evalTime);
@@ -308,36 +418,13 @@ void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 			float rotFrameDiff = rotKey2.frame - rotKey1.frame;
 			float rotT = (std::abs(rotFrameDiff) < 0.0001f) ? 0.0f : (evalTime - rotKey1.frame) / rotFrameDiff;
 			rotT = std::max(0.0f, std::min(1.0f, rotT));
-			transform_.rotate = InterpolateRotation(rotKey1, rotKey2, rotT);
-#ifdef _DEBUG
-			{ std::wostringstream woss; woss << L"  Rot Indices: (" << rotIndices.first << L", " << rotIndices.second << L")\n"; OutputDebugStringW(woss.str().c_str()); }
-			{ std::wostringstream woss; woss << L"  Rot Key1 Frame: " << rotKey1.frame << L", Rot Key2 Frame: " << rotKey2.frame << L"\n"; OutputDebugStringW(woss.str().c_str()); }
-			{ std::wostringstream woss; woss << L"  Rot FrameDiff: " << rotFrameDiff << L", rotT: " << std::fixed << std::setprecision(4) << rotT << L"\n"; OutputDebugStringW(woss.str().c_str()); }
-#endif // _DEBUG
-
+			railTransform_.rotate = InterpolateRotation(rotKey1, rotKey2, rotT);
 		}
 	}
 
-	transform_.UpdateMatrix();
-	convertTransform_ = RailSystem::RailConverter::ConvertToLeftHand(transform_);
-	convertTransform_.UpdateMatrix();
-#ifdef _DEBUG
-	{
-		std::wostringstream woss;
-		woss << L"--- GetCurrentTransform --- EvalTime: " << std::fixed << std::setprecision(4) << evalTime << L"\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-	{
-		std::wostringstream woss;
-		woss << L"  Final Position: (" << convertTransform_.translate.x << L", " << convertTransform_.translate.y << L", " << convertTransform_.translate.z << L")\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-	{
-		std::wostringstream woss;
-		woss << L"  Final Rotation: (w:" << convertTransform_.rotate.w << L", x:" << convertTransform_.rotate.x << L", y:" << convertTransform_.rotate.y << L", z:" << convertTransform_.rotate.z << L")\n";
-		OutputDebugStringW(woss.str().c_str());
-	}
-#endif // _DEBUG
+	railTransform_.UpdateMatrix();
+	convertRailTransform_ = RailSystem::RailConverter::ConvertToLeftHand(railTransform_);
+	convertRailTransform_.UpdateMatrix();
 }
 
 template<typename T>
