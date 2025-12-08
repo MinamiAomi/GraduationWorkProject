@@ -16,6 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CollisionSystem.cpp" />
+    <ClCompile Include="Deadline.cpp" />
+    <ClCompile Include="DeadlineUI.cpp" />
     <ClCompile Include="DebugCamera.cpp" />
     <ClCompile Include="DeviceOptionsUI.cpp" />
     <ClCompile Include="FlashlightUI.cpp" />
@@ -23,9 +25,11 @@
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="GameSystem.cpp" />
-    <ClCompile Include="RailCameraAnimationPlayer.cpp" />
-    <ClCompile Include="RailCameraDollySystem.cpp" />
-    <ClCompile Include="RailCameraLoader.cpp" />
+    <ClCompile Include="LightObject.cpp" />
+    <ClCompile Include="RailAnimationPlayer.cpp" />
+    <ClCompile Include="RailCameraSystem.cpp" />
+    <ClCompile Include="RailLoader.cpp" />
+    <ClCompile Include="SpotLightObject.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="SceneObjectData.cpp" />
     <ClCompile Include="SceneObjectLoader.cpp" />
@@ -40,25 +44,29 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionSystem.h" />
+    <ClInclude Include="Deadline.h" />
+    <ClInclude Include="DeadlineUI.h" />
     <ClInclude Include="FlashlightUI.h" />
     <ClInclude Include="GameClearScene.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="DeviceOptionsUI.h" />
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="LightObject.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
-    <ClInclude Include="RailCameraDebugUtils.h" />
+    <ClInclude Include="RailDebugUtils.h" />
     <ClInclude Include="DebugCamera.h" />
-    <ClInclude Include="RailCameraAnimationPlayer.h" />
-    <ClInclude Include="RailCameraConverter.h" />
-    <ClInclude Include="RailCameraData.h" />
-    <ClInclude Include="RailCameraLoader.h" />
-    <ClInclude Include="RailCameraDollySystem.h" />
+    <ClInclude Include="RailAnimationPlayer.h" />
+    <ClInclude Include="RailConverter.h" />
+    <ClInclude Include="RailData.h" />
+    <ClInclude Include="RailLoader.h" />
+    <ClInclude Include="RailCameraSystem.h" />
     <ClInclude Include="SceneObjectConverter.h" />
     <ClInclude Include="SceneObjectData.h" />
     <ClInclude Include="SceneObjectLoader.h" />
     <ClInclude Include="SceneObjectManager.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SpotLightObject.h" />
     <ClInclude Include="StageSelectScene.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="GameScene.h" />

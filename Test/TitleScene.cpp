@@ -12,10 +12,8 @@ void TitleScene::OnInitialize() {
 		
 	}
 	input_ = Input::GetInstance();
-	camera_ = std::make_shared<Camera>();
-	camera_->UpdateMatrices();
 
-	RenderManager::GetInstance()->SetCamera(camera_);
+	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
 
 	
 	

@@ -10,21 +10,6 @@
     <Filter Include="Game\Object">
       <UniqueIdentifier>{290ad31e-91cf-4cd6-b3fe-027fa36fb487}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RailCameraSystem">
-      <UniqueIdentifier>{2245a9b8-7bea-42ba-a566-ad3e0e4f99a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\RailCameraSystem\Data">
-      <UniqueIdentifier>{04e11a2a-834b-43ea-91a2-76ef83755fd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\RailCameraSystem\Loader">
-      <UniqueIdentifier>{fbfc21c5-b9b5-44d1-adba-f33f0bcc37ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\RailCameraSystem\Converter">
-      <UniqueIdentifier>{b0561d18-e060-404e-8030-32ff35b4d14d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\RailCameraSystem\DebugUtils">
-      <UniqueIdentifier>{4e725bda-1e1d-4386-a001-dcf784bcb762}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Flashlight">
       <UniqueIdentifier>{a922a671-c956-4964-92d9-a3ba492b0866}</UniqueIdentifier>
     </Filter>
@@ -52,11 +37,32 @@
     <Filter Include="Game\Collision">
       <UniqueIdentifier>{99c51040-68fe-45b7-b94e-b4f392028749}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RailCameraSystem\AnimationPlayer">
+    <Filter Include="Game\RailSystem">
+      <UniqueIdentifier>{2245a9b8-7bea-42ba-a566-ad3e0e4f99a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailSystem\Data">
+      <UniqueIdentifier>{04e11a2a-834b-43ea-91a2-76ef83755fd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailSystem\Loader">
+      <UniqueIdentifier>{fbfc21c5-b9b5-44d1-adba-f33f0bcc37ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailSystem\Converter">
+      <UniqueIdentifier>{b0561d18-e060-404e-8030-32ff35b4d14d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailSystem\DebugUtils">
+      <UniqueIdentifier>{4e725bda-1e1d-4386-a001-dcf784bcb762}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RailSystem\AnimationPlayer">
       <UniqueIdentifier>{82572a16-df14-40b9-831c-28456231c5b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RailCameraSystem\Dolly">
+    <Filter Include="Game\RailSystem\Camera">
       <UniqueIdentifier>{9add3b22-1f5e-4350-b2bd-27b3fd254a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\LightObject">
+      <UniqueIdentifier>{222db5f3-ca9e-43c7-bfd9-fc74ed0a8458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Deadline">
+      <UniqueIdentifier>{bf185b34-956c-498f-a258-3853b8ebc304}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,11 +76,11 @@
     <ClCompile Include="DebugCamera.cpp">
       <Filter>Game\Object</Filter>
     </ClCompile>
-    <ClCompile Include="RailCameraLoader.cpp">
-      <Filter>Game\RailCameraSystem\Loader</Filter>
+    <ClCompile Include="RailLoader.cpp">
+      <Filter>Game\RailSystem\Loader</Filter>
     </ClCompile>
-    <ClCompile Include="RailCameraAnimationPlayer.cpp">
-      <Filter>Game\RailCameraSystem\AnimationPlayer</Filter>
+    <ClCompile Include="RailAnimationPlayer.cpp">
+      <Filter>Game\RailSystem\AnimationPlayer</Filter>
     </ClCompile>
     <ClCompile Include="SceneObjectLoader.cpp">
       <Filter>Game\SceneObjectSystem\Loader</Filter>
@@ -112,8 +118,20 @@
     <ClCompile Include="TrolleyUI.cpp">
       <Filter>Game\Trolley</Filter>
     </ClCompile>
-    <ClCompile Include="RailCameraDollySystem.cpp">
-      <Filter>Game\RailCameraSystem\Dolly</Filter>
+    <ClCompile Include="RailCameraSystem.cpp">
+      <Filter>Game\RailSystem\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Game\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightObject.cpp">
+      <Filter>Game\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Deadline.cpp">
+      <Filter>Game\Deadline</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadlineUI.cpp">
+      <Filter>Game\Deadline</Filter>
     </ClCompile>
     <ClCompile Include="DeviceOptionsUI.cpp" />
     <ClCompile Include="GameSystem.cpp">
@@ -130,20 +148,20 @@
     <ClInclude Include="DebugCamera.h">
       <Filter>Game\Object</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraData.h">
-      <Filter>Game\RailCameraSystem\Data</Filter>
+    <ClInclude Include="RailData.h">
+      <Filter>Game\RailSystem\Data</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraLoader.h">
-      <Filter>Game\RailCameraSystem\Loader</Filter>
+    <ClInclude Include="RailLoader.h">
+      <Filter>Game\RailSystem\Loader</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraAnimationPlayer.h">
-      <Filter>Game\RailCameraSystem\AnimationPlayer</Filter>
+    <ClInclude Include="RailAnimationPlayer.h">
+      <Filter>Game\RailSystem\AnimationPlayer</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraConverter.h">
-      <Filter>Game\RailCameraSystem\Converter</Filter>
+    <ClInclude Include="RailConverter.h">
+      <Filter>Game\RailSystem\Converter</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraDebugUtils.h">
-      <Filter>Game\RailCameraSystem\DebugUtils</Filter>
+    <ClInclude Include="RailDebugUtils.h">
+      <Filter>Game\RailSystem\DebugUtils</Filter>
     </ClInclude>
     <ClInclude Include="Flashlight.h">
       <Filter>Game\Flashlight</Filter>
@@ -191,8 +209,20 @@
     <ClInclude Include="TrolleyUI.h">
       <Filter>Game\Trolley</Filter>
     </ClInclude>
-    <ClInclude Include="RailCameraDollySystem.h">
-      <Filter>Game\RailCameraSystem\Dolly</Filter>
+    <ClInclude Include="RailCameraSystem.h">
+      <Filter>Game\RailSystem\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightObject.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Deadline.h">
+      <Filter>Game\Deadline</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadlineUI.h">
+      <Filter>Game\Deadline</Filter>
     </ClInclude>
     <ClInclude Include="DeviceOptionsUI.h" />
     <ClInclude Include="GameSystem.h">

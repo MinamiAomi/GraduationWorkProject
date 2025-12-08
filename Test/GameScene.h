@@ -14,12 +14,13 @@
 #include "Graphics/Skeleton.h"
 #include "Graphics/Sprite.h"
 
-#include "RailCameraAnimationPlayer.h"
-#include "RailCameraDollySystem.h"
+#include "RailAnimationPlayer.h"
+#include "RailCameraSystem.h"
 #include "SceneObjectManager.h"
 
 #include "Flashlight.h"
 #include "Trolley.h"
+#include "Deadline.h"
 
 #ifdef _DEBUG
 #include "DebugCamera.h"
@@ -52,8 +53,9 @@ private:
 
 	std::shared_ptr<Camera> camera_;
 
-	std::unique_ptr<RailCameraSystem::RailCameraAnimationPlayer> railCameraAnimationPlayer_;
-	std::unique_ptr<RailCameraSystem::RailCameraDollySystem> railCameraDollySystem_;
+	std::unique_ptr<RailSystem::RailAnimationPlayer> railAnimationPlayer_;
+	std::unique_ptr<RailSystem::RailCameraSystem> railCameraSystem_;
+	std::unique_ptr<Deadline> deadline_;
 
 	std::unique_ptr<Flashlight> flashlight_;
 	

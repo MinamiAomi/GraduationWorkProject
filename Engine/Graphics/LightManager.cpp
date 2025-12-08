@@ -5,6 +5,7 @@
 DirectionalLight::DirectionalLight() : color(Color::white), direction(Vector3::down), intensity(1.0f), isActive(true) {}
 
 void DirectionalLight::DrawImGui(const std::string& label) {
+
     (void)label;
 #ifdef ENABLE_IMGUI
     bool openTree = ImGui::TreeNode(label.c_str());
@@ -30,6 +31,7 @@ void PointLight::DrawImGui(const std::string& label) {
         ImGui::ColorEdit3("Color", color.GetAddress());
         ImGui::DragFloat3("Position", &position.x, 0.1f);
         ImGui::DragFloat("Intensity", &intensity, 0.01f, 0.0f, 100.0f);
+        ImGui::DragFloat("Range", &range, 0.01f, 0.0f, 100.0f);
         ImGui::DragFloat("decay", &decay, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }

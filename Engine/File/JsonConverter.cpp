@@ -88,7 +88,7 @@ void from_json(const nlohmann::json& json, Vector4& value) {
 
 void from_json(const nlohmann::json& json, Quaternion& value) {
 	assert(json.is_array() && json.size() == 4);
-	value = Quaternion(json.at(0), json.at(1), json.at(2), json.at(3));
+	value = Quaternion(json.at(1), json.at(2), json.at(3), json.at(0));
 }
 
 void from_json(const nlohmann::json& json, std::string& value) {
@@ -110,6 +110,12 @@ void from_json(const nlohmann::json& json, Transform& value) {
 		json.at("rotate").get_to(value.rotate);
 	}
 	json.at("scale").get_to(value.scale);
+}
+
+void from_json(const nlohmann::json& json, Color& value)
+{
+	assert(json.is_array() && json.size() == 3);
+	value = Color::RGBA(json.at(0), json.at(1), json.at(2));
 }
 
 

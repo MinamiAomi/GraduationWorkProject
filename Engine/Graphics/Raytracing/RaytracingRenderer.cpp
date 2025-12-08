@@ -44,7 +44,7 @@ void PrintStateObjectDesc(const D3D12_STATE_OBJECT_DESC* desc) {
             woss << exports[i].Name << L"\n";
         }
         return woss.str();
-    };
+        };
 
     for (UINT i = 0; i < desc->NumSubobjects; i++) {
         wstr << L"| [" << i << L"]: ";
@@ -312,7 +312,7 @@ void RaytracingRenderer::CreateShaderTables() {
 
         auto InsertIdentifier = [&](const wchar_t* name) {
             identifierMap_[name] = stateObjectProperties->GetShaderIdentifier(name);
-        };
+            };
         InsertIdentifier(kRayGenerationName);
         InsertIdentifier(kPrimaryRayHitGroupName);
         InsertIdentifier(kShadowRayHitGroupName);
@@ -403,7 +403,7 @@ void RaytracingRenderer::BuildScene(CommandContext& commandContext) {
         for (auto& mesh : model->GetMeshes()) {
             auto& primaryShaderRecord = shaderRecords.emplace_back(primaryHitGroupIdentifier);
             auto& reflectionShaderRecord = shaderRecords.emplace_back(reflectionHitGroupIdentifier);
-            
+
             D3D12_GPU_VIRTUAL_ADDRESS vb = model->GetVertexBuffer().GetGPUVirtualAddress();
             D3D12_GPU_VIRTUAL_ADDRESS ib = model->GetIndexBuffer().GetGPUVirtualAddress();
             vb += model->GetVertexBuffer().GetElementSize() * mesh.vertexOffset;
@@ -415,22 +415,22 @@ void RaytracingRenderer::BuildScene(CommandContext& commandContext) {
             reflectionShaderRecord.Add(vb);
             reflectionShaderRecord.Add(ib);
 
-          //  if (mesh.material && mesh.material->diffuseMap) {
-          //      primaryShaderRecord.Add(mesh.material->diffuseMap->GetSRV().GetGPU());
-          //      reflectionShaderRecord.Add(mesh.material->diffuseMap->GetSRV().GetGPU());
-          //  }
-          //  else {
-          //      primaryShaderRecord.Add(DefaultTexture::White.GetSRV().GetGPU());
-          //      reflectionShaderRecord.Add(DefaultTexture::White.GetSRV().GetGPU());
-          //  }
-          //  primaryShaderRecord.Add(SamplerManager::LinearWrap);
-          //  reflectionShaderRecord.Add(SamplerManager::LinearWrap);
-          //
-          //  if (mesh.material && instance->UseLighting()) {
-          //      material.diffuse = mesh.material->diffuse;
-          //      material.specular = mesh.material->specular;
-          //      material.shininess = mesh.material->shininess;
-          //  }
+            //  if (mesh.material && mesh.material->diffuseMap) {
+            //      primaryShaderRecord.Add(mesh.material->diffuseMap->GetSRV().GetGPU());
+            //      reflectionShaderRecord.Add(mesh.material->diffuseMap->GetSRV().GetGPU());
+            //  }
+            //  else {
+            //      primaryShaderRecord.Add(DefaultTexture::White.GetSRV().GetGPU());
+            //      reflectionShaderRecord.Add(DefaultTexture::White.GetSRV().GetGPU());
+            //  }
+            //  primaryShaderRecord.Add(SamplerManager::LinearWrap);
+            //  reflectionShaderRecord.Add(SamplerManager::LinearWrap);
+            //
+            //  if (mesh.material && instance->UseLighting()) {
+            //      material.diffuse = mesh.material->diffuse;
+            //      material.specular = mesh.material->specular;
+            //      material.shininess = mesh.material->shininess;
+            //  }
 
             D3D12_GPU_VIRTUAL_ADDRESS materialCB = commandContext.TransfarUploadBuffer(sizeof(material), &material);
             primaryShaderRecord.Add(materialCB);

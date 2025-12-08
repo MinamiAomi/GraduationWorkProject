@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <list>
 #include <vector>
+#include <string>
 
 #include "Texture.h"
 
@@ -36,6 +37,9 @@ public:
 
     uint8_t GetDrawOrder() const { return drawOrder_; }
 
+#ifdef _DEBUG
+    void DrawImGui(const std::string& name);
+#endif // _DEBUG
 private:
     static std::list<Sprite*> instanceList_;
 

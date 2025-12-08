@@ -162,8 +162,8 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     };
 
     enum LightType : uint32_t {
-        Directional = 0, 
-        Point, 
+        Directional = 0,
+        Point,
         Spot
     };
 

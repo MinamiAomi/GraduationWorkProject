@@ -8,6 +8,7 @@
 #include "Math/Camera.h"
 #include "Math/Color.h"
 
+
 class DirectionalLight {
 public:
     DirectionalLight();
@@ -58,7 +59,7 @@ public:
     void Add(const std::shared_ptr<SpotLight>& light);
 
     void Reset();
-    
+
     const std::list<std::weak_ptr<DirectionalLight>>& GetDirectionalLights() const { return directionalLights_; }
     const std::list<std::weak_ptr<PointLight>>& GetPointLights() const { return pointLights_; }
     const std::list<std::weak_ptr<SpotLight>>& GetSpotLights() const { return spotLights_; }
