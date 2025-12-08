@@ -4,9 +4,9 @@
 
 #include "Math/MathUtils.h"
 
-namespace RailCameraSystem {
+namespace RailSystem {
 
-    class RailCameraDebugUtils {
+    class RailDebugUtils {
     public:
         static std::array<Vector3,8> CalculateFrustum(const Matrix4x4& viewMatrix, const Matrix4x4& projectionMatrix) {
             //View-Projection行列とその逆行列を計算

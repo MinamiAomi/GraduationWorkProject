@@ -1,12 +1,12 @@
 #include "SpotLightObject.h"
 
-void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3& offset, const Vector3& direction = { 0.0f,0.0f,0.0f }) {
+void SpotLightObject::Initialize(const Transform* parentTransform, const Vector3& offset, const Vector3& direction) {
 	offset_ = offset;
 	direction_ = direction;
 	light_ = std::make_shared<SpotLight>();
 	if (parentTransform != nullptr) {
 		parentTransform_ = parentTransform;
-		lightTransform_.SetParent(parentTransform_,false);
+		lightTransform_.SetParent(parentTransform_, false);
 	}
 	lightTransform_.translate = offset_;
 	lightTransform_.UpdateMatrix();
@@ -36,6 +36,6 @@ void SpotLightObject::Debug(const std::string& label)
 		ImGui::TreePop();
 	}
 #endif //ENABLE_IMGUI
-	
+
 }
 #endif // _DEBUG

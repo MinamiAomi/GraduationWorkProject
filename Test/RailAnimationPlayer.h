@@ -3,19 +3,19 @@
 #include <vector>
 #include <memory>
 
-#include "RailCameraData.h"
+#include "RailData.h"
 #include "Math/Transform.h"
 
 
-namespace RailCameraSystem {
+namespace RailSystem {
 
-	class RailCameraAnimationPlayer {
+	class RailAnimationPlayer {
 	public:
-		explicit RailCameraAnimationPlayer(std::shared_ptr<const RailCameraSystem::RailCameraAnimation>animationData);
+		explicit RailAnimationPlayer(std::shared_ptr<const RailSystem::RailAnimation>animationData);
 
 		void Update(float deltaTime);
 
-		Transform GetCurrentTransform() const;
+		const Transform& GetTransform() const { return convertTransform_; }
 
 		void Play();
 
@@ -29,13 +29,22 @@ namespace RailCameraSystem {
 
 		bool IsFinished() const { return currentFrame_ >= totalDurationFrames_; }
 
+		float GetRealSpeed() const { return realSpeed_; }
+
 		void SetPlaybackSpeed(float speed) { playbackSpeed_ = speed; }
 		float GetPlaybackSpeed() const { return playbackSpeed_; }
 
 		void SetCurrentFrame(int frame);
 		float GetCurrentFrame() const;
 
+		//指定されてフレームの座標
+		Vector3 EvaluatePosition(float frame) const;
+		// 指定したフレームにおける回転
+		Quaternion EvaluateRotation(float frame) const;
+
 	private:
+
+		void CalculateCurrentTransform();
 		/// <summary>
 		/// 指定されたフレームに対応するキーフレームのインデックスペアを探す
 		/// </summary>
@@ -50,20 +59,31 @@ namespace RailCameraSystem {
 		float GetCurrentEvalTime() const;
 
 		//補間用関数
-		float InterpolateScalar(const RailCameraSystem::ScalarKeyframe& key1, const RailCameraSystem::ScalarKeyframe& key2, float currentFrame) const;
-		Vector3 InterpolatePosition(const RailCameraSystem::PositionKeyframe& key1, const RailCameraSystem::PositionKeyframe& key2, float currentFrame) const;
-		Quaternion InterpolateRotation(const RailCameraSystem::RotationKeyframe& key1, const RailCameraSystem::RotationKeyframe& key2, float currentFrame) const;
+		float InterpolateScalar(const RailSystem::ScalarKeyframe& key1, const RailSystem::ScalarKeyframe& key2, float currentFrame) const;
+		Vector3 InterpolatePosition(const RailSystem::PositionKeyframe& key1, const RailSystem::PositionKeyframe& key2, float currentFrame) const;
+		Quaternion InterpolateRotation(const RailSystem::RotationKeyframe& key1, const RailSystem::RotationKeyframe& key2, float currentFrame) const;
 
 		//ベジエ用
 		float FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 		Vector2 EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 
-		std::shared_ptr<const RailCameraAnimation> animationData_;
+#ifdef _DEBUG
+		void DrawImGui();
+#endif // _DEBUG
+
+
+		std::shared_ptr<const RailAnimation> animationData_;
 		float currentFrame_;
 		float totalDurationFrames_;
 		bool isPlaying_;
 		float playbackSpeed_;
 
+		//生データ
+		Transform transform_;
+		//左手座標系に変換された後
+		Transform convertTransform_;
+		Vector3 preCameraPosition_;
+		float realSpeed_;
 	};
 
 }

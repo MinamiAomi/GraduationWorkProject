@@ -12,7 +12,7 @@ static const float deadDecayParam = 10.0f;
 
 class LightObject {
 public:
-	void Initialize(const Transform* parentTransform, const Vector3& offset = {0.0f,0.0f,0.0f},bool isBreath);
+	void Initialize(const Transform* parentTransform, const Vector3& offset = {0.0f,0.0f,0.0f},bool isBreath = true);
 	void Update();
 #ifdef _DEBUG
 	void Debug(const std::string& label);
