@@ -10,6 +10,7 @@
 
 #include "FlashlightUI.h"
 #include "Collider.h"
+#include "Math/Random.h"
 
 namespace RailSystem {
 	class RailAnimationPlayer;
@@ -35,7 +36,7 @@ private:
 	void DrawImGui();
 #endif // _DEBUG
 
-
+	Random::RandomNumberGenerator rnd_;
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
 
@@ -72,10 +73,12 @@ private:
 	bool isLighting_;
 	//何フレーム目まで減らないか
 	float startFrame_;
+
+	float blinkTimer_ = 0.0f;
 #pragma endregion
 
 	std::shared_ptr<ConeCollider> collider_;
 #ifdef _DEBUG
-	bool isDebug_ = true;
+	bool isDebug_ = false;
 #endif // _DEBUG
 };
