@@ -19,11 +19,11 @@ Trolley::Trolley()
 		0.0f
 	);
 
-	teilLight_ = std::make_shared<SpotLight>();
+	//teilLight_ = std::make_shared<SpotLight>();
 
-	RenderManager::GetInstance()->GetLightManager().Add(teilLight_);
+	//RenderManager::GetInstance()->GetLightManager().Add(teilLight_);
 
-	teilLightTransform_.SetParent(&transform_);
+	//teilLightTransform_.SetParent(&transform_);
 
 	trolleyUI_.SetTrolley(this);
 
@@ -84,15 +84,15 @@ void Trolley::Initialize()
 	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
 	batteryCollider_->radius = batteryRadius_;
 
-	teilOffset_ = { 0.0f,5.0f,-2.0f };
-	teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate() + teilOffset_;
-	teilLight_->direction = teilLightTransform_.worldMatrix.GetForward();
-	teilLight_->color = Color(Vector4(0.7f, 0.65f, 0.2f, 1.0f));
-	teilLight_->intensity = 3.0f;
-	teilLight_->range = 25.0f;
-	teilLight_->angle = 45.0f * Math::ToRadian;
-	teilLight_->falloffStartAngle = 15.0f * Math::ToRadian;
-	teilLight_->decay = 1.0f;
+	//teilOffset_ = { 0.0f,5.0f,-2.0f };
+	//teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate() + teilOffset_;
+	//teilLight_->direction = teilLightTransform_.worldMatrix.GetForward();
+	//teilLight_->color = Color(Vector4(0.7f, 0.65f, 0.2f, 1.0f));
+	//teilLight_->intensity = 3.0f;
+	//teilLight_->range = 25.0f;
+	//teilLight_->angle = 45.0f * Math::ToRadian;
+	//teilLight_->falloffStartAngle = 15.0f * Math::ToRadian;
+	//teilLight_->decay = 1.0f;
 
 	trolleyUI_.Initialize(transform_);
 }
@@ -109,8 +109,8 @@ void Trolley::Update(float deltaTime)
 	transform_.translate = trolleyOffset_;
 	transform_.rotate = bankRotation * shakeRotation_;
 	transform_.UpdateMatrix();
-	teilLightTransform_.translate = teilOffset_;
-	teilLightTransform_.UpdateMatrix();
+	//teilLightTransform_.translate = teilOffset_;
+	//teilLightTransform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
 	batteryTransform_.translate = batteryOffset_;
@@ -118,16 +118,16 @@ void Trolley::Update(float deltaTime)
 	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
 	batteryCollider_->radius = batteryRadius_;
 
-	teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate();
-	teilLight_->direction = -teilLightTransform_.worldMatrix.GetForward();
+	//teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate();
+	//teilLight_->direction = -teilLightTransform_.worldMatrix.GetForward();
 
 
 	trolleyUI_.Update();
 
 #ifdef _DEBUG
 	DrawImGui();
-	teilLight_->DrawImGui("teilLight_");
-	ImGui::DragFloat3("teilOffset_", &teilOffset_.x, 0.1f);
+	//teilLight_->DrawImGui("teilLight_");
+	//ImGui::DragFloat3("teilOffset_", &teilOffset_.x, 0.1f);
 #endif // _DEBUG
 
 }
@@ -140,7 +140,7 @@ void Trolley::UpdateState(float deltaTime)
 		if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
 
 			if (isHitFlashlight_) {
-				currentCharge_ += accelerationRate_ * deltaTime * 60.0f;
+				currentCharge_ += accelerationRate_ * deltaTime * 60.0f * centerRate_;
 			}
 			else {
 				currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
@@ -323,6 +323,39 @@ void Trolley::OnBurstState()
 	nitroAccumulateTimer_ = 0.0f;
 }
 
+float Trolley::CalculateCenterRate() {
+	const auto collider = flashlight_->GetCollider();
+
+	Vector3 conePos = collider->center;
+	Quaternion coneRot = collider->quaternion;
+
+	Vector3 spherePos = batteryCollider_->center;
+	float sphereRadius = batteryCollider_->radius; 
+	
+	Vector3 diff = spherePos - conePos;
+	Quaternion invRot = coneRot.Conjugate();
+	Vector3 localPos = invRot * diff;
+
+	float coneH = collider->height;
+	float coneR = collider->radius;
+
+	float axisY = localPos.y;
+	float axisR = std::sqrt(localPos.x * localPos.x + localPos.z * localPos.z);
+
+	float clampedY = std::clamp(axisY, 0.0f, coneH);
+	float maxRadiusAtHeight = (coneH - clampedY) * (coneR / coneH);
+
+	float allowedDistance = maxRadiusAtHeight + sphereRadius;
+
+	if (allowedDistance <= 0.001f) {
+		return 1.0f; 
+	}
+
+	float score = 1.0f - (axisR / allowedDistance);
+
+	// 底上げ（+0.1fはお好みで）してClamp
+	return std::clamp(score + 0.1f, 0.0f, 1.0f);
+}
 #ifdef _DEBUG
 void Trolley::DrawImGui() {
 	// =================================================================================
@@ -358,6 +391,7 @@ void Trolley::DrawImGui() {
 	// --- 速度表示 ---
 	// 単位や意味がわかるように日本語を添える
 	ImGui::SliderFloat("現在のトロッコ速度 (Speed)", &currentSpeed_, 0.0f, nitroSpeed_, "%.2f km/h");
+	ImGui::SliderFloat("バッテリーを照らすライトの真ん中具合", &centerRate_, 0.0f, 1.0f, "%.2f km/h");
 
 	ImGui::Separator();
 
@@ -454,7 +488,7 @@ void Trolley::DrawImGui() {
 
 		if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
 
-				ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
+			ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
 			if (ImGui::TreeNode("速度・加速度 (Speed & Accel)")) {
 				ImGui::DragFloat("通常時の最高速度", &maxSpeed_, 0.01f);
 				ImGui::DragFloat("通常時の最低速度", &minSpeed_, 0.01f);
@@ -507,12 +541,34 @@ void Trolley::DrawImGui() {
 void Trolley::UpdateCollision()
 {
 	isHitFlashlight_ = false;
+	centerRate_ = 0.0f;
 	if (!batteryCollider_->GetCollidedWith().empty()) {
 		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
-			if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
-					isHitFlashlight_ = true;
-					break;
+			switch (collider->categoryBits)
+			{
+			case CollisionCategory::NONE:
+				break;
+			case CollisionCategory::PLAYER:
+				break;
+			case CollisionCategory::FLASHLIGHT:
+			{
+				isHitFlashlight_ = true;
+
+				centerRate_ = CalculateCenterRate();
 			}
+			break;
+			case CollisionCategory::LIGHT:
+				break;
+			case CollisionCategory::ENEMY:
+				break;
+			case CollisionCategory::ITEM:
+				break;
+			case CollisionCategory::ALL:
+				break;
+			default:
+				break;
+			}
+
 		}
 	}
 }

@@ -64,7 +64,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
         if (obj->collider &&
             !obj->collider->GetCollidedWith().empty()) {
             obj->collider = nullptr;
-            obj->lightObject.SetHp(0.0f);
+            obj->lightObject.SetDamageDuration(45.0f);
         }
     }
 

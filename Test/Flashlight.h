@@ -22,7 +22,7 @@ public:
 	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
 	void Update();
 
-	std::shared_ptr<ConeCollider> GetCollider() { return collider_; }
+	const std::shared_ptr<ConeCollider> GetCollider() const { return collider_; }
 	float GetBattery() const { return battery_; }
 	float GetMaxBattery() const { return maxBattery_; }
 	bool GetIsLighting() const { return isLighting_; }
@@ -76,7 +76,6 @@ private:
 
 	float blinkTimer_ = 0.0f;
 #pragma endregion
-
 	std::shared_ptr<ConeCollider> collider_;
 #ifdef _DEBUG
 	bool isDebug_ = false;
