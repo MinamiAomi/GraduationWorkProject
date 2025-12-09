@@ -100,6 +100,7 @@ void Flashlight::Update()
 	spotLight_->direction = lightTransform_.worldMatrix.GetForward();
 	spotLight_->range = lightRange_;
 	spotLight_->angle = fovAngle_ * 0.5f;
+	spotLight_->isActive = isLighting_;
 
 	flashlightUI_.Update();
 #ifdef _DEBUG
@@ -154,25 +155,40 @@ void Flashlight::UpdateCollision()
 
 void Flashlight::UpdateLightPower()
 {
-	if (isLighting_) {
 #ifdef _DEBUG
-		if (!isDebug_) {
+	if (!isDebug_) {
 #endif // _DEBUG
-			if (railAnimationPlayer_->GetCurrentFrame() >= startFrame_) {
-				battery_ -= subBattery_;
-				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
-			}
-			//バッテリーがなくなった場合
-			if (battery_ <= 0.0f) {
-				isLighting_ = false;
-			}
-			else {
-				isLighting_ = true;
-			}
-#ifdef _DEBUG
+		if (railAnimationPlayer_->GetCurrentFrame() >= startFrame_) {
+			battery_ -= subBattery_;
+			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 		}
-#endif // _DEBUG
+
+		//20.0%未満からちかちか
+		if (battery_ < maxBattery_ * 0.2f) {
+
+			blinkTimer_ += (1.0f / 60.0f);
+
+			static const int pattern[] = {
+						1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
+						1, 0, 0, 1, 1, 0, 1, 0, 0, 0,
+						0, 0, 0, 1, 0, 0, 0, 0, 1, 1,
+						0, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+						0, 0, 1, 1, 0, 0, 1, 1, 1, 1,
+			};
+			int patternLength = sizeof(pattern) / sizeof(pattern[0]);
+
+			float stepTime = 0.1f;
+
+			int index = (int)(blinkTimer_ / stepTime) % patternLength;
+
+			isLighting_ = (pattern[index] == 1);
+		}
+		else {
+			isLighting_ = true;
+		}
+#ifdef _DEBUG
 	}
+#endif // _DEBUG
 }
 
 void Flashlight::SpotLightDebugDraw() const

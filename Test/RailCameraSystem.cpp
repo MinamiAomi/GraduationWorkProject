@@ -48,16 +48,20 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
-	Vector3 localPos = railCameraAnimationPlayer_->EvaluateCameraPosition(currentFrame);
-	Quaternion localRotation = railCameraAnimationPlayer_->EvaluateCameraRotation(currentFrame);
+	Vector3 localPos = railCameraAnimationPlayer_->EvaluateLocalCameraPosition(currentFrame);
+	Quaternion blenderLocalRotation = railCameraAnimationPlayer_->EvaluateLocalCameraRotation(currentFrame);
 
 	transform_.translate = localPos + cameraOffset_;
 
 	if (transform_.GetParent()) {
-		transform_.rotate = currentLookRotation_ * localRotation;
+		Quaternion parentInverseRotation = transform_.GetParent()->worldMatrix.GetRotate().Inverse();
+
+		Quaternion lookAtLocalRotation = parentInverseRotation * currentLookRotation_;
+
+		transform_.rotate = lookAtLocalRotation * blenderLocalRotation;
 	}
 	else {
-		transform_.rotate = currentLookRotation_;
+		transform_.rotate = currentLookRotation_ * blenderLocalRotation;
 	}
 
 	transform_.UpdateMatrix();
@@ -65,7 +69,6 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 #ifdef _DEBUG
 	DrawImGui();
 #endif // _DEBUG
-
 }
 
 void RailSystem::RailCameraSystem::UpdateFov(float deltaTime)
@@ -95,6 +98,20 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 
 	float targetFrame = 0.0f;
 	if (isPressLookingBack) {
+		targetFrame = currentFrame - futureFrame_;
+	}
+	else {
+		targetFrame = currentFrame + futureFrame_;
+	}
+
+	targetFrame = std::clamp(targetFrame, minFrame, maxFrame);
+
+	float minFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame);
+	float maxFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
+	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
+
+	float targetFrame = 0.0f;
+	if (isPressLookingBack) {
 		targetFrame = currentFrame - futureFrame_; 
 	}
 	else {
@@ -105,33 +122,43 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 
 	transform_.UpdateMatrix();
 
-	Vector3 currentPos = transform_.translate;
+	Vector3 futureCameraWorldPos;
 
-	Vector3 targetPos = railCameraAnimationPlayer_->EvaluateCameraPosition(targetFrame) + pointOfGazeOffset_;
+	Vector3 futureRailPos = railCameraAnimationPlayer_->EvaluateRailPosition(targetFrame);
+	Quaternion futureRailRot = railCameraAnimationPlayer_->EvaluateRailRotation(targetFrame);
 
-	Vector3 diff = targetPos - currentPos;
+	Vector3 futureCameraLocalPos = railCameraAnimationPlayer_->EvaluateLocalCameraPosition(targetFrame);
+
+	futureCameraWorldPos = futureRailPos + (futureRailRot * futureCameraLocalPos);
+
+	transform_.UpdateMatrix();
+	Vector3 currentCameraWorldPos = transform_.worldMatrix.GetTranslate();
+
+	Vector3 offsetWorld = futureRailRot * pointOfGazeOffset_;
+	Vector3 targetPos = futureCameraWorldPos + offsetWorld;
+
+	Vector3 diff = targetPos - currentCameraWorldPos;
 
 	if (diff.LengthSquare() <= 1e-05f) {
+		Vector3 railForward = futureRailRot * Vector3(0, 0, 1);
+		diff = railForward;
+
 		if (isPressLookingBack) {
-			float tempFutureFrame = std::clamp(currentFrame + futureFrame_, minFrame, maxFrame);
-			Vector3 futurePos = railCameraAnimationPlayer_->EvaluateCameraPosition(tempFutureFrame) + pointOfGazeOffset_;
-			diff = -(futurePos - currentPos);
-		}
-		else {
-			float tempPastFrame = std::clamp(currentFrame - futureFrame_, minFrame, maxFrame);
-			Vector3 pastPos = railCameraAnimationPlayer_->EvaluateCameraPosition(tempPastFrame) + pointOfGazeOffset_;
-			diff = -(pastPos - currentPos);
+			diff = -diff;
 		}
 	}
 
 	if (diff.LengthSquare() > 1e-05f) {
-
 		Vector3 forwardVector = diff.Normalized();
 
 		Vector3 upVector = Vector3::up;
 		if (transform_.GetParent()) {
 			Quaternion parentRotation = transform_.GetParent()->worldMatrix.GetRotate();
 			upVector = parentRotation * Vector3::up;
+		}
+		else {
+			Quaternion currentRailRot = railCameraAnimationPlayer_->EvaluateRailRotation(currentFrame);
+			upVector = currentRailRot * Vector3::up;
 		}
 
 		Quaternion targetRotation = Quaternion::MakeLookRotation(forwardVector, upVector);

@@ -245,7 +245,7 @@ Transform RailSystem::RailAnimationPlayer::EvaluateRailTransform(float frame) co
 	return result;
 }
 
-Vector3 RailSystem::RailAnimationPlayer::EvaluateCameraPosition(float frame) const
+Vector3 RailSystem::RailAnimationPlayer::EvaluateLocalCameraPosition(float frame) const
 {
 	if (!animationData_) {
 		return { 0.0f, 0.0f, 0.0f };
@@ -306,7 +306,7 @@ Vector3 RailSystem::RailAnimationPlayer::EvaluateCameraPosition(float frame) con
 
 	return RailSystem::RailConverter::ConvertToLeftHand(resultPosition);
 }
-Quaternion RailSystem::RailAnimationPlayer::EvaluateCameraRotation(float frame) const
+Quaternion RailSystem::RailAnimationPlayer::EvaluateLocalCameraRotation(float frame) const
 {
 	if (!animationData_) {
 		return Quaternion::identity;
@@ -367,13 +367,34 @@ Quaternion RailSystem::RailAnimationPlayer::EvaluateCameraRotation(float frame) 
 }
 
 
-Transform RailSystem::RailAnimationPlayer::EvaluateCameraTransform(float frame) const
+Transform RailSystem::RailAnimationPlayer::EvaluateLocalCameraTransform(float frame) const
 {
 	Transform result;
-	result.translate = EvaluateCameraPosition(frame);
-	result.rotate = EvaluateCameraRotation(frame);
+	result.translate = EvaluateLocalCameraPosition(frame);
+	result.rotate = EvaluateLocalCameraRotation(frame);
 	result.UpdateMatrix();
 	return result;
+}
+Vector3 RailSystem::RailAnimationPlayer::EvaluateWorldCameraPosition(float frame) const
+{
+	Vector3 localPos = EvaluateLocalCameraPosition(frame);
+	Vector3 worldPos = localPos * convertRailTransform_.worldMatrix;
+	return worldPos;
+}
+Quaternion RailSystem::RailAnimationPlayer::EvaluateWorldCameraRotation(float frame) const
+{
+	Quaternion localRotation = EvaluateLocalCameraRotation(frame);
+	Quaternion parentRotation = convertRailTransform_.worldMatrix.GetRotate();
+	Quaternion worldRotation = parentRotation * localRotation;
+	return worldRotation;
+}
+Transform RailSystem::RailAnimationPlayer::EvaluateWorldCameraTransform(float frame) const
+{
+	Transform t;
+	t.translate = EvaluateWorldCameraPosition(frame);
+	t.rotate = EvaluateLocalCameraRotation(frame);
+	t.UpdateMatrix();
+	return t;
 }
 void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
 {
