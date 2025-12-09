@@ -106,20 +106,6 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 
 	targetFrame = std::clamp(targetFrame, minFrame, maxFrame);
 
-	float minFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame);
-	float maxFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
-	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
-
-	float targetFrame = 0.0f;
-	if (isPressLookingBack) {
-		targetFrame = currentFrame - futureFrame_; 
-	}
-	else {
-		targetFrame = currentFrame + futureFrame_; 
-	}
-
-	targetFrame = std::clamp(targetFrame, minFrame, maxFrame);
-
 	transform_.UpdateMatrix();
 
 	Vector3 futureCameraWorldPos;
