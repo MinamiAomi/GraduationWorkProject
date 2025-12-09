@@ -32,7 +32,9 @@ void Trolley::Initialize()
 {
 	JSON_OPEN("Resources/Data/Trolley/trolley.json");
 	JSON_OBJECT("TrollerSpeed");
+	JSON_LOAD(startFrame_);
 	JSON_LOAD(maxSpeed_);
+	JSON_LOAD(minSpeed_);
 	JSON_LOAD(burstSpeed_);
 	JSON_LOAD(nitroSpeed_);
 	JSON_LOAD(accelerationRate_);
@@ -151,7 +153,12 @@ void Trolley::UpdateState(float deltaTime)
 		{
 		case Trolley::State::Normal:
 		{
-			currentSpeed_ = std::lerp(0.0f, maxSpeed_, currentCharge_ / maxNormalCharge_);
+			if (startFrame_ <= railCameraAnimationPlayer_->GetCurrentFrame()) {
+				currentSpeed_ = std::lerp(minSpeed_, maxSpeed_, currentCharge_ / maxNormalCharge_);
+			}
+			else {
+				currentSpeed_ = std::lerp(0.0f, maxSpeed_, currentCharge_ / maxNormalCharge_);
+			}
 			//チャージが満タンならオーバーチャージに移行
 			if (currentCharge_ > maxNormalCharge_) {
 				OnOverchargeState();
@@ -237,8 +244,8 @@ void Trolley::UpdateBanking(float deltaTime)
 {
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
-	Vector3 posNow = railCameraAnimationPlayer_->EvaluatePosition(currentFrame);
-	Vector3 posFuture = railCameraAnimationPlayer_->EvaluatePosition(currentFrame + lookAheadForBank_);
+	Vector3 posNow = railCameraAnimationPlayer_->EvaluateRailPosition(currentFrame);
+	Vector3 posFuture = railCameraAnimationPlayer_->EvaluateRailPosition(currentFrame + lookAheadForBank_);
 
 	Vector3 diff = posFuture - posNow;
 
@@ -250,7 +257,7 @@ void Trolley::UpdateBanking(float deltaTime)
 
 		Vector3 forwardNow = transform_.worldMatrix.GetRotate() * Vector3(0, 0, 1);
 
-		Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRotation(currentFrame);
+		Quaternion blenderRotation = railCameraAnimationPlayer_->EvaluateRailRotation(currentFrame);
 		Vector3 railUpVector = blenderRotation * Vector3(0, 1, 0);
 
 		Vector3 curveCross = Vector3::Cross(forwardNow, dirToFuture);
@@ -401,7 +408,9 @@ void Trolley::DrawImGui() {
 			JSON_OPEN("Resources/Data/Trolley/trolley.json");
 
 			JSON_OBJECT("TrollerSpeed");
+			JSON_SAVE(startFrame_);
 			JSON_SAVE(maxSpeed_);
+			JSON_SAVE(minSpeed_);
 			JSON_SAVE(burstSpeed_);
 			JSON_SAVE(nitroSpeed_);
 			JSON_SAVE(accelerationRate_);
@@ -445,8 +454,10 @@ void Trolley::DrawImGui() {
 
 		if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
 
+				ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
 			if (ImGui::TreeNode("速度・加速度 (Speed & Accel)")) {
 				ImGui::DragFloat("通常時の最高速度", &maxSpeed_, 0.01f);
+				ImGui::DragFloat("通常時の最低速度", &minSpeed_, 0.01f);
 				ImGui::DragFloat("ニトロ時の最高速度", &nitroSpeed_, 0.01f);
 				ImGui::DragFloat("バースト時の最高速度", &burstSpeed_, 0.01f);
 				ImGui::Spacing();
@@ -499,11 +510,8 @@ void Trolley::UpdateCollision()
 	if (!batteryCollider_->GetCollidedWith().empty()) {
 		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
 			if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
-				//フラッシュライトが点灯しているか
-				if (flashlight_->GetIsLighting()) {
 					isHitFlashlight_ = true;
 					break;
-				}
 			}
 		}
 	}

@@ -7,6 +7,7 @@
 #include "SceneTransition.h"
 
 class BaseScene;
+class BaseGameSystem;
 struct PersistentData;
 
 class SceneManager {
@@ -41,6 +42,10 @@ public:
         }
     }
 
+    bool IsTerminateSystem() const;
+
+   void SetGameSystem(BaseGameSystem* baseGameSystem) { gameSystem_ = baseGameSystem; }
+
     std::shared_ptr<PersistentData> GetPersistentData() const;
 
     // ゲッター
@@ -58,5 +63,6 @@ private:
     std::unique_ptr<BaseScene> currentScene_;
     std::unique_ptr<BaseScene> nextScene_;
     SceneTransition sceneTransition_;
+    BaseGameSystem* gameSystem_ = nullptr;
 
 };

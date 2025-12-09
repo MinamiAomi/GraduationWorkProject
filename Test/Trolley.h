@@ -91,23 +91,28 @@ private:
 #pragma region トロッコスピード関連
 	State trollyState_ = State::Normal;
 
+	//いつのろのろ進むか
+	float startFrame_;
+
 	//通常時の最高速度
-	float maxSpeed_ = 1.0f;
+	float maxSpeed_;
+	//最低スピード
+	float minSpeed_;
 	//バースト時の最高速度
-	float burstSpeed_ = 0.3f;
+	float burstSpeed_;
 	//ニトロ時の最高速度
-	float nitroSpeed_ = 1.5f;
+	float nitroSpeed_;
 	// 光を当てた時の加速
-	float accelerationRate_ = 1.0f;
+	float accelerationRate_;
 	// 自然減速
-	float decelerationRate_ = 0.5f;
+	float decelerationRate_;
 
 	// 通常時のMAX
-	float maxNormalCharge_ = 100.0f;
+	float maxNormalCharge_;
 	// ニトロ発動判定ライン
-	float nitroThreshold_ = 140.0f;
+	float nitroThreshold_;
 	// バースト発生ライン
-	float burstThreshold_ = 150.0f;
+	float burstThreshold_;
 
 	// ニトロ発動に必要な維持時間
 	float nitroChargeTime_ = 3.0f;

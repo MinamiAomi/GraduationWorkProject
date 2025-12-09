@@ -13,6 +13,7 @@ public:
     float metallic = 0.0f;
     float roughness = 0.5f;
     Vector3 emissive = { 0.0f, 0.0f, 0.0f };
+    float emissiveThreshold = 0.70f;
     float emissiveIntensity = 1.0f;
     std::shared_ptr<TextureResource> albedoMap;
     std::shared_ptr<TextureResource> metallicRoughnessMap;

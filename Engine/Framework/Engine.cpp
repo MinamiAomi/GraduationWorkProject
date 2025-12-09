@@ -66,7 +66,7 @@ void Engine::Run(Game* game) {
 
     g_game->OnInitialize();
 
-    while (g_gameWindow->ProcessMessage()) {
+    while (g_gameWindow->ProcessMessage() && !g_sceneManager->IsTerminateSystem()) {
         g_input->Update();
 
 #ifdef ENABLE_IMGUI
