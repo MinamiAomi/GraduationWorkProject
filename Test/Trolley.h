@@ -63,6 +63,9 @@ private:
 	void RecoverFromNitro();
 	void OnBurstState();
 	void RecoverFromBurst();
+
+	//どこくらいライトの真ん中か計算
+	float CalculateCenterRate();
 #ifdef _DEBUG
 	void DrawImGui();
 #endif // _DEBUG
@@ -80,12 +83,12 @@ private:
 	TrolleyUI trolleyUI_;
 
 #pragma region テールランプ
-	std::shared_ptr<SpotLight> teilLight_;
+	/*std::shared_ptr<SpotLight> teilLight_;
 	Transform teilLightTransform_;
 	float teilLightRange_;
 	float teilFovAngle_;
 	float teilIntensity;
-	Vector3 teilOffset_;
+	Vector3 teilOffset_;*/
 #pragma endregion
 
 #pragma region トロッコスピード関連
@@ -136,6 +139,8 @@ private:
 	float stateTimer_ = 0.0f;
 
 	bool isHitFlashlight_ = false;
+
+	float centerRate_ = 0.0f;
 #pragma endregion
 
 #pragma region Banking
@@ -159,6 +164,7 @@ private:
 
 #pragma region Shake
 	Quaternion shakeRotation_;
+	Vector3 shakeOffset_; 
 #pragma endregion
 
 
