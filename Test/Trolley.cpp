@@ -94,6 +94,9 @@ void Trolley::Initialize()
 	teilLight_->falloffStartAngle = 15.0f * Math::ToRadian;
 	teilLight_->decay = 1.0f;
 
+	shakeRotation_ = Quaternion::identity;
+	shakeOffset_ = Vector3::zero;
+
 	trolleyUI_.Initialize(transform_);
 }
 
@@ -106,7 +109,7 @@ void Trolley::Update(float deltaTime)
 
 	Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
 
-	transform_.translate = trolleyOffset_;
+	transform_.translate = trolleyOffset_ + shakeOffset_;
 	transform_.rotate = bankRotation * shakeRotation_;
 	transform_.UpdateMatrix();
 	teilLightTransform_.translate = teilOffset_;
@@ -211,24 +214,34 @@ void Trolley::UpdateState(float deltaTime)
 			currentSpeed_ = burstSpeed_;
 			stateTimer_ += deltaTime;
 
-			//シェイク
 			float timeRate = stateTimer_ / burstDuration_;
 			float decay = std::lerp(1.0f, 0.0f, std::clamp(timeRate, 0.0f, 1.0f));
 
-			float maxShakeAngle = 2.0f * Math::ToRadian;
-			float currentShake = maxShakeAngle * decay;
+
+			float shakeX = std::sin(stateTimer_ * 50.0f) * 1.0f * Math::ToRadian;
+			float shakeY = std::sin(stateTimer_ * 43.0f) * 0.2f * Math::ToRadian;
+			float shakeZ = std::sin(stateTimer_ * 60.0f) * 2.0f * Math::ToRadian;
 
 			Vector3 noiseEuler = {
-			rnd_.NextFloatRange(-1.0f, 1.0f) * currentShake,
-			rnd_.NextFloatRange(-1.0f, 1.0f) * currentShake,
-			rnd_.NextFloatRange(-1.0f, 1.0f) * currentShake
+				shakeX * decay,
+				shakeY * decay,
+				shakeZ * decay
 			};
 
 			shakeRotation_ = Quaternion::MakeFromEulerAngle(noiseEuler);
+
+			float posShakeAmount = 0.1f * decay;
+
+			shakeOffset_ = {
+				rnd_.NextFloatRange(-0.5f, 0.5f) * posShakeAmount, 
+				rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount, 
+				0.0f
+			};
+
 			// バースト復帰判定
 			if (stateTimer_ >= burstDuration_) {
 				RecoverFromBurst();
-				shakeRotation_ = Quaternion::identity;
+				
 			}
 		}
 		break;
@@ -313,6 +326,9 @@ void Trolley::RecoverFromBurst()
 	trollyState_ = State::Normal;
 	stateTimer_ = 0.0f;
 	nitroAccumulateTimer_ = 0.0f;
+
+	shakeRotation_ = Quaternion::identity;
+	shakeOffset_ = Vector3::zero;
 }
 
 void Trolley::OnBurstState()
@@ -454,7 +470,7 @@ void Trolley::DrawImGui() {
 
 		if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
 
-				ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
+			ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
 			if (ImGui::TreeNode("速度・加速度 (Speed & Accel)")) {
 				ImGui::DragFloat("通常時の最高速度", &maxSpeed_, 0.01f);
 				ImGui::DragFloat("通常時の最低速度", &minSpeed_, 0.01f);
@@ -510,8 +526,8 @@ void Trolley::UpdateCollision()
 	if (!batteryCollider_->GetCollidedWith().empty()) {
 		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
 			if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
-					isHitFlashlight_ = true;
-					break;
+				isHitFlashlight_ = true;
+				break;
 			}
 		}
 	}

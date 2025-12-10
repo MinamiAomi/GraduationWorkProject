@@ -159,6 +159,7 @@ private:
 
 #pragma region Shake
 	Quaternion shakeRotation_;
+	Vector3 shakeOffset_; 
 #pragma endregion
 
 
