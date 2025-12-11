@@ -68,7 +68,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	JSON_CLOSE();
 
 	sphericalAngleX_ = 0.0f;
-	sphericalAngleY_ = 0.0f;
+	sphericalAngleY_ = -5.0f * Math::ToRadian;
 
 	battery_ = maxBattery_;
 
