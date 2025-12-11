@@ -96,42 +96,47 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 	float maxFrame = float(railCameraAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
-	float targetFrame = 0.0f;
-	if (isPressLookingBack) {
-		targetFrame = currentFrame - futureFrame_;
-	}
-	else {
-		targetFrame = currentFrame + futureFrame_;
-	}
-
-	targetFrame = std::clamp(targetFrame, minFrame, maxFrame);
-
-	transform_.UpdateMatrix();
-
-	Vector3 futureCameraWorldPos;
-
-	Vector3 futureRailPos = railCameraAnimationPlayer_->EvaluateRailPosition(targetFrame);
-	Quaternion futureRailRot = railCameraAnimationPlayer_->EvaluateRailRotation(targetFrame);
-
-	Vector3 futureCameraLocalPos = railCameraAnimationPlayer_->EvaluateLocalCameraPosition(targetFrame);
-
-	futureCameraWorldPos = futureRailPos + (futureRailRot * futureCameraLocalPos);
-
 	transform_.UpdateMatrix();
 	Vector3 currentCameraWorldPos = transform_.worldMatrix.GetTranslate();
 
-	Vector3 offsetWorld = futureRailRot * pointOfGazeOffset_;
-	Vector3 targetPos = futureCameraWorldPos + offsetWorld;
+	Vector3 currentRailPos = railCameraAnimationPlayer_->EvaluateRailPosition(currentFrame);
 
-	Vector3 diff = targetPos - currentCameraWorldPos;
+	Vector3 targetPos;
+	Quaternion targetRailRot;
+
+	if (isPressLookingBack) {
+		float targetFrame = std::clamp(currentFrame - futureFrame_, minFrame, maxFrame);
+
+		Vector3 railPos = railCameraAnimationPlayer_->EvaluateRailPosition(targetFrame);
+		targetRailRot = railCameraAnimationPlayer_->EvaluateRailRotation(targetFrame);
+
+		targetPos = railPos + (targetRailRot * pointOfGazeOffset_);
+	}
+	else {
+		float targetFrame = std::clamp(currentFrame + futureFrame_, minFrame, maxFrame);
+
+		Vector3 railPos = railCameraAnimationPlayer_->EvaluateRailPosition(targetFrame);
+		targetRailRot = railCameraAnimationPlayer_->EvaluateRailRotation(targetFrame);
+
+		Vector3 cameraLocalPos = railCameraAnimationPlayer_->EvaluateLocalCameraPosition(targetFrame);
+		Vector3 futureCameraWorldPos = railPos + (targetRailRot * cameraLocalPos);
+
+		targetPos = futureCameraWorldPos + (targetRailRot * pointOfGazeOffset_);
+	}
+
+	Vector3 diff;
+
+	if (isPressLookingBack) {
+		diff = targetPos - currentRailPos;
+	}
+	else {
+		diff = targetPos - currentCameraWorldPos;
+	}
+
 
 	if (diff.LengthSquare() <= 1e-05f) {
-		Vector3 railForward = futureRailRot * Vector3(0, 0, 1);
-		diff = railForward;
-
-		if (isPressLookingBack) {
-			diff = -diff;
-		}
+		Vector3 railForward = targetRailRot * Vector3(0, 0, 1);
+		diff = isPressLookingBack ? -railForward : railForward;
 	}
 
 	if (diff.LengthSquare() > 1e-05f) {
