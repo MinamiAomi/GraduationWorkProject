@@ -67,6 +67,7 @@ void GameScene::OnInitialize() {
 	railCameraSystem_->Initialize();
 #pragma endregion
 
+
 #pragma region SceneObjectSystem
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
 
@@ -236,7 +237,7 @@ void GameScene::OnUpdate() {
 
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
-		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
 		trolley_->Initialize();
 		railCameraSystem_->Initialize();
 		deadline_->Initialize();
