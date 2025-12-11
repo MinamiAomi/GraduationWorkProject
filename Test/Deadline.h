@@ -16,6 +16,7 @@ public:
 	void SetAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
 	const RailSystem::RailAnimationPlayer* GetAnimationPlayer() const  {return railAnimationPlayer_; }
 	float GetCurrenFrame() const { return currentFrame_; }
+	float GetStartFrame() const { return startFrame_; }
 
 	bool IsGameOver() { return isGameOver_; }
 private:

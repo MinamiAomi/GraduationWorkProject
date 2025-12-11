@@ -19,7 +19,9 @@ ConstantBuffer<Instance> g_Instance : register(b1);
 struct Material {
     float3 albedo;
     float metallic;
+    float3 emissive;
     float roughness;
+    float emissiveThreshold;
     uint albedoMapIndex;
     uint metallicRoughnessMapIndex;
     uint normalMapIndex;

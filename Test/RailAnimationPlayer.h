@@ -39,6 +39,7 @@ namespace RailSystem {
 		void SetCurrentFrame(float frame);
 		float GetCurrentFrame() const;
 
+		// 全部ワールドです
 		// レールの指定されてフレームの座標
 		Vector3 EvaluateRailPosition(float frame) const;
 		// レールの指定したフレームにおける回転
@@ -47,11 +48,18 @@ namespace RailSystem {
 		Transform EvaluateRailTransform(float frame) const;
 
 		// カメラの指定されてフレームの座標
-		Vector3 EvaluateCameraPosition(float frame) const;
+		Vector3 EvaluateLocalCameraPosition(float frame) const;
 		// カメラの指定したフレームにおける回転
-		Quaternion EvaluateCameraRotation(float frame) const;
+		Quaternion EvaluateLocalCameraRotation(float frame) const;
 		// カメラの指定したフレームにおけるTransform
-		Transform EvaluateCameraTransform(float frame) const;
+		Transform EvaluateLocalCameraTransform(float frame) const;
+
+		// カメラの指定されてフレームの座標
+		Vector3 EvaluateWorldCameraPosition(float frame) const;
+		// カメラの指定したフレームにおける回転
+		Quaternion EvaluateWorldCameraRotation(float frame) const;
+		// カメラの指定したフレームにおけるTransform
+		Transform EvaluateWorldCameraTransform(float frame) const;
 	private:
 
 		void CalculateCurrentTransform();

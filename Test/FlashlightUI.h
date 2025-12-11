@@ -19,6 +19,8 @@ private:
 	ModelInstance model_;
 	Transform transform_;
 
+	Sprite baseUI_;
+	Sprite frameUI_;
 	Sprite batteryUI_;
 
 };

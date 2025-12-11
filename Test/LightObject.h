@@ -12,16 +12,20 @@ static const float deadDecayParam = 10.0f;
 
 class LightObject {
 public:
-	void Initialize(const Transform* parentTransform, const Vector3& offset = {0.0f,0.0f,0.0f},bool isBreath = true);
+	void Initialize(const Transform* parentTransform, const Vector3& offset = { 0.0f,0.0f,0.0f }, bool isBreath = true);
 	void Update();
 #ifdef _DEBUG
 	void Debug(const std::string& label);
 #endif // _DEBUG
 	void SetHp(float hp) {
-		hp_ = hp;
+		healthStatus_.hp = hp;
 	}
-	float GetHp() {
-		return hp_;
+	float GetHp() { return healthStatus_.hp;}
+
+	//何秒かけて死ぬか
+	void SetDamageDuration(float maxHpFrame) {
+		healthStatus_.isTakingDamage = true;
+		healthStatus_.damageDuration= maxHpFrame;
 	}
 	void SetOffset(const Vector3& offset) { offset_ = offset; }
 	void SetLightSetting(const PointLight& pointLightSetting) {
@@ -43,9 +47,22 @@ private:
 	bool firstDecaySet_ = false;
 	float saveDecay_ = 1.0f;
 
-	float hp_ = 1.0f;
 	bool isBreath_ = false;
 	uint32_t frame_ = 0;
+
+#pragma region HP関係
+	struct HealthStatus {
+		bool isTakingDamage = false;
+		float damageTimer = 0.0f;
+		float damageDuration = 0.0f;
+		//旧HP
+		float hp = 1.0f;
+
+		void Update();
+	}healthStatus_;
+
+#pragma endregion
+
 
 #ifdef _DEBUG
 	bool isDebug_ = true;
