@@ -22,7 +22,7 @@ public:
 	//セッター
 	void SetTransform(const Transform& t)
 	{
-		Vector3 forward = t.worldMatrix.GetForward();
+		Vector3 forward = t.worldMatrix.GetForward().Normalize();
 
 		eulerAngle_.y = std::atan2(forward.x, forward.z);
 		eulerAngle_.x = std::asin(-forward.y);

@@ -57,12 +57,18 @@ namespace RailSystem {
 	/// <summary>
 	/// Jsonファイル全体を保存する
 	/// </summary>
+	
+	struct  NodeAnimation {
+		std::vector<PositionKeyframe> positionKeys;
+		std::vector<RotationKeyframe> rotationKeys;
+	};
 	class RailAnimation {
 	public:
-		RailMetaData railCameraMetaData_;
-
+		RailMetaData railMetaData_;
 		std::vector<ScalarKeyframe> evalTimeKeys_;
-		std::vector<PositionKeyframe> positionKeys_;
-		std::vector<RotationKeyframe> rotationKeys_;
+		NodeAnimation railAnimation_;
+		NodeAnimation cameraAnimation_;
 	};
+
+
 }

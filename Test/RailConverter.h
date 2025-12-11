@@ -27,6 +27,18 @@ namespace RailSystem {
 			return result * qFix;
 		}
 
+
+		static Quaternion ConvertCameraToLeftHand(const Quaternion& blenderTransform) {
+			Quaternion result;
+
+			result.w = blenderTransform.w;
+			result.x = -blenderTransform.x;
+			result.y = -blenderTransform.y;
+			result.z = blenderTransform.z;
+
+			return result;
+		}
+
 		static Vector3 ConvertToLeftHand(const Vector3& blenderTransform) {
 			Vector3 result;
 
