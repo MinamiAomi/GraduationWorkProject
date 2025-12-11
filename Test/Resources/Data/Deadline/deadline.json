@@ -1,6 +1,6 @@
 {
-    "approachRate_": 1.0,
-    "maxSpeed_": 50.0,
+    "approachRate_": 3.0,
+    "maxSpeed_": 30.0,
     "minSpeed_": 3.0,
     "startFrame_": 120.0
 }

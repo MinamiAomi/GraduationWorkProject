@@ -45,7 +45,6 @@ private:
 
 	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
-	Transform lightTransform_;
 	FlashlightUI flashlightUI_;
 
 	//ライト自信のTransform
