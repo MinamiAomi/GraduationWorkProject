@@ -15,7 +15,7 @@ enum EmitShape {
 	kBox
 };
 
-class ModelEmitter
+class PowerEmitter
 {
 public:
 	void Initialize(EmitShape shape);
@@ -33,15 +33,15 @@ public:
 	void SetParent(Transform* parent) { transform_.SetParent(parent); }
 public:
 	std::shared_ptr<Material> material_;
-	float minSpeed_ = 0.05f;
-	float maxSpeed_ = 0.1f;
+	float minSpeed_ = 0.003f;
+	float maxSpeed_ = 0.002f;
 	Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };
 	Vector3 maxAngularVelocity_ = { 0.05f,  0.05f,  0.05f };
 	float minScaleDecay_ = 0.01f;
 	float maxScaleDecay_ = 0.03f;
 	uint32_t emitInterval_ = 1;
-	float minScale_ = 1.0f;
-	float maxScale_ = 1.0f;
+	float minScale_ = 0.5f;
+	float maxScale_ = 0.5f;
 private:
 	void Emit();
 private:
