@@ -33,6 +33,17 @@
     "DUCI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
     "DUCI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
     "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
+    
+    "TrolleyBase" : "Trolley/TrolleyUI/Texture/base.png",
+    "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",
+    "TrolleyOverChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_purple.png",
+    "TrolleyNitroBurst" : "Trolley/TrolleyUI/Texture/gauge1_yellow.png",
+    "TrolleyNitroGauge" : "Trolley/TrolleyUI/Texture/gauge2_yellow.png",
+    
+    "FlashlightBase" : "Flashlight/FlashlightUI/Texture/baseTest.png",
+    "FlashlightFrame" : "Flashlight/FlashlightUI/Texture/frame.png",
+    "FlashlightGauge" : "Flashlight/FlashlightUI/Texture/gauge_yellow.png",
+
     "white2x2":"white2x2.png"
   }
 }
