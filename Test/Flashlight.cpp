@@ -50,6 +50,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	lightTransform_.UpdateMatrix();
 
 	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
+	lightModel_.SetIsActive(false);
 
 	JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
 	JSON_OBJECT("light");
