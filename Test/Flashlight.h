@@ -31,6 +31,7 @@ private:
 	void UpdateCollision();
 	void UpdateLightPower();
 	void SpotLightDebugDraw() const;
+	void Move();
 	void DebugMove();
 #ifdef _DEBUG
 	void DrawImGui();
