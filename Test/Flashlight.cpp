@@ -80,7 +80,6 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
 void Flashlight::Update()
 {
-
 #ifdef _DEBUG
 	DebugMove();
 #endif // _DEBUG
