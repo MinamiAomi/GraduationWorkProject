@@ -13,6 +13,10 @@ void TitleScene::OnInitialize() {
 	}
 	input_ = Input::GetInstance();
 
+    camera_ = std::make_shared<Camera>();
+    camera_->SetPosition({ 0.0f, 5.0f, -20.0f });
+    RenderManager::GetInstance()->SetCamera(camera_);
+
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
 
 	camera_ = std::make_shared<Camera>();
@@ -33,21 +37,22 @@ void TitleScene::OnInitialize() {
 		std::string name = "stonePositions" + std::to_string(i);
 		JSON_LOAD_BY_NAME(name,stonePositions_[i]);
 	}
-	stoneModels_[0]->SetModel(assetManager->modelMap.Get("O")->Get());
-	stoneModels_[1]->SetModel(assetManager->modelMap.Get("r")->Get());
-	stoneModels_[2]->SetModel(assetManager->modelMap.Get("e")->Get());
-	stoneModels_[3]->SetModel(assetManager->modelMap.Get("n")->Get());
-	stoneModels_[4]->SetModel(assetManager->modelMap.Get("o")->Get());
-	stoneModels_[5]->SetModel(assetManager->modelMap.Get("T")->Get());
-	stoneModels_[6]->SetModel(assetManager->modelMap.Get("o")->Get());
-	stoneModels_[7]->SetModel(assetManager->modelMap.Get("u")->Get());
-	stoneModels_[8]->SetModel(assetManager->modelMap.Get("s")->Get());
-	stoneModels_[9]->SetModel(assetManager->modelMap.Get("o")->Get());
-	stoneModels_[10]->SetModel(assetManager->modelMap.Get("u")->Get());
-	stoneModels_[11]->SetModel(assetManager->modelMap.Get("G")->Get());
-	stoneModels_[12]->SetModel(assetManager->modelMap.Get("e")->Get());
-	stoneModels_[13]->SetModel(assetManager->modelMap.Get("k")->Get());
-	stoneModels_[14]->SetModel(assetManager->modelMap.Get("i")->Get());
+	assetManager;
+	//stoneModels_[0]->SetModel(assetManager->modelMap.Get("O")->Get());
+	//stoneModels_[1]->SetModel(assetManager->modelMap.Get("r")->Get());
+	//stoneModels_[2]->SetModel(assetManager->modelMap.Get("e")->Get());
+	//stoneModels_[3]->SetModel(assetManager->modelMap.Get("n")->Get());
+	//stoneModels_[4]->SetModel(assetManager->modelMap.Get("o")->Get());
+	//stoneModels_[5]->SetModel(assetManager->modelMap.Get("T")->Get());
+	//stoneModels_[6]->SetModel(assetManager->modelMap.Get("o")->Get());
+	//stoneModels_[7]->SetModel(assetManager->modelMap.Get("u")->Get());
+	//stoneModels_[8]->SetModel(assetManager->modelMap.Get("s")->Get());
+	//stoneModels_[9]->SetModel(assetManager->modelMap.Get("o")->Get());
+	//stoneModels_[10]->SetModel(assetManager->modelMap.Get("u")->Get());
+	//stoneModels_[11]->SetModel(assetManager->modelMap.Get("G")->Get());
+	//stoneModels_[12]->SetModel(assetManager->modelMap.Get("e")->Get());
+	//stoneModels_[13]->SetModel(assetManager->modelMap.Get("k")->Get());
+	//stoneModels_[14]->SetModel(assetManager->modelMap.Get("i")->Get());
 
 	JSON_CLOSE();
 
@@ -56,6 +61,9 @@ void TitleScene::OnInitialize() {
 	modelEmitter_->SetColor({ 1.0f,0.0f,0.0f });
 	testPos_ = Vector3::zero;
 	testQuatenion_ = Quaternion::identity;
+
+    deviceOptionsUI_ = std::make_unique<DeviceOptionsUI>();
+    deviceOptionsUI_->Initialize();
 }
 
 void TitleScene::OnUpdate() {
@@ -94,15 +102,18 @@ void TitleScene::OnUpdate() {
 	}
 
 #endif // _DEBUG
-	if (input_->IsKeyTrigger(DIK_SPACE)) {
-		SceneManager::GetInstance()->ChangeScene<StageSelectScene>();
-	}
 
 	modelEmitter_->Update();
 	modelEmitter_->SetOffset(testPos_);
 	modelEmitter_->SetQuaternion(testQuatenion_);
 	modelEmitter_->DebugDraw();
 
+
+    deviceOptionsUI_->Update();
+
+	//if (input_->IsKeyTrigger(DIK_SPACE)) {
+	//	SceneManager::GetInstance()->ChangeScene<StageSelectScene>();
+	//}
 }
 
 void TitleScene::OnFinalize() {

@@ -13,7 +13,7 @@ void GameClearScene::OnInitialize() {
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/GameClear.png");
 
 	sprite_.SetTexture(texture);
-	sprite_.SetTexcoordRect({ 0.0f, 0.0f }, { 1280.0f, 720.0f });
+	sprite_.SetUVRect({ { 0.0f, 0.0f }, { 1280.0f, 720.0f } });
 	sprite_.SetPosition({ 1280.0f / 2.0f, 720.0f / 2.0f });
 	sprite_.SetScale({ 1280.0f, 720.0f });
 

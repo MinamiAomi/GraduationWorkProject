@@ -41,12 +41,7 @@ namespace SceneObjectSystem {
 	template<typename T>
 	inline void SceneObjectManager::InitializeCommonObject(T& targetObj, const SceneObjectSystem::SceneObjectData& sourceData)
 	{
-		const auto& assetManager = AssetManager::GetInstance();
-
-		if (auto modelHandle = assetManager->modelMap.Get(sourceData.modelName)) {
-			targetObj->model.SetModel(modelHandle->Get());
-		}
-
+		
 		targetObj->transform = sourceData.transform;
 		targetObj->transform.UpdateMatrix();
 

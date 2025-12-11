@@ -36,11 +36,8 @@ void Engine::Run(Game* game) {
     g_game = game;
 
     g_threadPool = std::make_unique<ThreadPool>();
-
-    g_gameWindow = GameWindow::GetInstance();
     const wchar_t kWindowTitle[] = L"ミナミアオミ";
-    const uint32_t kWindowWidth = 1280;
-    const uint32_t kWindowHeight = 720;
+    g_gameWindow = GameWindow::GetInstance();
     g_gameWindow->Initialize(kWindowTitle, kWindowWidth, kWindowHeight);
 
     g_graphics = Graphics::GetInstance();
@@ -66,7 +63,7 @@ void Engine::Run(Game* game) {
 
     g_game->OnInitialize();
 
-    while (g_gameWindow->ProcessMessage()) {
+    while (g_gameWindow->ProcessMessage() && !g_sceneManager->IsTerminateSystem()) {
         g_input->Update();
 
 #ifdef ENABLE_IMGUI

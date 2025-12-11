@@ -7,6 +7,7 @@
 #include "Math/Camera.h"
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
+#include "DeviceOptionsUI.h"
 #include "ModelEmitter.h"
 
 
@@ -39,4 +40,5 @@ private:
 	std::unique_ptr<ModelEmitter> modelEmitter_;
 	Vector3 testPos_;
 	Quaternion testQuatenion_;
+    std::unique_ptr<DeviceOptionsUI> deviceOptionsUI_;
 };

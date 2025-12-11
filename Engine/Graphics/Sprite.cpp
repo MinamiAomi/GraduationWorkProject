@@ -35,8 +35,8 @@ void Sprite::DrawImGui(const std::string& name) {
 
 		ImGui::TextDisabled("Texture & UV");
 		if (ImGui::TreeNode("UV Rect Settings")) {
-			ImGui::DragFloat2("Base", &texcoordBase_.x, 0.01f);
-			ImGui::DragFloat2("Size", &texcoordSize_.x, 0.01f);
+			ImGui::DragFloat2("Base", &uvRect_.base.x, 0.01f);
+			ImGui::DragFloat2("Size", &uvRect_.size.x, 0.01f);
 			ImGui::TreePop();
 		}
 
@@ -44,7 +44,7 @@ void Sprite::DrawImGui(const std::string& name) {
 
 		ImGui::TextDisabled("Rendering");
 
-		ImGui::ColorEdit4("Color", &color_.x);
+		ImGui::ColorEdit4("Color", color_.GetAddress());
 
 		int order = static_cast<int>(drawOrder_);
 		if (ImGui::DragInt("Draw Order", &order)) {

@@ -10,6 +10,11 @@
 
 #include "FlashlightUI.h"
 #include "Collider.h"
+#include "Math/Random.h"
+
+namespace RailSystem {
+	class RailAnimationPlayer;
+}
 
 class Flashlight {
 public:
@@ -17,10 +22,11 @@ public:
 	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
 	void Update();
 
-	std::shared_ptr<ConeCollider> GetCollider() { return collider_; }
+	const std::shared_ptr<ConeCollider> GetCollider() const { return collider_; }
 	float GetBattery() const { return battery_; }
 	float GetMaxBattery() const { return maxBattery_; }
 	bool GetIsLighting() const { return isLighting_; }
+	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
@@ -30,9 +36,11 @@ private:
 	void DrawImGui();
 #endif // _DEBUG
 
-
+	Random::RandomNumberGenerator rnd_;
 	const Transform* parentTransform_ = nullptr;
 	const Camera* parentCamera_ = nullptr;
+
+	const RailSystem::RailAnimationPlayer* railAnimationPlayer_;
 
 	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
@@ -63,10 +71,13 @@ private:
 	float subBattery_;
 	//照らしているか
 	bool isLighting_;
-#pragma endregion
+	//何フレーム目まで減らないか
+	float startFrame_;
 
+	float blinkTimer_ = 0.0f;
+#pragma endregion
 	std::shared_ptr<ConeCollider> collider_;
 #ifdef _DEBUG
-	bool isDebug_ = true;
+	bool isDebug_ = false;
 #endif // _DEBUG
 };

@@ -1,9 +1,10 @@
 {
     "battery": {
-        "addBattery_": 10.0,
-        "isLighting_": true,
+        "addBattery_": 15.0,
+        "isLighting_": false,
         "maxBattery_": 100.0,
-        "subBattery_": 0.1
+        "startFrame_": 120.0,
+        "subBattery_": 0.05000000074505806
     },
     "light": {
         "distanceFromCamera_": 0.0,
