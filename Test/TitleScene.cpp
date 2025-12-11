@@ -15,7 +15,8 @@ void TitleScene::OnInitialize() {
 
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
 
-	
+	camera_ = std::make_shared<Camera>();
+
 	
 	auto assetManager = AssetManager::GetInstance();
 	
@@ -49,10 +50,19 @@ void TitleScene::OnInitialize() {
 	stoneModels_[14]->SetModel(assetManager->modelMap.Get("i")->Get());
 
 	JSON_CLOSE();
+
+	modelEmitter_ = std::make_unique<ModelEmitter>();
+	modelEmitter_->Initialize(EmitShape::kBox);
+	modelEmitter_->SetColor({ 1.0f,0.0f,0.0f });
+	testPos_ = Vector3::zero;
+	testQuatenion_ = Quaternion::identity;
 }
 
 void TitleScene::OnUpdate() {
+	RenderManager::GetInstance()->SetCamera(camera_);
 #ifdef _DEBUG
+	ImGui::DragFloat3("pos", &testPos_.x, 0.1f);
+	ImGui::DragFloat4("quatenion", &testQuatenion_.x, 0.1f);
 	ImGui::Begin("TitleScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("Title")) {
 		if (ImGui::TreeNode("Stone")) {
@@ -87,6 +97,12 @@ void TitleScene::OnUpdate() {
 	if (input_->IsKeyTrigger(DIK_SPACE)) {
 		SceneManager::GetInstance()->ChangeScene<StageSelectScene>();
 	}
+
+	modelEmitter_->Update();
+	modelEmitter_->SetOffset(testPos_);
+	modelEmitter_->SetQuaternion(testQuatenion_);
+	modelEmitter_->DebugDraw();
+
 }
 
 void TitleScene::OnFinalize() {

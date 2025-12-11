@@ -7,6 +7,7 @@
 #include "Math/Camera.h"
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
+#include "ModelEmitter.h"
 
 
 class TitleScene :
@@ -34,4 +35,8 @@ private:
 	std::unique_ptr<ModelInstance> stoneModels_[stoneNum];
 	std::unique_ptr<Transform> stoneTransforms_[stoneNum];
 	Vector3 stonePositions_[stoneNum];
+
+	std::unique_ptr<ModelEmitter> modelEmitter_;
+	Vector3 testPos_;
+	Quaternion testQuatenion_;
 };

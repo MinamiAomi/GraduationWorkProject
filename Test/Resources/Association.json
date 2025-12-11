@@ -22,7 +22,7 @@
     "k":"Ore_no_Tousougeki/k.gltf",
     "i":"Ore_no_Tousougeki/i.gltf",
     "Crystal": "LightObject/Crystal.gltf",
-    "RANTAN": "StaticMesh/RANTAN.gltf"
+    "Box": "Box.gltf"
   },
   "Texture":{
     "white2x2":"white2x2.png"
