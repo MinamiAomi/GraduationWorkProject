@@ -3,6 +3,8 @@
 class LightDeviceInput {
 public:
 
+
 private:
+    bool connected_;
 
 };

@@ -30,7 +30,7 @@ void Test::OnInitialize() {
 
 
 #ifdef _DEBUG
-    sceneManager->ChangeScene<TitleScene>(false);
+    sceneManager->ChangeScene<GameScene>(false);
 #else
     sceneManager->ChangeScene<TitleScene>(true);
 #endif 
