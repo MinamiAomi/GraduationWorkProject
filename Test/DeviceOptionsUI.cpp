@@ -3,6 +3,9 @@
 #include <string>
 #include "Framework/AssetManager.h"
 #include "Input/Input.h"
+#include "Scene/SceneManager.h"
+#include "GameSystem.h"
+#include "GameScene.h"
 
 enum GUI {
     GUI_GameStart = 0,
@@ -43,7 +46,7 @@ const GUIContact guiContact[GUI_Count] = {
     { "DCUI_Quit", { 640, 1000 }, { 117, 53 } },
     { "DCUI_Triangle", { 427, 800 }, { 64, 64 } },
     { "DCUI_Triangle", { 305, 900 }, { 64, 64 } },
-    { "DCUI_Triangle", { 531, 100 }, { 64, 64 } },
+    { "DCUI_Triangle", { 531, 1000 }, { 64, 64 } },
     { "DCUI_ConnectionSettings", { 640, 200 }, { 569, 63 } },
     { "DCUI_FindLightDevice", { 640, 800 }, { 488, 62 } },
     { "DCUI_MouseKeyboard", { 640, 900 }, { 537, 63 } },
@@ -51,8 +54,8 @@ const GUIContact guiContact[GUI_Count] = {
     { "DCUI_Triangle", { 346, 800 }, { 64, 64 } },
     { "DCUI_Triangle", { 321, 900 }, { 64, 64 } },
     { "DCUI_Triangle", { 520, 1000 }, { 64, 64 } },
-    { "DCUI_FoundLightDevice", { 540, 800 }, { 545, 62 } },
-    { "DCUI_NotFoundLightDevice", { 540, 800 }, { 545, 62 } },
+    { "DCUI_FoundLightDevice", { 640, 800 }, { 545, 62 } },
+    { "DCUI_NotFoundLightDevice", { 640, 800 }, { 664, 62 } },
     { "DCUI_Circle", {}, { 64, 64 }, { 1.0f, 1.0f, 1.0f, 1.0f } },
     { "DCUI_Circle", {}, { 64, 64 }, { 1.0f, 1.0f, 1.0f, 0.75f }},
     { "DCUI_Circle", {}, { 64, 64 }, { 1.0f, 1.0f, 1.0f, 0.5f }},
@@ -67,16 +70,39 @@ void DeviceOptionsUI::Initialize() {
     auto assetManager = AssetManager::GetInstance();
 
     for (uint32_t i = 0; i < GUI_Count; ++i) {
-        auto& sprite = sprites_[i] = std::make_unique<Sprite>();
+        sprites_[i] = std::make_unique<Sprite>();
+        auto sprite = sprites_[i].get();
         sprite->SetTexture(assetManager->textureMap.Get(guiContact[i].texture)->Get());
-        sprite->SetPosition(guiContact[i].position);
+        sprite->SetIsActive(false);
+        sprite->SetPosition({ guiContact[i].position.x, 720.0f - guiContact[i].position.y * (720.0f / 1080.0f) });
         sprite->SetScale(guiContact[i].size);
+        sprite->SetUVRect({ {} , Vector2::one }, Sprite::UVMode::UV);
         sprite->SetColor(guiContact[i].color);
     }
+    needsStateInitialization_ = true;
+    state_ = State::MainMenu;
 }
 
 void DeviceOptionsUI::Update() {
 
+    // 状態初期化
+    if (needsStateInitialization_) {
+        switch (state_)
+        {
+        case State::MainMenu:
+            SetupMainMenu();
+            break;
+        case State::ConnectionSettings:
+            SetupConnectionSettings();
+            break;
+        case State::FindLightDevice:
+            SetupFindLightDevice();
+            break;
+        default:
+            break;
+        }
+        needsStateInitialization_ = false;
+    }
 
     switch (state_)
     {
@@ -99,12 +125,11 @@ void DeviceOptionsUI::SetupMainMenu() {
         sprite->SetIsActive(false);
     }
 
-    state_ = State::MainMenu;
     sprites_[GUI_GameStart]->SetIsActive(true);
     sprites_[GUI_ConnectionSettings]->SetIsActive(true);
     sprites_[GUI_Quit]->SetIsActive(true);
     optionCursor_ = 0;
-
+    selectionTimer_ = kSelectionDelay;
 }
 
 void DeviceOptionsUI::UpdateMainMenu() {
@@ -114,11 +139,18 @@ void DeviceOptionsUI::UpdateMainMenu() {
     sprites_[GUI_OptionCursor_Triangle1]->SetIsActive(false);
     sprites_[GUI_OptionCursor_Triangle2]->SetIsActive(false);
 
-    if (input->IsKeyTrigger(DIK_DOWN)) {
-        optionCursor_ = (optionCursor_ + 1) % 3;
+    if (selectionTimer_ <= 0) {
+        if (input->IsKeyPressed(DIK_DOWN)) {
+            optionCursor_ = (optionCursor_ + 1) % 3;
+            selectionTimer_ = kSelectionDelay;
+        }
+        if (input->IsKeyPressed(DIK_UP)) {
+            optionCursor_ = (optionCursor_ - 1 + 3) % 3;
+            selectionTimer_ = kSelectionDelay;
+        }
     }
-    if (input->IsKeyTrigger(DIK_UP)) {
-        optionCursor_ = (optionCursor_ - 1 + 3) % 3;
+    else {
+        selectionTimer_--;
     }
 
     switch (optionCursor_)
@@ -126,21 +158,25 @@ void DeviceOptionsUI::UpdateMainMenu() {
     case 0: {
         sprites_[GUI_OptionCursor_Triangle0]->SetIsActive(true);
         if (input->IsKeyTrigger(DIK_SPACE)) {
-
+            // ゲームスタート
+            SceneManager::GetInstance()->ChangeScene<GameScene>(true);
         }
         break;
     }
     case 1: {
         sprites_[GUI_OptionCursor_Triangle1]->SetIsActive(true);
         if (input->IsKeyTrigger(DIK_SPACE)) {
-
+            // セッティングに移行
+            state_ = State::ConnectionSettings;
+            needsStateInitialization_ = true;
         }
         break;
     }
     case 2: {
         sprites_[GUI_OptionCursor_Triangle2]->SetIsActive(true);
         if (input->IsKeyTrigger(DIK_SPACE)) {
-
+            // 終了
+            GameSystem::GetInstance()->Quit();
         }
         break;
     }
@@ -154,17 +190,69 @@ void DeviceOptionsUI::SetupConnectionSettings() {
         sprite->SetIsActive(false);
     }
 
-    state_ = State::ConnectionSettings;
     sprites_[GUI_ConnectionSettingsTitle]->SetIsActive(true);
     sprites_[GUI_FindLightDevice]->SetIsActive(true);
     sprites_[GUI_MouseKeyboard]->SetIsActive(true);
     sprites_[GUI_Back]->SetIsActive(true);
     sprites_[GUI_ConnectionSettingsCursor_Triangle0]->SetIsActive(true);
-    connectionSettingsCursor_ = 0;
+    optionCursor_ = 0;
+    selectionTimer_ = kSelectionDelay;
 }
 
 void DeviceOptionsUI::UpdateConnectionSettings() {
+    Input* input = Input::GetInstance();
 
+    sprites_[GUI_ConnectionSettingsCursor_Triangle0]->SetIsActive(false);
+    sprites_[GUI_ConnectionSettingsCursor_Triangle1]->SetIsActive(false);
+    sprites_[GUI_ConnectionSettingsCursor_Triangle2]->SetIsActive(false);
+
+    if (selectionTimer_ <= 0) {
+        if (input->IsKeyPressed(DIK_DOWN)) {
+            optionCursor_ = (optionCursor_ + 1) % 3;
+            selectionTimer_ = kSelectionDelay;
+        }
+        if (input->IsKeyPressed(DIK_UP)) {
+            optionCursor_ = (optionCursor_ - 1 + 3) % 3;
+            selectionTimer_ = kSelectionDelay;
+        }
+    }
+    else {
+        selectionTimer_--;
+    }
+
+    switch (optionCursor_)
+    {
+    case 0: {
+        sprites_[GUI_ConnectionSettingsCursor_Triangle0]->SetIsActive(true);
+        if (input->IsKeyTrigger(DIK_SPACE)) {
+            // FindLightDeviceへ移行
+            state_ = State::FindLightDevice;
+            needsStateInitialization_ = true;
+            GameSystem::GetInstance()->SetPlayDevice(GameSystem::PlayDevice::LightDevice);
+        }
+        break;
+    }
+    case 1: {
+        sprites_[GUI_ConnectionSettingsCursor_Triangle1]->SetIsActive(true);
+        if (input->IsKeyTrigger(DIK_SPACE)) {
+            // 特に処理がないので戻る
+            state_ = State::MainMenu;
+            needsStateInitialization_ = true;
+        }
+        break;
+    }
+    case 2: {
+        sprites_[GUI_ConnectionSettingsCursor_Triangle2]->SetIsActive(true);
+        if (input->IsKeyTrigger(DIK_SPACE)) {
+            // 戻る
+            state_ = State::MainMenu;
+            needsStateInitialization_ = true;
+        }
+        break;
+    }
+    default:
+        break;
+    }
 }
 
 void DeviceOptionsUI::SetupFindLightDevice() {
@@ -172,11 +260,25 @@ void DeviceOptionsUI::SetupFindLightDevice() {
         sprite->SetIsActive(false);
     }
 
-    state_ = State::FindLightDevice;
-    sprites_[GUI_FoundLightDevice]->SetIsActive(true);
+    sprites_[GUI_FindLightDevice]->SetIsActive(true);
+    sprites_[GUI_FoundLightDevice]->SetIsActive(false);
     sprites_[GUI_NotFoundLightDevice]->SetIsActive(false);
+    optionCursor_ = 0;
+    selectionTimer_ = kSelectionDelay;
 }
 
 void DeviceOptionsUI::UpdateFindLightDevice() {
 
+    animationTimer_ = (animationTimer_ + 1) % kAnimationCircle;
+
+    float angle = Math::TwoPi / 6.0f;
+    int32_t animationShift = animationTimer_ / (kAnimationCircle / 6);
+    for (int i = GUI_Circle0; i <= GUI_Circle5; ++i) {
+        sprites_[i]->SetIsActive(true);
+        int32_t offset = (i - GUI_Circle0 + animationShift) % 6;
+        sprites_[i]->SetPosition({ 640.0f + 100.0f * std::cos(angle * offset),
+                             360.0f + 100.0f * std::sin(angle * offset) });
+    }
+
+    
 }

@@ -29,10 +29,10 @@
     "DCUI_ConnectionSettings" : "TestResource/ConnectionSettings.png",
     "DCUI_GameStart" : "TestResource/GameStart.png",
     "DCUI_Quit" : "TestResource/Quit.png",
-    "DUCI_FindLightDevice" : "TestResource/FindLightDevice.png",
-    "DUCI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
-    "DUCI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
-    "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
+    "DCUI_FindLightDevice" : "TestResource/FindLightDevice.png",
+    "DCUI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
+    "DCUI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
+    "DCUI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
     "white2x2":"white2x2.png"
   }
 }

@@ -64,6 +64,9 @@
     <Filter Include="Game\Deadline">
       <UniqueIdentifier>{bf185b34-956c-498f-a258-3853b8ebc304}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Device">
+      <UniqueIdentifier>{4085a3e1-be42-41ee-bd02-c7af7a5de181}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -133,9 +136,14 @@
     <ClCompile Include="DeadlineUI.cpp">
       <Filter>Game\Deadline</Filter>
     </ClCompile>
-    <ClCompile Include="DeviceOptionsUI.cpp" />
     <ClCompile Include="GameSystem.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceOptionsUI.cpp">
+      <Filter>Game\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="LightDeviceInput.cpp">
+      <Filter>Game\Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +232,14 @@
     <ClInclude Include="DeadlineUI.h">
       <Filter>Game\Deadline</Filter>
     </ClInclude>
-    <ClInclude Include="DeviceOptionsUI.h" />
     <ClInclude Include="GameSystem.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceOptionsUI.h">
+      <Filter>Game\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDeviceInput.h">
+      <Filter>Game\Device</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
