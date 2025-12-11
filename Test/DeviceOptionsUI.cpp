@@ -6,6 +6,8 @@
 #include "Scene/SceneManager.h"
 #include "GameSystem.h"
 #include "GameScene.h"
+#include "LightDeviceInput.h"
+
 
 enum GUI {
     GUI_GameStart = 0,
@@ -238,6 +240,7 @@ void DeviceOptionsUI::UpdateConnectionSettings() {
             // 特に処理がないので戻る
             state_ = State::MainMenu;
             needsStateInitialization_ = true;
+            GameSystem::GetInstance()->SetPlayDevice(GameSystem::PlayDevice::KeyboardMouse);
         }
         break;
     }
@@ -265,6 +268,8 @@ void DeviceOptionsUI::SetupFindLightDevice() {
     sprites_[GUI_NotFoundLightDevice]->SetIsActive(false);
     optionCursor_ = 0;
     selectionTimer_ = kSelectionDelay;
+    
+    LightDeviceInput::GetInstance()->Initialize();
 }
 
 void DeviceOptionsUI::UpdateFindLightDevice() {
