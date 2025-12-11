@@ -17,6 +17,8 @@ private:
 	void DrawImGui();
 #endif // _DEBUG
 
+	void UpdateSprite(Sprite& sprite ,float t,float size);
+
 	const Trolley* trolley_;
 
 	ModelInstance speedMeterModel_;
@@ -27,6 +29,8 @@ private:
 
 	Vector3 speedMeterOffset_;
 	Vector3 speedMeterNeedleOffset_;
+
+	Sprite baseUI_;
 
 	Sprite chargeUI_;
 	Sprite overChargeUI_;
