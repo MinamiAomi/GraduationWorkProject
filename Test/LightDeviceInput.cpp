@@ -29,41 +29,26 @@ void LightDeviceInput::Initialize() {
     if (GetConnectionState() != ConnectionState::Disconnected) {
         return;
     }
-
+    connectionState_.store(ConnectionState::Connecting);
     // 非同期でシリアルポートの初期化を行う
     Engine::GetThreadPool()->PushTask([this]() { InternalLoad(); });
 }
 
-void LightDeviceInput::Update() {
-    std::string response;
-    char readBuffer[256] = {};
-    DWORD bytesRead;
-
-    while (ReadFile(hSerial_, readBuffer, 1, &bytesRead, NULL) && bytesRead > 0) {
-        if (readBuffer[0] == '\n') {
-            break;
-        }
-        response += readBuffer[0];
-    }
-
-    std::erase_if(response, [](char c) { return c == '\n' || c == '\r'; });
-
-    auto data = Split(response, ',');
-
-    if (data.size() >= 4) {
-        orientation_.w = -std::stof(data[0]);
-        orientation_.x = std::stof(data[1]);
-        orientation_.y = std::stof(data[3]);
-        orientation_.z = std::stof(data[2]);
-    }
+void LightDeviceInput::StartReceiving() {
+    isRunning_.store(true);
+    communicationThread_ = std::thread(&LightDeviceInput::CommunicationLoop, this);
 }
 
 void LightDeviceInput::Finalize() {
+    connectionState_.store(ConnectionState::Disconnected);
+    isRunning_.store(false);
+    if (communicationThread_.joinable()) {
+        communicationThread_.join();
+    }
     if (hSerial_ != INVALID_HANDLE_VALUE) {
         CloseHandle(hSerial_);
         hSerial_ = INVALID_HANDLE_VALUE;
     }
-    connectionState_.store(ConnectionState::Disconnected);
 }
 
 void LightDeviceInput::InternalLoad() {
@@ -161,13 +146,46 @@ void LightDeviceInput::InternalLoad() {
 
     if (success) {
         connectionState_.store(ConnectionState::Connected);
+        StartReceiving();
     }
     else {
         connectionState_.store(ConnectionState::Disconnected);
     }
 }
 
-const Quaternion& LightDeviceInput::GetOrientation() const {
+void LightDeviceInput::CommunicationLoop() {
+    while (isRunning_.load()) {
+        std::string response;
+        char readBuffer[256] = {};
+        DWORD bytesRead;
+
+        while (ReadFile(hSerial_, readBuffer, 1, &bytesRead, NULL) && bytesRead > 0) {
+            if (readBuffer[0] == '\n') {
+                break;
+            }
+            response += readBuffer[0];
+        }
+
+        std::erase_if(response, [](char c) { return c == '\n' || c == '\r'; });
+
+        auto data = Split(response, ',');
+
+        if (data.size() >= 4) {
+            std::lock_guard<std::mutex> lock(orientationMutex_);
+            orientation_.w = -std::stof(data[0]);
+            orientation_.x = std::stof(data[1]);
+            orientation_.y = std::stof(data[3]);
+            orientation_.z = std::stof(data[2]);
+            if (orientation_.LengthSquare() != 0.0f) {
+                orientation_ = orientation_.Normalized();
+            }
+        }
+    }
+
+}
+
+Quaternion LightDeviceInput::GetOrientation() const {
+    std::lock_guard<std::mutex> lock(orientationMutex_);
     return orientation_;
 }
 

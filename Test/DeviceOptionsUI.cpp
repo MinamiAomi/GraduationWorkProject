@@ -230,7 +230,6 @@ void DeviceOptionsUI::UpdateConnectionSettings() {
             // FindLightDeviceへ移行
             state_ = State::FindLightDevice;
             needsStateInitialization_ = true;
-            GameSystem::GetInstance()->SetPlayDevice(GameSystem::PlayDevice::LightDevice);
         }
         break;
     }
@@ -267,23 +266,72 @@ void DeviceOptionsUI::SetupFindLightDevice() {
     sprites_[GUI_FoundLightDevice]->SetIsActive(false);
     sprites_[GUI_NotFoundLightDevice]->SetIsActive(false);
     optionCursor_ = 0;
-    selectionTimer_ = kSelectionDelay;
-    
+    selectionTimer_ = kWaitTime;
+
     LightDeviceInput::GetInstance()->Initialize();
 }
 
 void DeviceOptionsUI::UpdateFindLightDevice() {
+    auto lightDeviceInput = LightDeviceInput::GetInstance();
 
-    animationTimer_ = (animationTimer_ + 1) % kAnimationCircle;
+    switch (lightDeviceInput->GetConnectionState())
+    {
+    case LightDeviceInput::ConnectionState::Disconnected: {
+        // 接続失敗
 
-    float angle = Math::TwoPi / 6.0f;
-    int32_t animationShift = animationTimer_ / (kAnimationCircle / 6);
-    for (int i = GUI_Circle0; i <= GUI_Circle5; ++i) {
-        sprites_[i]->SetIsActive(true);
-        int32_t offset = (i - GUI_Circle0 + animationShift) % 6;
-        sprites_[i]->SetPosition({ 640.0f + 100.0f * std::cos(angle * offset),
-                             360.0f + 100.0f * std::sin(angle * offset) });
+        for (int i = GUI_Circle0; i <= GUI_Circle5; ++i) {
+            sprites_[i]->SetIsActive(false);
+        }
+
+        sprites_[GUI_FindLightDevice]->SetIsActive(false);
+        sprites_[GUI_NotFoundLightDevice]->SetIsActive(true);
+
+        if (selectionTimer_ <= 0) {
+            state_ = State::ConnectionSettings;
+            needsStateInitialization_ = true;
+        }
+        else {
+            selectionTimer_--;
+        }
+
+        break;
+    }
+    case LightDeviceInput::ConnectionState::Connecting: {
+        // 接続中
+        animationTimer_ = (animationTimer_ + 1) % kAnimationCircle;
+
+        float angle = Math::TwoPi / 6.0f;
+        int32_t animationShift = animationTimer_ / (kAnimationCircle / 6);
+        for (int i = GUI_Circle0; i <= GUI_Circle5; ++i) {
+            sprites_[i]->SetIsActive(true);
+            int32_t offset = (i - GUI_Circle0 + animationShift) % 6;
+            sprites_[i]->SetPosition({ 640.0f + 100.0f * std::cos(angle * offset),
+                                 360.0f + 100.0f * std::sin(angle * offset) });
+        }
+        break;
+    }
+    case LightDeviceInput::ConnectionState::Connected: {
+        // 接続成功
+
+        for (int i = GUI_Circle0; i <= GUI_Circle5; ++i) {
+            sprites_[i]->SetIsActive(false);
+        }
+
+        sprites_[GUI_FindLightDevice]->SetIsActive(false);
+        sprites_[GUI_FoundLightDevice]->SetIsActive(true);
+
+        if (selectionTimer_ <= 0) {
+            state_ = State::ConnectionSettings;
+            needsStateInitialization_ = true;
+            GameSystem::GetInstance()->SetPlayDevice(GameSystem::PlayDevice::LightDevice);
+        }
+        else {
+            selectionTimer_--;
+        }
+
+        break;
+    }
     }
 
-    
+
 }
