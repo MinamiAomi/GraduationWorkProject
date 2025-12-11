@@ -151,6 +151,9 @@
     <ClCompile Include="ModelEmitter.cpp">
       <Filter>Game\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="PowerEmitter.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -248,6 +251,9 @@
       <Filter>Game\Device</Filter>
     </ClInclude>
     <ClInclude Include="ModelEmitter.h">
+      <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerEmitter.h">
       <Filter>Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>

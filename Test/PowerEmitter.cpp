@@ -1,9 +1,9 @@
-#include "ModelEmitter.h"
+#include "PowerEmitter.h"
 
 #include "Engine/Framework/AssetManager.h"
 #include "Engine/Graphics/RenderManager.h"
 
-void ModelEmitter::Initialize(EmitShape shape)
+void PowerEmitter::Initialize(EmitShape shape)
 {
 	emitShapeType_ = shape;
 	auto assetManager = AssetManager::GetInstance();
@@ -20,7 +20,7 @@ void ModelEmitter::Initialize(EmitShape shape)
 	material_->albedo = { 1.0f,0.8f,0.0f };
 }
 
-void ModelEmitter::Update()
+void PowerEmitter::Update()
 {
 	
 	transform_.UpdateMatrix();
@@ -59,7 +59,7 @@ void ModelEmitter::Update()
 
 }
 
-void ModelEmitter::DebugDraw()
+void PowerEmitter::DebugDraw()
 {
 	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
@@ -77,7 +77,7 @@ void ModelEmitter::DebugDraw()
 	}
 }
 
-void ModelEmitter::Emit()
+void PowerEmitter::Emit()
 {
 	auto newParticle = std::make_unique<Particle>();
 
