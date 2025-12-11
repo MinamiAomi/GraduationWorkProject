@@ -105,7 +105,7 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 
-#ifdef DEBUG
+#ifndef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -302,9 +302,7 @@ void GameScene::OnUpdate() {
 
 #endif
 
-#ifdef DEBUG
-
-
+#ifndef DEBUG
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
