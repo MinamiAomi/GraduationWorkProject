@@ -50,6 +50,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	lightTransform_.UpdateMatrix();
 
 	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
+	lightModel_.SetIsActive(false);
 
 	JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
 	JSON_OBJECT("light");
@@ -67,7 +68,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	JSON_CLOSE();
 
 	sphericalAngleX_ = 0.0f;
-	sphericalAngleY_ = 0.0f;
+	sphericalAngleY_ = -5.0f * Math::ToRadian;
 
 	battery_ = maxBattery_;
 
@@ -79,9 +80,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
 void Flashlight::Update()
 {
-
-#ifdef _DEBUG
 	DebugMove();
+#ifdef _DEBUG
 #endif // _DEBUG
 
 	transform_.UpdateMatrix();

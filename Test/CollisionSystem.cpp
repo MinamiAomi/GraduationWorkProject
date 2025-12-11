@@ -59,7 +59,9 @@ void CollisionSystem::CheckCollisions()
                 if (!collider->GetCollidedWith().empty()) {
                     color = { 1.0f, 0.0f, 0.0f, 1.0f }; 
                 }
+#ifdef _DEBUG
                 collider->DrawDebug(color);
+#endif // _DEBUG
             }
         }
     }

@@ -16,6 +16,7 @@ private:
     };
 
     const int32_t kSelectionDelay = 10;
+    const int32_t kWaitTime = 120;
     const int32_t kAnimationCircle = 30;
 
     void SetupMainMenu();
