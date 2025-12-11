@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <atomic>
+#include <thread>
+#include <mutex>
 
 #include "Math/MathUtils.h"
 
@@ -18,10 +20,9 @@ public:
     static LightDeviceInput* GetInstance();
 
     void Initialize();
-    void Update();
     void Finalize();
 
-    const Quaternion& GetOrientation() const;
+    Quaternion GetOrientation() const;
     ConnectionState GetConnectionState() const;
 
 private:
@@ -31,8 +32,13 @@ private:
     LightDeviceInput& operator=(const LightDeviceInput&) = delete;
 
     void InternalLoad();
+    void StartReceiving();
+    void CommunicationLoop();
 
     HANDLE hSerial_;
     Quaternion orientation_;
+    mutable std::mutex orientationMutex_;
+    std::thread communicationThread_;
+    std::atomic<bool> isRunning_{ false };
     std::atomic<ConnectionState> connectionState_{ ConnectionState::Disconnected };
 };
