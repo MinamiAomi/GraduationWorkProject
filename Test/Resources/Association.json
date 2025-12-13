@@ -21,7 +21,8 @@
     "k":"Ore_no_Tousougeki/k.gltf",
     "i":"Ore_no_Tousougeki/i.gltf",
     "Crystal": "LightObject/Crystal.gltf",
-    "Moss": "LightObject/Moss.gltf"
+    "Moss": "LightObject/Moss.gltf",
+    "Helmet": "Decoration/Helmet/Helmet.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",

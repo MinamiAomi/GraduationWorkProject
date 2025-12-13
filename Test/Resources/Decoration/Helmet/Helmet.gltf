@@ -3,6 +3,9 @@
 		"generator":"Khronos glTF Blender I/O v4.0.43",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_emissive_strength"
+	],
 	"scene":0,
 	"scenes":[
 		{
@@ -28,10 +31,23 @@
 	"materials":[
 		{
 			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"emissiveTexture":{
+				"index":0
+			},
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":3
+				}
+			},
 			"name":"Light",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":0
+					"index":1
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -42,7 +58,7 @@
 			"name":"Helmet",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":1
+					"index":2
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -85,11 +101,20 @@
 			"source":0
 		},
 		{
-			"sampler":0,
-			"source":0
+			"sampler":1,
+			"source":1
+		},
+		{
+			"sampler":1,
+			"source":1
 		}
 	],
 	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"HelmetEmi",
+			"uri":"HelmetEmi.png"
+		},
 		{
 			"mimeType":"image/png",
 			"name":"HelmetTex",
@@ -217,6 +242,10 @@
 		}
 	],
 	"samplers":[
+		{
+			"magFilter":9729,
+			"minFilter":9987
+		},
 		{
 			"magFilter":9728,
 			"minFilter":9984
