@@ -18,4 +18,5 @@ public:
     std::shared_ptr<TextureResource> albedoMap;
     std::shared_ptr<TextureResource> metallicRoughnessMap;
     std::shared_ptr<TextureResource> normalMap;
+    std::shared_ptr<TextureResource> emissiveMap;
 };
