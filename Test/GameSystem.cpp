@@ -8,10 +8,7 @@ GameSystem* GameSystem::GetInstance() {
 }
 
 void GameSystem::OnUpdate() {
-    LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
-    if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
-        lightDeviceInput->Update();
-    }
+
 }
 
 void GameSystem::OnFinalize() {

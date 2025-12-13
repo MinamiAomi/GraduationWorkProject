@@ -28,12 +28,12 @@ void LightObject::Update() {
 		// 0.05f だと 60fpsでおよそ2秒で1周
 		constexpr float kBreathSpeed = 0.05f;
 		// 振幅
-		constexpr float kBreathAmplitude = 2.0f;
+		constexpr float kBreathAmplitude = 0.4f;
 		float breathValue = std::sin(static_cast<float>(frame_) * kBreathSpeed) * kBreathAmplitude;
 		currentDecay += breathValue;
 	}
 
-	light_->decay = Math::Lerp(healthStatus_.hp, deadDecayParam, saveDecay_);
+	light_->decay = currentDecay;
 
 }
 
