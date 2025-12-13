@@ -14,9 +14,27 @@ DeadlineUI::DeadlineUI()
 void DeadlineUI::Initialize()
 {
 	monster_.SetWorldMatrix(deadline_->GetAnimationPlayer()->EvaluateRailTransform(deadline_->GetCurrenFrame()).worldMatrix);
+	monster_.SetIsActive(false);
 }
 
 void DeadlineUI::Update()
 {
-	monster_.SetWorldMatrix(deadline_->GetAnimationPlayer()->EvaluateRailTransform(deadline_->GetCurrenFrame()).worldMatrix);
+	if (!monster_.IsActive() &&
+		deadline_->GetCurrenFrame() >= deadline_->GetStartFrame()) {
+		monster_.SetIsActive(true);
+	}
+
+	monsterRotateTimer_ += 0.1f;
+
+	Quaternion rollingRotation = Quaternion::MakeForXAxis(monsterRotateTimer_);
+
+	Matrix4x4 railMatrix = deadline_->GetAnimationPlayer()->EvaluateRailTransform(deadline_->GetCurrenFrame()).worldMatrix;
+	Vector3 railPos = railMatrix.GetTranslate();
+	Quaternion railRot = railMatrix.GetRotate();
+
+	Quaternion finalRotation = railRot * rollingRotation;
+
+	Matrix4x4 finalMatrix = Matrix4x4::MakeAffineTransform(monsterTransform_.scale, finalRotation, railPos);
+
+	monster_.SetWorldMatrix(finalMatrix);
 }
