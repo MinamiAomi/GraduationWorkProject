@@ -55,7 +55,10 @@ void Trolley::Initialize()
 	JSON_LOAD(trolleyOffset_);
 	JSON_ROOT();
 	JSON_OBJECT("Battery");
-	JSON_LOAD(batteryOffset_);
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		std::string key = "batteryOffset:" + std::to_string(i);
+		JSON_LOAD_BY_NAME(key.c_str(), batteryOffsets_.at(i));
+	}
 	JSON_LOAD(batteryRadius_);
 	JSON_ROOT();
 	JSON_OBJECT("Banking");
@@ -81,12 +84,13 @@ void Trolley::Initialize()
 	isHitFlashlight_ = false;
 
 
-	batteryTransform_.translate = batteryOffset_;
-	batteryTransform_.SetParent(&transform_);
-	batteryTransform_.UpdateMatrix();
-
-	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
-	batteryCollider_->radius = batteryRadius_;
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
+		batteryTransforms_.at(i).SetParent(&transform_);
+		batteryTransforms_.at(i).UpdateMatrix();
+		batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
+		batteryColliders_.at(i)->radius = batteryRadius_;
+	}
 
 	//teilOffset_ = { 0.0f,5.0f,-2.0f };
 	//teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate() + teilOffset_;
@@ -120,10 +124,13 @@ void Trolley::Update(float deltaTime)
 	//teilLightTransform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
-	batteryTransform_.translate = batteryOffset_;
-	batteryTransform_.UpdateMatrix();
-	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
-	batteryCollider_->radius = batteryRadius_;
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
+		batteryTransforms_.at(i).UpdateMatrix();
+		batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
+		batteryColliders_.at(i)->radius = batteryRadius_;
+	}
+
 
 	//teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate();
 	//teilLight_->direction = -teilLightTransform_.worldMatrix.GetForward();
@@ -482,7 +489,10 @@ void Trolley::DrawImGui() {
 			JSON_SAVE(trolleyOffset_);
 			JSON_ROOT();
 			JSON_OBJECT("Battery");
-			JSON_SAVE(batteryOffset_);
+			for (uint8_t i = 0; i < BatteryNum; i++) {
+				std::string key = "batteryOffset:" + std::to_string(i);
+				JSON_SAVE_BY_NAME(key.c_str(), batteryOffsets_.at(i));
+			}
 			JSON_SAVE(batteryRadius_);
 			JSON_ROOT();
 			JSON_OBJECT("Banking");
@@ -501,7 +511,10 @@ void Trolley::DrawImGui() {
 		}
 
 		if (ImGui::TreeNode("当たり判定 (Collision)")) {
-			ImGui::DragFloat3("判定オフセット", &batteryOffset_.x, 0.01f);
+			for (uint8_t i = 0; i < BatteryNum; i++) {
+				std::string key = "判定オフセット" + std::to_string(i) + ":";
+				ImGui::DragFloat3(key.c_str(), &batteryOffsets_.at(i).x, 0.01f);
+			}
 			ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
 			ImGui::TreePop();
 		}

@@ -57,7 +57,9 @@ void GameScene::OnInitialize() {
 	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
 	trolley_->Initialize();
-	collisionSystem_->RegisterCollider(trolley_->GetCollider());
+	for (auto& collider : trolley_->GetColliders()) {
+		collisionSystem_->RegisterCollider(collider);
+	}
 #pragma endregion
 
 #pragma region RailCameraSystem
