@@ -1,13 +1,13 @@
 {
     "battery": {
-        "addBattery_": 15.0,
+        "addBattery_": 0.02500000037252903,
         "isLighting_": true,
         "maxBattery_": 100.0,
         "startFrame_": 120.0,
         "subBattery_": 0.05999999865889549
     },
     "light": {
-        "distanceFromCamera_": 0.0,
+        "distanceFromCamera_": 10.0,
         "fovAngle_": 0.34906572103500366,
         "lightRange_": 50.16600036621094
     }
