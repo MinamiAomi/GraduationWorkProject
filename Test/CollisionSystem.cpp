@@ -1,7 +1,7 @@
 #include "CollisionSystem.h"
 #include "Engine/Graphics/ImGuiManager.h"
 
-bool CollisionSystem::isCollisionDebugDraw = true;
+bool CollisionSystem::isCollisionDebugDraw = false;
 
 void CollisionSystem::CheckCollisions()
 {
