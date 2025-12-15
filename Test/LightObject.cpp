@@ -12,6 +12,8 @@ void LightObject::Initialize(const Transform* parentTransform, const Vector3& of
 	light_->position = lightTransform_.worldMatrix.GetTranslate();
 	isBreath_ = isBreath;
 	RenderManager::GetInstance()->GetLightManager().Add(light_);
+
+	isAlive_ = true;
 }
 
 void LightObject::Update() {
@@ -60,4 +62,7 @@ void LightObject::HpUpdate()
 	// 修正後：引数を2つにする
 	hp_ = (std::max)(hp_, 0.0f);
 	damage_ = 0.0f;
+	if (hp_ <= 0.0f) {
+		isAlive_ = false;
+	}
 }

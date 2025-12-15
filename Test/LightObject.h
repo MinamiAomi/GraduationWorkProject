@@ -22,7 +22,7 @@ public:
 	void SetHp(float hp) { hp_ = hp; }
 	float GetHp() { return hp_; }
 	float GetMaxHp() { return maxHp_; }
-
+	bool GetIsAlive() { return isAlive_; }
 	void SetOffset(const Vector3& offset) { offset_ = offset; }
 	void SetLightSetting(const PointLight& pointLightSetting) {
 		light_->color = pointLightSetting.color;
@@ -34,6 +34,7 @@ public:
 			light_->decay = pointLightSetting.decay;
 		}
 	};
+	
 private:
 	void HpUpdate();
 	const Transform* parentTransform_ = nullptr;
@@ -45,6 +46,8 @@ private:
 
 	bool isBreath_ = false;
 	uint32_t frame_ = 0;
+
+	bool isAlive_;
 
 #pragma region HP関係
 	float damage_;

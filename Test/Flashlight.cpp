@@ -72,10 +72,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
     battery_ = maxBattery_;
 
-
     flashlightUI_.Initialize();
-
-
 }
 
 void Flashlight::Update()
@@ -83,7 +80,6 @@ void Flashlight::Update()
 #ifdef _DEBUG
 #endif // _DEBUG
     DebugMove();
-
 
     //Move();
 

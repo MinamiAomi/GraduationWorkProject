@@ -66,8 +66,11 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		//何かに当ったら
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
-			obj->collider = nullptr;
 			obj->lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
+			if (!obj->lightObject.GetIsAlive()) {
+				obj->collider = nullptr;
+			}
+
 		}
 	}
 
@@ -128,10 +131,22 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			//ライトの設定
 			if (data.pointLightData) {
 				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
+				
+				float scale = std::max({
+					pointLightObject->transform.scale.x,
+					pointLightObject->transform.scale.y,
+					pointLightObject->transform.scale.z
+					});
 
-				//Hp設定
-				float scale = std::max(std::max(pointLightObject->transform.scale.x, pointLightObject->transform.scale.y), pointLightObject->transform.scale.z);
-				float maxHp = sceneObjectConfig_.pointLightParams.baseHp * (1.0f * (scale - 1.0f) * sceneObjectConfig_.pointLightParams.sizeCorrectionFactor);
+				//基準の1と比べる
+				float scaleDiff = scale - 1.0f;
+
+				float multiplier = 1.0f + (scaleDiff * sceneObjectConfig_.pointLightParams.sizeCorrectionFactor);
+
+				multiplier = std::max(multiplier, 0.1f);
+
+				float maxHp = sceneObjectConfig_.pointLightParams.baseHp * multiplier;
+				
 				pointLightObject->lightObject.SetMaxHp(maxHp);
 				pointLightObject->lightObject.SetHp(maxHp);
 
@@ -243,13 +258,18 @@ void SceneObjectSystem::SceneObjectManager::SceneObjectConfig::DrawImGui()
 			// プランナーが「結局HPいくらになるの？」を確認するためのシミュレーター
 			ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "■ HP計算プレビュー");
 			static float debugScale = 2.0f; // テスト用のスケール
-			ImGui::SliderFloat("確認用スケール", &debugScale, 1.0f, 5.0f);
+			ImGui::SliderFloat("確認用スケール", &debugScale, 0.0f, 5.0f);
 
-			// ※実際のゲーム内の計算式に合わせてください。ここでは仮の式です
-			// 例: HP = 基準HP * (1 + (スケール - 1) * 補正係数)
+
+			float scaleDiff = debugScale - 1.0f;
+
+			float multiplier = 1.0f + (scaleDiff * params->sizeCorrectionFactor);
+
+			multiplier = std::max(multiplier, 0.1f);
+
 			float finalHp = params->baseHp * (1.0f + (debugScale - 1.0f) * params->sizeCorrectionFactor);
 
-			ImGui::Text("結果HP: %.1f (＝ 耐久回数: %.1f回)", finalHp, finalHp / (params->damageReceived + 0.0001f));
+			ImGui::Text("結果HP: %.1f", finalHp);
 
 			ImGui::TreePop();
 		}
