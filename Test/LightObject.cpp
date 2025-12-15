@@ -20,11 +20,11 @@ void LightObject::Update() {
 	lightTransform_.UpdateMatrix();
 	light_->position = lightTransform_.worldMatrix.GetTranslate();
 
-	healthStatus_.Update();
+	HpUpdate();
 
-	float currentDecay = Math::Lerp(healthStatus_.hp, deadDecayParam, saveDecay_);
+	float currentDecay = Math::Lerp(hp_ / maxHp_, deadDecayParam, saveDecay_);
 
-	if (isBreath_ && healthStatus_.hp > 0.0f) {
+	if (isBreath_ && hp_ > 0.0f) {
 		// 0.05f だと 60fpsでおよそ2秒で1周
 		constexpr float kBreathSpeed = 0.05f;
 		// 振幅
@@ -54,9 +54,10 @@ void LightObject::Debug(const std::string& label)
 }
 #endif // _DEBUG
 
-void LightObject::HealthStatus::Update()
+void LightObject::HpUpdate()
 {
-	if (!isTakingDamage) { return; }
-	damageTimer += 1.0f;
-	hp = std::lerp(1.0f, 0.0f, std::clamp((damageTimer / damageDuration), 0.0f, 1.0f));
+	hp_ -= damage_;
+	// 修正後：引数を2つにする
+	hp_ = (std::max)(hp_, 0.0f);
+	damage_ = 0.0f;
 }

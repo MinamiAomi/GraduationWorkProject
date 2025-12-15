@@ -28,6 +28,9 @@ namespace SceneObjectSystem {
 
 		// 実際にRuntimeオブジェクトリストを構築する関数
 		void BuildRuntimeObjects();
+
+
+
 		//ステージ全体
 		ModelInstance stageObjects_;
 		//ゲームで使う方
@@ -37,11 +40,31 @@ namespace SceneObjectSystem {
 
 		//Blenderの値そのままデータだけ
 		std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>> sceneObjectData_;
+
+		struct PointLightParameters {
+			// スケール(1,1,1)の時の基準HP
+			float baseHp = 10.0f;
+
+			// サイズが大きくなった時のHP増加率（0.0ならサイズ無視、1.0ならサイズ通りにHP増）
+			float sizeCorrectionFactor = 1.0f;
+
+			// プレイヤーから受けるダメージ量
+			float damageReceived = 1.0f;
+		};
+
+		struct SceneObjectConfig {
+			void Initialize();
+#ifdef _DEBUG
+			void DrawImGui();
+#endif // _DEBUG
+			PointLightParameters pointLightParams;
+
+		} sceneObjectConfig_;
 	};
 	template<typename T>
 	inline void SceneObjectManager::InitializeCommonObject(T& targetObj, const SceneObjectSystem::SceneObjectData& sourceData)
 	{
-		
+
 		targetObj->transform = sourceData.transform;
 		targetObj->transform.UpdateMatrix();
 
