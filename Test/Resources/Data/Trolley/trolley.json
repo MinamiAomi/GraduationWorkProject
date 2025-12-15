@@ -28,7 +28,7 @@
         "batteryRadius_": 3.0
     },
     "TrollerSpeed": {
-        "accelerationRate_": 0.20000000298023224,
+        "accelerationRate_": 0.4000000059604645,
         "batteryAfterBurst_": 30.0,
         "batteryAfterNitro_": 80.0,
         "burstDuration_": 2.0,
