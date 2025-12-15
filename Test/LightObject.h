@@ -17,16 +17,12 @@ public:
 #ifdef _DEBUG
 	void Debug(const std::string& label);
 #endif // _DEBUG
-	void SetHp(float hp) {
-		healthStatus_.hp = hp;
-	}
-	float GetHp() { return healthStatus_.hp;}
-
-	//何秒かけて死ぬか
-	void SetDamageDuration(float maxHpFrame) {
-		healthStatus_.isTakingDamage = true;
-		healthStatus_.damageDuration= maxHpFrame;
-	}
+	void SetDamage(float damage) { damage_ = damage; }
+	void SetMaxHp(float maxHp) { maxHp_ = maxHp; }
+	void SetHp(float hp) { hp_ = hp; }
+	float GetHp() { return hp_; }
+	float GetMaxHp() { return maxHp_; }
+	bool GetIsAlive() { return isAlive_; }
 	void SetOffset(const Vector3& offset) { offset_ = offset; }
 	void SetLightSetting(const PointLight& pointLightSetting) {
 		light_->color = pointLightSetting.color;
@@ -38,8 +34,9 @@ public:
 			light_->decay = pointLightSetting.decay;
 		}
 	};
+	
 private:
-
+	void HpUpdate();
 	const Transform* parentTransform_ = nullptr;
 	Transform lightTransform_;
 	std::shared_ptr<PointLight> light_;
@@ -50,17 +47,12 @@ private:
 	bool isBreath_ = false;
 	uint32_t frame_ = 0;
 
+	bool isAlive_;
+
 #pragma region HP関係
-	struct HealthStatus {
-		bool isTakingDamage = false;
-		float damageTimer = 0.0f;
-		float damageDuration = 0.0f;
-		//旧HP
-		float hp = 1.0f;
-
-		void Update();
-	}healthStatus_;
-
+	float damage_;
+	float maxHp_;
+	float hp_;
 #pragma endregion
 
 
