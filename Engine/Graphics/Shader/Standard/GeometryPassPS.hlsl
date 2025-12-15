@@ -52,11 +52,8 @@ PSOutput main(PSInput input) {
     output.normal.xyz = (normal + 1.0f) * 0.5f;
     output.normal.w = 1.0f;
     
-    float3 emissive = albedo.rgb * g_Material.emissive;
-    if (dot(albedo.rgb, float3(0.2125f, 0.7154f, 0.0721f)) < g_Material.emissiveThreshold) {
-        emissive = float3(0.0f, 0.0f, 0.0f);
-    }
-    output.emissive.xyz = emissive;
+    float3 emissive = g_BindlessTextures[g_Material.emissiveMapIndex].Sample(g_Sampler, input.texcoord).rgb;
+    output.emissive.rgb = emissive * albedo.rgb * g_Material.emissive; 
     output.emissive.w = 1.0f;
         
     output.viewDepth = input.viewDepth;

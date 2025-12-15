@@ -25,7 +25,10 @@
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="LightDeviceInput.cpp" />
     <ClCompile Include="LightObject.cpp" />
+    <ClCompile Include="ModelEmitter.cpp" />
+    <ClCompile Include="PowerEmitter.cpp" />
     <ClCompile Include="RailAnimationPlayer.cpp" />
     <ClCompile Include="RailCameraSystem.cpp" />
     <ClCompile Include="RailLoader.cpp" />
@@ -51,9 +54,12 @@
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="DeviceOptionsUI.h" />
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="LightDeviceInput.h" />
     <ClInclude Include="LightObject.h" />
+    <ClInclude Include="ModelEmitter.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
+    <ClInclude Include="PowerEmitter.h" />
     <ClInclude Include="RailDebugUtils.h" />
     <ClInclude Include="DebugCamera.h" />
     <ClInclude Include="RailAnimationPlayer.h" />

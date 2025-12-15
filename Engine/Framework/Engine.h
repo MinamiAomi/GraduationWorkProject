@@ -25,9 +25,10 @@ namespace Editer {
 }
 #endif // ENABLE_IMGUI
 
-
 class Engine {
 public:
+    static const uint32_t kWindowWidth = 1280;
+    static const uint32_t kWindowHeight = 720;
 
     /// <summary>
     /// ゲームをスタート

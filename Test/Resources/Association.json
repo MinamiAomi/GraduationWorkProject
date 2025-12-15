@@ -21,7 +21,8 @@
     "k":"Ore_no_Tousougeki/k.gltf",
     "i":"Ore_no_Tousougeki/i.gltf",
     "Crystal": "LightObject/Crystal.gltf",
-    "Moss": "LightObject/Moss.gltf"
+    "Moss": "LightObject/Moss.gltf",
+    "Box": "Box.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -30,10 +31,10 @@
     "DCUI_ConnectionSettings" : "TestResource/ConnectionSettings.png",
     "DCUI_GameStart" : "TestResource/GameStart.png",
     "DCUI_Quit" : "TestResource/Quit.png",
-    "DUCI_FindLightDevice" : "TestResource/FindLightDevice.png",
-    "DUCI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
-    "DUCI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
-    "DUCI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
+    "DCUI_FindLightDevice" : "TestResource/FindLightDevice.png",
+    "DCUI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
+    "DCUI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
+    "DCUI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
     
     "TrolleyBase" : "Trolley/TrolleyUI/Texture/base.png",
     "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",

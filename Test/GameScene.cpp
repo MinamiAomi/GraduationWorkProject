@@ -67,6 +67,7 @@ void GameScene::OnInitialize() {
 	railCameraSystem_->Initialize();
 #pragma endregion
 
+
 #pragma region SceneObjectSystem
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
 
@@ -105,7 +106,7 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 
-#ifdef DEBUG
+#ifndef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -236,7 +237,7 @@ void GameScene::OnUpdate() {
 
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
-		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
 		trolley_->Initialize();
 		railCameraSystem_->Initialize();
 		deadline_->Initialize();
@@ -302,9 +303,7 @@ void GameScene::OnUpdate() {
 
 #endif
 
-#ifdef DEBUG
-
-
+#ifndef DEBUG
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
