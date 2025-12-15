@@ -104,7 +104,6 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         float metallic;
         Vector3 emissive;
         float roughness;
-        float emissiveThreshold;
         uint32_t albedoMapIndex;
         uint32_t metallicRoughnessMapIndex;
         uint32_t normalMapIndex;
@@ -121,9 +120,9 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         materialData.metallic = 0.0f;
         materialData.emissive = { 0.0f, 0.0f, 0.0f };
         materialData.roughness = 0.0f;
-        materialData.emissiveThreshold = 1.0f;
         materialData.albedoMapIndex = defaultWhiteTextureIndex;
         materialData.metallicRoughnessMapIndex = defaultWhiteTextureIndex;
+        materialData.normalMapIndex = defaultNormalTextureIndex;
         materialData.emissiveMapIndex = defaultBlackTextureIndex;
         return materialData;
         };
@@ -132,7 +131,6 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         dest.metallic = src.metallic;
         dest.emissive = src.emissive * src.emissiveIntensity;
         dest.roughness = src.roughness;
-        dest.emissiveThreshold = src.emissiveThreshold;
         if (src.albedoMap) { dest.albedoMapIndex = src.albedoMap->GetSRV().GetIndex(); }
         if (src.metallicRoughnessMap) { dest.metallicRoughnessMapIndex = src.metallicRoughnessMap->GetSRV().GetIndex(); }
         if (src.normalMap) { dest.normalMapIndex = src.normalMap->GetSRV().GetIndex(); }
