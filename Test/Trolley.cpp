@@ -12,12 +12,15 @@
 Trolley::Trolley()
 {
 	model_.SetModel(AssetManager::GetInstance()->modelMap.Get("trolley")->Get());
-	batteryCollider_ = std::make_shared<SphereCollider>(
-		CollisionCategory::PLAYER,
-		(CollisionCategory::FLASHLIGHT),
-		Vector3::zero,
-		0.0f
-	);
+
+	for (auto& collider : batteryColliders_) {
+		collider = std::make_shared<SphereCollider>(
+			CollisionCategory::PLAYER,
+			(CollisionCategory::FLASHLIGHT),
+			Vector3::zero,
+			0.0f
+		);
+	}
 
 	//teilLight_ = std::make_shared<SpotLight>();
 
@@ -76,6 +79,7 @@ void Trolley::Initialize()
 	stateTimer_ = 0.0f;
 
 	isHitFlashlight_ = false;
+
 
 	batteryTransform_.translate = batteryOffset_;
 	batteryTransform_.SetParent(&transform_);
@@ -233,15 +237,15 @@ void Trolley::UpdateState(float deltaTime)
 			float posShakeAmount = 0.1f * decay;
 
 			shakeOffset_ = {
-				rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount, 
-				rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount, 
+				rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount,
+				rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount,
 				0.0f
 			};
 
 			// バースト復帰判定
 			if (stateTimer_ >= burstDuration_) {
 				RecoverFromBurst();
-				
+
 			}
 		}
 		break;
@@ -339,15 +343,15 @@ void Trolley::OnBurstState()
 	nitroAccumulateTimer_ = 0.0f;
 }
 
-float Trolley::CalculateCenterRate() {
+float Trolley::CalculateCenterRate(const Vector3& center, float radius) {
 	const auto collider = flashlight_->GetCollider();
 
 	Vector3 conePos = collider->center;
 	Quaternion coneRot = collider->quaternion;
 
-	Vector3 spherePos = batteryCollider_->center;
-	float sphereRadius = batteryCollider_->radius; 
-	
+	Vector3 spherePos = center;
+	float sphereRadius = radius;
+
 	Vector3 diff = spherePos - conePos;
 	Quaternion invRot = coneRot.Conjugate();
 	Vector3 localPos = invRot * diff;
@@ -364,7 +368,7 @@ float Trolley::CalculateCenterRate() {
 	float allowedDistance = maxRadiusAtHeight + sphereRadius;
 
 	if (allowedDistance <= 0.001f) {
-		return 1.0f; 
+		return 1.0f;
 	}
 
 	float score = 1.0f - (axisR / allowedDistance);
@@ -558,33 +562,36 @@ void Trolley::UpdateCollision()
 {
 	isHitFlashlight_ = false;
 	centerRate_ = 0.0f;
-	if (!batteryCollider_->GetCollidedWith().empty()) {
-		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
-			switch (collider->categoryBits)
-			{
-			case CollisionCategory::NONE:
-				break;
-			case CollisionCategory::PLAYER:
-				break;
-			case CollisionCategory::FLASHLIGHT:
-			{
-				isHitFlashlight_ = true;
 
-				centerRate_ = CalculateCenterRate();
-			}
-			break;
-			case CollisionCategory::LIGHT:
-				break;
-			case CollisionCategory::ENEMY:
-				break;
-			case CollisionCategory::ITEM:
-				break;
-			case CollisionCategory::ALL:
-				break;
-			default:
-				break;
-			}
+	for (auto& collider : batteryColliders_) {
+		if (!collider->GetCollidedWith().empty()) {
+			for (const auto& collidedWith : collider->GetCollidedWith()) {
+				switch (collidedWith->categoryBits)
+				{
+				case CollisionCategory::NONE:
+					break;
+				case CollisionCategory::PLAYER:
+					break;
+				case CollisionCategory::FLASHLIGHT:
+				{
+					isHitFlashlight_ = true;
 
+					centerRate_ = CalculateCenterRate(collider->center, collider->radius);
+				}
+				break;
+				case CollisionCategory::LIGHT:
+					break;
+				case CollisionCategory::ENEMY:
+					break;
+				case CollisionCategory::ITEM:
+					break;
+				case CollisionCategory::ALL:
+					break;
+				default:
+					break;
+				}
+
+			}
 		}
 	}
 }
