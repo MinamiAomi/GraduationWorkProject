@@ -3833,6 +3833,330 @@
         "decay": 1.0,
         "isActive": true
       }
+    },
+    {
+      "name": "Crystal.049",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          32.3361,
+          -3.6929,
+          0.0
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          1.6928,
+          1.6928,
+          1.6928
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          32.5237,
+          -3.7398,
+          0.5668
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.050",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          32.2408,
+          4.0633,
+          5.9261
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          0.261,
+          0.261,
+          0.261
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          32.4284,
+          4.0165,
+          6.4929
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.051",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          32.6295,
+          2.0531,
+          6.3395
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          0.261,
+          0.261,
+          0.261
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          32.8171,
+          2.0062,
+          6.9062
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.052",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          31.8548,
+          3.4647,
+          3.3628
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          0.261,
+          0.261,
+          0.261
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          32.0424,
+          3.4179,
+          3.9296
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.053",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          32.2701,
+          1.3168,
+          3.8037
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          0.261,
+          0.261,
+          0.261
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          32.4576,
+          1.2699,
+          4.3705
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.054",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          31.3835,
+          4.2143,
+          1.4611
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          0.261,
+          0.261,
+          0.261
+        ]
+      },
+      "capsule_collision": {
+        "center": [
+          31.5711,
+          4.1674,
+          2.0279
+        ],
+        "radius": 2.9516,
+        "height": 7.8564,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0,
+        "isActive": true
+      }
     }
   ]
 }
