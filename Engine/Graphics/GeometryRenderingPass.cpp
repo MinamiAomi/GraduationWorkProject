@@ -21,8 +21,8 @@ void GeometryRenderingPass::Initialize(uint32_t width, uint32_t height) {
     gBuffers_[GBuffer::Albedo].SetClearColor(albedoClearColor);
     gBuffers_[GBuffer::Albedo].Create(L"GeometryRenderingPass Albedo", width, height, DXGI_FORMAT_R8G8B8A8_UNORM);
     float metallicRoughnessClearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-    gBuffers_[GBuffer::MetallicRoughness].SetClearColor(metallicRoughnessClearColor);
-    gBuffers_[GBuffer::MetallicRoughness].Create(L"GeometryRenderingPass MetallicRoughness", width, height, DXGI_FORMAT_R16G16_UNORM);
+    gBuffers_[GBuffer::MetallicRoughnessFlag].SetClearColor(metallicRoughnessClearColor);
+    gBuffers_[GBuffer::MetallicRoughnessFlag].Create(L"GeometryRenderingPass MetallicRoughness", width, height, DXGI_FORMAT_R10G10B10A2_UNORM);
     float normalClearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     gBuffers_[GBuffer::Normal].SetClearColor(normalClearColor);
     gBuffers_[GBuffer::Normal].Create(L"GeometryRenderingPass Normal", width, height, DXGI_FORMAT_R10G10B10A2_UNORM);
@@ -32,9 +32,6 @@ void GeometryRenderingPass::Initialize(uint32_t width, uint32_t height) {
     float viewDepthClearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     gBuffers_[GBuffer::ViewDepth].SetClearColor(viewDepthClearColor);
     gBuffers_[GBuffer::ViewDepth].Create(L"GeometryRenderingPass ViewDepth", width, height, DXGI_FORMAT_R32_FLOAT);
-    float meshMaterialIDsClearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-    gBuffers_[GBuffer::MeshMaterialIDs].SetClearColor(meshMaterialIDsClearColor);
-    gBuffers_[GBuffer::MeshMaterialIDs].Create(L"GeometryRenderingPass MeshMaterialIDs", width, height, DXGI_FORMAT_R16G16_UINT);
     depth_.Create(L"GeometryRenderingPass Depth", width, height, DXGI_FORMAT_D32_FLOAT);
 
     RootSignatureDescHelper rootSignatureDesc;
@@ -96,6 +93,7 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
     struct InstanceData {
         Matrix4x4 worldMatrix;
         Matrix4x4 worldInverseTransposeMatrix;
+        uint32_t useLighting = 0;
     };
 
 
@@ -108,6 +106,7 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         uint32_t metallicRoughnessMapIndex;
         uint32_t normalMapIndex;
         uint32_t emissiveMapIndex;
+        uint32_t useLighting;
     };
 
     uint32_t defaultWhiteTextureIndex = DefaultTexture::White.GetSRV().GetIndex();
@@ -178,6 +177,7 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         InstanceData instanceData;
         instanceData.worldMatrix = /*model->GetRootNode().localMatrix **/ instance->GetWorldMatrix();
         instanceData.worldInverseTransposeMatrix = instanceData.worldMatrix.Inverse().Transpose();
+        instanceData.useLighting = instance->UseLighting() ? 1 : 0;
         commandContext.SetDynamicConstantBufferView(RootIndex::Instance, sizeof(instanceData), &instanceData);
 
         auto instanceMaterial = instance->GetMaterial();

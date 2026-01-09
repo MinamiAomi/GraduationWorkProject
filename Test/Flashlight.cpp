@@ -81,14 +81,15 @@ void Flashlight::Update()
 {
 #ifdef _DEBUG
 #endif // _DEBUG
-	DebugMove();
+    //DebugMove();
 
-	//Move();
 
-	// ライトモデルの更新
-	transform_.rotate = Quaternion::MakeFromEulerAngle(Vector3(sphericalAngleY_, sphericalAngleX_, 0.0f));
-	transform_.UpdateMatrix();
-	lightModel_.SetWorldMatrix(transform_.worldMatrix);
+    Move();
+
+    // ライトモデルの更新
+    //transform_.rotate = Quaternion::MakeFromEulerAngle(Vector3(sphericalAngleY_, sphericalAngleX_, 0.0f));
+    transform_.UpdateMatrix();
+    lightModel_.SetWorldMatrix(transform_.worldMatrix);
 
 	UpdateLightPower();
 
@@ -235,39 +236,42 @@ void Flashlight::Move() {
 		float ndcX = (2.0f * mousePositionX / static_cast<float>(Engine::kWindowWidth)) - 1.0f;
 		float ndcY = 1.0f - (2.0f * mousePositionY) / static_cast<float>(Engine::kWindowHeight);
 
-		Vector3 clipCoords = { ndcX, ndcY, 1.0f };
-		Vector3 target = parentCamera_->GetViewProjectionMatrix().Inverse().ApplyTransformWDivide(clipCoords);
+        Vector3 clipCoords = { ndcX, ndcY, 1.0f };
+        Vector3 target = parentCamera_->GetProjectionMatrix().Inverse().ApplyTransformWDivide(clipCoords);
+        
+        transform_.rotate = Quaternion::MakeLookRotation(target);
 
-		Vector3 directionWorld = (target - transform_.worldMatrix.GetTranslate()).Normalized();
-
-		transform_.rotate = Quaternion::MakeLookRotation(Quaternion::MakeForYAxis(-90.0f * Math::ToRadian) * directionWorld);
-
-		break;
-	}
-	case GameSystem::PlayDevice::LightDevice: {
-
-		break;
-	}
-	}
+        break;
+    }
+    case GameSystem::PlayDevice::LightDevice: {
+        LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
+        if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
+            Quaternion deviceOrientation = LightDeviceInput::GetInstance()->GetOrientation();
+            transform_.rotate = deviceOrientation;
+        }
+        break;
+    }
+    }
 
 
 }
 
 void Flashlight::DebugMove() {
-	const float anglerSpeed = 0.5f * Math::ToRadian;
-	Input* input = Input::GetInstance();
-	if (input->IsKeyPressed(DIK_W)) {
-		sphericalAngleY_ -= anglerSpeed;
-	}
-	if (input->IsKeyPressed(DIK_S)) {
-		sphericalAngleY_ += anglerSpeed;
-	}
-	if (input->IsKeyPressed(DIK_D)) {
-		sphericalAngleX_ += anglerSpeed;
-	}
-	if (input->IsKeyPressed(DIK_A)) {
-		sphericalAngleX_ -= anglerSpeed;
-	}
+    const float anglerSpeed = 0.5f * Math::ToRadian;
+    Input* input = Input::GetInstance();
+    if (input->IsKeyPressed(DIK_W)) {
+        sphericalAngleY_ -= anglerSpeed;
+    }
+    if (input->IsKeyPressed(DIK_S)) {
+        sphericalAngleY_ += anglerSpeed;
+    }
+    if (input->IsKeyPressed(DIK_D)) {
+        sphericalAngleX_ += anglerSpeed;
+    }
+    if (input->IsKeyPressed(DIK_A)) {
+        sphericalAngleX_ -= anglerSpeed;
+    }
+    transform_.rotate = Quaternion::MakeFromEulerAngle(Vector3(sphericalAngleY_, sphericalAngleX_, 0.0f));
 }
 
 #ifdef _DEBUG
