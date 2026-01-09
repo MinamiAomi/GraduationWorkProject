@@ -5,8 +5,12 @@
 #include "Engine/Input/Input.h"
 #include "Engine/File/JsonConverter.h"
 
+#include <algorithm>
+#include "Engine/Framework/Engine.h"
 #include "Engine/Framework/AssetManager.h"
 #include "RailAnimationPlayer.h"
+#include "GameSystem.h"
+#include "LightDeviceInput.h"
 
 Flashlight::Flashlight()
 {
@@ -14,10 +18,10 @@ Flashlight::Flashlight()
 	lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
 
 	spotLight_ = std::make_shared<SpotLight>();
-	spotLight_->position = lightTransform_.worldMatrix.GetTranslate();
-	spotLight_->direction = lightTransform_.worldMatrix.GetForward();
+	spotLight_->position = transform_.worldMatrix.GetTranslate();
+	spotLight_->direction = transform_.worldMatrix.GetForward();
 	spotLight_->color = Color::white;
-	spotLight_->intensity = 5.0f;
+	spotLight_->intensity = 2.5f;
 	spotLight_->range = lightRange_;
 	spotLight_->angle = fovAngle_ * 0.5f;
 	spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
@@ -46,15 +50,11 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	transform_.translate = kFlashLightOffset;
 	transform_.UpdateMatrix();
 
-	lightTransform_.SetParent(&transform_);
-	lightTransform_.UpdateMatrix();
-
-	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
+	lightModel_.SetWorldMatrix(transform_.worldMatrix);
 	lightModel_.SetIsActive(false);
 
 	JSON_OPEN("Resources/Data/Flashlight/flashlight.json");
 	JSON_OBJECT("light");
-	JSON_LOAD(distanceFromCamera_);
 	JSON_LOAD(fovAngle_);
 	JSON_LOAD(lightRange_);
 	JSON_ROOT();
@@ -72,32 +72,31 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
 	battery_ = maxBattery_;
 
+	isHitFlashlight_ = false;
 
 	flashlightUI_.Initialize();
-
-
 }
 
 void Flashlight::Update()
 {
 #ifdef _DEBUG
-	DebugMove();
 #endif // _DEBUG
+    //DebugMove();
 
-	transform_.UpdateMatrix();
 
-	// ライトモデルの更新
-	lightTransform_.rotate = Quaternion::MakeFromEulerAngle({ sphericalAngleY_, sphericalAngleX_, 0.0f });
-	lightTransform_.translate = lightTransform_.rotate * (Vector3::unitZ * distanceFromCamera_);
-	lightTransform_.UpdateMatrix();
-	lightModel_.SetWorldMatrix(lightTransform_.worldMatrix);
+    Move();
+
+    // ライトモデルの更新
+    //transform_.rotate = Quaternion::MakeFromEulerAngle(Vector3(sphericalAngleY_, sphericalAngleX_, 0.0f));
+    transform_.UpdateMatrix();
+    lightModel_.SetWorldMatrix(transform_.worldMatrix);
 
 	UpdateLightPower();
 
 	UpdateCollision();
 
-	spotLight_->position = lightTransform_.worldMatrix.GetTranslate();
-	spotLight_->direction = lightTransform_.worldMatrix.GetForward();
+	spotLight_->position = transform_.worldMatrix.GetTranslate();
+	spotLight_->direction = transform_.worldMatrix.GetForward();
 	spotLight_->range = lightRange_;
 	spotLight_->angle = fovAngle_ * 0.5f;
 	spotLight_->isActive = isLighting_;
@@ -111,13 +110,14 @@ void Flashlight::Update()
 void Flashlight::UpdateCollision()
 {
 
-	Quaternion colliderRotation = lightTransform_.worldMatrix.GetRotate() * Quaternion::MakeForXAxis(-90.0f * Math::ToRadian);
+	isHitFlashlight_ = false;
+	Quaternion colliderRotation = transform_.worldMatrix.GetRotate() * Quaternion::MakeForXAxis(-90.0f * Math::ToRadian);
 
 	Vector3 heightOffset = colliderRotation * Vector3(0.0f, -lightRange_, 0.0f);
 
 	collider_->quaternion = colliderRotation;
 	collider_->height = lightRange_;
-	collider_->center = lightTransform_.worldMatrix.GetTranslate() + heightOffset;
+	collider_->center = transform_.worldMatrix.GetTranslate() + heightOffset;
 
 	collider_->radius = std::tan(fovAngle_ * 0.5f) * lightRange_;
 
@@ -138,6 +138,7 @@ void Flashlight::UpdateCollision()
 				battery_ += addBattery_;
 				battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 				isLighting_ = true;
+				isHitFlashlight_ = true;
 			}
 			break;
 			case CollisionCategory::ENEMY:
@@ -158,7 +159,8 @@ void Flashlight::UpdateLightPower()
 #ifdef _DEBUG
 	if (!isDebug_) {
 #endif // _DEBUG
-		if (railAnimationPlayer_->GetCurrentFrame() >= startFrame_) {
+		if (railAnimationPlayer_->GetCurrentFrame() >= startFrame_ &&
+			!isHitFlashlight_) {
 			battery_ -= subBattery_;
 			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
 		}
@@ -195,7 +197,7 @@ void Flashlight::SpotLightDebugDraw() const
 {
 	const uint32_t segments = 16;
 	std::vector<Vector3> vertices(segments);
-	Vector3 apex = Vector3::zero * lightTransform_.worldMatrix;
+	Vector3 apex = Vector3::zero * transform_.worldMatrix;
 
 	float halfFovAngle = fovAngle_ * 0.5f;
 	float radius = lightRange_ * std::tan(halfFovAngle);
@@ -205,7 +207,7 @@ void Flashlight::SpotLightDebugDraw() const
 		float x = radius * std::cos(angle);
 		float y = radius * std::sin(angle);
 		float z = lightRange_;
-		vertices[i] = Vector3(x, y, z) * lightTransform_.worldMatrix;
+		vertices[i] = Vector3(x, y, z) * transform_.worldMatrix;
 	}
 
 	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
@@ -219,21 +221,57 @@ void Flashlight::SpotLightDebugDraw() const
 	}
 }
 
+void Flashlight::Move() {
+	GameSystem* gameSystem = GameSystem::GetInstance();
+
+	auto playDevice = gameSystem->GetPlayDevice();
+	switch (playDevice)
+	{
+	case GameSystem::PlayDevice::KeyboardMouse: {
+		Input* input = Input::GetInstance();
+
+		float mousePositionX = std::clamp(static_cast<float>(input->GetMousePosition().x), 0.0f, static_cast<float>(Engine::kWindowWidth));
+		float mousePositionY = std::clamp(static_cast<float>(input->GetMousePosition().y), 0.0f, static_cast<float>(Engine::kWindowHeight));
+
+		float ndcX = (2.0f * mousePositionX / static_cast<float>(Engine::kWindowWidth)) - 1.0f;
+		float ndcY = 1.0f - (2.0f * mousePositionY) / static_cast<float>(Engine::kWindowHeight);
+
+        Vector3 clipCoords = { ndcX, ndcY, 1.0f };
+        Vector3 target = parentCamera_->GetProjectionMatrix().Inverse().ApplyTransformWDivide(clipCoords);
+        
+        transform_.rotate = Quaternion::MakeLookRotation(target);
+
+        break;
+    }
+    case GameSystem::PlayDevice::LightDevice: {
+        LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
+        if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
+            Quaternion deviceOrientation = LightDeviceInput::GetInstance()->GetOrientation();
+            transform_.rotate = deviceOrientation;
+        }
+        break;
+    }
+    }
+
+
+}
+
 void Flashlight::DebugMove() {
-	const float anglerSpeed = 0.5f * Math::ToRadian;
-	Input* input = Input::GetInstance();
-	if (input->IsKeyPressed(DIK_W)) {
-		sphericalAngleY_ -= anglerSpeed;
-	}
-	if (input->IsKeyPressed(DIK_S)) {
-		sphericalAngleY_ += anglerSpeed;
-	}
-	if (input->IsKeyPressed(DIK_D)) {
-		sphericalAngleX_ += anglerSpeed;
-	}
-	if (input->IsKeyPressed(DIK_A)) {
-		sphericalAngleX_ -= anglerSpeed;
-	}
+    const float anglerSpeed = 0.5f * Math::ToRadian;
+    Input* input = Input::GetInstance();
+    if (input->IsKeyPressed(DIK_W)) {
+        sphericalAngleY_ -= anglerSpeed;
+    }
+    if (input->IsKeyPressed(DIK_S)) {
+        sphericalAngleY_ += anglerSpeed;
+    }
+    if (input->IsKeyPressed(DIK_D)) {
+        sphericalAngleX_ += anglerSpeed;
+    }
+    if (input->IsKeyPressed(DIK_A)) {
+        sphericalAngleX_ -= anglerSpeed;
+    }
+    transform_.rotate = Quaternion::MakeFromEulerAngle(Vector3(sphericalAngleY_, sphericalAngleX_, 0.0f));
 }
 
 #ifdef _DEBUG

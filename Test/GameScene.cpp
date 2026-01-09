@@ -52,12 +52,14 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region Trolley
-	trolley_ = std::make_unique<Trolley>();
+	trolley_ = Trolley::GetInstance();
 	trolley_->SetParent(railAnimationPlayer_->GetTransform());
 	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
 	trolley_->Initialize();
-	collisionSystem_->RegisterCollider(trolley_->GetCollider());
+	for (auto& collider : trolley_->GetColliders()) {
+		collisionSystem_->RegisterCollider(collider);
+	}
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -67,12 +69,13 @@ void GameScene::OnInitialize() {
 	railCameraSystem_->Initialize();
 #pragma endregion
 
+
 #pragma region SceneObjectSystem
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
@@ -80,10 +83,7 @@ void GameScene::OnInitialize() {
 	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
-	for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-		collisionSystem_->RegisterCollider(collider->collider);
-	}
-	for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+	for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
 
@@ -215,10 +215,7 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}
@@ -236,7 +233,7 @@ void GameScene::OnUpdate() {
 
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
-		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
 		trolley_->Initialize();
 		railCameraSystem_->Initialize();
 		deadline_->Initialize();
@@ -248,10 +245,7 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		railAnimationPlayer_->Loop();

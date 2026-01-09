@@ -12,6 +12,13 @@
 #include "Raytracing/BLAS.h"
 #include "Skeleton.h"
 
+
+enum DrawType {
+    kDefault,
+    kTest,
+    DrawTypeNum
+};
+
 class Model {
 public:
     struct Vertex {
@@ -54,6 +61,10 @@ public:
     const Node& GetRootNode() const { return rootNode_; }
     size_t GetNumVertices() const { return vertices_.size(); }
     size_t GetNumIndices() const { return indices_.size(); }
+    const Vector3& GetMin() const { return min_; }
+    const Vector3& GetMax() const { return max_; }
+    const float GetRadius() const { return radius_; }
+
 
 private:
     Model() = default;
@@ -67,6 +78,10 @@ private:
     
     StructuredBuffer vertexBuffer_;
     StructuredBuffer indexBuffer_;
+    Vector3 min_;
+    Vector3 max_;
+    Vector3 center_;
+    float radius_;
 
     BLAS blas_;
     Node rootNode_;
@@ -120,6 +135,7 @@ private:
     Matrix4x4 worldMatrix_;
     Vector3 color_ = Vector3::one;
     float alpha_ = 1.0f;
+    DrawType drawType_ = kDefault;
     
     // 映り込みフラグ
     bool beReflected_ = true;

@@ -4,6 +4,24 @@
       "name": "Crystal.001",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          213.6272,
+          57.8418,
+          9.5832
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      },
       "srt": {
         "translate": [
           213.4396,
@@ -20,21 +38,6 @@
           4.6684,
           4.6684,
           4.6684
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          213.6272,
-          57.8418,
-          9.5832
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
         ]
       },
       "point_light": {
@@ -58,6 +61,24 @@
       "name": "RANTAN.001",
       "model_name": "RANTAN",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          12.4833,
+          -3.6714,
+          6.6927
+        ],
+        "radius": 4.8309,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
       "srt": {
         "translate": [
           12.4833,
@@ -74,21 +95,6 @@
           1.0,
           1.0,
           1.0
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          12.4833,
-          -3.6714,
-          6.6927
-        ],
-        "radius": 1.0325,
-        "height": 9.6619,
-        "quaternion": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
         ]
       },
       "point_light": {
@@ -112,6 +118,24 @@
       "name": "Crystal.002",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          271.2198,
+          177.6821,
+          0.0678
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ]
+      },
       "srt": {
         "translate": [
           270.8307,
@@ -128,21 +152,6 @@
           0.915,
           0.915,
           0.915
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          271.2198,
-          177.6821,
-          0.0678
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3402,
-          -0.2567,
-          0.2136,
-          -0.8791
         ]
       },
       "point_light": {
@@ -166,6 +175,24 @@
       "name": "Crystal.003",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          279.5538,
+          229.1344,
+          0.6945
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3992,
+          0.2512,
+          -0.0105,
+          -0.8817
+        ]
+      },
       "srt": {
         "translate": [
           279.7963,
@@ -182,21 +209,6 @@
           0.915,
           0.915,
           0.915
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          279.5538,
-          229.1344,
-          0.6945
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3992,
-          0.2512,
-          -0.0105,
-          -0.8817
         ]
       },
       "point_light": {
@@ -220,6 +232,24 @@
       "name": "Crystal.004",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          289.8878,
+          305.9033,
+          -0.4553
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8906,
+          -0.2648,
+          -0.1511,
+          0.3374
+        ]
+      },
       "srt": {
         "translate": [
           290.1935,
@@ -236,21 +266,6 @@
           0.915,
           0.915,
           0.915
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          289.8878,
-          305.9033,
-          -0.4553
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8906,
-          -0.2648,
-          -0.1511,
-          0.3374
         ]
       },
       "point_light": {
@@ -274,6 +289,24 @@
       "name": "Crystal.005",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          324.7068,
+          365.5875,
+          0.5321
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9169,
+          -0.236,
+          0.0123,
+          0.3215
+        ]
+      },
       "srt": {
         "translate": [
           324.8261,
@@ -290,21 +323,6 @@
           0.915,
           0.915,
           0.915
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          324.7068,
-          365.5875,
-          0.5321
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9169,
-          -0.236,
-          0.0123,
-          0.3215
         ]
       },
       "point_light": {
@@ -328,6 +346,24 @@
       "name": "Crystal.006",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          414.9887,
+          390.8571,
+          2.8788
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.1441,
+          -0.9455,
+          -0.2821,
+          0.0759
+        ]
+      },
       "srt": {
         "translate": [
           415.1797,
@@ -344,21 +380,6 @@
           1.1648,
           1.2169,
           1.3386
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          414.9887,
-          390.8571,
-          2.8788
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.1441,
-          -0.9455,
-          -0.2821,
-          0.0759
         ]
       },
       "point_light": {
@@ -382,6 +403,24 @@
       "name": "Crystal.007",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          332.5972,
+          358.4112,
+          0.5645
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9364,
+          -0.1868,
+          0.1448,
+          -0.2595
+        ]
+      },
       "srt": {
         "translate": [
           332.4338,
@@ -398,21 +437,6 @@
           0.915,
           0.915,
           0.915
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          332.5972,
-          358.4112,
-          0.5645
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9364,
-          -0.1868,
-          0.1448,
-          -0.2595
         ]
       },
       "point_light": {
@@ -436,6 +460,24 @@
       "name": "Crystal.008",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          473.2597,
+          405.6542,
+          0.1282
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9683,
+          0.192,
+          -0.0438,
+          -0.1535
+        ]
+      },
       "srt": {
         "translate": [
           473.4072,
@@ -452,21 +494,6 @@
           0.7017,
           0.7331,
           0.8064
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          473.2597,
-          405.6542,
-          0.1282
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9683,
-          0.192,
-          -0.0438,
-          -0.1535
         ]
       },
       "point_light": {
@@ -490,6 +517,24 @@
       "name": "Crystal.009",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          567.8796,
+          406.7249,
+          3.8746
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3692,
+          0.9155,
+          0.1045,
+          -0.1207
+        ]
+      },
       "srt": {
         "translate": [
           568.0272,
@@ -506,21 +551,6 @@
           0.8227,
           0.8596,
           0.9455
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          567.8796,
-          406.7249,
-          3.8746
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3692,
-          0.9155,
-          0.1045,
-          -0.1207
         ]
       },
       "point_light": {
@@ -544,6 +574,24 @@
       "name": "Crystal.010",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          537.8647,
+          400.259,
+          1.3338
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.2493,
+          -0.9552,
+          -0.1559,
+          0.0346
+        ]
+      },
       "srt": {
         "translate": [
           538.0122,
@@ -560,21 +608,6 @@
           0.8227,
           0.8596,
           0.9455
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          537.8647,
-          400.259,
-          1.3338
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.2493,
-          -0.9552,
-          -0.1559,
-          0.0346
         ]
       },
       "point_light": {
@@ -598,6 +631,24 @@
       "name": "Crystal.011",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          727.4678,
+          398.3682,
+          -0.6178
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9791,
+          -0.1276,
+          -0.0823,
+          -0.1356
+        ]
+      },
       "srt": {
         "translate": [
           727.6052,
@@ -614,21 +665,6 @@
           0.8227,
           0.8596,
           0.9455
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          727.4678,
-          398.3682,
-          -0.6178
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9791,
-          -0.1276,
-          -0.0823,
-          -0.1356
         ]
       },
       "point_light": {
@@ -652,6 +688,24 @@
       "name": "Crystal.012",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          778.5617,
+          403.2029,
+          -0.5102
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9431,
+          0.1388,
+          -0.273,
+          0.1298
+        ]
+      },
       "srt": {
         "translate": [
           778.8937,
@@ -668,21 +722,6 @@
           0.8227,
           0.8596,
           0.9455
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          778.5617,
-          403.2029,
-          -0.5102
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9431,
-          0.1388,
-          -0.273,
-          0.1298
         ]
       },
       "point_light": {
@@ -706,6 +745,24 @@
       "name": "Crystal.013",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          836.4146,
+          432.1364,
+          -2.7899
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.941,
+          -0.3219,
+          -0.0331,
+          0.0994
+        ]
+      },
       "srt": {
         "translate": [
           836.5484,
@@ -722,21 +779,6 @@
           2.4575,
           2.5676,
           2.8244
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          836.4146,
-          432.1364,
-          -2.7899
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.941,
-          -0.3219,
-          -0.0331,
-          0.0994
         ]
       },
       "point_light": {
@@ -760,6 +802,24 @@
       "name": "Crystal.014",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          836.5933,
+          468.0104,
+          6.7312
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9715,
+          0.1774,
+          0.1566,
+          -0.0139
+        ]
+      },
       "srt": {
         "translate": [
           836.4747,
@@ -776,21 +836,6 @@
           2.4475,
           2.5171,
           2.6771
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          836.5933,
-          468.0104,
-          6.7312
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9715,
-          0.1774,
-          0.1566,
-          -0.0139
         ]
       },
       "point_light": {
@@ -814,6 +859,24 @@
       "name": "Crystal.015",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          845.9845,
+          457.2155,
+          -1.1609
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
+      },
       "srt": {
         "translate": [
           845.866,
@@ -830,21 +893,6 @@
           2.4475,
           2.5171,
           2.6771
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          845.9845,
-          457.2155,
-          -1.1609
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9682,
-          -0.1948,
-          0.1403,
-          -0.0709
         ]
       },
       "point_light": {
@@ -868,6 +916,24 @@
       "name": "Crystal.016",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          817.752,
+          451.1237,
+          2.4857
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
+      },
       "srt": {
         "translate": [
           817.6334,
@@ -884,21 +950,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          817.752,
-          451.1237,
-          2.4857
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9682,
-          -0.1948,
-          0.1403,
-          -0.0709
         ]
       },
       "point_light": {
@@ -922,6 +973,24 @@
       "name": "Crystal.017",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          820.4875,
+          456.2263,
+          1.7401
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9621,
+          -0.1958,
+          0.0069,
+          -0.1898
+        ]
+      },
       "srt": {
         "translate": [
           820.4968,
@@ -938,21 +1007,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          820.4875,
-          456.2263,
-          1.7401
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9621,
-          -0.1958,
-          0.0069,
-          -0.1898
         ]
       },
       "point_light": {
@@ -976,6 +1030,24 @@
       "name": "Crystal.018",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          832.2339,
+          451.9556,
+          -1.9801
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8782,
+          -0.0131,
+          0.0523,
+          0.4752
+        ]
+      },
       "srt": {
         "translate": [
           832.2107,
@@ -992,21 +1064,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          832.2339,
-          451.9556,
-          -1.9801
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8782,
-          -0.0131,
-          0.0523,
-          0.4752
         ]
       },
       "point_light": {
@@ -1030,6 +1087,24 @@
       "name": "Crystal.019",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          832.2476,
+          443.4441,
+          -3.0666
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
       "srt": {
         "translate": [
           832.4555,
@@ -1046,21 +1121,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          832.2476,
-          443.4441,
-          -3.0666
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
         ]
       },
       "point_light": {
@@ -1084,6 +1144,24 @@
       "name": "Crystal.020",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          839.7766,
+          457.653,
+          -1.3795
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
       "srt": {
         "translate": [
           839.9845,
@@ -1100,21 +1178,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          839.7766,
-          457.653,
-          -1.3795
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
         ]
       },
       "point_light": {
@@ -1138,6 +1201,24 @@
       "name": "Crystal.021",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          854.4217,
+          475.027,
+          -1.1172
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
       "srt": {
         "translate": [
           854.6296,
@@ -1154,21 +1235,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          854.4217,
-          475.027,
-          -1.1172
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
         ]
       },
       "point_light": {
@@ -1192,6 +1258,24 @@
       "name": "Crystal.022",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          857.0762,
+          459.6668,
+          -3.2466
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8569,
+          -0.2608,
+          -0.0406,
+          0.4429
+        ]
+      },
       "srt": {
         "translate": [
           857.2842,
@@ -1208,21 +1292,6 @@
           1.5061,
           1.549,
           1.6474
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          857.0762,
-          459.6668,
-          -3.2466
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8569,
-          -0.2608,
-          -0.0406,
-          0.4429
         ]
       },
       "point_light": {
@@ -1246,6 +1315,24 @@
       "name": "Crystal.023",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          847.475,
+          479.4621,
+          12.0743
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.2963,
+          0.8452,
+          -0.4442,
+          -0.0221
+        ]
+      },
       "srt": {
         "translate": [
           847.6829,
@@ -1262,21 +1349,6 @@
           3.4975,
           3.5971,
           3.8256
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          847.475,
-          479.4621,
-          12.0743
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.2963,
-          0.8452,
-          -0.4442,
-          -0.0221
         ]
       },
       "point_light": {
@@ -1300,6 +1372,24 @@
       "name": "Crystal.024",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          820.3942,
+          468.8608,
+          12.5733
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.0168,
+          0.8955,
+          -0.4149,
+          -0.1601
+        ]
+      },
       "srt": {
         "translate": [
           820.6021,
@@ -1316,21 +1406,6 @@
           3.4975,
           3.5971,
           3.8256
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          820.3942,
-          468.8608,
-          12.5733
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.0168,
-          0.8955,
-          -0.4149,
-          -0.1601
         ]
       },
       "point_light": {
@@ -1354,6 +1429,24 @@
       "name": "Crystal.025",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          884.5048,
+          450.5377,
+          -5.1114
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.7887,
+          0.1016,
+          -0.0442,
+          -0.6047
+        ]
+      },
       "srt": {
         "translate": [
           884.6468,
@@ -1370,21 +1463,6 @@
           4.5903,
           4.721,
           5.021
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          884.5048,
-          450.5377,
-          -5.1114
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7887,
-          0.1016,
-          -0.0442,
-          -0.6047
         ]
       },
       "point_light": {
@@ -1408,6 +1486,24 @@
       "name": "Crystal.026",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          864.0624,
+          464.8129,
+          3.3084
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
       "srt": {
         "translate": [
           864.2703,
@@ -1424,21 +1520,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          864.0624,
-          464.8129,
-          3.3084
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
         ]
       },
       "point_light": {
@@ -1462,6 +1543,24 @@
       "name": "Crystal.027",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          862.0523,
+          466.7833,
+          2.8317
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
       "srt": {
         "translate": [
           862.2603,
@@ -1478,21 +1577,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          862.0523,
-          466.7833,
-          2.8317
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
         ]
       },
       "point_light": {
@@ -1516,6 +1600,24 @@
       "name": "Crystal.028",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          867.3706,
+          462.7977,
+          2.8674
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.7096,
+          -0.0306,
+          -0.4813,
+          0.5138
+        ]
+      },
       "srt": {
         "translate": [
           867.7886,
@@ -1532,21 +1634,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          867.3706,
-          462.7977,
-          2.8674
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7096,
-          -0.0306,
-          -0.4813,
-          0.5138
         ]
       },
       "point_light": {
@@ -1570,6 +1657,24 @@
       "name": "Crystal.029",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          869.9612,
+          467.5493,
+          5.3827
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      },
       "srt": {
         "translate": [
           870.1691,
@@ -1586,21 +1691,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          869.9612,
-          467.5493,
-          5.3827
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
         ]
       },
       "point_light": {
@@ -1624,6 +1714,24 @@
       "name": "Crystal.030",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          862.7595,
+          452.4297,
+          -0.1672
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.74,
+          -0.211,
+          -0.0204,
+          0.6384
+        ]
+      },
       "srt": {
         "translate": [
           862.9385,
@@ -1640,21 +1748,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          862.7595,
-          452.4297,
-          -0.1672
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.74,
-          -0.211,
-          -0.0204,
-          0.6384
         ]
       },
       "point_light": {
@@ -1678,6 +1771,24 @@
       "name": "Crystal.031",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          865.5867,
+          456.3711,
+          -0.8232
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.9513,
+          -0.0012,
+          -0.3064,
+          0.0325
+        ]
+      },
       "srt": {
         "translate": [
           865.9833,
@@ -1694,21 +1805,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          865.5867,
-          456.3711,
-          -0.8232
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9513,
-          -0.0012,
-          -0.3064,
-          0.0325
         ]
       },
       "point_light": {
@@ -1732,6 +1828,24 @@
       "name": "Crystal.032",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          855.6845,
+          452.1778,
+          1.9701
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.8403,
+          -0.2047,
+          0.0799,
+          0.4957
+        ]
+      },
       "srt": {
         "translate": [
           855.7461,
@@ -1748,21 +1862,6 @@
           1.1265,
           1.1585,
           1.2321
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          855.6845,
-          452.1778,
-          1.9701
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8403,
-          -0.2047,
-          0.0799,
-          0.4957
         ]
       },
       "point_light": {
@@ -1786,6 +1885,24 @@
       "name": "Crystal.033",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          861.8466,
+          471.7343,
+          1.4388
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.5124,
+          0.1207,
+          -0.1448,
+          -0.8378
+        ]
+      },
       "srt": {
         "translate": [
           862.0373,
@@ -1802,21 +1919,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          861.8466,
-          471.7343,
-          1.4388
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.5124,
-          0.1207,
-          -0.1448,
-          -0.8378
         ]
       },
       "point_light": {
@@ -1840,6 +1942,24 @@
       "name": "Crystal.034",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          861.9528,
+          469.4004,
+          1.2151
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.4727,
+          0.2319,
+          0.0455,
+          -0.849
+        ]
+      },
       "srt": {
         "translate": [
           862.1435,
@@ -1856,21 +1976,6 @@
           0.7922,
           0.8147,
           0.8665
-        ]
-      },
-      "capsule_collision": {
-        "center": [
-          861.9528,
-          469.4004,
-          1.2151
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.4727,
-          0.2319,
-          0.0455,
-          -0.849
         ]
       },
       "point_light": {
@@ -1894,6 +1999,24 @@
       "name": "Crystal.035",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          860.845,
+          471.7359,
+          0.0027
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ]
+      },
       "srt": {
         "translate": [
           861.2477,
@@ -1912,19 +2035,1258 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          860.845,
-          471.7359,
-          0.0027
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
         ],
-        "radius": 2.9516,
-        "height": 7.8564,
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.001",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          900.5247,
+          381.2497,
+          14.4797
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.651,
+          -0.7471,
+          0.0587,
+          -0.1205
+        ]
+      },
+      "srt": {
+        "translate": [
+          900.4964,
+          381.2719,
+          14.4068
+        ],
+        "rotate": [
+          0.651,
+          -0.7471,
+          0.0587,
+          -0.1205
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.002",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          910.7429,
+          384.8024,
+          -6.2326
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9691,
+          -0.0496,
+          -0.2111,
+          -0.1173
+        ]
+      },
+      "srt": {
+        "translate": [
+          910.7147,
+          384.8786,
+          -6.2318
+        ],
+        "rotate": [
+          0.9691,
+          -0.0496,
+          -0.2111,
+          -0.1173
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.003",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          921.1752,
+          358.5215,
+          -3.1394
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      },
+      "srt": {
+        "translate": [
+          921.1488,
+          358.5936,
+          -3.113
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.004",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          932.4382,
+          357.9486,
+          -2.8804
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      },
+      "srt": {
+        "translate": [
+          932.4118,
+          358.0208,
+          -2.854
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.005",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          932.0684,
+          371.0132,
+          -3.1254
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      },
+      "srt": {
+        "translate": [
+          932.0419,
+          371.0854,
+          -3.0991
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.006",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          921.1055,
+          371.0132,
+          -2.8012
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      },
+      "srt": {
+        "translate": [
+          921.0791,
+          371.0854,
+          -2.7749
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.007",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          924.7853,
+          327.6669,
+          -6.5433
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9912,
+          0.0316,
+          0.0545,
+          -0.1163
+        ]
+      },
+      "srt": {
+        "translate": [
+          924.7643,
+          327.7391,
+          -6.5125
+        ],
+        "rotate": [
+          0.9912,
+          0.0316,
+          0.0545,
+          -0.1163
+        ],
+        "scale": [
+          11.9747,
+          11.9747,
+          11.9747
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.008",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          961.0801,
+          326.2459,
+          -10.2838
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      },
+      "srt": {
+        "translate": [
+          961.0519,
+          326.3202,
+          -10.3006
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.009",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          971.2757,
+          343.6974,
+          -13.9663
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.817,
+          0.0358,
+          -0.2944,
+          -0.4945
+        ]
+      },
+      "srt": {
+        "translate": [
+          971.3027,
+          343.7701,
+          -13.9419
+        ],
+        "rotate": [
+          0.817,
+          0.0358,
+          -0.2944,
+          -0.4945
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.010",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          986.0558,
+          362.3384,
+          -3.8103
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ]
+      },
+      "srt": {
+        "translate": [
+          986.0758,
+          362.4111,
+          -3.7799
+        ],
+        "rotate": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.011",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          986.0558,
+          362.3384,
+          -3.8103
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ]
+      },
+      "srt": {
+        "translate": [
+          986.0758,
+          362.4111,
+          -3.7799
+        ],
+        "rotate": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.012",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          941.6229,
+          306.3994,
+          -7.4046
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      },
+      "srt": {
+        "translate": [
+          941.5947,
+          306.4738,
+          -7.4214
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.013",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          939.1795,
+          331.4062,
+          -21.7733
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      },
+      "srt": {
+        "translate": [
+          939.1512,
+          331.4806,
+          -21.7901
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.014",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          939.1795,
+          331.4062,
+          -21.7733
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      },
+      "srt": {
+        "translate": [
+          939.1512,
+          331.4806,
+          -21.7901
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.015",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          968.3824,
+          306.6402,
+          10.6871
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.6939,
+          -0.4169,
+          -0.5543,
+          -0.1937
+        ]
+      },
+      "srt": {
+        "translate": [
+          968.4046,
+          306.6892,
+          10.6262
+        ],
+        "rotate": [
+          0.6939,
+          -0.4169,
+          -0.5543,
+          -0.1937
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.016",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          982.6369,
+          325.8721,
+          9.5028
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.7172,
+          -0.312,
+          -0.6194,
+          -0.0676
+        ]
+      },
+      "srt": {
+        "translate": [
+          982.6406,
+          325.9258,
+          9.4419
+        ],
+        "rotate": [
+          0.7172,
+          -0.312,
+          -0.6194,
+          -0.0676
+        ],
+        "scale": [
+          20.6867,
+          20.6867,
+          20.6867
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.017",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          987.5948,
+          349.7169,
+          20.9284
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      },
+      "srt": {
+        "translate": [
+          987.5627,
+          349.7523,
+          20.8626
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.018",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          981.9202,
+          366.5548,
+          16.3399
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      },
+      "srt": {
+        "translate": [
+          981.8881,
+          366.5901,
+          16.2741
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.019",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          988.0818,
+          348.2874,
+          8.0969
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      },
+      "srt": {
+        "translate": [
+          988.0498,
+          348.3228,
+          8.0311
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.020",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.0903,
+          368.8214,
+          4.1995
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      },
+      "srt": {
+        "translate": [
+          985.0582,
+          368.8567,
+          4.1337
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.021",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          959.0076,
+          373.0925,
+          30.5898
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.4778,
+          0.2626,
+          -0.7257,
+          0.4196
+        ]
+      },
+      "srt": {
+        "translate": [
+          958.9609,
+          373.1059,
+          30.5246
+        ],
+        "rotate": [
+          0.4778,
+          0.2626,
+          -0.7257,
+          0.4196
+        ],
+        "scale": [
+          15.175,
+          15.2257,
+          16.2877
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.036",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1088.9279,
+          411.3739,
+          -0.3574
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
         "quaternion": [
           0.4716,
           0.4061,
           -0.0554,
           -0.7808
+        ]
+      },
+      "srt": {
+        "translate": [
+          1089.3307,
+          411.4959,
+          -0.7835
+        ],
+        "rotate": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
         ]
       },
       "point_light": {
@@ -1943,6 +3305,821 @@
         "decay": 1.0,
         "isActive": true
       }
+    },
+    {
+      "name": "Crystal.037",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          868.4716,
+          337.4903,
+          -6.3834
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.5857,
+          0.1369,
+          0.3469,
+          0.7196
+        ]
+      },
+      "srt": {
+        "translate": [
+          868.0866,
+          337.3456,
+          -6.8187
+        ],
+        "rotate": [
+          0.5857,
+          0.1369,
+          0.3469,
+          0.7196
+        ],
+        "scale": [
+          2.9628,
+          3.0472,
+          3.2408
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.038",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1008.0966,
+          470.0952,
+          -1.118
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.4974,
+          -0.2536,
+          0.0168,
+          0.8294
+        ]
+      },
+      "srt": {
+        "translate": [
+          1008.3043,
+          469.9731,
+          -1.6663
+        ],
+        "rotate": [
+          0.4974,
+          -0.2536,
+          0.0168,
+          0.8294
+        ],
+        "scale": [
+          1.3116,
+          1.3489,
+          1.4347
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.039",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1137.1837,
+          414.0901,
+          5.438
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ]
+      },
+      "srt": {
+        "translate": [
+          1136.9219,
+          414.5179,
+          5.1108
+        ],
+        "rotate": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ],
+        "scale": [
+          1.2394,
+          1.2747,
+          1.3557
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.2186,
+          0.0981
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.040",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1130.9991,
+          413.0725,
+          0.9165
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.2786,
+          0.6469,
+          -0.5215,
+          0.4816
+        ]
+      },
+      "srt": {
+        "translate": [
+          1130.7898,
+          413.5578,
+          1.1982
+        ],
+        "rotate": [
+          0.2786,
+          0.6469,
+          -0.5215,
+          0.4816
+        ],
+        "scale": [
+          1.2394,
+          1.2747,
+          1.3557
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.1969,
+          0.1969
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.041",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1143.5299,
+          408.1064,
+          -3.627
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ]
+      },
+      "srt": {
+        "translate": [
+          1143.7467,
+          407.5502,
+          -3.6748
+        ],
+        "rotate": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ],
+        "scale": [
+          1.2394,
+          1.2747,
+          1.3557
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.042",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1137.3047,
+          392.0446,
+          -19.0683
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ]
+      },
+      "srt": {
+        "translate": [
+          1137.5215,
+          391.4885,
+          -19.1161
+        ],
+        "rotate": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ],
+        "scale": [
+          1.9266,
+          1.9815,
+          2.1074
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.0247,
+          0.0954
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.043",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1114.4437,
+          398.384,
+          -18.0985
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.141,
+          -0.0515,
+          0.5245,
+          0.8381
+        ]
+      },
+      "srt": {
+        "translate": [
+          1114.3446,
+          397.8584,
+          -18.3679
+        ],
+        "rotate": [
+          0.141,
+          -0.0515,
+          0.5245,
+          0.8381
+        ],
+        "scale": [
+          1.9266,
+          1.9815,
+          2.1074
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.6676,
+          1.0,
+          0.0893
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.044",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1129.4795,
+          406.2075,
+          3.4022
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ]
+      },
+      "srt": {
+        "translate": [
+          1129.2177,
+          406.6353,
+          3.0749
+        ],
+        "rotate": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ],
+        "scale": [
+          0.6942,
+          0.7139,
+          0.7593
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.1212,
+          0.374
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.045",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1127.4828,
+          404.8231,
+          0.9756
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.5075,
+          0.1814,
+          0.3265,
+          0.7765
+        ]
+      },
+      "srt": {
+        "translate": [
+          1127.0841,
+          404.6837,
+          0.551
+        ],
+        "rotate": [
+          0.5075,
+          0.1814,
+          0.3265,
+          0.7765
+        ],
+        "scale": [
+          0.6942,
+          0.7139,
+          0.7593
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.046",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1188.4526,
+          476.368,
+          -10.415
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3631,
+          0.2634,
+          0.0103,
+          0.8937
+        ]
+      },
+      "srt": {
+        "translate": [
+          1188.1234,
+          476.503,
+          -10.8967
+        ],
+        "rotate": [
+          0.3631,
+          0.2634,
+          0.0103,
+          0.8937
+        ],
+        "scale": [
+          0.728,
+          0.8985,
+          1.0871
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.8643,
+          0.0097
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "moss.022",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1140.3113,
+          402.7501,
+          0.9712
+        ],
+        "radius": 1.1376,
+        "height": 1.0,
+        "quaternion": [
+          0.1456,
+          -0.417,
+          -0.1251,
+          0.8884
+        ]
+      },
+      "srt": {
+        "translate": [
+          1140.3076,
+          402.6714,
+          0.991
+        ],
+        "rotate": [
+          0.1456,
+          -0.417,
+          -0.1251,
+          0.8884
+        ],
+        "scale": [
+          3.483,
+          3.4947,
+          3.7384
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.8451,
+          0.6965
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.047",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1180.1145,
+          422.2346,
+          -36.7615
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3496,
+          -0.0155,
+          -0.0986,
+          0.9316
+        ]
+      },
+      "srt": {
+        "translate": [
+          1180.1187,
+          422.3697,
+          -37.3449
+        ],
+        "rotate": [
+          0.3496,
+          -0.0155,
+          -0.0986,
+          0.9316
+        ],
+        "scale": [
+          1.0466,
+          1.1886,
+          0.9841
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.8643,
+          0.0097
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": "Crystal.048",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1198.3317,
+          473.8325,
+          -7.6167
+        ],
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.5211,
+          -0.2623,
+          -0.5315,
+          0.6141
+        ]
+      },
+      "srt": {
+        "translate": [
+          1198.8296,
+          474.1166,
+          -7.7901
+        ],
+        "rotate": [
+          0.5211,
+          -0.2623,
+          -0.5315,
+          0.6141
+        ],
+        "scale": [
+          1.0466,
+          1.1886,
+          0.9841
+        ]
+      },
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.8643,
+          0.0097
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
+    },
+    {
+      "name": null,
+      "model_name": null,
+      "type": "EVENT_TRIGGER",
+      "trigger_type": "GIMMICK",
+      "properties": {
+        "gimmick_distance": 8.139999389648438
+      },
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          -6.7482,
+          -0.2784,
+          4.6183
+        ],
+        "radius": 2.0
+      },
+      "srt": {
+        "translate": [
+          -6.7482,
+          -0.2784,
+          4.6183
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "point_light": null
+    },
+    {
+      "name": null,
+      "model_name": null,
+      "type": "EVENT_TRIGGER",
+      "trigger_type": "ENEMY",
+      "properties": {
+        "enemy_count": 12
+      },
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          -6.7482,
+          -6.9831,
+          4.6183
+        ],
+        "radius": 1.82
+      },
+      "srt": {
+        "translate": [
+          -6.7482,
+          -6.9831,
+          4.6183
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "point_light": null
     }
   ]
 }

@@ -13,9 +13,14 @@ void TitleScene::OnInitialize() {
 	}
 	input_ = Input::GetInstance();
 
+    camera_ = std::make_shared<Camera>();
+    camera_->SetPosition({ 0.0f, 5.0f, -20.0f });
+    RenderManager::GetInstance()->SetCamera(camera_);
+
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
 
-	
+	camera_ = std::make_shared<Camera>();
+
 	
 	auto assetManager = AssetManager::GetInstance();
 	
@@ -32,6 +37,7 @@ void TitleScene::OnInitialize() {
 		std::string name = "stonePositions" + std::to_string(i);
 		JSON_LOAD_BY_NAME(name,stonePositions_[i]);
 	}
+	assetManager;
 	stoneModels_[0]->SetModel(assetManager->modelMap.Get("O")->Get());
 	stoneModels_[1]->SetModel(assetManager->modelMap.Get("r")->Get());
 	stoneModels_[2]->SetModel(assetManager->modelMap.Get("e")->Get());
@@ -49,10 +55,22 @@ void TitleScene::OnInitialize() {
 	stoneModels_[14]->SetModel(assetManager->modelMap.Get("i")->Get());
 
 	JSON_CLOSE();
+
+	modelEmitter_ = std::make_unique<ModelEmitter>();
+	modelEmitter_->Initialize(EmitShape::kBox);
+	modelEmitter_->SetColor({ 1.0f,0.0f,0.0f });
+	testPos_ = Vector3::zero;
+	testQuatenion_ = Quaternion::identity;
+
+    deviceOptionsUI_ = std::make_unique<DeviceOptionsUI>();
+    deviceOptionsUI_->Initialize();
 }
 
 void TitleScene::OnUpdate() {
+	RenderManager::GetInstance()->SetCamera(camera_);
 #ifdef _DEBUG
+	ImGui::DragFloat3("pos", &testPos_.x, 0.1f);
+	ImGui::DragFloat4("quatenion", &testQuatenion_.x, 0.1f);
 	ImGui::Begin("TitleScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("Title")) {
 		if (ImGui::TreeNode("Stone")) {
@@ -84,9 +102,18 @@ void TitleScene::OnUpdate() {
 	}
 
 #endif // _DEBUG
-	if (input_->IsKeyTrigger(DIK_SPACE)) {
-		SceneManager::GetInstance()->ChangeScene<StageSelectScene>();
-	}
+
+	modelEmitter_->Update();
+	modelEmitter_->SetOffset(testPos_);
+	modelEmitter_->SetQuaternion(testQuatenion_);
+	modelEmitter_->DebugDraw();
+
+
+    deviceOptionsUI_->Update();
+
+	//if (input_->IsKeyTrigger(DIK_SPACE)) {
+	//	SceneManager::GetInstance()->ChangeScene<StageSelectScene>();
+	//}
 }
 
 void TitleScene::OnFinalize() {

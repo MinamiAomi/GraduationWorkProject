@@ -171,6 +171,14 @@ namespace {
                 std::string filename(path.C_Str());
                 destMaterial.normalMap = TextureLoader::Load(directory / filename);
             }
+            if (srcMaterial->GetTextureCount(aiTextureType_EMISSIVE) > 0) {
+                aiString path;
+                srcMaterial->GetTexture(aiTextureType_EMISSIVE, 0, &path);
+                // 読み込む
+                // TextureLoader内で多重読み込み対応済み
+                std::string filename(path.C_Str());
+                destMaterial.emissiveMap = TextureLoader::Load(directory / filename);
+            }
             ++materialIndex;
         }
         return materials;
@@ -229,6 +237,30 @@ std::shared_ptr<Model> Model::Load(const std::filesystem::path& path) {
     model->materials_ = ParseMaterials(scene, directory);
     model->meshes_ = ParseMeshes(scene, model->materials_, model->vertices_, model->indices_, model->skinClusterData_);
     model->rootNode_ = ParseNode(scene->mRootNode);
+
+    for (const auto& vertex : model->vertices_) {
+        // 各成分ごとに最小値と最大値を更新
+        model->min_.x = (std::min)(model->min_.x, vertex.position.x);
+        model->min_.y = (std::min)(model->min_.y, vertex.position.y);
+        model->min_.z = (std::min)(model->min_.z, vertex.position.z);
+
+        model->max_.x = (std::max)(model->max_.x, vertex.position.x);
+        model->max_.y = (std::max)(model->max_.y, vertex.position.y);
+        model->max_.z = (std::max)(model->max_.z, vertex.position.z);
+    }
+
+    model->center_ = (model->min_ + model->max_) * 0.5f;
+
+    float maxDistanceSq = 0.0f;
+    for (const auto& vertex : model->vertices_) {
+        Vector3 diff = vertex.position - model->center_;
+        float distSq = Vector3::Dot(diff, diff);
+        if (distSq > maxDistanceSq) {
+            maxDistanceSq = distSq;
+        }
+    }
+
+    model->radius_ = std::sqrt(maxDistanceSq);
 
     CommandContext commandContext;
     commandContext.Start(D3D12_COMMAND_LIST_TYPE_DIRECT);

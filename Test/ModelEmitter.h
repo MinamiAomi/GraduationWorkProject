@@ -23,7 +23,7 @@ public:
 	void DebugDraw();
 
 	void SetColor(Vector3 color) {
-		color_ = color;
+		material_->albedo = color;
 	};
 	void SetSize(const Vector3& size) { size_ = size; }
 	void SetRadius(float radius) { radius_ = radius; }
@@ -32,6 +32,7 @@ public:
 	void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
 	void SetParent(Transform* parent) { transform_.SetParent(parent); }
 public:
+	std::shared_ptr<Material> material_;
 	float minSpeed_ = 0.05f;
 	float maxSpeed_ = 0.1f;
 	Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };
@@ -52,10 +53,10 @@ private:
 		float scaleSpeed_;
 	};
 
+
 	Transform transform_;
 	std::shared_ptr<Model> model_;
 	std::vector<std::unique_ptr<Particle>> particles_;
-	Vector3 color_ = Vector3::one;
 	Random::RandomNumberGenerator rnd_;
 	EmitShape emitShapeType_; 
 	uint32_t emitTimer_ = 0;

@@ -1,4 +1,5 @@
 #include "LightObject.h"
+#include "Test/Trolley.h"
 
 void LightObject::Initialize(const Transform* parentTransform, const Vector3& offset, bool isBreath) {
 	offset_ = offset;
@@ -12,6 +13,8 @@ void LightObject::Initialize(const Transform* parentTransform, const Vector3& of
 	light_->position = lightTransform_.worldMatrix.GetTranslate();
 	isBreath_ = isBreath;
 	RenderManager::GetInstance()->GetLightManager().Add(light_);
+
+	isAlive_ = true;
 }
 
 void LightObject::Update() {
@@ -20,20 +23,31 @@ void LightObject::Update() {
 	lightTransform_.UpdateMatrix();
 	light_->position = lightTransform_.worldMatrix.GetTranslate();
 
-	healthStatus_.Update();
+	HpUpdate();
 
-	float currentDecay = Math::Lerp(healthStatus_.hp, deadDecayParam, saveDecay_);
+	float currentIntensity = Math::Lerp(hp_ / maxHp_, saveIntensity_ * 0.1f, saveIntensity_);
+	float currentRange = Math::Lerp(hp_ / maxHp_, saveRange_ * 0.1f, saveRange_);
 
-	if (isBreath_ && healthStatus_.hp > 0.0f) {
+	if (isBreath_ && hp_ > 0.0f) {
 		// 0.05f だと 60fpsでおよそ2秒で1周
 		constexpr float kBreathSpeed = 0.05f;
 		// 振幅
-		constexpr float kBreathAmplitude = 2.0f;
-		float breathValue = std::sin(static_cast<float>(frame_) * kBreathSpeed) * kBreathAmplitude;
-		currentDecay += breathValue;
+		float kIntensityAmplitude = 1.0f * lightTransform_.worldMatrix.GetScale().x;
+		float kRangeAmplitude = 0.2f * lightTransform_.worldMatrix.GetScale().x;
+
+		currentIntensity += std::sin(static_cast<float>(frame_) * kBreathSpeed) * kIntensityAmplitude;
+		currentRange += std::sin(static_cast<float>(frame_) * kBreathSpeed) * kRangeAmplitude;
 	}
 
-	light_->decay = Math::Lerp(healthStatus_.hp, deadDecayParam, saveDecay_);
+	light_->intensity = currentIntensity;
+	light_->range = currentRange;
+
+	if (Vector3::Distance(Trolley::GetInstance()->GetTransform().worldMatrix.GetTranslate(), lightTransform_.worldMatrix.GetTranslate()) <= lightActiveDistance) {
+		isActive_ = true;
+	}
+	else {
+		isActive_ = false;
+	}
 
 }
 
@@ -54,9 +68,13 @@ void LightObject::Debug(const std::string& label)
 }
 #endif // _DEBUG
 
-void LightObject::HealthStatus::Update()
+void LightObject::HpUpdate()
 {
-	if (!isTakingDamage) { return; }
-	damageTimer += 1.0f;
-	hp = std::lerp(1.0f, 0.0f, std::clamp((damageTimer / damageDuration), 0.0f, 1.0f));
+	hp_ -= damage_;
+	// 修正後：引数を2つにする
+	hp_ = (std::max)(hp_, 0.0f);
+	damage_ = 0.0f;
+	if (hp_ <= 0.0f) {
+		isAlive_ = false;
+	}
 }

@@ -14,6 +14,10 @@ void ModelEmitter::Initialize(EmitShape shape)
 	emitTimer_ = 0;
 	minScale_ = 1.0f;
 	maxScale_ = 1.0f;
+	material_ = std::make_shared<Material>();
+	material_->emissive = { 1.0f,1.0f,1.0f };
+	material_->emissiveIntensity = 10.0f;
+	material_->albedo = { 1.0f,0.8f,0.0f };
 }
 
 void ModelEmitter::Update()
@@ -48,7 +52,6 @@ void ModelEmitter::Update()
 			// 行列更新
 			p->transform_.UpdateMatrix();
 			p->modelInstance_.SetWorldMatrix(p->transform_.worldMatrix);
-			p->modelInstance_.SetColor(color_);
 
 			++it;
 		}
@@ -61,15 +64,15 @@ void ModelEmitter::DebugDraw()
 	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
 	if (emitShapeType_ == EmitShape::kSphere) {
-		lineDrawer.DrawSphere(transform_.worldMatrix.GetTranslate(), radius_, Vector4{color_.x,color_.y,color_.z,1.0f});
+		lineDrawer.DrawSphere(transform_.worldMatrix.GetTranslate(), radius_, Vector4{ material_->albedo.x,material_->albedo.y,material_->albedo.z,1.0f});
 	}
 	else if (emitShapeType_ == EmitShape::kBox) {
 		if (transform_.GetParent()) {
 			Quaternion parentWorldRot = transform_.GetParent()->worldMatrix.GetRotate();
-			lineDrawer.ObbDraw(transform_.worldMatrix.GetTranslate(), transform_.worldMatrix.GetScale(), parentWorldRot * transform_.rotate, Vector4{ color_.x,color_.y,color_.z,1.0f });
+			lineDrawer.ObbDraw(transform_.worldMatrix.GetTranslate(), transform_.worldMatrix.GetScale(), parentWorldRot * transform_.rotate, Vector4{ material_->albedo.x,material_->albedo.y,material_->albedo.z,1.0f });
 		}
 		else {
-			lineDrawer.ObbDraw(transform_.worldMatrix.GetTranslate(), size_,transform_.worldMatrix.GetRotate(), Vector4{color_.x,color_.y,color_.z,1.0f});
+			lineDrawer.ObbDraw(transform_.worldMatrix.GetTranslate(), size_,transform_.worldMatrix.GetRotate(), Vector4{ material_->albedo.x,material_->albedo.y,material_->albedo.z,1.0f});
 		}
 	}
 }
@@ -79,7 +82,7 @@ void ModelEmitter::Emit()
 	auto newParticle = std::make_unique<Particle>();
 
 	newParticle->modelInstance_.SetModel(model_);
-	newParticle->modelInstance_.SetColor(color_);
+	newParticle->modelInstance_.SetUseLighting(false);
 
 	float startScale = rnd_.NextFloatRange(minScale_, maxScale_);
 	newParticle->transform_.scale = { startScale, startScale, startScale };
@@ -138,8 +141,7 @@ void ModelEmitter::Emit()
 	};
 
 	newParticle->scaleSpeed_ = rnd_.NextFloatRange(minScaleDecay_, maxScaleDecay_);
-
-	newParticle->modelInstance_.SetUseLighting(false);
-
+	newParticle->modelInstance_.SetMaterial(material_);
+	
 	particles_.push_back(std::move(newParticle));
 }

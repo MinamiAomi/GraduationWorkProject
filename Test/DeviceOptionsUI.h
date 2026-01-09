@@ -15,6 +15,10 @@ private:
         FindLightDevice,
     };
 
+    const int32_t kSelectionDelay = 10;
+    const int32_t kWaitTime = 120;
+    const int32_t kAnimationCircle = 30;
+
     void SetupMainMenu();
     void UpdateMainMenu();
     void SetupConnectionSettings();
@@ -24,7 +28,8 @@ private:
 
     std::vector<std::unique_ptr<Sprite>> sprites_;
     State state_ = State::MainMenu;
+    int32_t animationTimer_ = 0;
+    int32_t selectionTimer_ = 0;
     int16_t optionCursor_ = 0;
-    int16_t connectionSettingsCursor_ = 0;
-
+    bool needsStateInitialization_ = false;
 };
