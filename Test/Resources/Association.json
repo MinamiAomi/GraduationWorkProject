@@ -4,12 +4,48 @@
     "trolley": "Trolley/Trolley/Trolley.gltf",
     "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
     "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
-
+    "monster": "OODAMA/OODAMA.gltf",
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
-    "Stage": "StaticMesh/StageModel/Stage.gltf",
+    "Stage": "StaticMesh/StageModel/LEVEL1.gltf",
+    "RANTAN": "StaticMesh/RANTAN.gltf",
+    "O":"Ore_no_Tousougeki/O.gltf",
+    "r":"Ore_no_Tousougeki/r.gltf",
+    "e":"Ore_no_Tousougeki/e.gltf",
+    "n":"Ore_no_Tousougeki/n.gltf",
+    "o":"Ore_no_Tousougeki/smallO.gltf",
+    "T":"Ore_no_Tousougeki/T.gltf",
+    "u":"Ore_no_Tousougeki/u.gltf",
+    "s":"Ore_no_Tousougeki/s.gltf",
+    "G":"Ore_no_Tousougeki/G.gltf",
+    "k":"Ore_no_Tousougeki/k.gltf",
+    "i":"Ore_no_Tousougeki/i.gltf",
     "Crystal": "LightObject/Crystal.gltf",
-    "RANTAN": "StaticMesh/RANTAN.gltf"
-  }
+    "Moss": "LightObject/Moss.gltf",
+    "Box": "Box.gltf"
+  },
+  "Texture" : {
+    "DCUI_Back" : "TestResource/Back.png",
+    "DCUI_Circle" : "TestResource/Circle.png",
+    "DCUI_Triangle" : "TestResource/Triangle.png",
+    "DCUI_ConnectionSettings" : "TestResource/ConnectionSettings.png",
+    "DCUI_GameStart" : "TestResource/GameStart.png",
+    "DCUI_Quit" : "TestResource/Quit.png",
+    "DCUI_FindLightDevice" : "TestResource/FindLightDevice.png",
+    "DCUI_FoundLightDevice" : "TestResource/FoundLightDevice.png",
+    "DCUI_NotFoundLightDevice" : "TestResource/NotFoundLightDevice.png",
+    "DCUI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
     
+    "TrolleyBase" : "Trolley/TrolleyUI/Texture/base.png",
+    "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",
+    "TrolleyOverChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_purple.png",
+    "TrolleyNitroBurst" : "Trolley/TrolleyUI/Texture/gauge1_yellow.png",
+    "TrolleyNitroGauge" : "Trolley/TrolleyUI/Texture/gauge2_yellow.png",
+    
+    "FlashlightBase" : "Flashlight/FlashlightUI/Texture/baseTest.png",
+    "FlashlightFrame" : "Flashlight/FlashlightUI/Texture/frame.png",
+    "FlashlightGauge" : "Flashlight/FlashlightUI/Texture/gauge_yellow.png",
+
+    "white2x2":"white2x2.png"
+  }
 }

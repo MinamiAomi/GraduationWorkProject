@@ -20,19 +20,6 @@ float32_t3 GetWorldPosition(in float32_t2 texcoord) {
     return tmpPosition.xyz / tmpPosition.w;
 }
 
-// 拡散反射IBL
-float32_t3 DiffuseIBL(float32_t3 normal, float32_t3 diffuseReflectance) {
-    return diffuseReflectance * g_Irradiance.Sample(g_CubeMapSampler, normal);
-}
-
-// 鏡面反射IBL
-float32_t3 SpecularIBL(float32_t3 normal, float32_t3 viewDirection, float32_t3 specularReflectance, float32_t specularRoughness) {
-    float32_t NdotV = saturate(dot(normal, viewDirection));
-    float32_t lod = specularRoughness * (g_Scene.radianceMipCount);
-    float32_t3 specular = PBR::SchlickFresnel(specularReflectance, 1.0f, NdotV);
-    return specular * g_Radiance.SampleLevel(g_CubeMapSampler, reflect(-viewDirection, normal), lod);
-}
-
 PSOutput main(PSInput input) {
 
     PSOutput output;
@@ -55,27 +42,67 @@ PSOutput main(PSInput input) {
     float32_t roughness = g_MetallicRoughness.SampleLevel(g_DefaultSampler, input.texcoord, 0).y;
     // 0はダメ
     //roughness = clamp(roughness, 0.03f, 1.0f);
-    float32_t3 emissive = float32_t3(0.0f, 0.0f, 0.0f);
+    float32_t3 emissive = g_Emissive.SampleLevel(g_DefaultSampler, input.texcoord, 0).xyz;
 
     PBR::Geometry geometry = PBR::CreateGeometry(position, normal, g_Scene.cameraPosition);
     PBR::Material material = PBR::CreateMaterial(albedo, metallic, roughness, emissive);
-    PBR::IncidentLight incidentLight;
-    incidentLight.direction = g_SkyParameter.sunPosition;
-    incidentLight.color = float32_t3(1.0f, 1.0f, 1.0f);
     
     PBR::ReflectedLight reflectedLight;
     reflectedLight.directDiffuse = float32_t3(0.0f, 0.0f, 0.0f);
     reflectedLight.directSpecular = float32_t3(0.0f, 0.0f, 0.0f);
     
-    ///color += ShadeDirectionalLight(g_Scene.directionalLight);
-    PBR::DirectRenderingEquations(incidentLight, geometry, material, reflectedLight);
-    
-    // IBL
-    //reflectedLight.directDiffuse += DiffuseIBL(geometry.normal, material.diffuseReflectance);
-    //reflectedLight.directSpecular += SpecularIBL(geometry.normal, geometry.viewDirection, material.specularReflectance, material.specularRoughness);
+    for (uint32_t i = 0; i < g_Scene.lightCount; ++i) {
+        Light light = g_Lights[i];
+        PBR::IncidentLight incidentLight;
+        float32_t attenuation = 1.0f;
+        bool processLight = false;
+        
+        if (light.type == LIGHT_TYPE_DIRECTIONAL) {
+            incidentLight.direction = -light.direction;
+            incidentLight.color = light.color * light.intensity;
+            attenuation = 1.0f;
+            processLight = true;
+        }
+        else {
+            float32_t3 lightVec = light.position - position;
+            float32_t distance = length(lightVec);
+        
+            if (distance < light.range) {
+                float32_t3 L = normalize(lightVec);
+                incidentLight.direction = L;
+                
+                float32_t distRate = saturate(1.0f - distance / light.range);
+                attenuation = pow(distRate, light.decay);
+        
+                if (light.type == LIGHT_TYPE_POINT) {
+                    incidentLight.color = light.color * light.intensity;
+                    processLight = true;
+                }
+                else if (light.type == LIGHT_TYPE_SPOT) {
+                    float32_t cosAngle = dot(-L, light.direction);
+                    float32_t falloffFactor = saturate((cosAngle - light.cosOuter) / (light.cosInner - light.cosOuter));
+                    
+                    attenuation *= falloffFactor;
+                    
+                    incidentLight.color = light.color * light.intensity;
+                    if (falloffFactor > 0.0f) {
+                        processLight = true;
+                    }
+                }
+            }
+        }
+        
+        if (processLight && attenuation > 0.0f) {
+            incidentLight.color *= attenuation;
+            PBR::DirectRenderingEquations(incidentLight, geometry, material, reflectedLight);
+        }
+    }
 
-    float32_t3 color = reflectedLight.directDiffuse + reflectedLight.directSpecular;
+    float32_t3 ambient = material.diffuseReflectance * float32_t3(0.02f, 0.02f, 0.02f); // 少し暗めに調整
 
+    float32_t3 color = reflectedLight.directDiffuse + reflectedLight.directSpecular + ambient + material.emissive;
+
+    color = saturate(color);
     output.color.rgb = color;
     output.color.a = 1.0f;
     

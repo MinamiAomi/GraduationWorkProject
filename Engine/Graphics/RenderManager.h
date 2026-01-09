@@ -62,8 +62,6 @@ private:
     RenderManager(const RenderManager&) = delete;
     RenderManager& operator=(const RenderManager&) = delete;
 
-    void ShowDockingSpace();
-
     Graphics* graphics_ = nullptr;
     SwapChain swapChain_;
     CommandContext commandContext_;
@@ -79,10 +77,10 @@ private:
     Skybox skybox_;
     LineDrawer lineDrawer_;
     ParticleCore particleCore_;
-    
+
     ModelRenderer modelRenderer;
     Transition transition_;
-    //Bloom bloom_;
+    Bloom bloom_;
     FXAA fxaa_;
     PostEffect postEffect_;
     LightManager lightManager_;

@@ -58,6 +58,18 @@
     <Filter Include="Game\RailSystem\Camera">
       <UniqueIdentifier>{9add3b22-1f5e-4350-b2bd-27b3fd254a13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\LightObject">
+      <UniqueIdentifier>{222db5f3-ca9e-43c7-bfd9-fc74ed0a8458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Deadline">
+      <UniqueIdentifier>{bf185b34-956c-498f-a258-3853b8ebc304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Device">
+      <UniqueIdentifier>{4085a3e1-be42-41ee-bd02-c7af7a5de181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Particle">
+      <UniqueIdentifier>{adf7f51c-ef77-418b-b471-d7b2d943219c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -114,6 +126,33 @@
     </ClCompile>
     <ClCompile Include="RailCameraSystem.cpp">
       <Filter>Game\RailSystem\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="LightObject.cpp">
+      <Filter>Game\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightObject.cpp">
+      <Filter>Game\LightObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Deadline.cpp">
+      <Filter>Game\Deadline</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadlineUI.cpp">
+      <Filter>Game\Deadline</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceOptionsUI.cpp">
+      <Filter>Game\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="LightDeviceInput.cpp">
+      <Filter>Game\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelEmitter.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerEmitter.cpp">
+      <Filter>Game\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +228,33 @@
     </ClInclude>
     <ClInclude Include="RailCameraSystem.h">
       <Filter>Game\RailSystem\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightObject.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Deadline.h">
+      <Filter>Game\Deadline</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadlineUI.h">
+      <Filter>Game\Deadline</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceOptionsUI.h">
+      <Filter>Game\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="LightDeviceInput.h">
+      <Filter>Game\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelEmitter.h">
+      <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerEmitter.h">
+      <Filter>Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -29,8 +29,11 @@ PSOutput main(PSInput input) {
     output.color = src_.Sample(sampler_, input.texcoord);
 
     float luminance = dot(output.color.xyz, float3(0.2125f, 0.7154f, 0.0721f));
+    float mask = step(param_.threshold, luminance);
+    output.color.xyz *= mask;
+
     //clip(luminance - param_.threshold);
-    output.color.xyz *= Knee(luminance, param_.threshold, param_.knee);
+    //output.color.xyz *= Knee(luminance, param_.threshold, param_.knee);
 
     return output;
 }

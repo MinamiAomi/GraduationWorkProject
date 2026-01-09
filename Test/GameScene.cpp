@@ -28,12 +28,6 @@ void GameScene::OnInitialize() {
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
 
-#pragma region Flashlight
-	flashlight_ = std::make_unique<Flashlight>();
-	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
-	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
-#pragma endregion
-
 #pragma region RailSystem
 	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
@@ -44,7 +38,17 @@ void GameScene::OnInitialize() {
 		//カメラ再生
 		railAnimationPlayer_->Play();
 	}
+	else {
+		assert(0);
+	}
 
+#pragma endregion
+
+#pragma region Flashlight
+	flashlight_ = std::make_unique<Flashlight>();
+	flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion
 
 #pragma region Trolley
@@ -53,7 +57,9 @@ void GameScene::OnInitialize() {
 	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
 	trolley_->Initialize();
-	collisionSystem_->RegisterCollider(trolley_->GetCollider());
+	for (auto& collider : trolley_->GetColliders()) {
+		collisionSystem_->RegisterCollider(collider);
+	}
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -62,6 +68,7 @@ void GameScene::OnInitialize() {
 	railCameraSystem_->SetParent(trolley_->GetTransform());
 	railCameraSystem_->Initialize();
 #pragma endregion
+
 
 #pragma region SceneObjectSystem
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
@@ -73,10 +80,23 @@ void GameScene::OnInitialize() {
 	sceneObjectManager_->CreateObjects(result);
 
 	//Colliderセット
-	for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-		collisionSystem_->RegisterCollider(collider->collider.value());
+	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
 	}
+	for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+	for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+
 #pragma endregion
+#pragma region Deadline
+	deadline_ = std::make_unique<Deadline>();
+	deadline_->SetAnimationPlayer(railAnimationPlayer_.get());
+	deadline_->Initialize();
+#pragma endregion
+
 
 #ifdef _DEBUG
 	debugCamera_ = std::make_unique<DebugCamera>();
@@ -88,18 +108,19 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 
-#pragma region RailSystem
+#ifndef _DEBUG
+	if (deadline_->IsGameOver()) {
+		return;
+	}
+
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
-		//SceneObjectsリセット
-		sceneObjectManager_->ResetObjects();
-
-		//Colliderセット
-		for (const auto& collider : sceneObjectManager_->GetSceneObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider.value());
-		}
-		railAnimationPlayer_->Loop();
+		return;
 	}
+#endif // _DEBUG
+
+#pragma region RailSystem
+
 	//現在のスピードを代入
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
@@ -121,15 +142,123 @@ void GameScene::OnUpdate() {
 #pragma endregion
 	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
-
-
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion
+#pragma region Deadline
+	deadline_->Update(deltaTime);
+#pragma endregion
+
+
 #pragma region CollisionSystem
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
+
+	ImGui::Begin("RailAnimationPlayer");
+	if (railAnimationPlayer_->IsPlaying()) {
+		ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
+	}
+	else {
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "Status: Paused ||");
+	}
+
+	//区切り線
+	ImGui::Separator();
+
+	ImGui::Text("現実速度（傾きやFOVはこの速度参照）:%.2f", railAnimationPlayer_->GetRealSpeed());
+	// 余白
+	ImGui::Spacing();
+
+	float minFrame = static_cast<float>(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame);
+	float maxFrame = static_cast<float>(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
+
+	// スライダーで直感的に位置を変更・確認できるようにする
+	ImGui::Text("Timeline");
+	float currentFrame = railAnimationPlayer_->GetCurrentFrame();
+	ImGui::SliderFloat("##FrameSlider", &currentFrame, minFrame, maxFrame, "Frame: %.2f");
+	ImGui::InputFloat("##Frame", &currentFrame);
+	currentFrame = std::clamp(currentFrame, float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame));
+	railAnimationPlayer_->SetCurrentFrame(currentFrame);
+
+	// 進捗バー
+	float progress = (currentFrame - minFrame) / (maxFrame - minFrame);
+	ImGui::ProgressBar(progress, ImVec2(0.0f, 0.0f));
+
+	// 余白
+	ImGui::Spacing();
+
+
+	// 再生ボタン
+	if (ImGui::Button("Play")) {
+		railAnimationPlayer_->Play();
+	}
+	//横並びに
+	ImGui::SameLine();
+
+	// 一時停止ボタン
+	if (ImGui::Button("Pause")) {
+		railAnimationPlayer_->Pause();
+	}
+	//横並びに
+	ImGui::SameLine();
+
+	// 停止
+	if (ImGui::Button("Reset")) {
+		railAnimationPlayer_->Loop();
+		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		trolley_->Initialize();
+		railCameraSystem_->Initialize();
+		deadline_->Initialize();
+
+		//SceneObjectsリセット
+		sceneObjectManager_->ResetObjects();
+
+		//Colliderセット
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+	}
+
+	ImGui::Separator();
+
+	if (ImGui::TreeNode("Json情報")) {
+		ImGui::Text("最初のフレーム: %d", railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame);
+		ImGui::Text("最後のフレーム : %d", railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame);
+		ImGui::Text("フレームレート : %d", railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.frameRate);
+
+		ImGui::TreePop();
+	}
+	ImGui::End();
+
+	//一周終わったかどうか
+	if (railAnimationPlayer_->IsFinished()) {
+		flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
+		trolley_->Initialize();
+		railCameraSystem_->Initialize();
+		deadline_->Initialize();
+
+		//SceneObjectsリセット
+		sceneObjectManager_->ResetObjects();
+
+		//Colliderセット
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		railAnimationPlayer_->Loop();
+	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
 	//デバックカメラ
@@ -169,10 +298,24 @@ void GameScene::OnUpdate() {
 	}
 	ImGui::End();
 
-	if (input_->IsKeyTrigger(DIK_SPACE)) {
+	//if (input_->IsKeyTrigger(DIK_SPACE)) {
+	//	SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+	//}
+
+
+#endif
+
+#ifndef DEBUG
+	//ゲームオーバー
+	if (deadline_->IsGameOver()) {
+		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+	}
+
+	//一周終わったかどうか
+	if (railAnimationPlayer_->IsFinished()) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
-#endif 
+#endif // DEBUG
 }
 
 void GameScene::OnFinalize() {

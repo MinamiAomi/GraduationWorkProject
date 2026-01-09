@@ -13,8 +13,9 @@ struct PSOutput {
     float4 albedo : SV_TARGET0;
     float2 metallicRoughness : SV_TARGET1;
     float4 normal : SV_TARGET2;
-    float viewDepth : SV_TARGET3;
-    uint2 meshMaterialIDs : SV_TARGET4;
+    float4 emissive : SV_TARGET3;
+    float viewDepth : SV_TARGET4;
+    uint2 meshMaterialIDs : SV_TARGET5;
 };
 
 // 法線マップから法線を取得
@@ -50,7 +51,11 @@ PSOutput main(PSInput input) {
     float3 normal = GetNormal(normalize(input.normal), normalize(input.tangent), input.texcoord);
     output.normal.xyz = (normal + 1.0f) * 0.5f;
     output.normal.w = 1.0f;
-  
+    
+    float3 emissive = g_BindlessTextures[g_Material.emissiveMapIndex].Sample(g_Sampler, input.texcoord).rgb;
+    output.emissive.rgb = emissive * albedo.rgb * g_Material.emissive; 
+    output.emissive.w = 1.0f;
+        
     output.viewDepth = input.viewDepth;
     output.meshMaterialIDs = uint2(0, 0);
 

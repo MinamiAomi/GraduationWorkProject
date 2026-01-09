@@ -15,6 +15,7 @@
 #include "Graphics/Core/TextureLoader.h"
 #include "Debug/Debug.h"
 
+#include "GameSystem.h"
 #include "TitleScene.h"
 #include "GameScene.h"
 
@@ -24,13 +25,14 @@ namespace {
 
 void Test::OnInitialize() {
     SceneManager* sceneManager = SceneManager::GetInstance();
+    sceneManager->SetGameSystem(GameSystem::GetInstance());
     //シーン設定
 
 
 #ifdef _DEBUG
     sceneManager->ChangeScene<GameScene>(false);
 #else
-    sceneManager->ChangeScene<TitleScene>(true);
+    sceneManager->ChangeScene<GameScene>(true);
 #endif 
 
 

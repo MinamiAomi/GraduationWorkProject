@@ -1,19 +1,49 @@
 {
     "Banking": {
-        "bankingAmount_": 5.0,
+        "bankingAmount_": 0.10000000149011612,
         "bankingSmoothTime_": 1.0,
-        "lookAheadForBank_": 5.0
+        "lookAheadForBank_": 10.0
     },
     "Battery": {
+        "batteryOffset:0": [
+            0.0,
+            -7.0,
+            20.0
+        ],
+        "batteryOffset:1": [
+            20.0,
+            -7.0,
+            0.0
+        ],
+        "batteryOffset:2": [
+            -20.0,
+            -7.0,
+            0.0
+        ],
         "batteryOffset_": [
             0.0,
-            -13.0,
-            30.0
+            -7.0,
+            20.0
         ],
         "batteryRadius_": 3.0
     },
     "TrollerSpeed": {
+        "accelerationRate_": 0.4000000059604645,
+        "batteryAfterBurst_": 30.0,
+        "batteryAfterNitro_": 80.0,
+        "burstDuration_": 2.0,
+        "burstSpeed_": 0.30000001192092896,
+        "burstThreshold_": 120.0,
+        "decelerationRate_": 0.10000000149011612,
+        "maxNormalCharge_": 100.0,
+        "maxSpeed_": 1.0,
         "maxTrollySpeed_": 1.0,
+        "minSpeed_": 0.30000001192092896,
+        "nitroChargeTime_": 3.0,
+        "nitroDuration_": 3.0,
+        "nitroSpeed_": 1.5,
+        "nitroThreshold_": 100.0,
+        "startFrame_": 10.0,
         "trollyAcceleration_": 0.0010000000474974513,
         "trollyDeceleration_": 0.0010000000474974513,
         "trollyMaxFillUpTime_": 60
@@ -21,8 +51,10 @@
     "Trolley": {
         "trolleyOffset_": [
             0.0,
-            0.7400000095367432,
+            1.0,
             0.0
         ]
-    }
+    },
+    "addFrame_": 12.0,
+    "startFrame_": 60.0
 }

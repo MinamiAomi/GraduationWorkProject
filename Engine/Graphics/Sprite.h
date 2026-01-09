@@ -3,14 +3,21 @@
 #include <filesystem>
 #include <list>
 #include <vector>
+#include <string>
 
 #include "Texture.h"
 
 #include "Math/MathUtils.h"
+#include "Math/Color.h"
 
 class Sprite {
     friend class SpriteRenderer;
 public:
+    enum class UVMode {
+        UV,
+        Texcoord
+    };
+
     Sprite();
     ~Sprite();
     
@@ -21,8 +28,8 @@ public:
     void SetRotate(float rotate) { rotate_ = rotate; }
     void SetScale(const Vector2& scale) { scale_ = scale; }
     void SetAnchor(const Vector2& anchor) { anchor_ = anchor; }
-    void SetTexcoordRect(const Vector2& base, const Vector2& size) { texcoordBase_ = base, texcoordSize_ = size; }
-    void SetColor(const Vector4& color) { color_ = color; }
+    void SetUVRect(const Rect& rect, UVMode mode = UVMode::Texcoord) { uvRect_ = rect, uvMode_ = mode; }
+    void SetColor(const Color& color) { color_ = color; }
     void SetDrawOrder(uint8_t drawOrder) { drawOrder_ = drawOrder; }
     void SetIsActive(bool isActive) { isActive_ = isActive; }
 
@@ -30,6 +37,9 @@ public:
 
     uint8_t GetDrawOrder() const { return drawOrder_; }
 
+#ifdef _DEBUG
+    void DrawImGui(const std::string& name);
+#endif // _DEBUG
 private:
     static std::list<Sprite*> instanceList_;
 
@@ -43,9 +53,9 @@ private:
     float rotate_ = 0.0f;
     Vector2 scale_ = Vector2::one;
     Vector2 anchor_ = { 0.5f,0.5f };
-    Vector2 texcoordBase_ = {  0.0f,  0.0f };
-    Vector2 texcoordSize_ = { 64.0f, 64.0f };
-    Vector4 color_ = Vector4::one;
+    Rect uvRect_;
+    UVMode uvMode_ = UVMode::Texcoord;
+    Color color_ = Color::white;
     uint8_t drawOrder_ = 0; // 小さいほど上に描画される レイヤーを表す値
     bool isActive_ = true;
 };

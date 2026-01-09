@@ -106,10 +106,18 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
                 reciHeight = 1.0f / (float)instance->texture_->GetHeight();
             }
 
-            float uvLeft = instance->texcoordBase_.x * reciWidth;
-            float uvRight = (instance->texcoordBase_.x + instance->texcoordSize_.x) * reciWidth;
-            float uvTop = instance->texcoordBase_.y * reciHeight;
-            float uvBottom = (instance->texcoordBase_.y + instance->texcoordSize_.y) * reciHeight;
+
+            float uvLeft = instance->uvRect_.base.x;
+            float uvRight = instance->uvRect_.base.x + instance->uvRect_.size.x;
+            float uvTop = instance->uvRect_.base.y;
+            float uvBottom = instance->uvRect_.base.y + instance->uvRect_.size.y;
+
+            if (instance->uvMode_ == Sprite::UVMode::Texcoord) {
+                uvLeft *= reciWidth;
+                uvRight *= reciWidth;
+                uvTop *= reciHeight;
+                uvBottom *= reciHeight;
+            }
 
             Vector2 localVertices[] = {
                 { 0.0f, 0.0f },
@@ -123,13 +131,15 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
                 vertex = vertex * matrix;
             }
 
+            Vector4 color = static_cast<Vector4>(instance->color_);
+
             Vertex vertices[] = {
-                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, instance->color_ },
-                { { localVertices[1], 0.0f }, { uvLeft,  uvTop},    instance->color_ },
-                { { localVertices[2], 0.0f }, { uvRight, uvTop},    instance->color_ },
-                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, instance->color_ },
-                { { localVertices[2], 0.0f }, { uvRight, uvTop},    instance->color_ },
-                { { localVertices[3], 0.0f }, { uvRight, uvBottom}, instance->color_ },
+                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+                { { localVertices[1], 0.0f }, { uvLeft,  uvTop},    color },
+                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+                { { localVertices[3], 0.0f }, { uvRight, uvBottom}, color },
 
             };
 

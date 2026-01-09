@@ -36,12 +36,10 @@ void RenderManager::Initialize() {
     lightingRenderingPass_.Initialize(swapChainBuffer.GetWidth(), swapChainBuffer.GetHeight());
     skybox_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat(), geometryRenderingPass_.GetDepth().GetFormat());
     lineDrawer_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat());
-    //particleCore_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat());
     spriteRenderer_.Initialize(finalImageBuffer_);
-    //bloom_.Initialize(&lightingRenderingPass_.GetResult());
+    bloom_.Initialize(&lightingRenderingPass_.GetResult());
     postEffect_.Initialize(finalImageBuffer_);
 
-    //    modelRenderer.Initialize(mainColorBuffer_, mainDepthBuffer_);
     transition_.Initialize();
 
     fxaa_.Initialize(&lightingRenderingPass_.GetResult());
@@ -75,33 +73,32 @@ void RenderManager::Render() {
     if (camera && sunLight) {
         // 影、スペキュラ
         modelSorter_.Sort(*camera);
+        lightManager_.UpdateActiveLights(*camera);
 
         geometryRenderingPass_.Render(commandContext_, *camera, modelSorter_);
 
-        lightingRenderingPass_.Render(commandContext_, geometryRenderingPass_, *camera, *sunLight);
+        lightingRenderingPass_.Render(commandContext_, geometryRenderingPass_, *camera, lightManager_);
 
         commandContext_.TransitionResource(lightingRenderingPass_.GetResult(), D3D12_RESOURCE_STATE_RENDER_TARGET);
         commandContext_.TransitionResource(geometryRenderingPass_.GetDepth(), D3D12_RESOURCE_STATE_DEPTH_READ);
         commandContext_.SetViewportAndScissorRect(0, 0, lightingRenderingPass_.GetResult().GetWidth(), lightingRenderingPass_.GetResult().GetHeight());
         commandContext_.SetRenderTarget(lightingRenderingPass_.GetResult().GetRTV(), geometryRenderingPass_.GetDepth().GetDSV());
         skybox_.SetWorldMatrix(Matrix4x4::MakeAffineTransform({ 1.0f, 1.0f, 1.0f }, Quaternion::identity, camera->GetPosition()));
-        //skybox_.Render(commandContext_, *camera);
+        skybox_.Render(commandContext_, *camera);
 
         commandContext_.SetRenderTarget(lightingRenderingPass_.GetResult().GetRTV());
         commandContext_.SetViewportAndScissorRect(0, 0, lightingRenderingPass_.GetResult().GetWidth(), lightingRenderingPass_.GetResult().GetHeight());
         lineDrawer_.Render(commandContext_, *camera);
-
-        //particleCore_.Render(commandContext_, *camera);
     }
 
-    //bloom_.Render(commandContext_);
+    bloom_.Render(commandContext_);
     fxaa_.Render(commandContext_);
 
     commandContext_.TransitionResource(finalImageBuffer_, D3D12_RESOURCE_STATE_RENDER_TARGET);
     commandContext_.SetRenderTarget(finalImageBuffer_.GetRTV());
     commandContext_.SetViewportAndScissorRect(0, 0, finalImageBuffer_.GetWidth(), finalImageBuffer_.GetHeight());
 
-    
+
     postEffect_.Render(commandContext_, fxaa_.GetResult());
     spriteRenderer_.Render(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
 

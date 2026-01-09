@@ -112,6 +112,12 @@ void from_json(const nlohmann::json& json, Transform& value) {
 	json.at("scale").get_to(value.scale);
 }
 
+void from_json(const nlohmann::json& json, Color& value)
+{
+	assert(json.is_array() && json.size() == 3);
+	value = Color::RGBA(json.at(0), json.at(1), json.at(2));
+}
+
 
 namespace JsonHelper {
 

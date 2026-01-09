@@ -1025,7 +1025,7 @@ public:
         Matrix4x4 result;
         DirectX::XMStoreFloat4x4(reinterpret_cast<DirectX::XMFLOAT4X4*>(result.m), mulMatrix);
         return result;
-        
+
         //return {
         //    lhs.m[0][0] * rhs.m[0][0] + lhs.m[0][1] * rhs.m[1][0] + lhs.m[0][2] * rhs.m[2][0] + lhs.m[0][3] * rhs.m[3][0],
         //    lhs.m[0][0] * rhs.m[0][1] + lhs.m[0][1] * rhs.m[1][1] + lhs.m[0][2] * rhs.m[2][1] + lhs.m[0][3] * rhs.m[3][1],
@@ -1200,12 +1200,12 @@ public:
     Matrix4x4 Adjugate() const noexcept;
     inline Matrix4x4 Inverse() const noexcept {
         //return 1.0f / Determinant() * Adjugate();
-        
+
         DirectX::XMMATRIX matrix = DirectX::XMLoadFloat4x4(reinterpret_cast<const DirectX::XMFLOAT4X4*>(m));
         DirectX::XMVECTOR determinant;
 
         DirectX::XMMATRIX inverse = DirectX::XMMatrixInverse(&determinant, matrix);
-      
+
         Matrix4x4 result;
         DirectX::XMStoreFloat4x4(reinterpret_cast<DirectX::XMFLOAT4X4*>(result.m), inverse);
         return result;
@@ -1223,4 +1223,8 @@ public:
 #pragma endregion
 };
 
-
+class Rect {
+public:
+    Vector2 base;
+    Vector2 size;
+};

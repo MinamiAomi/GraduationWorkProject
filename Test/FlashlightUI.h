@@ -2,12 +2,25 @@
 
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
+#include "Graphics/Sprite.h"
 
+
+class Flashlight;
 class FlashlightUI {
 public:
+	FlashlightUI();
 	void Initialize();
 	void Update();
-private :
+
+	void SetFlashlight(const Flashlight* flashlight) { flashlight_ = flashlight; }
+private:
+	const Flashlight* flashlight_;
+
 	ModelInstance model_;
 	Transform transform_;
+
+	Sprite baseUI_;
+	Sprite frameUI_;
+	Sprite batteryUI_;
+
 };

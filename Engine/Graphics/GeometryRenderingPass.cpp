@@ -26,6 +26,9 @@ void GeometryRenderingPass::Initialize(uint32_t width, uint32_t height) {
     float normalClearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     gBuffers_[GBuffer::Normal].SetClearColor(normalClearColor);
     gBuffers_[GBuffer::Normal].Create(L"GeometryRenderingPass Normal", width, height, DXGI_FORMAT_R10G10B10A2_UNORM);
+    float emissiveClearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+    gBuffers_[GBuffer::Emissive].SetClearColor(emissiveClearColor);
+    gBuffers_[GBuffer::Emissive].Create(L"GeometryRenderingPass Emissive", width, height, DXGI_FORMAT_R10G10B10A2_UNORM);
     float viewDepthClearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
     gBuffers_[GBuffer::ViewDepth].SetClearColor(viewDepthClearColor);
     gBuffers_[GBuffer::ViewDepth].Create(L"GeometryRenderingPass ViewDepth", width, height, DXGI_FORMAT_R32_FLOAT);
@@ -39,7 +42,7 @@ void GeometryRenderingPass::Initialize(uint32_t width, uint32_t height) {
     rootSignatureDesc.AddConstantBufferView(1);
     rootSignatureDesc.AddConstantBufferView(2);
     rootSignatureDesc.AddDescriptorTable().AddSRVDescriptors(BINDLESS_RESOURCE_MAX, 0, 1);
-    rootSignatureDesc.AddStaticSampler(0, D3D12_FILTER_ANISOTROPIC);
+    rootSignatureDesc.AddStaticSampler(0, D3D12_FILTER_MIN_MAG_MIP_LINEAR);
     rootSignatureDesc.AddFlag(D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
     rootSignature_.Create(L"GeometryRenderingPass RootSignature", rootSignatureDesc);
 
@@ -99,32 +102,39 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
     struct MaterialData {
         Vector3 albedo;
         float metallic;
+        Vector3 emissive;
         float roughness;
         uint32_t albedoMapIndex;
         uint32_t metallicRoughnessMapIndex;
         uint32_t normalMapIndex;
+        uint32_t emissiveMapIndex;
     };
 
     uint32_t defaultWhiteTextureIndex = DefaultTexture::White.GetSRV().GetIndex();
     uint32_t defaultNormalTextureIndex = DefaultTexture::Normal.GetSRV().GetIndex();
+    uint32_t defaultBlackTextureIndex = DefaultTexture::Black.GetSRV().GetIndex();
 
-    auto ErrorMaterial = [defaultWhiteTextureIndex, defaultNormalTextureIndex]() {
+    auto ErrorMaterial = [defaultWhiteTextureIndex, defaultNormalTextureIndex, defaultBlackTextureIndex]() {
         MaterialData materialData;
         materialData.albedo = { 0.988f, 0.059f, 0.753f };
         materialData.metallic = 0.0f;
+        materialData.emissive = { 0.0f, 0.0f, 0.0f };
         materialData.roughness = 0.0f;
         materialData.albedoMapIndex = defaultWhiteTextureIndex;
         materialData.metallicRoughnessMapIndex = defaultWhiteTextureIndex;
         materialData.normalMapIndex = defaultNormalTextureIndex;
+        materialData.emissiveMapIndex = defaultBlackTextureIndex;
         return materialData;
         };
     auto SetMaterialData = [](MaterialData& dest, const Material& src) {
         dest.albedo = src.albedo;
         dest.metallic = src.metallic;
+        dest.emissive = src.emissive * src.emissiveIntensity;
         dest.roughness = src.roughness;
         if (src.albedoMap) { dest.albedoMapIndex = src.albedoMap->GetSRV().GetIndex(); }
         if (src.metallicRoughnessMap) { dest.metallicRoughnessMapIndex = src.metallicRoughnessMap->GetSRV().GetIndex(); }
         if (src.normalMap) { dest.normalMapIndex = src.normalMap->GetSRV().GetIndex(); }
+        if (src.emissiveMap) { dest.emissiveMapIndex = src.emissiveMap->GetSRV().GetIndex(); }
         };
 
     commandContext.BeginEvent(L"GeometryRenderingPass::Render");

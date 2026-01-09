@@ -15,7 +15,7 @@ namespace RailSystem {
 
 		void Update(float deltaTime);
 
-		const Transform& GetTransform() const { return convertTransform_; }
+		const Transform& GetTransform() const { return convertRailTransform_; }
 
 		void Play();
 
@@ -34,14 +34,32 @@ namespace RailSystem {
 		void SetPlaybackSpeed(float speed) { playbackSpeed_ = speed; }
 		float GetPlaybackSpeed() const { return playbackSpeed_; }
 
-		void SetCurrentFrame(int frame);
+		const RailAnimation* GetRailAnimationDate() const {return animationData_.get();}
+
+		void SetCurrentFrame(float frame);
 		float GetCurrentFrame() const;
 
-		//指定されてフレームの座標
-		Vector3 EvaluatePosition(float frame) const;
-		// 指定したフレームにおける回転
-		Quaternion EvaluateRotation(float frame) const;
+		// 全部ワールドです
+		// レールの指定されてフレームの座標
+		Vector3 EvaluateRailPosition(float frame) const;
+		// レールの指定したフレームにおける回転
+		Quaternion EvaluateRailRotation(float frame) const;
+		// レールの指定したフレームにおけるTransform
+		Transform EvaluateRailTransform(float frame) const;
 
+		// カメラの指定されてフレームの座標
+		Vector3 EvaluateLocalCameraPosition(float frame) const;
+		// カメラの指定したフレームにおける回転
+		Quaternion EvaluateLocalCameraRotation(float frame) const;
+		// カメラの指定したフレームにおけるTransform
+		Transform EvaluateLocalCameraTransform(float frame) const;
+
+		// カメラの指定されてフレームの座標
+		Vector3 EvaluateWorldCameraPosition(float frame) const;
+		// カメラの指定したフレームにおける回転
+		Quaternion EvaluateWorldCameraRotation(float frame) const;
+		// カメラの指定したフレームにおけるTransform
+		Transform EvaluateWorldCameraTransform(float frame) const;
 	private:
 
 		void CalculateCurrentTransform();
@@ -67,6 +85,11 @@ namespace RailSystem {
 		float FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 		Vector2 EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const;
 
+#ifdef _DEBUG
+		void DrawImGui();
+#endif // _DEBUG
+
+
 		std::shared_ptr<const RailAnimation> animationData_;
 		float currentFrame_;
 		float totalDurationFrames_;
@@ -74,9 +97,9 @@ namespace RailSystem {
 		float playbackSpeed_;
 
 		//生データ
-		Transform transform_;
+		Transform railTransform_;
 		//左手座標系に変換された後
-		Transform convertTransform_;
+		Transform convertRailTransform_;
 		Vector3 preCameraPosition_;
 		float realSpeed_;
 	};
