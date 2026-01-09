@@ -3,13 +3,15 @@
 #include "Engine/Framework/AssetManager.h"
 #include "Engine/Graphics/RenderManager.h"
 
-void PowerEmitter::Initialize(EmitShape shape)
+void PowerEmitter::Initialize(EmitShape shape, const LightObject* parentLight)
 {
 	emitShapeType_ = shape;
+	parentLight_ = parentLight;
+	transform_.SetParent(parentLight->GetTransform());
 	auto assetManager = AssetManager::GetInstance();
 	model_ = assetManager->modelMap.Get("Box")->Get();
-	radius_ = 1.0f;                       // Sphere用半径
-	size_ = { 2.0f, 2.0f, 2.0f };         // Box用サイズ
+	radius_ = parentLight_->GetModelResource()->GetRadius();               
+	size_ = { 2.0f, 2.0f, 2.0f };
 	emitInterval_ = 1;
 	emitTimer_ = 0;
 	minScale_ = 1.0f;
@@ -18,17 +20,19 @@ void PowerEmitter::Initialize(EmitShape shape)
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
 	material_->albedo = { 1.0f,0.8f,0.0f };
+
 }
 
 void PowerEmitter::Update()
 {
 	
 	transform_.UpdateMatrix();
-
-	emitTimer_++;
-	if (emitTimer_ >= emitInterval_) {
-		Emit();
-		emitTimer_ = 0;
+	if (parentLight_->GetIsActive()) {
+		emitTimer_++;
+		if (emitTimer_ >= emitInterval_) {
+			Emit();
+			emitTimer_ = 0;
+		}
 	}
 	
 	for (auto it = particles_.begin(); it != particles_.end(); ) {
@@ -95,6 +99,8 @@ void PowerEmitter::Emit()
 
 	Vector3 spawnPos = { 0, 0, 0 };
 	Vector3 emitterWorldPos = transform_.worldMatrix.GetTranslate();
+
+	radius_ = parentLight_->GetModelResource()->GetRadius() * transform_.worldMatrix.GetScale().x;
 
 	if (emitShapeType_ == EmitShape::kSphere) {
 		while (true) {

@@ -17,10 +17,27 @@ public:
 #ifdef _DEBUG
 	void Debug(const std::string& label);
 #endif // _DEBUG
+
+	bool GetIsActive() const { return isActive_; }
+
 	void SetHp(float hp) {
 		healthStatus_.hp = hp;
 	}
 	float GetHp() { return healthStatus_.hp;}
+
+
+
+	std::shared_ptr<const Model> GetModelResource() const {
+		return model_;
+	}
+
+	void SetModel(std::shared_ptr<Model> model) {
+		model_ = model;
+	}
+
+	const Transform* GetTransform() const {
+		return &lightTransform_;
+	}
 
 	//何秒かけて死ぬか
 	void SetDamageDuration(float maxHpFrame) {
@@ -42,6 +59,7 @@ public:
 private:
 
 	const Transform* parentTransform_ = nullptr;
+	std::shared_ptr<Model> model_;
 	Transform lightTransform_;
 	std::shared_ptr<PointLight> light_;
 	Vector3 offset_;
