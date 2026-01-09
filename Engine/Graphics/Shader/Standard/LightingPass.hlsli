@@ -32,9 +32,10 @@ StructuredBuffer<Light> g_Lights : register(t0);
 
 // G-Buffers
 Texture2D<float32_t4> g_Albedo : register(t1);
-Texture2D<float32_t2> g_MetallicRoughness : register(t2);
+Texture2D<float32_t3> g_MetallicRoughnessFlag : register(t2);
 Texture2D<float32_t3> g_Normal : register(t3);
 Texture2D<float32_t3> g_Emissive : register(t4);
 Texture2D<float32_t> g_Depth : register(t5);
+
 
 SamplerState g_DefaultSampler : register(s0);

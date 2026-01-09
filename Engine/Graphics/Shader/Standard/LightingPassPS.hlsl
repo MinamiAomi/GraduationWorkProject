@@ -38,8 +38,16 @@ PSOutput main(PSInput input) {
     float32_t3 position = GetWorldPosition(input.texcoord);
     float32_t3 normal = g_Normal.SampleLevel(g_DefaultSampler, input.texcoord, 0) * 2.0f - 1.0f;
     float32_t3 albedo = g_Albedo.SampleLevel(g_DefaultSampler, input.texcoord, 0).xyz;
-    float32_t metallic = g_MetallicRoughness.SampleLevel(g_DefaultSampler, input.texcoord, 0).x;
-    float32_t roughness = g_MetallicRoughness.SampleLevel(g_DefaultSampler, input.texcoord, 0).y;
+    float32_t metallic = g_MetallicRoughnessFlag.SampleLevel(g_DefaultSampler, input.texcoord, 0).x;
+    float32_t roughness = g_MetallicRoughnessFlag.SampleLevel(g_DefaultSampler, input.texcoord, 0).y;
+    float32_t useLighting = g_MetallicRoughnessFlag.SampleLevel(g_DefaultSampler, input.texcoord, 0).z;
+    
+    if (useLighting == 0.0f) {
+        output.color.rgb = albedo;
+        output.color.a = 1.0f;
+        return output;
+    }
+    
     // 0はダメ
     //roughness = clamp(roughness, 0.03f, 1.0f);
     float32_t3 emissive = g_Emissive.SampleLevel(g_DefaultSampler, input.texcoord, 0).xyz;
