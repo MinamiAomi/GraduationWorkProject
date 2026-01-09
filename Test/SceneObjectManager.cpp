@@ -12,8 +12,7 @@
 void SceneObjectSystem::SceneObjectManager::Initialize()
 {
 	pointLightObjects_.clear();
-	emitterObjects_.clear();
-	enemyObjects_.clear();
+	eventTriggerTypeObjects_.clear();
 	sceneObjectData_.clear();
 }
 
@@ -32,14 +31,20 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		convertedObj->transform.rotate = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.transform.rotate);
 		convertedObj->transform.translate = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.transform.translate);
 
-		auto& col = convertedObj->capsuleCollisionData.value();
-		col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.capsuleCollisionData->center);
-		col.quaternion = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.capsuleCollisionData->quaternion);
+		if (convertedObj->capsuleCollisionData) {
+			auto& col = convertedObj->capsuleCollisionData.value();
+			col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.capsuleCollisionData->center);
+			col.quaternion = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.capsuleCollisionData->quaternion);
+		}
+
+		if (convertedObj->sphereCollisionData) {
+			auto& col = convertedObj->sphereCollisionData.value();
+			col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.sphereCollisionData->center);
+		}
 
 		if (convertedObj->pointLightData) {
 			convertedObj->pointLightData->offset = SceneObjectConverter::ConvertTranslateToLeftHand(convertedObj->pointLightData->offset);
 		}
-
 
 		sceneObjectData_.push_back(std::move(convertedObj));
 	}
@@ -50,8 +55,7 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 void SceneObjectSystem::SceneObjectManager::ResetObjects()
 {
 	pointLightObjects_.clear();
-	emitterObjects_.clear();
-	enemyObjects_.clear();
+	eventTriggerTypeObjects_.clear();
 
 	BuildRuntimeObjects();
 
@@ -74,18 +78,19 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		}
 	}
 
-	for (const auto& obj : emitterObjects_) {
+	for (const auto& obj : eventTriggerTypeObjects_) {
 		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 
+		if (obj->enemyTrigger) {
+
+		}
+
+		if (obj->eventTrigger) {
+
+		}
 
 	}
 
-
-	for (const auto& obj : enemyObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-	}
 
 #ifdef _DEBUG
 	sceneObjectConfig_.DrawImGui();
@@ -109,7 +114,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			const auto& assetManager = AssetManager::GetInstance();
 
-			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+			if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
 				pointLightObject->model.SetModel(modelHandle->Get());
 				// エラーマテリアル
 				pointLightObject->material = std::make_shared<Material>();
@@ -131,7 +136,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			//ライトの設定
 			if (data.pointLightData) {
 				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
-				
+
 				float scale = std::max({
 					pointLightObject->transform.scale.x,
 					pointLightObject->transform.scale.y,
@@ -146,7 +151,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				multiplier = std::max(multiplier, 0.1f);
 
 				float maxHp = sceneObjectConfig_.pointLightParams.baseHp * multiplier;
-				
+
 				pointLightObject->lightObject.SetMaxHp(maxHp);
 				pointLightObject->lightObject.SetHp(maxHp);
 
@@ -163,38 +168,25 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			pointLightObjects_.push_back(std::move(pointLightObject));
 		}
 		break;
-
-		case SceneObjectSystem::ObjectType::Emitter:
+		case SceneObjectSystem::ObjectType::EventTrigger:
 		{
-			auto emitterObject = std::make_unique<EmitterObject>();
+			auto eventTriggerTypeObject = std::make_unique<EventTriggerTypeObject>();
 
-			const auto& assetManager = AssetManager::GetInstance();
+			eventTriggerTypeObject->enemyTrigger = std::nullopt;
+			eventTriggerTypeObject->eventTrigger = std::nullopt;
+			
 
-			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
-				emitterObject->model.SetModel(modelHandle->Get());
+			if (data.eventTriggerTypeData->enemyTrigger.has_value()) {
+				eventTriggerTypeObject->enemyTrigger = data.eventTriggerTypeData->enemyTrigger;
 			}
 
-
-			InitializeCommonObject(emitterObject, data);
-
-			emitterObjects_.push_back(std::move(emitterObject));
-		}
-		break;
-
-		case SceneObjectSystem::ObjectType::Enemy:
-		{
-			auto enemyObject = std::make_unique<EnemyObject>();
-
-			const auto& assetManager = AssetManager::GetInstance();
-
-			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
-				enemyObject->model.SetModel(modelHandle->Get());
+			if (data.eventTriggerTypeData->eventTrigger.has_value()) {
+				eventTriggerTypeObject->eventTrigger = data.eventTriggerTypeData->eventTrigger;
 			}
 
+			InitializeCommonObject(eventTriggerTypeObject, data);
 
-			InitializeCommonObject(enemyObject, data);
-
-			enemyObjects_.push_back(std::move(enemyObject));
+			eventTriggerTypeObjects_.push_back(std::move(eventTriggerTypeObject));
 		}
 		break;
 

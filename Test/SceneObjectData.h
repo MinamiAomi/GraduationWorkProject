@@ -19,23 +19,27 @@
 namespace SceneObjectSystem {
 	enum class ObjectType {
 		PointLight,
-		Enemy,
-		Emitter,
+		EventTrigger,
 		Unknown
 	};
 
 	NLOHMANN_JSON_SERIALIZE_ENUM(ObjectType, {
 		{ObjectType::Unknown, nullptr},
 		{ObjectType::PointLight, "POINTLIGHT"},
-		{ObjectType::Enemy, "ENEMY"},
-		{ObjectType::Emitter, "EMITTER"},
+		{ObjectType::EventTrigger, "EVENT_TRIGGER"},
 		})
+
 
 	struct CapsuleCollisionData {
 		Vector3 center;
 		float radius;
 		float height;
 		Quaternion quaternion;
+	};
+
+	struct SphereCollisionData {
+		Vector3 center;
+		float radius;
 	};
 
 	struct PointLightData {
@@ -47,50 +51,45 @@ namespace SceneObjectSystem {
 		bool isActive;
 	};
 
-	struct EmitterData {
-		std::string name;
+	struct EnemyTriggerData {
+		uint8_t enemyCount;
 	};
 
-	struct EnemyData {
-		std::string name;
+	struct EventTriggerData {
+		float distance;
+	};
+
+	struct EventTriggerTypeObject {
+		Transform transform;
+		std::shared_ptr<Collider> collider;
+		std::optional<EnemyTriggerData> enemyTrigger;
+		std::optional<EventTriggerData> eventTrigger;
 	};
 
 	struct PointLightObject {
 		ModelInstance model;
 		std::shared_ptr<Material> material;
 		Transform transform;
-		std::shared_ptr<CapsuleCollider> collider;
+		std::shared_ptr<Collider> collider;
 		LightObject lightObject;
 	};
 
-	struct EmitterObject {
-		ModelInstance model;
-		Transform transform;
-		std::shared_ptr<CapsuleCollider> collider;
-		EmitterData emitter;
-	};
-
-	struct EnemyObject {
-		ModelInstance model;
-		Transform transform;
-		std::shared_ptr<CapsuleCollider> collider;
-		EnemyData enemy;
-	};
-
 	struct SceneObjectData {
-		std::string name;
-		std::string modelName;
+		std::optional<std::string> name;
+		std::optional<std::string> modelName;
 		ObjectType type;
 		Transform transform;
 		std::optional<CapsuleCollisionData> capsuleCollisionData;
+		std::optional<SphereCollisionData> sphereCollisionData;
 		std::optional<PointLightData> pointLightData;
-		std::optional<EmitterData> emitterData;
-		std::optional<EnemyData> enemyData;
+		std::optional<EventTriggerTypeObject> eventTriggerTypeData;
 	};
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o);
+	void from_json(const nlohmann::json& j, SphereCollisionData& o);
 	void from_json(const nlohmann::json& j, SceneObjectData& s);
 	void from_json(const nlohmann::json& j, PointLightData& p);
-	void from_json(const nlohmann::json& j, EmitterData& p);
-	void from_json(const nlohmann::json& j, EnemyData& p);
+	void from_json(const nlohmann::json& j, EventTriggerTypeObject& p);
+	void from_json(const nlohmann::json& j, EnemyTriggerData& p);
+	void from_json(const nlohmann::json& j, EventTriggerData& p);
 }

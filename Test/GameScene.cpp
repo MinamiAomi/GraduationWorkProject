@@ -75,7 +75,7 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
@@ -83,10 +83,7 @@ void GameScene::OnInitialize() {
 	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
-	for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-		collisionSystem_->RegisterCollider(collider->collider);
-	}
-	for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+	for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
 
@@ -218,10 +215,7 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}
@@ -251,10 +245,7 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		railAnimationPlayer_->Loop();
