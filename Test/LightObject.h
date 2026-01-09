@@ -23,7 +23,7 @@ public:
 	void SetHp(float hp) {
 		healthStatus_.hp = hp;
 	}
-	float GetHp() { return healthStatus_.hp;}
+	float GetHp() const { return healthStatus_.hp;}
 
 
 

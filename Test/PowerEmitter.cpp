@@ -27,7 +27,7 @@ void PowerEmitter::Update()
 {
 	
 	transform_.UpdateMatrix();
-	if (parentLight_->GetIsActive()) {
+	if (parentLight_->GetIsActive()|| parentLight_->GetHp()) {
 		emitTimer_++;
 		if (emitTimer_ >= emitInterval_) {
 			Emit();
