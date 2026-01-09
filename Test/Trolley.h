@@ -16,7 +16,6 @@
 
 class Trolley {
 public:
-
 	static Trolley* GetInstance() {
 		static Trolley instance;
 		return &instance;
