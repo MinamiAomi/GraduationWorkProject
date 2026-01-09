@@ -42,7 +42,7 @@ PSOutput main(PSInput input) {
     float32_t roughness = g_MetallicRoughness.SampleLevel(g_DefaultSampler, input.texcoord, 0).y;
     // 0はダメ
     //roughness = clamp(roughness, 0.03f, 1.0f);
-    float32_t3 emissive = float32_t3(0.0f, 0.0f, 0.0f);
+    float32_t3 emissive = g_Emissive.SampleLevel(g_DefaultSampler, input.texcoord, 0).xyz;
 
     PBR::Geometry geometry = PBR::CreateGeometry(position, normal, g_Scene.cameraPosition);
     PBR::Material material = PBR::CreateMaterial(albedo, metallic, roughness, emissive);
@@ -100,7 +100,7 @@ PSOutput main(PSInput input) {
 
     float32_t3 ambient = material.diffuseReflectance * float32_t3(0.02f, 0.02f, 0.02f); // 少し暗めに調整
 
-    float32_t3 color = reflectedLight.directDiffuse + reflectedLight.directSpecular + ambient;
+    float32_t3 color = reflectedLight.directDiffuse + reflectedLight.directSpecular + ambient + material.emissive;
 
     color = saturate(color);
     output.color.rgb = color;

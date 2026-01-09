@@ -104,25 +104,26 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         float metallic;
         Vector3 emissive;
         float roughness;
-        float emissiveThreshold;
         uint32_t albedoMapIndex;
         uint32_t metallicRoughnessMapIndex;
         uint32_t normalMapIndex;
+        uint32_t emissiveMapIndex;
     };
 
     uint32_t defaultWhiteTextureIndex = DefaultTexture::White.GetSRV().GetIndex();
     uint32_t defaultNormalTextureIndex = DefaultTexture::Normal.GetSRV().GetIndex();
+    uint32_t defaultBlackTextureIndex = DefaultTexture::Black.GetSRV().GetIndex();
 
-    auto ErrorMaterial = [defaultWhiteTextureIndex, defaultNormalTextureIndex]() {
+    auto ErrorMaterial = [defaultWhiteTextureIndex, defaultNormalTextureIndex, defaultBlackTextureIndex]() {
         MaterialData materialData;
         materialData.albedo = { 0.988f, 0.059f, 0.753f };
         materialData.metallic = 0.0f;
         materialData.emissive = { 0.0f, 0.0f, 0.0f };
         materialData.roughness = 0.0f;
-        materialData.emissiveThreshold = 1.0f;
         materialData.albedoMapIndex = defaultWhiteTextureIndex;
         materialData.metallicRoughnessMapIndex = defaultWhiteTextureIndex;
         materialData.normalMapIndex = defaultNormalTextureIndex;
+        materialData.emissiveMapIndex = defaultBlackTextureIndex;
         return materialData;
         };
     auto SetMaterialData = [](MaterialData& dest, const Material& src) {
@@ -130,10 +131,10 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         dest.metallic = src.metallic;
         dest.emissive = src.emissive * src.emissiveIntensity;
         dest.roughness = src.roughness;
-        dest.emissiveThreshold = src.emissiveThreshold;
         if (src.albedoMap) { dest.albedoMapIndex = src.albedoMap->GetSRV().GetIndex(); }
         if (src.metallicRoughnessMap) { dest.metallicRoughnessMapIndex = src.metallicRoughnessMap->GetSRV().GetIndex(); }
         if (src.normalMap) { dest.normalMapIndex = src.normalMap->GetSRV().GetIndex(); }
+        if (src.emissiveMap) { dest.emissiveMapIndex = src.emissiveMap->GetSRV().GetIndex(); }
         };
 
     commandContext.BeginEvent(L"GeometryRenderingPass::Render");

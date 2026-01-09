@@ -33,6 +33,7 @@ void Camera::UpdateMatrices() {
 
         viewProjectionMatrix_ = viewMatrix_ * projectionMatrix_;
     }                
+    frastum_.Set(viewProjectionMatrix_);
 }
 
 void Camera::SetPerspective(float fovY, float aspectRaito, float nearClip, float farClip) {

@@ -21,10 +21,10 @@ struct Material {
     float metallic;
     float3 emissive;
     float roughness;
-    float emissiveThreshold;
     uint albedoMapIndex;
     uint metallicRoughnessMapIndex;
     uint normalMapIndex;
+    uint emissiveMapIndex;
 };
 ConstantBuffer<Material> g_Material : register(b2);
 

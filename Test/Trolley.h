@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <array>
 
 #include "Engine/Graphics/Model.h"
 
@@ -16,6 +17,8 @@
 
 class Trolley {
 public:
+	static const uint8_t BatteryNum = 3;
+
 	enum class State {
 		Normal,
 		Overcharge,
@@ -33,7 +36,7 @@ public:
 	}
 	const Transform& GetTransform() { return transform_; }
 
-	std::shared_ptr<SphereCollider> GetCollider() { return batteryCollider_; }
+	std::array<std::shared_ptr<SphereCollider>, BatteryNum> GetColliders() { return batteryColliders_; }
 
 	//速度
 	float GetTrollySpeed() const { return currentSpeed_; }
@@ -65,7 +68,7 @@ private:
 	void RecoverFromBurst();
 
 	//どこくらいライトの真ん中か計算
-	float CalculateCenterRate();
+	float CalculateCenterRate(const Vector3& center, float radius);
 #ifdef _DEBUG
 	void DrawImGui();
 #endif // _DEBUG
@@ -156,15 +159,16 @@ private:
 #pragma endregion
 
 #pragma region Battery
-	Transform batteryTransform_;
-	std::shared_ptr<SphereCollider> batteryCollider_;
-	Vector3 batteryOffset_;
+
+	std::array<Transform, BatteryNum> batteryTransforms_;
+	std::array<std::shared_ptr<SphereCollider>, BatteryNum> batteryColliders_;
+	std::array<Vector3, BatteryNum>batteryOffsets_;
 	float batteryRadius_;
 #pragma endregion
 
 #pragma region Shake
 	Quaternion shakeRotation_;
-	Vector3 shakeOffset_; 
+	Vector3 shakeOffset_;
 #pragma endregion
 
 
