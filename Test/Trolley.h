@@ -17,7 +17,16 @@
 
 class Trolley {
 public:
+
 	static const uint8_t BatteryNum = 3;
+	static Trolley* GetInstance() {
+		static Trolley instance;
+		return &instance;
+	}
+
+	// コピーと代入を禁止
+	Trolley(const Trolley&) = delete;
+	Trolley& operator=(const Trolley&) = delete;
 
 	enum class State {
 		Normal,
