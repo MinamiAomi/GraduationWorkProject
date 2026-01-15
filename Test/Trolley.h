@@ -17,7 +17,7 @@
 
 class Trolley {
 public:
-	static const uint8_t BatteryNum = 3;
+	static const uint8_t BatteryNum = 1;
 
 	static Trolley* GetInstance() {
 		static Trolley instance;
@@ -42,6 +42,14 @@ public:
 		transform_.SetParent(&transform);
 		transform_.UpdateMatrix();
 	}
+
+	void SetBatteyParent(const Transform& transform) {
+		for (uint8_t i = 0; i < BatteryNum; i++) {
+			batteryTransforms_.at(i).SetParent(&transform);
+			batteryTransforms_.at(i).UpdateMatrix();
+		}
+	}
+
 	const Transform& GetTransform() { return transform_; }
 
 	std::array<std::shared_ptr<SphereCollider>, BatteryNum> GetColliders() { return batteryColliders_; }
