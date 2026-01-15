@@ -52,15 +52,21 @@ namespace SceneObjectSystem {
 	};
 
 	struct EnemyTriggerData {
+		bool isOnce;
 		uint8_t enemyCount;
 	};
 
 	struct EventTriggerData {
+		bool isOnce;
 		float distance;
 	};
 
 	struct EventTriggerTypeObject {
 		Transform transform;
+
+		//既に実行したか
+		bool hasTriggered = false;
+
 		std::shared_ptr<Collider> collider;
 		std::optional<EnemyTriggerData> enemyTrigger;
 		std::optional<EventTriggerData> eventTrigger;
