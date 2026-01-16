@@ -80,13 +80,31 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : eventTriggerTypeObjects_) {
 		obj->transform.UpdateMatrix();
+		if (obj->collider &&
+			!obj->collider->GetCollidedWith().empty()) {
 
-		if (obj->enemyTrigger) {
+			if (obj->enemyTrigger) {
+				if (obj->enemyTrigger->isOnce && obj->hasTriggered) {
+					continue;
+				}
 
-		}
-
-		if (obj->eventTrigger) {
-
+				obj->enemyTrigger->enemyCount;
+				
+				if (obj->enemyTrigger->isOnce) {
+					obj->hasTriggered = true;
+				}
+			}
+			else if (obj->eventTrigger) {
+				if (obj->eventTrigger->isOnce && obj->hasTriggered) {
+					continue;
+				}
+				
+				obj->eventTrigger->distance;
+				
+				if (obj->eventTrigger->isOnce) {
+					obj->hasTriggered = true;
+				}
+			}
 		}
 
 	}
@@ -174,7 +192,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			eventTriggerTypeObject->enemyTrigger = std::nullopt;
 			eventTriggerTypeObject->eventTrigger = std::nullopt;
-			
+
 
 			if (data.eventTriggerTypeData->enemyTrigger.has_value()) {
 				eventTriggerTypeObject->enemyTrigger = data.eventTriggerTypeData->enemyTrigger;

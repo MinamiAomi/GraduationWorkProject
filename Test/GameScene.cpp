@@ -66,6 +66,7 @@ void GameScene::OnInitialize() {
 	railCameraSystem_ = std::make_unique<RailSystem::RailCameraSystem>();
 	railCameraSystem_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	railCameraSystem_->SetParent(trolley_->GetTransform());
+	trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
 	railCameraSystem_->Initialize();
 #pragma endregion
 

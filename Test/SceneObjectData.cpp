@@ -104,9 +104,12 @@ namespace SceneObjectSystem {
 	void from_json(const nlohmann::json& j, EnemyTriggerData& p)
 	{
 		j.at("enemy_count").get_to(p.enemyCount);
+		j.at("isOnce").get_to(p.isOnce);
 	}
 	void from_json(const nlohmann::json& j, EventTriggerData& p)
 	{
 		j.at("gimmick_distance").get_to(p.distance);
+		j.at("isOnce").get_to(p.isOnce);
+
 	}
 }
