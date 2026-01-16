@@ -117,20 +117,24 @@
     {
       "name": "Crystal.002",
       "model_name": "Crystal",
-      "type": "EVENT_TRIGGER",
-      "trigger_type": "ENEMY",
-      "properties": {
-        "isOnce": true,
-        "enemy_count": 1
-      },
+      "type": "POINTLIGHT",
+      "trigger_type": null,
+      "properties": null,
       "collider": {
-        "type": "SPHERE",
+        "type": "CAPSULE",
         "center": [
           271.2198,
           177.6821,
           0.0678
         ],
-        "radius": 3.9282
+        "radius": 3.9282,
+        "height": 1.0,
+        "quaternion": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ]
       },
       "srt": {
         "translate": [
@@ -150,7 +154,22 @@
           0.915
         ]
       },
-      "point_light": null
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 20.0,
+        "decay": 1.0,
+        "isActive": true
+      }
     },
     {
       "name": "Crystal.003",
@@ -4035,135 +4054,43 @@
       "trigger_type": "ENEMY",
       "properties": {
         "isOnce": true,
-        "enemy_count": 1
-      },
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          0.0,
-          2.8095,
-          0.0
-        ],
-        "radius": 1.0
-      },
-      "srt": {
-        "translate": [
-          0.0,
-          2.8095,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
+        "enemy_formation": [
+          [
+            true,
+            true,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
         ]
       },
-      "point_light": null
-    },
-    {
-      "name": null,
-      "model_name": null,
-      "type": "EVENT_TRIGGER",
-      "trigger_type": "ENEMY",
-      "properties": {
-        "isOnce": false,
-        "enemy_count": 15
-      },
       "collider": {
         "type": "SPHERE",
         "center": [
           0.0,
-          -2.9381,
+          0.0,
           0.0
         ],
-        "radius": 1.0
+        "radius": 0.5
       },
       "srt": {
         "translate": [
           0.0,
-          -2.9381,
-          0.0
-        ],
-        "rotate": [
-          1.0,
           0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "point_light": null
-    },
-    {
-      "name": null,
-      "model_name": null,
-      "type": "EVENT_TRIGGER",
-      "trigger_type": "GIMMICK",
-      "properties": {
-        "isOnce": false,
-        "gimmick_distance": 10.0
-      },
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          -3.6026,
-          -2.9381,
-          0.0
-        ],
-        "radius": 1.0
-      },
-      "srt": {
-        "translate": [
-          -3.6026,
-          -2.9381,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "point_light": null
-    },
-    {
-      "name": null,
-      "model_name": null,
-      "type": "EVENT_TRIGGER",
-      "trigger_type": "GIMMICK",
-      "properties": {
-        "isOnce": true,
-        "gimmick_distance": 10.0
-      },
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          -3.6026,
-          2.1221,
-          0.0
-        ],
-        "radius": 1.0
-      },
-      "srt": {
-        "translate": [
-          -3.6026,
-          2.1221,
           0.0
         ],
         "rotate": [

@@ -28,7 +28,7 @@ namespace SceneObjectSystem {
 
 		s.capsuleCollisionData = std::nullopt;
 		s.sphereCollisionData = std::nullopt;
-		
+
 		if (j.contains("collider") && !j.at("collider").is_null()) {
 			if (j.contains("collider") && !j.at("collider").is_null()) {
 
@@ -59,7 +59,7 @@ namespace SceneObjectSystem {
 
 		case ObjectType::EventTrigger:
 			if (j.contains("trigger_type") && !j.at("trigger_type").is_null()) {
-				s.eventTriggerTypeData = j.at("trigger_type").get<EventTriggerTypeObject>();
+				s.eventTriggerTypeData = j.get<EventTriggerTypeObject>();
 			}
 			break;
 
@@ -82,10 +82,13 @@ namespace SceneObjectSystem {
 		p.enemyTrigger = std::nullopt;
 		p.eventTrigger = std::nullopt;
 
-		if (!j.contains("trigger_type") || j.at("trigger_type").is_null()) {
+		if (!j.contains("trigger_type")) {
 			return;
 		}
 
+		if (j.at("trigger_type").is_null()) {
+			return;
+		}
 		std::string type = j.at("trigger_type").get<std::string>();
 
 		if (!j.contains("properties") || j.at("properties").is_null()) {
@@ -103,7 +106,7 @@ namespace SceneObjectSystem {
 	}
 	void from_json(const nlohmann::json& j, EnemyTriggerData& p)
 	{
-		j.at("enemy_count").get_to(p.enemyCount);
+		p.formation = j.at("enemy_formation").get<std::vector<std::vector<bool>>>();
 		j.at("isOnce").get_to(p.isOnce);
 	}
 	void from_json(const nlohmann::json& j, EventTriggerData& p)

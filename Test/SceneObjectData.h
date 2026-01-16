@@ -53,7 +53,8 @@ namespace SceneObjectSystem {
 
 	struct EnemyTriggerData {
 		bool isOnce;
-		uint8_t enemyCount;
+
+		std::vector<std::vector<bool>> formation;
 	};
 
 	struct EventTriggerData {

@@ -88,7 +88,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 					continue;
 				}
 
-				obj->enemyTrigger->enemyCount;
+				obj->enemyTrigger->formation;
 				
 				if (obj->enemyTrigger->isOnce) {
 					obj->hasTriggered = true;
