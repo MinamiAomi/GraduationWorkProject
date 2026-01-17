@@ -8,47 +8,25 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				3
+				0
 			]
 		}
 	],
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u5186\u67f1.001"
-		},
-		{
-			"mesh":1,
-			"name":"\u5186\u67f1.002"
-		},
-		{
-			"mesh":2,
 			"name":"\u7acb\u65b9\u4f53",
 			"translation":[
 				0.002416929230093956,
 				0.8096523284912109,
-				0.5939344763755798
-			]
-		},
-		{
-			"children":[
-				0,
-				1,
-				2
-			],
-			"mesh":3,
-			"name":"Trolley",
-			"translation":[
-				0,
-				0,
-				-0.5715852975845337
+				0.022349178791046143
 			]
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"Wheel",
+			"name":"Coal",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0
@@ -59,7 +37,7 @@
 		},
 		{
 			"doubleSided":true,
-			"name":"Coal",
+			"name":"Trolley.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":1
@@ -70,7 +48,7 @@
 		},
 		{
 			"doubleSided":true,
-			"name":"Trolley.001",
+			"name":"Wheel",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":2
@@ -82,7 +60,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1.004",
+			"name":"\u7acb\u65b9\u4f53",
 			"primitives":[
 				{
 					"attributes":{
@@ -92,12 +70,7 @@
 					},
 					"indices":3,
 					"material":0
-				}
-			]
-		},
-		{
-			"name":"\u5186\u67f1.002",
-			"primitives":[
+				},
 				{
 					"attributes":{
 						"POSITION":4,
@@ -105,13 +78,8 @@
 						"TEXCOORD_0":6
 					},
 					"indices":7,
-					"material":0
-				}
-			]
-		},
-		{
-			"name":"\u7acb\u65b9\u4f53",
-			"primitives":[
+					"material":1
+				},
 				{
 					"attributes":{
 						"POSITION":8,
@@ -119,20 +87,6 @@
 						"TEXCOORD_0":10
 					},
 					"indices":11,
-					"material":1
-				}
-			]
-		},
-		{
-			"name":"\u7acb\u65b9\u4f53.002",
-			"primitives":[
-				{
-					"attributes":{
-						"POSITION":12,
-						"NORMAL":13,
-						"TEXCOORD_0":14
-					},
-					"indices":15,
 					"material":2
 				}
 			]
@@ -155,11 +109,6 @@
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"WheelTex",
-			"uri":"WheelTex.png"
-		},
-		{
-			"mimeType":"image/png",
 			"name":"Coal",
 			"uri":"Coal.png"
 		},
@@ -167,79 +116,16 @@
 			"mimeType":"image/png",
 			"name":"TrolleyTex",
 			"uri":"TrolleyTex.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"WheelTex",
+			"uri":"WheelTex.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
-			"componentType":5126,
-			"count":518,
-			"max":[
-				1.8170039653778076,
-				-1.0822888612747192,
-				-0.23603971302509308
-			],
-			"min":[
-				-1.8093507289886475,
-				-2.1547722816467285,
-				-1.3085241317749023
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":1,
-			"componentType":5126,
-			"count":518,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":2,
-			"componentType":5126,
-			"count":518,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":3,
-			"componentType":5123,
-			"count":744,
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":4,
-			"componentType":5126,
-			"count":514,
-			"max":[
-				1.8170039653778076,
-				-1.0822888612747192,
-				2.441195249557495
-			],
-			"min":[
-				-1.8093507289886475,
-				-2.1547722816467285,
-				1.3687107563018799
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":5,
-			"componentType":5126,
-			"count":514,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":6,
-			"componentType":5126,
-			"count":514,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":7,
-			"componentType":5123,
-			"count":744,
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":8,
 			"componentType":5126,
 			"count":145,
 			"max":[
@@ -255,153 +141,163 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":9,
+			"bufferView":1,
 			"componentType":5126,
 			"count":145,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":10,
+			"bufferView":2,
 			"componentType":5126,
 			"count":145,
 			"type":"VEC2"
 		},
 		{
-			"bufferView":11,
+			"bufferView":3,
 			"componentType":5123,
 			"count":666,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":12,
+			"bufferView":4,
 			"componentType":5126,
-			"count":826,
+			"count":828,
 			"max":[
-				1.711384892463684,
-				1.3124747276306152,
-				3.3211159706115723
+				1.708967924118042,
+				0.5028223991394043,
+				2.7271814346313477
 			],
 			"min":[
-				-1.703731656074524,
-				-1.649324655532837,
-				-2.5170867443084717
+				-1.706148624420166,
+				-2.458976984024048,
+				-3.1110212802886963
 			],
 			"type":"VEC3"
 		},
 		{
-			"bufferView":13,
+			"bufferView":5,
 			"componentType":5126,
-			"count":826,
+			"count":828,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":14,
+			"bufferView":6,
 			"componentType":5126,
-			"count":826,
+			"count":828,
 			"type":"VEC2"
 		},
 		{
-			"bufferView":15,
+			"bufferView":7,
 			"componentType":5123,
 			"count":1476,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":1052,
+			"max":[
+				1.8145869970321655,
+				-1.8919411897659302,
+				1.8472607135772705
+			],
+			"min":[
+				-1.8117676973342896,
+				-2.9644246101379395,
+				-1.902458667755127
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":1052,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":1052,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":11,
+			"componentType":5123,
+			"count":1488,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":6216,
+			"byteLength":1740,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6216,
-			"byteOffset":6216,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4144,
-			"byteOffset":12432,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1488,
-			"byteOffset":16576,
-			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":6168,
-			"byteOffset":18064,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":6168,
-			"byteOffset":24232,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4112,
-			"byteOffset":30400,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1488,
-			"byteOffset":34512,
-			"target":34963
-		},
-		{
-			"buffer":0,
 			"byteLength":1740,
-			"byteOffset":36000,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1740,
-			"byteOffset":37740,
+			"byteOffset":1740,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1160,
-			"byteOffset":39480,
+			"byteOffset":3480,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1332,
-			"byteOffset":40640,
+			"byteOffset":4640,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":9912,
-			"byteOffset":41972,
+			"byteLength":9936,
+			"byteOffset":5972,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":9912,
-			"byteOffset":51884,
+			"byteLength":9936,
+			"byteOffset":15908,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6608,
-			"byteOffset":61796,
+			"byteLength":6624,
+			"byteOffset":25844,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2952,
-			"byteOffset":68404,
+			"byteOffset":32468,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":12624,
+			"byteOffset":35420,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":12624,
+			"byteOffset":48044,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":8416,
+			"byteOffset":60668,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2976,
+			"byteOffset":69084,
 			"target":34963
 		}
 	],
@@ -413,7 +309,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":71356,
+			"byteLength":72060,
 			"uri":"CoalTrolley.bin"
 		}
 	]
