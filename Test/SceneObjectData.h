@@ -59,7 +59,8 @@ namespace SceneObjectSystem {
 
 	struct EventTriggerData {
 		bool isOnce;
-		float distance;
+		std::string key;
+		int duration;
 	};
 
 	struct EventTriggerTypeObject {

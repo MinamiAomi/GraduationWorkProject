@@ -99,7 +99,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 					continue;
 				}
 				
-				obj->eventTrigger->distance;
+				obj->eventTrigger->duration;
 				
 				if (obj->eventTrigger->isOnce) {
 					obj->hasTriggered = true;
