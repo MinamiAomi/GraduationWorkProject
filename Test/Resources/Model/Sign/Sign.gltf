@@ -15,17 +15,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Panel",
-			"scale":[
-				1.0812828540802002,
-				1.0812828540802002,
-				1.0812828540802002
-			],
-			"translation":[
-				0.00975807849317789,
-				2.326286792755127,
-				0.31569740176200867
-			]
+			"name":"Stick"
 		}
 	],
 	"materials":[
@@ -43,7 +33,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u7acb\u65b9\u4f53.004",
+			"name":"\u5186\u67f1.001",
 			"primitives":[
 				{
 					"attributes":{
@@ -74,29 +64,29 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":160,
+			"count":158,
 			"max":[
-				1.3808302879333496,
-				1.14267897605896,
-				0.08567959070205688
+				1.50282621383667,
+				3.5618460178375244,
+				0.40834128856658936
 			],
 			"min":[
-				-1.4593276977539062,
-				-2.290325403213501,
-				-0.41755688190460205
+				-1.568187952041626,
+				-0.15020272135734558,
+				-0.13579967617988586
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":160,
+			"count":158,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":160,
+			"count":158,
 			"type":"VEC2"
 		},
 		{
@@ -109,26 +99,26 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":1920,
+			"byteLength":1896,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1920,
-			"byteOffset":1920,
+			"byteLength":1896,
+			"byteOffset":1896,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1280,
-			"byteOffset":3840,
+			"byteLength":1264,
+			"byteOffset":3792,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":528,
-			"byteOffset":5120,
+			"byteOffset":5056,
 			"target":34963
 		}
 	],
@@ -140,7 +130,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":5648,
+			"byteLength":5584,
 			"uri":"Sign.bin"
 		}
 	]
