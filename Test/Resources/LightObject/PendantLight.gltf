@@ -1,8 +1,11 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v5.0.21",
+		"generator":"Khronos glTF Blender I/O v4.0.43",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_emissive_strength"
+	],
 	"scene":0,
 	"scenes":[
 		{
@@ -21,6 +24,16 @@
 	"materials":[
 		{
 			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":2
+				}
+			},
 			"name":"yellow.008",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
