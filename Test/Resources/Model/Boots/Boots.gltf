@@ -3,9 +3,6 @@
 		"generator":"Khronos glTF Blender I/O v4.0.43",
 		"version":"2.0"
 	},
-	"extensionsUsed":[
-		"KHR_materials_emissive_strength"
-	],
 	"scene":0,
 	"scenes":[
 		{
@@ -18,13 +15,13 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Helmet"
+			"name":"Boots"
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"Helmet",
+			"name":"Boots",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0
@@ -35,23 +32,10 @@
 		},
 		{
 			"doubleSided":true,
-			"emissiveFactor":[
-				1,
-				1,
-				1
-			],
-			"emissiveTexture":{
-				"index":1
-			},
-			"extensions":{
-				"KHR_materials_emissive_strength":{
-					"emissiveStrength":2
-				}
-			},
-			"name":"Light",
+			"name":"Boots.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":2
+					"index":1
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -60,7 +44,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u7403.001",
+			"name":"\u7acb\u65b9\u4f53",
 			"primitives":[
 				{
 					"attributes":{
@@ -77,7 +61,7 @@
 						"NORMAL":5,
 						"TEXCOORD_0":6
 					},
-					"indices":7,
+					"indices":3,
 					"material":1
 				}
 			]
@@ -90,143 +74,122 @@
 		},
 		{
 			"sampler":0,
-			"source":1
-		},
-		{
-			"sampler":0,
 			"source":0
 		}
 	],
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"HelmetTex",
-			"uri":"HelmetTex.png"
-		},
-		{
-			"mimeType":"image/png",
-			"name":"HelmetEmi",
-			"uri":"HelmetEmi.png"
+			"name":"BootsTex",
+			"uri":"BootsTex.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":179,
+			"count":104,
 			"max":[
-				1.3906798362731934,
-				1.101816177368164,
-				0.9604886770248413
+				-0.004878580570220947,
+				1.5382474660873413,
+				0.8156405687332153
 			],
 			"min":[
-				-1.0456783771514893,
-				-0.04105500876903534,
-				-0.9604886770248413
+				-1.7725393772125244,
+				0.00022429972887039185,
+				-1.1285427808761597
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":179,
+			"count":104,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":179,
+			"count":104,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":534,
+			"count":264,
 			"type":"SCALAR"
 		},
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":220,
+			"count":104,
 			"max":[
-				1.0711709260940552,
-				0.6522225141525269,
-				0.23889580368995667
+				1.313133716583252,
+				1.5382474660873413,
+				1.4682378768920898
 			],
 			"min":[
-				0.8134723901748657,
-				0.17443087697029114,
-				-0.23889580368995667
+				0.43800675868988037,
+				0.00022429972887039185,
+				-0.7339619994163513
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":220,
+			"count":104,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5126,
-			"count":220,
+			"count":104,
 			"type":"VEC2"
-		},
-		{
-			"bufferView":7,
-			"componentType":5123,
-			"count":324,
-			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":2148,
+			"byteLength":1248,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2148,
-			"byteOffset":2148,
+			"byteLength":1248,
+			"byteOffset":1248,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1432,
-			"byteOffset":4296,
+			"byteLength":832,
+			"byteOffset":2496,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1068,
-			"byteOffset":5728,
+			"byteLength":528,
+			"byteOffset":3328,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":2640,
-			"byteOffset":6796,
+			"byteLength":1248,
+			"byteOffset":3856,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2640,
-			"byteOffset":9436,
+			"byteLength":1248,
+			"byteOffset":5104,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1760,
-			"byteOffset":12076,
+			"byteLength":832,
+			"byteOffset":6352,
 			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":648,
-			"byteOffset":13836,
-			"target":34963
 		}
 	],
 	"samplers":[
@@ -237,8 +200,8 @@
 	],
 	"buffers":[
 		{
-			"byteLength":14484,
-			"uri":"Helmet.bin"
+			"byteLength":7184,
+			"uri":"Boots.bin"
 		}
 	]
 }
