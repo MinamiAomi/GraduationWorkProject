@@ -15,28 +15,25 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Curve"
+			"name":"SpiderWeb"
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"SVGMat.023",
+			"name":"SpiderWebTex.png_mesh.003",
 			"pbrMetallicRoughness":{
-				"baseColorFactor":[
-					0.7681511640548706,
-					0.7605245113372803,
-					0.7912979125976562,
-					1
-				],
+				"baseColorTexture":{
+					"index":0
+				},
 				"metallicFactor":0,
-				"roughnessFactor":0.4000000059604645
+				"roughnessFactor":0.5
 			}
 		}
 	],
 	"meshes":[
 		{
-			"name":"Curve.021",
+			"name":"\u5e73\u9762.007",
 			"primitives":[
 				{
 					"attributes":{
@@ -50,71 +47,90 @@
 			]
 		}
 	],
+	"textures":[
+		{
+			"sampler":0,
+			"source":0
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"SpiderWebTex",
+			"uri":"SpiderWebTex.png"
+		}
+	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":1327,
+			"count":302,
 			"max":[
-				4.1473846435546875,
-				4.033154487609863,
-				0.16536808013916016
+				2.02065110206604,
+				2.01908540725708,
+				2.801894652293413e-06
 			],
 			"min":[
-				-3.8154144287109375,
-				-4.2024078369140625,
-				0.1298661231994629
+				-1.8734551668167114,
+				-2.02065110206604,
+				-2.1825173917022767e-06
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":1327,
+			"count":302,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":1327,
+			"count":302,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":2994,
+			"count":945,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":15924,
+			"byteLength":3624,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":15924,
-			"byteOffset":15924,
+			"byteLength":3624,
+			"byteOffset":3624,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":10616,
-			"byteOffset":31848,
+			"byteLength":2416,
+			"byteOffset":7248,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":5988,
-			"byteOffset":42464,
+			"byteLength":1890,
+			"byteOffset":9664,
 			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9729,
+			"minFilter":9987
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":48452,
+			"byteLength":11556,
 			"uri":"SpiderWeb.bin"
 		}
 	]
