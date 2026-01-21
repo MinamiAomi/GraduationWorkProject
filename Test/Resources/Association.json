@@ -23,6 +23,8 @@
     "Crystal": "LightObject/Crystal.gltf",
     "Moss": "LightObject/Moss.gltf",
     "PendantLight": "LightObject/PendantLight.gltf",
+    "Helmet": "LightObject/Helmet/Helmet.gltf",
+    "CoalTrolley": "LightObject/CoalTrolley/CoalTrolley.gltf",
     "Box": "Box.gltf"
   },
   "Texture" : {
