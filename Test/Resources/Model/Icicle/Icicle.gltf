@@ -15,7 +15,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u5186\u67f1",
+			"name":"Icicle",
 			"rotation":[
 				1,
 				0,
@@ -39,7 +39,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1",
+			"name":"\u5186\u67f1.004",
 			"primitives":[
 				{
 					"attributes":{

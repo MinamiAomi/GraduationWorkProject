@@ -15,13 +15,13 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Stick"
+			"name":"Sign"
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"Sign.001",
+			"name":"Sign.003",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0
@@ -33,7 +33,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1.001",
+			"name":"\u5186\u67f1.003",
 			"primitives":[
 				{
 					"attributes":{

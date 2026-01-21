@@ -15,7 +15,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u5186\u67f1"
+			"name":"Dynamite"
 		}
 	],
 	"materials":[
@@ -33,7 +33,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1",
+			"name":"\u5186\u67f1.005",
 			"primitives":[
 				{
 					"attributes":{
