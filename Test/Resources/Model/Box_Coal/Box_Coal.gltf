@@ -15,7 +15,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u7acb\u65b9\u4f53",
+			"name":"Box_Coal",
 			"translation":[
 				0,
 				0.1426817923784256,
@@ -26,7 +26,7 @@
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"Coal",
+			"name":"Coal.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0

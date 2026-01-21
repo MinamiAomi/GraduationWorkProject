@@ -15,7 +15,7 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Cube",
+			"name":"Box",
 			"scale":[
 				2.217695474624634,
 				2.217695474624634,
@@ -38,7 +38,7 @@
 	],
 	"meshes":[
 		{
-			"name":"Cube",
+			"name":"Cube.001",
 			"primitives":[
 				{
 					"attributes":{
