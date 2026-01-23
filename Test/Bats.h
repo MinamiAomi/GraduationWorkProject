@@ -9,12 +9,17 @@
 
 
 #include "Graphics/Model.h"
+#include "Collider.h"
 
+class Camera;
 
 class Bats
 {
 public:
-	Bats(const std::vector<std::vector<bool>>& data);
+
+	static const float batsFarLocate;
+
+	Bats(const std::vector<std::vector<bool>>& data,const Camera& camera);
 	void Update();
 	void DebugDraw();
 
@@ -26,14 +31,14 @@ public:
 public:
 	std::shared_ptr<Material> material_;
 private:
-	void Emit(size_t r, size_t c);
+	void Emit(const Vector3& goalPos);
 private:
 	struct Bat {
 		ModelInstance modelInstance_;
 		Transform transform_;
-		Vector3 cameraToPos_;
-		size_t rowIndex;
-		size_t colIndex;
+		Transform goalTransform_;
+		std::shared_ptr<SphereCollider> collider_;
+
 	};
 
 
@@ -41,6 +46,7 @@ private:
 	std::shared_ptr<Model> model_;
 	std::vector<std::unique_ptr<Bat>> bats_;
 	Random::RandomNumberGenerator rnd_;
+	const Camera* camera_;
 	//Sphere
 	float radius_;
 	

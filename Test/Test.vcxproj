@@ -59,6 +59,7 @@
     <ClInclude Include="LightDeviceInput.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="ModelEmitter.h" />
+    <ClInclude Include="ParticleDefine.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="PowerEmitter.h" />

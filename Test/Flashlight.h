@@ -27,6 +27,7 @@ public:
 	float GetMaxBattery() const { return maxBattery_; }
 	bool GetIsLighting() const { return isLighting_; }
 	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
+	const Transform& GetTransform() const { return transform_; }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
