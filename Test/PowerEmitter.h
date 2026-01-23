@@ -66,6 +66,8 @@ private:
 	Vector3 size_;
 	//Sphere
 	float radius_;
+
+
 	
 };
 

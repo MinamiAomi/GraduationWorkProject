@@ -34,6 +34,7 @@ public:
 		Nitro,
 		Burst,
 	};
+	Trolley();
 
 	void Initialize();
 	void Update(float deltaTime);
@@ -72,10 +73,6 @@ public:
 
 	const State& GetState()const { return trollyState_; }
 private:
-
-	Trolley();
-	~Trolley() = default;
-
 	void UpdateCollision();
 	void UpdateState(float deltaTime);
 	void UpdateBanking(float deltaTime);

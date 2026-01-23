@@ -12,13 +12,6 @@
 #include "Raytracing/BLAS.h"
 #include "Skeleton.h"
 
-
-enum DrawType {
-    kDefault,
-    kTest,
-    DrawTypeNum
-};
-
 class Model {
 public:
     struct Vertex {
@@ -135,7 +128,6 @@ private:
     Matrix4x4 worldMatrix_;
     Vector3 color_ = Vector3::one;
     float alpha_ = 1.0f;
-    DrawType drawType_ = kDefault;
     
     // 映り込みフラグ
     bool beReflected_ = true;

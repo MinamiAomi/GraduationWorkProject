@@ -61,7 +61,7 @@ private:
 	
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
 	
-	Trolley* trolley_;
+	std::unique_ptr<Trolley> trolley_;
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 
