@@ -23,6 +23,7 @@ namespace SceneObjectSystem {
 		if (j.contains("model_name") && !j.at("model_name").is_null()) {
 			s.modelName = j.at("model_name").get<std::string>();
 		}
+
 		j.at("srt").get_to(s.transform);
 		j.at("type").get_to(s.type);
 
@@ -30,25 +31,22 @@ namespace SceneObjectSystem {
 		s.sphereCollisionData = std::nullopt;
 
 		if (j.contains("collider") && !j.at("collider").is_null()) {
-			if (j.contains("collider") && !j.at("collider").is_null()) {
-
-				const auto& colJson = j.at("collider");
-
-				if (colJson.contains("type")) {
-					std::string type = colJson.at("type").get<std::string>();
-
-					if (type == "SPHERE") {
-						s.sphereCollisionData = colJson.get<SphereCollisionData>();
-					}
-					else if (type == "CAPSULE") {
-						s.capsuleCollisionData = colJson.get<CapsuleCollisionData>();
-					}
+			const auto& colJson = j.at("collider");
+			if (colJson.contains("type")) {
+				std::string type = colJson.at("type").get<std::string>();
+				if (type == "SPHERE") {
+					s.sphereCollisionData = colJson.get<SphereCollisionData>();
+				}
+				else if (type == "CAPSULE") {
+					s.capsuleCollisionData = colJson.get<CapsuleCollisionData>();
 				}
 			}
 		}
 
 		s.pointLightData = std::nullopt;
-		s.eventTriggerTypeData = std::nullopt;
+		s.enemySpawnData = std::nullopt;
+		s.gimmickMovers = std::nullopt;
+		s.gimmickTriggers = std::nullopt;
 
 		switch (s.type) {
 		case ObjectType::PointLight:
@@ -57,13 +55,30 @@ namespace SceneObjectSystem {
 			}
 			break;
 
-		case ObjectType::EventTrigger:
-			if (j.contains("trigger_type") && !j.at("trigger_type").is_null()) {
-				s.eventTriggerTypeData = j.get<EventTriggerTypeObject>();
+		case ObjectType::EnemySpawn:
+			if (j.contains("enemy_spawn_data") && !j.at("enemy_spawn_data").is_null()) {
+				s.enemySpawnData = j.at("enemy_spawn_data").get<EnemySpawnData>();
 			}
 			break;
 
-		case ObjectType::Unknown:
+		case ObjectType::Gimmick:
+			if (j.contains("gimmick_data") && !j.at("gimmick_data").is_null()) {
+
+				const auto& gimmickJson = j.at("gimmick_data");
+
+				if (!gimmickJson.contains("subtype")) return;
+
+				std::string subtype = gimmickJson.at("subtype").get<std::string>();
+
+				if (subtype == "TRIGGER") {
+					s.gimmickTriggers = gimmickJson.get<GimmickTrigger>();
+				}
+				else if (subtype == "MOVER") {
+					s.gimmickMovers = gimmickJson.get<GimmickMover>();
+				}
+			}
+			break;
+
 		default:
 			break;
 		}
@@ -77,47 +92,50 @@ namespace SceneObjectSystem {
 		j.at("range").get_to(p.range);
 		j.at("decay").get_to(p.decay);
 	}
-	void from_json(const nlohmann::json& j, EventTriggerTypeObject& p)
-	{
-		p.enemyTrigger = std::nullopt;
-		p.eventTrigger = std::nullopt;
 
-		if (!j.contains("trigger_type")) {
-			return;
+	void from_json(const nlohmann::json& j, EnemySpawnData& p) {
+		// JSONキー修正: "formation"
+		if (j.contains("formation")) {
+			p.formation = j.at("formation").get<std::vector<std::vector<bool>>>();
 		}
-
-		if (j.at("trigger_type").is_null()) {
-			return;
-		}
-		std::string type = j.at("trigger_type").get<std::string>();
-
-		if (!j.contains("properties") || j.at("properties").is_null()) {
-			return;
-		}
-
-		const auto& props = j.at("properties");
-
-		if (type == "ENEMY") {
-			p.enemyTrigger = props.get<EnemyTriggerData>();
-		}
-		else if (type == "GIMMICK") {
-			p.eventTrigger = props.get<EventTriggerData>();
+		if (j.contains("isOnce")) {
+			j.at("isOnce").get_to(p.isOnce);
 		}
 	}
-	void from_json(const nlohmann::json& j, EnemyTriggerData& p)
+	void from_json(const nlohmann::json& j, GimmickTrigger& p)
 	{
-		p.formation = j.at("enemy_formation").get<std::vector<std::vector<bool>>>();
-		j.at("isOnce").get_to(p.isOnce);
+		if (!j.contains("subtype")) return;
+
+		std::string subtype = j.at("subtype").get<std::string>();
+
+		if (subtype == "TRIGGER") {
+
+			if (j.contains("key")) j.at("key").get_to(p.key);
+			if (j.contains("isOnce")) j.at("isOnce").get_to(p.isOnce);
+		}
 	}
-	void from_json(const nlohmann::json& j, EventTriggerData& p)
+
+	void from_json(const nlohmann::json& j, GimmickMover& p)
 	{
-		if (j.contains("key")) {
-			j.at("key").get_to(p.key);
+		if (!j.contains("subtype")) return;
+
+		std::string subtype = j.at("subtype").get<std::string>();
+
+		if (subtype == "MOVER") {
+
+			if (j.contains("key")) j.at("key").get_to(p.key);
+			if (j.contains("duration")) j.at("duration").get_to(p.duration);
+			if (j.contains("is_cyclic")) j.at("is_cyclic").get_to(p.isCyclic);
+
+			if (j.contains("path_points")) {
+				p.positionKeys = j.at("path_points").get<std::vector<Vector3>>();
+			}
+
 		}
-		if (j.contains("duration")) {
-			j.at("duration").get_to(p.duration);
-		}
-		j.at("isOnce").get_to(p.isOnce);
+	}
+	void GimmickMover::Update()
+	{
+		
 
 	}
 }

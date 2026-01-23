@@ -19,18 +19,20 @@
 namespace SceneObjectSystem {
 	enum class ObjectType {
 		PointLight,
-		EventTrigger,
+		EnemySpawn,
+		Gimmick,
 		Unknown
 	};
 
 	NLOHMANN_JSON_SERIALIZE_ENUM(ObjectType, {
 		{ObjectType::Unknown, nullptr},
 		{ObjectType::PointLight, "POINTLIGHT"},
-		{ObjectType::EventTrigger, "EVENT_TRIGGER"},
+		{ObjectType::EnemySpawn, "ENEMY_SPAWN"},
+		{ObjectType::Gimmick, "GIMMICK"},
 		})
 
 
-	struct CapsuleCollisionData {
+		struct CapsuleCollisionData {
 		Vector3 center;
 		float radius;
 		float height;
@@ -51,27 +53,32 @@ namespace SceneObjectSystem {
 		bool isActive;
 	};
 
-	struct EnemyTriggerData {
-		bool isOnce;
-
-		std::vector<std::vector<bool>> formation;
-	};
-
-	struct EventTriggerData {
-		bool isOnce;
-		std::string key;
-		int duration;
-	};
-
-	struct EventTriggerTypeObject {
-		Transform transform;
-
-		//既に実行したか
+	struct EnemySpawnData {
 		bool hasTriggered = false;
+		bool isOnce;
+		std::vector<std::vector<bool>> formation;
+		std::shared_ptr<Collider> collider;
+	};
+
+	struct GimmickTrigger {
+		std::string key;
+
+		bool hasTriggered = false;
+		bool isOnce;
 
 		std::shared_ptr<Collider> collider;
-		std::optional<EnemyTriggerData> enemyTrigger;
-		std::optional<EventTriggerData> eventTrigger;
+	};
+
+	struct GimmickMover {
+		std::string modelName;
+		std::string key;
+
+		float duration;
+		bool isCyclic;
+		bool isActive = false;
+		std::vector<Vector3> positionKeys;
+		Transform transform;
+		void Update();
 	};
 
 	struct PointLightObject {
@@ -90,14 +97,16 @@ namespace SceneObjectSystem {
 		std::optional<CapsuleCollisionData> capsuleCollisionData;
 		std::optional<SphereCollisionData> sphereCollisionData;
 		std::optional<PointLightData> pointLightData;
-		std::optional<EventTriggerTypeObject> eventTriggerTypeData;
+		std::optional<EnemySpawnData> enemySpawnData;
+		std::optional<GimmickTrigger> gimmickTriggers;
+		std::optional<GimmickMover> gimmickMovers;
 	};
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o);
 	void from_json(const nlohmann::json& j, SphereCollisionData& o);
 	void from_json(const nlohmann::json& j, SceneObjectData& s);
 	void from_json(const nlohmann::json& j, PointLightData& p);
-	void from_json(const nlohmann::json& j, EventTriggerTypeObject& p);
-	void from_json(const nlohmann::json& j, EnemyTriggerData& p);
-	void from_json(const nlohmann::json& j, EventTriggerData& p);
+	void from_json(const nlohmann::json& j, EnemySpawnData& p);
+	void from_json(const nlohmann::json& j, GimmickTrigger& p);
+	void from_json(const nlohmann::json& j, GimmickMover& p);
 }

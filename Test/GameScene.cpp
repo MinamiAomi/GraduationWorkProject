@@ -84,7 +84,10 @@ void GameScene::OnInitialize() {
 	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
-	for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
+	for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+	for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
 
@@ -216,7 +219,10 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}
@@ -246,7 +252,10 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEventTriggerTypeObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		railAnimationPlayer_->Loop();

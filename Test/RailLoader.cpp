@@ -77,7 +77,7 @@ namespace RailSystem {
 
 		// データが空でないか基本的なチェック
 		if (animationData.evalTimeKeys_.empty() ||
-			animationData.railAnimation_.positionKeys.empty() || 
+			animationData.railAnimation_.positionKeys.empty() ||
 			animationData.railAnimation_.rotationKeys.empty() ||
 			animationData.cameraAnimation_.positionKeys.empty() ||
 			animationData.cameraAnimation_.rotationKeys.empty()) {
@@ -87,9 +87,9 @@ namespace RailSystem {
 		return animationData;
 	}
 
-	ScalarKeyframe AnimationLoader::ParseScalarKeyframe(const nlohmann::json& key)
+	AnimationUtils::ScalarKeyframe AnimationLoader::ParseScalarKeyframe(const nlohmann::json& key)
 	{
-		ScalarKeyframe keyframe;
+		AnimationUtils::ScalarKeyframe keyframe;
 		keyframe.frame = key["frame"].get<float>();
 		keyframe.value = key["value"].get<float>();
 
@@ -117,9 +117,9 @@ namespace RailSystem {
 		return keyframe;
 	}
 
-	PositionKeyframe AnimationLoader::ParsePositionKeyframe(const nlohmann::json& key)
+	AnimationUtils::PositionKeyframe AnimationLoader::ParsePositionKeyframe(const nlohmann::json& key)
 	{
-		PositionKeyframe keyframe;
+		AnimationUtils::PositionKeyframe keyframe;
 		keyframe.frame = key["frame"].get<float>();
 		keyframe.value.x = key["value"]["x"].get<float>();
 		keyframe.value.y = key["value"]["y"].get<float>();
@@ -127,9 +127,9 @@ namespace RailSystem {
 		return keyframe;
 	}
 
-	RotationKeyframe AnimationLoader::ParseRotationKeyframe(const nlohmann::json& key)
+	AnimationUtils::RotationKeyframe AnimationLoader::ParseRotationKeyframe(const nlohmann::json& key)
 	{
-		RotationKeyframe keyframe;
+		AnimationUtils::RotationKeyframe keyframe;
 		keyframe.frame = key["frame"].get<float>();
 		keyframe.value.w = key["value"]["w"].get<float>();
 		keyframe.value.x = key["value"]["x"].get<float>();

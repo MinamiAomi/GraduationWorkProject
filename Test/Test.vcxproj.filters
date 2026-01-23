@@ -73,6 +73,9 @@
     <Filter Include="Game\Event">
       <UniqueIdentifier>{bcf440e0-15e1-4a31-812d-54757648ea9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Utils">
+      <UniqueIdentifier>{4eca73d1-8500-4089-b078-cb8c08895cfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -160,6 +163,7 @@
     <ClCompile Include="Bats.cpp">
       <Filter>Game\Event</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -264,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="Bats.h">
       <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationUtils.h">
+      <Filter>Game\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

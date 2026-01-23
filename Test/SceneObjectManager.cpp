@@ -12,7 +12,10 @@
 void SceneObjectSystem::SceneObjectManager::Initialize()
 {
 	pointLightObjects_.clear();
-	eventTriggerTypeObjects_.clear();
+	enemySpawnObjects_.clear();
+	gimmickMoverObjects_.clear();
+	gimmickTriggerObjects_.clear();
+
 	sceneObjectData_.clear();
 }
 
@@ -55,7 +58,9 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 void SceneObjectSystem::SceneObjectManager::ResetObjects()
 {
 	pointLightObjects_.clear();
-	eventTriggerTypeObjects_.clear();
+	enemySpawnObjects_.clear();
+	gimmickMoverObjects_.clear();
+	gimmickTriggerObjects_.clear();
 
 	BuildRuntimeObjects();
 
@@ -78,38 +83,36 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		}
 	}
 
-	for (const auto& obj : eventTriggerTypeObjects_) {
-		obj->transform.UpdateMatrix();
+	for (const auto& obj : enemySpawnObjects_) {
 		if (obj->collider &&
-			!obj->collider->GetCollidedWith().empty()) {
-
-			if (obj->enemyTrigger) {
-				if (obj->enemyTrigger->isOnce && obj->hasTriggered) {
-					continue;
-				}
-
-				obj->enemyTrigger->formation;
-				
-				if (obj->enemyTrigger->isOnce) {
-					obj->hasTriggered = true;
-				}
-			}
-			else if (obj->eventTrigger) {
-				if (obj->eventTrigger->isOnce && obj->hasTriggered) {
-					continue;
-				}
-				
-				obj->eventTrigger->duration;
-				
-				if (obj->eventTrigger->isOnce) {
-					obj->hasTriggered = true;
-				}
-			}
+			obj->collider->GetCollidedWith().empty()) {
+			//スポーン
 		}
-
 	}
 
 
+	for (const auto& obj : gimmickTriggerObjects_) {
+		if (obj->collider &&
+			!obj->collider->GetCollidedWith().empty()) {
+
+			//一回しか発動しないかどうか
+			if (obj->hasTriggered && obj->isOnce) { return; }
+
+			for (const auto& mover : gimmickMoverObjects_) {
+				if (mover->key == obj->key) {
+					mover->isActive = true;
+				}
+			}
+
+			obj->hasTriggered = obj->isOnce;
+		}
+	}
+
+	for (const auto& obj : gimmickMoverObjects_) {
+		if (obj->isActive) {
+			obj->Update();
+		}
+	}
 #ifdef _DEBUG
 	sceneObjectConfig_.DrawImGui();
 #endif // _DEBUG
@@ -186,28 +189,36 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			pointLightObjects_.push_back(std::move(pointLightObject));
 		}
 		break;
-		case SceneObjectSystem::ObjectType::EventTrigger:
+		case SceneObjectSystem::ObjectType::EnemySpawn:
 		{
-			auto eventTriggerTypeObject = std::make_unique<EventTriggerTypeObject>();
+			auto enemySpawn = std::make_unique<EnemySpawnData>();
 
-			eventTriggerTypeObject->enemyTrigger = std::nullopt;
-			eventTriggerTypeObject->eventTrigger = std::nullopt;
+			enemySpawn->formation = data.enemySpawnData->formation;
+			enemySpawn->hasTriggered = false;
+			enemySpawn->isOnce = data.enemySpawnData->isOnce;
 
+			InitializeCommonObject(enemySpawn, data);
 
-			if (data.eventTriggerTypeData->enemyTrigger.has_value()) {
-				eventTriggerTypeObject->enemyTrigger = data.eventTriggerTypeData->enemyTrigger;
-			}
-
-			if (data.eventTriggerTypeData->eventTrigger.has_value()) {
-				eventTriggerTypeObject->eventTrigger = data.eventTriggerTypeData->eventTrigger;
-			}
-
-			InitializeCommonObject(eventTriggerTypeObject, data);
-
-			eventTriggerTypeObjects_.push_back(std::move(eventTriggerTypeObject));
+			enemySpawnObjects_.push_back(std::move(enemySpawn));
 		}
 		break;
 
+		case SceneObjectSystem::ObjectType::Gimmick:
+		{
+			auto mover = std::make_unique<GimmickMover>();
+			auto trigger = std::make_unique<GimmickTrigger>();
+
+			if (data.gimmickMovers.has_value()) {
+				*mover = data.gimmickMovers.value();
+				InitializeCommonObject(mover, data);
+				gimmickMoverObjects_.push_back(std::move(mover));
+			}
+			else if (data.gimmickTriggers.has_value()) {
+				*trigger = data.gimmickTriggers.value();
+				InitializeCommonObject(trigger, data);
+				gimmickTriggerObjects_.push_back(std::move(trigger));
+			}
+		}
 		default:
 			break;
 		}

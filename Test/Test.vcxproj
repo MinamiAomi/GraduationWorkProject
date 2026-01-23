@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="Bats.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Deadline.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Trolley.h" />
     <ClInclude Include="TrolleyUI.h" />
+    <ClInclude Include="AnimationUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
