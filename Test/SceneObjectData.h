@@ -16,6 +16,7 @@
 
 #include "LightObject.h"
 
+#include "AnimationUtils.h"
 namespace SceneObjectSystem {
 	enum class ObjectType {
 		PointLight,
@@ -60,7 +61,13 @@ namespace SceneObjectSystem {
 		std::shared_ptr<Collider> collider;
 	};
 
-	struct GimmickTrigger {
+	struct GimmickTriggerData {
+		std::string key;
+
+		bool isOnce;
+	};
+
+	struct GimmickTriggerObject {
 		std::string key;
 
 		bool hasTriggered = false;
@@ -69,15 +76,27 @@ namespace SceneObjectSystem {
 		std::shared_ptr<Collider> collider;
 	};
 
-	struct GimmickMover {
+	struct GimmickMoverData {
 		std::string modelName;
 		std::string key;
 
 		float duration;
 		bool isCyclic;
-		bool isActive = false;
-		std::vector<Vector3> positionKeys;
+		std::vector<AnimationUtils::ScalarKeyframe> evalTimeKeys;
+		AnimationUtils::NodeAnimation moverAnimation;
+	};
+	
+	struct GimmickMoverObject {
 		Transform transform;
+		ModelInstance model;
+		std::string key;
+
+		float duration;
+		float time;
+		bool isCyclic;
+		bool isActive = false;
+		std::vector<AnimationUtils::ScalarKeyframe> evalTimeKeys;
+		AnimationUtils::NodeAnimation moverAnimation;
 		void Update();
 	};
 
@@ -98,8 +117,8 @@ namespace SceneObjectSystem {
 		std::optional<SphereCollisionData> sphereCollisionData;
 		std::optional<PointLightData> pointLightData;
 		std::optional<EnemySpawnData> enemySpawnData;
-		std::optional<GimmickTrigger> gimmickTriggers;
-		std::optional<GimmickMover> gimmickMovers;
+		std::optional<GimmickTriggerData> gimmickTriggers;
+		std::optional<GimmickMoverData> gimmickMovers;
 	};
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o);
@@ -107,6 +126,7 @@ namespace SceneObjectSystem {
 	void from_json(const nlohmann::json& j, SceneObjectData& s);
 	void from_json(const nlohmann::json& j, PointLightData& p);
 	void from_json(const nlohmann::json& j, EnemySpawnData& p);
-	void from_json(const nlohmann::json& j, GimmickTrigger& p);
-	void from_json(const nlohmann::json& j, GimmickMover& p);
+	void from_json(const nlohmann::json& j, GimmickTriggerData& p);
+	void from_json(const nlohmann::json& j, GimmickMoverData& p);
+
 }

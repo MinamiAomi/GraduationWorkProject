@@ -1,6 +1,8 @@
 #include "SceneObjectData.h"
 #include "File/JsonConverter.h"
 
+#include "AnimationLoader.h"
+
 namespace SceneObjectSystem {
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o) {
@@ -71,10 +73,10 @@ namespace SceneObjectSystem {
 				std::string subtype = gimmickJson.at("subtype").get<std::string>();
 
 				if (subtype == "TRIGGER") {
-					s.gimmickTriggers = gimmickJson.get<GimmickTrigger>();
+					s.gimmickTriggers = gimmickJson.get<GimmickTriggerData>();
 				}
 				else if (subtype == "MOVER") {
-					s.gimmickMovers = gimmickJson.get<GimmickMover>();
+					s.gimmickMovers = gimmickJson.get<GimmickMoverData>();
 				}
 			}
 			break;
@@ -102,7 +104,7 @@ namespace SceneObjectSystem {
 			j.at("isOnce").get_to(p.isOnce);
 		}
 	}
-	void from_json(const nlohmann::json& j, GimmickTrigger& p)
+	void from_json(const nlohmann::json& j, GimmickTriggerData& p)
 	{
 		if (!j.contains("subtype")) return;
 
@@ -115,7 +117,7 @@ namespace SceneObjectSystem {
 		}
 	}
 
-	void from_json(const nlohmann::json& j, GimmickMover& p)
+	void from_json(const nlohmann::json& j, GimmickMoverData& p)
 	{
 		if (!j.contains("subtype")) return;
 
@@ -127,15 +129,31 @@ namespace SceneObjectSystem {
 			if (j.contains("duration")) j.at("duration").get_to(p.duration);
 			if (j.contains("is_cyclic")) j.at("is_cyclic").get_to(p.isCyclic);
 
-			if (j.contains("path_points")) {
-				p.positionKeys = j.at("path_points").get<std::vector<Vector3>>();
-			}
+			auto result = AnimationUtils::AnimationLoader::LoadAnimation(j);
+
+			p.evalTimeKeys = std::get<0>(result.value());
+			p.moverAnimation.positionKeys = std::get<1>(result.value());
+			p.moverAnimation.rotationKeys = std::get<2>(result.value());
 
 		}
 	}
-	void GimmickMover::Update()
+
+	void GimmickMoverObject::Update()
 	{
-		
+
+		if (isActive) {
+			time += 1.0f / 60.0f;
+			auto result = AnimationUtils::CalculateCurrentTransform(evalTimeKeys, moverAnimation.positionKeys, moverAnimation.rotationKeys, time);
+			transform = result.second;
+			transform.UpdateMatrix();
+			model.SetWorldMatrix(transform.worldMatrix);
+			if (time >= duration && isCyclic) {
+				time = 0.0f;
+			}
+			else {
+				time = duration;
+			}
+		}
 
 	}
 }

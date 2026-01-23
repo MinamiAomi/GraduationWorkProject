@@ -49,6 +49,11 @@ namespace AnimationUtils {
 		std::string interpolation;
 	};
 
+	struct  NodeAnimation {
+		std::vector<AnimationUtils::PositionKeyframe> positionKeys;
+		std::vector<AnimationUtils::RotationKeyframe> rotationKeys;
+	};
+
 	std::pair<Transform, Transform>CalculateCurrentTransform(const std::vector<ScalarKeyframe>& scalarKeys, const std::vector<PositionKeyframe>& positionKeys, const std::vector<RotationKeyframe>& rotationKeys, float currentFrame);
 
 	/// <summary>
@@ -101,8 +106,6 @@ namespace AnimationUtils {
 			return { nextIndex, nextIndex };
 		}
 
-
 		return { prevIndex, nextIndex };
 	}
-
 }

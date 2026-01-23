@@ -43,9 +43,6 @@
     <Filter Include="Game\RailSystem\Data">
       <UniqueIdentifier>{04e11a2a-834b-43ea-91a2-76ef83755fd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RailSystem\Loader">
-      <UniqueIdentifier>{fbfc21c5-b9b5-44d1-adba-f33f0bcc37ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\RailSystem\Converter">
       <UniqueIdentifier>{b0561d18-e060-404e-8030-32ff35b4d14d}</UniqueIdentifier>
     </Filter>
@@ -87,9 +84,6 @@
     </ClCompile>
     <ClCompile Include="DebugCamera.cpp">
       <Filter>Game\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="RailLoader.cpp">
-      <Filter>Game\RailSystem\Loader</Filter>
     </ClCompile>
     <ClCompile Include="RailAnimationPlayer.cpp">
       <Filter>Game\RailSystem\AnimationPlayer</Filter>
@@ -164,6 +158,7 @@
       <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="AnimationUtils.cpp" />
+    <ClCompile Include="AnimationLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -177,9 +172,6 @@
     </ClInclude>
     <ClInclude Include="RailData.h">
       <Filter>Game\RailSystem\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="RailLoader.h">
-      <Filter>Game\RailSystem\Loader</Filter>
     </ClInclude>
     <ClInclude Include="RailAnimationPlayer.h">
       <Filter>Game\RailSystem\AnimationPlayer</Filter>
@@ -270,6 +262,9 @@
       <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="AnimationUtils.h">
+      <Filter>Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationLoader.h">
       <Filter>Game\Utils</Filter>
     </ClInclude>
   </ItemGroup>

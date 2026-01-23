@@ -4257,14 +4257,53 @@
       }
     },
     {
+      "name": "Empty",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          0.0,
+          10.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "GimmickKey",
+        "isOnce": true
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          0.0,
+          10.0,
+          0.0
+        ],
+        "radius": 0.5
+      }
+    },
+    {
       "name": "Cube",
       "model_name": "Cube",
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          0.0,
-          10.0996,
-          5.5668
+          -1.0,
+          6.3086,
+          7.5071
         ],
         "rotate": [
           1.0,
@@ -4282,7 +4321,7 @@
       "gimmick_data": {
         "subtype": "MOVER",
         "key": "GimmickKey",
-        "duration": 120,
+        "duration": 300,
         "is_cyclic": true,
         "curve_eval_time": [
           {
@@ -4290,29 +4329,29 @@
             "value": 0.0
           },
           {
-            "frame": 121.0,
+            "frame": 301.0,
             "value": 0.0
           }
         ],
-        "rail_world_position": [
+        "position": [
           {
             "frame": 1.0,
             "value": {
-              "x": 0.0,
-              "y": 10.0996,
-              "z": 5.5668
+              "x": -1.0,
+              "y": 6.3086,
+              "z": 7.5071
             }
           },
           {
-            "frame": 121.0,
+            "frame": 301.0,
             "value": {
-              "x": 0.0,
-              "y": 10.0996,
-              "z": 5.5668
+              "x": -1.0,
+              "y": 6.3086,
+              "z": 7.5071
             }
           }
         ],
-        "rail_world_rotation": [
+        "rotation": [
           {
             "frame": 1.0,
             "value": {
@@ -4323,7 +4362,7 @@
             }
           },
           {
-            "frame": 121.0,
+            "frame": 301.0,
             "value": {
               "w": 1.0,
               "x": 0.0,
@@ -4334,9 +4373,14 @@
         ],
         "path_points": [
           [
-            0.0,
-            10.0996,
-            5.5668
+            -1.0,
+            6.3086,
+            7.5071
+          ],
+          [
+            2.4881,
+            -7.9284,
+            5.7343
           ]
         ]
       },

@@ -15,6 +15,8 @@
 #include "GameOverScene.h"
 #include "SceneObjectLoader.h"
 
+#include "AnimationLoader.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -29,7 +31,7 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region RailSystem
-	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
+	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(

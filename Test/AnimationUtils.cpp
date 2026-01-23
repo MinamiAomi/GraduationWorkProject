@@ -1,5 +1,7 @@
 #include "AnimationUtils.h"
 
+#include "SceneObjectData.h"
+
 #include "RailConverter.h"
 
 namespace AnimationUtils {
@@ -155,5 +157,6 @@ namespace AnimationUtils {
 
 		return { x, y };
 	}
+
 
 }

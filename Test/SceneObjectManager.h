@@ -19,8 +19,8 @@ namespace SceneObjectSystem {
 		//ゲームで使う方	
 		const std::vector<std::unique_ptr<SceneObjectSystem::PointLightObject>>& GetPointLightObjects()const { return pointLightObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>>& GetEnemySpawnObjects()const { return enemySpawnObjects_; }
-		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickMover>>& GetGimmickMoverObjects()const { return gimmickMoverObjects_; }
-		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTrigger>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>>& GetGimmickMoverObjects()const { return gimmickMoverObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
 		//Blenderの値そのままデータだけ
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 	private:
@@ -36,8 +36,8 @@ namespace SceneObjectSystem {
 		//ゲームで使う方
 		std::vector<std::unique_ptr<SceneObjectSystem::PointLightObject>> pointLightObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>> enemySpawnObjects_;
-		std::vector<std::unique_ptr<SceneObjectSystem::GimmickMover>> gimmickMoverObjects_;
-		std::vector<std::unique_ptr<SceneObjectSystem::GimmickTrigger>> gimmickTriggerObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>> gimmickMoverObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>> gimmickTriggerObjects_;
 
 		//Blenderの値そのままデータだけ
 		std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>> sceneObjectData_;

@@ -205,16 +205,30 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 		case SceneObjectSystem::ObjectType::Gimmick:
 		{
-			auto mover = std::make_unique<GimmickMover>();
-			auto trigger = std::make_unique<GimmickTrigger>();
+			auto mover = std::make_unique<GimmickMoverObject>();
+			auto trigger = std::make_unique<GimmickTriggerObject>();
 
 			if (data.gimmickMovers.has_value()) {
-				*mover = data.gimmickMovers.value();
+				const auto& assetManager = AssetManager::GetInstance();
+				if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
+					mover->model.SetModel(modelHandle->Get());
+				}
+
+				mover->key = data.gimmickMovers->key;
+				mover->duration = data.gimmickMovers->duration;
+				mover->moverAnimation = data.gimmickMovers->moverAnimation;
+				mover->evalTimeKeys = data.gimmickMovers->evalTimeKeys;
+				mover->isCyclic = data.gimmickMovers->isCyclic;
+				mover->isActive = false;
 				InitializeCommonObject(mover, data);
 				gimmickMoverObjects_.push_back(std::move(mover));
 			}
 			else if (data.gimmickTriggers.has_value()) {
-				*trigger = data.gimmickTriggers.value();
+
+				trigger->key = data.gimmickTriggers->key;
+				trigger->hasTriggered = false;
+				trigger->isOnce = data.gimmickTriggers->isOnce;
+
 				InitializeCommonObject(trigger, data);
 				gimmickTriggerObjects_.push_back(std::move(trigger));
 			}
