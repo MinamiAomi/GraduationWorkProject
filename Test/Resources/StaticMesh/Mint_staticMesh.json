@@ -22,21 +22,8 @@
           4.6684
         ]
       },
-      "capsule_collision": {
-        "center": [
-          213.6272,
-          57.8418,
-          9.5832
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -50,8 +37,23 @@
         ],
         "intensity": 10.0,
         "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          214.3154,
+          57.6699,
+          11.6624
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
       }
     },
     {
@@ -76,21 +78,8 @@
           1.0
         ]
       },
-      "capsule_collision": {
-        "center": [
-          12.4833,
-          -3.6714,
-          6.6927
-        ],
-        "radius": 1.0325,
-        "height": 9.6619,
-        "quaternion": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -104,8 +93,23 @@
         ],
         "intensity": 5.0,
         "range": 5.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          12.4833,
+          -3.6714,
+          6.6927
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
       }
     },
     {
@@ -114,9 +118,9 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          270.8307,
-          177.7503,
-          -0.3823
+          270.8963,
+          177.7469,
+          -0.9961
         ],
         "rotate": [
           0.3402,
@@ -130,21 +134,8 @@
           0.915
         ]
       },
-      "capsule_collision": {
-        "center": [
-          271.2198,
-          177.6821,
-          0.0678
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3402,
-          -0.2567,
-          0.2136,
-          -0.8791
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -157,9 +148,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          271.2524,
+          177.6845,
+          -0.5842
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ]
       }
     },
     {
@@ -168,15 +174,15 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          279.7963,
-          229.1912,
-          0.1499
+          275.3104,
+          229.2802,
+          5.5406
         ],
         "rotate": [
-          0.3992,
-          0.2512,
-          -0.0105,
-          -0.8817
+          0.1366,
+          0.9073,
+          -0.3913,
+          -0.0703
         ],
         "scale": [
           0.915,
@@ -184,21 +190,8 @@
           0.915
         ]
       },
-      "capsule_collision": {
-        "center": [
-          279.5538,
-          229.1344,
-          0.6945
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3992,
-          0.2512,
-          -0.0105,
-          -0.8817
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -211,9 +204,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          275.1512,
+          229.2233,
+          5.0194
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1366,
+          0.9073,
+          -0.3913,
+          -0.0703
+        ]
       }
     },
     {
@@ -222,15 +230,15 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          290.1935,
+          289.6777,
           305.7325,
-          -0.9411
+          0.0889
         ],
         "rotate": [
-          0.8906,
-          -0.2648,
-          -0.1511,
-          0.3374
+          0.8712,
+          -0.297,
+          -0.2387,
+          0.3095
         ],
         "scale": [
           0.915,
@@ -238,21 +246,8 @@
           0.915
         ]
       },
-      "capsule_collision": {
-        "center": [
-          289.8878,
-          305.9033,
-          -0.4553
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8906,
-          -0.2648,
-          -0.1511,
-          0.3374
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -265,9 +260,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          289.3157,
+          305.8888,
+          0.4695
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8712,
+          -0.297,
+          -0.2387,
+          0.3095
+        ]
       }
     },
     {
@@ -278,13 +288,13 @@
         "translate": [
           324.8261,
           365.3689,
-          -0.0126
+          -1.9715
         ],
         "rotate": [
-          0.9169,
-          -0.236,
-          0.0123,
-          0.3215
+          0.9228,
+          0.212,
+          -0.1369,
+          0.2911
         ],
         "scale": [
           0.915,
@@ -292,21 +302,8 @@
           0.915
         ]
       },
-      "capsule_collision": {
-        "center": [
-          324.7068,
-          365.5875,
-          0.5321
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9169,
-          -0.236,
-          0.0123,
-          0.3215
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -319,9 +316,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          324.717,
+          365.0773,
+          -1.5205
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9228,
+          0.212,
+          -0.1369,
+          0.2911
+        ]
       }
     },
     {
@@ -346,21 +358,8 @@
           1.3386
         ]
       },
-      "capsule_collision": {
-        "center": [
-          414.9887,
-          390.8571,
-          2.8788
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.1441,
-          -0.9455,
-          -0.2821,
-          0.0759
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -373,9 +372,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          414.9336,
+          390.8997,
+          2.6892
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1441,
+          -0.9455,
+          -0.2821,
+          0.0759
+        ]
       }
     },
     {
@@ -400,21 +414,8 @@
           0.915
         ]
       },
-      "capsule_collision": {
-        "center": [
-          332.5972,
-          358.4112,
-          0.5645
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9364,
-          -0.1868,
-          0.1448,
-          -0.2595
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -427,9 +428,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          332.5833,
+          358.3953,
+          0.5182
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9364,
+          -0.1868,
+          0.1448,
+          -0.2595
+        ]
       }
     },
     {
@@ -454,21 +470,8 @@
           0.8064
         ]
       },
-      "capsule_collision": {
-        "center": [
-          473.2597,
-          405.6542,
-          0.1282
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9683,
-          0.192,
-          -0.0438,
-          -0.1535
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -481,9 +484,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          473.2946,
+          405.6924,
+          0.0235
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9683,
+          0.192,
+          -0.0438,
+          -0.1535
+        ]
       }
     },
     {
@@ -508,21 +526,8 @@
           0.9455
         ]
       },
-      "capsule_collision": {
-        "center": [
-          567.8796,
-          406.7249,
-          3.8746
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3692,
-          0.9155,
-          0.1045,
-          -0.1207
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -535,9 +540,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          567.8951,
+          406.7477,
+          3.8951
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3692,
+          0.9155,
+          0.1045,
+          -0.1207
+        ]
       }
     },
     {
@@ -562,21 +582,8 @@
           0.9455
         ]
       },
-      "capsule_collision": {
-        "center": [
-          537.8647,
-          400.259,
-          1.3338
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.2493,
-          -0.9552,
-          -0.1559,
-          0.0346
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -589,9 +596,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          537.8802,
+          400.2461,
+          1.3615
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2493,
+          -0.9552,
+          -0.1559,
+          0.0346
+        ]
       }
     },
     {
@@ -616,21 +638,8 @@
           0.9455
         ]
       },
-      "capsule_collision": {
-        "center": [
-          727.4678,
-          398.3682,
-          -0.6178
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9791,
-          -0.1276,
-          -0.0823,
-          -0.1356
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -643,9 +652,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          727.4828,
+          398.3582,
+          -0.647
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9791,
+          -0.1276,
+          -0.0823,
+          -0.1356
+        ]
       }
     },
     {
@@ -670,21 +694,8 @@
           0.9455
         ]
       },
-      "capsule_collision": {
-        "center": [
-          778.5617,
-          403.2029,
-          -0.5102
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9431,
-          0.1388,
-          -0.273,
-          0.1298
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -697,9 +708,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          778.5857,
+          403.217,
+          -0.5302
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9431,
+          0.1388,
+          -0.273,
+          0.1298
+        ]
       }
     },
     {
@@ -724,21 +750,8 @@
           2.8244
         ]
       },
-      "capsule_collision": {
-        "center": [
-          836.4146,
-          432.1364,
-          -2.7899
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.941,
-          -0.3219,
-          -0.0331,
-          0.0994
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -751,9 +764,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          836.1923,
+          432.7547,
+          -1.9198
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.941,
+          -0.3219,
+          -0.0331,
+          0.0994
+        ]
       }
     },
     {
@@ -778,21 +806,8 @@
           2.6771
         ]
       },
-      "capsule_collision": {
-        "center": [
-          836.5933,
-          468.0104,
-          6.7312
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9715,
-          0.1774,
-          0.1566,
-          -0.0139
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -805,9 +820,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          836.8057,
+          467.643,
+          7.6399
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9715,
+          0.1774,
+          0.1566,
+          -0.0139
+        ]
       }
     },
     {
@@ -832,21 +862,8 @@
           2.6771
         ]
       },
-      "capsule_collision": {
-        "center": [
-          845.9845,
-          457.2155,
-          -1.1609
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9682,
-          -0.1948,
-          0.1403,
-          -0.0709
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -859,9 +876,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          846.1969,
+          457.5737,
+          -0.2485
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
       }
     },
     {
@@ -886,21 +918,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          817.752,
-          451.1237,
-          2.4857
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9682,
-          -0.1948,
-          0.1403,
-          -0.0709
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -913,9 +932,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          817.837,
+          451.2617,
+          2.837
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
       }
     },
     {
@@ -940,21 +974,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          820.4875,
-          456.2263,
-          1.7401
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9621,
-          -0.1958,
-          0.0069,
-          -0.1898
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -967,9 +988,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          820.49,
+          456.3767,
+          2.0965
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9621,
+          -0.1958,
+          0.0069,
+          -0.1898
+        ]
       }
     },
     {
@@ -994,21 +1030,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          832.2339,
-          451.9556,
-          -1.9801
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8782,
-          -0.0131,
-          0.0523,
-          0.4752
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1021,9 +1044,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          832.2528,
+          451.9542,
+          -1.5937
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8782,
+          -0.0131,
+          0.0523,
+          0.4752
+        ]
       }
     },
     {
@@ -1048,21 +1086,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          832.2476,
-          443.4441,
-          -3.0666
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1075,9 +1100,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          832.1173,
+          443.3994,
+          -2.705
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
       }
     },
     {
@@ -1102,21 +1142,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          839.7766,
-          457.653,
-          -1.3795
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1129,9 +1156,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          839.6463,
+          457.6084,
+          -1.0179
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
       }
     },
     {
@@ -1156,21 +1198,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          854.4217,
-          475.027,
-          -1.1172
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1183,9 +1212,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          854.2914,
+          474.9823,
+          -0.7556
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
       }
     },
     {
@@ -1210,21 +1254,8 @@
           1.6474
         ]
       },
-      "capsule_collision": {
-        "center": [
-          857.0762,
-          459.6668,
-          -3.2466
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8569,
-          -0.2608,
-          -0.0406,
-          0.4429
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1237,9 +1268,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          856.946,
+          459.7979,
+          -2.9066
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8569,
+          -0.2608,
+          -0.0406,
+          0.4429
+        ]
       }
     },
     {
@@ -1264,21 +1310,8 @@
           3.8256
         ]
       },
-      "capsule_collision": {
-        "center": [
-          847.475,
-          479.4621,
-          12.0743
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.2963,
-          0.8452,
-          -0.4442,
-          -0.0221
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1291,9 +1324,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          846.8976,
+          478.783,
+          10.6383
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2963,
+          0.8452,
+          -0.4442,
+          -0.0221
+        ]
       }
     },
     {
@@ -1318,21 +1366,8 @@
           3.8256
         ]
       },
-      "capsule_collision": {
-        "center": [
-          820.3942,
-          468.8608,
-          12.5733
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.0168,
-          0.8955,
-          -0.4149,
-          -0.1601
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1345,9 +1380,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          819.8168,
+          469.1689,
+          11.015
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.0168,
+          0.8955,
+          -0.4149,
+          -0.1601
+        ]
       }
     },
     {
@@ -1372,21 +1422,8 @@
           5.021
         ]
       },
-      "capsule_collision": {
-        "center": [
-          884.5048,
-          450.5377,
-          -5.1114
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7887,
-          0.1016,
-          -0.0442,
-          -0.6047
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1399,9 +1436,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          883.9443,
+          450.4851,
+          -2.7729
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7887,
+          0.1016,
+          -0.0442,
+          -0.6047
+        ]
       }
     },
     {
@@ -1426,21 +1478,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          864.0624,
-          464.8129,
-          3.3084
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1453,9 +1492,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          864.0925,
+          464.8275,
+          3.2351
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
       }
     },
     {
@@ -1480,21 +1534,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          862.0523,
-          466.7833,
-          2.8317
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1507,9 +1548,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          862.0824,
+          466.7979,
+          2.7584
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
       }
     },
     {
@@ -1534,21 +1590,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          867.3706,
-          462.7977,
-          2.8674
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.7096,
-          -0.0306,
-          -0.4813,
-          0.5138
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1561,9 +1604,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          867.4261,
+          462.8443,
+          2.8321
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7096,
+          -0.0306,
+          -0.4813,
+          0.5138
+        ]
       }
     },
     {
@@ -1588,21 +1646,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          869.9612,
-          467.5493,
-          5.3827
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8945,
-          -0.0448,
-          -0.147,
-          0.4197
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1615,9 +1660,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          869.9913,
+          467.5639,
+          5.3094
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
       }
     },
     {
@@ -1642,21 +1702,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          862.7595,
-          452.4297,
-          -0.1672
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.74,
-          -0.211,
-          -0.0204,
-          0.6384
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1669,9 +1716,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          862.7836,
+          452.4194,
+          -0.2434
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.74,
+          -0.211,
+          -0.0204,
+          0.6384
+        ]
       }
     },
     {
@@ -1696,21 +1758,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          865.5867,
-          456.3711,
-          -0.8232
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.9513,
-          -0.0012,
-          -0.3064,
-          0.0325
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1723,9 +1772,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          865.6433,
+          456.3754,
+          -0.8803
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9513,
+          -0.0012,
+          -0.3064,
+          0.0325
+        ]
       }
     },
     {
@@ -1750,21 +1814,8 @@
           1.2321
         ]
       },
-      "capsule_collision": {
-        "center": [
-          855.6845,
-          452.1778,
-          1.9701
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.8403,
-          -0.2047,
-          0.0799,
-          0.4957
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1777,9 +1828,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          855.6727,
+          452.2293,
+          2.0981
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8403,
+          -0.2047,
+          0.0799,
+          0.4957
+        ]
       }
     },
     {
@@ -1804,21 +1870,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          861.8466,
-          471.7343,
-          1.4388
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.5124,
-          0.1207,
-          -0.1448,
-          -0.8378
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1831,9 +1884,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          861.8705,
+          471.7124,
+          1.3651
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5124,
+          0.1207,
+          -0.1448,
+          -0.8378
+        ]
       }
     },
     {
@@ -1858,21 +1926,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          861.9528,
-          469.4004,
-          1.2151
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.4727,
-          0.2319,
-          0.0455,
-          -0.849
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1885,9 +1940,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          861.9767,
+          469.4127,
+          1.1392
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4727,
+          0.2319,
+          0.0455,
+          -0.849
+        ]
       }
     },
     {
@@ -1912,21 +1982,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          860.845,
-          471.7359,
-          0.0027
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.4716,
-          0.4061,
-          -0.0554,
-          -0.7808
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1939,9 +1996,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          860.8981,
+          471.7483,
+          -0.0566
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ]
       }
     },
     {
@@ -1966,21 +2038,8 @@
           5.4873
         ]
       },
-      "capsule_collision": {
-        "center": [
-          900.5247,
-          381.2497,
-          14.4797
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.651,
-          -0.7471,
-          0.0587,
-          -0.1205
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -1994,8 +2053,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          900.6517,
+          381.1497,
+          14.8066
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.651,
+          -0.7471,
+          0.0587,
+          -0.1205
+        ]
       }
     },
     {
@@ -2020,21 +2094,8 @@
           5.4873
         ]
       },
-      "capsule_collision": {
-        "center": [
-          910.7429,
-          384.8024,
-          -6.2326
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9691,
-          -0.0496,
-          -0.2111,
-          -0.1173
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2048,8 +2109,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          910.8693,
+          384.4604,
+          -6.2364
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9691,
+          -0.0496,
+          -0.2111,
+          -0.1173
+        ]
       }
     },
     {
@@ -2074,21 +2150,8 @@
           5.4873
         ]
       },
-      "capsule_collision": {
-        "center": [
-          921.1752,
-          358.5215,
-          -3.1394
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9919,
-          0.0424,
-          -0.0391,
-          -0.1128
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2102,8 +2165,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          921.2939,
+          358.1975,
+          -3.2578
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
       }
     },
     {
@@ -2128,21 +2206,8 @@
           5.4873
         ]
       },
-      "capsule_collision": {
-        "center": [
-          932.4382,
-          357.9486,
-          -2.8804
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9919,
-          0.0424,
-          -0.0391,
-          -0.1128
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2156,8 +2221,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          932.5569,
+          357.6247,
+          -2.9988
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
       }
     },
     {
@@ -2182,21 +2262,8 @@
           5.4873
         ]
       },
-      "capsule_collision": {
-        "center": [
-          932.0684,
-          371.0132,
-          -3.1254
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9919,
-          0.0424,
-          -0.0391,
-          -0.1128
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2210,8 +2277,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          932.187,
+          370.6893,
+          -3.2438
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
       }
     },
     {
@@ -2236,21 +2318,8 @@
           5.4873
         ]
       },
-      "capsule_collision": {
-        "center": [
-          921.1055,
-          371.0132,
-          -2.8012
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9919,
-          0.0424,
-          -0.0391,
-          -0.1128
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2264,8 +2333,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          921.2242,
+          370.6893,
+          -2.9196
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
       }
     },
     {
@@ -2290,21 +2374,8 @@
           11.9747
         ]
       },
-      "capsule_collision": {
-        "center": [
-          924.7853,
-          327.6669,
-          -6.5433
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9912,
-          0.0316,
-          0.0545,
-          -0.1163
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2318,8 +2389,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          925.016,
+          326.8748,
+          -6.8821
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9912,
+          0.0316,
+          0.0545,
+          -0.1163
+        ]
       }
     },
     {
@@ -2344,21 +2430,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          961.0801,
-          326.2459,
-          -10.2838
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9608,
-          -0.1784,
-          -0.1919,
-          -0.0902
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2372,8 +2445,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          961.4297,
+          325.3277,
+          -10.0761
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
       }
     },
     {
@@ -2398,21 +2486,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          971.2757,
-          343.6974,
-          -13.9663
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.817,
-          0.0358,
-          -0.2944,
-          -0.4945
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2426,8 +2501,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          970.9423,
+          342.7994,
+          -14.2676
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.817,
+          0.0358,
+          -0.2944,
+          -0.4945
+        ]
       }
     },
     {
@@ -2452,21 +2542,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          986.0558,
-          362.3384,
-          -3.8103
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.7732,
-          0.0981,
-          -0.3954,
-          -0.486
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2480,8 +2557,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.8087,
+          361.4404,
+          -4.1857
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ]
       }
     },
     {
@@ -2506,21 +2598,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          986.0558,
-          362.3384,
-          -3.8103
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.7732,
-          0.0981,
-          -0.3954,
-          -0.486
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2534,8 +2613,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.8087,
+          361.4404,
+          -4.1857
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ]
       }
     },
     {
@@ -2560,21 +2654,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          941.6229,
-          306.3994,
-          -7.4046
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9608,
-          -0.1784,
-          -0.1919,
-          -0.0902
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2588,8 +2669,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          941.9725,
+          305.4812,
+          -7.1969
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
       }
     },
     {
@@ -2614,21 +2710,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          939.1795,
-          331.4062,
-          -21.7733
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9608,
-          -0.1784,
-          -0.1919,
-          -0.0902
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2642,8 +2725,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          939.5291,
+          330.488,
+          -21.5656
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
       }
     },
     {
@@ -2668,21 +2766,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          939.1795,
-          331.4062,
-          -21.7733
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.9608,
-          -0.1784,
-          -0.1919,
-          -0.0902
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2696,8 +2781,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          939.5291,
+          330.488,
+          -21.5656
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
       }
     },
     {
@@ -2722,21 +2822,8 @@
           13.3565
         ]
       },
-      "capsule_collision": {
-        "center": [
-          968.3824,
-          306.6402,
-          10.6871
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.6939,
-          -0.4169,
-          -0.5543,
-          -0.1937
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2750,8 +2837,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          968.1077,
+          306.0344,
+          11.4394
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6939,
+          -0.4169,
+          -0.5543,
+          -0.1937
+        ]
       }
     },
     {
@@ -2776,21 +2878,8 @@
           20.6867
         ]
       },
-      "capsule_collision": {
-        "center": [
-          982.6369,
-          325.8721,
-          9.5028
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.7172,
-          -0.312,
-          -0.6194,
-          -0.0676
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2804,8 +2893,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          982.5637,
+          324.8148,
+          10.7014
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7172,
+          -0.312,
+          -0.6194,
+          -0.0676
+        ]
       }
     },
     {
@@ -2830,21 +2934,8 @@
           10.622
         ]
       },
-      "capsule_collision": {
-        "center": [
-          987.5948,
-          349.7169,
-          20.9284
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.6277,
-          -0.026,
-          -0.7344,
-          0.257
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2858,8 +2949,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          987.9034,
+          349.3772,
+          21.5615
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
       }
     },
     {
@@ -2884,21 +2990,8 @@
           10.622
         ]
       },
-      "capsule_collision": {
-        "center": [
-          981.9202,
-          366.5548,
-          16.3399
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.6277,
-          -0.026,
-          -0.7344,
-          0.257
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2912,8 +3005,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          982.2288,
+          366.215,
+          16.973
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
       }
     },
     {
@@ -2938,21 +3046,8 @@
           10.622
         ]
       },
-      "capsule_collision": {
-        "center": [
-          988.0818,
-          348.2874,
-          8.0969
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.6277,
-          -0.026,
-          -0.7344,
-          0.257
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -2966,8 +3061,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          988.3904,
+          347.9477,
+          8.73
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
       }
     },
     {
@@ -2992,21 +3102,8 @@
           10.622
         ]
       },
-      "capsule_collision": {
-        "center": [
-          985.0903,
-          368.8214,
-          4.1995
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.6277,
-          -0.026,
-          -0.7344,
-          0.257
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3020,8 +3117,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.3989,
+          368.4816,
+          4.8326
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
       }
     },
     {
@@ -3046,21 +3158,8 @@
           16.2877
         ]
       },
-      "capsule_collision": {
-        "center": [
-          959.0076,
-          373.0925,
-          30.5898
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.4778,
-          0.2626,
-          -0.7257,
-          0.4196
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3074,8 +3173,23 @@
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          959.6852,
+          372.9232,
+          31.5189
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4778,
+          0.2626,
+          -0.7257,
+          0.4196
+        ]
       }
     },
     {
@@ -3100,21 +3214,8 @@
           0.8665
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1088.9279,
-          411.3739,
-          -0.3574
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.4716,
-          0.4061,
-          -0.0554,
-          -0.7808
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3127,9 +3228,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1088.9811,
+          411.3863,
+          -0.4167
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ]
       }
     },
     {
@@ -3138,9 +3254,9 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          868.0866,
+          886.0028,
           337.3456,
-          -6.8187
+          -3.225
         ],
         "rotate": [
           0.5857,
@@ -3154,21 +3270,8 @@
           3.2408
         ]
       },
-      "capsule_collision": {
-        "center": [
-          868.4716,
-          337.4903,
-          -6.3834
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.5857,
-          0.1369,
-          0.3469,
-          0.7196
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3181,9 +3284,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          887.2442,
+          337.8305,
+          -1.8165
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5857,
+          0.1369,
+          0.3469,
+          0.7196
+        ]
       }
     },
     {
@@ -3208,21 +3326,8 @@
           1.4347
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1008.0966,
-          470.0952,
-          -1.118
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.4974,
-          -0.2536,
-          0.0168,
-          0.8294
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3235,9 +3340,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1008.0026,
+          470.154,
+          -0.8832
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4974,
+          -0.2536,
+          0.0168,
+          0.8294
+        ]
       }
     },
     {
@@ -3262,21 +3382,8 @@
           1.3557
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1137.1837,
-          414.0901,
-          5.438
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.5081,
-          0.3911,
-          -0.1772,
-          0.7467
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3285,13 +3392,28 @@
         ],
         "color": [
           1.0,
-          0.2186,
-          0.0981
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1137.2748,
+          413.942,
+          5.5601
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ]
       }
     },
     {
@@ -3316,21 +3438,8 @@
           1.3557
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1130.9991,
-          413.0725,
-          0.9165
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.2786,
-          0.6469,
-          -0.5215,
-          0.4816
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3339,13 +3448,28 @@
         ],
         "color": [
           1.0,
-          0.1969,
-          0.1969
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1131.0726,
+          412.8967,
+          0.8227
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2786,
+          0.6469,
+          -0.5215,
+          0.4816
+        ]
       }
     },
     {
@@ -3370,21 +3494,8 @@
           1.3557
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1143.5299,
-          408.1064,
-          -3.627
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.027,
-          0.2909,
-          -0.6217,
-          -0.7267
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3397,9 +3508,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1143.4465,
+          408.3011,
+          -3.6119
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ]
       }
     },
     {
@@ -3424,21 +3550,8 @@
           2.1074
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1137.3047,
-          392.0446,
-          -19.0683
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.027,
-          0.2909,
-          -0.6217,
-          -0.7267
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3447,13 +3560,28 @@
         ],
         "color": [
           1.0,
-          0.0247,
-          0.0954
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1137.0548,
+          392.6557,
+          -19.0183
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ]
       }
     },
     {
@@ -3478,21 +3606,8 @@
           2.1074
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1114.4437,
-          398.384,
-          -18.0985
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.141,
-          -0.0515,
-          0.5245,
-          0.8381
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3500,14 +3615,29 @@
           0.0
         ],
         "color": [
-          0.6676,
           1.0,
-          0.0893
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1114.5424,
+          398.9675,
+          -17.8017
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.141,
+          -0.0515,
+          0.5245,
+          0.8381
+        ]
       }
     },
     {
@@ -3532,21 +3662,8 @@
           0.7593
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1129.4795,
-          406.2075,
-          3.4022
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.5081,
-          0.3911,
-          -0.1772,
-          0.7467
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3555,13 +3672,28 @@
         ],
         "color": [
           1.0,
-          0.1212,
-          0.374
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1129.4153,
+          406.3127,
+          3.3265
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ]
       }
     },
     {
@@ -3586,21 +3718,8 @@
           0.7593
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1127.4828,
-          404.8231,
-          0.9756
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.5075,
-          0.1814,
-          0.3265,
-          0.7765
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3613,9 +3732,24 @@
           0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1127.3848,
+          404.7931,
+          0.8735
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5075,
+          0.1814,
+          0.3265,
+          0.7765
+        ]
       }
     },
     {
@@ -3640,21 +3774,8 @@
           1.0871
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1188.4526,
-          476.368,
-          -10.415
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3631,
-          0.2634,
-          0.0103,
-          0.8937
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3663,13 +3784,28 @@
         ],
         "color": [
           1.0,
-          0.8643,
-          0.0097
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1188.4666,
+          476.3691,
+          -10.3623
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3631,
+          0.2634,
+          0.0103,
+          0.8937
+        ]
       }
     },
     {
@@ -3694,21 +3830,8 @@
           3.7384
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1140.3113,
-          402.7501,
-          0.9712
-        ],
-        "radius": 1.1376,
-        "height": 0.3736,
-        "quaternion": [
-          0.1456,
-          -0.417,
-          -0.1251,
-          0.8884
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3716,14 +3839,29 @@
           0.0
         ],
         "color": [
+          0.7063,
           1.0,
-          0.8451,
-          0.6965
+          0.014
         ],
         "intensity": 5.0,
         "range": 10.0,
-        "decay": 1.0,
-        "isActive": true
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1140.3251,
+          402.9469,
+          0.9187
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1456,
+          -0.417,
+          -0.1251,
+          0.8884
+        ]
       }
     },
     {
@@ -3748,21 +3886,8 @@
           0.9841
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1180.1145,
-          422.2346,
-          -36.7615
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3496,
-          -0.0155,
-          -0.0986,
-          0.9316
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3771,13 +3896,28 @@
         ],
         "color": [
           1.0,
-          0.8643,
-          0.0097
+          0.3185,
+          0.0452
         ],
         "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1180.119,
+          422.236,
+          -36.7705
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3496,
+          -0.0155,
+          -0.0986,
+          0.9316
+        ]
       }
     },
     {
@@ -3802,75 +3942,64 @@
           0.9841
         ]
       },
-      "capsule_collision": {
-        "center": [
-          1198.3317,
-          473.8325,
-          -7.6167
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
         ],
-        "radius": 2.9516,
-        "height": 7.8564,
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1198.3418,
+          473.8333,
+          -7.6182
+        ],
+        "radius": 0.5,
+        "height": 1.0,
         "quaternion": [
           0.5211,
           -0.2623,
           -0.5315,
           0.6141
         ]
-      },
-      "point_light": {
-        "offset": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "color": [
-          1.0,
-          0.8643,
-          0.0097
-        ],
-        "intensity": 10.0,
-        "range": 20.0,
-        "decay": 1.0,
-        "isActive": true
       }
     },
     {
-      "name": "Crystal.049",
-      "model_name": "Crystal",
+      "name": "Helmet.002",
+      "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          32.3361,
-          -3.6929,
-          0.0
+          1132.075,
+          404.6783,
+          -37.9587
         ],
         "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
+          0.1262,
+          0.3649,
+          -0.0762,
+          0.9193
         ],
         "scale": [
-          1.6928,
-          1.6928,
-          1.6928
+          1.7209,
+          1.7209,
+          1.7209
         ]
       },
-      "capsule_collision": {
-        "center": [
-          32.5237,
-          -3.7398,
-          0.5668
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3879,52 +4008,54 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.7531,
+          0.0684
         ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1132.4614,
+          404.5187,
+          -37.0948
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1262,
+          0.3649,
+          -0.0762,
+          0.9193
+        ]
       }
     },
     {
-      "name": "Crystal.050",
-      "model_name": "Crystal",
+      "name": "Helmet.003",
+      "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          32.2408,
-          4.0633,
-          5.9261
+          1127.2297,
+          415.4742,
+          -37.5312
         ],
         "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
+          0.9085,
+          0.079,
+          -0.0665,
+          -0.405
         ],
         "scale": [
-          0.261,
-          0.261,
-          0.261
+          1.7209,
+          1.7209,
+          1.7209
         ]
       },
-      "capsule_collision": {
-        "center": [
-          32.4284,
-          4.0165,
-          6.4929
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3933,52 +4064,54 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.7531,
+          0.0684
         ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1127.2578,
+          415.1708,
+          -36.621
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9085,
+          0.079,
+          -0.0665,
+          -0.405
+        ]
       }
     },
     {
-      "name": "Crystal.051",
-      "model_name": "Crystal",
+      "name": "Helmet.004",
+      "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          32.6295,
-          2.0531,
-          6.3395
+          1128.3658,
+          401.8538,
+          -24.0749
         ],
         "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
+          0.2695,
+          0.6275,
+          -0.1357,
+          0.7178
         ],
         "scale": [
-          0.261,
-          0.261,
-          0.261
+          1.7209,
+          1.7209,
+          1.7209
         ]
       },
-      "capsule_collision": {
-        "center": [
-          32.8171,
-          2.0062,
-          6.9062
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -3987,52 +4120,54 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.7531,
+          0.0684
         ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1129.1013,
+          401.4316,
+          -23.6254
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2695,
+          0.6275,
+          -0.1357,
+          0.7178
+        ]
       }
     },
     {
-      "name": "Crystal.052",
-      "model_name": "Crystal",
+      "name": "天ライト.001",
+      "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          31.8548,
-          3.4647,
-          3.3628
+          156.3285,
+          -0.1305,
+          3.1593
         ],
         "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
+          1.0,
+          0.0,
+          0.0,
+          0.0
         ],
         "scale": [
-          0.261,
-          0.261,
-          0.261
+          1.0,
+          1.0,
+          1.0
         ]
       },
-      "capsule_collision": {
-        "center": [
-          32.0424,
-          3.4179,
-          3.9296
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -4041,52 +4176,54 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5561,
+          0.1812
         ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          156.3284,
+          -0.1329,
+          4.7836
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
       }
     },
     {
-      "name": "Crystal.053",
-      "model_name": "Crystal",
+      "name": "天ライト.002",
+      "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          32.2701,
-          1.3168,
-          3.8037
+          117.964,
+          -0.0546,
+          2.993
         ],
         "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
+          1.0,
+          0.0,
+          0.0,
+          0.0
         ],
         "scale": [
-          0.261,
-          0.261,
-          0.261
+          1.0,
+          1.0,
+          1.0
         ]
       },
-      "capsule_collision": {
-        "center": [
-          32.4576,
-          1.2699,
-          4.3705
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -4095,52 +4232,54 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5561,
+          0.1812
         ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          117.9639,
+          -0.0571,
+          4.6174
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
       }
     },
     {
-      "name": "Crystal.054",
-      "model_name": "Crystal",
+      "name": "天ライト.003",
+      "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          31.3835,
-          4.2143,
-          1.4611
+          746.6339,
+          400.4861,
+          3.9354
         ],
         "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
+          1.0,
+          0.0,
+          0.0,
+          0.0
         ],
         "scale": [
-          0.261,
-          0.261,
-          0.261
+          1.0,
+          1.0,
+          1.0
         ]
       },
-      "capsule_collision": {
-        "center": [
-          31.5711,
-          4.1674,
-          2.0279
-        ],
-        "radius": 2.9516,
-        "height": 7.8564,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
       "point_light": {
         "offset": [
           0.0,
@@ -4149,13 +4288,719 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5561,
+          0.1812
         ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0,
-        "isActive": true
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          746.6338,
+          400.4836,
+          5.5598
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.004",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          817.2245,
+          437.718,
+          4.3619
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5561,
+          0.1812
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          817.2244,
+          437.7155,
+          5.9863
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.005",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          972.5398,
+          389.7005,
+          3.7944
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5561,
+          0.1812
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          972.5397,
+          389.698,
+          5.4187
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.006",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1022.783,
+          471.5711,
+          3.9671
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5561,
+          0.1812
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1022.7828,
+          471.5686,
+          5.5914
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.007",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1121.8889,
+          406.0102,
+          8.5534
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5561,
+          0.1812
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1121.8888,
+          406.0077,
+          10.1778
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "CoalTrolley",
+      "model_name": "CoalTrolley",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          49.7097,
+          4.0676,
+          2.2103
+        ],
+        "rotate": [
+          0.5894,
+          0.1119,
+          -0.0896,
+          0.795
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.9533,
+          0.3265
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          49.4533,
+          4.2876,
+          1.2503
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5894,
+          0.1119,
+          -0.0896,
+          0.795
+        ]
+      }
+    },
+    {
+      "name": "CoalTrolley.001",
+      "model_name": "CoalTrolley",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          243.2848,
+          72.9757,
+          1.2008
+        ],
+        "rotate": [
+          0.5177,
+          0.0519,
+          0.0926,
+          -0.849
+        ],
+        "scale": [
+          1.2889,
+          1.2889,
+          1.2889
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.9533,
+          0.3265
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          243.4939,
+          73.1354,
+          -0.0844
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5177,
+          0.0519,
+          0.0926,
+          -0.849
+        ]
+      }
+    },
+    {
+      "name": "Helmet",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          235.4583,
+          70.4313,
+          2.7198
+        ],
+        "rotate": [
+          0.9528,
+          -0.0758,
+          0.2808,
+          0.0869
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          235.8778,
+          70.5551,
+          3.0658
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9528,
+          -0.0758,
+          0.2808,
+          0.0869
+        ]
+      }
+    },
+    {
+      "name": "Helmet.001",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          886.6678,
+          383.7707,
+          -0.1056
+        ],
+        "rotate": [
+          0.9381,
+          -0.0715,
+          0.3266,
+          0.0905
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          887.1189,
+          383.8945,
+          0.1983
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9381,
+          -0.0715,
+          0.3266,
+          0.0905
+        ]
+      }
+    },
+    {
+      "name": "EnemySpawn.001",
+      "model_name": null,
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          283.1071,
+          297.5502,
+          0.7408
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          6.2812,
+          6.2812,
+          6.2812
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ]
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          283.1071,
+          297.5502,
+          0.7408
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "EnemySpawn",
+      "model_name": null,
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          446.187,
+          399.6209,
+          0.9949
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          3.3341,
+          3.3341,
+          3.3341
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ]
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          446.187,
+          399.6209,
+          0.9949
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "EnemySpawn.002",
+      "model_name": null,
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          880.3007,
+          435.5578,
+          0.1811
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          6.2812,
+          6.2812,
+          6.2812
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            false,
+            false
+          ]
+        ]
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          880.3007,
+          435.5578,
+          0.1811
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "CoalTrolley.003",
+      "model_name": "CoalTrolley",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          934.3961,
+          307.888,
+          30.6533
+        ],
+        "rotate": [
+          0.9684,
+          -0.2485,
+          -0.0054,
+          -0.0187
+        ],
+        "scale": [
+          3.7152,
+          3.7152,
+          3.7152
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.9533,
+          0.3265
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          934.4335,
+          306.7245,
+          27.0558
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9684,
+          -0.2485,
+          -0.0054,
+          -0.0187
+        ]
       }
     }
   ]
