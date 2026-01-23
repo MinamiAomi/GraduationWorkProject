@@ -15,11 +15,11 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Ice.001",
+			"name":"Ice.002",
 			"translation":[
-				0.020192265510559082,
-				-0.09440922737121582,
-				-0.3357086181640625
+				0.020192459225654602,
+				-0.09440898895263672,
+				-0.3357090950012207
 			]
 		}
 	],
@@ -60,7 +60,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1.001",
+			"name":"\u5186\u67f1.002",
 			"primitives":[
 				{
 					"attributes":{
@@ -127,29 +127,29 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":182,
+			"count":122,
 			"max":[
-				3.872941493988037,
-				4.409136772155762,
-				5.547898292541504
+				3.872941255569458,
+				4.40913724899292,
+				5.54789924621582
 			],
 			"min":[
-				-4.150454521179199,
+				-4.150454998016357,
 				-2.622671127319336,
-				-6.645374298095703
+				-6.645373821258545
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":182,
+			"count":122,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":182,
+			"count":122,
 			"type":"VEC2"
 		},
 		{
@@ -161,29 +161,29 @@
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":556,
+			"count":290,
 			"max":[
-				3.41078519821167,
-				4.196857452392578,
-				5.550510406494141
+				3.410784959793091,
+				4.19685697555542,
+				5.550511360168457
 			],
 			"min":[
-				-3.2733259201049805,
+				-3.2733261585235596,
 				-2.605538845062256,
-				-5.3920111656188965
+				-5.392010688781738
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":556,
+			"count":290,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5126,
-			"count":556,
+			"count":290,
 			"type":"VEC2"
 		},
 		{
@@ -195,29 +195,29 @@
 		{
 			"bufferView":8,
 			"componentType":5126,
-			"count":208,
+			"count":124,
 			"max":[
-				1.5309079885482788,
+				1.5309077501296997,
 				4.934894561767578,
-				7.473986625671387
+				7.473987579345703
 			],
 			"min":[
-				-1.381522297859192,
-				1.5622546672821045,
-				3.5413706302642822
+				-1.381522536277771,
+				1.5622543096542358,
+				3.5413711071014404
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":9,
 			"componentType":5126,
-			"count":208,
+			"count":124,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":10,
 			"componentType":5126,
-			"count":208,
+			"count":124,
 			"type":"VEC2"
 		},
 		{
@@ -230,74 +230,74 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":2184,
+			"byteLength":1464,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2184,
-			"byteOffset":2184,
+			"byteLength":1464,
+			"byteOffset":1464,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1456,
-			"byteOffset":4368,
+			"byteLength":976,
+			"byteOffset":2928,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":624,
-			"byteOffset":5824,
+			"byteOffset":3904,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":6672,
-			"byteOffset":6448,
+			"byteLength":3480,
+			"byteOffset":4528,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6672,
-			"byteOffset":13120,
+			"byteLength":3480,
+			"byteOffset":8008,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":4448,
-			"byteOffset":19792,
+			"byteLength":2320,
+			"byteOffset":11488,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1728,
-			"byteOffset":24240,
+			"byteOffset":13808,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":2496,
-			"byteOffset":25968,
+			"byteLength":1488,
+			"byteOffset":15536,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2496,
-			"byteOffset":28464,
+			"byteLength":1488,
+			"byteOffset":17024,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1664,
-			"byteOffset":30960,
+			"byteLength":992,
+			"byteOffset":18512,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":600,
-			"byteOffset":32624,
+			"byteOffset":19504,
 			"target":34963
 		}
 	],
@@ -309,7 +309,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":33224,
+			"byteLength":20104,
 			"uri":"FrozenBear.bin"
 		}
 	]
