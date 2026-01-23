@@ -68,6 +68,6 @@ private:
 	//Sphere
 	float radius_;
 
-
+	bool isDebug_ = false;
 	
 };
