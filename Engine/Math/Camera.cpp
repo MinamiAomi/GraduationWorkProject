@@ -127,7 +127,7 @@ std::array<Vector3, 8> Camera::GetFrustumVector3(float farClip) const
     return worldFrustum;
 }
 
-Vector3 Camera::GetFrustumGridCenter(float farClip, uint32_t splitX, uint32_t splitY, uint32_t indexX, uint32_t indexY)
+Vector3 Camera::GetFrustumGridCenter(float farClip, uint32_t splitX, uint32_t splitY, uint32_t indexX, uint32_t indexY) const
 {
     std::array<Vector3, 8> worldFrustum = GetFrustumVector3(farClip);
     // worldFrustum の 4〜7 が Far Plane (左下, 右下, 右上, 左上)
@@ -139,7 +139,7 @@ Vector3 Camera::GetFrustumGridCenter(float farClip, uint32_t splitX, uint32_t sp
     // グリッド内の中心位置を割合 (0.0 ～ 1.0) で計算
     // index + 0.5f とすることでマスの中心を指す
     float u = (static_cast<float>(indexX) + 0.5f) / static_cast<float>(splitX);
-    float v = (static_cast<float>(indexY) + 0.5f) / static_cast<float>(splitY);
+    float v = 1.0f - ((static_cast<float>(indexY) - 0.5f) / static_cast<float>(splitY));
 
     // 双線形補間 (Bilinear Interpolation) でワールド座標を算出
     // 下辺の補間

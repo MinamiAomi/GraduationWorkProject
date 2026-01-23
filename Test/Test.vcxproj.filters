@@ -265,6 +265,9 @@
     <ClInclude Include="Bats.h">
       <Filter>Game\Event</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleDefine.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Test.rc" />

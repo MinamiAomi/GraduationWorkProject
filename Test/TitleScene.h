@@ -4,11 +4,12 @@
 #include "Engine/Input/Input.h"
 #include "Scene/SceneManager.h"
 #include "Graphics/Sprite.h"
-#include "Math/Camera.h"
+#include "DebugCamera.h"
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
 #include "DeviceOptionsUI.h"
 #include "ModelEmitter.h"
+#include "Bats.h"
 
 
 class TitleScene :
@@ -32,13 +33,14 @@ public:
 
 private:
 	Input* input_;
-	std::shared_ptr<Camera> camera_;
+	std::shared_ptr<DebugCamera> camera_;
 	std::unique_ptr<ModelInstance> stoneModels_[stoneNum];
 	std::unique_ptr<Transform> stoneTransforms_[stoneNum];
 	Vector3 stonePositions_[stoneNum];
 
-	std::unique_ptr<ModelEmitter> modelEmitter_;
+	//std::unique_ptr<ModelEmitter> modelEmitter_;
 	Vector3 testPos_;
 	Quaternion testQuatenion_;
     std::unique_ptr<DeviceOptionsUI> deviceOptionsUI_;
+	std::unique_ptr<Bats> bats_;
 };
