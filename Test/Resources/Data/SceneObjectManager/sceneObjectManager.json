@@ -1,7 +1,7 @@
 {
     "pointLight": {
-        "pointLightParams.baseHp": 100.0,
-        "pointLightParams.damageReceived": 0.5,
+        "pointLightParams.baseHp": 60.0,
+        "pointLightParams.damageReceived": 1.25,
         "pointLightParams.sizeCorrectionFactor": 0.5
     }
 }

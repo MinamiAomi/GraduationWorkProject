@@ -2,26 +2,20 @@
 
 void ModelSorter::Sort(const Camera& camera) {
     modelInstanceMap_.clear();
-    for (auto& list : drawModels_) {
-        list.clear();
-    }
-    (void)camera;
+    drawModels_.clear();
+    camera;
     auto& instanceList = ModelInstance::GetInstanceList();
+    size_t numDrawModels = 0;
     for (auto& instance : instanceList) {
-        if (!instance || !instance->IsActive()) continue;
-
         auto model = instance->GetModel().get();
-        if (!model) continue;
-
-        //わける
-        drawModels_[kDefault].emplace_back(instance);
+        if (!(instance->IsActive() && model != nullptr)) {continue;}
+        modelInstanceMap_[model].emplace_back(instance);
+        ++numDrawModels;
     }
-
-    for (auto& list : drawModels_) {
-        if (list.empty()) continue;
-
-        std::sort(list.begin(), list.end(), [](ModelInstance* a, ModelInstance* b) {
-            return a->GetModel().get() < b->GetModel().get();
-        });
+    drawModels_.reserve(numDrawModels);
+    for (auto& modelInstance : modelInstanceMap_) {
+        for (auto& instance : modelInstance.second) {
+            drawModels_.emplace_back(instance);
+        }
     }
 }

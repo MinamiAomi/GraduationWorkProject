@@ -67,5 +67,7 @@ private:
 	Vector3 size_;
 	//Sphere
 	float radius_;
-	bool isDebug_ = false;
+
+
+	
 };
