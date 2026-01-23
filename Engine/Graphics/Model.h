@@ -14,8 +14,8 @@
 
 
 enum DrawType {
-    kDefault,
-    kTest,
+    kOpaque,
+    kTranslucent,
     DrawTypeNum
 };
 
@@ -127,7 +127,7 @@ private:
     Matrix4x4 worldMatrix_;
     Vector3 color_ = Vector3::one;
     float alpha_ = 1.0f;
-    DrawType drawType_ = kDefault;
+    DrawType drawType_ = kOpaque;
     
     // 映り込みフラグ
     bool beReflected_ = true;

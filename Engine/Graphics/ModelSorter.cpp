@@ -14,7 +14,7 @@ void ModelSorter::Sort(const Camera& camera) {
         if (!model) continue;
 
         //わける
-        drawModels_[kDefault].emplace_back(instance);
+        drawModels_[kOpaque].emplace_back(instance);
     }
 
     for (auto& list : drawModels_) {

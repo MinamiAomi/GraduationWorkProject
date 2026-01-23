@@ -244,6 +244,18 @@ void Flashlight::Move() {
     case GameSystem::PlayDevice::LightDevice: {
         LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
         if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
+            //Vector3 acceleration = lightDeviceInput->GetAcceleration();
+            //Vector3 gyro = lightDeviceInput->GetGyro();
+            //
+            //Quaternion rotDiff = Quaternion::MakeFromEulerAngle({ gyro.x * Math::ToRadian, gyro.y * Math::ToRadian, 0.0f });
+            //Quaternion newRotate = rotDiff * transform_.rotate;
+            //transform_.rotate = Quaternion::Slerp(0.1f, transform_.rotate, newRotate);
+
+            /*Vector3 euler = transform_.rotate.EulerAngle();
+            euler.x = std::clamp(euler.x, -30.0f * Math::ToRadian, 30.0f * Math::ToRadian);
+            euler.y = std::clamp(euler.y, -30.0f * Math::ToRadian, 30.0f * Math::ToRadian);
+
+            transform_.rotate = Quaternion::MakeFromEulerAngle(euler);*/
             Quaternion deviceOrientation = LightDeviceInput::GetInstance()->GetOrientation();
             transform_.rotate = deviceOrientation;
         }
