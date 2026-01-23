@@ -3,7 +3,7 @@
     {
       "name": "Crystal.001",
       "model_name": "Crystal",
-      "type": "ENEMY_SPAWN",
+      "type": "POINTLIGHT",
       "srt": {
         "translate": [
           213.4396,
@@ -20,6 +20,62 @@
           4.6684,
           4.6684,
           4.6684
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.3185,
+          0.0452
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          214.3154,
+          57.6699,
+          11.6624
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      }
+    },
+    {
+      "name": "RANTAN.001",
+      "model_name": "RANTAN",
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          12.4833,
+          -3.6714,
+          3.8819
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
         ]
       },
       "enemy_spawn_data": {
@@ -53,67 +109,11 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          214.3154,
-          57.6699,
-          11.6624
-        ],
-        "radius": 0.5
-      }
-    },
-    {
-      "name": "RANTAN.001",
-      "model_name": "RANTAN",
-      "type": "POINTLIGHT",
-      "srt": {
-        "translate": [
-          12.4833,
-          -3.6714,
-          3.8819
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": null,
-      "gimmick_data": null,
-      "point_light": {
-        "offset": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "color": [
-          1.0,
-          1.0,
-          1.0
-        ],
-        "intensity": 5.0,
-        "range": 5.0,
-        "decay": 1.0
-      },
-      "collider": {
-        "type": "CAPSULE",
-        "center": [
           12.4833,
           -3.6714,
           6.6927
         ],
-        "radius": 0.5,
-        "height": 1.0,
-        "quaternion": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ]
+        "radius": 0.5
       }
     },
     {
@@ -4257,59 +4257,20 @@
       }
     },
     {
-      "name": "Empty",
-      "model_name": null,
-      "type": "GIMMICK",
-      "srt": {
-        "translate": [
-          0.0,
-          4.5186,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": null,
-      "gimmick_data": {
-        "subtype": "TRIGGER",
-        "key": "GimmickKey",
-        "isOnce": true
-      },
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          0.0,
-          4.5186,
-          0.0
-        ],
-        "radius": 1.0
-      }
-    },
-    {
       "name": "Cube",
       "model_name": "Cube",
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          -1.3025,
-          4.2468,
-          4.9802
+          0.0,
+          10.0996,
+          5.5668
         ],
         "rotate": [
-          0.9996,
-          0.0254,
-          -0.0052,
-          -0.0138
+          1.0,
+          0.0,
+          0.0,
+          0.0
         ],
         "scale": [
           1.0,
@@ -4323,16 +4284,59 @@
         "key": "GimmickKey",
         "duration": 120,
         "is_cyclic": true,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 121.0,
+            "value": 0.0
+          }
+        ],
+        "rail_world_position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 0.0,
+              "y": 10.0996,
+              "z": 5.5668
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "x": 0.0,
+              "y": 10.0996,
+              "z": 5.5668
+            }
+          }
+        ],
+        "rail_world_rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          }
+        ],
         "path_points": [
           [
-            -0.4238,
-            4.0517,
-            5.0798
-          ],
-          [
-            0.759,
-            -2.4205,
-            5.4105
+            0.0,
+            10.0996,
+            5.5668
           ]
         ]
       },
