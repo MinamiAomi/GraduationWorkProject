@@ -20,65 +20,20 @@
 			"mesh":0,
 			"name":"Bat.001",
 			"rotation":[
-				0.7071067690849304,
+				0.70710688829422,
 				0,
 				0,
-				0.7071068286895752
+				0.7071066498756409
 			],
 			"scale":[
 				0.889935314655304,
-				0.889935314655304,
-				0.889935314655304
+				0.8899354338645935,
+				0.8899354338645935
 			],
 			"translation":[
 				-2.1029810905456543,
 				-1.341772198677063,
 				0.10000000149011612
-			]
-		}
-	],
-	"animations":[
-		{
-			"channels":[
-				{
-					"sampler":0,
-					"target":{
-						"node":0,
-						"path":"translation"
-					}
-				},
-				{
-					"sampler":1,
-					"target":{
-						"node":0,
-						"path":"rotation"
-					}
-				},
-				{
-					"sampler":2,
-					"target":{
-						"node":0,
-						"path":"scale"
-					}
-				}
-			],
-			"name":"Bat.001Action.005",
-			"samplers":[
-				{
-					"input":17,
-					"interpolation":"LINEAR",
-					"output":18
-				},
-				{
-					"input":17,
-					"interpolation":"LINEAR",
-					"output":19
-				},
-				{
-					"input":17,
-					"interpolation":"LINEAR",
-					"output":20
-				}
 			]
 		}
 	],
@@ -439,36 +394,6 @@
 			"componentType":5126,
 			"count":4,
 			"type":"VEC2"
-		},
-		{
-			"bufferView":17,
-			"componentType":5126,
-			"count":1,
-			"max":[
-				0
-			],
-			"min":[
-				0
-			],
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":18,
-			"componentType":5126,
-			"count":1,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":19,
-			"componentType":5126,
-			"count":1,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":20,
-			"componentType":5126,
-			"count":1,
-			"type":"VEC3"
 		}
 	],
 	"bufferViews":[
@@ -573,26 +498,6 @@
 			"byteLength":32,
 			"byteOffset":1088,
 			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4,
-			"byteOffset":1120
-		},
-		{
-			"buffer":0,
-			"byteLength":12,
-			"byteOffset":1124
-		},
-		{
-			"buffer":0,
-			"byteLength":16,
-			"byteOffset":1136
-		},
-		{
-			"buffer":0,
-			"byteLength":12,
-			"byteOffset":1152
 		}
 	],
 	"samplers":[
@@ -603,7 +508,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":1164,
+			"byteLength":1120,
 			"uri":"FractalHouse.bin"
 		}
 	]
