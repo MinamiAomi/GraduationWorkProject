@@ -9,6 +9,7 @@
 
 
 #include "Graphics/Model.h"
+#include "LightObject.h"
 
 enum EmitShape {
 	kSphere,
@@ -18,7 +19,7 @@ enum EmitShape {
 class PowerEmitter
 {
 public:
-	void Initialize(EmitShape shape);
+	void Initialize(EmitShape shape, const LightObject* parentLight);
 	void Update();
 	void DebugDraw();
 
@@ -30,7 +31,6 @@ public:
 
 	void SetOffset(const Vector3& offset) { transform_.translate = offset; }
 	void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
-	void SetParent(Transform* parent) { transform_.SetParent(parent); }
 public:
 	std::shared_ptr<Material> material_;
 	float minSpeed_ = 0.003f;
@@ -55,6 +55,7 @@ private:
 
 
 	Transform transform_;
+	const LightObject* parentLight_;
 	std::shared_ptr<Model> model_;
 	std::vector<std::unique_ptr<Particle>> particles_;
 	Random::RandomNumberGenerator rnd_;
@@ -65,6 +66,8 @@ private:
 	Vector3 size_;
 	//Sphere
 	float radius_;
+
+
 	
 };
 

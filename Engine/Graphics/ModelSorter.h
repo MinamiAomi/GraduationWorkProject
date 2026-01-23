@@ -2,11 +2,9 @@
 
 #include <vector>
 #include <map>
-#include <array>
 
 #include "Model.h"
 #include "Math/Camera.h"
-
 
 class ModelSorter {
 public:
@@ -17,5 +15,5 @@ public:
 
 private:
     std::map<Model*, std::vector<ModelInstance*>> modelInstanceMap_;
-    std::array<std::vector<ModelInstance*>, DrawTypeNum> drawModels_;
+    std::vector<ModelInstance*> drawModels_;
 };

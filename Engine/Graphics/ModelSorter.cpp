@@ -2,18 +2,15 @@
 
 void ModelSorter::Sort(const Camera& camera) {
     modelInstanceMap_.clear();
-    for (auto& list : drawModels_) {
-        list.clear();
-    }
-    (void)camera;
+    drawModels_.clear();
+    camera;
     auto& instanceList = ModelInstance::GetInstanceList();
+    size_t numDrawModels = 0;
     for (auto& instance : instanceList) {
-        if (!instance || !instance->IsActive()) continue;
-
         auto model = instance->GetModel().get();
         if (!model) continue;
 
-        //„Çè„Åë„Çã
+        //ÇÌÇØÇÈ
         drawModels_[kOpaque].emplace_back(instance);
     }
 

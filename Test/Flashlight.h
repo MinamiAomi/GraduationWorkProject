@@ -61,6 +61,8 @@ private:
 	float lightRange_ = 40.0f;
 
 #pragma region ライトの電池残量関連
+	//ライトが当たっているか
+	bool isHitFlashlight_;
 	//現在の残量
 	float battery_;
 	//最大値

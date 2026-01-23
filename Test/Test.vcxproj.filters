@@ -70,6 +70,9 @@
     <Filter Include="Game\Particle">
       <UniqueIdentifier>{adf7f51c-ef77-418b-b471-d7b2d943219c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Event">
+      <UniqueIdentifier>{bcf440e0-15e1-4a31-812d-54757648ea9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="PowerEmitter.cpp">
       <Filter>Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Bats.cpp">
+      <Filter>Game\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +261,9 @@
     </ClInclude>
     <ClInclude Include="PowerEmitter.h">
       <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Bats.h">
+      <Filter>Game\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

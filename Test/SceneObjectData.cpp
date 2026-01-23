@@ -10,23 +10,45 @@ namespace SceneObjectSystem {
 		j.at("quaternion").get_to(o.quaternion);
 	}
 
+	void from_json(const nlohmann::json& j, SphereCollisionData& o)
+	{
+		j.at("center").get_to(o.center);
+		j.at("radius").get_to(o.radius);
+	}
+
 	void from_json(const nlohmann::json& j, SceneObjectData& s) {
-		j.at("name").get_to(s.name);
-		j.at("model_name").get_to(s.modelName);
+		if (j.contains("name") && !j.at("name").is_null()) {
+			s.name = j.at("name").get<std::string>();
+		}
+		if (j.contains("model_name") && !j.at("model_name").is_null()) {
+			s.modelName = j.at("model_name").get<std::string>();
+		}
 		j.at("srt").get_to(s.transform);
 		j.at("type").get_to(s.type);
 
-		if (j.contains("capsule_collision") && !j.at("capsule_collision").is_null()) {
-			s.capsuleCollisionData = j.at("capsule_collision").get<CapsuleCollisionData>();
-		}
-		else {
-			s.capsuleCollisionData = std::nullopt;
-		}
+		s.capsuleCollisionData = std::nullopt;
+		s.sphereCollisionData = std::nullopt;
+		
+		if (j.contains("collider") && !j.at("collider").is_null()) {
+			if (j.contains("collider") && !j.at("collider").is_null()) {
 
+				const auto& colJson = j.at("collider");
+
+				if (colJson.contains("type")) {
+					std::string type = colJson.at("type").get<std::string>();
+
+					if (type == "SPHERE") {
+						s.sphereCollisionData = colJson.get<SphereCollisionData>();
+					}
+					else if (type == "CAPSULE") {
+						s.capsuleCollisionData = colJson.get<CapsuleCollisionData>();
+					}
+				}
+			}
+		}
 
 		s.pointLightData = std::nullopt;
-		s.enemyData = std::nullopt;
-		s.emitterData = std::nullopt;
+		s.eventTriggerTypeData = std::nullopt;
 
 		switch (s.type) {
 		case ObjectType::PointLight:
@@ -35,15 +57,9 @@ namespace SceneObjectSystem {
 			}
 			break;
 
-		case ObjectType::Enemy:
-			if (j.contains("enemy_data") && !j.at("enemy_data").is_null()) {
-				s.enemyData = j.at("enemy_data").get<EnemyData>();
-			}
-			break;
-
-		case ObjectType::Emitter:
-			if (j.contains("emitter_data") && !j.at("emitter_data").is_null()) {
-				s.emitterData = j.at("emitter_data").get<EmitterData>();
+		case ObjectType::EventTrigger:
+			if (j.contains("trigger_type") && !j.at("trigger_type").is_null()) {
+				s.eventTriggerTypeData = j.at("trigger_type").get<EventTriggerTypeObject>();
 			}
 			break;
 
@@ -61,12 +77,39 @@ namespace SceneObjectSystem {
 		j.at("range").get_to(p.range);
 		j.at("decay").get_to(p.decay);
 	}
-	void from_json(const nlohmann::json& j, EmitterData& p)
+	void from_json(const nlohmann::json& j, EventTriggerTypeObject& p)
 	{
-		j, p;
+		p.enemyTrigger = std::nullopt;
+		p.eventTrigger = std::nullopt;
+
+		if (!j.contains("trigger_type") || j.at("trigger_type").is_null()) {
+			return;
+		}
+
+		std::string type = j.at("trigger_type").get<std::string>();
+
+		if (!j.contains("properties") || j.at("properties").is_null()) {
+			return;
+		}
+
+		const auto& props = j.at("properties");
+
+		if (type == "ENEMY") {
+			p.enemyTrigger = props.get<EnemyTriggerData>();
+		}
+		else if (type == "GIMMICK") {
+			p.eventTrigger = props.get<EventTriggerData>();
+		}
 	}
-	void from_json(const nlohmann::json& j, EnemyData& p)
+	void from_json(const nlohmann::json& j, EnemyTriggerData& p)
 	{
-		j, p;
+		j.at("enemy_count").get_to(p.enemyCount);
+		j.at("isOnce").get_to(p.isOnce);
+	}
+	void from_json(const nlohmann::json& j, EventTriggerData& p)
+	{
+		j.at("gimmick_distance").get_to(p.distance);
+		j.at("isOnce").get_to(p.isOnce);
+
 	}
 }

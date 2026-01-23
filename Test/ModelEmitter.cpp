@@ -82,6 +82,7 @@ void ModelEmitter::Emit()
 	auto newParticle = std::make_unique<Particle>();
 
 	newParticle->modelInstance_.SetModel(model_);
+	newParticle->modelInstance_.SetUseLighting(false);
 
 	float startScale = rnd_.NextFloatRange(minScale_, maxScale_);
 	newParticle->transform_.scale = { startScale, startScale, startScale };

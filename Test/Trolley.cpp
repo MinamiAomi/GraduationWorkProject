@@ -12,12 +12,15 @@
 Trolley::Trolley()
 {
 	model_.SetModel(AssetManager::GetInstance()->modelMap.Get("trolley")->Get());
-	batteryCollider_ = std::make_shared<SphereCollider>(
-		CollisionCategory::PLAYER,
-		(CollisionCategory::FLASHLIGHT),
-		Vector3::zero,
-		0.0f
-	);
+
+	for (auto& collider : batteryColliders_) {
+		collider = std::make_shared<SphereCollider>(
+			CollisionCategory::PLAYER,
+			(CollisionCategory::FLASHLIGHT),
+			Vector3::zero,
+			0.0f
+		);
+	}
 
 	//teilLight_ = std::make_shared<SpotLight>();
 
@@ -52,7 +55,10 @@ void Trolley::Initialize()
 	JSON_LOAD(trolleyOffset_);
 	JSON_ROOT();
 	JSON_OBJECT("Battery");
-	JSON_LOAD(batteryOffset_);
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		std::string key = "batteryOffset:" + std::to_string(i);
+		JSON_LOAD_BY_NAME(key.c_str(), batteryOffsets_.at(i));
+	}
 	JSON_LOAD(batteryRadius_);
 	JSON_ROOT();
 	JSON_OBJECT("Banking");
@@ -77,12 +83,14 @@ void Trolley::Initialize()
 
 	isHitFlashlight_ = false;
 
-	batteryTransform_.translate = batteryOffset_;
-	batteryTransform_.SetParent(&transform_);
-	batteryTransform_.UpdateMatrix();
 
-	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
-	batteryCollider_->radius = batteryRadius_;
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
+		//batteryTransforms_.at(i).SetParent(&transform_);
+		batteryTransforms_.at(i).UpdateMatrix();
+		batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
+		batteryColliders_.at(i)->radius = batteryRadius_;
+	}
 
 	//teilOffset_ = { 0.0f,5.0f,-2.0f };
 	//teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate() + teilOffset_;
@@ -116,10 +124,13 @@ void Trolley::Update(float deltaTime)
 	//teilLightTransform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
-	batteryTransform_.translate = batteryOffset_;
-	batteryTransform_.UpdateMatrix();
-	batteryCollider_->center = batteryTransform_.worldMatrix.GetTranslate();
-	batteryCollider_->radius = batteryRadius_;
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
+		batteryTransforms_.at(i).UpdateMatrix();
+		batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
+		batteryColliders_.at(i)->radius = batteryRadius_;
+	}
+
 
 	//teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate();
 	//teilLight_->direction = -teilLightTransform_.worldMatrix.GetForward();
@@ -233,15 +244,15 @@ void Trolley::UpdateState(float deltaTime)
 			float posShakeAmount = 0.1f * decay;
 
 			shakeOffset_ = {
-				rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount, 
-				rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount, 
+				rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount,
+				rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount,
 				0.0f
 			};
 
 			// バースト復帰判定
 			if (stateTimer_ >= burstDuration_) {
 				RecoverFromBurst();
-				
+
 			}
 		}
 		break;
@@ -339,15 +350,15 @@ void Trolley::OnBurstState()
 	nitroAccumulateTimer_ = 0.0f;
 }
 
-float Trolley::CalculateCenterRate() {
+float Trolley::CalculateCenterRate(const Vector3& center, float radius) {
 	const auto collider = flashlight_->GetCollider();
 
 	Vector3 conePos = collider->center;
 	Quaternion coneRot = collider->quaternion;
 
-	Vector3 spherePos = batteryCollider_->center;
-	float sphereRadius = batteryCollider_->radius; 
-	
+	Vector3 spherePos = center;
+	float sphereRadius = radius;
+
 	Vector3 diff = spherePos - conePos;
 	Quaternion invRot = coneRot.Conjugate();
 	Vector3 localPos = invRot * diff;
@@ -364,7 +375,7 @@ float Trolley::CalculateCenterRate() {
 	float allowedDistance = maxRadiusAtHeight + sphereRadius;
 
 	if (allowedDistance <= 0.001f) {
-		return 1.0f; 
+		return 1.0f;
 	}
 
 	float score = 1.0f - (axisR / allowedDistance);
@@ -478,7 +489,10 @@ void Trolley::DrawImGui() {
 			JSON_SAVE(trolleyOffset_);
 			JSON_ROOT();
 			JSON_OBJECT("Battery");
-			JSON_SAVE(batteryOffset_);
+			for (uint8_t i = 0; i < BatteryNum; i++) {
+				std::string key = "batteryOffset:" + std::to_string(i);
+				JSON_SAVE_BY_NAME(key.c_str(), batteryOffsets_.at(i));
+			}
 			JSON_SAVE(batteryRadius_);
 			JSON_ROOT();
 			JSON_OBJECT("Banking");
@@ -497,7 +511,10 @@ void Trolley::DrawImGui() {
 		}
 
 		if (ImGui::TreeNode("当たり判定 (Collision)")) {
-			ImGui::DragFloat3("判定オフセット", &batteryOffset_.x, 0.01f);
+			for (uint8_t i = 0; i < BatteryNum; i++) {
+				std::string key = "判定オフセット" + std::to_string(i) + ":";
+				ImGui::DragFloat3(key.c_str(), &batteryOffsets_.at(i).x, 0.01f);
+			}
 			ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
 			ImGui::TreePop();
 		}
@@ -558,33 +575,36 @@ void Trolley::UpdateCollision()
 {
 	isHitFlashlight_ = false;
 	centerRate_ = 0.0f;
-	if (!batteryCollider_->GetCollidedWith().empty()) {
-		for (const auto& collider : batteryCollider_->GetCollidedWith()) {
-			switch (collider->categoryBits)
-			{
-			case CollisionCategory::NONE:
-				break;
-			case CollisionCategory::PLAYER:
-				break;
-			case CollisionCategory::FLASHLIGHT:
-			{
-				isHitFlashlight_ = true;
 
-				centerRate_ = CalculateCenterRate();
-			}
-			break;
-			case CollisionCategory::LIGHT:
-				break;
-			case CollisionCategory::ENEMY:
-				break;
-			case CollisionCategory::ITEM:
-				break;
-			case CollisionCategory::ALL:
-				break;
-			default:
-				break;
-			}
+	for (auto& collider : batteryColliders_) {
+		if (!collider->GetCollidedWith().empty()) {
+			for (const auto& collidedWith : collider->GetCollidedWith()) {
+				switch (collidedWith->categoryBits)
+				{
+				case CollisionCategory::NONE:
+					break;
+				case CollisionCategory::PLAYER:
+					break;
+				case CollisionCategory::FLASHLIGHT:
+				{
+					isHitFlashlight_ = true;
 
+					centerRate_ = CalculateCenterRate(collider->center, collider->radius);
+				}
+				break;
+				case CollisionCategory::LIGHT:
+					break;
+				case CollisionCategory::ENEMY:
+					break;
+				case CollisionCategory::ITEM:
+					break;
+				case CollisionCategory::ALL:
+					break;
+				default:
+					break;
+				}
+
+			}
 		}
 	}
 }
