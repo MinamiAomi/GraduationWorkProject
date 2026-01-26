@@ -40,6 +40,10 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 
 	uint32_t splitX = static_cast<uint32_t>(data[0].size());
 	uint32_t splitY = static_cast<uint32_t>(data.size());
+
+
+	//transform_.translate
+
 	for (uint32_t r = 0; r < splitY; ++r) {
 		for (uint32_t c = 0; c < splitX; ++c) {
 			if (data[r][c]) {

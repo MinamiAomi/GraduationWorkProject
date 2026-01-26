@@ -43,18 +43,6 @@ void PowerEmitter::Update()
 	
 	radius_ = parentLight_->GetModelResource()->GetRadius() * transform_.worldMatrix.GetScale().x;
 
-#ifdef _DEBUG
-	DebugDraw();
-	if (!isDebug) {
-		isDebug = true;
-		isDebug_ = true;
-	}
-	if (isDebug_) {
-		Debug();
-	}
-#endif // DEBUG_
-
-
 
 	transform_.UpdateMatrix();
 	if (parentLight_->GetIsActive() && parentLight_->GetHp()) {
@@ -77,7 +65,8 @@ void PowerEmitter::Update()
 		}
 
 		if (p->isSuction_ == true) {
-			p->transform_.translate = Vector3::Lerp(0.2f, p->transform_.translate, flashlight->GetTransform().worldMatrix.GetTranslate());
+			Vector3 offset = { 0.0f,-2.0f,0.0f };
+			p->transform_.translate = Vector3::Lerp(0.1f, p->transform_.translate, flashlight->GetTransform().worldMatrix.GetTranslate() + offset);
 		}
 		else {
 			p->transform_.translate = p->transform_.translate + p->velocity_;
