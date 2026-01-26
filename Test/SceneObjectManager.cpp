@@ -9,6 +9,8 @@
 #include "Graphics/RenderManager.h"
 #endif // _DEBUG
 
+#include "Bats.h"
+
 void SceneObjectSystem::SceneObjectManager::Initialize()
 {
 	pointLightObjects_.clear();
@@ -88,6 +90,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->collider &&
 			obj->collider->GetCollidedWith().empty()) {
 			//スポーン
+			batsManager_->Emit(obj->formation);
+			obj->collider = nullptr;
 		}
 	}
 

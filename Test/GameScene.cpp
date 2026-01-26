@@ -99,6 +99,12 @@ void GameScene::OnInitialize() {
 	deadline_->SetAnimationPlayer(railAnimationPlayer_.get());
 	deadline_->Initialize();
 #pragma endregion
+#pragma region Bats
+	batsManager_ = std::make_unique<BatsManager>();
+	batsManager_->SetCamera(camera_.get());
+	sceneObjectManager_->SetBatsManager(batsManager_.get());
+#pragma endregion
+
 
 
 #ifdef _DEBUG
@@ -143,8 +149,16 @@ void GameScene::OnUpdate() {
 	camera_->SetRotate(railCameraSystem_->GetWorldRotation());
 	camera_->SetPosition(railCameraSystem_->GetWorldTranslate());
 #pragma endregion
+	
+	//カメラ処理終わりこの後は動きません
 	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
+
+
+#pragma region Bats
+	batsManager_->SetCamera(camera_.get());
+	batsManager_->Update();
+#pragma endregion
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion

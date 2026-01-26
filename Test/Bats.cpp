@@ -7,6 +7,27 @@
 
 const float Bats::batsFarLocate = 20.0f;
 
+Bats::Bats(const std::vector<std::vector<bool>>& data)
+{
+	auto assetManager = AssetManager::GetInstance();
+	model_ = assetManager->modelMap.Get("Box")->Get();
+	radius_ = 5.0f;                       // Sphere用半径
+	material_ = std::make_shared<Material>();
+
+	isActive_ = true;
+
+	uint32_t splitX = static_cast<uint32_t>(data[0].size());
+	uint32_t splitY = static_cast<uint32_t>(data.size());   
+	for (uint32_t r = 0; r < splitY; ++r) {
+		for (uint32_t c = 0; c < splitX; ++c) {
+			if (data[r][c]) {
+				Vector3 pos = camera_->GetFrustumGridCenter(batsFarLocate, splitX, splitY, c, r);
+				Emit(pos);
+			}
+		}
+	}
+}
+
 Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 {
 	auto assetManager = AssetManager::GetInstance();
@@ -15,8 +36,10 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	material_ = std::make_shared<Material>();
 	camera_ = &camera;
 
+	isActive_ = true;
+
 	uint32_t splitX = static_cast<uint32_t>(data[0].size());
-	uint32_t splitY = static_cast<uint32_t>(data.size());   
+	uint32_t splitY = static_cast<uint32_t>(data.size());
 	for (uint32_t r = 0; r < splitY; ++r) {
 		for (uint32_t c = 0; c < splitX; ++c) {
 			if (data[r][c]) {
@@ -57,7 +80,9 @@ void Bats::Update()
 		}
 
 	}
-
+	if (bats_.empty()) {
+		isActive_ = false;
+	}
 }
 
 void Bats::DebugDraw()
