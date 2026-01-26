@@ -3,29 +3,50 @@
 		"generator":"Khronos glTF Blender I/O v4.0.43",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_emissive_strength"
+	],
 	"scene":0,
 	"scenes":[
 		{
 			"name":"Scene",
 			"nodes":[
-				0,
-				1
+				0
 			]
 		}
 	],
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"ICO\u7403"
-		},
+			"name":"Outside"
+		}
+	],
+	"materials":[
 		{
-			"mesh":1,
-			"name":"ICO\u7403.001"
+			"doubleSided":true,
+			"emissiveFactor":[
+				0.26853248476982117,
+				0.5589549541473389,
+				1
+			],
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":2
+				}
+			},
+			"name":"OutsideBall",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":0
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
 		}
 	],
 	"meshes":[
 		{
-			"name":"ICO\u7403",
+			"name":"ICO\u7403.001",
 			"primitives":[
 				{
 					"attributes":{
@@ -33,22 +54,23 @@
 						"NORMAL":1,
 						"TEXCOORD_0":2
 					},
-					"indices":3
+					"indices":3,
+					"material":0
 				}
 			]
-		},
+		}
+	],
+	"textures":[
 		{
-			"name":"ICO\u7403.001",
-			"primitives":[
-				{
-					"attributes":{
-						"POSITION":4,
-						"NORMAL":5,
-						"TEXCOORD_0":6
-					},
-					"indices":7
-				}
-			]
+			"sampler":0,
+			"source":0
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"OutsideBallTex",
+			"uri":"OutsideBallTex.png"
 		}
 	],
 	"accessors":[
@@ -57,14 +79,14 @@
 			"componentType":5126,
 			"count":60,
 			"max":[
-				0.8944249749183655,
-				1,
-				0.8506399989128113
+				0.599357008934021,
+				0.6701028347015381,
+				0.5700165629386902
 			],
 			"min":[
-				-0.8944249749183655,
-				-1,
-				-0.8506399989128113
+				-0.599357008934021,
+				-0.6701033711433411,
+				-0.5700165629386902
 			],
 			"type":"VEC3"
 		},
@@ -82,40 +104,6 @@
 		},
 		{
 			"bufferView":3,
-			"componentType":5123,
-			"count":60,
-			"type":"SCALAR"
-		},
-		{
-			"bufferView":4,
-			"componentType":5126,
-			"count":60,
-			"max":[
-				1.126937747001648,
-				1.2599577903747559,
-				1.0717705488204956
-			],
-			"min":[
-				-1.126937747001648,
-				-1.2599577903747559,
-				-1.0717705488204956
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":5,
-			"componentType":5126,
-			"count":60,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":6,
-			"componentType":5126,
-			"count":60,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":7,
 			"componentType":5123,
 			"count":60,
 			"type":"SCALAR"
@@ -145,35 +133,17 @@
 			"byteLength":120,
 			"byteOffset":1920,
 			"target":34963
-		},
+		}
+	],
+	"samplers":[
 		{
-			"buffer":0,
-			"byteLength":720,
-			"byteOffset":2040,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":720,
-			"byteOffset":2760,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":480,
-			"byteOffset":3480,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":120,
-			"byteOffset":3960,
-			"target":34963
+			"magFilter":9728,
+			"minFilter":9984
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":4080,
+			"byteLength":2040,
 			"uri":"Battery.bin"
 		}
 	]
