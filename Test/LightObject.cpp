@@ -1,4 +1,5 @@
 #include "LightObject.h"
+#include "Test/Trolley.h"
 
 void LightObject::Initialize(const Transform* parentTransform, const Vector3& offset, bool isBreath) {
 	offset_ = offset;
@@ -31,12 +32,22 @@ void LightObject::Update() {
 		// 0.05f だと 60fpsでおよそ2秒で1周
 		constexpr float kBreathSpeed = 0.05f;
 		// 振幅
-		constexpr float kBreathAmplitude = 0.4f;
-		float breathValue = std::sin(static_cast<float>(frame_) * kBreathSpeed) * kBreathAmplitude;
-		currentDecay += breathValue;
+		float kIntensityAmplitude = 1.0f * lightTransform_.worldMatrix.GetScale().x;
+		float kRangeAmplitude = 0.2f * lightTransform_.worldMatrix.GetScale().x;
+
+		currentIntensity += std::sin(static_cast<float>(frame_) * kBreathSpeed) * kIntensityAmplitude;
+		currentRange += std::sin(static_cast<float>(frame_) * kBreathSpeed) * kRangeAmplitude;
 	}
 
-	light_->decay = currentDecay;
+	light_->intensity = currentIntensity;
+	light_->range = currentRange;
+
+	if (Vector3::Distance(Trolley::GetInstance()->GetTransform().worldMatrix.GetTranslate(), lightTransform_.worldMatrix.GetTranslate()) <= lightActiveDistance) {
+		isActive_ = true;
+	}
+	else {
+		isActive_ = false;
+	}
 
 }
 
