@@ -77,7 +77,7 @@ void PowerEmitter::Update()
 		}
 
 		if (p->isSuction_ == true) {
-			p->transform_.translate = Vector3::Lerp(0.03f, p->transform_.translate, flashlight->GetTransform().worldMatrix.GetTranslate());
+			p->transform_.translate = Vector3::Lerp(0.2f, p->transform_.translate, flashlight->GetTransform().worldMatrix.GetTranslate());
 		}
 		else {
 			p->transform_.translate = p->transform_.translate + p->velocity_;

@@ -54,7 +54,7 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region Trolley
-	trolley_ = std::make_unique<Trolley>();
+	trolley_ = Trolley::GetInstance();
 	trolley_->SetParent(railAnimationPlayer_->GetTransform());
 	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
