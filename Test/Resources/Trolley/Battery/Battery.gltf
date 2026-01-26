@@ -11,13 +11,18 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				0
+				0,
+				1
 			]
 		}
 	],
 	"nodes":[
 		{
 			"mesh":0,
+			"name":"Inside"
+		},
+		{
+			"mesh":1,
 			"name":"Outside"
 		}
 	],
@@ -25,10 +30,32 @@
 		{
 			"doubleSided":true,
 			"emissiveFactor":[
-				0.26853248476982117,
-				0.5589549541473389,
+				1,
+				1,
 				1
 			],
+			"emissiveTexture":{
+				"index":0
+			},
+			"name":"\u30de\u30c6\u30ea\u30a2\u30eb",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":1
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		},
+		{
+			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"emissiveTexture":{
+				"index":2
+			},
 			"extensions":{
 				"KHR_materials_emissive_strength":{
 					"emissiveStrength":2
@@ -37,7 +64,7 @@
 			"name":"OutsideBall",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":0
+					"index":3
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -46,7 +73,7 @@
 	],
 	"meshes":[
 		{
-			"name":"ICO\u7403.001",
+			"name":"ICO\u7403",
 			"primitives":[
 				{
 					"attributes":{
@@ -58,15 +85,56 @@
 					"material":0
 				}
 			]
+		},
+		{
+			"name":"ICO\u7403.001",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":4,
+						"NORMAL":5,
+						"TEXCOORD_0":6
+					},
+					"indices":7,
+					"material":1
+				}
+			]
 		}
 	],
 	"textures":[
 		{
 			"sampler":0,
 			"source":0
+		},
+		{
+			"sampler":0,
+			"source":1
+		},
+		{
+			"sampler":0,
+			"source":2
+		},
+		{
+			"sampler":0,
+			"source":3
 		}
 	],
 	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"InsideBallTexEmi",
+			"uri":"InsideBallTexEmi.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"InsideBallTex",
+			"uri":"InsideBallTex.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"OutsideBallTexEmi",
+			"uri":"OutsideBallTexEmi.png"
+		},
 		{
 			"mimeType":"image/png",
 			"name":"OutsideBallTex",
@@ -79,14 +147,14 @@
 			"componentType":5126,
 			"count":60,
 			"max":[
-				0.599357008934021,
-				0.6701028347015381,
-				0.5700165629386902
+				0.03855607658624649,
+				0.04532597213983536,
+				0.0405406653881073
 			],
 			"min":[
-				-0.599357008934021,
-				-0.6701033711433411,
-				-0.5700165629386902
+				-0.03855607658624649,
+				-0.04532597213983536,
+				-0.0405406653881073
 			],
 			"type":"VEC3"
 		},
@@ -104,6 +172,40 @@
 		},
 		{
 			"bufferView":3,
+			"componentType":5123,
+			"count":60,
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":4,
+			"componentType":5126,
+			"count":60,
+			"max":[
+				0.04868374764919281,
+				0.05723188444972038,
+				0.05118967220187187
+			],
+			"min":[
+				-0.04868374764919281,
+				-0.05723194405436516,
+				-0.05118967220187187
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":5,
+			"componentType":5126,
+			"count":60,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":6,
+			"componentType":5126,
+			"count":60,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":7,
 			"componentType":5123,
 			"count":60,
 			"type":"SCALAR"
@@ -133,6 +235,30 @@
 			"byteLength":120,
 			"byteOffset":1920,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":720,
+			"byteOffset":2040,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":720,
+			"byteOffset":2760,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":480,
+			"byteOffset":3480,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":120,
+			"byteOffset":3960,
+			"target":34963
 		}
 	],
 	"samplers":[
@@ -143,7 +269,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":2040,
+			"byteLength":4080,
 			"uri":"Battery.bin"
 		}
 	]
