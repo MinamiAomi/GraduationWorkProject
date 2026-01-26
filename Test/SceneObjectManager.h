@@ -6,6 +6,8 @@
 #include "SceneObjectData.h"
 #include "Framework/AssetManager.h"
 
+#include "BatsManager.h"
+
 namespace SceneObjectSystem {
 	class SceneObjectManager {
 	public:
@@ -23,6 +25,8 @@ namespace SceneObjectSystem {
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
 		//Blenderの値そのままデータだけ
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
+
+		void SetBatsManager(BatsManager* batsManager) { batsManager_ = batsManager; }
 	private:
 		// 共通の初期化処理を行うテンプレート関数
 		template <typename T>
@@ -61,6 +65,8 @@ namespace SceneObjectSystem {
 			PointLightParameters pointLightParams;
 
 		} sceneObjectConfig_;
+
+		BatsManager* batsManager_;
 	};
 
 

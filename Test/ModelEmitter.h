@@ -10,10 +10,7 @@
 
 #include "Graphics/Model.h"
 
-enum EmitShape {
-	kSphere,
-	kBox
-};
+#include "ParticleDefine.h"
 
 class ModelEmitter
 {

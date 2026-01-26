@@ -42,7 +42,9 @@ void LightObject::Update() {
 	light_->intensity = currentIntensity;
 	light_->range = currentRange;
 
-	if (Vector3::Distance(Trolley::GetInstance()->GetTransform().worldMatrix.GetTranslate(), lightTransform_.worldMatrix.GetTranslate()) <= lightActiveDistance) {
+	float distance = Vector3::Distance(Trolley::GetInstance()->GetTransform().worldMatrix.GetTranslate(), lightTransform_.worldMatrix.GetTranslate());
+
+	if (distance <= lightActiveDistance) {
 		isActive_ = true;
 	}
 	else {

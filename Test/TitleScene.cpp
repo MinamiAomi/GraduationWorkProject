@@ -13,13 +13,11 @@ void TitleScene::OnInitialize() {
 	}
 	input_ = Input::GetInstance();
 
-    camera_ = std::make_shared<Camera>();
-    camera_->SetPosition({ 0.0f, 5.0f, -20.0f });
-    RenderManager::GetInstance()->SetCamera(camera_);
+    camera_ = std::make_shared<DebugCamera>();
+	camera_->Initialize();
+    RenderManager::GetInstance()->SetCamera(camera_->GetCamera());
 
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/Title.png");
-
-	camera_ = std::make_shared<Camera>();
 
 	
 	auto assetManager = AssetManager::GetInstance();
@@ -56,18 +54,25 @@ void TitleScene::OnInitialize() {
 
 	JSON_CLOSE();
 
-	modelEmitter_ = std::make_unique<ModelEmitter>();
-	modelEmitter_->Initialize(EmitShape::kBox);
-	modelEmitter_->SetColor({ 1.0f,0.0f,0.0f });
+	//modelEmitter_ = std::make_unique<ModelEmitter>();
+	//modelEmitter_->Initialize(EmitShape::kBox);
+	//modelEmitter_->SetColor({ 1.0f,0.0f,0.0f });
 	testPos_ = Vector3::zero;
 	testQuatenion_ = Quaternion::identity;
 
     deviceOptionsUI_ = std::make_unique<DeviceOptionsUI>();
     deviceOptionsUI_->Initialize();
+
+	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+
+
+
+	bats_ = std::make_unique<Bats>(mapData, *camera_->GetCamera());
+	bats_->SetOffset({ 0.0f,20.0f,20.0f });
 }
 
 void TitleScene::OnUpdate() {
-	RenderManager::GetInstance()->SetCamera(camera_);
+	RenderManager::GetInstance()->SetCamera(camera_->GetCamera());
 #ifdef _DEBUG
 	ImGui::DragFloat3("pos", &testPos_.x, 0.1f);
 	ImGui::DragFloat4("quatenion", &testQuatenion_.x, 0.1f);
@@ -101,12 +106,14 @@ void TitleScene::OnUpdate() {
 		stoneModels_[i]->SetWorldMatrix(stoneTransforms_[i]->worldMatrix);
 	}
 
+	camera_->Update();
+
 #endif // _DEBUG
 
-	modelEmitter_->Update();
+	/*modelEmitter_->Update();
 	modelEmitter_->SetOffset(testPos_);
 	modelEmitter_->SetQuaternion(testQuatenion_);
-	modelEmitter_->DebugDraw();
+	modelEmitter_->DebugDraw();*/
 
 
     deviceOptionsUI_->Update();
@@ -114,6 +121,8 @@ void TitleScene::OnUpdate() {
 	//if (input_->IsKeyTrigger(DIK_SPACE)) {
 	//	SceneManager::GetInstance()->ChangeScene<StageSelectScene>();
 	//}
+
+	bats_->Update();
 }
 
 void TitleScene::OnFinalize() {

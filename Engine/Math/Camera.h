@@ -40,7 +40,7 @@ public:
 
 	std::array<Vector3, 8> GetFrustumVector3() const;
 	std::array<Vector3, 8> GetFrustumVector3(float farClip) const;
-	Vector3 GetFrustumGridCenter(float farClip, uint32_t splitX, uint32_t splitY, uint32_t indexX, uint32_t indexY);
+	Vector3 GetFrustumGridCenter(float farClip, uint32_t splitX, uint32_t splitY, uint32_t indexX, uint32_t indexY) const;
 
 	Vector3 GetForward() const { return transform_.rotate * Vector3::forward; }
 	Vector3 GetRight() const { return transform_.rotate * Vector3::right; }

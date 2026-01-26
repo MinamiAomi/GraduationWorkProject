@@ -21,6 +21,7 @@
 #include "Flashlight.h"
 #include "Trolley.h"
 #include "Deadline.h"
+#include "BatsManager.h"
 
 #ifdef _DEBUG
 #include "DebugCamera.h"
@@ -61,9 +62,10 @@ private:
 	
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
 	
-	std::unique_ptr<Trolley> trolley_;
+	Trolley* trolley_;
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
+	std::unique_ptr<BatsManager> batsManager_;
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;
