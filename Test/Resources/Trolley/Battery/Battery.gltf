@@ -12,7 +12,8 @@
 			"name":"Scene",
 			"nodes":[
 				0,
-				1
+				1,
+				2
 			]
 		}
 	],
@@ -24,6 +25,10 @@
 		{
 			"mesh":1,
 			"name":"Outside"
+		},
+		{
+			"mesh":2,
+			"name":"Effect"
 		}
 	],
 	"materials":[
@@ -69,6 +74,32 @@
 				"metallicFactor":0,
 				"roughnessFactor":0.5
 			}
+		},
+		{
+			"alphaCutoff":0.5,
+			"alphaMode":"MASK",
+			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"emissiveTexture":{
+				"index":4
+			},
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":2
+				}
+			},
+			"name":"\u30de\u30c6\u30ea\u30a2\u30eb.001",
+			"pbrMetallicRoughness":{
+				"baseColorTexture":{
+					"index":5
+				},
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
 		}
 	],
 	"meshes":[
@@ -99,6 +130,20 @@
 					"material":1
 				}
 			]
+		},
+		{
+			"name":"ICO\u7403.002",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":8,
+						"NORMAL":9,
+						"TEXCOORD_0":10
+					},
+					"indices":3,
+					"material":2
+				}
+			]
 		}
 	],
 	"textures":[
@@ -117,6 +162,14 @@
 		{
 			"sampler":0,
 			"source":3
+		},
+		{
+			"sampler":0,
+			"source":4
+		},
+		{
+			"sampler":0,
+			"source":5
 		}
 	],
 	"images":[
@@ -139,6 +192,16 @@
 			"mimeType":"image/png",
 			"name":"OutsideBallTex",
 			"uri":"OutsideBallTex.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"EffectTexEmi",
+			"uri":"EffectTexEmi.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"EffectTex",
+			"uri":"EffectTex.png"
 		}
 	],
 	"accessors":[
@@ -209,6 +272,34 @@
 			"componentType":5123,
 			"count":60,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":60,
+			"max":[
+				0.051841072738170624,
+				0.060943618416786194,
+				0.054509472101926804
+			],
+			"min":[
+				-0.051841072738170624,
+				-0.060943618416786194,
+				-0.054509472101926804
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":60,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":60,
+			"type":"VEC2"
 		}
 	],
 	"bufferViews":[
@@ -259,6 +350,24 @@
 			"byteLength":120,
 			"byteOffset":3960,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":720,
+			"byteOffset":4080,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":720,
+			"byteOffset":4800,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":480,
+			"byteOffset":5520,
+			"target":34962
 		}
 	],
 	"samplers":[
@@ -269,7 +378,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":4080,
+			"byteLength":6000,
 			"uri":"Battery.bin"
 		}
 	]
