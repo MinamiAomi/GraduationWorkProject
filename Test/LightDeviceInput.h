@@ -23,6 +23,8 @@ public:
     void Finalize();
 
     Quaternion GetOrientation() const;
+    Vector3 GetAcceleration() const;
+    Vector3 GetGyro() const;
     ConnectionState GetConnectionState() const;
 
 private:
@@ -36,8 +38,12 @@ private:
     void CommunicationLoop();
 
     HANDLE hSerial_;
+    
+    Vector3 acceleration_;
+    Vector3 gyro_;
     Quaternion orientation_;
-    mutable std::mutex orientationMutex_;
+
+    mutable std::mutex dataMutex_;
     std::thread communicationThread_;
     std::atomic<bool> isRunning_{ false };
     std::atomic<ConnectionState> connectionState_{ ConnectionState::Disconnected };

@@ -8,7 +8,7 @@
 
 #include "Collider.h"
 
-static const float lightActiveDistance = 200.0f;
+static const float lightActiveDistance = 100.0f;
 
 class LightObject {
 public:
@@ -36,10 +36,12 @@ public:
 
 	void SetDamage(float damage) { damage_ = damage; }
 	void SetMaxHp(float maxHp) { maxHp_ = maxHp; }
+	float GetDamage() const { return damage_; }
 	void SetHp(float hp) { hp_ = hp; }
 	float GetHp() const { return hp_; }
 	float GetMaxHp() const { return maxHp_; }
 	bool GetIsAlive() const { return isAlive_; }
+	const Color& GetColor() const{ return light_->color; }
 	void SetOffset(const Vector3& offset) { offset_ = offset; }
 	void SetLightSetting(const PointLight& pointLightSetting) {
 		light_->color = pointLightSetting.color;

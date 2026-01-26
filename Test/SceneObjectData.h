@@ -15,6 +15,7 @@
 #include "Collider.h"
 
 #include "LightObject.h"
+#include "PowerEmitter.h"
 
 #include "AnimationUtils.h"
 namespace SceneObjectSystem {
@@ -106,6 +107,7 @@ namespace SceneObjectSystem {
 		Transform transform;
 		std::shared_ptr<Collider> collider;
 		LightObject lightObject;
+		PowerEmitter powerEmitter_;
 	};
 
 	struct SceneObjectData {

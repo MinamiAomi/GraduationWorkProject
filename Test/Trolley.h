@@ -74,6 +74,7 @@ public:
 	const State& GetState()const { return trollyState_; }
 
 	const Transform& GetBatteyTransform(int i)const { return batteryTransforms_.at(i); }
+	const Flashlight* GetFlashlight() const { return flashlight_; }
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);

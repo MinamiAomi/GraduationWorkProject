@@ -267,6 +267,9 @@
     <ClInclude Include="AnimationLoader.h">
       <Filter>Game\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleDefine.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Test.rc" />
