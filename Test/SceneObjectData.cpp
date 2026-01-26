@@ -142,15 +142,15 @@ namespace SceneObjectSystem {
 	{
 
 		if (isActive) {
-			time += 1.0f / 60.0f;
+			time ++;
 			auto result = AnimationUtils::CalculateCurrentTransform(evalTimeKeys, moverAnimation.positionKeys, moverAnimation.rotationKeys, time);
 			transform = result.second;
 			transform.UpdateMatrix();
 			model.SetWorldMatrix(transform.worldMatrix);
-			if (time >= duration && isCyclic) {
+			if (time >= 60 && isCyclic) {
 				time = 0.0f;
 			}
-			else if(time >= duration && !isCyclic){
+			else if(time >= 60&& !isCyclic){
 				time = duration;
 			}
 		}
