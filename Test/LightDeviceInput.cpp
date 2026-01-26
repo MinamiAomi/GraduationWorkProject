@@ -170,23 +170,58 @@ void LightDeviceInput::CommunicationLoop() {
 
         auto data = Split(response, ',');
 
-        if (data.size() >= 4) {
-            std::lock_guard<std::mutex> lock(orientationMutex_);
-            orientation_.w = -std::stof(data[0]);
-            orientation_.x = std::stof(data[1]);
-            orientation_.y = std::stof(data[3]);
-            orientation_.z = std::stof(data[2]);
-            if (orientation_.LengthSquare() != 0.0f) {
-                orientation_ = orientation_.Normalized();
+
+
+        Vector3 accel, gyro;
+        Quaternion orientation;
+        if (data.size() >= 10) {
+            accel.x = std::stof(data[0]);
+            accel.y = std::stof(data[1]);
+            accel.y = std::stof(data[2]);
+
+            gyro.x = std::stof(data[3]);
+            gyro.y = std::stof(data[4]);
+            gyro.z = std::stof(data[5]);
+
+            orientation.w = std::stof(data[6]);
+            orientation.x = std::stof(data[7]);
+            orientation.y = std::stof(data[8]);
+            orientation.z = std::stof(data[9]);
+            if (orientation.LengthSquare() != 0.0f) {
+                orientation = orientation.Normalized();
             }
         }
+
+        std::lock_guard<std::mutex> lock(dataMutex_);
+        acceleration_.x = accel.x;
+        acceleration_.y = accel.y;
+        acceleration_.z = accel.z;
+
+        gyro_.x = -gyro.x;
+        gyro_.y = -gyro.z;
+        gyro_.z = gyro.y;
+
+        orientation_.z = orientation.w;
+        orientation_.x = -orientation.x;
+        orientation_.y = -orientation.z;
+        orientation_.z = orientation.y;
     }
 
 }
 
 Quaternion LightDeviceInput::GetOrientation() const {
-    std::lock_guard<std::mutex> lock(orientationMutex_);
+    std::lock_guard<std::mutex> lock(dataMutex_);
     return orientation_;
+}
+
+Vector3 LightDeviceInput::GetAcceleration() const {
+    std::lock_guard<std::mutex> lock(dataMutex_);
+    return acceleration_;
+}
+
+Vector3 LightDeviceInput::GetGyro() const {
+    std::lock_guard<std::mutex> lock(dataMutex_);
+    return gyro_;
 }
 
 LightDeviceInput::ConnectionState LightDeviceInput::GetConnectionState() const {

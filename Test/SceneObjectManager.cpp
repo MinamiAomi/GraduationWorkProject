@@ -9,6 +9,8 @@
 #include "Graphics/RenderManager.h"
 #endif // _DEBUG
 
+#include "Bats.h"
+
 void SceneObjectSystem::SceneObjectManager::Initialize()
 {
 	pointLightObjects_.clear();
@@ -71,6 +73,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 	for (const auto& obj : pointLightObjects_) {
 		obj->transform.UpdateMatrix();
 		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+		obj->powerEmitter_.Update();
 		obj->lightObject.Update();
 		//何かに当ったら
 		if (obj->collider &&
@@ -87,6 +90,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->collider &&
 			obj->collider->GetCollidedWith().empty()) {
 			//スポーン
+			batsManager_->Emit(obj->formation);
+			obj->collider = nullptr;
 		}
 	}
 
@@ -157,6 +162,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			//ライトの設定
 			if (data.pointLightData) {
 				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
+				pointLightObject->lightObject.SetModel(pointLightObject->model.GetModel());
 
 				float scale = std::max({
 					pointLightObject->transform.scale.x,
@@ -184,6 +190,8 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 				pointLightObject->lightObject.SetLightSetting(pointLight);
 				pointLightObject->lightObject.SetOffset(data.pointLightData->offset);
+
+				pointLightObject->powerEmitter_.Initialize(EmitShape::kSphere,&pointLightObject->lightObject);
 			}
 
 			pointLightObjects_.push_back(std::move(pointLightObject));

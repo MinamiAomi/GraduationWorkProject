@@ -5,17 +5,19 @@ void ModelSorter::Sort(const Camera& camera) {
     drawModels_.clear();
     camera;
     auto& instanceList = ModelInstance::GetInstanceList();
-    size_t numDrawModels = 0;
     for (auto& instance : instanceList) {
         auto model = instance->GetModel().get();
-        if (!(instance->IsActive() && model != nullptr)) {continue;}
-        modelInstanceMap_[model].emplace_back(instance);
-        ++numDrawModels;
+        if (!model) continue;
+
+        //わける
+        drawModels_[kOpaque].emplace_back(instance);
     }
-    drawModels_.reserve(numDrawModels);
-    for (auto& modelInstance : modelInstanceMap_) {
-        for (auto& instance : modelInstance.second) {
-            drawModels_.emplace_back(instance);
-        }
+
+    for (auto& list : drawModels_) {
+        if (list.second.empty()) continue;
+
+        std::sort(list.second.begin(), list.second.end(), [](ModelInstance* a, ModelInstance* b) {
+            return a->GetModel().get() < b->GetModel().get();
+        });
     }
 }

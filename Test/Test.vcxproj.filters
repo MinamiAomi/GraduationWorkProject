@@ -159,6 +159,7 @@
     </ClCompile>
     <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="AnimationLoader.cpp" />
+    <ClCompile Include="BatsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -266,6 +267,12 @@
     </ClInclude>
     <ClInclude Include="AnimationLoader.h">
       <Filter>Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDefine.h">
+      <Filter>Game\LightObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BatsManager.h">
+      <Filter>Game\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

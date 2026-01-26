@@ -18,6 +18,7 @@
     <ClCompile Include="AnimationLoader.cpp" />
     <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="Bats.cpp" />
+    <ClCompile Include="BatsManager.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Deadline.cpp" />
     <ClCompile Include="DeadlineUI.cpp" />
@@ -49,6 +50,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationLoader.h" />
     <ClInclude Include="Bats.h" />
+    <ClInclude Include="BatsManager.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Deadline.h" />
@@ -61,6 +63,7 @@
     <ClInclude Include="LightDeviceInput.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="ModelEmitter.h" />
+    <ClInclude Include="ParticleDefine.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="PowerEmitter.h" />
