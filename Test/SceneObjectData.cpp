@@ -147,10 +147,10 @@ namespace SceneObjectSystem {
 			transform = result.second;
 			transform.UpdateMatrix();
 			model.SetWorldMatrix(transform.worldMatrix);
-			if (time >= 60 && isCyclic) {
+			if (time >= duration && isCyclic) {
 				time = 0.0f;
 			}
-			else if(time >= 60&& !isCyclic){
+			else if(time >= duration && !isCyclic){
 				time = duration;
 			}
 		}
