@@ -24,6 +24,8 @@ private:
 	ModelInstance speedMeterModel_;
 	ModelInstance speedMeterNeedleModel_;
 
+	ModelInstance batteryModel_;
+
 	Transform speedMeterTransform_;
 	Transform speedMeterNeedleTransform_;
 

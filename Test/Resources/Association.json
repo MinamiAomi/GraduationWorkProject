@@ -2,6 +2,7 @@
   "Model": {
     "flashlight": "Flashlight/light.gltf",
     "trolley": "Trolley/Trolley/Trolley.gltf",
+    "batteryModel": "Trolley/Battery/Battery.gltf",
     "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
     "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
     "monster": "OODAMA/OODAMA.gltf",

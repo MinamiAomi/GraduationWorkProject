@@ -150,7 +150,7 @@ namespace SceneObjectSystem {
 			if (time >= duration && isCyclic) {
 				time = 0.0f;
 			}
-			else {
+			else if(time >= duration && !isCyclic){
 				time = duration;
 			}
 		}
