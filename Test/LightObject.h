@@ -17,29 +17,12 @@ public:
 #ifdef _DEBUG
 	void Debug(const std::string& label);
 #endif // _DEBUG
-	bool GetIsActive() const { return isActive_; }
-
-
-
-
-	std::shared_ptr<const Model> GetModelResource() const {
-		return model_;
-	}
-
-	void SetModel(std::shared_ptr<Model> model) {
-		model_ = model;
-	}
-
-	const Transform* GetTransform() const {
-		return &lightTransform_;
-	}
-
 	void SetDamage(float damage) { damage_ = damage; }
 	void SetMaxHp(float maxHp) { maxHp_ = maxHp; }
 	void SetHp(float hp) { hp_ = hp; }
-	float GetHp() const { return hp_; }
-	float GetMaxHp() const { return maxHp_; }
-	bool GetIsAlive() const { return isAlive_; }
+	float GetHp() { return hp_; }
+	float GetMaxHp() { return maxHp_; }
+	bool GetIsAlive() { return isAlive_; }
 	void SetOffset(const Vector3& offset) { offset_ = offset; }
 	void SetLightSetting(const PointLight& pointLightSetting) {
 		light_->color = pointLightSetting.color;
@@ -55,7 +38,6 @@ public:
 private:
 	void HpUpdate();
 	const Transform* parentTransform_ = nullptr;
-	std::shared_ptr<Model> model_;
 	Transform lightTransform_;
 	std::shared_ptr<PointLight> light_;
 	Vector3 offset_;
