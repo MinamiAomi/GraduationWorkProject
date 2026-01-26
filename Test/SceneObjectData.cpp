@@ -142,7 +142,7 @@ namespace SceneObjectSystem {
 	{
 
 		if (isActive) {
-			time += 1.0f / 60.0f;
+			time += 1.0f;
 			auto result = AnimationUtils::CalculateCurrentTransform(evalTimeKeys, moverAnimation.positionKeys, moverAnimation.rotationKeys, time);
 			transform = result.second;
 			transform.UpdateMatrix();
