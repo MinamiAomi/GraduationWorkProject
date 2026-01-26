@@ -36,7 +36,11 @@ public:
 	const Matrix4x4& GetViewMatrix() const { return viewMatrix_; }
 	const Matrix4x4& GetProjectionMatrix() const { return projectionMatrix_; }
 	const Matrix4x4& GetViewProjectionMatrix() const { return viewProjectionMatrix_; }
-	const Math::Frustum& GetFrustum() const { return frastum_; }
+	const Math::Frustum& GetFrustum() const { return frustum_; }
+
+	std::array<Vector3, 8> GetFrustumVector3() const;
+	std::array<Vector3, 8> GetFrustumVector3(float farClip) const;
+	Vector3 GetFrustumGridCenter(float farClip, uint32_t splitX, uint32_t splitY, uint32_t indexX, uint32_t indexY);
 
 	Vector3 GetForward() const { return transform_.rotate * Vector3::forward; }
 	Vector3 GetRight() const { return transform_.rotate * Vector3::right; }
@@ -62,7 +66,8 @@ private:
 	Matrix4x4 viewMatrix_;
 	Matrix4x4 projectionMatrix_;
 	Matrix4x4 viewProjectionMatrix_;
-	Math::Frustum frastum_;
+	Math::Frustum frustum_;
+	Math::Frustum defaultFrustum_;
 
 	bool needUpdateing_;
 };

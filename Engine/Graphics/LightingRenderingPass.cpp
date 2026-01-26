@@ -27,6 +27,7 @@ void LightingRenderingPass::Initialize(uint32_t width, uint32_t height) {
         CD3DX12_DESCRIPTOR_RANGE normalRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 3);
         CD3DX12_DESCRIPTOR_RANGE emissiveRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 4);
         CD3DX12_DESCRIPTOR_RANGE depthRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 5);
+        CD3DX12_DESCRIPTOR_RANGE meshMaterialIDsRange(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 6);
 
         CD3DX12_ROOT_PARAMETER rootParameters[RootIndex::NumRootParameters]{};
         rootParameters[RootIndex::Scene].InitAsConstantBufferView(0);
@@ -104,7 +105,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.BeginEvent(L"LightingRenderingPass::Render");
 
     commandContext.TransitionResource(geometryRenderingPass.GetAlbedo(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-    commandContext.TransitionResource(geometryRenderingPass.GetMetallicRoughness(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+    commandContext.TransitionResource(geometryRenderingPass.GetMetallicRoughnessFlag(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetNormal(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetDepth(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(result_, D3D12_RESOURCE_STATE_RENDER_TARGET);
@@ -145,7 +146,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.SetDynamicConstantBufferView(RootIndex::Scene, sizeof(sceneData), &sceneData);
     commandContext.SetDynamicConstantBufferView(RootIndex::Sky, sizeof(skyParameter), &skyParameter);
     commandContext.SetDescriptorTable(RootIndex::Albedo, geometryRenderingPass.GetAlbedo().GetSRV());
-    commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughness().GetSRV());
+    commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughnessFlag().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Normal, geometryRenderingPass.GetNormal().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Depth, geometryRenderingPass.GetDepth().GetSRV());
 
@@ -249,7 +250,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.BeginEvent(L"LightingRenderingPass::Render");
 
     commandContext.TransitionResource(geometryRenderingPass.GetAlbedo(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
-    commandContext.TransitionResource(geometryRenderingPass.GetMetallicRoughness(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+    commandContext.TransitionResource(geometryRenderingPass.GetMetallicRoughnessFlag(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetNormal(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetEmissive(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(geometryRenderingPass.GetDepth(), D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
@@ -292,7 +293,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
         commandContext.SetDynamicShaderResourceView(RootIndex::LightList, sizeof(dummyLightData), &dummyLightData);
     }
     commandContext.SetDescriptorTable(RootIndex::Albedo, geometryRenderingPass.GetAlbedo().GetSRV());
-    commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughness().GetSRV());
+    commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughnessFlag().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Normal, geometryRenderingPass.GetNormal().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Emissive, geometryRenderingPass.GetEmissive().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Depth, geometryRenderingPass.GetDepth().GetSRV());

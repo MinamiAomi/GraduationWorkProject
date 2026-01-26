@@ -43,9 +43,6 @@
     <Filter Include="Game\RailSystem\Data">
       <UniqueIdentifier>{04e11a2a-834b-43ea-91a2-76ef83755fd1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RailSystem\Loader">
-      <UniqueIdentifier>{fbfc21c5-b9b5-44d1-adba-f33f0bcc37ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\RailSystem\Converter">
       <UniqueIdentifier>{b0561d18-e060-404e-8030-32ff35b4d14d}</UniqueIdentifier>
     </Filter>
@@ -70,6 +67,12 @@
     <Filter Include="Game\Particle">
       <UniqueIdentifier>{adf7f51c-ef77-418b-b471-d7b2d943219c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Event">
+      <UniqueIdentifier>{bcf440e0-15e1-4a31-812d-54757648ea9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Utils">
+      <UniqueIdentifier>{4eca73d1-8500-4089-b078-cb8c08895cfe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -81,9 +84,6 @@
     </ClCompile>
     <ClCompile Include="DebugCamera.cpp">
       <Filter>Game\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="RailLoader.cpp">
-      <Filter>Game\RailSystem\Loader</Filter>
     </ClCompile>
     <ClCompile Include="RailAnimationPlayer.cpp">
       <Filter>Game\RailSystem\AnimationPlayer</Filter>
@@ -154,6 +154,11 @@
     <ClCompile Include="PowerEmitter.cpp">
       <Filter>Game\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="Bats.cpp">
+      <Filter>Game\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationUtils.cpp" />
+    <ClCompile Include="AnimationLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -167,9 +172,6 @@
     </ClInclude>
     <ClInclude Include="RailData.h">
       <Filter>Game\RailSystem\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="RailLoader.h">
-      <Filter>Game\RailSystem\Loader</Filter>
     </ClInclude>
     <ClInclude Include="RailAnimationPlayer.h">
       <Filter>Game\RailSystem\AnimationPlayer</Filter>
@@ -255,6 +257,15 @@
     </ClInclude>
     <ClInclude Include="PowerEmitter.h">
       <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Bats.h">
+      <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationUtils.h">
+      <Filter>Game\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationLoader.h">
+      <Filter>Game\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

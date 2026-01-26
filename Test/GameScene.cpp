@@ -15,6 +15,8 @@
 #include "GameOverScene.h"
 #include "SceneObjectLoader.h"
 
+#include "AnimationLoader.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -29,7 +31,7 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region RailSystem
-	auto animationData = RailSystem::AnimationLoader::LoadAnimation("Resources/RailCamera/railCamera.json");
+	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
@@ -66,6 +68,7 @@ void GameScene::OnInitialize() {
 	railCameraSystem_ = std::make_unique<RailSystem::RailCameraSystem>();
 	railCameraSystem_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	railCameraSystem_->SetParent(trolley_->GetTransform());
+	trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
 	railCameraSystem_->Initialize();
 #pragma endregion
 
@@ -83,10 +86,10 @@ void GameScene::OnInitialize() {
 	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
-	for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+	for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
-	for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+	for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
 
@@ -218,10 +221,10 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}
@@ -251,10 +254,10 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEmitterObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
-		for (const auto& collider : sceneObjectManager_->GetEnemyObjects()) {
+		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		railAnimationPlayer_->Loop();

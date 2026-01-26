@@ -86,7 +86,7 @@ void Trolley::Initialize()
 
 	for (uint8_t i = 0; i < BatteryNum; i++) {
 		batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
-		batteryTransforms_.at(i).SetParent(&transform_);
+		//batteryTransforms_.at(i).SetParent(&transform_);
 		batteryTransforms_.at(i).UpdateMatrix();
 		batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
 		batteryColliders_.at(i)->radius = batteryRadius_;

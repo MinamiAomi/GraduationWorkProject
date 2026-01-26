@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "Collider.h"
 #include "SceneObjectData.h"
 #include "Framework/AssetManager.h"
 
@@ -17,8 +18,9 @@ namespace SceneObjectSystem {
 
 		//ゲームで使う方	
 		const std::vector<std::unique_ptr<SceneObjectSystem::PointLightObject>>& GetPointLightObjects()const { return pointLightObjects_; }
-		const std::vector<std::unique_ptr<SceneObjectSystem::EmitterObject>>& GetEmitterObjects()const { return emitterObjects_; }
-		const std::vector<std::unique_ptr<SceneObjectSystem::EnemyObject>>& GetEnemyObjects()const { return enemyObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>>& GetEnemySpawnObjects()const { return enemySpawnObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>>& GetGimmickMoverObjects()const { return gimmickMoverObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
 		//Blenderの値そのままデータだけ
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 	private:
@@ -29,14 +31,13 @@ namespace SceneObjectSystem {
 		// 実際にRuntimeオブジェクトリストを構築する関数
 		void BuildRuntimeObjects();
 
-
-
 		//ステージ全体
 		ModelInstance stageObjects_;
 		//ゲームで使う方
 		std::vector<std::unique_ptr<SceneObjectSystem::PointLightObject>> pointLightObjects_;
-		std::vector<std::unique_ptr<SceneObjectSystem::EmitterObject>> emitterObjects_;
-		std::vector<std::unique_ptr<SceneObjectSystem::EnemyObject>> enemyObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>> enemySpawnObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>> gimmickMoverObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>> gimmickTriggerObjects_;
 
 		//Blenderの値そのままデータだけ
 		std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>> sceneObjectData_;
@@ -61,28 +62,56 @@ namespace SceneObjectSystem {
 
 		} sceneObjectConfig_;
 	};
+
+
+
+
 	template<typename T>
 	inline void SceneObjectManager::InitializeCommonObject(T& targetObj, const SceneObjectSystem::SceneObjectData& sourceData)
 	{
+		if constexpr (requires { targetObj->transform; }) {
+			if constexpr (requires {sourceData.transform; }) {
+				targetObj->transform = sourceData.transform;
+				targetObj->transform.UpdateMatrix();
+			}
+		}
 
-		targetObj->transform = sourceData.transform;
-		targetObj->transform.UpdateMatrix();
+		if constexpr (requires { targetObj->collider; }) {
 
-		if (sourceData.capsuleCollisionData) {
-			targetObj->collider = std::make_shared<CapsuleCollider>(
-				CollisionCategory::LIGHT,
-				CollisionCategory::FLASHLIGHT,
-				Vector3::zero,
-				0.0f,
-				0.0f,
-				Quaternion::identity
-			);
 
-			const auto& colData = sourceData.capsuleCollisionData.value();
-			targetObj->collider->center = colData.center;
-			targetObj->collider->quaternion = colData.quaternion;
-			targetObj->collider->radius = colData.radius;
-			targetObj->collider->height = colData.height;
+			if (sourceData.sphereCollisionData) {
+				auto sphereCol = std::make_shared<SphereCollider>(
+					CollisionCategory::ENEMY,
+					CollisionCategory::FLASHLIGHT,
+					Vector3::zero,
+					0.0f
+				);
+
+				const auto& colData = sourceData.sphereCollisionData.value();
+				sphereCol->center = colData.center;
+				sphereCol->radius = colData.radius;
+
+				targetObj->collider = sphereCol;
+			}
+
+			if (sourceData.capsuleCollisionData) {
+				auto capsuleCol = std::make_shared<CapsuleCollider>(
+					CollisionCategory::LIGHT,
+					CollisionCategory::FLASHLIGHT,
+					Vector3::zero,
+					0.0f,
+					0.0f,
+					Quaternion::identity
+				);
+
+				const auto& colData = sourceData.capsuleCollisionData.value();
+				capsuleCol->center = colData.center;
+				capsuleCol->quaternion = colData.quaternion;
+				capsuleCol->radius = colData.radius;
+				capsuleCol->height = colData.height;
+
+				targetObj->collider = capsuleCol;
+			}
 		}
 	}
 }
