@@ -24,7 +24,8 @@ void LightObject::Update() {
 
 	HpUpdate();
 
-	float currentDecay = Math::Lerp(hp_ / maxHp_, deadDecayParam, saveDecay_);
+	float currentIntensity = Math::Lerp(hp_ / maxHp_, saveIntensity_ * 0.1f, saveIntensity_);
+	float currentRange = Math::Lerp(hp_ / maxHp_, saveRange_ * 0.1f, saveRange_);
 
 	if (isBreath_ && hp_ > 0.0f) {
 		// 0.05f だと 60fpsでおよそ2秒で1周

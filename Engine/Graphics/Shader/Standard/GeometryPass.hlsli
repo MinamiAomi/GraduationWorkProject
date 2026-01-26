@@ -13,6 +13,7 @@ ConstantBuffer<Scene> g_Scene : register(b0);
 struct Instance {
     float4x4 worldMatrix;
     float4x4 worldInverseTransposeMatrix;
+    uint useLighting;
 };
 ConstantBuffer<Instance> g_Instance : register(b1);
 

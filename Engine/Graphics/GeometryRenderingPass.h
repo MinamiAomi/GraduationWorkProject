@@ -13,11 +13,10 @@ class CommandContext;
 struct GBuffer {
     enum Type {
         Albedo,
-        MetallicRoughness,
+        MetallicRoughnessFlag,
         Normal,
         Emissive,
         ViewDepth,
-        MeshMaterialIDs,
 
         NumGBuffers
     };
@@ -41,11 +40,10 @@ public:
 
     ColorBuffer& GetGBuffer(GBuffer::Type type) { return gBuffers_[type]; }
     ColorBuffer& GetAlbedo() { return gBuffers_[GBuffer::Albedo]; }
-    ColorBuffer& GetMetallicRoughness() { return gBuffers_[GBuffer::MetallicRoughness]; }
+    ColorBuffer& GetMetallicRoughnessFlag() { return gBuffers_[GBuffer::MetallicRoughnessFlag]; }
     ColorBuffer& GetNormal() { return gBuffers_[GBuffer::Normal]; }
     ColorBuffer& GetEmissive() { return gBuffers_[GBuffer::Emissive]; }
     ColorBuffer& GetViewDepth() { return gBuffers_[GBuffer::ViewDepth]; }
-    ColorBuffer& GetMeshMaterialIDs() { return gBuffers_[GBuffer::MeshMaterialIDs]; }
     DepthBuffer& GetDepth() { return depth_; }
 
 private:

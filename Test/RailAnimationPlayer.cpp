@@ -7,6 +7,9 @@
 
 #include "Engine/File/JsonConverter.h"
 #include "RailConverter.h"
+
+#include "AnimationUtils.h"
+
 #ifdef _DEBUG
 #include <iomanip>
 #include <sstream>
@@ -56,7 +59,15 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 		float frameIncrement = deltaTime * animationData_->railMetaData_.frameRate * playbackSpeed_;
 		currentFrame_ += frameIncrement;
 
-		CalculateCurrentTransform();
+		auto result = AnimationUtils::CalculateCurrentTransform(
+			animationData_->evalTimeKeys_,
+			animationData_->railAnimation_.positionKeys,
+			animationData_->railAnimation_.rotationKeys,
+			currentFrame_
+		);
+
+		railTransform_ = result.first;
+		convertRailTransform_ = result.second;
 
 		if (deltaTime > 0.0001f) {
 			float distance = (railTransform_.worldMatrix.GetTranslate() - preCameraPosition_).Length();
@@ -69,7 +80,16 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 #ifdef _DEBUG
 	}
 	else {
-		CalculateCurrentTransform();
+		auto result = AnimationUtils::CalculateCurrentTransform(
+			animationData_->evalTimeKeys_,
+			animationData_->railAnimation_.positionKeys,
+			animationData_->railAnimation_.rotationKeys,
+			currentFrame_
+		);
+
+		railTransform_ = result.first;
+		convertRailTransform_ = result.second;
+
 	}
 #endif // _DEBUG
 
@@ -395,193 +415,6 @@ Transform RailSystem::RailAnimationPlayer::EvaluateWorldCameraTransform(float fr
 	t.rotate = EvaluateLocalCameraRotation(frame);
 	t.UpdateMatrix();
 	return t;
-}
-void RailSystem::RailAnimationPlayer::CalculateCurrentTransform()
-{
-	if (!animationData_ || animationData_->railAnimation_.positionKeys.empty() || animationData_->railAnimation_.rotationKeys.empty()) {
-		return;
-	}
-
-	float evalTime = GetCurrentEvalTime();
-
-	// 位置キーフレーム
-	const auto& posKeys = animationData_->railAnimation_.positionKeys;
-	if (!posKeys.empty()) {
-		if (evalTime <= posKeys.front().frame) {
-			railTransform_.translate = posKeys.front().value;
-		}
-		else if (evalTime >= posKeys.back().frame) {
-			railTransform_.translate = posKeys.back().value;
-		}
-		else {
-			auto posIndices = FindKeyframeIndices(posKeys, evalTime);
-			const auto& posKey1 = posKeys[posIndices.first];
-			const auto& posKey2 = posKeys[posIndices.second];
-			float posFrameDiff = posKey2.frame - posKey1.frame;
-			float posT = (std::abs(posFrameDiff) < 0.0001f) ? 0.0f : (evalTime - posKey1.frame) / posFrameDiff;
-			posT = std::max(0.0f, std::min(1.0f, posT)); // クランプ
-			railTransform_.translate = InterpolatePosition(posKey1, posKey2, posT);
-		}
-	}
-	// 回転キーフレーム
-	const auto& rotKeys = animationData_->railAnimation_.rotationKeys;
-	if (!rotKeys.empty()) {
-		if (evalTime <= rotKeys.front().frame) {
-			railTransform_.rotate = rotKeys.front().value;
-		}
-		else if (evalTime >= rotKeys.back().frame) {
-			railTransform_.rotate = rotKeys.back().value;
-		}
-		else {
-			auto rotIndices = FindKeyframeIndices(rotKeys, evalTime);
-			const auto& rotKey1 = rotKeys[rotIndices.first];
-			const auto& rotKey2 = rotKeys[rotIndices.second];
-			float rotFrameDiff = rotKey2.frame - rotKey1.frame;
-			float rotT = (std::abs(rotFrameDiff) < 0.0001f) ? 0.0f : (evalTime - rotKey1.frame) / rotFrameDiff;
-			rotT = std::max(0.0f, std::min(1.0f, rotT));
-			railTransform_.rotate = InterpolateRotation(rotKey1, rotKey2, rotT);
-		}
-	}
-
-	railTransform_.UpdateMatrix();
-	convertRailTransform_ = RailSystem::RailConverter::ConvertToLeftHand(railTransform_);
-	convertRailTransform_.UpdateMatrix();
-}
-
-template<typename T>
-inline std::pair<size_t, size_t> RailSystem::RailAnimationPlayer::FindKeyframeIndices(const std::vector<T>& keys, float currentFrame) const
-{
-	if (keys.empty()) return { 0, 0 };
-
-	auto it = std::lower_bound(keys.begin(), keys.end(), currentFrame,
-		[](const T& key, float f) {
-			return key.frame < f;
-		});
-
-	if (it == keys.begin()) {
-		return { 0, 0 };
-	}
-
-	if (it == keys.end()) {
-		return { keys.size() - 1, keys.size() - 1 };
-	}
-
-	size_t nextIndex = std::distance(keys.begin(), it);
-	size_t prevIndex = nextIndex - 1;
-
-	if (std::abs(keys[prevIndex].frame - currentFrame) < 0.0001f) {
-		return { prevIndex, prevIndex };
-	}
-	if (std::abs(keys[nextIndex].frame - currentFrame) < 0.0001f) {
-		return { nextIndex, nextIndex };
-	}
-
-
-	return { prevIndex, nextIndex };
-}
-
-float RailSystem::RailAnimationPlayer::GetCurrentEvalTime() const
-{
-	if (!animationData_ || animationData_->evalTimeKeys_.empty()) {
-		return 0.0f;
-	}
-	const auto& keys = animationData_->evalTimeKeys_;
-	auto indices = FindKeyframeIndices(keys, currentFrame_);
-
-	const auto& key1 = keys[indices.first];
-	const auto& key2 = keys[indices.second];
-
-	if (indices.first == indices.second) {
-		return key1.value;
-	}
-
-	float t = (currentFrame_ - key1.frame) / (key2.frame - key1.frame);
-	return InterpolateScalar(key1, key2, std::max(0.0f, std::min(1.0f, t)));
-}
-
-float RailSystem::RailAnimationPlayer::InterpolateScalar(const RailSystem::ScalarKeyframe& key1, const RailSystem::ScalarKeyframe& key2, float currentFrame) const
-{
-	if (currentFrame <= 0.0f) return key1.value;
-	if (currentFrame >= 1.0f) return key2.value;
-
-	if (key1.interpolation == "BEZIER") {
-
-		Vector2 p0 = { key1.frame, key1.value };
-		Vector2 p1 = { key1.handle.right.x, key1.handle.right.y };
-		Vector2 p2 = { key2.handle.left.x, key2.handle.left.y };
-		Vector2 p3 = { key2.frame, key2.value };
-
-		float t_b = FindBezierTForX(currentFrame, p0, p1, p2, p3);
-
-		return EvaluateBezier(t_b, p0, p1, p2, p3).y;
-	}
-
-	return std::lerp(key1.value, key2.value, currentFrame);
-}
-
-Vector3 RailSystem::RailAnimationPlayer::InterpolatePosition(const RailSystem::PositionKeyframe& key1, const RailSystem::PositionKeyframe& key2, float currentFrame) const
-{
-	if (currentFrame <= 0.0f) return key1.value;
-	if (currentFrame >= 1.0f) return key2.value;
-
-	return Vector3::Lerp(currentFrame, key1.value, key2.value);
-}
-
-Quaternion RailSystem::RailAnimationPlayer::InterpolateRotation(const RailSystem::RotationKeyframe& key1, const RailSystem::RotationKeyframe& key2, float currentFrame) const
-{
-	if (currentFrame <= 0.0f) return key1.value;
-	if (currentFrame >= 1.0f) return key2.value;
-	return Quaternion::Slerp(currentFrame, key1.value, key2.value);
-}
-
-float RailSystem::RailAnimationPlayer::FindBezierTForX(float targetX, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const
-{
-	float frameRange = p3.x - p0.x;
-	if (std::abs(frameRange) < 0.0001f) {
-		return 0.0f;
-	}
-
-	Vector2 pp0 = { 0.0f, 0.0f };
-	Vector2 pp1 = { (p1.x - p0.x) / frameRange, 0.0f };
-	Vector2 pp2 = { (p2.x - p0.x) / frameRange, 0.0f };
-	Vector2 pp3 = { 1.0f, 0.0f };
-
-	float t_low = 0.0f;
-	float t_high = 1.0f;
-	float t_guess = targetX;
-
-	for (int i = 0; i < 8; ++i) {
-		float x_guess = EvaluateBezier(t_guess, pp0, pp1, pp2, pp3).x;
-		float error = x_guess - targetX;
-
-		if (std::abs(error) < 0.001f) {
-			break;
-		}
-
-		if (error < 0.0f) {
-			t_low = t_guess;
-		}
-		else {
-			t_high = t_guess;
-		}
-		t_guess = (t_high + t_low) * 0.5f;
-	}
-
-	return t_guess;
-}
-
-Vector2 RailSystem::RailAnimationPlayer::EvaluateBezier(float t, const Vector2& p0, const Vector2& p1, const Vector2& p2, const Vector2& p3) const
-{
-	float u = 1.0f - t;
-	float tt = t * t;
-	float uu = u * u;
-	float uuu = uu * u;
-	float ttt = tt * t;
-
-	float x = uuu * p0.x + 3.0f * uu * t * p1.x + 3.0f * u * tt * p2.x + ttt * p3.x;
-	float y = uuu * p0.y + 3.0f * uu * t * p1.y + 3.0f * u * tt * p2.y + ttt * p3.y;
-
-	return { x, y };
 }
 
 #ifdef _DEBUG

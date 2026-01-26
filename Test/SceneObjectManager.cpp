@@ -12,8 +12,10 @@
 void SceneObjectSystem::SceneObjectManager::Initialize()
 {
 	pointLightObjects_.clear();
-	emitterObjects_.clear();
-	enemyObjects_.clear();
+	enemySpawnObjects_.clear();
+	gimmickMoverObjects_.clear();
+	gimmickTriggerObjects_.clear();
+
 	sceneObjectData_.clear();
 }
 
@@ -32,14 +34,20 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 		convertedObj->transform.rotate = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.transform.rotate);
 		convertedObj->transform.translate = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.transform.translate);
 
-		auto& col = convertedObj->capsuleCollisionData.value();
-		col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.capsuleCollisionData->center);
-		col.quaternion = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.capsuleCollisionData->quaternion);
+		if (convertedObj->capsuleCollisionData) {
+			auto& col = convertedObj->capsuleCollisionData.value();
+			col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.capsuleCollisionData->center);
+			col.quaternion = SceneObjectConverter::ConvertRotateToLeftHand(rawObj.capsuleCollisionData->quaternion);
+		}
+
+		if (convertedObj->sphereCollisionData) {
+			auto& col = convertedObj->sphereCollisionData.value();
+			col.center = SceneObjectConverter::ConvertTranslateToLeftHand(rawObj.sphereCollisionData->center);
+		}
 
 		if (convertedObj->pointLightData) {
 			convertedObj->pointLightData->offset = SceneObjectConverter::ConvertTranslateToLeftHand(convertedObj->pointLightData->offset);
 		}
-
 
 		sceneObjectData_.push_back(std::move(convertedObj));
 	}
@@ -50,8 +58,9 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 void SceneObjectSystem::SceneObjectManager::ResetObjects()
 {
 	pointLightObjects_.clear();
-	emitterObjects_.clear();
-	enemyObjects_.clear();
+	enemySpawnObjects_.clear();
+	gimmickMoverObjects_.clear();
+	gimmickTriggerObjects_.clear();
 
 	BuildRuntimeObjects();
 
@@ -74,19 +83,36 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		}
 	}
 
-	for (const auto& obj : emitterObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-
-
+	for (const auto& obj : enemySpawnObjects_) {
+		if (obj->collider &&
+			obj->collider->GetCollidedWith().empty()) {
+			//スポーン
+		}
 	}
 
 
-	for (const auto& obj : enemyObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+	for (const auto& obj : gimmickTriggerObjects_) {
+		if (obj->collider &&
+			!obj->collider->GetCollidedWith().empty()) {
+
+			//一回しか発動しないかどうか
+			if (obj->hasTriggered && obj->isOnce) { return; }
+
+			for (const auto& mover : gimmickMoverObjects_) {
+				if (mover->key == obj->key) {
+					mover->isActive = true;
+				}
+			}
+
+			obj->hasTriggered = obj->isOnce;
+		}
 	}
 
+	for (const auto& obj : gimmickMoverObjects_) {
+		if (obj->isActive) {
+			obj->Update();
+		}
+	}
 #ifdef _DEBUG
 	sceneObjectConfig_.DrawImGui();
 #endif // _DEBUG
@@ -109,7 +135,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			const auto& assetManager = AssetManager::GetInstance();
 
-			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
+			if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
 				pointLightObject->model.SetModel(modelHandle->Get());
 				// エラーマテリアル
 				pointLightObject->material = std::make_shared<Material>();
@@ -131,7 +157,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			//ライトの設定
 			if (data.pointLightData) {
 				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
-				
+
 				float scale = std::max({
 					pointLightObject->transform.scale.x,
 					pointLightObject->transform.scale.y,
@@ -146,7 +172,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				multiplier = std::max(multiplier, 0.1f);
 
 				float maxHp = sceneObjectConfig_.pointLightParams.baseHp * multiplier;
-				
+
 				pointLightObject->lightObject.SetMaxHp(maxHp);
 				pointLightObject->lightObject.SetHp(maxHp);
 
@@ -163,41 +189,50 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			pointLightObjects_.push_back(std::move(pointLightObject));
 		}
 		break;
-
-		case SceneObjectSystem::ObjectType::Emitter:
+		case SceneObjectSystem::ObjectType::EnemySpawn:
 		{
-			auto emitterObject = std::make_unique<EmitterObject>();
+			auto enemySpawn = std::make_unique<EnemySpawnData>();
 
-			const auto& assetManager = AssetManager::GetInstance();
+			enemySpawn->formation = data.enemySpawnData->formation;
+			enemySpawn->hasTriggered = false;
+			enemySpawn->isOnce = data.enemySpawnData->isOnce;
 
-			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
-				emitterObject->model.SetModel(modelHandle->Get());
-			}
+			InitializeCommonObject(enemySpawn, data);
 
-
-			InitializeCommonObject(emitterObject, data);
-
-			emitterObjects_.push_back(std::move(emitterObject));
+			enemySpawnObjects_.push_back(std::move(enemySpawn));
 		}
 		break;
 
-		case SceneObjectSystem::ObjectType::Enemy:
+		case SceneObjectSystem::ObjectType::Gimmick:
 		{
-			auto enemyObject = std::make_unique<EnemyObject>();
+			auto mover = std::make_unique<GimmickMoverObject>();
+			auto trigger = std::make_unique<GimmickTriggerObject>();
 
-			const auto& assetManager = AssetManager::GetInstance();
+			if (data.gimmickMovers.has_value()) {
+				const auto& assetManager = AssetManager::GetInstance();
+				if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
+					mover->model.SetModel(modelHandle->Get());
+				}
 
-			if (auto modelHandle = assetManager->modelMap.Get(data.modelName)) {
-				enemyObject->model.SetModel(modelHandle->Get());
+				mover->key = data.gimmickMovers->key;
+				mover->duration = data.gimmickMovers->duration;
+				mover->moverAnimation = data.gimmickMovers->moverAnimation;
+				mover->evalTimeKeys = data.gimmickMovers->evalTimeKeys;
+				mover->isCyclic = data.gimmickMovers->isCyclic;
+				mover->isActive = false;
+				InitializeCommonObject(mover, data);
+				gimmickMoverObjects_.push_back(std::move(mover));
 			}
+			else if (data.gimmickTriggers.has_value()) {
 
+				trigger->key = data.gimmickTriggers->key;
+				trigger->hasTriggered = false;
+				trigger->isOnce = data.gimmickTriggers->isOnce;
 
-			InitializeCommonObject(enemyObject, data);
-
-			enemyObjects_.push_back(std::move(enemyObject));
+				InitializeCommonObject(trigger, data);
+				gimmickTriggerObjects_.push_back(std::move(trigger));
+			}
 		}
-		break;
-
 		default:
 			break;
 		}

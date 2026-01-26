@@ -54,6 +54,10 @@ public:
     const Node& GetRootNode() const { return rootNode_; }
     size_t GetNumVertices() const { return vertices_.size(); }
     size_t GetNumIndices() const { return indices_.size(); }
+    const Vector3& GetMin() const { return min_; }
+    const Vector3& GetMax() const { return max_; }
+    const float GetRadius() const { return radius_; }
+
 
 private:
     Model() = default;
@@ -67,6 +71,10 @@ private:
     
     StructuredBuffer vertexBuffer_;
     StructuredBuffer indexBuffer_;
+    Vector3 min_;
+    Vector3 max_;
+    Vector3 center_;
+    float radius_;
 
     BLAS blas_;
     Node rootNode_;
