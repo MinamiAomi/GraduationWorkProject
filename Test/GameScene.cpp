@@ -78,7 +78,7 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
@@ -264,6 +264,25 @@ void GameScene::OnUpdate() {
 	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
+	if (ImGui::Button("ホットリロード（光物）")) {
+		sceneObjectManager_->Initialize();
+
+		auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+
+		sceneObjectManager_->CreateObjects(result);
+
+		//Colliderセット
+		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+	}
+
 	//デバックカメラ
 	if (ImGui::Checkbox("DebugCamera", &isDebugCamera)) {
 		debugCamera_->SetTransform(railCameraSystem_->GetTransform());

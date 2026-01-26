@@ -4761,6 +4761,62 @@
       }
     },
     {
+      "name": "CoalTrolley.002",
+      "model_name": "CoalTrolley",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          801.2803,
+          401.4197,
+          3.7091
+        ],
+        "rotate": [
+          0.7597,
+          -0.1005,
+          -0.1308,
+          0.629
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.9533,
+          0.3265
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          801.4272,
+          401.4691,
+          2.7031
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7597,
+          -0.1005,
+          -0.1308,
+          0.629
+        ]
+      }
+    },
+    {
       "name": "EnemySpawn.001",
       "model_name": null,
       "type": "ENEMY_SPAWN",
@@ -4833,9 +4889,9 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          446.187,
-          399.6209,
-          0.9949
+          413.5603,
+          394.6544,
+          0.1981
         ],
         "rotate": [
           1.0,
@@ -4880,9 +4936,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          446.187,
-          399.6209,
-          0.9949
+          413.5603,
+          394.6544,
+          0.1981
         ],
         "radius": 0.5
       }
@@ -4953,9 +5009,9 @@
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          934.3961,
-          307.888,
-          30.6533
+          0.0,
+          0.0,
+          0.0
         ],
         "rotate": [
           0.9684,
