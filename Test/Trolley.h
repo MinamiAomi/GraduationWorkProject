@@ -72,6 +72,8 @@ public:
 	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
 
 	const State& GetState()const { return trollyState_; }
+
+	const Transform& GetBatteyTransform(int i)const { return batteryTransforms_.at(i); }
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);

@@ -15,6 +15,7 @@ TrolleyUI::TrolleyUI()
 	auto assetManager = AssetManager::GetInstance();
 	speedMeterModel_.SetModel(assetManager->modelMap.Get("speedMeter")->Get());
 	speedMeterNeedleModel_.SetModel(assetManager->modelMap.Get("speedMeterNeedle")->Get());
+	batteryModel_.SetModel(assetManager->modelMap.Get("batteryModel")->Get());
 
 	auto baseTexture = assetManager->textureMap.Get("TrolleyBase")->Get();
 	auto chargeGaugeTexture = assetManager->textureMap.Get("TrolleyChargeGauge")->Get();
@@ -80,6 +81,8 @@ void TrolleyUI::Initialize(const Transform& transform)
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
 
+	batteryModel_.SetWorldMatrix(trolley_->GetBatteyTransform(0).worldMatrix);
+
 
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
@@ -98,6 +101,8 @@ void TrolleyUI::Update()
 
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
+
+	batteryModel_.SetWorldMatrix(trolley_->GetBatteyTransform(0).worldMatrix);
 
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
