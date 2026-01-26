@@ -37,10 +37,18 @@
 		},
 		{
 			"doubleSided":true,
+			"emissiveFactor":[
+				0.6999999284744263,
+				0.6999999284744263,
+				0.6999999284744263
+			],
+			"emissiveTexture":{
+				"index":1
+			},
 			"name":"Trolley.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":1
+					"index":2
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -51,7 +59,7 @@
 			"name":"Wheel",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":2
+					"index":3
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -98,12 +106,16 @@
 			"source":0
 		},
 		{
-			"sampler":0,
+			"sampler":1,
 			"source":1
 		},
 		{
 			"sampler":0,
 			"source":2
+		},
+		{
+			"sampler":0,
+			"source":3
 		}
 	],
 	"images":[
@@ -111,6 +123,11 @@
 			"mimeType":"image/png",
 			"name":"Coal",
 			"uri":"Coal.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"TrolleyEmi",
+			"uri":"TrolleyEmi.png"
 		},
 		{
 			"mimeType":"image/png",
@@ -305,6 +322,10 @@
 		{
 			"magFilter":9728,
 			"minFilter":9984
+		},
+		{
+			"magFilter":9729,
+			"minFilter":9987
 		}
 	],
 	"buffers":[
