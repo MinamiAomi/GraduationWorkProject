@@ -10,7 +10,7 @@ const float Bats::batsFarLocate = 20.0f;
 Bats::Bats(const std::vector<std::vector<bool>>& data)
 {
 	auto assetManager = AssetManager::GetInstance();
-	model_ = assetManager->modelMap.Get("Box")->Get();
+	model_ = assetManager->modelMap.Get("bat")->Get();
 	radius_ = 5.0f;                       // Sphere用半径
 	material_ = std::make_shared<Material>();
 
@@ -31,7 +31,7 @@ Bats::Bats(const std::vector<std::vector<bool>>& data)
 Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 {
 	auto assetManager = AssetManager::GetInstance();
-	model_ = assetManager->modelMap.Get("Box")->Get();
+	model_ = assetManager->modelMap.Get("bat")->Get();
 	radius_ = 5.0f;                       // Sphere用半径
 	material_ = std::make_shared<Material>();
 	camera_ = &camera;
