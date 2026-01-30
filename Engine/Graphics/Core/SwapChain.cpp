@@ -13,7 +13,7 @@ void SwapChain::Create(HWND hWnd) {
     ASSERT_IF_FAILED(CreateDXGIFactory(IID_PPV_ARGS(factory.GetAddressOf())));
 
     RECT clientRect{};
-    if(!GetClientRect(hWnd, &clientRect)){
+    if (!GetClientRect(hWnd, &clientRect)) {
         assert(false);
     }
 
@@ -49,6 +49,8 @@ void SwapChain::Create(HWND hWnd) {
         buffers_[i] = std::make_unique<ColorBuffer>();
         buffers_[i]->CreateFromSwapChain(L"SwapChainBuffer" + std::to_wstring(i), resource.Detach());
     }
+
+    hWnd_ = hWnd;
 }
 
 void SwapChain::Present() {
@@ -57,4 +59,31 @@ void SwapChain::Present() {
     HRESULT hr = swapChain_->Present(vsync, 0);
     hr;
     Graphics::GetInstance()->CheckDRED(hr);
+}
+
+void SwapChain::Resize(uint32_t width, uint32_t height) {
+    if (swapChain_ == nullptr) return;
+
+    for (uint32_t i = 0; i < kNumBuffers; ++i) {
+        buffers_[i]->Release();
+        buffers_[i].reset();
+    }
+
+    DXGI_SWAP_CHAIN_DESC1 desc{};
+    swapChain_->GetDesc1(&desc);
+
+    HRESULT hr = swapChain_->ResizeBuffers(
+        kNumBuffers, width, height, desc.Format, desc.Flags);
+    ASSERT_IF_FAILED(hr);
+
+    for (uint32_t i = 0; i < kNumBuffers; ++i) {
+        ComPtr<ID3D12Resource> resource;
+        ASSERT_IF_FAILED(swapChain_->GetBuffer(i, IID_PPV_ARGS(resource.GetAddressOf())));
+        buffers_[i] = std::make_unique<ColorBuffer>();
+        buffers_[i]->CreateFromSwapChain(L"SwapChainBuffer" + std::to_wstring(i), resource.Detach());
+    }
+}
+
+void SwapChain::SetFullscreen(bool mode) {
+    swapChain_->SetFullscreenState(mode ? TRUE : FALSE, nullptr);
 }

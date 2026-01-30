@@ -3,28 +3,28 @@
 #include <Windows.h>
 #include <cstdint>
 
+enum class WindowMode {
+    Window, // ウィンドウ
+    Borderless, // ボーダーレスウィンドウ
+    Fullscreen // フルスクリーン
+};
+
 class GameWindow {
 public:
-    enum class SizeChangeMode {
-        kNone,       // サイズ変更不可
-        kNormal,     // 自由変更
-        kFixedAspect // アスペクトひ一定
-    };
-    
+
     static GameWindow* GetInstance();
 
     void Initialize(const wchar_t* title, uint32_t clientWidth, uint32_t clientHeight);
     bool ProcessMessage() const;
     void Shutdown();
 
-    void SetFullScreen(bool fullScreen);
-    bool IsFullScreen() const { return isFullScreen_; };
-    void SetSizeChangeMode(SizeChangeMode sizeChangeMode);
-    SizeChangeMode GetSizeChangeMode() const { return sizeChangeMode_; }
+    void SetWindowMode(WindowMode windowMode);
+    void SetWindowSize(uint32_t clientWidth, uint32_t clientHeight);
 
     HWND GetHWND() const { return hWnd_; }
     uint32_t GetClientWidth() const { return clientWidth_; }
     uint32_t GetClientHeight() const { return clientHeight_; }
+    WindowMode GetWindowMode() const { return windowMode_; }
 
 private:
     GameWindow() = default;
@@ -36,8 +36,6 @@ private:
     uint32_t clientHeight_ = 0;
     UINT windowStyle_ = 0;
     RECT windowRect_ = {};
-    float aspectRaito_ = 0.0f;
-    SizeChangeMode sizeChangeMode_ = SizeChangeMode::kFixedAspect;
-    bool isFullScreen_ = false;
+    WindowMode windowMode_ = WindowMode::Window;
 
 };

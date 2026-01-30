@@ -43,6 +43,8 @@ public:
     void Finalize();
     void Render();
 
+    void OnWindowResize(uint32_t width, uint32_t height);
+
     void SetCamera(const std::shared_ptr<Camera>& camera) { camera_ = camera; }
     void SetSunLight(const std::shared_ptr<DirectionalLight>& light) { sunLight_ = light; }
 

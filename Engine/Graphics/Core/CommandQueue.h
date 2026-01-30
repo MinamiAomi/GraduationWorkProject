@@ -22,6 +22,7 @@ public:
     void Wait(CommandQueue& commandQueue);
     void WaitForGPU(UINT64 fenceValue);
     void WaitForIdle() { WaitForGPU(IncrementFence()); }
+    void WaitForAll();
 
     UINT64 ExecuteCommandList(ID3D12CommandList* list);
     UINT64 ExecuteCommandLists(ID3D12CommandList** lists, UINT numLists);
