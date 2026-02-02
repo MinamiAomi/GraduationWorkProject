@@ -33,6 +33,8 @@ private:
 	ModelInstance batteryModel_;
 
 
+
+
 	Transform speedMeterTransform_;
 	Transform speedMeterNeedleTransform_;
 
