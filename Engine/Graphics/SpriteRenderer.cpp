@@ -5,6 +5,8 @@
 #include "Core/CommandContext.h"
 #include "Core/ShaderManager.h"
 #include "Core/SamplerManager.h"
+#include "Framework/Engine.h"
+#include "RenderManager.h"
 
 #include "DefaultTextures.h"
 #include "Sprite.h"
@@ -96,6 +98,9 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
     // 描画順並べる
     instanceList.sort([](Sprite* a, Sprite* b) { return a->GetDrawOrder() < b->GetDrawOrder(); });
 
+    float screenScaleX = static_cast<float>(Engine::kWindowWidth) / 1280.0f;
+    float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
+
     for (auto instance : instanceList) {
         if (instance->isActive_) {
 
@@ -125,7 +130,7 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
                 { 1.0f, 1.0f },
                 { 1.0f, 0.0f },
             };
-            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_);
+            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_) * Matrix3x3::MakeScaling({ screenScaleX, screenScaleY });;
 
             for (auto& vertex : localVertices) {
                 vertex = vertex * matrix;
@@ -146,7 +151,8 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
             commandContext.SetDynamicVertexBuffer(0, 6, sizeof(vertices[0]), vertices);
             if (instance->texture_) {
                 commandContext.SetDescriptorTable(SpriteRootIndex::Texture, instance->texture_->GetResource()->GetSRV());
-                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
+                //commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
+                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::AnisotropicWrap);
             }
             else {
                 commandContext.SetDescriptorTable(SpriteRootIndex::Texture, DefaultTexture::White.GetSRV());

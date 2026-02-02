@@ -47,6 +47,10 @@ void ColorBuffer::CreateArray(const std::wstring& name, uint32_t width, uint32_t
     CreateViews();
 }
 
+void ColorBuffer::Release() {
+    resource_.Reset();
+}
+
 void ColorBuffer::SetClearColor(const float* clearColor) {
     memcpy(clearColor_, clearColor, sizeof(clearColor_));
 }

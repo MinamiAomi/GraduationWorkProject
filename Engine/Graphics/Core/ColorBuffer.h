@@ -18,6 +18,8 @@ public:
     void Create(const std::wstring& name, uint32_t width, uint32_t height, DXGI_FORMAT format);
     void CreateArray(const std::wstring& name, uint32_t width, uint32_t height, uint32_t arraySize, DXGI_FORMAT format);
 
+    void Release();
+
     void SetClearColor(const float* clearColor);
     const float* GetClearColor() const { return clearColor_; }
     

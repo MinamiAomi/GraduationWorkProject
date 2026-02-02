@@ -21,10 +21,9 @@ public:
 
     void Initialize();
     void Finalize();
+    void ResetOrientation();
 
     Quaternion GetOrientation() const;
-    Vector3 GetAcceleration() const;
-    Vector3 GetGyro() const;
     ConnectionState GetConnectionState() const;
 
 private:
@@ -39,9 +38,8 @@ private:
 
     HANDLE hSerial_;
     
-    Vector3 acceleration_;
-    Vector3 gyro_;
     Quaternion orientation_;
+    Quaternion resetOrientation_;
 
     mutable std::mutex dataMutex_;
     std::thread communicationThread_;

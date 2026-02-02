@@ -66,6 +66,11 @@ void Engine::Run(Game* game) {
     while (g_gameWindow->ProcessMessage() && !g_sceneManager->IsTerminateSystem()) {
         g_input->Update();
 
+        if ((g_input->IsKeyPressed(DIK_LALT) && g_input->IsKeyTrigger(DIK_RETURN))) {
+            SetWindowMode(g_gameWindow->GetWindowMode() == WindowMode::Window ? WindowMode::Borderless : WindowMode::Window);
+
+        }
+
 #ifdef ENABLE_IMGUI
         g_editerManager->Render();
 #endif // ENABLE_IMGUI
@@ -88,6 +93,16 @@ void Engine::Run(Game* game) {
     g_renderManager->Finalize();
     g_graphics->Finalize();
     g_gameWindow->Shutdown();
+}
+
+void Engine::SetWindowMode(WindowMode mode) {
+    g_gameWindow->SetWindowMode(mode);
+
+    uint32_t newWidth = g_gameWindow->GetClientWidth();
+    uint32_t newHeight = g_gameWindow->GetClientHeight();
+
+    g_renderManager->GetSwapChain().SetFullscreen(mode == WindowMode::Fullscreen);
+    g_renderManager->OnWindowResize(newWidth, newHeight);
 }
 
 Game* Engine::GetGame() {

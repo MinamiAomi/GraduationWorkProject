@@ -63,7 +63,6 @@ void GameWindow::Initialize(const wchar_t* title, uint32_t clientWidth, uint32_t
         nullptr);				// オプション
     clientWidth_ = clientWidth;
     clientHeight_ = clientHeight;
-    aspectRaito_ = clientWidth_ / float(clientHeight_);
 
     // サイズ変更不可
     LONG style = GetWindowLong(hWnd_, GWL_STYLE);
@@ -97,54 +96,65 @@ void GameWindow::Shutdown() {
     CoUninitialize();
 }
 
-void GameWindow::SetFullScreen(bool fullscreen) {
-    if (isFullScreen_ != fullscreen) {
-        if (fullscreen) {
-            GetWindowRect(hWnd_, &windowRect_);
-
-            SetWindowLong(hWnd_, GWL_STYLE, windowStyle_ & ~(WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME));
-
-            RECT fullScreenRect{};
-            HMONITOR monitor = MonitorFromWindow(hWnd_, MONITOR_DEFAULTTONEAREST);
-            MONITORINFO info{};
-            info.cbSize = sizeof(info);
-            GetMonitorInfo(monitor, &info);
-            fullScreenRect.right = info.rcMonitor.right - info.rcMonitor.left;
-            fullScreenRect.bottom = info.rcMonitor.bottom - info.rcMonitor.top;
-
-            SetWindowPos(hWnd_,
-                HWND_TOPMOST, fullScreenRect.left, fullScreenRect.top, fullScreenRect.right, fullScreenRect.bottom,
-                SWP_FRAMECHANGED | SWP_NOACTIVATE);
-            ShowWindow(hWnd_, SW_MAXIMIZE);
-        }
-        else {
-            SetWindowLong(hWnd_, GWL_STYLE, windowStyle_);
-            SetWindowPos(hWnd_, HWND_NOTOPMOST,
-                windowRect_.left, windowRect_.top, windowRect_.right - windowRect_.left, windowRect_.bottom - windowRect_.top,
-                SWP_FRAMECHANGED | SWP_NOACTIVATE);
-            ShowWindow(hWnd_, SW_NORMAL);
-        }
+void GameWindow::SetWindowMode(WindowMode windowMode) {
+    if (windowMode_ == windowMode) {
+        return;
     }
 
-    isFullScreen_ = fullscreen;
+    if (windowMode == WindowMode::Fullscreen || windowMode == WindowMode::Borderless) {
+        if (windowMode_ == WindowMode::Window) {
+            GetWindowRect(hWnd_, &windowRect_);
+            windowStyle_ = GetWindowLong(hWnd_, GWL_STYLE);
+        }
+
+        SetWindowLong(hWnd_, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+
+        HMONITOR monitor = MonitorFromWindow(hWnd_, MONITOR_DEFAULTTONEAREST);
+        MONITORINFO info{};
+        info.cbSize = sizeof(info);
+        GetMonitorInfo(monitor, &info);
+
+        int w = info.rcMonitor.right - info.rcMonitor.left;
+        int h = info.rcMonitor.bottom - info.rcMonitor.top;
+
+        SetWindowPos(hWnd_, HWND_TOP, info.rcMonitor.left, info.rcMonitor.top, w, h, SWP_FRAMECHANGED | SWP_NOACTIVATE);
+
+        clientWidth_ = w;
+        clientHeight_ = h;
+    }
+    else if (windowMode == WindowMode::Window) {
+        SetWindowLong(hWnd_, GWL_STYLE, windowStyle_);
+
+        SetWindowPos(hWnd_, HWND_NOTOPMOST,
+            windowRect_.left, windowRect_.top,
+            windowRect_.right - windowRect_.left,
+            windowRect_.bottom - windowRect_.top,
+            SWP_FRAMECHANGED | SWP_NOACTIVATE);
+
+        RECT clientRect{};
+        GetClientRect(hWnd_, &clientRect);
+        clientWidth_ = static_cast<uint32_t>(clientRect.right - clientRect.left);
+        clientHeight_ = static_cast<uint32_t>(clientRect.bottom - clientRect.top);
+    }
+
+    windowMode_ = windowMode;
+
 }
 
-void GameWindow::SetSizeChangeMode(SizeChangeMode sizeChangeMode) {
-    sizeChangeMode_ = sizeChangeMode;
-    if (sizeChangeMode_ == SizeChangeMode::kNone) {
-        windowStyle_ &= ~WS_THICKFRAME;
+void GameWindow::SetWindowSize(uint32_t clientWidth, uint32_t clientHeight) {
+    clientWidth_ = clientWidth;
+    clientHeight_ = clientHeight;
+
+    if (windowMode_ != WindowMode::Window) {
+        windowRect_.right = windowRect_.left = static_cast<LONG>(clientWidth);
+        windowRect_.bottom = windowRect_.top = static_cast<LONG>(clientHeight);
+        return;
     }
-    else {
-        if (sizeChangeMode_ == SizeChangeMode::kFixedAspect) {
-            RECT clientRect{};
-            GetClientRect(hWnd_, &clientRect);
-            clientWidth_ = uint32_t(clientRect.right - clientRect.left);
-            clientHeight_ = uint32_t(clientRect.bottom - clientRect.top);
-            aspectRaito_ = clientWidth_ / float(clientHeight_);
-        }
-        windowStyle_ |= WS_THICKFRAME;
-    }
-    SetWindowLong(hWnd_, GWL_STYLE, windowStyle_);
-    SetWindowPos(hWnd_, nullptr, 0, 0, 0, 0, (SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED));
-    ShowWindow(hWnd_, SW_NORMAL);
+
+    RECT wrc = { 0, 0, static_cast<LONG>(clientWidth), static_cast<LONG>(clientHeight) };
+    AdjustWindowRect(&wrc, windowStyle_, FALSE);
+
+    SetWindowPos(hWnd_, nullptr, 0, 0,
+        wrc.right - wrc.left, wrc.bottom - wrc.top,
+        SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED);
 }

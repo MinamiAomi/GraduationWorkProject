@@ -138,3 +138,12 @@ void RenderManager::Render() {
     timer_.KeepFrameRate(60);
 
 }
+
+void RenderManager::OnWindowResize(uint32_t width, uint32_t height) {
+    graphics_->GetCommandManager().GetCommandQueue().WaitForAll();
+
+    swapChain_.Resize(width, height);
+
+    auto& swapChainBuffer = swapChain_.GetColorBuffer(0);
+    finalImageBuffer_.Create(L"FinalImageBuffer", width, height, swapChainBuffer.GetFormat());
+}

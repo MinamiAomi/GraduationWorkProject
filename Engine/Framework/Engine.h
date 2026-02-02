@@ -7,7 +7,7 @@
 #include <memory>
 
 #include "Input/Input.h"
-
+#include "Graphics/GameWindow.h"
 
 class Game;
 class GameWindow;
@@ -27,14 +27,16 @@ namespace Editer {
 
 class Engine {
 public:
-    static const uint32_t kWindowWidth = 1280;
-    static const uint32_t kWindowHeight = 720;
+    static const uint32_t kWindowWidth = 1920;
+    static const uint32_t kWindowHeight = 1080;
 
     /// <summary>
     /// ゲームをスタート
     /// </summary>
     /// <param name="game"></param>
     static void Run(Game* game);
+
+    static void SetWindowMode(WindowMode mode);
 
     // ゲッター
 
