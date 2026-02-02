@@ -15,7 +15,11 @@ TrolleyUI::TrolleyUI()
 	auto assetManager = AssetManager::GetInstance();
 	speedMeterModel_.SetModel(assetManager->modelMap.Get("speedMeter")->Get());
 	speedMeterNeedleModel_.SetModel(assetManager->modelMap.Get("speedMeterNeedle")->Get());
-	batteryModel_.SetModel(assetManager->modelMap.Get("batteryModel")->Get());
+
+	insideModel_.SetModel(assetManager->modelMap.Get("batteryInside")->Get());
+	outsideModel_.SetModel(assetManager->modelMap.Get("batteryOutside")->Get());
+	effectModel_.SetModel(assetManager->modelMap.Get("batteryEffect")->Get());
+	//batteryModel_.SetModel(assetManager->modelMap.Get("batteryModel")->Get());
 
 	auto baseTexture = assetManager->textureMap.Get("TrolleyBase")->Get();
 	auto chargeGaugeTexture = assetManager->textureMap.Get("TrolleyChargeGauge")->Get();
@@ -78,10 +82,23 @@ void TrolleyUI::Initialize(const Transform& transform)
 	speedMeterTransform_.SetParent(&transform);
 	speedMeterNeedleTransform_.SetParent(&speedMeterTransform_);
 
+	batterTransform_.SetParent(&trolley_->GetBatteyTransform(0),false);
+
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
+	batterTransform_.UpdateMatrix();
 
-	batteryModel_.SetWorldMatrix(trolley_->GetBatteyTransform(0).worldMatrix);
+	insideTransform_.SetParent(&batterTransform_, false);
+	outsideTransform_.SetParent(&batterTransform_, false);
+	effectTransform_.SetParent(&batterTransform_, false);
+
+	insideTransform_.UpdateMatrix();
+	outsideTransform_.UpdateMatrix();
+	effectTransform_.UpdateMatrix();
+
+	effectModel_.SetWorldMatrix(effectTransform_.worldMatrix);
+	insideModel_.SetWorldMatrix(insideTransform_.worldMatrix);
+	outsideModel_.SetWorldMatrix(outsideTransform_.worldMatrix);
 
 
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
@@ -101,8 +118,30 @@ void TrolleyUI::Update()
 
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
-	
-	batteryModel_.SetWorldMatrix(trolley_->GetBatteyTransform(0).worldMatrix);
+
+	if (trolley_->GetIsHitFlashlight()) {
+		float rate = trolley_->GetCenterRate();
+
+		float baseSpeed = rate * 0.1f;
+
+
+		insideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 1.0f, insideAxis_);
+
+		outsideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 0.7f, outsideAxis_);
+
+		effectTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 1.5f, effectAxis_);
+	}
+
+	batterTransform_.UpdateMatrix();
+	insideTransform_.UpdateMatrix();
+	outsideTransform_.UpdateMatrix();
+	effectTransform_.UpdateMatrix();
+
+	effectModel_.SetWorldMatrix(effectTransform_.worldMatrix);
+	insideModel_.SetWorldMatrix(insideTransform_.worldMatrix);
+	outsideModel_.SetWorldMatrix(outsideTransform_.worldMatrix);
+	//batteryModel_.SetWorldMatrix(trolley_->GetBatteyTransform(0).worldMatrix);
+
 
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
 	speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
@@ -117,7 +156,7 @@ void TrolleyUI::Update()
 
 	chargeUI_.SetScale({ std::lerp(0.0f,268.0f,chargeT),44.0f });
 	nitroUI_.SetScale({ std::lerp(0.0f,144.0f,nitroT),12.0f });
-	overChargeUI_.SetScale({ std::lerp(0.0f,268.0f,overChargeT),44.0f  });
+	overChargeUI_.SetScale({ std::lerp(0.0f,268.0f,overChargeT),44.0f });
 
 	chargeUI_.SetUVRect({ {0.0f,0.0f} ,{chargeT,1.0f} }, Sprite::UVMode::UV);
 	nitroUI_.SetUVRect({ {0.0f,0.0f} ,{nitroT,1.0f} }, Sprite::UVMode::UV);

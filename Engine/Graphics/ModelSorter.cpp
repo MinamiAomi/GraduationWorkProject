@@ -7,7 +7,7 @@ void ModelSorter::Sort(const Camera& camera) {
     auto& instanceList = ModelInstance::GetInstanceList();
     for (auto& instance : instanceList) {
         auto model = instance->GetModel().get();
-        if (!model) continue;
+        if (!model || !instance->IsActive()) continue;
 
         //わける
         drawModels_[kOpaque].emplace_back(instance);

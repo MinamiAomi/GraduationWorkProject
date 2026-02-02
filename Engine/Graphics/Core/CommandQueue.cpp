@@ -85,6 +85,30 @@ void CommandQueue::WaitForGPU(UINT64 fenceValue) {
     }
 }
 
+void CommandQueue::WaitForAll() {
+    auto device = Graphics::GetInstance()->GetDevice();
+    Microsoft::WRL::ComPtr<ID3D12Fence> fence;
+    ASSERT_IF_FAILED(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(fence.ReleaseAndGetAddressOf())));
+    {
+        // デバッグ用名前
+        std::wostringstream name;
+        name << L"Temp Fence ";
+        name << Helper::GetCommandListTypeStr(type_);
+        D3D12_OBJECT_SET_NAME(fence_, name.str().c_str());
+    }
+
+    HANDLE fenceEvent = CreateEventEx(nullptr, nullptr, FALSE, EVENT_ALL_ACCESS);
+        
+    commandQueue_->Signal(fence.Get(), 1);
+
+    if (fence->GetCompletedValue() < 1) {
+        fence->SetEventOnCompletion(1, fenceEvent);
+        WaitForSingleObject(fenceEvent, INFINITE);
+    }
+
+    CloseHandle(fenceEvent);
+}
+
 void CommandQueue::Destroy() {
     if (commandQueue_) {
         WaitForIdle();

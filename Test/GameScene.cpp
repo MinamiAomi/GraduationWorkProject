@@ -135,10 +135,6 @@ void GameScene::OnUpdate() {
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
 #pragma endregion
-#pragma region Trolley
-	trolley_->Update(deltaTime);
-#pragma endregion
-
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
@@ -154,6 +150,10 @@ void GameScene::OnUpdate() {
 	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
 
+
+#pragma region Trolley
+	trolley_->Update(deltaTime);
+#pragma endregion
 
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
