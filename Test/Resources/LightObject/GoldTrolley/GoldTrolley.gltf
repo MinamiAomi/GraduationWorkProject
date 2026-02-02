@@ -11,46 +11,14 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				3
+				0
 			]
 		}
 	],
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"\u5186\u67f1.001",
-			"translation":[
-				-5.349074490368366e-05,
-				-1.4675142765045166,
-				-1.2617576122283936
-			]
-		},
-		{
-			"mesh":1,
-			"name":"\u5186\u67f1.002",
-			"translation":[
-				-5.360809154808521e-05,
-				-1.4675142765045166,
-				1.4154772758483887
-			]
-		},
-		{
-			"mesh":2,
-			"name":"\u7acb\u65b9\u4f53",
-			"translation":[
-				-0.023385217413306236,
-				0.9051005840301514,
-				0.09760481119155884
-			]
-		},
-		{
-			"children":[
-				0,
-				1,
-				2
-			],
-			"mesh":3,
-			"name":"Trolley",
+			"name":"GoldTrolley",
 			"translation":[
 				0.003880301723256707,
 				-0.1510162502527237,
@@ -61,10 +29,23 @@
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"Wheel.001",
+			"emissiveFactor":[
+				1,
+				1,
+				1
+			],
+			"emissiveTexture":{
+				"index":0
+			},
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":2
+				}
+			},
+			"name":"Trolley.002",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":0
+					"index":1
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -72,20 +53,7 @@
 		},
 		{
 			"doubleSided":true,
-			"emissiveFactor":[
-				1,
-				1,
-				1
-			],
-			"emissiveTexture":{
-				"index":1
-			},
-			"extensions":{
-				"KHR_materials_emissive_strength":{
-					"emissiveStrength":1.9999998807907104
-				}
-			},
-			"name":"Gold",
+			"name":"Wheel.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":2
@@ -106,10 +74,10 @@
 			},
 			"extensions":{
 				"KHR_materials_emissive_strength":{
-					"emissiveStrength":2
+					"emissiveStrength":1.9999998807907104
 				}
 			},
-			"name":"Trolley.002",
+			"name":"Gold",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":4
@@ -121,7 +89,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u5186\u67f1.001",
+			"name":"\u7acb\u65b9\u4f53.001",
 			"primitives":[
 				{
 					"attributes":{
@@ -131,12 +99,7 @@
 					},
 					"indices":3,
 					"material":0
-				}
-			]
-		},
-		{
-			"name":"\u5186\u67f1.003",
-			"primitives":[
+				},
 				{
 					"attributes":{
 						"POSITION":4,
@@ -144,13 +107,8 @@
 						"TEXCOORD_0":6
 					},
 					"indices":7,
-					"material":0
-				}
-			]
-		},
-		{
-			"name":"\u7acb\u65b9\u4f53.003",
-			"primitives":[
+					"material":1
+				},
 				{
 					"attributes":{
 						"POSITION":8,
@@ -158,20 +116,6 @@
 						"TEXCOORD_0":10
 					},
 					"indices":11,
-					"material":1
-				}
-			]
-		},
-		{
-			"name":"\u7acb\u65b9\u4f53.001",
-			"primitives":[
-				{
-					"attributes":{
-						"POSITION":12,
-						"NORMAL":13,
-						"TEXCOORD_0":14
-					},
-					"indices":15,
 					"material":2
 				}
 			]
@@ -202,6 +146,16 @@
 	"images":[
 		{
 			"mimeType":"image/png",
+			"name":"TrolleyEmi",
+			"uri":"TrolleyEmi.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"TrolleyTex",
+			"uri":"TrolleyTex.png"
+		},
+		{
+			"mimeType":"image/png",
 			"name":"WheelTex",
 			"uri":"WheelTex.png"
 		},
@@ -214,85 +168,75 @@
 			"mimeType":"image/png",
 			"name":"Gold",
 			"uri":"Gold.png"
-		},
-		{
-			"mimeType":"image/png",
-			"name":"TrolleyEmi",
-			"uri":"TrolleyEmi.png"
-		},
-		{
-			"mimeType":"image/png",
-			"name":"TrolleyTex",
-			"uri":"TrolleyTex.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":520,
+			"count":828,
 			"max":[
-				1.813177227973938,
-				0.5362417101860046,
-				0.5362421870231628
+				1.7075046300888062,
+				1.4634909629821777,
+				2.8316402435302734
 			],
 			"min":[
-				-1.813177466392517,
-				-0.5362417101860046,
-				-0.5362422466278076
+				-1.7076119184494019,
+				-1.4983084201812744,
+				-3.0065624713897705
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":520,
+			"count":828,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":520,
+			"count":828,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":744,
+			"count":1476,
 			"type":"SCALAR"
 		},
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":520,
+			"count":1046,
 			"max":[
-				1.8131773471832275,
-				0.5362417101860046,
-				0.5362423062324524
+				1.8131237030029297,
+				-0.931272566318512,
+				1.9517195224761963
 			],
 			"min":[
-				-1.8131773471832275,
-				-0.5362417101860046,
-				-0.5362421870231628
+				-1.8132309913635254,
+				-2.003756046295166,
+				-1.7979998588562012
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
 			"componentType":5126,
-			"count":520,
+			"count":1046,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":6,
 			"componentType":5126,
-			"count":520,
+			"count":1046,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":7,
 			"componentType":5123,
-			"count":744,
+			"count":1488,
 			"type":"SCALAR"
 		},
 		{
@@ -300,14 +244,14 @@
 			"componentType":5126,
 			"count":145,
 			"max":[
-				1.5093861818313599,
-				1.0209789276123047,
-				2.577554941177368
+				1.4860010147094727,
+				1.926079511642456,
+				2.6751596927642822
 			],
 			"min":[
-				-1.4703763723373413,
-				-0.678217887878418,
-				-2.561124086380005
+				-1.4937615394592285,
+				0.2268826961517334,
+				-2.463519334793091
 			],
 			"type":"VEC3"
 		},
@@ -328,137 +272,79 @@
 			"componentType":5123,
 			"count":666,
 			"type":"SCALAR"
-		},
-		{
-			"bufferView":12,
-			"componentType":5126,
-			"count":828,
-			"max":[
-				1.7075046300888062,
-				1.4634909629821777,
-				2.8316402435302734
-			],
-			"min":[
-				-1.7076119184494019,
-				-1.4983084201812744,
-				-3.0065624713897705
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":13,
-			"componentType":5126,
-			"count":828,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":14,
-			"componentType":5126,
-			"count":828,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":15,
-			"componentType":5123,
-			"count":1476,
-			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":6240,
+			"byteLength":9936,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6240,
-			"byteOffset":6240,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4160,
-			"byteOffset":12480,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1488,
-			"byteOffset":16640,
-			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":6240,
-			"byteOffset":18128,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":6240,
-			"byteOffset":24368,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":4160,
-			"byteOffset":30608,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1488,
-			"byteOffset":34768,
-			"target":34963
-		},
-		{
-			"buffer":0,
-			"byteLength":1740,
-			"byteOffset":36256,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1740,
-			"byteOffset":37996,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1160,
-			"byteOffset":39736,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":1332,
-			"byteOffset":40896,
-			"target":34963
-		},
-		{
-			"buffer":0,
 			"byteLength":9936,
-			"byteOffset":42228,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":9936,
-			"byteOffset":52164,
+			"byteOffset":9936,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":6624,
-			"byteOffset":62100,
+			"byteOffset":19872,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2952,
-			"byteOffset":68724,
+			"byteOffset":26496,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":12552,
+			"byteOffset":29448,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":12552,
+			"byteOffset":42000,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":8368,
+			"byteOffset":54552,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2976,
+			"byteOffset":62920,
+			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":1740,
+			"byteOffset":65896,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1740,
+			"byteOffset":67636,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1160,
+			"byteOffset":69376,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1332,
+			"byteOffset":70536,
 			"target":34963
 		}
 	],
@@ -470,7 +356,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":71676,
+			"byteLength":71868,
 			"uri":"GoldTrolley.bin"
 		}
 	]
