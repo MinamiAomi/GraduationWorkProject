@@ -102,10 +102,13 @@ void GameScene::OnInitialize() {
 #pragma region Bats
 	batsManager_ = std::make_unique<BatsManager>();
 	batsManager_->SetCamera(camera_.get());
+	batsManager_->SetColliderSystem(collisionSystem_.get());
+	//test
+	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+	batsManager_->Emit(mapData);
+
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
-
-
 
 #ifdef _DEBUG
 	debugCamera_ = std::make_unique<DebugCamera>();
@@ -116,7 +119,7 @@ void GameScene::OnInitialize() {
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
-
+	PowerEmitter::Debug();
 #ifndef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;

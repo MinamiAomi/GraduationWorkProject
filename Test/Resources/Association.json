@@ -52,5 +52,8 @@
     "FlashlightGauge" : "Flashlight/FlashlightUI/Texture/gauge_yellow.png",
 
     "white2x2":"white2x2.png"
+  },
+  "Animation" : {
+    "batAnim" : "Bat/Bat.gltf"
   }
 }

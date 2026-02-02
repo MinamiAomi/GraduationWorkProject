@@ -9,37 +9,49 @@
 
 
 #include "Graphics/Model.h"
-#include "LightObject.h"
 #include "ParticleDefine.h"
 
 
-class PowerEmitter
+class BatsParticles
 {
 public:
 
-	void Initialize(EmitShape shape, const LightObject* parentLight);
+	bool static isDebug;
+
+	static void Debug();
+
+	void Initialize(float radius);
 	void Update();
 	void DebugDraw();
-	static void Debug();
 
 	void SetColor(Vector3 color) {
 		material_->albedo = color;
 	};
+	bool HasParticles() const {
+		return !particles_.empty();
+	}
 	void SetSize(const Vector3& size) { size_ = size; }
 	void SetRadius(float radius) { radius_ = radius; }
 
 	void SetOffset(const Vector3& offset) { transform_.translate = offset; }
 	void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
+	void SetIsEmit(bool isEmit) { isEmit_ = isEmit; }
+	void SetParent(Transform* parent) { transform_.SetParent(parent); }
 public:
 	std::shared_ptr<Material> material_;
 	inline static float minSpeed_ = 0.002f;
 	inline static float maxSpeed_ = 0.003f;
 	inline static Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };
 	inline static Vector3 maxAngularVelocity_ = { 0.05f,  0.05f,  0.05f };
-	inline static float scaleDecay_ = 0.02f;
+	inline static Vector3 minDirection_ = { -0.5f, 1.0f, -0.5f };
+	inline static Vector3 maxDirection_ = { 0.5f,  1.0f,  0.5f };
+	inline static float startScaleDecay_ = 0.02f;
+	inline static float goalScaleDecay_ = 0.02f;
 	inline static int emitInterval_ = 20;
 	inline static float minScale_ = 0.1f;
 	inline static float maxScale_ = 0.5f;
+
+	float scaleDecay_;
 private:
 	void Emit();
 private:
@@ -52,14 +64,14 @@ private:
 		bool isSuction_ = false;
 	};
 
-
+	bool isEmit_ = false;
 	Transform transform_;
-	const LightObject* parentLight_;
 	std::shared_ptr<Model> model_;
 	std::vector<std::unique_ptr<Particle>> particles_;
 	Random::RandomNumberGenerator rnd_;
-	EmitShape emitShapeType_;
+	EmitShape emitShapeType_; 
 	int emitTimer_ = 0;
+	
 
 	//OOBB
 	Vector3 size_;

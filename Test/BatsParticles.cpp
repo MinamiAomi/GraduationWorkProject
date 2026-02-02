@@ -1,18 +1,85 @@
-#include "PowerEmitter.h"
+#include "BatsParticles.h"
 
 #include "Engine/Framework/AssetManager.h"
 #include "Engine/Graphics/RenderManager.h"
 #include "Trolley.h"
 
-void PowerEmitter::Initialize(EmitShape shape, const LightObject* parentLight)
+void BatsParticles::Debug() {
+	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
+	if (ImGui::TreeNode("BatsParticles")) {
+
+		ImGui::DragFloat("minSpeed_", &minSpeed_, 0.01f);
+		ImGui::DragFloat("maxSpeed_", &maxSpeed_, 0.01f, minSpeed_);
+		if (minSpeed_ > maxSpeed_) {
+			maxSpeed_ = minSpeed_ + 0.01f;
+		}
+		ImGui::DragFloat3("minAngularVelocity_", &minAngularVelocity_.x, 0.01f);
+		ImGui::DragFloat3("maxAngularVelocity_", &maxAngularVelocity_.x, 0.01f);
+		if (minAngularVelocity_.x > maxAngularVelocity_.x) {
+			maxAngularVelocity_.x = minAngularVelocity_.x + 0.01f;
+		}
+		if (minAngularVelocity_.y > maxAngularVelocity_.y) {
+			maxAngularVelocity_.y = minAngularVelocity_.y + 0.01f;
+		}
+		if (minAngularVelocity_.z > maxAngularVelocity_.z) {
+			maxAngularVelocity_.z = minAngularVelocity_.z + 0.01f;
+		}
+
+		ImGui::DragFloat3("minDirection_", &minDirection_.x, 0.01f);
+		ImGui::DragFloat3("maxDirection_", &maxDirection_.x, 0.01f);
+		if (minDirection_.x > maxDirection_.x) {
+			maxDirection_.x = minDirection_.x + 0.01f;
+		}
+		if (minDirection_.y > maxDirection_.y) {
+			maxDirection_.y = minDirection_.y + 0.01f;
+		}
+		if (minDirection_.z > maxDirection_.z) {
+			maxDirection_.z = minDirection_.z + 0.01f;
+		}
+		ImGui::DragFloat("startScaleDecay_", &startScaleDecay_, 0.01f,0.01f);
+		ImGui::DragFloat("goalScaleDecay_", &goalScaleDecay_, 0.01f, 0.01f);
+		if (startScaleDecay_ < 0.01f) {
+			startScaleDecay_ = 0.01f;
+		}
+		if (goalScaleDecay_ < 0.01f) {
+			goalScaleDecay_ = 0.01f;
+		}
+		ImGui::DragInt("emitInterval_", &emitInterval_, 1, 0);
+		ImGui::DragFloat("minScale_", &minScale_, 0.01f);
+		ImGui::DragFloat("maxScale_", &maxScale_, 0.01f, minScale_);
+		if (minScale_ > maxScale_) {
+			maxScale_ = minScale_ + 0.01f;
+		}
+
+		if (ImGui::Button("Save")) {
+			JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
+			JSON_OBJECT("powerEmitter");
+			JSON_SAVE_BY_NAME("minSpeed_", minSpeed_);
+			JSON_SAVE_BY_NAME("maxSpeed_", maxSpeed_);
+			JSON_SAVE_BY_NAME("minAngularVelocity_", minAngularVelocity_);
+			JSON_SAVE_BY_NAME("maxAngularVelocity_", maxAngularVelocity_);
+			JSON_SAVE_BY_NAME("minDirection_", minDirection_);
+			JSON_SAVE_BY_NAME("maxDirection_", maxDirection_);
+			JSON_SAVE_BY_NAME("startScaleDecay_", startScaleDecay_);
+			JSON_SAVE_BY_NAME("goalScaleDecay_", goalScaleDecay_);
+			JSON_SAVE_BY_NAME("emitInterval_", emitInterval_);
+			JSON_SAVE_BY_NAME("minScale_", minScale_);
+			JSON_SAVE_BY_NAME("maxScale_", maxScale_);
+			JSON_CLOSE();
+		}
+		ImGui::TreePop();
+
+	}
+	ImGui::End();
+}
+
+void BatsParticles::Initialize(float radius)
 {
-	emitShapeType_ = shape;
-	parentLight_ = parentLight;
-	transform_.SetParent(parentLight->GetTransform(),false);
+	emitShapeType_ = EmitShape::kSphere;
 	auto assetManager = AssetManager::GetInstance();
 	model_ = assetManager->modelMap.Get("Box")->Get();
-	radius_ = parentLight_->GetModelResource()->GetRadius() * transform_.worldMatrix.GetScale().x;
-	size_ = { 2.0f, 2.0f, 2.0f };
+	radius_ = radius;
+	size_ = { 1.0f, 1.0f, 1.0f };
 	emitInterval_ = 20;
 	emitTimer_ = 0;
 	minScale_ = 0.1f;
@@ -20,56 +87,42 @@ void PowerEmitter::Initialize(EmitShape shape, const LightObject* parentLight)
 	material_ = std::make_shared<Material>();
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
-	const Color color = parentLight->GetColor();
-	material_->albedo = Vector3{ color.GetR(),color.GetG(),color.GetB()};
+	material_->albedo = Vector3{ 0.8f,0.15f,0.75f};
 
-	JSON_OPEN("Resources/Data/GameScene/powerEmitter.json");
-	JSON_OBJECT("powerEmitter");
+	JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
+	JSON_OBJECT("batsParticles");
 	JSON_LOAD_BY_NAME("minSpeed_", minSpeed_);
 	JSON_LOAD_BY_NAME("maxSpeed_", maxSpeed_);
 	JSON_LOAD_BY_NAME("minAngularVelocity_", minAngularVelocity_);
 	JSON_LOAD_BY_NAME("maxAngularVelocity_", maxAngularVelocity_);
-	JSON_LOAD_BY_NAME("scaleDecay_", scaleDecay_);
+	JSON_LOAD_BY_NAME("minDirection_", minDirection_);
+	JSON_LOAD_BY_NAME("maxDirection_", maxDirection_);
+	JSON_LOAD_BY_NAME("startScaleDecay_", startScaleDecay_);
+	JSON_LOAD_BY_NAME("goalScaleDecay_", goalScaleDecay_);
 	JSON_LOAD_BY_NAME("emitInterval_", emitInterval_);
 	JSON_LOAD_BY_NAME("minScale_", minScale_);
 	JSON_LOAD_BY_NAME("maxScale_", maxScale_);
 	JSON_CLOSE();
+	scaleDecay_ = startScaleDecay_;
 }
 
-void PowerEmitter::Update()
+void BatsParticles::Update()
 {
-	
-	radius_ = parentLight_->GetModelResource()->GetRadius() * transform_.worldMatrix.GetScale().x;
-
 
 	transform_.UpdateMatrix();
-	if (parentLight_->GetIsActive() && parentLight_->GetHp()) {
+	if (isEmit_) {
 		emitTimer_++;
-		if (emitTimer_ >= emitInterval_) {
-			Emit();
-			emitTimer_ = 0;
-		}
 	}
-
-
-	const auto& flashlight = Trolley::GetInstance()->GetFlashlight();
+	if ((emitTimer_ >= emitInterval_) && isEmit_) {
+		Emit();
+		emitTimer_ = 0;
+	}
 	
 	for (auto it = particles_.begin(); it != particles_.end(); ) {
 
 		Particle* p = it->get(); 
 
-		if ((parentLight_->GetDamage() > 0.0f || !parentLight_->GetIsActive()) && !p->isSuction_) {
-			p->isSuction_ = true;
-		}
-
-		if (p->isSuction_ == true) {
-			Vector3 offset = { 0.0f,-2.0f,0.0f };
-			p->transform_.translate = Vector3::Lerp(0.1f, p->transform_.translate, flashlight->GetTransform().worldMatrix.GetTranslate() + offset);
-		}
-		else {
-			p->transform_.translate = p->transform_.translate + p->velocity_;
-
-		}
+		p->transform_.translate = p->transform_.translate + p->velocity_;
 
 		Quaternion deltaRot = Quaternion::MakeFromEulerAngle(p->angularVelocity_);
 		p->transform_.rotate = p->transform_.rotate * deltaRot;
@@ -93,7 +146,7 @@ void PowerEmitter::Update()
 	
 }
 
-void PowerEmitter::DebugDraw()
+void BatsParticles::DebugDraw()
 {
 	auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
@@ -111,60 +164,8 @@ void PowerEmitter::DebugDraw()
 	}
 }
 
-void PowerEmitter::Debug()
-{
-	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-	if (ImGui::TreeNode("BatsParticles")) {
 
-		ImGui::DragFloat("minSpeed_", &minSpeed_, 0.01f);
-		ImGui::DragFloat("maxSpeed_", &maxSpeed_, 0.01f, minSpeed_);
-		if (minSpeed_ > maxSpeed_) {
-			maxSpeed_ = minSpeed_ + 0.01f;
-		}
-		ImGui::DragFloat3("minAngularVelocity_", &minAngularVelocity_.x, 0.01f);
-		ImGui::DragFloat3("maxAngularVelocity_", &maxAngularVelocity_.x, 0.01f);
-		if (minAngularVelocity_.x > maxAngularVelocity_.x) {
-			maxAngularVelocity_.x = minAngularVelocity_.x + 0.01f;
-		}
-		if (minAngularVelocity_.y > maxAngularVelocity_.y) {
-			maxAngularVelocity_.y = minAngularVelocity_.y + 0.01f;
-		}
-		if (minAngularVelocity_.z > maxAngularVelocity_.z) {
-			maxAngularVelocity_.z = minAngularVelocity_.z + 0.01f;
-		}
-
-		ImGui::DragFloat("scaleDecay_", &scaleDecay_, 0.01f, 0.01f);
-		ImGui::DragFloat("scaleDecay_", &scaleDecay_, 0.01f, 0.01f);
-		if (scaleDecay_ < 0.01f) {
-			scaleDecay_ = 0.01f;
-		}
-		ImGui::DragInt("emitInterval_", &emitInterval_, 1, 0);
-		ImGui::DragFloat("minScale_", &minScale_, 0.01f);
-		ImGui::DragFloat("maxScale_", &maxScale_, 0.01f, minScale_);
-		if (minScale_ > maxScale_) {
-			maxScale_ = minScale_ + 0.01f;
-		}
-
-		if (ImGui::Button("Save")) {
-			JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
-			JSON_OBJECT("powerEmitter");
-			JSON_SAVE_BY_NAME("minSpeed_", minSpeed_);
-			JSON_SAVE_BY_NAME("maxSpeed_", maxSpeed_);
-			JSON_SAVE_BY_NAME("minAngularVelocity_", minAngularVelocity_);
-			JSON_SAVE_BY_NAME("maxAngularVelocity_", maxAngularVelocity_);
-			JSON_SAVE_BY_NAME("scaleDecay_", scaleDecay_);
-			JSON_SAVE_BY_NAME("emitInterval_", emitInterval_);
-			JSON_SAVE_BY_NAME("minScale_", minScale_);
-			JSON_SAVE_BY_NAME("maxScale_", maxScale_);
-			JSON_CLOSE();
-		}
-		ImGui::TreePop();
-
-	}
-	ImGui::End();
-}
-
-void PowerEmitter::Emit()
+void BatsParticles::Emit()
 {
 	auto newParticle = std::make_unique<Particle>();
 
@@ -210,15 +211,18 @@ void PowerEmitter::Emit()
 	newParticle->transform_.translate = spawnPos;
 
 	Vector3 randomDir = {
-		rnd_.NextFloatRange(-1.0f, 1.0f),
-		rnd_.NextFloatRange(-1.0f, 1.0f),
-		rnd_.NextFloatRange(-1.0f, 1.0f)
+		rnd_.NextFloatRange(minDirection_.x, maxDirection_.x),
+		rnd_.NextFloatRange(minDirection_.y, maxDirection_.y),
+		rnd_.NextFloatRange(minDirection_.z, maxDirection_.z)
 	};
 	if (randomDir.LengthSquare() != 0) {
 		randomDir = randomDir.Normalized();
 	}
 
 	float speed = rnd_.NextFloatRange(minSpeed_, maxSpeed_);
+
+
+
 	newParticle->velocity_ = randomDir * speed;
 
 	newParticle->angularVelocity_ = {

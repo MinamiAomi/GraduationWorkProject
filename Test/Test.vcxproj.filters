@@ -160,6 +160,9 @@
     <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="AnimationLoader.cpp" />
     <ClCompile Include="BatsManager.cpp" />
+    <ClCompile Include="BatsParticles.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -273,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="BatsManager.h">
       <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="BatsParticles.h">
+      <Filter>Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

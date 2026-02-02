@@ -25,5 +25,14 @@ void BatsManager::Update()
 
 void BatsManager::Emit(const std::vector<std::vector<bool>>& emit)
 {
-    batsManager_.push_back(std::make_unique<Bats>(emit,*camera_));
+
+    std::unique_ptr<Bats> bats = std::make_unique<Bats>(emit, *camera_);
+
+    for (auto& bat : bats->GetBats()) {
+        if (bat->collider_) {
+            collisionSystem_->RegisterCollider(bat->collider_);
+        }
+    }
+    
+    batsManager_.push_back(std::move(bats));
 }

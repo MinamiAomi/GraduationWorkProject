@@ -65,8 +65,6 @@ void TitleScene::OnInitialize() {
 
 	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
 
-
-
 	bats_ = std::make_unique<Bats>(mapData, *camera_->GetCamera());
 	bats_->SetOffset({ 0.0f,20.0f,20.0f });
 }
@@ -107,6 +105,8 @@ void TitleScene::OnUpdate() {
 	}
 
 	camera_->Update();
+
+	BatsParticles::Debug();
 
 #endif // _DEBUG
 
