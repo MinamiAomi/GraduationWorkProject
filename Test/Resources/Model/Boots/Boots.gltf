@@ -61,7 +61,7 @@
 						"NORMAL":5,
 						"TEXCOORD_0":6
 					},
-					"indices":3,
+					"indices":7,
 					"material":1
 				}
 			]
@@ -146,6 +146,12 @@
 			"componentType":5126,
 			"count":104,
 			"type":"VEC2"
+		},
+		{
+			"bufferView":7,
+			"componentType":5123,
+			"count":264,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -190,6 +196,12 @@
 			"byteLength":832,
 			"byteOffset":6352,
 			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":528,
+			"byteOffset":7184,
+			"target":34963
 		}
 	],
 	"samplers":[
@@ -200,7 +212,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":7184,
+			"byteLength":7712,
 			"uri":"Boots.bin"
 		}
 	]
