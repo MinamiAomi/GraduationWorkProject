@@ -1,6 +1,45 @@
 {
   "objects": [
     {
+      "name": "エンプティ",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "Trolley_1",
+        "isOnce": true
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "radius": 2.0
+      }
+    },
+    {
       "name": "Crystal.001",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
@@ -32,8 +71,8 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.9056,
+          0.8885
         ],
         "intensity": 10.0,
         "range": 53.12,
@@ -144,11 +183,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -200,11 +239,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -256,11 +295,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -312,11 +351,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -368,11 +407,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -424,11 +463,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -480,11 +519,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -536,11 +575,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -592,11 +631,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -648,11 +687,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -704,11 +743,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -760,11 +799,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -816,11 +855,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -872,11 +911,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -928,11 +967,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -984,11 +1023,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1040,11 +1079,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1096,11 +1135,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1152,11 +1191,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1208,11 +1247,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1264,11 +1303,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1320,11 +1359,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1376,11 +1415,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1432,11 +1471,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1488,11 +1527,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1544,11 +1583,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1600,11 +1639,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1656,11 +1695,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1712,11 +1751,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1768,11 +1807,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1824,11 +1863,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1880,11 +1919,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1936,11 +1975,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1992,11 +2031,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3224,11 +3263,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3280,11 +3319,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3336,11 +3375,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3392,11 +3431,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3448,11 +3487,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3504,11 +3543,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3560,11 +3599,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3616,11 +3655,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3672,11 +3711,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3728,11 +3767,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3784,11 +3823,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3896,11 +3935,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -3952,11 +3991,11 @@
         ],
         "color": [
           1.0,
-          0.3185,
-          0.0452
+          0.5758,
+          0.3432
         ],
-        "intensity": 10.0,
-        "range": 53.12,
+        "intensity": 1.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -4011,8 +4050,8 @@
           0.7531,
           0.0684
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4067,8 +4106,8 @@
           0.7531,
           0.0684
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4123,8 +4162,8 @@
           0.7531,
           0.0684
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4172,15 +4211,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4191,7 +4230,7 @@
           4.7836
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4228,15 +4267,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4247,7 +4286,7 @@
           4.6174
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4284,15 +4323,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4303,7 +4342,7 @@
           5.5598
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4340,15 +4379,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4359,7 +4398,7 @@
           5.9863
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4396,15 +4435,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4415,7 +4454,7 @@
           5.4187
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4452,15 +4491,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4471,7 +4510,7 @@
           5.5914
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4508,15 +4547,15 @@
         "offset": [
           0.0,
           0.0,
-          0.0
+          -1.86
         ],
         "color": [
           1.0,
-          0.5561,
-          0.1812
+          0.8915,
+          0.8234
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 1.47,
+        "range": 10.0,
         "decay": 1.0
       },
       "collider": {
@@ -4527,7 +4566,7 @@
           10.1778
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.01,
         "quaternion": [
           1.0,
           0.0,
@@ -4563,16 +4602,16 @@
       "point_light": {
         "offset": [
           0.0,
-          0.0,
-          0.0
+          2.67,
+          0.93
         ],
         "color": [
           1.0,
           0.9533,
           0.3265
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4583,7 +4622,7 @@
           1.2503
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.0,
         "quaternion": [
           0.5894,
           0.1119,
@@ -4619,16 +4658,16 @@
       "point_light": {
         "offset": [
           0.0,
-          0.0,
-          0.0
+          2.67,
+          0.93
         ],
         "color": [
           1.0,
           0.9533,
           0.3265
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4639,7 +4678,7 @@
           -0.0844
         ],
         "radius": 0.5,
-        "height": 1.0,
+        "height": 0.0,
         "quaternion": [
           0.5177,
           0.0519,
@@ -4683,8 +4722,8 @@
           0.7531,
           0.0684
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4739,8 +4778,8 @@
           0.7531,
           0.0684
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 15.0,
         "decay": 1.0
       },
       "collider": {
@@ -4763,12 +4802,12 @@
     {
       "name": "CoalTrolley.002",
       "model_name": "CoalTrolley",
-      "type": "POINTLIGHT",
+      "type": "GIMMICK",
       "srt": {
         "translate": [
-          801.2803,
-          401.4197,
-          3.7091
+          797.4247,
+          401.3403,
+          2.9166
         ],
         "rotate": [
           0.7597,
@@ -4783,38 +4822,89 @@
         ]
       },
       "enemy_spawn_data": null,
-      "gimmick_data": null,
-      "point_light": {
-        "offset": [
-          0.0,
-          0.0,
-          0.0
+      "gimmick_data": {
+        "subtype": "MOVER",
+        "key": "Trolley_1",
+        "duration": 60,
+        "is_cyclic": false,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 61.0,
+            "value": 60.0
+          }
         ],
-        "color": [
-          1.0,
-          0.9533,
-          0.3265
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 805.793,
+              "y": 400.2118,
+              "z": 9.0245
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "x": 796.6519,
+              "y": 401.3251,
+              "z": 2.3631
+            }
+          }
         ],
-        "intensity": 5.0,
-        "range": 5.0,
-        "decay": 1.0
-      },
-      "collider": {
-        "type": "CAPSULE",
-        "center": [
-          801.4272,
-          401.4691,
-          2.7031
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          }
         ],
-        "radius": 0.5,
-        "height": 1.0,
-        "quaternion": [
-          0.7597,
-          -0.1005,
-          -0.1308,
-          0.629
+        "path_points": [
+          [
+            805.793,
+            400.2118,
+            9.0245
+          ],
+          [
+            803.1531,
+            401.0904,
+            6.8078
+          ],
+          [
+            801.2864,
+            401.3066,
+            5.6706
+          ],
+          [
+            798.4056,
+            401.3834,
+            3.624
+          ],
+          [
+            796.6519,
+            401.3251,
+            2.3631
+          ]
         ]
-      }
+      },
+      "point_light": null,
+      "collider": null
     },
     {
       "name": "EnemySpawn.001",
@@ -5014,15 +5104,15 @@
           0.0
         ],
         "rotate": [
-          0.9684,
-          -0.2485,
-          -0.0054,
-          -0.0187
+          1.0,
+          0.0,
+          0.0,
+          0.0
         ],
         "scale": [
-          3.7152,
-          3.7152,
-          3.7152
+          1.0,
+          1.0,
+          1.0
         ]
       },
       "enemy_spawn_data": null,
@@ -5045,17 +5135,17 @@
       "collider": {
         "type": "CAPSULE",
         "center": [
-          934.4335,
-          306.7245,
-          27.0558
+          934.416,
+          307.4569,
+          27.7564
         ],
         "radius": 0.5,
         "height": 1.0,
         "quaternion": [
-          0.9684,
-          -0.2485,
-          -0.0054,
-          -0.0187
+          1.0,
+          0.0,
+          0.0,
+          0.0
         ]
       }
     }

@@ -3,6 +3,8 @@
 
 #include "AnimationLoader.h"
 
+#include "SceneObjectConverter.h"
+
 namespace SceneObjectSystem {
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o) {
@@ -142,15 +144,16 @@ namespace SceneObjectSystem {
 	{
 
 		if (isActive) {
-			time += 1.0f;
+			time++;
 			auto result = AnimationUtils::CalculateCurrentTransform(evalTimeKeys, moverAnimation.positionKeys, moverAnimation.rotationKeys, time);
-			transform = result.second;
+			transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(result.first.translate);
+			transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(result.first.rotate);
 			transform.UpdateMatrix();
 			model.SetWorldMatrix(transform.worldMatrix);
 			if (time >= duration && isCyclic) {
 				time = 0.0f;
 			}
-			else if(time >= duration && !isCyclic){
+			else if (time >= duration && !isCyclic) {
 				time = duration;
 			}
 		}

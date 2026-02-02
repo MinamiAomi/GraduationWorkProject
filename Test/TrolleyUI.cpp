@@ -101,7 +101,7 @@ void TrolleyUI::Update()
 
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
-
+	
 	batteryModel_.SetWorldMatrix(trolley_->GetBatteyTransform(0).worldMatrix);
 
 	speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
