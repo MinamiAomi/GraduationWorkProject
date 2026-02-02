@@ -75,6 +75,9 @@ public:
 
 	const Transform& GetBatteyTransform(int i)const { return batteryTransforms_.at(i); }
 	const Flashlight* GetFlashlight() const { return flashlight_; }
+
+	const bool GetIsHitFlashlight()const { return isHitFlashlight_; }
+	const float GetCenterRate()const { return centerRate_; }
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);
