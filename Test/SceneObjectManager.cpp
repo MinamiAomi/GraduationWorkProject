@@ -75,6 +75,9 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 		obj->powerEmitter_.Update();
 		obj->lightObject.Update();
+        // HPに応じて発光の強さを変える
+        obj->material->emissive = Vector3(obj->lightObject.GetHp() / obj->lightObject.GetMaxHp());
+
 		//何かに当ったら
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {

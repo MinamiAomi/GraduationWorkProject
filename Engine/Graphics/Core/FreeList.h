@@ -11,6 +11,7 @@ public:
     void Resize(uint32_t size);
     uint32_t Allocate();
     void Free(uint32_t offset);
+    bool IsFree(uint32_t offset) const;
 
     uint32_t Size() const { return m_size; }
     uint32_t FreeCount() const { return m_freeCount; }

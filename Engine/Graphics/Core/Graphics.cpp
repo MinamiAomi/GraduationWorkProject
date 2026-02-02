@@ -280,25 +280,35 @@ void Graphics::CheckDRED(HRESULT presentReturnValue) {
         auto node = autoBreadcrumbsOutput.pHeadAutoBreadcrumbNode;
 
         while (node != nullptr) {
-            auto error = std::format(
-                L"Node :\n"
-                L"CommandList  Name = {}, Address = {}\n"
-                L"CommandQueue Name = {}, Address = {}\n"
-                L"Command Count = {}\n"
-                L"Completed Commands = {}\n",
-                node->pCommandListDebugNameW,
-                reinterpret_cast<UINT64>(node->pCommandList),
-                node->pCommandQueueDebugNameW,
-                reinterpret_cast<UINT64>(node->pCommandQueue),
-                node->BreadcrumbCount,
-                *(node->pLastBreadcrumbValue));
-            OutputDebugStringW(error.c_str());
+            auto cmdListName = node->pCommandListDebugNameW ? node->pCommandListDebugNameW : L"NULL";
+            auto queueName = node->pCommandQueueDebugNameW ? node->pCommandQueueDebugNameW : L"NULL";
 
-            for (uint32_t i = 0; i < node->BreadcrumbCount; ++i) {
-                auto cmd = node->pCommandHistory[i];
-                error = std::format(L"Command[{}] : {}\n", i, AutoBreadcrumbsOp[cmd]);
+            try {
+                auto error = std::format(
+                    L"Node :\n"
+                    L"CommandList  Name = {}, Address = {}\n"
+                    L"CommandQueue Name = {}, Address = {}\n"
+                    L"Command Count = {}\n"
+                    L"Completed Commands = {}\n",
+                    cmdListName,
+                    reinterpret_cast<UINT64>(node->pCommandList),
+                    queueName,
+                    reinterpret_cast<UINT64>(node->pCommandQueue),
+                    node->BreadcrumbCount,
+                    *(node->pLastBreadcrumbValue));
                 OutputDebugStringW(error.c_str());
+
+                for (uint32_t i = 0; i < node->BreadcrumbCount; ++i) {
+                    auto cmd = node->pCommandHistory[i];
+                    error = std::format(L"Command[{}] : {}\n", i, AutoBreadcrumbsOp[cmd]);
+                    OutputDebugStringW(error.c_str());
+                }
             }
+            catch (const std::format_error& e) {
+                // format自体が失敗した理由を出力
+                OutputDebugStringA(e.what());
+            }
+
             node = node->pNext;
         }
 
@@ -401,11 +411,11 @@ void Graphics::CreateDevice() {
     ComPtr<ID3D12InfoQueue> infoQueue;
     if (SUCCEEDED(device_->QueryInterface(IID_PPV_ARGS(infoQueue.GetAddressOf())))) {
         // やばいエラーの時に止まる
-        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
+       // infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
         // エラーの時に止まる
-        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
+        //infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
         // 警告時に止まる
-        infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+        //infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
         // 抑制するメッセージのID
         D3D12_MESSAGE_ID denyIds[] = {
             D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_COMMAND_LIST_TYPE

@@ -216,29 +216,14 @@
     <ClCompile Include="Graphics\Mesh.cpp">
       <Filter>Graphics\Standard</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\BLAS.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Core\CommandAllocatorPool.cpp">
       <Filter>Graphics\Core</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Core\CommandListPool.cpp">
       <Filter>Graphics\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\RaytracingRenderer.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Core\GPUResource.cpp">
       <Filter>Graphics\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\ShaderTable.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\StateObject.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\TLAS.cpp">
-      <Filter>Graphics\Raytracing</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\Core\ReleasedObjectTracker.cpp">
       <Filter>Graphics\Core</Filter>
@@ -336,12 +321,6 @@
     <ClCompile Include="Utility\Utility.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\TestRTRenderer.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\SpatialDenoiser.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Graphics\Standard</Filter>
     </ClCompile>
@@ -374,12 +353,6 @@
     </ClCompile>
     <ClCompile Include="Graphics\Core\CommandManager.cpp">
       <Filter>Graphics\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\TemporalDenoiser.cpp">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\Raytracing\Pathtracer.cpp">
-      <Filter>Graphics\Raytracing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,26 +536,11 @@
     <ClInclude Include="Graphics\Core\TextureLoader.h">
       <Filter>Graphics\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\BLAS.h">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\RaytracingRenderer.h">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Core\CommandAllocatorPool.h">
       <Filter>Graphics\Core</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Core\CommandListPool.h">
       <Filter>Graphics\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\ShaderTable.h">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\StateObject.h">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\TLAS.h">
-      <Filter>Graphics\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Core\ReleasedObjectTracker.h">
       <Filter>Graphics\Core</Filter>
@@ -686,14 +644,8 @@
     <ClInclude Include="Utility\Utility.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\TestRTRenderer.h">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClInclude>
     <ClInclude Include="Graphics\Shader\Raytracing\Pathtracing\Pathtracing.h">
       <Filter>Graphics\Shader\Raytracing\Pathtracing</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\SpatialDenoiser.h">
-      <Filter>Graphics\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Texture.h">
       <Filter>Graphics\Standard</Filter>
@@ -730,12 +682,6 @@
     </ClInclude>
     <ClInclude Include="Graphics\Core\CommandManager.h">
       <Filter>Graphics\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\TemporalDenoiser.h">
-      <Filter>Graphics\Raytracing</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Raytracing\Pathtracer.h">
-      <Filter>Graphics\Raytracing</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\SceneContext.h">
       <Filter>Graphics\Standard</Filter>

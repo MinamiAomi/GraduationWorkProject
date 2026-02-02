@@ -31,11 +31,12 @@ private:
     struct ReleasedDescriptor {
         uint32_t index;
         std::weak_ptr<DescriptorHeap> heap;
+        ReleasedDescriptor(uint32_t index, const std::shared_ptr<DescriptorHeap>& heap);
         ~ReleasedDescriptor();
     };
 
     using TrackingObjectList = std::vector<ReleasedObject>;
-    using TrackingDescriptorList = std::vector<ReleasedDescriptor>;
+    using TrackingDescriptorList = std::vector<std::unique_ptr<ReleasedDescriptor>>;
     
     std::array<TrackingObjectList, kAliveFrameCount> trackingObjectLists_;
     std::array<TrackingDescriptorList, kAliveFrameCount> trackingDescriptorLists_;
