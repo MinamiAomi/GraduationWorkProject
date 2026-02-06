@@ -78,6 +78,9 @@ public:
 
 	const bool GetIsHitFlashlight()const { return isHitFlashlight_; }
 	const float GetCenterRate()const { return centerRate_; }
+
+	void SetState(const State& state);
+
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);

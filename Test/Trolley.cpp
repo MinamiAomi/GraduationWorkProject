@@ -571,6 +571,35 @@ void Trolley::DrawImGui() {
 }
 #endif
 
+void Trolley::SetState(const State& state)
+{
+	switch (state)
+	{
+	case Trolley::State::Normal:
+	{
+		OnNormalState();
+	}
+	break;
+	case Trolley::State::Overcharge:
+	{
+		OnOverchargeState();
+	}
+	break;
+	case Trolley::State::Nitro:
+	{
+		OnNitroState();
+	}
+	break;
+	case Trolley::State::Burst:
+	{
+		OnBurstState();
+	}
+	break;
+	default:
+		break;
+	}
+}
+
 void Trolley::UpdateCollision()
 {
 	isHitFlashlight_ = false;

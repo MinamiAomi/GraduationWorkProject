@@ -5,6 +5,8 @@
 
 #include "Engine/File/JsonConverter.h"
 
+#include "Trolley.h"
+
 #ifdef _DEBUG
 #include "Graphics/RenderManager.h"
 #endif // _DEBUG
@@ -162,7 +164,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 				}
 				if ((collider->maskBits & uint32_t(CollisionCategory::PLAYER)) != 0) {
 					if (obj->isAlive) {
-
+						Trolley::GetInstance()->SetState(Trolley::State::Burst);
+						obj->collider = nullptr;
 					}
 				}
 			}
