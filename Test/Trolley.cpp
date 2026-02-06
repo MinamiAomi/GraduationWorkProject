@@ -16,7 +16,7 @@ Trolley::Trolley()
 	for (auto& collider : batteryColliders_) {
 		collider = std::make_shared<SphereCollider>(
 			CollisionCategory::PLAYER,
-			(CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER),
+			(CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
 			Vector3::zero,
 			0.0f
 		);

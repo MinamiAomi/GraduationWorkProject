@@ -24,6 +24,7 @@ namespace SceneObjectSystem {
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>>& GetGimmickMoverObjects()const { return gimmickMoverObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickPointLightObject>>& GetGimmickPointLightObjects()const { return gimmickPointLightObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::ObstacleObject>>& GetObstacleObjects()const { return obstacleObjects_; }
 		//Blenderの値そのままデータだけ
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 
@@ -49,6 +50,7 @@ namespace SceneObjectSystem {
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>> gimmickMoverObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>> gimmickTriggerObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickPointLightObject>> gimmickPointLightObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::ObstacleObject>> obstacleObjects_;
 
 		//Blenderの値そのままデータだけ
 		std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>> sceneObjectData_;
