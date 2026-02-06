@@ -69,7 +69,7 @@ void BatsBullets::Emit(int num)
 	float scale = 0.5f - (float(num) * 0.2f);
 	newParticle->transform_.scale = { scale, scale, scale };
 
-	newParticle->modelInstance_.SetMaterial(material_);
+	newParticle->modelInstance_.GetMaterials().emplace_back(material_);
 	
 	particles_.push_back(std::move(newParticle));
 }

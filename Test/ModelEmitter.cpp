@@ -141,7 +141,7 @@ void ModelEmitter::Emit()
 	};
 
 	newParticle->scaleSpeed_ = rnd_.NextFloatRange(minScaleDecay_, maxScaleDecay_);
-	newParticle->modelInstance_.SetMaterial(material_);
+	newParticle->modelInstance_.GetMaterials().emplace_back(material_);
 	
 	particles_.push_back(std::move(newParticle));
 }

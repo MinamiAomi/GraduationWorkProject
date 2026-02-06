@@ -158,6 +158,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
                 // 発光マテリアルを設定
                 for (auto& originalMaterial : pointLightObject->model.GetModel()->GetMaterials()) {
                     auto destMaterial = pointLightObject->model.GetMaterials().emplace_back(std::make_shared<Material>());
+                    (*destMaterial) = originalMaterial;
                     destMaterial->emissive = { 1.0f, 1.0f, 1.0f };
                 }
 

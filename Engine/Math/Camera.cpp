@@ -32,6 +32,7 @@ void Camera::UpdateMatrices() {
         }
 
         viewProjectionMatrix_ = viewMatrix_ * projectionMatrix_;
+        viewProjectionInverseMatrix_ = viewProjectionMatrix_.Inverse();
     }                
     frustum_.Set(viewProjectionMatrix_);
 }

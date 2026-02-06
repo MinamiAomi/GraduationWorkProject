@@ -53,7 +53,6 @@ public:
 	std::vector<std::unique_ptr<Bat>>& GetBats() { return bats_; }
 
 public:
-	std::shared_ptr<Material> material_;
 	std::shared_ptr<class AnimationAsset> animation_;
 private:
 	void Emit(const Vector3& goalPos);

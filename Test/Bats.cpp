@@ -15,7 +15,6 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	model_ = assetManager->modelMap.Get("bat")->Get();
 	animation_ = assetManager->animationMap.Get("batAnim");
 	radius_ = 5.0f;                       // Sphere用半径
-	material_ = std::make_shared<Material>();
 	camera_ = &camera;
 
 	isActive_ = true;
@@ -142,7 +141,6 @@ void Bats::Emit(const Vector3& goalPos)
 	newBat->modelInstance_.SetModel(model_);
 	newBat->skeleton_ = std::make_unique<Skeleton>();
 	newBat->skeleton_->Create(model_);
-	newBat->modelInstance_.SetMaterial(material_);
 	newBat->modelInstance_.SetSkeleton(newBat->skeleton_);
 	
 

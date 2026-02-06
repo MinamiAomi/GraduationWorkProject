@@ -193,7 +193,7 @@ void BatteryParticles::Emit()
 	};
 
 	newParticle->scaleSpeed_ = scaleDecay_;
-	newParticle->modelInstance_.SetMaterial(material_);
+	newParticle->modelInstance_.GetMaterials().emplace_back(material_);
 
 	particles_.push_back(std::move(newParticle));
 }
