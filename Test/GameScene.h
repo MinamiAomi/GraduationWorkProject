@@ -50,9 +50,13 @@ public:
 	void OnFinalize() override;
 
 private:
+	const uint32_t kDirectionalLightCount = 6;
+
 	Input* input_;
 
 	std::shared_ptr<Camera> camera_;
+
+	std::vector<std::shared_ptr<DirectionalLight>> directionalLights_;
 
 	std::unique_ptr<RailSystem::RailAnimationPlayer> railAnimationPlayer_;
 	std::unique_ptr<RailSystem::RailCameraSystem> railCameraSystem_;

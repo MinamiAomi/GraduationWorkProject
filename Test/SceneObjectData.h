@@ -103,7 +103,6 @@ namespace SceneObjectSystem {
 
 	struct PointLightObject {
 		ModelInstance model;
-		std::shared_ptr<Material> material;
 		Transform transform;
 		std::shared_ptr<Collider> collider;
 		LightObject lightObject;

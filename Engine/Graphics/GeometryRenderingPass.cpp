@@ -180,13 +180,13 @@ void GeometryRenderingPass::Render(CommandContext& commandContext, const Camera&
         instanceData.useLighting = instance->UseLighting() ? 1 : 0;
         commandContext.SetDynamicConstantBufferView(RootIndex::Instance, sizeof(instanceData), &instanceData);
 
-        auto instanceMaterial = instance->GetMaterial();
+        const auto& instanceMaterials  = instance->GetMaterials();
 
         for (auto& mesh : model->GetMeshes()) {
             MaterialData materialData = ErrorMaterial();
             // インスタンスのマテリアルを優先
-            if (instanceMaterial) {
-                SetMaterialData(materialData, *instanceMaterial);
+            if (mesh.material < instanceMaterials.size()) {
+                SetMaterialData(materialData, *(instanceMaterials[mesh.material]));
             }
             // メッシュのマテリアル
             else if (mesh.material < model->GetMaterials().size()) {

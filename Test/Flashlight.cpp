@@ -22,7 +22,7 @@ Flashlight::Flashlight()
     spotLight_->direction = transform_.worldMatrix.GetForward();
     spotLight_->color = Color::white;
     spotLight_->intensity = 2.5f;
-    spotLight_->range = lightRange_;
+    spotLight_->range = lightRange_ + 100.0f;
     spotLight_->angle = fovAngle_ * 0.5f;
     spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
     spotLight_->decay = 1.0f;
@@ -97,7 +97,7 @@ void Flashlight::Update()
 
     spotLight_->position = transform_.worldMatrix.GetTranslate();
     spotLight_->direction = transform_.worldMatrix.GetForward();
-    spotLight_->range = lightRange_;
+    spotLight_->range = lightRange_ + 100.0f;
     spotLight_->angle = fovAngle_ * 0.5f;
     spotLight_->isActive = isLighting_;
 

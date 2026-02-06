@@ -25,13 +25,13 @@
 		{
 			"doubleSided":true,
 			"emissiveFactor":[
+				0.007186015136539936,
 				1,
-				1,
-				1
+				0
 			],
 			"extensions":{
 				"KHR_materials_emissive_strength":{
-					"emissiveStrength":2
+					"emissiveStrength":27.69999885559082
 				}
 			},
 			"name":"yellow.008",
@@ -290,7 +290,7 @@
 	"buffers":[
 		{
 			"byteLength":30336,
-			"uri":"PendantLight.bin"
+			"uri":"pendantLight.bin"
 		}
 	]
 }

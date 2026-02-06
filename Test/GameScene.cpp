@@ -30,6 +30,18 @@ void GameScene::OnInitialize() {
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
 
+	directionalLights_.resize(kDirectionalLightCount);
+	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
+		auto& directionalLight = directionalLights_[i];
+		directionalLight = std::make_shared<DirectionalLight>();
+		directionalLight->color = Color(1.0f, 1.0f, 1.0f);
+		float t = Math::TwoPi * ((float)i / (float)kDirectionalLightCount);
+		directionalLight->direction = { std::cos(t), -1.0f , std::sin(t) };
+		directionalLight->intensity = 0.2f;
+		directionalLight->isActive = true;
+		RenderManager::GetInstance()->GetLightManager().Add(directionalLight);
+	}
+
 #pragma region RailSystem
 	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/railCamera.json");
 	if (animationData) {
@@ -281,6 +293,11 @@ void GameScene::OnUpdate() {
 	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
+	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
+		auto& directionalLight = directionalLights_[i];
+		directionalLight->DrawImGui(std::format("DirectionalLight{}", i));
+	}
+
 	if (ImGui::Button("ホットリロード（光物）")) {
 		sceneObjectManager_->Initialize();
 
