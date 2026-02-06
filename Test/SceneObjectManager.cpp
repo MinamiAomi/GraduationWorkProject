@@ -141,7 +141,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 			for (auto& collider : obj->collider->GetCollidedWith()) {
-				if ((collider->maskBits & uint32_t(CollisionCategory::FLASHLIGHT)) != 0) {
+				if ((collider->categoryBits == CollisionCategory::FLASHLIGHT)) {
 					pointlight.lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
 					if (!pointlight.lightObject.GetIsAlive()) {
 						obj->collider = nullptr;
@@ -152,19 +152,25 @@ void SceneObjectSystem::SceneObjectManager::Update()
 	}
 
 	for (const auto& obj : obstacleObjects_) {
+
+		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+		obj->model.SetIsActive(true);
+
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 
 			for (auto& collider : obj->collider->GetCollidedWith()) {
-				if ((collider->maskBits & uint32_t(CollisionCategory::FLASHLIGHT)) != 0) {
+				if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
 					obj->SetDamage();
-					if (obj->isAlive) {
+					if (!obj->isAlive) {
 						obj->collider = nullptr;
 					}
 				}
-				if ((collider->maskBits & uint32_t(CollisionCategory::PLAYER)) != 0) {
+				else if ((collider->categoryBits == CollisionCategory::PLAYER)) {
 					if (obj->isAlive) {
 						Trolley::GetInstance()->SetState(Trolley::State::Burst);
+						obj->model.SetIsActive(false);
+						obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 						obj->collider = nullptr;
 					}
 				}
@@ -363,6 +369,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				gimmickPointLightObjects_.push_back(std::move(pointlight));
 			}
 		}
+		break;
 
 		case SceneObjectSystem::ObjectType::Obstacle:
 		{
@@ -376,6 +383,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			}
 
 			obstacleObject->hp = data.obstacles->hp;
+			obstacleObject->isAlive = true;
 
 			myCategory = uint32_t(CollisionCategory::OBSTACLE);
 			targetMask = uint32_t(CollisionCategory::PLAYER | CollisionCategory::FLASHLIGHT);
