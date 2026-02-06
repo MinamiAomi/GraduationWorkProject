@@ -75,19 +75,19 @@ void BatsParticles::Debug() {
 
 void BatsParticles::Initialize(float radius)
 {
-    emitShapeType_ = EmitShape::kSphere;
-    auto assetManager = AssetManager::GetInstance();
-    model_ = assetManager->modelMap.Get("Box")->Get();
-    radius_ = radius;
-    size_ = { 1.0f, 1.0f, 1.0f };
-    emitInterval_ = 20;
-    emitTimer_ = 0;
-    minScale_ = 0.1f;
-    maxScale_ = 0.2f;
-    material_ = std::make_shared<Material>();
-    material_->emissive = { 1.0f,1.0f,1.0f };
-    material_->emissiveIntensity = 10.0f;
-    material_->albedo = Vector3{ 0.2f,0.2f,0.75f };
+	emitShapeType_ = EmitShape::kSphere;
+	auto assetManager = AssetManager::GetInstance();
+	model_ = assetManager->modelMap.Get("Box")->Get();
+	radius_ = radius;
+	size_ = { 1.0f, 1.0f, 1.0f };
+	emitInterval_ = 20;
+	emitTimer_ = 0;
+	minScale_ = 0.1f;
+	maxScale_ = 0.2f;
+	material_ = std::make_shared<Material>();
+	material_->emissive = { 1.0f,1.0f,1.0f };
+	material_->emissiveIntensity = 10.0f;
+	material_->albedo = Vector3{ 0.75f,0.2f,0.75f};
 
     JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
     JSON_OBJECT("batsParticles");
@@ -172,8 +172,8 @@ void BatsParticles::Emit()
     newParticle->modelInstance_.SetModel(model_);
     newParticle->modelInstance_.SetUseLighting(false);
 
-    float startScale = rnd_.NextFloatRange(minScale_, maxScale_);
-    newParticle->transform_.scale = { startScale, startScale, startScale };
+	float startScale = rnd_.NextFloatRange(minScale_ , maxScale_);
+	newParticle->transform_.scale = { startScale, startScale, startScale };
 
     Vector3 randomRotEuler = {
         rnd_.NextFloatRange(0.0f, 6.28f),

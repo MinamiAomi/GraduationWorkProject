@@ -75,7 +75,7 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider);
 	}
 	batteryParticles_ = std::make_unique<BatteryParticles>();
-	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0));
+	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0),batsManager_.get());
 #pragma endregion
 
 #pragma region RailCameraSystem

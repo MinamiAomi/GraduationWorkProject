@@ -11,6 +11,7 @@
 #include "Graphics/Model.h"
 
 #include "ParticleDefine.h"
+#include "BatsManager.h"
 
 class Model;
 
@@ -19,7 +20,7 @@ class BatteryParticles
 {
 public:
 
-	void Initialize(const Transform* transform);
+	void Initialize(const Transform* transform, const BatsManager* batsManager);
 	void Update();
 	void DebugDraw();
 	static void Debug();
@@ -42,10 +43,13 @@ public:
 	inline static float minScale_ = 0.1f;
 	inline static float maxScale_ = 0.5f;
 	inline static Vector3 color_ = { 1.0f,1.0f,1.0f };
+	inline static float toBatSpeed_ = 0.01f;
+	inline static float toBatScaleSpeed_ = 0.01f;
 	//Sphere
 	inline static float radius_;
 private:
 	void Emit();
+	void ToBatEmit();
 private:
 	struct Particle {
 		ModelInstance modelInstance_;
@@ -56,6 +60,8 @@ private:
 	};
 
 	std::shared_ptr<Model> model_;
+
+	const BatsManager* batsManager_ = nullptr;
 
 	Transform transform_;
 	std::vector<std::unique_ptr<Particle>> particles_;
