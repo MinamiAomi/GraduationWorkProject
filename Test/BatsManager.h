@@ -13,6 +13,7 @@ public:
 	void Initialize();
 	void Update();
 
+	const Vector3& GetRandomBatPosition() const;
 
 	void Emit(const std::vector<std::vector<bool>>&  emit);
 	void SetCamera(const Camera* camera) { camera_ = camera; }

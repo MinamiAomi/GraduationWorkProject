@@ -87,7 +87,7 @@ void BatsParticles::Initialize(float radius)
 	material_ = std::make_shared<Material>();
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
-	material_->albedo = Vector3{ 0.2f,0.2f,0.75f};
+	material_->albedo = Vector3{ 0.75f,0.2f,0.75f};
 
 	JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
 	JSON_OBJECT("batsParticles");
@@ -172,7 +172,7 @@ void BatsParticles::Emit()
 	newParticle->modelInstance_.SetModel(model_);
 	newParticle->modelInstance_.SetUseLighting(false);
 
-	float startScale = rnd_.NextFloatRange(minScale_ , maxScale_);
+	float startScale = rnd_.NextFloatRange(minScale_ , maxScale_ + (radius_ * 0.2f));
 	newParticle->transform_.scale = { startScale, startScale, startScale };
 
 	Vector3 randomRotEuler = {
