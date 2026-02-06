@@ -51,6 +51,7 @@ namespace SceneObjectSystem {
 		s.enemySpawnData = std::nullopt;
 		s.gimmickMovers = std::nullopt;
 		s.gimmickTriggers = std::nullopt;
+		s.obstacles = std::nullopt;
 
 		switch (s.type) {
 		case ObjectType::PointLight:
@@ -86,7 +87,11 @@ namespace SceneObjectSystem {
 				}
 			}
 			break;
-
+		case ObjectType::Obstacle:
+			if (j.contains("obstacle_data") && !j.at("obstacle_data").is_null()) {
+				s.obstacles = j.at("obstacle_data").get<ObstacleData>();
+			}
+			break;
 		default:
 			break;
 		}
@@ -166,6 +171,11 @@ namespace SceneObjectSystem {
 		}
 	}
 
+	void from_json(const nlohmann::json& j, ObstacleData& p)
+	{
+		if (j.contains("hp")) j.at("hp").get_to(p.hp);
+	}
+
 	void GimmickMoverObject::Update()
 	{
 
@@ -198,7 +208,7 @@ namespace SceneObjectSystem {
 		pointlight.Update();
 		transform.UpdateMatrix();
 
-		collider->center= transform.translate;
+		collider->center = transform.translate;
 		model.SetWorldMatrix(transform.worldMatrix);
 
 	}
@@ -221,6 +231,16 @@ namespace SceneObjectSystem {
 			else if (time >= duration && !isCyclic) {
 				time = duration;
 			}
+		}
+	}
+	void ObstacleObject::Update()
+	{
+	}
+	void ObstacleObject::SetDamage()
+	{
+		hp--;
+		if (hp <= 0) {
+			isAlive = false;
 		}
 	}
 }

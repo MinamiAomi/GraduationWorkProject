@@ -1,14 +1,14 @@
 {
   "objects": [
     {
-      "name": "Empty",
-      "model_name": null,
-      "type": "GIMMICK",
+      "name": "RANTAN.002",
+      "model_name": "RANTAN",
+      "type": "OBSTACLE",
       "srt": {
         "translate": [
-          35.5519,
-          -0.1216,
-          2.2457
+          98.0674,
+          0.0447,
+          2.7591
         ],
         "rotate": [
           1.0,
@@ -23,20 +23,26 @@
         ]
       },
       "enemy_spawn_data": null,
-      "gimmick_data": {
-        "subtype": "TRIGGER",
-        "key": "Hikaru",
-        "isOnce": true
-      },
+      "gimmick_data": null,
       "point_light": null,
       "collider": {
-        "type": "SPHERE",
+        "type": "CAPSULE",
         "center": [
-          35.5519,
-          -0.1216,
-          2.2457
+          98.0674,
+          0.0447,
+          5.5699
         ],
-        "radius": 0.5
+        "radius": 1.46,
+        "height": 9.34,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "obstacle_data": {
+        "hp": 10.0
       }
     },
     {
@@ -76,136 +82,6 @@
           0.2962
         ],
         "radius": 2.0
-      }
-    },
-    {
-      "name": "Helmet.006",
-      "model_name": "Helmet",
-      "type": "GIMMICK",
-      "srt": {
-        "translate": [
-          41.6546,
-          5.0636,
-          3.6576
-        ],
-        "rotate": [
-          0.9227,
-          -0.081,
-          -0.0662,
-          -0.3709
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": null,
-      "gimmick_data": {
-        "subtype": "POINTLIGHT",
-        "key": "Hikaru",
-        "duration": 180,
-        "is_cyclic": true,
-        "curve_eval_time": [
-          {
-            "frame": 1.0,
-            "value": 0.0
-          },
-          {
-            "frame": 181.0,
-            "value": 180.0
-          }
-        ],
-        "position": [
-          {
-            "frame": 1.0,
-            "value": {
-              "x": 41.6546,
-              "y": -4.5934,
-              "z": 3.6576
-            }
-          },
-          {
-            "frame": 181.0,
-            "value": {
-              "x": 41.6546,
-              "y": 4.5553,
-              "z": 3.6576
-            }
-          }
-        ],
-        "rotation": [
-          {
-            "frame": 1.0,
-            "value": {
-              "w": 0.9227,
-              "x": -0.081,
-              "y": -0.0662,
-              "z": -0.3709
-            }
-          },
-          {
-            "frame": 181.0,
-            "value": {
-              "w": 0.9227,
-              "x": -0.081,
-              "y": -0.0662,
-              "z": -0.3709
-            }
-          }
-        ],
-        "light_params": {
-          "offset": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "color": [
-            1.0,
-            0.7531,
-            0.0684
-          ],
-          "intensity": 15.0,
-          "range": 15.0,
-          "decay": 1.0
-        },
-        "path_points": [
-          [
-            41.6546,
-            -4.5934,
-            3.6576
-          ],
-          [
-            41.6546,
-            -3.5934,
-            3.6576
-          ],
-          [
-            41.6546,
-            -2.5934,
-            3.6576
-          ],
-          [
-            41.6546,
-            -1.5934,
-            3.6576
-          ],
-          [
-            41.6546,
-            4.5553,
-            3.6576
-          ]
-        ]
-      },
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          41.7451,
-          5.0527,
-          4.2078
-        ],
-        "radius": 0.5
       }
     },
     {
@@ -4974,9 +4850,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          776.5845,
-          400.7189,
-          -12.0557
+          523.4269,
+          393.072,
+          -193.9544
         ],
         "rotate": [
           0.7597,
@@ -5076,9 +4952,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          776.7314,
-          400.7683,
-          -13.0616
+          523.5737,
+          393.1214,
+          -194.9603
         ],
         "radius": 0.5
       }

@@ -16,7 +16,7 @@ Trolley::Trolley()
 	for (auto& collider : batteryColliders_) {
 		collider = std::make_shared<SphereCollider>(
 			CollisionCategory::PLAYER,
-			(CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER),
+			(CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
 			Vector3::zero,
 			0.0f
 		);
@@ -570,6 +570,35 @@ void Trolley::DrawImGui() {
 	ImGui::End();
 }
 #endif
+
+void Trolley::SetState(const State& state)
+{
+	switch (state)
+	{
+	case Trolley::State::Normal:
+	{
+		OnNormalState();
+	}
+	break;
+	case Trolley::State::Overcharge:
+	{
+		OnOverchargeState();
+	}
+	break;
+	case Trolley::State::Nitro:
+	{
+		OnNitroState();
+	}
+	break;
+	case Trolley::State::Burst:
+	{
+		OnBurstState();
+	}
+	break;
+	default:
+		break;
+	}
+}
 
 void Trolley::UpdateCollision()
 {
