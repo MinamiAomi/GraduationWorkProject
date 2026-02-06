@@ -1,8 +1,11 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v5.0.21",
+		"generator":"Khronos glTF Blender I/O v4.0.43",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_emissive_strength"
+	],
 	"scene":0,
 	"scenes":[
 		{
@@ -21,6 +24,16 @@
 	"materials":[
 		{
 			"doubleSided":true,
+			"emissiveFactor":[
+				0.48380750964754576,
+				1,
+				0.11536562055637192
+			],
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":5.772000551223755
+				}
+			},
 			"name":"moss.001",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
@@ -37,13 +50,12 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":0,
-						"NORMAL":1,
-						"TEXCOORD_0":2,
-						"COLOR_0":3,
-						"COLOR_1":4
+						"COLOR_0":0,
+						"POSITION":1,
+						"NORMAL":2,
+						"TEXCOORD_0":3
 					},
-					"indices":5,
+					"indices":4,
 					"material":0
 				}
 			]
@@ -65,8 +77,15 @@
 	"accessors":[
 		{
 			"bufferView":0,
+			"componentType":5123,
+			"count":342,
+			"normalized":true,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":1,
 			"componentType":5126,
-			"count":340,
+			"count":342,
 			"max":[
 				0.6058538556098938,
 				0.08627739548683167,
@@ -80,33 +99,19 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":1,
+			"bufferView":2,
 			"componentType":5126,
-			"count":340,
+			"count":342,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":2,
+			"bufferView":3,
 			"componentType":5126,
-			"count":340,
+			"count":342,
 			"type":"VEC2"
 		},
 		{
-			"bufferView":3,
-			"componentType":5121,
-			"count":340,
-			"normalized":true,
-			"type":"VEC4"
-		},
-		{
 			"bufferView":4,
-			"componentType":5123,
-			"count":340,
-			"normalized":true,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":5,
 			"componentType":5123,
 			"count":510,
 			"type":"SCALAR"
@@ -115,38 +120,32 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":4080,
+			"byteLength":2736,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":4080,
-			"byteOffset":4080,
+			"byteLength":4104,
+			"byteOffset":2736,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2720,
-			"byteOffset":8160,
+			"byteLength":4104,
+			"byteOffset":6840,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1360,
-			"byteOffset":10880,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":2720,
-			"byteOffset":12240,
+			"byteLength":2736,
+			"byteOffset":10944,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1020,
-			"byteOffset":14960,
+			"byteOffset":13680,
 			"target":34963
 		}
 	],
@@ -158,7 +157,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":15980,
+			"byteLength":14700,
 			"uri":"Moss.bin"
 		}
 	]
