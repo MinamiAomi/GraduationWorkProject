@@ -18,8 +18,10 @@
     <ClCompile Include="AnimationLoader.cpp" />
     <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="Bats.cpp" />
+    <ClCompile Include="BatsBullets.cpp" />
     <ClCompile Include="BatsManager.cpp" />
     <ClCompile Include="BatsParticles.cpp" />
+    <ClCompile Include="BatteryParticles.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Deadline.cpp" />
     <ClCompile Include="DeadlineUI.cpp" />
@@ -51,8 +53,10 @@
   <ItemGroup>
     <ClInclude Include="AnimationLoader.h" />
     <ClInclude Include="Bats.h" />
+    <ClInclude Include="BatsBullets.h" />
     <ClInclude Include="BatsManager.h" />
     <ClInclude Include="BatsParticles.h" />
+    <ClInclude Include="BatteryParticles.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Deadline.h" />

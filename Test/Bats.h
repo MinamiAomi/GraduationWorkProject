@@ -11,6 +11,7 @@
 #include "Graphics/Model.h"
 #include "Collider.h"
 #include "BatsParticles.h"
+#include "BatsBullets.h"
 
 class Camera;
 
@@ -27,6 +28,7 @@ public:
 		Transform goalTransform_;
 		std::shared_ptr<SphereCollider> collider_;
 		BatsParticles particles_;
+		//BatsBullets bullets_;
 		float animationTime_;
 		bool isUp_;
 		float sideStepTime_;

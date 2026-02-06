@@ -30,7 +30,8 @@
     "PendantLight": "LightObject/PendantLight.gltf",
     "Helmet": "LightObject/Helmet/Helmet.gltf",
     "CoalTrolley": "LightObject/CoalTrolley/CoalTrolley.gltf",
-    "Box": "Box.gltf"
+    "Box": "Box.gltf",
+    "Bullet": "bullet.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",

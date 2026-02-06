@@ -99,6 +99,7 @@ void Bats::Update()
 		}
 		else {
 			p->particles_.SetIsEmit(false);
+			//p->bullets_.SetIsEmit(false);
 			p->transform_.scale = Vector3(0.0f, 0.0f, 0.0f);
 		}
 		p->particles_.emitInterval_ = static_cast<int>(std::lerp(0, 11, p->hp_));
@@ -106,8 +107,9 @@ void Bats::Update()
 		p->transform_.UpdateMatrix();
 		p->modelInstance_.SetWorldMatrix(p->transform_.worldMatrix);
 		p->particles_.Update();
+		//p->bullets_.Update();
 
-		if (p->isDead_ && !p->particles_.HasParticles()) {
+		if (p->isDead_ && !p->particles_.HasParticles()/* && !p->bullets_.HasParticles()*/) {
 			it = bats_.erase(it);
 		}
 		else {
@@ -146,6 +148,10 @@ void Bats::Emit(const Vector3& goalPos)
 
 	newBat->particles_.Initialize(model_->GetRadius());
 	newBat->particles_.SetParent(&newBat->transform_);
+
+	//newBat->bullets_.Initialize(*camera_);
+	//newBat->bullets_.SetBatTransform(newBat->transform_);
+	//newBat->bullets_.SetIsEmit(true);
 
 	newBat->collider_ = std::make_shared<SphereCollider>(CollisionCategory::ENEMY,
 		CollisionCategory::FLASHLIGHT,
