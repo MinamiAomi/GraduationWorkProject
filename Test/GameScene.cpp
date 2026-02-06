@@ -78,7 +78,7 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
@@ -92,7 +92,9 @@ void GameScene::OnInitialize() {
 	for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
-
+	for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
 #pragma endregion
 #pragma region Deadline
 	deadline_ = std::make_unique<Deadline>();
@@ -241,6 +243,9 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
+		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
 	}
 
 	ImGui::Separator();
@@ -274,6 +279,9 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
+		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
 		railAnimationPlayer_->Loop();
 	}
 	static bool isDebugCamera = false;
@@ -293,6 +301,9 @@ void GameScene::OnUpdate() {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}

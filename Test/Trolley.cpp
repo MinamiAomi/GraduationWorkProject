@@ -16,7 +16,7 @@ Trolley::Trolley()
 	for (auto& collider : batteryColliders_) {
 		collider = std::make_shared<SphereCollider>(
 			CollisionCategory::PLAYER,
-			(CollisionCategory::FLASHLIGHT),
+			(CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER),
 			Vector3::zero,
 			0.0f
 		);
@@ -595,8 +595,6 @@ void Trolley::UpdateCollision()
 				case CollisionCategory::LIGHT:
 					break;
 				case CollisionCategory::ENEMY:
-					break;
-				case CollisionCategory::ITEM:
 					break;
 				case CollisionCategory::ALL:
 					break;
