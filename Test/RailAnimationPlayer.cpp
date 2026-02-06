@@ -94,7 +94,7 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 #endif // _DEBUG
 
 #ifdef _DEBUG
-	DrawImGui();
+	//DrawImGui();
 #endif // _DEBUG
 
 }

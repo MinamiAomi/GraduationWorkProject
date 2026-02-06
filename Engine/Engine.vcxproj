@@ -200,10 +200,6 @@
     <ClCompile Include="Graphics\Animation.cpp" />
     <ClCompile Include="Graphics\Core\CommandManager.cpp" />
     <ClCompile Include="Graphics\ParticleCore.cpp" />
-    <ClCompile Include="Graphics\Raytracing\Pathtracer.cpp" />
-    <ClCompile Include="Graphics\Raytracing\SpatialDenoiser.cpp" />
-    <ClCompile Include="Graphics\Raytracing\TemporalDenoiser.cpp" />
-    <ClCompile Include="Graphics\Raytracing\TestRTRenderer.cpp" />
     <ClCompile Include="Graphics\Sky.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
@@ -267,11 +263,6 @@
     <ClCompile Include="Graphics\ModelSorter.cpp" />
     <ClCompile Include="Graphics\PostEffect.cpp" />
     <ClCompile Include="Graphics\RaymarchingRenderer.cpp" />
-    <ClCompile Include="Graphics\Raytracing\BLAS.cpp" />
-    <ClCompile Include="Graphics\Raytracing\RaytracingRenderer.cpp" />
-    <ClCompile Include="Graphics\Raytracing\ShaderTable.cpp" />
-    <ClCompile Include="Graphics\Raytracing\StateObject.cpp" />
-    <ClCompile Include="Graphics\Raytracing\TLAS.cpp" />
     <ClCompile Include="Graphics\RenderManager.cpp" />
     <ClCompile Include="Graphics\Skeleton.cpp" />
     <ClCompile Include="Graphics\SkinCluster.cpp" />
@@ -290,10 +281,6 @@
     <ClCompile Include="Scene\SceneTransition.cpp" />
     <ClInclude Include="Graphics\Core\CommandManager.h" />
     <ClInclude Include="Graphics\ParticleCore.h" />
-    <ClInclude Include="Graphics\Raytracing\Pathtracer.h" />
-    <ClInclude Include="Graphics\Raytracing\SpatialDenoiser.h" />
-    <ClInclude Include="Graphics\Raytracing\TemporalDenoiser.h" />
-    <ClInclude Include="Graphics\Raytracing\TestRTRenderer.h" />
     <ClInclude Include="Graphics\SceneContext.h" />
     <ClInclude Include="Graphics\Shader\Particle\Particle.h" />
     <ClInclude Include="Graphics\Shader\Raytracing\Pathtracing\Pathtracing.h" />
@@ -393,11 +380,6 @@
     <ClInclude Include="Graphics\Node.h" />
     <ClInclude Include="Graphics\PostEffect.h" />
     <ClInclude Include="Graphics\RaymarchingRenderer.h" />
-    <ClInclude Include="Graphics\Raytracing\BLAS.h" />
-    <ClInclude Include="Graphics\Raytracing\RaytracingRenderer.h" />
-    <ClInclude Include="Graphics\Raytracing\ShaderTable.h" />
-    <ClInclude Include="Graphics\Raytracing\StateObject.h" />
-    <ClInclude Include="Graphics\Raytracing\TLAS.h" />
     <ClInclude Include="Graphics\RenderManager.h" />
     <ClInclude Include="Graphics\Skeleton.h" />
     <ClInclude Include="Graphics\SkinCluster.h" />
