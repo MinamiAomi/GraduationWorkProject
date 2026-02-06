@@ -23,6 +23,7 @@ namespace SceneObjectSystem {
 		const std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>>& GetEnemySpawnObjects()const { return enemySpawnObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>>& GetGimmickMoverObjects()const { return gimmickMoverObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickPointLightObject>>& GetGimmickPointLightObjects()const { return gimmickPointLightObjects_; }
 		//Blenderの値そのままデータだけ
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 
@@ -30,7 +31,12 @@ namespace SceneObjectSystem {
 	private:
 		// 共通の初期化処理を行うテンプレート関数
 		template <typename T>
-		void InitializeCommonObject(T& targetObj, const SceneObjectSystem::SceneObjectData& sourceData);
+		void InitializeCommonObject(
+			T& targetObj, 
+			const SceneObjectSystem::SceneObjectData& sourceData,
+			uint32_t myCategory,
+			uint32_t targetMask
+		);
 
 		// 実際にRuntimeオブジェクトリストを構築する関数
 		void BuildRuntimeObjects();
@@ -42,6 +48,7 @@ namespace SceneObjectSystem {
 		std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>> enemySpawnObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>> gimmickMoverObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>> gimmickTriggerObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::GimmickPointLightObject>> gimmickPointLightObjects_;
 
 		//Blenderの値そのままデータだけ
 		std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>> sceneObjectData_;
@@ -69,11 +76,13 @@ namespace SceneObjectSystem {
 		BatsManager* batsManager_;
 	};
 
-
-
-
 	template<typename T>
-	inline void SceneObjectManager::InitializeCommonObject(T& targetObj, const SceneObjectSystem::SceneObjectData& sourceData)
+	inline void SceneObjectManager::InitializeCommonObject(
+		T& targetObj, 
+		const SceneObjectSystem::SceneObjectData& sourceData,
+		uint32_t myCategory,
+		uint32_t targetMask
+	)
 	{
 		if constexpr (requires { targetObj->transform; }) {
 			if constexpr (requires {sourceData.transform; }) {
@@ -87,8 +96,8 @@ namespace SceneObjectSystem {
 
 			if (sourceData.sphereCollisionData) {
 				auto sphereCol = std::make_shared<SphereCollider>(
-					CollisionCategory::ENEMY,
-					CollisionCategory::FLASHLIGHT,
+					CollisionCategory(myCategory),
+					CollisionCategory(targetMask),
 					Vector3::zero,
 					0.0f
 				);
@@ -102,8 +111,8 @@ namespace SceneObjectSystem {
 
 			if (sourceData.capsuleCollisionData) {
 				auto capsuleCol = std::make_shared<CapsuleCollider>(
-					CollisionCategory::LIGHT,
-					CollisionCategory::FLASHLIGHT,
+					CollisionCategory(myCategory),
+					CollisionCategory(targetMask),
 					Vector3::zero,
 					0.0f,
 					0.0f,

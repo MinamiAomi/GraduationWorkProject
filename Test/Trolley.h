@@ -182,7 +182,6 @@ private:
 #pragma endregion
 
 #pragma region Battery
-
 	std::array<Transform, BatteryNum> batteryTransforms_;
 	std::array<std::shared_ptr<SphereCollider>, BatteryNum> batteryColliders_;
 	std::array<Vector3, BatteryNum>batteryOffsets_;

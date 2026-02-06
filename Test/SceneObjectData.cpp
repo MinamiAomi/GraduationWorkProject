@@ -80,6 +80,10 @@ namespace SceneObjectSystem {
 				else if (subtype == "MOVER") {
 					s.gimmickMovers = gimmickJson.get<GimmickMoverData>();
 				}
+				else if (subtype == "POINTLIGHT") {
+					s.gimmickPointlights = gimmickJson.get<GimmickPointLightData>();
+
+				}
 			}
 			break;
 
@@ -140,6 +144,28 @@ namespace SceneObjectSystem {
 		}
 	}
 
+	void from_json(const nlohmann::json& j, GimmickPointLightData& p)
+	{
+		if (j.contains("key")) j.at("key").get_to(p.gimmickMoverData.key);
+		if (j.contains("duration")) j.at("duration").get_to(p.gimmickMoverData.duration);
+		if (j.contains("is_cyclic")) j.at("is_cyclic").get_to(p.gimmickMoverData.isCyclic);
+
+		auto result = AnimationUtils::AnimationLoader::LoadAnimation(j);
+		if (result.has_value()) {
+			p.gimmickMoverData.evalTimeKeys = std::get<0>(result.value());
+			p.gimmickMoverData.moverAnimation.positionKeys = std::get<1>(result.value());
+			p.gimmickMoverData.moverAnimation.rotationKeys = std::get<2>(result.value());
+		}
+
+		if (j.contains("light_params") && !j.at("light_params").is_null()) {
+			const auto& lp = j.at("light_params");
+
+			p.pointlightData = lp.get<PointLightData>();
+
+			p.pointlightData.isActive = true;
+		}
+	}
+
 	void GimmickMoverObject::Update()
 	{
 
@@ -158,5 +184,43 @@ namespace SceneObjectSystem {
 			}
 		}
 
+	}
+	void PointLightObject::Update()
+	{
+		transform.UpdateMatrix();
+		model.SetWorldMatrix(transform.worldMatrix);
+		powerEmitter_.Update();
+		lightObject.Update();
+	}
+	void GimmickPointLightObject::Update()
+	{
+		mover.Update(transform);
+		pointlight.Update();
+		transform.UpdateMatrix();
+
+		collider->center= transform.translate;
+		model.SetWorldMatrix(transform.worldMatrix);
+
+	}
+	void GimmickPointLightObject::Pointlight::Update()
+	{
+		lightObject.Update();
+		powerEmitter.Update();
+	}
+	void GimmickPointLightObject::GimmickMover::Update(Transform& transform)
+	{
+		if (isActive) {
+			time++;
+			auto result = AnimationUtils::CalculateCurrentTransform(evalTimeKeys, moverAnimation.positionKeys, moverAnimation.rotationKeys, time);
+			transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(result.first.translate);
+			transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(result.first.rotate);
+			transform.UpdateMatrix();
+			if (time >= duration && isCyclic) {
+				time = 0.0f;
+			}
+			else if (time >= duration && !isCyclic) {
+				time = duration;
+			}
+		}
 	}
 }
