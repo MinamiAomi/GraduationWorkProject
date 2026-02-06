@@ -62,6 +62,8 @@ void GameScene::OnInitialize() {
 	for (auto& collider : trolley_->GetColliders()) {
 		collisionSystem_->RegisterCollider(collider);
 	}
+	batteryParticles_ = std::make_unique<BatteryParticles>();
+	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0));
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -120,7 +122,7 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 	PowerEmitter::Debug();
-#ifndef _DEBUG
+#ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -129,8 +131,8 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
+	
 #endif // _DEBUG
-
 #pragma region RailSystem
 
 	//現在のスピードを代入
@@ -156,6 +158,7 @@ void GameScene::OnUpdate() {
 
 #pragma region Trolley
 	trolley_->Update(deltaTime);
+	batteryParticles_->Update();
 #pragma endregion
 
 #pragma region Bats
@@ -174,7 +177,8 @@ void GameScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
-
+	batteryParticles_->Debug();
+	batteryParticles_->DebugDraw();
 	ImGui::Begin("RailAnimationPlayer");
 	if (railAnimationPlayer_->IsPlaying()) {
 		ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");

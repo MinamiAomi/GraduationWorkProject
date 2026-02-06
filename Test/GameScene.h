@@ -31,6 +31,7 @@
 
 #include "Collider.h"
 #include "CollisionSystem.h"
+#include "BatteryParticles.h"
 
 class GameScene :
 	public BaseScene {
@@ -63,6 +64,7 @@ private:
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
 	
 	Trolley* trolley_;
+	std::unique_ptr<BatteryParticles> batteryParticles_;
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::unique_ptr<BatsManager> batsManager_;
