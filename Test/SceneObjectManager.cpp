@@ -63,6 +63,7 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 	enemySpawnObjects_.clear();
 	gimmickMoverObjects_.clear();
 	gimmickTriggerObjects_.clear();
+	gimmickPointLightObjects_.clear();
 
 	BuildRuntimeObjects();
 
@@ -71,10 +72,7 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 void SceneObjectSystem::SceneObjectManager::Update()
 {
 	for (const auto& obj : pointLightObjects_) {
-		obj->transform.UpdateMatrix();
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-		obj->powerEmitter_.Update();
-		obj->lightObject.Update();
+		obj->Update();
 		//何かに当ったら
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
@@ -109,6 +107,12 @@ void SceneObjectSystem::SceneObjectManager::Update()
 				}
 			}
 
+			for (const auto& light : gimmickPointLightObjects_) {
+				if (light->mover.key == obj->key) {
+					light->mover.isActive = true;
+				}
+			}
+
 			obj->hasTriggered = obj->isOnce;
 		}
 	}
@@ -116,6 +120,30 @@ void SceneObjectSystem::SceneObjectManager::Update()
 	for (const auto& obj : gimmickMoverObjects_) {
 		if (obj->isActive) {
 			obj->Update();
+		}
+	}
+
+	for (const auto& obj : gimmickPointLightObjects_) {
+		auto& pointlight = obj->pointlight;
+		auto& mover = obj->mover;
+
+		mover.Update(obj->transform);
+		pointlight.Update();
+		obj->model.SetIsActive(mover.isActive);
+		if (mover.isActive) {
+			obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+		}
+		//何かに当ったら
+		if (obj->collider &&
+			!obj->collider->GetCollidedWith().empty()) {
+			for (auto& collider : obj->collider->GetCollidedWith()) {
+				if ((collider->maskBits & uint32_t(CollisionCategory::FLASHLIGHT)) != 0) {
+					pointlight.lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
+					if (!pointlight.lightObject.GetIsAlive()) {
+						obj->collider = nullptr;
+					}
+				}
+			}
 		}
 	}
 #ifdef _DEBUG
@@ -128,6 +156,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 {
 	sceneObjectConfig_.Initialize();
 
+	uint32_t myCategory, targetMask;
 
 	for (const auto& objDataPtr : sceneObjectData_) {
 		const auto& data = *objDataPtr;
@@ -155,9 +184,10 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				}
 				pointLightObject->model.SetMaterial(pointLightObject->material);
 			}
+			myCategory = uint32_t(CollisionCategory::LIGHT);
+			targetMask = uint32_t(CollisionCategory::FLASHLIGHT);
 
-
-			InitializeCommonObject(pointLightObject, data);
+			InitializeCommonObject(pointLightObject, data, myCategory, targetMask);
 
 			//ライトの設定
 			if (data.pointLightData) {
@@ -191,7 +221,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				pointLightObject->lightObject.SetLightSetting(pointLight);
 				pointLightObject->lightObject.SetOffset(data.pointLightData->offset);
 
-				pointLightObject->powerEmitter_.Initialize(EmitShape::kSphere,&pointLightObject->lightObject);
+				pointLightObject->powerEmitter_.Initialize(EmitShape::kSphere, &pointLightObject->lightObject);
 			}
 
 			pointLightObjects_.push_back(std::move(pointLightObject));
@@ -205,7 +235,10 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			enemySpawn->hasTriggered = false;
 			enemySpawn->isOnce = data.enemySpawnData->isOnce;
 
-			InitializeCommonObject(enemySpawn, data);
+			myCategory = uint32_t(CollisionCategory::ENEMY);
+			targetMask = uint32_t(CollisionCategory::FLASHLIGHT);
+
+			InitializeCommonObject(enemySpawn, data, myCategory, targetMask);
 
 			enemySpawnObjects_.push_back(std::move(enemySpawn));
 		}
@@ -215,6 +248,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 		{
 			auto mover = std::make_unique<GimmickMoverObject>();
 			auto trigger = std::make_unique<GimmickTriggerObject>();
+			auto pointlight = std::make_unique<GimmickPointLightObject>();
 
 			if (data.gimmickMovers.has_value()) {
 				const auto& assetManager = AssetManager::GetInstance();
@@ -228,7 +262,11 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				mover->evalTimeKeys = data.gimmickMovers->evalTimeKeys;
 				mover->isCyclic = data.gimmickMovers->isCyclic;
 				mover->isActive = false;
-				InitializeCommonObject(mover, data);
+
+				myCategory = uint32_t(CollisionCategory::GIMMICKMOVER);
+				targetMask = uint32_t(CollisionCategory::NONE);
+
+				InitializeCommonObject(mover, data, myCategory, targetMask);
 				gimmickMoverObjects_.push_back(std::move(mover));
 			}
 			else if (data.gimmickTriggers.has_value()) {
@@ -237,8 +275,66 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				trigger->hasTriggered = false;
 				trigger->isOnce = data.gimmickTriggers->isOnce;
 
-				InitializeCommonObject(trigger, data);
+				myCategory = uint32_t(CollisionCategory::GIMMICKTRIGGER);
+				targetMask = uint32_t(CollisionCategory::PLAYER);
+
+				InitializeCommonObject(trigger, data, myCategory, targetMask);
 				gimmickTriggerObjects_.push_back(std::move(trigger));
+			}
+			else if (data.gimmickPointlights.has_value()) {
+				const auto& assetManager = AssetManager::GetInstance();
+				if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
+					pointlight->model.SetModel(modelHandle->Get());
+				}
+				const auto& moverData = data.gimmickPointlights->gimmickMoverData;
+
+				pointlight->mover.key = moverData.key;
+				pointlight->mover.duration = moverData.duration;
+				pointlight->mover.moverAnimation = moverData.moverAnimation;
+				pointlight->mover.evalTimeKeys = moverData.evalTimeKeys;
+				pointlight->mover.isCyclic = moverData.isCyclic;
+				pointlight->mover.isActive = false;
+
+				//ライトの設定
+				if (data.gimmickPointlights) {
+					pointlight->pointlight.lightObject.Initialize(&pointlight->transform);
+					pointlight->pointlight.lightObject.SetModel(pointlight->model.GetModel());
+
+					float scale = std::max({
+						pointlight->transform.scale.x,
+						pointlight->transform.scale.y,
+						pointlight->transform.scale.z
+						});
+
+					//基準の1と比べる
+					float scaleDiff = scale - 1.0f;
+
+					float multiplier = 1.0f + (scaleDiff * sceneObjectConfig_.pointLightParams.sizeCorrectionFactor);
+
+					multiplier = std::max(multiplier, 0.1f);
+
+					float maxHp = sceneObjectConfig_.pointLightParams.baseHp * multiplier;
+
+					pointlight->pointlight.lightObject.SetMaxHp(maxHp);
+					pointlight->pointlight.lightObject.SetHp(maxHp);
+
+					PointLight pointLight;
+					pointLight.intensity = data.gimmickPointlights->pointlightData.intensity;
+					pointLight.range = data.gimmickPointlights->pointlightData.range;
+					pointLight.decay = 1.0f;
+					pointLight.color = data.gimmickPointlights->pointlightData.color;
+
+					pointlight->pointlight.lightObject.SetLightSetting(pointLight);
+					pointlight->pointlight.lightObject.SetOffset(data.gimmickPointlights->pointlightData.offset);
+
+					pointlight->pointlight.powerEmitter.Initialize(EmitShape::kSphere, &pointlight->pointlight.lightObject);
+				}
+
+				myCategory = uint32_t(CollisionCategory::GIMMICKPOINTLIGHT);
+				targetMask = uint32_t(CollisionCategory::FLASHLIGHT);
+
+				InitializeCommonObject(pointlight, data, myCategory, targetMask);
+				gimmickPointLightObjects_.push_back(std::move(pointlight));
 			}
 		}
 		default:

@@ -86,7 +86,7 @@ namespace SceneObjectSystem {
 		std::vector<AnimationUtils::ScalarKeyframe> evalTimeKeys;
 		AnimationUtils::NodeAnimation moverAnimation;
 	};
-	
+
 	struct GimmickMoverObject {
 		Transform transform;
 		ModelInstance model;
@@ -108,7 +108,43 @@ namespace SceneObjectSystem {
 		std::shared_ptr<Collider> collider;
 		LightObject lightObject;
 		PowerEmitter powerEmitter_;
+		void Update();
 	};
+
+	struct GimmickPointLightData {
+		PointLightData pointlightData;
+		GimmickMoverData gimmickMoverData;
+	};
+
+	struct GimmickPointLightObject {
+		Transform transform;
+		ModelInstance model;
+		std::shared_ptr<Material> material;
+		std::shared_ptr<Collider> collider;
+
+		struct Pointlight {
+			LightObject lightObject;
+			PowerEmitter powerEmitter;
+
+			void Update();
+		}pointlight;
+
+		struct GimmickMover {
+			std::string key;
+			float duration;
+			float time;
+			bool isCyclic;
+			bool isActive = false;
+			std::vector<AnimationUtils::ScalarKeyframe> evalTimeKeys;
+			AnimationUtils::NodeAnimation moverAnimation;
+
+			void Update(Transform& transform);
+		}mover;
+
+		void Update();
+	};
+
+
 
 	struct SceneObjectData {
 		std::optional<std::string> name;
@@ -121,6 +157,7 @@ namespace SceneObjectSystem {
 		std::optional<EnemySpawnData> enemySpawnData;
 		std::optional<GimmickTriggerData> gimmickTriggers;
 		std::optional<GimmickMoverData> gimmickMovers;
+		std::optional<GimmickPointLightData> gimmickPointlights;
 	};
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o);
@@ -130,5 +167,6 @@ namespace SceneObjectSystem {
 	void from_json(const nlohmann::json& j, EnemySpawnData& p);
 	void from_json(const nlohmann::json& j, GimmickTriggerData& p);
 	void from_json(const nlohmann::json& j, GimmickMoverData& p);
+	void from_json(const nlohmann::json& j, GimmickPointLightData& p);
 
 }

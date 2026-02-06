@@ -21,7 +21,7 @@
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"\u30de\u30c6\u30ea\u30a2\u30eb",
+			"name":"\u30de\u30c6\u30ea\u30a2\u30eb.002",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
 					"index":0
@@ -33,7 +33,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u7acb\u65b9\u4f53.004",
+			"name":"\u7403",
 			"primitives":[
 				{
 					"attributes":{
@@ -64,61 +64,61 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":1006,
+			"count":2206,
 			"max":[
-				1.9935613870620728,
-				2.3848323822021484,
-				1.7007770538330078
+				1.9222615957260132,
+				2.567798614501953,
+				1.726613163948059
 			],
 			"min":[
-				-2.0650947093963623,
-				-2.334296941757202,
-				-1.4544174671173096
+				-2.136394500732422,
+				-2.1513309478759766,
+				-1.4285814762115479
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":1006,
+			"count":2206,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":1006,
+			"count":2206,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":1440,
+			"count":3120,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":12072,
+			"byteLength":26472,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":12072,
-			"byteOffset":12072,
+			"byteLength":26472,
+			"byteOffset":26472,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":8048,
-			"byteOffset":24144,
+			"byteLength":17648,
+			"byteOffset":52944,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2880,
-			"byteOffset":32192,
+			"byteLength":6240,
+			"byteOffset":70592,
 			"target":34963
 		}
 	],
@@ -130,7 +130,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":35072,
+			"byteLength":76832,
 			"uri":"Snowman.bin"
 		}
 	]
