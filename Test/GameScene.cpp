@@ -78,7 +78,7 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
