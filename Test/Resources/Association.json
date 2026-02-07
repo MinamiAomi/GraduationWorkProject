@@ -2,14 +2,9 @@
   "Model": {
     "flashlight": "Flashlight/light.gltf",
     "trolley": "Trolley/Trolley/Trolley.gltf",
-    "batteryModel": "Trolley/Battery/Battery.gltf",
-    "batteryEffect": "Trolley/Battery/Effect/Effect.gltf",
-    "batteryInside": "Trolley/Battery/Inside/Inside.gltf",
-    "batteryOutside": "Trolley/Battery/Outside/Outside.gltf",
     "speedMeter": "Trolley/SpeedMeter/SpeedMeter.gltf",
     "speedMeterNeedle": "Trolley/SpeedMeterNeedle/SpeedMeterNeedle.gltf",
     "monster": "OODAMA/OODAMA.gltf",
-    "bat": "Bat/Bat.gltf",
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
     "Stage": "StaticMesh/StageModel/LEVEL1.gltf",
@@ -30,7 +25,21 @@
     "PendantLight": "LightObject/PendantLight.gltf",
     "Helmet": "LightObject/Helmet/Helmet.gltf",
     "CoalTrolley": "LightObject/CoalTrolley/CoalTrolley.gltf",
+    "BlueCrystal": "LightObject/BlueCrystal/BlueCrystal.gltf",
+    "Campfire": "LightObject/Campfire/Campfire.gltf",
+    "GoldTrolley": "LightObject/GoldTrolley/GoldTrolley.gltf",
+    "IceLantern": "LightObject/IceLantern/IceLantern.gltf",
+    "IlluminationArch": "LightObject/IlluminationArch/IlluminationArch.gltf",
+    "SnowFlake": "LightObject/SnowFlake/SnowFlake.gltf",
+    "StarFlake": "LightObject/StarFlake/StarFlake.gltf",
+
+    "Icicle": "Model/Icicle/Icicle.gltf",
+    "Skull": "Model/Skull/Skull.gltf",
+    "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
     "Box": "Box.gltf"
+   
+    
+
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -45,17 +54,14 @@
     "DCUI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
     
     "TrolleyBase" : "Trolley/TrolleyUI/Texture/base.png",
-    "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_yellow.png",
-    "TrolleyOverChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",
-    "TrolleyNitroBurst" : "Trolley/TrolleyUI/Texture/gauge1_lightBlue.png",
-    "TrolleyNitroGauge" : "Trolley/TrolleyUI/Texture/gauge2_lightBlue.png",
+    "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",
+    "TrolleyOverChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_purple.png",
+    "TrolleyNitroBurst" : "Trolley/TrolleyUI/Texture/gauge1_yellow.png",
+    "TrolleyNitroGauge" : "Trolley/TrolleyUI/Texture/gauge2_yellow.png",
     
+    "FlashlightBase" : "Flashlight/FlashlightUI/Texture/baseTest.png",
     "FlashlightFrame" : "Flashlight/FlashlightUI/Texture/frame.png",
     "FlashlightGauge" : "Flashlight/FlashlightUI/Texture/gauge_yellow.png",
-    
-    "ProgressFrame" : "Progress/Texture/frame.png",
-    "ProgressGauge" : "Progress/Texture/gauge.png",
-    "ProgressBaseUI" : "Progress/Texture/baseUI.png",
 
     "white2x2":"white2x2.png"
   }
