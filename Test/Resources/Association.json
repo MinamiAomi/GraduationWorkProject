@@ -59,5 +59,19 @@
   },
   "Animation" : {
     "batAnim" : "Bat/Bat.gltf"
+  },
+  "Sound" : {
+    "SE_TROLLY1" : "Sound/se_trolly1.mp3",
+    "SE_TROLLY2" : "Sound/se_trolly2.mp3",
+
+    "BGM_TITLE" : "Sound/bgm_title.mp3",
+    "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",
+    "BGM_TITLE_IMPATIENCE" : "Sound/bgm_title_impatience.mp3",
+
+    "BGM_INGAME_ALMOST_CLEAR" : "Sound/bgm_ingame_almost_clear.mp3",
+    "BGM_INGAME_ESCAPE1" : "Sound/bgm_ingame_escape1.mp3",
+    "BGM_INGAME_ESCAPE2" : "Sound/bgm_ingame_escape2.mp3",
+    "BGM_INGAME_ESCAPE3" : "Sound/bgm_ingame_escape3.mp3",
+    "BGM_INGAME_SAFETY" : "Sound/bgm_ingame_safety.mp3"
   }
 }
