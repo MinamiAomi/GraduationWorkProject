@@ -38,7 +38,7 @@ TrolleyUI::TrolleyUI()
 	baseUI_.SetScale(baseTexture->GetSize());
 	baseUI_.SetAnchor({ 0.5f, 0.0f });
 	baseUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
-	baseUI_.SetDrawOrder(0);
+	baseUI_.SetDrawOrder(4);
 
 	chargeUI_.SetPosition({ 1135.0f,60.0f });
 	chargeUI_.SetScale(chargeGaugeTexture->GetSize());
