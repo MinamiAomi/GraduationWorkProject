@@ -154,6 +154,7 @@ namespace SceneObjectSystem {
 	struct ObstacleObject {
 		bool isAlive;
 		float hp;
+		float maxHp;
 		ModelInstance model;
 		Transform transform;
 		std::shared_ptr<Collider> collider;

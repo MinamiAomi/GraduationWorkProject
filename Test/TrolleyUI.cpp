@@ -82,7 +82,7 @@ void TrolleyUI::Initialize(const Transform& transform)
 	speedMeterTransform_.SetParent(&transform);
 	speedMeterNeedleTransform_.SetParent(&speedMeterTransform_);
 
-	batterTransform_.SetParent(&trolley_->GetBatteyTransform(0),false);
+	batterTransform_.SetParent(&trolley_->GetBatteyTransform(0), false);
 
 	speedMeterTransform_.UpdateMatrix();
 	speedMeterNeedleTransform_.UpdateMatrix();
@@ -125,11 +125,28 @@ void TrolleyUI::Update()
 		float baseSpeed = rate * 0.1f;
 
 
-		insideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 1.0f, insideAxis_);
+		insideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 1.2f, insideAxis_);
 
-		outsideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 0.7f, outsideAxis_);
+		outsideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 0.9f, outsideAxis_);
 
-		effectTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 1.5f, effectAxis_);
+		effectTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed *  2.0f, effectAxis_);
+
+		batterTransform_.translate.y = rnd_.NextFloatRange(0.01f, 0.015f);
+	}
+	else {
+		static float time = 0.0f;
+
+		time += 0.08f;
+
+		if (time > 6.283185f) time -= 6.283185f;
+
+		float rate = 0.05f;
+
+		insideTransform_.rotate *= Quaternion::MakeFromAngleAxis(rate * 0.2f, insideAxis_);
+		outsideTransform_.rotate *= Quaternion::MakeFromAngleAxis(rate * 0.1f, outsideAxis_);
+		effectTransform_.rotate *= Quaternion::MakeFromAngleAxis(rate * 0.1f, effectAxis_);
+
+		batterTransform_.translate.y = std::sinf(time) * 0.01f;
 	}
 
 	batterTransform_.UpdateMatrix();

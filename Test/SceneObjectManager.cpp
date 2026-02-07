@@ -153,6 +153,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : obstacleObjects_) {
 
+
 		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 		obj->model.SetIsActive(true);
 
@@ -162,6 +163,10 @@ void SceneObjectSystem::SceneObjectManager::Update()
 			for (auto& collider : obj->collider->GetCollidedWith()) {
 				if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
 					obj->SetDamage();
+					float t = obj->hp / obj->maxHp;
+					t = 1.0f - float(std::sqrt(1.0f - std::pow(t, 2)));
+					obj->transform.scale = Vector3(t, t, t);
+					obj->transform.UpdateMatrix();
 					if (!obj->isAlive) {
 						obj->collider = nullptr;
 					}
@@ -383,6 +388,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			}
 
 			obstacleObject->hp = data.obstacles->hp;
+			obstacleObject->maxHp = obstacleObject->hp;
 			obstacleObject->isAlive = true;
 
 			myCategory = uint32_t(CollisionCategory::OBSTACLE);
