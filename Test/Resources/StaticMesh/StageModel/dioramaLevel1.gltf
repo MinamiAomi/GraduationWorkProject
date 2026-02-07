@@ -34,7 +34,8 @@
 				22,
 				23,
 				24,
-				25
+				25,
+				26
 			]
 		}
 	],
@@ -424,6 +425,10 @@
 				0.526984691619873,
 				0
 			]
+		},
+		{
+			"mesh":26,
+			"name":"\u7acb\u65b9\u4f53.056"
 		}
 	],
 	"materials":[
@@ -1187,6 +1192,20 @@
 					},
 					"indices":132,
 					"material":20
+				}
+			]
+		},
+		{
+			"name":"\u7acb\u65b9\u4f53.177",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":133,
+						"NORMAL":134,
+						"TEXCOORD_0":135
+					},
+					"indices":136,
+					"material":11
 				}
 			]
 		}
@@ -2533,6 +2552,40 @@
 			"componentType":5123,
 			"count":696,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":133,
+			"componentType":5126,
+			"count":256,
+			"max":[
+				1,
+				0.03393646329641342,
+				1
+			],
+			"min":[
+				-1,
+				-0.638184130191803,
+				-1
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":134,
+			"componentType":5126,
+			"count":256,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":135,
+			"componentType":5126,
+			"count":256,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":136,
+			"componentType":5123,
+			"count":402,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -3333,6 +3386,30 @@
 			"byteLength":1392,
 			"byteOffset":580460,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":3072,
+			"byteOffset":581852,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":3072,
+			"byteOffset":584924,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":2048,
+			"byteOffset":587996,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":804,
+			"byteOffset":590044,
+			"target":34963
 		}
 	],
 	"samplers":[
@@ -3347,7 +3424,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":581852,
+			"byteLength":590848,
 			"uri":"dioramaLevel1.bin"
 		}
 	]
