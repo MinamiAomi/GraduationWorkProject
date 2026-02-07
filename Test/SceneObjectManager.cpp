@@ -29,7 +29,7 @@ void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<Scen
 	sceneObjectData_.clear();
 
 	const auto& assetManager = AssetManager::GetInstance();
-	stageObjects_.SetModel(assetManager->modelMap.Get("Stage")->Get());
+	stageObjects_.SetModel(assetManager->modelMap.Get("Stage2")->Get());
 	stageObjects_.SetWorldMatrix(Matrix4x4::identity);
 
 	for (const auto& rawObj : objectData) {
