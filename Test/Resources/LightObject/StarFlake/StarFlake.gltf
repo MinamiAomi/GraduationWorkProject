@@ -18,28 +18,28 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"SnowFlake"
+			"name":"StarFlake"
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
 			"emissiveFactor":[
-				0,
-				0.6925215721130371,
-				1
+				1,
+				1,
+				0
 			],
 			"extensions":{
 				"KHR_materials_emissive_strength":{
-					"emissiveStrength":5
+					"emissiveStrength":2
 				}
 			},
-			"name":"\u30de\u30c6\u30ea\u30a2\u30eb.002",
+			"name":"\u30de\u30c6\u30ea\u30a2\u30eb",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.911400318145752,
 					1,
-					0.984054684638977,
+					0.677008330821991,
+					0.06372682005167007,
 					1
 				],
 				"metallicFactor":0,
@@ -49,7 +49,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u7acb\u65b9\u4f53",
+			"name":"ICO\u7403.001",
 			"primitives":[
 				{
 					"attributes":{
@@ -67,68 +67,68 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":864,
+			"count":240,
 			"max":[
-				2.6731467247009277,
-				2.629490613937378,
-				0.00865226611495018
+				0.8336009979248047,
+				1.0303943157196045,
+				0.8765027523040771
 			],
 			"min":[
-				-2.6731467247009277,
-				-2.629490613937378,
-				-0.07417331635951996
+				-0.8336009979248047,
+				-1.0303943157196045,
+				-0.8765027523040771
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":864,
+			"count":240,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":864,
+			"count":240,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":1656,
+			"count":240,
 			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":10368,
+			"byteLength":2880,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":10368,
-			"byteOffset":10368,
+			"byteLength":2880,
+			"byteOffset":2880,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":6912,
-			"byteOffset":20736,
+			"byteLength":1920,
+			"byteOffset":5760,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3312,
-			"byteOffset":27648,
+			"byteLength":480,
+			"byteOffset":7680,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":30960,
-			"uri":"SnowFlake.bin"
+			"byteLength":8160,
+			"uri":"StarFlake.bin"
 		}
 	]
 }
