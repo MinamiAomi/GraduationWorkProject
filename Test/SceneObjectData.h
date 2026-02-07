@@ -23,6 +23,7 @@ namespace SceneObjectSystem {
 		PointLight,
 		EnemySpawn,
 		Gimmick,
+		Obstacle,
 		Unknown
 	};
 
@@ -31,6 +32,7 @@ namespace SceneObjectSystem {
 		{ObjectType::PointLight, "POINTLIGHT"},
 		{ObjectType::EnemySpawn, "ENEMY_SPAWN"},
 		{ObjectType::Gimmick, "GIMMICK"},
+		{ObjectType::Obstacle, "OBSTACLE"},
 		})
 
 
@@ -144,6 +146,22 @@ namespace SceneObjectSystem {
 		void Update();
 	};
 
+	struct ObstacleData {
+		float hp;
+		std::string modelName;
+	};
+
+	struct ObstacleObject {
+		bool isAlive;
+		float hp;
+		float maxHp;
+		ModelInstance model;
+		Transform transform;
+		std::shared_ptr<Collider> collider;
+
+		void Update();
+		void SetDamage();
+	};
 
 
 	struct SceneObjectData {
@@ -158,6 +176,7 @@ namespace SceneObjectSystem {
 		std::optional<GimmickTriggerData> gimmickTriggers;
 		std::optional<GimmickMoverData> gimmickMovers;
 		std::optional<GimmickPointLightData> gimmickPointlights;
+		std::optional<ObstacleData> obstacles;
 	};
 
 	void from_json(const nlohmann::json& j, CapsuleCollisionData& o);
@@ -168,5 +187,6 @@ namespace SceneObjectSystem {
 	void from_json(const nlohmann::json& j, GimmickTriggerData& p);
 	void from_json(const nlohmann::json& j, GimmickMoverData& p);
 	void from_json(const nlohmann::json& j, GimmickPointLightData& p);
+	void from_json(const nlohmann::json& j, ObstacleData& p);
 
 }

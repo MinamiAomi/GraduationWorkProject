@@ -5,6 +5,8 @@
 
 #include "Engine/File/JsonConverter.h"
 
+#include "Trolley.h"
+
 #ifdef _DEBUG
 #include "Graphics/RenderManager.h"
 #endif // _DEBUG
@@ -17,6 +19,7 @@ void SceneObjectSystem::SceneObjectManager::Initialize()
 	enemySpawnObjects_.clear();
 	gimmickMoverObjects_.clear();
 	gimmickTriggerObjects_.clear();
+	obstacleObjects_.clear();
 
 	sceneObjectData_.clear();
 }
@@ -64,6 +67,7 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 	gimmickMoverObjects_.clear();
 	gimmickTriggerObjects_.clear();
 	gimmickPointLightObjects_.clear();
+	obstacleObjects_.clear();
 
 	BuildRuntimeObjects();
 
@@ -137,7 +141,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 			for (auto& collider : obj->collider->GetCollidedWith()) {
-				if ((collider->maskBits & uint32_t(CollisionCategory::FLASHLIGHT)) != 0) {
+				if ((collider->categoryBits == CollisionCategory::FLASHLIGHT)) {
 					pointlight.lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
 					if (!pointlight.lightObject.GetIsAlive()) {
 						obj->collider = nullptr;
@@ -146,6 +150,39 @@ void SceneObjectSystem::SceneObjectManager::Update()
 			}
 		}
 	}
+
+	for (const auto& obj : obstacleObjects_) {
+
+
+		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+		obj->model.SetIsActive(true);
+
+		if (obj->collider &&
+			!obj->collider->GetCollidedWith().empty()) {
+
+			for (auto& collider : obj->collider->GetCollidedWith()) {
+				if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
+					obj->SetDamage();
+					float t = obj->hp / obj->maxHp;
+					t = 1.0f - float(std::sqrt(1.0f - std::pow(t, 2)));
+					obj->transform.scale = Vector3(t, t, t);
+					obj->transform.UpdateMatrix();
+					if (!obj->isAlive) {
+						obj->collider = nullptr;
+					}
+				}
+				else if ((collider->categoryBits == CollisionCategory::PLAYER)) {
+					if (obj->isAlive) {
+						Trolley::GetInstance()->SetState(Trolley::State::Burst);
+						obj->model.SetIsActive(false);
+						obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+						obj->collider = nullptr;
+					}
+				}
+			}
+		}
+	}
+
 #ifdef _DEBUG
 	sceneObjectConfig_.DrawImGui();
 #endif // _DEBUG
@@ -337,6 +374,30 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				gimmickPointLightObjects_.push_back(std::move(pointlight));
 			}
 		}
+		break;
+
+		case SceneObjectSystem::ObjectType::Obstacle:
+		{
+
+			auto obstacleObject = std::make_unique<ObstacleObject>();
+
+			const auto& assetManager = AssetManager::GetInstance();
+
+			if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
+				obstacleObject->model.SetModel(modelHandle->Get());
+			}
+
+			obstacleObject->hp = data.obstacles->hp;
+			obstacleObject->maxHp = obstacleObject->hp;
+			obstacleObject->isAlive = true;
+
+			myCategory = uint32_t(CollisionCategory::OBSTACLE);
+			targetMask = uint32_t(CollisionCategory::PLAYER | CollisionCategory::FLASHLIGHT);
+
+			InitializeCommonObject(obstacleObject, data, myCategory, targetMask);
+			obstacleObjects_.push_back(std::move(obstacleObject));
+		}
+		break;
 		default:
 			break;
 		}

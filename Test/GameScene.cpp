@@ -78,7 +78,7 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/t.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
@@ -93,6 +93,9 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
 	for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+		collisionSystem_->RegisterCollider(collider->collider);
+	}
+	for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
 		collisionSystem_->RegisterCollider(collider->collider);
 	}
 #pragma endregion
@@ -233,6 +236,7 @@ void GameScene::OnUpdate() {
 		//SceneObjectsリセット
 		sceneObjectManager_->ResetObjects();
 
+
 		//Colliderセット
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
@@ -244,6 +248,9 @@ void GameScene::OnUpdate() {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}
@@ -282,6 +289,9 @@ void GameScene::OnUpdate() {
 		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
+		for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
 		railAnimationPlayer_->Loop();
 	}
 	static bool isDebugCamera = false;
@@ -304,6 +314,9 @@ void GameScene::OnUpdate() {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+			collisionSystem_->RegisterCollider(collider->collider);
+		}
+		for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
 			collisionSystem_->RegisterCollider(collider->collider);
 		}
 	}
