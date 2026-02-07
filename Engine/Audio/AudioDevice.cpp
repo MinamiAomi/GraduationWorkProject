@@ -5,6 +5,8 @@
 #include <mfidl.h>
 #include <mfreadwrite.h>
 
+#include "AudioSource.h"
+
 #pragma comment(lib,"xaudio2.lib")
 #pragma comment(lib, "Mf.lib")
 #pragma comment(lib, "mfplat.lib")
@@ -39,6 +41,9 @@ void AudioDevice::Initialize() {
 }
 
 void AudioDevice::Finalize() {
+    for (auto& audioSource : createdSourceList_) {
+        audioSource->OnDestroy();
+    }
     masterVoice_->DestroyVoice();
     MFShutdown();
 }
@@ -51,4 +56,20 @@ float AudioDevice::GetMasterVolume() {
     float volume = 0.0f;
     masterVoice_->GetVolume(&volume);
     return volume;
+}
+
+IXAudio2SourceVoice* AudioDevice::CreateAudioSource(AudioSource* audioSource, const WAVEFORMATEX* waveFormat) {
+    HRESULT hr = S_FALSE;
+    IXAudio2SourceVoice* sourceVoice;
+    hr = xAudio2_->CreateSourceVoice(&sourceVoice, waveFormat);
+    createdSourceList_.emplace_back(audioSource);
+    assert(SUCCEEDED(hr));
+    return  sourceVoice;
+}
+
+void AudioDevice::RemoveAudioSource(AudioSource* audioSource) {
+    auto it = std::find(createdSourceList_.begin(), createdSourceList_.end(), audioSource);
+    if (it != createdSourceList_.end()) {
+        createdSourceList_.erase(it);
+    }
 }

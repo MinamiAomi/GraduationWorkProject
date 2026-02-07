@@ -61,8 +61,8 @@
     "batAnim" : "Bat/Bat.gltf"
   },
   "Sound" : {
-    "SE_TROLLY1" : "Sound/se_trolly1.mp3",
-    "SE_TROLLY2" : "Sound/se_trolly2.mp3",
+    "SE_TROLLY_NORMAL" : "Sound/se_trolly2.mp3",
+    "SE_TROLLY_NITRO" : "Sound/se_trolly1.mp3",
 
     "BGM_TITLE" : "Sound/bgm_title.mp3",
     "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",

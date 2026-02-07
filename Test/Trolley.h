@@ -5,6 +5,7 @@
 #include "Engine/Graphics/Model.h"
 
 #include "Graphics/LightManager.h"
+#include "Audio/AudioSource.h"
 
 #include "Math/MathUtils.h"
 #include "Math/Transform.h"
@@ -90,6 +91,7 @@ private:
 	void RecoverFromNitro();
 	void OnBurstState();
 	void RecoverFromBurst();
+	void UpdateSound();
 
 	//どこくらいライトの真ん中か計算
 	float CalculateCenterRate(const Vector3& center, float radius);
@@ -195,6 +197,10 @@ private:
 	Vector3 shakeOffset_;
 #pragma endregion
 
+#pragma region Audio
+	AudioSource normalSESource_;
+	AudioSource nitroSESource_;
+#pragma endregion
 
 #ifdef _DEBUG
 	bool isDebugTrollySpeed_ = false;
