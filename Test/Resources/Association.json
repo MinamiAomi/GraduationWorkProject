@@ -30,6 +30,17 @@
     "PendantLight": "LightObject/PendantLight.gltf",
     "Helmet": "LightObject/Helmet/Helmet.gltf",
     "CoalTrolley": "LightObject/CoalTrolley/CoalTrolley.gltf",
+    "BlueCrystal": "LightObject/BlueCrystal/BlueCrystal.gltf",
+    "Campfire": "LightObject/Campfire/Campfire.gltf",
+    "GoldTrolley": "LightObject/GoldTrolley/GoldTrolley.gltf",
+    "IceLantern": "LightObject/IceLertern/IceLantern.gltf",
+    "IlluminationArch": "LightObject/IlluminationArch/IlluminationArch.gltf",
+    "SnowFlake": "LightObject/SnowFlake/SnowFlake.gltf",
+    "StarFlake": "LightObject/StarFlake/StarFlake.gltf",
+
+    "Icicle": "Model/Icicle/Icicle.gltf",
+    "Skull": "Model/Skull/Skull.gltf",
+    "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
     "Box": "Box.gltf"
   },
   "Texture" : {
