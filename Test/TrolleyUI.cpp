@@ -174,9 +174,9 @@ void TrolleyUI::Update()
 	float nitroT = std::clamp(trolley_->GetNitroAccumulateTimer() / trolley_->GetNitroChargeTime(), 0.0f, 1.0f);
 	float overChargeT = std::clamp((currentCharge - maxNormalChargeTime) / (burstThreshold - maxNormalChargeTime), 0.0f, 1.0f);
 	
-	chargeUI_.SetScale({ 200.0f, std::lerp(0.0f, 190.0f, chargeT) });
+	chargeUI_.SetScale({ 170.0f, std::lerp(0.0f, 190.0f, chargeT) });
 	nitroUI_.SetScale({ 140.0f,std::lerp(0.0f,  110.0f , nitroT) });
-	overChargeUI_.SetScale({ 200.0f, std::lerp(0.0f, 190.0f, overChargeT) });
+	overChargeUI_.SetScale({ 170.0f, std::lerp(0.0f, 190.0f, overChargeT) });
 
 	chargeUI_.SetUVRect({ {0.0f, 1.0f - chargeT}, {1.0f, chargeT} }, Sprite::UVMode::UV);
 	nitroUI_.SetUVRect({ {0.0f, 1.0f - nitroT}, { 1.0f,nitroT} }, Sprite::UVMode::UV);
