@@ -31,7 +31,8 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region RailSystem
-	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/railCamera.json");
+	//auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/Level1_railCamera.json");
+	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/Level2_railCamera.json");
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
@@ -78,7 +79,8 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+	//auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Level1_StaticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Level2_StaticMesh.json");
 
 	sceneObjectManager_->CreateObjects(result);
 
