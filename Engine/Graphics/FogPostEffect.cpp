@@ -4,6 +4,9 @@
 #include "Core/ShaderManager.h"
 #include "Core/ColorBuffer.h"
 #include "Core/DepthBuffer.h"
+#ifdef ENABLE_IMGUI
+#include "ImGuiManager.h"
+#endif ENABLE_IMGUI
 
 namespace {
     const wchar_t kComputeShader[] = L"FogPostEffectCS.hlsl";
@@ -38,21 +41,28 @@ void FogPostEffect::Dispatch(CommandContext& commandContext, ColorBuffer& textur
     struct Constant {
         Matrix4x4 viewProjectionInverseMatrix;
         Vector3 cameraPosition;
-        float pad;
+        float cameraNear;
+        Vector3 depthFogColor;
+        float cameraFar;
         float depthFogStart;
         float depthFogEnd;
         float hightFogStart;
         float hightFogEnd;
-        Vector3 color;
+        Vector3 hightFogColor;
+        float fogFactor;
     };
     Constant constant;
     constant.viewProjectionInverseMatrix = camera.GetViewProjectionInverseMatrix();
     constant.cameraPosition = camera.GetPosition();
+    constant.cameraNear = camera.GetNearClip();
+    constant.cameraFar = camera.GetFarClip();
     constant.depthFogStart = depthFogStart_;
     constant.depthFogEnd = depthFogEnd_;
     constant.hightFogStart = hightFogStart_;
     constant.hightFogEnd = hightFogEnd_;
-    constant.color = color_;
+    constant.depthFogColor = depthFogColor_;
+    constant.hightFogColor = hightFogColor_;
+    constant.fogFactor = fogFactor_;
 
     commandContext.TransitionResource(texture, D3D12_RESOURCE_STATE_UNORDERED_ACCESS);
     commandContext.TransitionResource(depth, D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
@@ -65,6 +75,23 @@ void FogPostEffect::Dispatch(CommandContext& commandContext, ColorBuffer& textur
     commandContext.SetComputeDynamicConstantBufferView(2, sizeof(constant), &constant);
     commandContext.Dispatch((UINT)std::floor(texture.GetWidth() / 8), (UINT)std::floor(texture.GetHeight() / 8));
     commandContext.UAVBarrier(texture);
+    commandContext.TransitionResource(texture, D3D12_RESOURCE_STATE_RENDER_TARGET);
 
     commandContext.FlushResourceBarriers();
+}
+
+void FogPostEffect::DrawImGui(const char* label) {
+    label;
+#ifdef ENABLE_IMGUI
+    if (ImGui::TreeNode(label)) {
+        ImGui::ColorEdit3("Depth Fog Color", &depthFogColor_.x);
+        ImGui::SliderFloat("Depth Near", &depthFogStart_, 0.0f, depthFogEnd_);
+        ImGui::SliderFloat("Depth Far", &depthFogEnd_, depthFogStart_, 1000.0f);
+        ImGui::ColorEdit3("Hight Fog Color", &hightFogColor_.x);
+        ImGui::DragFloat("Hight Start", &hightFogStart_, 1.0f, hightFogEnd_, 100.0f);
+        ImGui::DragFloat("Hight End", &hightFogEnd_, 1.0f, -1000.0f, hightFogStart_);
+        ImGui::SliderFloat("Factor", &fogFactor_, 0.0f, 1.0f);
+        ImGui::TreePop();
+    }
+#endif ENABLE_IMGUI
 }

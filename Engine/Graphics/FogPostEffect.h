@@ -14,20 +14,21 @@ public:
     void Initialize();
     void Dispatch(CommandContext& commandContext, ColorBuffer& texture, DepthBuffer& depth, const Camera& camera);
 
-    void SetColor(const Vector3& color) { color_ = color; }
-    const Vector3& GetColor() const { return color_; }
-
     void SetDepthFogStart(float depthFogStart) { depthFogStart_ = depthFogStart; }
     void SetDepthFogEnd(float depthFogEnd) { depthFogEnd_ = depthFogEnd; }
     void SetHightFogStart(float hightFogStart) { hightFogStart_ = hightFogStart; }
     void SetHightFogEnd(float hightFogEnd) { hightFogStart_ = hightFogEnd; }
 
+    void DrawImGui(const char* label);
+
 private:
     RootSignature rootSignature_;
     PipelineState pipelineState_;
-    Vector3 color_ = Vector3::one;
-    float depthFogStart_ = 200.0f;
-    float depthFogEnd_ = 500.0f;
+    Vector3 depthFogColor_ = { 0.1f, 0.01f, 0.01f };
+    Vector3 hightFogColor_ = { 0.1f, 0.01f, 0.01f };
+    float depthFogStart_ = 50.0f;
+    float depthFogEnd_ = 150.0f;
     float hightFogStart_ = 0.0f;
-    float hightFogEnd_ = -10.0f;
+    float hightFogEnd_ = -6.0f;
+    float fogFactor_ = 0.9f;
 };

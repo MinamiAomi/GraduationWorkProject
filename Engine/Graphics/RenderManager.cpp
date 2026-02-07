@@ -60,6 +60,11 @@ void RenderManager::Render() {
     auto camera = camera_.lock();
     auto sunLight = sunLight_.lock();
 
+#ifdef ENABLE_IMGUI
+    fogPostEffect_.DrawImGui("Fog");
+#endif
+
+
     commandContext_.Start(D3D12_COMMAND_LIST_TYPE_DIRECT);
 
     const float deltaSecond = 1 / 60.0f;

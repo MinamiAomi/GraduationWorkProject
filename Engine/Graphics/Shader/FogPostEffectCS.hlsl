@@ -4,18 +4,24 @@ Texture2D<float32_t> g_Depth : register(t0);
 
 struct Constant {
     float32_t4x4 viewProjectionInverseMatrix;
+
     float32_t3 cameraPosition;
+    float32_t cameraNear;
+
+    float32_t3 color;
+    float32_t cameraFar;
+
     float32_t depthFogStart;
     float32_t depthFogEnd;
     float32_t hightFogStart;
     float32_t hightFogEnd;
-    float32_t3 color;
+
+    float32_t3 hightFogColor;
+    float32_t fogFactor;
 };
 ConstantBuffer<Constant> g_Constant : register(b0);
 
-float32_t3 GetWorldPosition(in float32_t2 texcoord) {
-    // 深度をサンプリング
-    float32_t depth = g_Depth[texcoord];
+float32_t3 GetWorldPosition(in float32_t2 texcoord, in float32_t depth) {
     // xは0~1から-1~1, yは0~1から1~-1に上下反転
     float32_t2 xy = texcoord * float32_t2(2.0f, -2.0f) + float32_t2(-1.0f, 1.0f);
     float32_t4 tmpPosition = float32_t4(xy, depth, 1.0f);
@@ -23,9 +29,8 @@ float32_t3 GetWorldPosition(in float32_t2 texcoord) {
     return tmpPosition.xyz / tmpPosition.w;
 }
 
-
-float2 mod(float2 x, float2 y) {
-    return x - y * floor(x / y);
+float32_t LinearizeDepth(float32_t depth) {
+    return ((g_Constant.cameraNear * g_Constant.cameraFar) / (g_Constant.cameraFar - depth * (g_Constant.cameraFar - g_Constant.cameraNear)));
 }
 
 float Random(float2 uv, float seed) {
@@ -82,22 +87,38 @@ float PerlinNoise(float2 uv, float density) {
 
 float FractalSumNoise(float2 uv, float density) {
     float fn;
-    fn = PerlinNoise(uv, density * 1.0f);
-    //fn += PerlinNoise(uv, density * 2.0f) * 1.0f /  4.0f;
-    //fn += PerlinNoise(uv, density * 4.0f) * 1.0f /  8.0f;
-    //fn += PerlinNoise(uv, density * 8.0f) * 1.0f / 16.0f;
+    fn =  PerlinNoise(uv, density * 1.0f) * 0.5f;
+    fn += PerlinNoise(uv, density * 2.0f) * 0.25f;
+    fn += PerlinNoise(uv, density * 4.0f) * 0.125f;
     return fn;
+}
+
+float32_t3 ApplyNoiseHeightFog(float32_t3 color, float32_t3 position) {
+    float32_t heightDiff = position.y - g_Constant.cameraPosition.y;
+    float32_t heightFogFactor = saturate(( heightDiff - g_Constant.hightFogStart) / (g_Constant.hightFogEnd - g_Constant.hightFogStart));
+    float32_t2 uv = position.xz * 0.1f;
+    //float32_t noise = FractalSumNoise(uv, 4.0f);
+    //heightFogFactor *= noise;
+    heightFogFactor *= g_Constant.fogFactor;
+    return lerp(color, g_Constant.hightFogColor, heightFogFactor);
 }
 
 [numthreads(8, 8, 1)]
 void main(uint32_t2 DTid : SV_DispatchThreadID) {
+    float32_t width, height;
+    g_Texture.GetDimensions(width, height);
+    float32_t2 uv = DTid.xy / float2(width, height);
+    
     float32_t3 color = g_Texture[DTid].xyz;
-    float32_t3 position = GetWorldPosition(DTid.xy);
+    float32_t3 position = GetWorldPosition(uv, g_Depth[DTid]);
     float32_t depth = length(position - g_Constant.cameraPosition);
     float32_t fogFactor = saturate((depth - g_Constant.depthFogStart) / (g_Constant.depthFogEnd - g_Constant.depthFogStart));
+    fogFactor *= g_Constant.fogFactor;
     float32_t3 finalColor = lerp(color, g_Constant.color, fogFactor);
     
-    //float32_t3 finalColor = float32_t3(depth, 0.0f, 0.0f);
+    finalColor = ApplyNoiseHeightFog(finalColor, position);
+
+    //float32_t3 finalColor = float32_t3(FractalSumNoise(uv, 10.0f), 0.0f, 0.0f);
     
-    g_Texture[DTid].xyz = color;
+    g_Texture[DTid].xyz = finalColor;
 }
