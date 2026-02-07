@@ -45,14 +45,17 @@
     "DCUI_MouseKeyboard" : "TestResource/MouseKeyboard.png",
     
     "TrolleyBase" : "Trolley/TrolleyUI/Texture/base.png",
-    "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",
-    "TrolleyOverChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_purple.png",
-    "TrolleyNitroBurst" : "Trolley/TrolleyUI/Texture/gauge1_yellow.png",
-    "TrolleyNitroGauge" : "Trolley/TrolleyUI/Texture/gauge2_yellow.png",
+    "TrolleyChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_yellow.png",
+    "TrolleyOverChargeGauge" : "Trolley/TrolleyUI/Texture/gauge1_red.png",
+    "TrolleyNitroBurst" : "Trolley/TrolleyUI/Texture/gauge1_lightBlue.png",
+    "TrolleyNitroGauge" : "Trolley/TrolleyUI/Texture/gauge2_lightBlue.png",
     
-    "FlashlightBase" : "Flashlight/FlashlightUI/Texture/baseTest.png",
     "FlashlightFrame" : "Flashlight/FlashlightUI/Texture/frame.png",
     "FlashlightGauge" : "Flashlight/FlashlightUI/Texture/gauge_yellow.png",
+    
+    "ProgressFrame" : "Progress/Texture/frame.png",
+    "ProgressGauge" : "Progress/Texture/gauge.png",
+    "ProgressBaseUI" : "Progress/Texture/baseUI.png",
 
     "white2x2":"white2x2.png"
   }

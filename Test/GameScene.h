@@ -23,6 +23,8 @@
 #include "Deadline.h"
 #include "BatsManager.h"
 
+#include "RailcameraUI.h"
+
 #ifdef _DEBUG
 #include "DebugCamera.h"
 
@@ -66,6 +68,7 @@ private:
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::unique_ptr<BatsManager> batsManager_;
+	std::unique_ptr<RailcameraUI> railcameraUI_;
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;

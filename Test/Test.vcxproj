@@ -35,6 +35,7 @@
     <ClCompile Include="PowerEmitter.cpp" />
     <ClCompile Include="RailAnimationPlayer.cpp" />
     <ClCompile Include="RailCameraSystem.cpp" />
+    <ClCompile Include="RailcameraUI.cpp" />
     <ClCompile Include="SpotLightObject.cpp" />
     <ClCompile Include="StageSelectScene.cpp" />
     <ClCompile Include="SceneObjectData.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />
     <ClInclude Include="PowerEmitter.h" />
+    <ClInclude Include="RailcameraUI.h" />
     <ClInclude Include="RailDebugUtils.h" />
     <ClInclude Include="DebugCamera.h" />
     <ClInclude Include="RailAnimationPlayer.h" />

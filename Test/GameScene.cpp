@@ -109,6 +109,11 @@ void GameScene::OnInitialize() {
 	batsManager_->SetCamera(camera_.get());
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
+#pragma region RailcameraUI
+	railcameraUI_ = std::make_unique<RailcameraUI>();
+	railcameraUI_->Initialize();
+#pragma endregion
+
 
 
 
@@ -139,6 +144,9 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
+
+	
+
 #pragma endregion
 #pragma region Flashlight
 	flashlight_->Update();
@@ -150,7 +158,7 @@ void GameScene::OnUpdate() {
 	camera_->SetRotate(railCameraSystem_->GetWorldRotation());
 	camera_->SetPosition(railCameraSystem_->GetWorldTranslate());
 #pragma endregion
-	
+
 	//カメラ処理終わりこの後は動きません
 	camera_->UpdateMatrices();
 	RenderManager::GetInstance()->SetCamera(camera_);
@@ -164,6 +172,11 @@ void GameScene::OnUpdate() {
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
 #pragma endregion
+#pragma region RailcameraUI
+	railcameraUI_->Update((railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame));
+#pragma endregion
+
+
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion

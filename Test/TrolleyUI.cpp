@@ -27,43 +27,46 @@ TrolleyUI::TrolleyUI()
 	auto nitroGaugeTexture = assetManager->textureMap.Get("TrolleyNitroGauge")->Get();
 	auto nitroBurstTexture = assetManager->textureMap.Get("TrolleyNitroBurst")->Get();
 
+
 	baseUI_.SetTexture(baseTexture);
 	chargeUI_.SetTexture(chargeGaugeTexture);
 	overChargeUI_.SetTexture(overChargeGaugeTexture);
 	nitroBurstUI_.SetTexture(nitroBurstTexture);
 	nitroUI_.SetTexture(nitroGaugeTexture);
 
-
-	baseUI_.SetPosition({ 1064.0f,77.0f });
+	baseUI_.SetPosition({ 1120.0f,60.0f });
 	baseUI_.SetScale(baseTexture->GetSize());
-	baseUI_.SetAnchor({ 0.5f, 0.5f });
+	baseUI_.SetAnchor({ 0.5f, 0.0f });
 	baseUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	baseUI_.SetDrawOrder(0);
 
-	chargeUI_.SetPosition({ 972.0f,77.0f });
+	chargeUI_.SetPosition({ 1135.0f,60.0f });
 	chargeUI_.SetScale(chargeGaugeTexture->GetSize());
-	chargeUI_.SetAnchor({ 0.0f,0.5f });
+	chargeUI_.SetAnchor({ 0.5f,0.0f });
 	chargeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	chargeUI_.SetDrawOrder(1);
 
-	overChargeUI_.SetPosition({ 972.0f,77.0f });
+	overChargeUI_.SetPosition({ 1135.0f,60.0f });
 	overChargeUI_.SetScale(overChargeGaugeTexture->GetSize());
-	overChargeUI_.SetAnchor({ 0.0f,0.5f });
+	overChargeUI_.SetAnchor({ 0.5f,0.0f });
 	overChargeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	overChargeUI_.SetDrawOrder(2);
 
-	nitroBurstUI_.SetPosition({ 972.0f,77.0f });
+	nitroBurstUI_.SetPosition({ 1135.0f,60.0f });
 	nitroBurstUI_.SetScale(nitroBurstTexture->GetSize());
-	nitroBurstUI_.SetAnchor({ 0.0f,0.5f });
+	nitroBurstUI_.SetAnchor({ 0.5f,0.0f });
 	nitroBurstUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	nitroBurstUI_.SetIsActive(false);
 	nitroBurstUI_.SetDrawOrder(3);
 
 
-	nitroUI_.SetPosition({ 1081.0f,61.0f });
+	nitroUI_.SetPosition({ 1090.0f,65.0f });
 	nitroUI_.SetScale(nitroGaugeTexture->GetSize());
-	nitroUI_.SetAnchor({ 0.0f,0.5f });
+	nitroUI_.SetAnchor({ 0.5f,0.0f });
 	nitroUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+
+
+
 }
 
 void TrolleyUI::Initialize(const Transform& transform)
@@ -129,7 +132,7 @@ void TrolleyUI::Update()
 
 		outsideTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 0.9f, outsideAxis_);
 
-		effectTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed *  2.0f, effectAxis_);
+		effectTransform_.rotate *= Quaternion::MakeFromAngleAxis(baseSpeed * 2.0f, effectAxis_);
 
 		batterTransform_.translate.y = rnd_.NextFloatRange(0.01f, 0.015f);
 	}
@@ -170,15 +173,14 @@ void TrolleyUI::Update()
 	float chargeT = std::clamp(trolley_->GetCurrentCharge() / trolley_->GetMaxNormalCharge(), 0.0f, 1.0f);
 	float nitroT = std::clamp(trolley_->GetNitroAccumulateTimer() / trolley_->GetNitroChargeTime(), 0.0f, 1.0f);
 	float overChargeT = std::clamp((currentCharge - maxNormalChargeTime) / (burstThreshold - maxNormalChargeTime), 0.0f, 1.0f);
+	
+	chargeUI_.SetScale({ 200.0f, std::lerp(0.0f, 190.0f, chargeT) });
+	nitroUI_.SetScale({ 140.0f,std::lerp(0.0f,  110.0f , nitroT) });
+	overChargeUI_.SetScale({ 200.0f, std::lerp(0.0f, 190.0f, overChargeT) });
 
-	chargeUI_.SetScale({ std::lerp(0.0f,268.0f,chargeT),44.0f });
-	nitroUI_.SetScale({ std::lerp(0.0f,144.0f,nitroT),12.0f });
-	overChargeUI_.SetScale({ std::lerp(0.0f,268.0f,overChargeT),44.0f });
-
-	chargeUI_.SetUVRect({ {0.0f,0.0f} ,{chargeT,1.0f} }, Sprite::UVMode::UV);
-	nitroUI_.SetUVRect({ {0.0f,0.0f} ,{nitroT,1.0f} }, Sprite::UVMode::UV);
-	overChargeUI_.SetUVRect({ {0.0f,0.0f} ,{overChargeT,1.0f} }, Sprite::UVMode::UV);
-
+	chargeUI_.SetUVRect({ {0.0f, 1.0f - chargeT}, {1.0f, chargeT} }, Sprite::UVMode::UV);
+	nitroUI_.SetUVRect({ {0.0f, 1.0f - nitroT}, { 1.0f,nitroT} }, Sprite::UVMode::UV);
+	overChargeUI_.SetUVRect({ {0.0f, 1.0f - overChargeT}, {1.0f, overChargeT} }, Sprite::UVMode::UV);
 
 	if (trolley_->GetState() == Trolley::State::Nitro) {
 		nitroBurstUI_.SetIsActive(true);
