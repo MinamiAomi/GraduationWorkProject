@@ -1,0 +1,5274 @@
+{
+  "objects": [
+    {
+      "name": "Crystal.001",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          213.4396,
+          57.8887,
+          9.0164
+        ],
+        "rotate": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ],
+        "scale": [
+          4.6684,
+          4.6684,
+          4.6684
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.9056,
+          0.8885
+        ],
+        "intensity": 10.0,
+        "range": 53.12,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          214.3154,
+          57.6699,
+          11.6624
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3144,
+          0.1116,
+          0.0202,
+          0.9425
+        ]
+      }
+    },
+    {
+      "name": "RANTAN.001",
+      "model_name": "RANTAN",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          12.4833,
+          -3.6714,
+          3.8819
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          12.4833,
+          -3.6714,
+          6.6927
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "Crystal.002",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          270.8963,
+          177.7469,
+          -0.9961
+        ],
+        "rotate": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          271.2524,
+          177.6845,
+          -0.5842
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3402,
+          -0.2567,
+          0.2136,
+          -0.8791
+        ]
+      }
+    },
+    {
+      "name": "Crystal.003",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          275.3104,
+          229.2802,
+          5.5406
+        ],
+        "rotate": [
+          0.1366,
+          0.9073,
+          -0.3913,
+          -0.0703
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          275.1512,
+          229.2233,
+          5.0194
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1366,
+          0.9073,
+          -0.3913,
+          -0.0703
+        ]
+      }
+    },
+    {
+      "name": "Crystal.004",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          289.6777,
+          305.7325,
+          0.0889
+        ],
+        "rotate": [
+          0.8712,
+          -0.297,
+          -0.2387,
+          0.3095
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          289.3157,
+          305.8888,
+          0.4695
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8712,
+          -0.297,
+          -0.2387,
+          0.3095
+        ]
+      }
+    },
+    {
+      "name": "Crystal.005",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          324.8261,
+          365.3689,
+          -1.9715
+        ],
+        "rotate": [
+          0.9228,
+          0.212,
+          -0.1369,
+          0.2911
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          324.717,
+          365.0773,
+          -1.5205
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9228,
+          0.212,
+          -0.1369,
+          0.2911
+        ]
+      }
+    },
+    {
+      "name": "Crystal.006",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          415.1797,
+          390.7455,
+          3.4353
+        ],
+        "rotate": [
+          0.1441,
+          -0.9455,
+          -0.2821,
+          0.0759
+        ],
+        "scale": [
+          1.1648,
+          1.2169,
+          1.3386
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          414.9336,
+          390.8997,
+          2.6892
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1441,
+          -0.9455,
+          -0.2821,
+          0.0759
+        ]
+      }
+    },
+    {
+      "name": "Crystal.007",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          332.4338,
+          358.2233,
+          0.0198
+        ],
+        "rotate": [
+          0.9364,
+          -0.1868,
+          0.1448,
+          -0.2595
+        ],
+        "scale": [
+          0.915,
+          0.915,
+          0.915
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          332.5833,
+          358.3953,
+          0.5182
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9364,
+          -0.1868,
+          0.1448,
+          -0.2595
+        ]
+      }
+    },
+    {
+      "name": "Crystal.008",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          473.4072,
+          405.8582,
+          -0.4152
+        ],
+        "rotate": [
+          0.9683,
+          0.192,
+          -0.0438,
+          -0.1535
+        ],
+        "scale": [
+          0.7017,
+          0.7331,
+          0.8064
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          473.2946,
+          405.6924,
+          0.0235
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9683,
+          0.192,
+          -0.0438,
+          -0.1535
+        ]
+      }
+    },
+    {
+      "name": "Crystal.009",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          568.0272,
+          407.1408,
+          4.2795
+        ],
+        "rotate": [
+          0.3692,
+          0.9155,
+          0.1045,
+          -0.1207
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          567.8951,
+          406.7477,
+          3.8951
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3692,
+          0.9155,
+          0.1045,
+          -0.1207
+        ]
+      }
+    },
+    {
+      "name": "Crystal.010",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          538.0122,
+          399.9919,
+          1.8491
+        ],
+        "rotate": [
+          0.2493,
+          -0.9552,
+          -0.1559,
+          0.0346
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          537.8802,
+          400.2461,
+          1.3615
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2493,
+          -0.9552,
+          -0.1559,
+          0.0346
+        ]
+      }
+    },
+    {
+      "name": "Crystal.011",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          727.6052,
+          398.2016,
+          -1.1764
+        ],
+        "rotate": [
+          0.9791,
+          -0.1276,
+          -0.0823,
+          -0.1356
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          727.4828,
+          398.3582,
+          -0.647
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9791,
+          -0.1276,
+          -0.0823,
+          -0.1356
+        ]
+      }
+    },
+    {
+      "name": "Crystal.012",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          778.8937,
+          403.422,
+          -0.9578
+        ],
+        "rotate": [
+          0.9431,
+          0.1388,
+          -0.273,
+          0.1298
+        ],
+        "scale": [
+          0.8227,
+          0.8596,
+          0.9455
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          778.5857,
+          403.217,
+          -0.5302
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9431,
+          0.1388,
+          -0.273,
+          0.1298
+        ]
+      }
+    },
+    {
+      "name": "Crystal.013",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          836.5484,
+          431.8013,
+          -3.2679
+        ],
+        "rotate": [
+          0.941,
+          -0.3219,
+          -0.0331,
+          0.0994
+        ],
+        "scale": [
+          2.4575,
+          2.5676,
+          2.8244
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          836.1923,
+          432.7547,
+          -1.9198
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.941,
+          -0.3219,
+          -0.0331,
+          0.0994
+        ]
+      }
+    },
+    {
+      "name": "Crystal.014",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          836.4747,
+          468.2308,
+          6.1871
+        ],
+        "rotate": [
+          0.9715,
+          0.1774,
+          0.1566,
+          -0.0139
+        ],
+        "scale": [
+          2.4475,
+          2.5171,
+          2.6771
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          836.8057,
+          467.643,
+          7.6399
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9715,
+          0.1774,
+          0.1566,
+          -0.0139
+        ]
+      }
+    },
+    {
+      "name": "Crystal.015",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          845.866,
+          457.0012,
+          -1.7075
+        ],
+        "rotate": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ],
+        "scale": [
+          2.4475,
+          2.5171,
+          2.6771
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          846.1969,
+          457.5737,
+          -0.2485
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
+      }
+    },
+    {
+      "name": "Crystal.016",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          817.6334,
+          450.9095,
+          1.9392
+        ],
+        "rotate": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          817.837,
+          451.2617,
+          2.837
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9682,
+          -0.1948,
+          0.1403,
+          -0.0709
+        ]
+      }
+    },
+    {
+      "name": "Crystal.017",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          820.4968,
+          455.9904,
+          1.1897
+        ],
+        "rotate": [
+          0.9621,
+          -0.1958,
+          0.0069,
+          -0.1898
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          820.49,
+          456.3767,
+          2.0965
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9621,
+          -0.1958,
+          0.0069,
+          -0.1898
+        ]
+      }
+    },
+    {
+      "name": "Crystal.018",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          832.2107,
+          451.9701,
+          -2.5784
+        ],
+        "rotate": [
+          0.8782,
+          -0.0131,
+          0.0523,
+          0.4752
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          832.2528,
+          451.9542,
+          -1.5937
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8782,
+          -0.0131,
+          0.0523,
+          0.4752
+        ]
+      }
+    },
+    {
+      "name": "Crystal.019",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          832.4555,
+          443.5245,
+          -3.6224
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          832.1173,
+          443.3994,
+          -2.705
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      }
+    },
+    {
+      "name": "Crystal.020",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          839.9845,
+          457.7334,
+          -1.9353
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          839.6463,
+          457.6084,
+          -1.0179
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      }
+    },
+    {
+      "name": "Crystal.021",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          854.6296,
+          475.1074,
+          -1.673
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          854.2914,
+          474.9823,
+          -0.7556
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      }
+    },
+    {
+      "name": "Crystal.022",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          857.2842,
+          459.4758,
+          -3.7747
+        ],
+        "rotate": [
+          0.8569,
+          -0.2608,
+          -0.0406,
+          0.4429
+        ],
+        "scale": [
+          1.5061,
+          1.549,
+          1.6474
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          856.946,
+          459.7979,
+          -2.9066
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8569,
+          -0.2608,
+          -0.0406,
+          0.4429
+        ]
+      }
+    },
+    {
+      "name": "Crystal.023",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          847.6829,
+          479.6966,
+          12.5846
+        ],
+        "rotate": [
+          0.2963,
+          0.8452,
+          -0.4442,
+          -0.0221
+        ],
+        "scale": [
+          3.4975,
+          3.5971,
+          3.8256
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          846.8976,
+          478.783,
+          10.6383
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2963,
+          0.8452,
+          -0.4442,
+          -0.0221
+        ]
+      }
+    },
+    {
+      "name": "Crystal.024",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          820.6021,
+          468.7458,
+          13.123
+        ],
+        "rotate": [
+          0.0168,
+          0.8955,
+          -0.4149,
+          -0.1601
+        ],
+        "scale": [
+          3.4975,
+          3.5971,
+          3.8256
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          819.8168,
+          469.1689,
+          11.015
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.0168,
+          0.8955,
+          -0.4149,
+          -0.1601
+        ]
+      }
+    },
+    {
+      "name": "Crystal.025",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          884.6468,
+          450.5446,
+          -5.6932
+        ],
+        "rotate": [
+          0.7887,
+          0.1016,
+          -0.0442,
+          -0.6047
+        ],
+        "scale": [
+          4.5903,
+          4.721,
+          5.021
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          883.9443,
+          450.4851,
+          -2.7729
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7887,
+          0.1016,
+          -0.0442,
+          -0.6047
+        ]
+      }
+    },
+    {
+      "name": "Crystal.026",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          864.2703,
+          464.8932,
+          2.7525
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          864.0925,
+          464.8275,
+          3.2351
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      }
+    },
+    {
+      "name": "Crystal.027",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.2603,
+          466.8636,
+          2.2759
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          862.0824,
+          466.7979,
+          2.7584
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      }
+    },
+    {
+      "name": "Crystal.028",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          867.7886,
+          463.1187,
+          2.583
+        ],
+        "rotate": [
+          0.7096,
+          -0.0306,
+          -0.4813,
+          0.5138
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          867.4261,
+          462.8443,
+          2.8321
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7096,
+          -0.0306,
+          -0.4813,
+          0.5138
+        ]
+      }
+    },
+    {
+      "name": "Crystal.029",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          870.1691,
+          467.6297,
+          4.8269
+        ],
+        "rotate": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          869.9913,
+          467.5639,
+          5.3094
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8945,
+          -0.0448,
+          -0.147,
+          0.4197
+        ]
+      }
+    },
+    {
+      "name": "Crystal.030",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.9385,
+          452.3193,
+          -0.7279
+        ],
+        "rotate": [
+          0.74,
+          -0.211,
+          -0.0204,
+          0.6384
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          862.7836,
+          452.4194,
+          -0.2434
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.74,
+          -0.211,
+          -0.0204,
+          0.6384
+        ]
+      }
+    },
+    {
+      "name": "Crystal.031",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          865.9833,
+          456.3969,
+          -1.2711
+        ],
+        "rotate": [
+          0.9513,
+          -0.0012,
+          -0.3064,
+          0.0325
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          865.6433,
+          456.3754,
+          -0.8803
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9513,
+          -0.0012,
+          -0.3064,
+          0.0325
+        ]
+      }
+    },
+    {
+      "name": "Crystal.032",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          855.7461,
+          451.9801,
+          1.4082
+        ],
+        "rotate": [
+          0.8403,
+          -0.2047,
+          0.0799,
+          0.4957
+        ],
+        "scale": [
+          1.1265,
+          1.1585,
+          1.2321
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          855.6727,
+          452.2293,
+          2.0981
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.8403,
+          -0.2047,
+          0.0799,
+          0.4957
+        ]
+      }
+    },
+    {
+      "name": "Crystal.033",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.0373,
+          471.6032,
+          0.8865
+        ],
+        "rotate": [
+          0.5124,
+          0.1207,
+          -0.1448,
+          -0.8378
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          861.8705,
+          471.7124,
+          1.3651
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5124,
+          0.1207,
+          -0.1448,
+          -0.8378
+        ]
+      }
+    },
+    {
+      "name": "Crystal.034",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          862.1435,
+          469.5223,
+          0.6607
+        ],
+        "rotate": [
+          0.4727,
+          0.2319,
+          0.0455,
+          -0.849
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          861.9767,
+          469.4127,
+          1.1392
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4727,
+          0.2319,
+          0.0455,
+          -0.849
+        ]
+      }
+    },
+    {
+      "name": "Crystal.035",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          861.2477,
+          471.8578,
+          -0.4234
+        ],
+        "rotate": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          860.8981,
+          471.7483,
+          -0.0566
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ]
+      }
+    },
+    {
+      "name": "moss.001",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          900.4964,
+          381.2719,
+          14.4068
+        ],
+        "rotate": [
+          0.651,
+          -0.7471,
+          0.0587,
+          -0.1205
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          900.6517,
+          381.1497,
+          14.8066
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.651,
+          -0.7471,
+          0.0587,
+          -0.1205
+        ]
+      }
+    },
+    {
+      "name": "moss.002",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          910.7147,
+          384.8786,
+          -6.2318
+        ],
+        "rotate": [
+          0.9691,
+          -0.0496,
+          -0.2111,
+          -0.1173
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          910.8693,
+          384.4604,
+          -6.2364
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9691,
+          -0.0496,
+          -0.2111,
+          -0.1173
+        ]
+      }
+    },
+    {
+      "name": "moss.003",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          921.1488,
+          358.5936,
+          -3.113
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          921.2939,
+          358.1975,
+          -3.2578
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      }
+    },
+    {
+      "name": "moss.004",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          932.4118,
+          358.0208,
+          -2.854
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          932.5569,
+          357.6247,
+          -2.9988
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      }
+    },
+    {
+      "name": "moss.005",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          932.0419,
+          371.0854,
+          -3.0991
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          932.187,
+          370.6893,
+          -3.2438
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      }
+    },
+    {
+      "name": "moss.006",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          921.0791,
+          371.0854,
+          -2.7749
+        ],
+        "rotate": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ],
+        "scale": [
+          5.4873,
+          5.4873,
+          5.4873
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          921.2242,
+          370.6893,
+          -2.9196
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9919,
+          0.0424,
+          -0.0391,
+          -0.1128
+        ]
+      }
+    },
+    {
+      "name": "moss.007",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          924.7643,
+          327.7391,
+          -6.5125
+        ],
+        "rotate": [
+          0.9912,
+          0.0316,
+          0.0545,
+          -0.1163
+        ],
+        "scale": [
+          11.9747,
+          11.9747,
+          11.9747
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          925.016,
+          326.8748,
+          -6.8821
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9912,
+          0.0316,
+          0.0545,
+          -0.1163
+        ]
+      }
+    },
+    {
+      "name": "moss.008",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          961.0519,
+          326.3202,
+          -10.3006
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          961.4297,
+          325.3277,
+          -10.0761
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      }
+    },
+    {
+      "name": "moss.009",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          971.3027,
+          343.7701,
+          -13.9419
+        ],
+        "rotate": [
+          0.817,
+          0.0358,
+          -0.2944,
+          -0.4945
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          970.9423,
+          342.7994,
+          -14.2676
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.817,
+          0.0358,
+          -0.2944,
+          -0.4945
+        ]
+      }
+    },
+    {
+      "name": "moss.010",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          986.0758,
+          362.4111,
+          -3.7799
+        ],
+        "rotate": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.8087,
+          361.4404,
+          -4.1857
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ]
+      }
+    },
+    {
+      "name": "moss.011",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          986.0758,
+          362.4111,
+          -3.7799
+        ],
+        "rotate": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.8087,
+          361.4404,
+          -4.1857
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7732,
+          0.0981,
+          -0.3954,
+          -0.486
+        ]
+      }
+    },
+    {
+      "name": "moss.012",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          941.5947,
+          306.4738,
+          -7.4214
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          941.9725,
+          305.4812,
+          -7.1969
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      }
+    },
+    {
+      "name": "moss.013",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          939.1512,
+          331.4806,
+          -21.7901
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          939.5291,
+          330.488,
+          -21.5656
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      }
+    },
+    {
+      "name": "moss.014",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          939.1512,
+          331.4806,
+          -21.7901
+        ],
+        "rotate": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          939.5291,
+          330.488,
+          -21.5656
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9608,
+          -0.1784,
+          -0.1919,
+          -0.0902
+        ]
+      }
+    },
+    {
+      "name": "moss.015",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          968.4046,
+          306.6892,
+          10.6262
+        ],
+        "rotate": [
+          0.6939,
+          -0.4169,
+          -0.5543,
+          -0.1937
+        ],
+        "scale": [
+          13.3565,
+          13.3565,
+          13.3565
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          968.1077,
+          306.0344,
+          11.4394
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6939,
+          -0.4169,
+          -0.5543,
+          -0.1937
+        ]
+      }
+    },
+    {
+      "name": "moss.016",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          982.6406,
+          325.9258,
+          9.4419
+        ],
+        "rotate": [
+          0.7172,
+          -0.312,
+          -0.6194,
+          -0.0676
+        ],
+        "scale": [
+          20.6867,
+          20.6867,
+          20.6867
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          982.5637,
+          324.8148,
+          10.7014
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.7172,
+          -0.312,
+          -0.6194,
+          -0.0676
+        ]
+      }
+    },
+    {
+      "name": "moss.017",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          987.5627,
+          349.7523,
+          20.8626
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          987.9034,
+          349.3772,
+          21.5615
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      }
+    },
+    {
+      "name": "moss.018",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          981.8881,
+          366.5901,
+          16.2741
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          982.2288,
+          366.215,
+          16.973
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      }
+    },
+    {
+      "name": "moss.019",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          988.0498,
+          348.3228,
+          8.0311
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          988.3904,
+          347.9477,
+          8.73
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      }
+    },
+    {
+      "name": "moss.020",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          985.0582,
+          368.8567,
+          4.1337
+        ],
+        "rotate": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ],
+        "scale": [
+          10.622,
+          10.622,
+          10.622
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          985.3989,
+          368.4816,
+          4.8326
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6277,
+          -0.026,
+          -0.7344,
+          0.257
+        ]
+      }
+    },
+    {
+      "name": "moss.021",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          958.9609,
+          373.1059,
+          30.5246
+        ],
+        "rotate": [
+          0.4778,
+          0.2626,
+          -0.7257,
+          0.4196
+        ],
+        "scale": [
+          15.175,
+          15.2257,
+          16.2877
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          959.6852,
+          372.9232,
+          31.5189
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4778,
+          0.2626,
+          -0.7257,
+          0.4196
+        ]
+      }
+    },
+    {
+      "name": "Crystal.036",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1089.3307,
+          411.4959,
+          -0.7835
+        ],
+        "rotate": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ],
+        "scale": [
+          0.7922,
+          0.8147,
+          0.8665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1088.9811,
+          411.3863,
+          -0.4167
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4716,
+          0.4061,
+          -0.0554,
+          -0.7808
+        ]
+      }
+    },
+    {
+      "name": "Crystal.037",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          886.0028,
+          337.3456,
+          -3.225
+        ],
+        "rotate": [
+          0.5857,
+          0.1369,
+          0.3469,
+          0.7196
+        ],
+        "scale": [
+          2.9628,
+          3.0472,
+          3.2408
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          887.2442,
+          337.8305,
+          -1.8165
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5857,
+          0.1369,
+          0.3469,
+          0.7196
+        ]
+      }
+    },
+    {
+      "name": "Crystal.038",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1008.3043,
+          469.9731,
+          -1.6663
+        ],
+        "rotate": [
+          0.4974,
+          -0.2536,
+          0.0168,
+          0.8294
+        ],
+        "scale": [
+          1.3116,
+          1.3489,
+          1.4347
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1008.0026,
+          470.154,
+          -0.8832
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.4974,
+          -0.2536,
+          0.0168,
+          0.8294
+        ]
+      }
+    },
+    {
+      "name": "Crystal.039",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1136.9219,
+          414.5179,
+          5.1108
+        ],
+        "rotate": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ],
+        "scale": [
+          1.2394,
+          1.2747,
+          1.3557
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1137.2748,
+          413.942,
+          5.5601
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ]
+      }
+    },
+    {
+      "name": "Crystal.040",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1130.7898,
+          413.5578,
+          1.1982
+        ],
+        "rotate": [
+          0.2786,
+          0.6469,
+          -0.5215,
+          0.4816
+        ],
+        "scale": [
+          1.2394,
+          1.2747,
+          1.3557
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1131.0726,
+          412.8967,
+          0.8227
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2786,
+          0.6469,
+          -0.5215,
+          0.4816
+        ]
+      }
+    },
+    {
+      "name": "Crystal.041",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1143.7467,
+          407.5502,
+          -3.6748
+        ],
+        "rotate": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ],
+        "scale": [
+          1.2394,
+          1.2747,
+          1.3557
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1143.4465,
+          408.3011,
+          -3.6119
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ]
+      }
+    },
+    {
+      "name": "Crystal.042",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1137.5215,
+          391.4885,
+          -19.1161
+        ],
+        "rotate": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ],
+        "scale": [
+          1.9266,
+          1.9815,
+          2.1074
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1137.0548,
+          392.6557,
+          -19.0183
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.027,
+          0.2909,
+          -0.6217,
+          -0.7267
+        ]
+      }
+    },
+    {
+      "name": "Crystal.043",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1114.3446,
+          397.8584,
+          -18.3679
+        ],
+        "rotate": [
+          0.141,
+          -0.0515,
+          0.5245,
+          0.8381
+        ],
+        "scale": [
+          1.9266,
+          1.9815,
+          2.1074
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1114.5424,
+          398.9675,
+          -17.8017
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.141,
+          -0.0515,
+          0.5245,
+          0.8381
+        ]
+      }
+    },
+    {
+      "name": "Crystal.044",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1129.2177,
+          406.6353,
+          3.0749
+        ],
+        "rotate": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ],
+        "scale": [
+          0.6942,
+          0.7139,
+          0.7593
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1129.4153,
+          406.3127,
+          3.3265
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5081,
+          0.3911,
+          -0.1772,
+          0.7467
+        ]
+      }
+    },
+    {
+      "name": "Crystal.045",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1127.0841,
+          404.6837,
+          0.551
+        ],
+        "rotate": [
+          0.5075,
+          0.1814,
+          0.3265,
+          0.7765
+        ],
+        "scale": [
+          0.6942,
+          0.7139,
+          0.7593
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1127.3848,
+          404.7931,
+          0.8735
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5075,
+          0.1814,
+          0.3265,
+          0.7765
+        ]
+      }
+    },
+    {
+      "name": "Crystal.046",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1188.1234,
+          476.503,
+          -10.8967
+        ],
+        "rotate": [
+          0.3631,
+          0.2634,
+          0.0103,
+          0.8937
+        ],
+        "scale": [
+          0.728,
+          0.8985,
+          1.0871
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1188.4666,
+          476.3691,
+          -10.3623
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3631,
+          0.2634,
+          0.0103,
+          0.8937
+        ]
+      }
+    },
+    {
+      "name": "moss.022",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1140.3076,
+          402.6714,
+          0.991
+        ],
+        "rotate": [
+          0.1456,
+          -0.417,
+          -0.1251,
+          0.8884
+        ],
+        "scale": [
+          3.483,
+          3.4947,
+          3.7384
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1140.3251,
+          402.9469,
+          0.9187
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1456,
+          -0.417,
+          -0.1251,
+          0.8884
+        ]
+      }
+    },
+    {
+      "name": "Crystal.047",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1180.1187,
+          422.3697,
+          -37.3449
+        ],
+        "rotate": [
+          0.3496,
+          -0.0155,
+          -0.0986,
+          0.9316
+        ],
+        "scale": [
+          1.0466,
+          1.1886,
+          0.9841
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1180.119,
+          422.236,
+          -36.7705
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3496,
+          -0.0155,
+          -0.0986,
+          0.9316
+        ]
+      }
+    },
+    {
+      "name": "Crystal.048",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1198.8296,
+          474.1166,
+          -7.7901
+        ],
+        "rotate": [
+          0.5211,
+          -0.2623,
+          -0.5315,
+          0.6141
+        ],
+        "scale": [
+          1.0466,
+          1.1886,
+          0.9841
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1198.3418,
+          473.8333,
+          -7.6182
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.5211,
+          -0.2623,
+          -0.5315,
+          0.6141
+        ]
+      }
+    },
+    {
+      "name": "Helmet.002",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1132.075,
+          404.6783,
+          -37.9587
+        ],
+        "rotate": [
+          0.1262,
+          0.3649,
+          -0.0762,
+          0.9193
+        ],
+        "scale": [
+          1.7209,
+          1.7209,
+          1.7209
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1132.4614,
+          404.5187,
+          -37.0948
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1262,
+          0.3649,
+          -0.0762,
+          0.9193
+        ]
+      }
+    },
+    {
+      "name": "Helmet.003",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1127.2297,
+          415.4742,
+          -37.5312
+        ],
+        "rotate": [
+          0.9085,
+          0.079,
+          -0.0665,
+          -0.405
+        ],
+        "scale": [
+          1.7209,
+          1.7209,
+          1.7209
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1127.2578,
+          415.1708,
+          -36.621
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9085,
+          0.079,
+          -0.0665,
+          -0.405
+        ]
+      }
+    },
+    {
+      "name": "Helmet.004",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1128.3658,
+          401.8538,
+          -24.0749
+        ],
+        "rotate": [
+          0.2695,
+          0.6275,
+          -0.1357,
+          0.7178
+        ],
+        "scale": [
+          1.7209,
+          1.7209,
+          1.7209
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1129.1013,
+          401.4316,
+          -23.6254
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.2695,
+          0.6275,
+          -0.1357,
+          0.7178
+        ]
+      }
+    },
+    {
+      "name": "天ライト.001",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          156.3285,
+          -0.1305,
+          3.1593
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          156.3284,
+          -0.1329,
+          4.7836
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.002",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          117.964,
+          -0.0546,
+          2.993
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          117.9639,
+          -0.0571,
+          4.6174
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.003",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          746.6339,
+          400.4861,
+          3.9354
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          746.6338,
+          400.4836,
+          5.5598
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.004",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          817.2245,
+          437.718,
+          4.3619
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          817.2244,
+          437.7155,
+          5.9863
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.005",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          972.5398,
+          389.7005,
+          3.7944
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          972.5397,
+          389.698,
+          5.4187
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.006",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1022.783,
+          471.5711,
+          3.9671
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1022.7828,
+          471.5686,
+          5.5914
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "天ライト.007",
+      "model_name": "PendantLight",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1121.8889,
+          406.0102,
+          8.5534
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          -1.86
+        ],
+        "color": [
+          1.0,
+          0.8915,
+          0.8234
+        ],
+        "intensity": 1.47,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1121.8888,
+          406.0077,
+          10.1778
+        ],
+        "radius": 0.5,
+        "height": 0.01,
+        "quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "CoalTrolley",
+      "model_name": "CoalTrolley",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          49.7097,
+          4.0676,
+          2.2103
+        ],
+        "rotate": [
+          0.5894,
+          0.1119,
+          -0.0896,
+          0.795
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          2.67,
+          0.93
+        ],
+        "color": [
+          1.0,
+          0.9533,
+          0.3265
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          49.4533,
+          4.2876,
+          1.2503
+        ],
+        "radius": 0.5,
+        "height": 0.0,
+        "quaternion": [
+          0.5894,
+          0.1119,
+          -0.0896,
+          0.795
+        ]
+      }
+    },
+    {
+      "name": "CoalTrolley.001",
+      "model_name": "CoalTrolley",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          243.2848,
+          72.9757,
+          1.2008
+        ],
+        "rotate": [
+          0.5177,
+          0.0519,
+          0.0926,
+          -0.849
+        ],
+        "scale": [
+          1.2889,
+          1.2889,
+          1.2889
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          2.67,
+          0.93
+        ],
+        "color": [
+          1.0,
+          0.9533,
+          0.3265
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          243.4939,
+          73.1354,
+          -0.0844
+        ],
+        "radius": 0.5,
+        "height": 0.0,
+        "quaternion": [
+          0.5177,
+          0.0519,
+          0.0926,
+          -0.849
+        ]
+      }
+    },
+    {
+      "name": "Helmet",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          235.4583,
+          70.4313,
+          2.7198
+        ],
+        "rotate": [
+          0.9528,
+          -0.0758,
+          0.2808,
+          0.0869
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          235.8778,
+          70.5551,
+          3.0658
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9528,
+          -0.0758,
+          0.2808,
+          0.0869
+        ]
+      }
+    },
+    {
+      "name": "Helmet.001",
+      "model_name": "Helmet",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          886.6678,
+          383.7707,
+          -0.1056
+        ],
+        "rotate": [
+          0.9381,
+          -0.0715,
+          0.3266,
+          0.0905
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.7531,
+          0.0684
+        ],
+        "intensity": 15.0,
+        "range": 15.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          887.1189,
+          383.8945,
+          0.1983
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9381,
+          -0.0715,
+          0.3266,
+          0.0905
+        ]
+      }
+    },
+    {
+      "name": "CoalTrolley.002",
+      "model_name": "CoalTrolley",
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          525.2792,
+          393.128,
+          -192.6236
+        ],
+        "rotate": [
+          0.7597,
+          -0.1005,
+          -0.1308,
+          0.629
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "MOVER",
+        "key": "Trolley_1",
+        "duration": 60,
+        "is_cyclic": false,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 61.0,
+            "value": 60.0
+          }
+        ],
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 805.793,
+              "y": 400.2118,
+              "z": 9.0245
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "x": 796.6519,
+              "y": 401.3251,
+              "z": 2.3631
+            }
+          }
+        ],
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          }
+        ],
+        "path_points": [
+          [
+            805.793,
+            400.2118,
+            9.0245
+          ],
+          [
+            803.1531,
+            401.0904,
+            6.8078
+          ],
+          [
+            801.2864,
+            401.3066,
+            5.6706
+          ],
+          [
+            798.4056,
+            401.3834,
+            3.624
+          ],
+          [
+            796.6519,
+            401.3251,
+            2.3631
+          ]
+        ]
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          525.426,
+          393.1774,
+          -193.6295
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "EnemySpawn.001",
+      "model_name": null,
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          283.1071,
+          297.5502,
+          0.7408
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          6.2812,
+          6.2812,
+          6.2812
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ]
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          283.1071,
+          297.5502,
+          0.7408
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "EnemySpawn",
+      "model_name": null,
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          413.5603,
+          394.6544,
+          0.1981
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          3.3341,
+          3.3341,
+          3.3341
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ]
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          413.5603,
+          394.6544,
+          0.1981
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "EnemySpawn.002",
+      "model_name": null,
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          880.3007,
+          435.5578,
+          0.1811
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          6.2812,
+          6.2812,
+          6.2812
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            false,
+            false
+          ]
+        ]
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          880.3007,
+          435.5578,
+          0.1811
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "GimikckID3",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          893.8344,
+          386.4185,
+          0.6212
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          2.7669,
+          2.7669,
+          2.7669
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "GimickID3",
+        "isOnce": false
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          893.8344,
+          386.4185,
+          0.6212
+        ],
+        "radius": 1.25
+      }
+    },
+    {
+      "name": "エンプティ",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "Trolley_1",
+        "isOnce": true
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "radius": 2.0
+      }
+    },
+    {
+      "name": "CoalTrolley.003",
+      "model_name": "CoalTrolley",
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "POINTLIGHT",
+        "key": "GimickID3",
+        "duration": 120,
+        "is_cyclic": true,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 121.0,
+            "value": 0.0
+          }
+        ],
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          }
+        ],
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          }
+        ],
+        "light_params": {
+          "offset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "color": [
+            1.0,
+            0.9533,
+            0.3265
+          ],
+          "intensity": 5.0,
+          "range": 5.0,
+          "decay": 1.0
+        },
+        "path_points": [
+          [
+            933.6774,
+            292.8488,
+            36.8431
+          ],
+          [
+            933.4521,
+            306.0089,
+            28.4016
+          ],
+          [
+            933.4867,
+            320.3713,
+            20.506
+          ],
+          [
+            932.449,
+            341.5511,
+            1.0991
+          ],
+          [
+            930.8918,
+            350.5637,
+            -9.398
+          ]
+        ]
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          934.416,
+          307.4569,
+          27.7564
+        ],
+        "radius": 0.5
+      }
+    }
+  ]
+}
