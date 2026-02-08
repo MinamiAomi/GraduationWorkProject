@@ -95,7 +95,7 @@
     "BGM_INGAME_ESCAPE3" : "Sound/bgm_ingame_escape3.mp3",
     "BGM_INGAME_SAFETY" : "Sound/bgm_ingame_safety.mp3",
 
-    "BGM_INGAME2_ESCAPE1" : "Sound/bgm_ingame1_escape1.mp3",
-    "BGM_INGAME2_ESCAPE2" : "Sound/bgm_ingame1_escape2.mp3"
+    "BGM_INGAME2_ESCAPE1" : "Sound/bgm_ingame2_escape1.mp3",
+    "BGM_INGAME2_ESCAPE2" : "Sound/bgm_ingame2_escape2.mp3"
   }
 }
