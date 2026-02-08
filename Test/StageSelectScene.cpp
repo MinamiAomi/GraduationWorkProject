@@ -14,6 +14,8 @@ void StageSelectScene::OnInitialize() {
 	camera_->Initialize();
 	RenderManager::GetInstance()->SetCamera(camera_->GetCamera());
 
+	RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
+	
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 
 	if (persistentData_) {
