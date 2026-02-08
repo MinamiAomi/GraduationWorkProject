@@ -13,7 +13,7 @@ namespace SceneObjectSystem {
 	public:
 		void Initialize();
 		//最初の一回ロード用
-		void CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData);
+		void CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData, const std::string& stageName);
 		//ロードしたデータを基に再設置
 		void ResetObjects();
 		void Update();

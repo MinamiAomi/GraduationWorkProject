@@ -29,13 +29,18 @@ void GameScene::OnInitialize() {
 
 	camera_ = std::make_shared<Camera>();
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-	std::string railcameraJson, staticMeshJson;
+	std::string railcameraJson, staticMeshJson, stageName;
 	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
-		railcameraJson = "Resources/RailCamera/railCamera.json";
+		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
+		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
+		stageName = "Stage1";
 		break;
 	case LevelManager::Level::LEVEL2:
+		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
+		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
+		stageName = "Stage2";
 		break;
 	default:
 		break;
@@ -45,8 +50,7 @@ void GameScene::OnInitialize() {
 #pragma endregion
 
 #pragma region RailSystem
-	//auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/Level1_railCamera.json");
-	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/Level2_railCamera.json");
+	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation(railcameraJson);
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
@@ -94,10 +98,9 @@ void GameScene::OnInitialize() {
 
 	sceneObjectManager_->Initialize();
 
-	//auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Level1_StaticMesh.json");
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Level2_StaticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile(staticMeshJson);
 
-	sceneObjectManager_->CreateObjects(result);
+	sceneObjectManager_->CreateObjects(result, stageName);
 
 	//Colliderセット
 	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
@@ -162,7 +165,7 @@ void GameScene::OnUpdate() {
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
 
-	
+
 
 #pragma endregion
 #pragma region Flashlight
@@ -190,7 +193,10 @@ void GameScene::OnUpdate() {
 	batsManager_->Update();
 #pragma endregion
 #pragma region RailcameraUI
-	railcameraUI_->Update((railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame));
+	railcameraUI_->Update(
+		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
+		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
+	);
 #pragma endregion
 
 
@@ -329,9 +335,27 @@ void GameScene::OnUpdate() {
 	if (ImGui::Button("ホットリロード（光物）")) {
 		sceneObjectManager_->Initialize();
 
-		auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+		auto currentLevel = LevelManager::GetInstance()->GetLevel();
+		std::string railcameraJson, staticMeshJson, stageName;
+		switch (currentLevel)
+		{
+		case LevelManager::Level::LEVEL1:
+			railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
+			staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
+			stageName = "Stage1";
+			break;
+		case LevelManager::Level::LEVEL2:
+			railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
+			staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
+			stageName = "Stage2";
+			break;
+		default:
+			break;
+		}
 
-		sceneObjectManager_->CreateObjects(result);
+		auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile(staticMeshJson);
+
+		sceneObjectManager_->CreateObjects(result, stageName);
 
 		//Colliderセット
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {

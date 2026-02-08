@@ -68,6 +68,8 @@
     "ProgressFrame" : "Progress/Texture/frame.png",
     "ProgressGauge" : "Progress/Texture/gauge.png",
     "ProgressBaseUI" : "Progress/Texture/baseUI.png",
+    "TrollyIcon" : "Progress/Texture/trollyIcon.png",
+    "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
 
     "white2x2":"white2x2.png"
   }
