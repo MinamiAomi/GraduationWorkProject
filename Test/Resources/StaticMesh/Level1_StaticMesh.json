@@ -4783,7 +4783,7 @@
         ]
       },
       "enemy_spawn_data": {
-        "isOnce": true,
+        "isOnce": false,
         "formation": [
           [
             false,
@@ -4824,7 +4824,7 @@
           297.5502,
           0.7408
         ],
-        "radius": 0.5
+        "radius": 1.0
       }
     },
     {
@@ -4850,7 +4850,7 @@
         ]
       },
       "enemy_spawn_data": {
-        "isOnce": true,
+        "isOnce": false,
         "formation": [
           [
             false,
@@ -4884,7 +4884,7 @@
           394.6544,
           0.1981
         ],
-        "radius": 0.5
+        "radius": 1.0
       }
     },
     {
@@ -4910,7 +4910,7 @@
         ]
       },
       "enemy_spawn_data": {
-        "isOnce": true,
+        "isOnce": false,
         "formation": [
           [
             false,
@@ -4944,7 +4944,7 @@
           435.5578,
           0.1811
         ],
-        "radius": 0.5
+        "radius": 1.0
       }
     },
     {
@@ -4953,9 +4953,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          852.3102,
-          805.3683,
-          -539.1179
+          791.2687,
+          1158.6536,
+          -950.5983
         ],
         "rotate": [
           1.0,
@@ -5070,9 +5070,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          852.3494,
-          806.1165,
-          -539.4256
+          791.3079,
+          1159.4017,
+          -950.9061
         ],
         "radius": 0.5
       }
@@ -5122,9 +5122,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          613.1125,
-          395.7811,
-          -129.5135
+          477.7349,
+          391.6919,
+          -226.785
         ],
         "rotate": [
           0.7597,
@@ -5224,9 +5224,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          613.2594,
-          395.8305,
-          -130.5194
+          477.8817,
+          391.7413,
+          -227.7909
         ],
         "radius": 0.5
       }
