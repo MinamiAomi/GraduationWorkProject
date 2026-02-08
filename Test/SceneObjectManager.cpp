@@ -24,7 +24,7 @@ void SceneObjectSystem::SceneObjectManager::Initialize()
 	sceneObjectData_.clear();
 }
 
-void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData,const std::string& stageName)
+void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData, const std::string& stageName)
 {
 	sceneObjectData_.clear();
 
@@ -90,10 +90,14 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : enemySpawnObjects_) {
 		if (obj->collider &&
-			obj->collider->GetCollidedWith().empty()) {
-			//スポーン
-			batsManager_->Emit(obj->formation);
-			obj->collider = nullptr;
+			!obj->collider->GetCollidedWith().empty()) {
+			for (auto& collider : obj->collider->GetCollidedWith()) {
+				if ((collider->categoryBits == CollisionCategory::PLAYER)) {
+					//スポーン
+					batsManager_->Emit(obj->formation);
+					obj->collider = nullptr;
+				}
+			}
 		}
 	}
 
@@ -273,7 +277,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			enemySpawn->isOnce = data.enemySpawnData->isOnce;
 
 			myCategory = uint32_t(CollisionCategory::ENEMY);
-			targetMask = uint32_t(CollisionCategory::FLASHLIGHT);
+			targetMask = uint32_t(CollisionCategory::FLASHLIGHT | CollisionCategory::PLAYER);
 
 			InitializeCommonObject(enemySpawn, data, myCategory, targetMask);
 
