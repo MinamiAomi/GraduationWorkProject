@@ -76,6 +76,9 @@
     <Filter Include="Game\RailSystem\UI">
       <UniqueIdentifier>{9a98a42f-13cf-4f6a-9f35-8ea1bfafe399}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\LevelManager">
+      <UniqueIdentifier>{79e18be2-fe02-435b-9d9b-29348f0b91da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="RailcameraUI.h">
       <Filter>Game\RailSystem\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Game\LevelManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

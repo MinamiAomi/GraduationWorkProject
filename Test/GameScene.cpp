@@ -17,6 +17,8 @@
 
 #include "AnimationLoader.h"
 
+#include "LevelManager.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -26,6 +28,18 @@ void GameScene::OnInitialize() {
 	input_ = Input::GetInstance();
 
 	camera_ = std::make_shared<Camera>();
+	auto currentLevel = LevelManager::GetInstance()->GetLevel();
+	std::string railcameraJson, staticMeshJson;
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+		railcameraJson = "Resources/RailCamera/railCamera.json";
+		break;
+	case LevelManager::Level::LEVEL2:
+		break;
+	default:
+		break;
+	}
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
@@ -74,6 +88,7 @@ void GameScene::OnInitialize() {
 
 
 #pragma region SceneObjectSystem
+
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
 
 	sceneObjectManager_->Initialize();
