@@ -21,6 +21,8 @@ enum class CollisionCategory : uint32_t {
 	GIMMICKPOINTLIGHT = 1 << 6,
 	OBSTACLE= 1 << 7,
 
+	DIORAMA,
+
 	ALL = ~0u
 };
 

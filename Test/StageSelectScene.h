@@ -1,9 +1,12 @@
 #pragma once
 #include "Scene/BaseScene.h"
 
+#include "DebugCamera.h"
 #include "Engine/Input/Input.h"
 #include "Scene/SceneManager.h"
 #include "Graphics/Sprite.h"
+
+#include "Diorama.h"
 
 class StageSelectScene :
 	public BaseScene {
@@ -24,5 +27,9 @@ public:
 
 private:
 	Input* input_;
-	Sprite sprite_;
+	std::shared_ptr<DebugCamera> camera_;
+
+	Diorama level1_;
+	Diorama level2_;
+	//Sprite sprite_;
 };

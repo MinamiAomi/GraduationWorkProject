@@ -39,6 +39,9 @@
     "SnowFlake": "LightObject/SnowFlake/SnowFlake.gltf",
     "StarFlake": "LightObject/StarFlake/StarFlake.gltf",
 
+    "DioramaLevel1": "StaticMesh/StageModel/dioramaLevel1.gltf",
+    "DioramaLevel2": "StaticMesh/StageModel/dioramaLevel2.gltf",
+
     "Icicle": "Model/Icicle/Icicle.gltf",
     "Skull": "Model/Skull/Skull.gltf",
     "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",

@@ -27,6 +27,7 @@
     <ClCompile Include="DeadlineUI.cpp" />
     <ClCompile Include="DebugCamera.cpp" />
     <ClCompile Include="DeviceOptionsUI.cpp" />
+    <ClCompile Include="Diorama.cpp" />
     <ClCompile Include="FlashlightUI.cpp" />
     <ClCompile Include="GameClearScene.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Deadline.h" />
     <ClInclude Include="DeadlineUI.h" />
+    <ClInclude Include="Diorama.h" />
     <ClInclude Include="FlashlightUI.h" />
     <ClInclude Include="GameClearScene.h" />
     <ClInclude Include="GameOverScene.h" />
