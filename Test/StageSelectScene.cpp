@@ -30,8 +30,8 @@ void StageSelectScene::OnInitialize() {
 	level1_ = std::make_unique<Diorama>();
 	level2_ = std::make_unique<Diorama>();
 
-	level1_->Initialize("DioramaLevel1", Vector3(-2.5f, -0.5f, 1.0f));
-	level2_->Initialize("DioramaLevel2", Vector3(2.5f, -0.5f, 1.0f));
+	level1_->Initialize("DioramaLevel1", Vector3(-2.3f, -1.0f, 1.0f));
+	level2_->Initialize("DioramaLevel2", Vector3(2.3f, -1.0f, 1.0f));
 	
 	collisionSystem_->RegisterCollider(level1_->GetCollider());
 	collisionSystem_->RegisterCollider(level2_->GetCollider());
