@@ -23,8 +23,8 @@ void StageSelectScene::OnInitialize() {
 	sprite_.SetPosition({ 1280.0f / 2.0f, 720.0f / 2.0f });
 	sprite_.SetScale({ 1280.0f, 720.0f });*/
 
-	level1_.Initialize("DioramaLevel1",Vector3(-20.0f,-10.0f,50.0f));
-	level2_.Initialize("DioramaLevel2", Vector3(20.0f, -10.0f, 50.0f));
+	level1_.Initialize("DioramaLevel1",Vector3(-2.0f,-0.5f,0.0f));
+	level2_.Initialize("DioramaLevel2", Vector3(2.0f, -0.5f,0.0f));
 }
 
 void StageSelectScene::OnUpdate() {

@@ -42,6 +42,7 @@
     "DioramaLevel1": "StaticMesh/StageModel/dioramaLevel1.gltf",
     "DioramaLevel2": "StaticMesh/StageModel/dioramaLevel2.gltf",
 
+    "GoalGlowing": "Model/GoalGlowing/GoalGlowing.gltf",
     "Icicle": "Model/Icicle/Icicle.gltf",
     "Skull": "Model/Skull/Skull.gltf",
     "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",

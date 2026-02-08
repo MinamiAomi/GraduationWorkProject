@@ -1,6 +1,47 @@
 {
   "objects": [
     {
+      "name": "GoalGlowing.001",
+      "model_name": "GoalGlowing",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1208.0341,
+          516.4255,
+          -8.7807
+        ],
+        "rotate": [
+          0.565,
+          0.0282,
+          0.0412,
+          -0.8236
+        ],
+        "scale": [
+          0.4804,
+          0.4804,
+          0.4804
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 50.0,
+        "decay": 1.0
+      },
+      "collider": null
+    },
+    {
       "name": "Crystal.001",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
@@ -4783,7 +4824,7 @@
         ]
       },
       "enemy_spawn_data": {
-        "isOnce": true,
+        "isOnce": false,
         "formation": [
           [
             false,
@@ -4824,7 +4865,7 @@
           297.5502,
           0.7408
         ],
-        "radius": 0.5
+        "radius": 1.0
       }
     },
     {
@@ -4850,7 +4891,7 @@
         ]
       },
       "enemy_spawn_data": {
-        "isOnce": true,
+        "isOnce": false,
         "formation": [
           [
             false,
@@ -4884,7 +4925,7 @@
           394.6544,
           0.1981
         ],
-        "radius": 0.5
+        "radius": 1.0
       }
     },
     {
@@ -4910,7 +4951,7 @@
         ]
       },
       "enemy_spawn_data": {
-        "isOnce": true,
+        "isOnce": false,
         "formation": [
           [
             false,
@@ -4944,7 +4985,7 @@
           435.5578,
           0.1811
         ],
-        "radius": 0.5
+        "radius": 1.0
       }
     },
     {
@@ -4953,9 +4994,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          852.3102,
-          805.3683,
-          -539.1179
+          790.155,
+          1165.1028,
+          -958.11
         ],
         "rotate": [
           1.0,
@@ -5070,9 +5111,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          852.3494,
-          806.1165,
-          -539.4256
+          790.1942,
+          1165.851,
+          -958.4178
         ],
         "radius": 0.5
       }
@@ -5122,9 +5163,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          613.1125,
-          395.7811,
-          -129.5135
+          475.265,
+          391.6172,
+          -228.5596
         ],
         "rotate": [
           0.7597,
@@ -5224,9 +5265,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          613.2594,
-          395.8305,
-          -130.5194
+          475.4119,
+          391.6666,
+          -229.5655
         ],
         "radius": 0.5
       }

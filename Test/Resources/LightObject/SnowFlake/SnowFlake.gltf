@@ -25,23 +25,23 @@
 		{
 			"doubleSided":true,
 			"emissiveFactor":[
-				0,
-				0.6925215721130371,
+				1,
+				1,
 				1
 			],
+			"emissiveTexture":{
+				"index":0
+			},
 			"extensions":{
 				"KHR_materials_emissive_strength":{
 					"emissiveStrength":5
 				}
 			},
-			"name":"\u30de\u30c6\u30ea\u30a2\u30eb.002",
+			"name":"Material.002",
 			"pbrMetallicRoughness":{
-				"baseColorFactor":[
-					0.911400318145752,
-					1,
-					0.984054684638977,
-					1
-				],
+				"baseColorTexture":{
+					"index":1
+				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
 			}
@@ -61,6 +61,28 @@
 					"material":0
 				}
 			]
+		}
+	],
+	"textures":[
+		{
+			"sampler":0,
+			"source":0
+		},
+		{
+			"sampler":0,
+			"source":1
+		}
+	],
+	"images":[
+		{
+			"mimeType":"image/png",
+			"name":"Emissive",
+			"uri":"Emissive.png"
+		},
+		{
+			"mimeType":"image/png",
+			"name":"Emissive",
+			"uri":"Emissive-1.png"
 		}
 	],
 	"accessors":[
@@ -123,6 +145,12 @@
 			"byteLength":3312,
 			"byteOffset":27648,
 			"target":34963
+		}
+	],
+	"samplers":[
+		{
+			"magFilter":9728,
+			"minFilter":9984
 		}
 	],
 	"buffers":[
