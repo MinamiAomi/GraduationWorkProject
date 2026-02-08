@@ -42,6 +42,7 @@
     "DioramaLevel1": "StaticMesh/StageModel/dioramaLevel1.gltf",
     "DioramaLevel2": "StaticMesh/StageModel/dioramaLevel2.gltf",
 
+    
     "GoalGlowing": "Model/GoalGlowing/GoalGlowing.gltf",
     "Icicle": "Model/Icicle/Icicle.gltf",
     "Skull": "Model/Skull/Skull.gltf",
@@ -75,7 +76,9 @@
     "ProgressBaseUI" : "Progress/Texture/baseUI.png",
     "TrollyIcon" : "Progress/Texture/trollyIcon.png",
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
-
+    
+    "StageSelect": "StageSelect/stageSelect.png",
+    
     "white2x2":"white2x2.png"
   },
   "Animation" : {

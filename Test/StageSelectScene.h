@@ -31,5 +31,5 @@ private:
 
 	Diorama level1_;
 	Diorama level2_;
-	//Sprite sprite_;
+	Sprite sprite_;
 };
