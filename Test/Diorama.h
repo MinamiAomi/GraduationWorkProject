@@ -17,7 +17,7 @@ public:
 
 	std::shared_ptr<SphereCollider> GetCollider() { return collider_; }
 
-	bool GetIsActive() { return isActive_; }
+	bool GetIsActive() { return count_>= maxCount_; }
 private:
 	bool OnCollision();
 #ifdef _DEBUG
@@ -27,8 +27,7 @@ private:
 	ModelInstance model_;
 	std::shared_ptr<SphereCollider> collider_;
 	Transform transform_;
-	bool isActive_;
-	float maxCount_ = 120.0f;
+	float maxCount_ = 240.0f;
 	float count_ = 0.0f;
 	float rotationY_ = 0.0f;
 };
