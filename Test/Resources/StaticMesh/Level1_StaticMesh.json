@@ -1,6 +1,47 @@
 {
   "objects": [
     {
+      "name": "GoalGlowing.001",
+      "model_name": "GoalGlowing",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1208.0341,
+          516.4255,
+          -8.7807
+        ],
+        "rotate": [
+          0.565,
+          0.0282,
+          0.0412,
+          -0.8236
+        ],
+        "scale": [
+          0.4804,
+          0.4804,
+          0.4804
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 10.0,
+        "range": 50.0,
+        "decay": 1.0
+      },
+      "collider": null
+    },
+    {
       "name": "Crystal.001",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
@@ -4953,9 +4994,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          791.2687,
-          1158.6536,
-          -950.5983
+          790.155,
+          1165.1028,
+          -958.11
         ],
         "rotate": [
           1.0,
@@ -5070,9 +5111,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          791.3079,
-          1159.4017,
-          -950.9061
+          790.1942,
+          1165.851,
+          -958.4178
         ],
         "radius": 0.5
       }
@@ -5122,9 +5163,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          477.7349,
-          391.6919,
-          -226.785
+          475.265,
+          391.6172,
+          -228.5596
         ],
         "rotate": [
           0.7597,
@@ -5224,9 +5265,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          477.8817,
-          391.7413,
-          -227.7909
+          475.4119,
+          391.6666,
+          -229.5655
         ],
         "radius": 0.5
       }

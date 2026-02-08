@@ -31,7 +31,7 @@
         "accelerationRate_": 0.4000000059604645,
         "batteryAfterBurst_": 30.0,
         "batteryAfterNitro_": 80.0,
-        "burstDuration_": 2.0,
+        "burstDuration_": 3.0,
         "burstSpeed_": 0.30000001192092896,
         "burstThreshold_": 120.0,
         "decelerationRate_": 0.10000000149011612,

@@ -38,7 +38,7 @@
     "IlluminationArch": "LightObject/IlluminationArch/IlluminationArch.gltf",
     "SnowFlake": "LightObject/SnowFlake/SnowFlake.gltf",
     "StarFlake": "LightObject/StarFlake/StarFlake.gltf",
-
+    "GoalGlowing": "Model/GoalGlowing/GoalGlowing.gltf",
     "Icicle": "Model/Icicle/Icicle.gltf",
     "Skull": "Model/Skull/Skull.gltf",
     "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
