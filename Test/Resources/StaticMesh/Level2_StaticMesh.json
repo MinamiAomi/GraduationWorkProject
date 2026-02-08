@@ -875,8 +875,8 @@
           0.1196,
           0.0026
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1099,8 +1099,8 @@
           0.1196,
           0.0026
         ],
-        "intensity": 5.0,
-        "range": 5.0,
+        "intensity": 15.0,
+        "range": 25.0,
         "decay": 1.0
       },
       "collider": {
@@ -1715,7 +1715,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -1771,7 +1771,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -1827,7 +1827,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -1883,7 +1883,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -1939,7 +1939,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -1995,7 +1995,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2051,7 +2051,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2107,7 +2107,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2163,7 +2163,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2219,7 +2219,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2275,7 +2275,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2331,7 +2331,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2387,7 +2387,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2443,7 +2443,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2499,7 +2499,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2555,7 +2555,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -2611,7 +2611,7 @@
           0.734,
           0.0276
         ],
-        "intensity": 5.0,
+        "intensity": 10.0,
         "range": 5.0,
         "decay": 1.0
       },
@@ -3499,7 +3499,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 60.0
+        "hp": 300.0
       }
     },
     {
@@ -3544,7 +3544,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 60.0
       }
     },
     {
@@ -3725,6 +3725,51 @@
       },
       "obstacle_data": {
         "hp": 10.0
+      }
+    },
+    {
+      "name": "Icicle.007",
+      "model_name": "Icicle",
+      "type": "OBSTACLE",
+      "srt": {
+        "translate": [
+          485.2383,
+          -15.977,
+          -58.2336
+        ],
+        "rotate": [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.9809,
+          1.9809,
+          1.9809
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          485.2383,
+          -15.9845,
+          -61.486
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      "obstacle_data": {
+        "hp": 300.0
       }
     },
     {
@@ -4088,8 +4133,8 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          497.0547,
-          -8.5231,
+          505.6329,
+          5.2055,
           -60.4032
         ],
         "rotate": [
@@ -4114,8 +4159,8 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          497.0547,
-          -8.5231,
+          505.6329,
+          5.2055,
           -60.4032
         ],
         "radius": 1.16
@@ -4127,9 +4172,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          916.6664,
-          129.9595,
-          -39.1301
+          747.0944,
+          81.5953,
+          -47.8058
         ],
         "rotate": [
           0.2241,
@@ -4244,9 +4289,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          916.9722,
-          130.2716,
-          -37.974
+          747.4001,
+          81.9074,
+          -46.6497
         ],
         "radius": 0.5
       }
@@ -4257,8 +4302,8 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          903.2206,
-          147.0648,
+          655.6664,
+          85.4925,
           34.5387
         ],
         "rotate": [
@@ -4359,8 +4404,8 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          903.2662,
-          147.3048,
+          655.712,
+          85.7325,
           34.8104
         ],
         "radius": 0.5
