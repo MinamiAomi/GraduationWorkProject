@@ -14,6 +14,8 @@ void StageSelectScene::OnInitialize() {
 	camera_->Initialize();
 	RenderManager::GetInstance()->SetCamera(camera_->GetCamera());
 
+	collisionSystem_ = std::make_unique<CollisionSystem>();
+
 	if (persistentData_) {
 		persistentData_->score_->num = 0;
 	}
@@ -25,25 +27,40 @@ void StageSelectScene::OnInitialize() {
 	sprite_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
 	sprite_.SetScale({ texture->GetSize() });
 
-	level1_.Initialize("DioramaLevel1", Vector3(-2.0f, -0.5f, 0.0f));
-	level2_.Initialize("DioramaLevel2", Vector3(2.0f, -0.5f, 0.0f));
+	level1_ = std::make_unique<Diorama>();
+	level2_ = std::make_unique<Diorama>();
+
+	level1_->Initialize("DioramaLevel1", Vector3(-2.0f, -0.5f, 0.0f));
+	level2_->Initialize("DioramaLevel2", Vector3(2.0f, -0.5f, 0.0f));
+	
+	collisionSystem_->RegisterCollider(level1_->GetCollider());
+	collisionSystem_->RegisterCollider(level2_->GetCollider());
+
+	flashlight_ = std::make_unique<Flashlight>();
+	//flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+	flashlight_->Initialize(&camera_->GetCamera()->GetTransform(), camera_->GetCamera().get());
+	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 }
 
 void StageSelectScene::OnUpdate() {
 
 	camera_->Update();
 
-	level1_.Update();
-	level2_.Update();
+	flashlight_->Update();
+	
+	level1_->Update();
+	level2_->Update();
 
-	/*if (input_->IsKeyTrigger(DIK_1)) {
+	if (input_->IsKeyTrigger(DIK_1)) {
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL1);
 		SceneManager::GetInstance()->ChangeScene<GameScene>();
 	}
 	else if (input_->IsKeyTrigger(DIK_2)) {
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL2);
 		SceneManager::GetInstance()->ChangeScene<GameScene>();
-	}*/
+	}
+
+	collisionSystem_->CheckCollisions();
 }
 
 void StageSelectScene::OnFinalize() {

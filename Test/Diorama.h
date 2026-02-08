@@ -15,6 +15,8 @@ public:
 
 	void Update();
 
+	std::shared_ptr<SphereCollider> GetCollider() { return collider_; }
+
 	bool GetIsActive() { return isActive_; }
 private:
 	bool OnCollision();
@@ -28,4 +30,5 @@ private:
 	bool isActive_;
 	float maxCount_ = 120.0f;
 	float count_ = 0.0f;
+	float rotationY_ = 0.0f;
 };

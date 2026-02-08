@@ -21,9 +21,12 @@ void Diorama::Initialize(const std::string& name, const Vector3& position)
 	model_.SetModel(assetManager->modelMap.Get(name)->Get());
 
 	transform_.translate = position;
+	transform_.UpdateMatrix();
+
 
 	model_.SetWorldMatrix(transform_.worldMatrix);
 	collider_->center = transform_.worldMatrix.GetTranslate();
+	collider_->radius = 0.8f;
 	count_ = 0.0f;
 }
 
@@ -35,10 +38,9 @@ void Diorama::Update()
 	else {
 		count_ = 0.0f;
 	}
-	static float rotationY = 0.0f;
-	rotationY += 0.005f;
+	rotationY_ += 0.005f + count_ * 0.001f;
 
-	transform_.rotate = Quaternion::MakeForYAxis(rotationY);
+	transform_.rotate = Quaternion::MakeForYAxis(rotationY_);
 	transform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
