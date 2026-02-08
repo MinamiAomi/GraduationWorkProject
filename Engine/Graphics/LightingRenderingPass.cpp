@@ -243,7 +243,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     }
 
     SceneData sceneData;
-    sceneData.viewProjectionInverseMatrix = camera.GetViewProjectionMatrix().Inverse();
+    sceneData.viewProjectionInverseMatrix = camera.GetViewProjectionInverseMatrix();
     sceneData.cameraPosition = camera.GetPosition();
     sceneData.lightCount = static_cast<uint32_t>(lightData.size());
 

@@ -68,7 +68,6 @@ void Engine::Run(Game* game) {
 
         if ((g_input->IsKeyPressed(DIK_LALT) && g_input->IsKeyTrigger(DIK_RETURN))) {
             SetWindowMode(g_gameWindow->GetWindowMode() == WindowMode::Window ? WindowMode::Borderless : WindowMode::Window);
-
         }
 
 #ifdef ENABLE_IMGUI

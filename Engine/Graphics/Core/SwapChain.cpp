@@ -12,6 +12,7 @@ void SwapChain::Create(HWND hWnd) {
     ComPtr<IDXGIFactory7> factory;
     ASSERT_IF_FAILED(CreateDXGIFactory(IID_PPV_ARGS(factory.GetAddressOf())));
 
+
     RECT clientRect{};
     if (!GetClientRect(hWnd, &clientRect)) {
         assert(false);
@@ -50,6 +51,8 @@ void SwapChain::Create(HWND hWnd) {
         buffers_[i]->CreateFromSwapChain(L"SwapChainBuffer" + std::to_wstring(i), resource.Detach());
     }
 
+    ASSERT_IF_FAILED(factory->MakeWindowAssociation(hWnd, DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER));
+
     hWnd_ = hWnd;
 }
 
@@ -62,7 +65,7 @@ void SwapChain::Present() {
 }
 
 void SwapChain::Resize(uint32_t width, uint32_t height) {
-    if (swapChain_ == nullptr) return;
+    if (!swapChain_) return;
 
     for (uint32_t i = 0; i < kNumBuffers; ++i) {
         buffers_[i]->Release();
@@ -85,5 +88,13 @@ void SwapChain::Resize(uint32_t width, uint32_t height) {
 }
 
 void SwapChain::SetFullscreen(bool mode) {
-    swapChain_->SetFullscreenState(mode ? TRUE : FALSE, nullptr);
+    if (!swapChain_) return;
+
+    BOOL currentMode = FALSE;
+    swapChain_->GetFullscreenState(&currentMode, nullptr);
+
+    if (static_cast<bool>(currentMode) != mode) {
+        HRESULT hr = swapChain_->SetFullscreenState(mode ? TRUE : FALSE, nullptr);
+        ASSERT_IF_FAILED(hr);
+    }
 }

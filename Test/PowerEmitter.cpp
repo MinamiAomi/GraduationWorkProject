@@ -4,8 +4,6 @@
 #include "Engine/Graphics/RenderManager.h"
 #include "Trolley.h"
 
-bool PowerEmitter::isDebug = false;
-
 void PowerEmitter::Initialize(EmitShape shape, const LightObject* parentLight)
 {
 	emitShapeType_ = shape;
@@ -116,19 +114,39 @@ void PowerEmitter::DebugDraw()
 void PowerEmitter::Debug()
 {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-	if (ImGui::TreeNode("PowerEmitter")) {
+	if (ImGui::TreeNode("BatsParticles")) {
 
 		ImGui::DragFloat("minSpeed_", &minSpeed_, 0.01f);
 		ImGui::DragFloat("maxSpeed_", &maxSpeed_, 0.01f, minSpeed_);
+		if (minSpeed_ > maxSpeed_) {
+			maxSpeed_ = minSpeed_ + 0.01f;
+		}
 		ImGui::DragFloat3("minAngularVelocity_", &minAngularVelocity_.x, 0.01f);
 		ImGui::DragFloat3("maxAngularVelocity_", &maxAngularVelocity_.x, 0.01f);
-		ImGui::DragFloat("scaleDecay_", &scaleDecay_, 0.01f);
-		ImGui::DragInt("emitInterval_", &emitInterval_,1,0);
+		if (minAngularVelocity_.x > maxAngularVelocity_.x) {
+			maxAngularVelocity_.x = minAngularVelocity_.x + 0.01f;
+		}
+		if (minAngularVelocity_.y > maxAngularVelocity_.y) {
+			maxAngularVelocity_.y = minAngularVelocity_.y + 0.01f;
+		}
+		if (minAngularVelocity_.z > maxAngularVelocity_.z) {
+			maxAngularVelocity_.z = minAngularVelocity_.z + 0.01f;
+		}
+
+		ImGui::DragFloat("scaleDecay_", &scaleDecay_, 0.01f, 0.01f);
+		ImGui::DragFloat("scaleDecay_", &scaleDecay_, 0.01f, 0.01f);
+		if (scaleDecay_ < 0.01f) {
+			scaleDecay_ = 0.01f;
+		}
+		ImGui::DragInt("emitInterval_", &emitInterval_, 1, 0);
 		ImGui::DragFloat("minScale_", &minScale_, 0.01f);
 		ImGui::DragFloat("maxScale_", &maxScale_, 0.01f, minScale_);
+		if (minScale_ > maxScale_) {
+			maxScale_ = minScale_ + 0.01f;
+		}
 
 		if (ImGui::Button("Save")) {
-			JSON_OPEN("Resources/Data/GameScene/powerEmitter.json");
+			JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
 			JSON_OBJECT("powerEmitter");
 			JSON_SAVE_BY_NAME("minSpeed_", minSpeed_);
 			JSON_SAVE_BY_NAME("maxSpeed_", maxSpeed_);
@@ -210,7 +228,7 @@ void PowerEmitter::Emit()
 	};
 
 	newParticle->scaleSpeed_ = scaleDecay_;
-	newParticle->modelInstance_.SetMaterial(material_);
+	newParticle->modelInstance_.GetMaterials().emplace_back(material_);
 	
 	particles_.push_back(std::move(newParticle));
 }

@@ -96,7 +96,6 @@ public:
 
     void SetModel(const std::shared_ptr<Model>& model) { model_ = model; }
     void SetSkeleton(const std::shared_ptr<Skeleton> skeleton) { skeleton_ = skeleton; }
-    void SetMaterial(const std::shared_ptr<Material> material) { material_ = material; }
     void SetWorldMatrix(const Matrix4x4& worldMatrix) { worldMatrix_ = worldMatrix; }
     void SetColor(const Vector3& color) { color_ = color; }
     void SetAlpha(float alpha) { alpha_ = alpha; }
@@ -111,7 +110,8 @@ public:
 
     const std::shared_ptr<Model>& GetModel() const { return model_; }
     const std::shared_ptr<Skeleton>& GetSkeleton() const { return skeleton_; }
-    const std::shared_ptr<Material>& GetMaterial() const { return material_; }
+    std::vector<std::shared_ptr<Material>>& GetMaterials() { return materials_; }
+    const std::vector<std::shared_ptr<Material>>& GetMaterials() const { return materials_; }
     const Matrix4x4& GetWorldMatrix() const { return worldMatrix_; }
     const Vector3& GetColor() const { return color_; }
     float GetAlpha() const { return alpha_; }
@@ -131,7 +131,7 @@ private:
 
     std::shared_ptr<Model> model_;
     std::shared_ptr<Skeleton> skeleton_;
-    std::shared_ptr<Material> material_;
+    std::vector<std::shared_ptr<Material>> materials_;
     Matrix4x4 worldMatrix_;
     Vector3 color_ = Vector3::one;
     float alpha_ = 1.0f;

@@ -34,11 +34,11 @@ void RenderManager::Initialize() {
     skinningManager_.Initialize();
     geometryRenderingPass_.Initialize(swapChainBuffer.GetWidth(), swapChainBuffer.GetHeight());
     lightingRenderingPass_.Initialize(swapChainBuffer.GetWidth(), swapChainBuffer.GetHeight());
-    skybox_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat(), geometryRenderingPass_.GetDepth().GetFormat());
     lineDrawer_.Initialize(lightingRenderingPass_.GetResult().GetRTVFormat());
     spriteRenderer_.Initialize(finalImageBuffer_);
     bloom_.Initialize(&lightingRenderingPass_.GetResult());
     postEffect_.Initialize(finalImageBuffer_);
+    fogPostEffect_.Initialize();
 
     transition_.Initialize();
 
@@ -60,6 +60,11 @@ void RenderManager::Render() {
     auto camera = camera_.lock();
     auto sunLight = sunLight_.lock();
 
+#ifdef ENABLE_IMGUI
+    fogPostEffect_.DrawImGui("Fog");
+#endif
+
+
     commandContext_.Start(D3D12_COMMAND_LIST_TYPE_DIRECT);
 
     const float deltaSecond = 1 / 60.0f;
@@ -79,12 +84,7 @@ void RenderManager::Render() {
 
         lightingRenderingPass_.Render(commandContext_, geometryRenderingPass_, *camera, lightManager_);
 
-        commandContext_.TransitionResource(lightingRenderingPass_.GetResult(), D3D12_RESOURCE_STATE_RENDER_TARGET);
-        commandContext_.TransitionResource(geometryRenderingPass_.GetDepth(), D3D12_RESOURCE_STATE_DEPTH_READ);
-        commandContext_.SetViewportAndScissorRect(0, 0, lightingRenderingPass_.GetResult().GetWidth(), lightingRenderingPass_.GetResult().GetHeight());
-        commandContext_.SetRenderTarget(lightingRenderingPass_.GetResult().GetRTV(), geometryRenderingPass_.GetDepth().GetDSV());
-        skybox_.SetWorldMatrix(Matrix4x4::MakeAffineTransform({ 1.0f, 1.0f, 1.0f }, Quaternion::identity, camera->GetPosition()));
-        skybox_.Render(commandContext_, *camera);
+        fogPostEffect_.Dispatch(commandContext_, lightingRenderingPass_.GetResult(), geometryRenderingPass_.GetDepth(), *camera);
 
         commandContext_.SetRenderTarget(lightingRenderingPass_.GetResult().GetRTV());
         commandContext_.SetViewportAndScissorRect(0, 0, lightingRenderingPass_.GetResult().GetWidth(), lightingRenderingPass_.GetResult().GetHeight());

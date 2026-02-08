@@ -1,5 +1,7 @@
 #include "FreeList.h"
 
+#include <cassert>
+
 FreeList::FreeList() :
     m_size(0),
     m_freeCount(0) {
@@ -17,6 +19,8 @@ void FreeList::Resize(uint32_t size) {
 }
 
 uint32_t FreeList::Allocate() {
+    assert(m_freeCount <= m_size);
+
     auto firstBlock = m_freeBlocks.begin();
     if (firstBlock == m_freeBlocks.end() ||
         m_freeCount == 0) {
@@ -36,6 +40,12 @@ uint32_t FreeList::Allocate() {
 }
 
 void FreeList::Free(uint32_t offset) {
+    assert(offset < m_size);
+
+#ifdef _DEBUG
+    assert(!IsFree(offset) && "Double Free detected!");
+#endif
+
     uint32_t blockBegin = offset;
     uint32_t blockEnd = blockBegin + 1;
 
@@ -65,5 +75,16 @@ void FreeList::Free(uint32_t offset) {
     }
 
     m_freeBlocks[blockBegin] = blockEnd - blockBegin;
+}
+
+bool FreeList::IsFree(uint32_t offset) const {
+    auto it = m_freeBlocks.upper_bound(offset);
+    if (it != m_freeBlocks.begin()) {
+        --it;
+        uint32_t begin = it->first;
+        uint32_t end = begin + it->second;
+        return offset >= begin && offset < end;
+    }
+    return false;
 }
 

@@ -33,6 +33,7 @@
 
 #include "Collider.h"
 #include "CollisionSystem.h"
+#include "BatteryParticles.h"
 
 class GameScene :
 	public BaseScene {
@@ -52,9 +53,13 @@ public:
 	void OnFinalize() override;
 
 private:
+	const uint32_t kDirectionalLightCount = 6;
+
 	Input* input_;
 
 	std::shared_ptr<Camera> camera_;
+
+	std::vector<std::shared_ptr<DirectionalLight>> directionalLights_;
 
 	std::unique_ptr<RailSystem::RailAnimationPlayer> railAnimationPlayer_;
 	std::unique_ptr<RailSystem::RailCameraSystem> railCameraSystem_;
@@ -65,6 +70,7 @@ private:
 	std::unique_ptr<SceneObjectSystem::SceneObjectManager> sceneObjectManager_;
 	
 	Trolley* trolley_;
+	std::unique_ptr<BatteryParticles> batteryParticles_;
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::unique_ptr<BatsManager> batsManager_;

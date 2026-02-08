@@ -36,6 +36,7 @@ public:
 	const Matrix4x4& GetViewMatrix() const { return viewMatrix_; }
 	const Matrix4x4& GetProjectionMatrix() const { return projectionMatrix_; }
 	const Matrix4x4& GetViewProjectionMatrix() const { return viewProjectionMatrix_; }
+	const Matrix4x4& GetViewProjectionInverseMatrix() const { return viewProjectionInverseMatrix_; }
 	const Math::Frustum& GetFrustum() const { return frustum_; }
 
 	std::array<Vector3, 8> GetFrustumVector3() const;
@@ -66,6 +67,7 @@ private:
 	Matrix4x4 viewMatrix_;
 	Matrix4x4 projectionMatrix_;
 	Matrix4x4 viewProjectionMatrix_;
+	Matrix4x4 viewProjectionInverseMatrix_;
 	Math::Frustum frustum_;
 	Math::Frustum defaultFrustum_;
 

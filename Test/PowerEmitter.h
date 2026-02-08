@@ -17,12 +17,10 @@ class PowerEmitter
 {
 public:
 
-	bool static isDebug;
-
 	void Initialize(EmitShape shape, const LightObject* parentLight);
 	void Update();
 	void DebugDraw();
-	void Debug();
+	static void Debug();
 
 	void SetColor(Vector3 color) {
 		material_->albedo = color;
@@ -34,14 +32,14 @@ public:
 	void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
 public:
 	std::shared_ptr<Material> material_;
-	float minSpeed_ = 0.002f;
-	float maxSpeed_ = 0.003f;
-	Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };
-	Vector3 maxAngularVelocity_ = { 0.05f,  0.05f,  0.05f };
-	float scaleDecay_ = 0.02f;
-	int emitInterval_ = 20;
-	float minScale_ = 0.1f;
-	float maxScale_ = 0.5f;
+	inline static float minSpeed_ = 0.002f;
+	inline static float maxSpeed_ = 0.003f;
+	inline static Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };
+	inline static Vector3 maxAngularVelocity_ = { 0.05f,  0.05f,  0.05f };
+	inline static float scaleDecay_ = 0.02f;
+	inline static int emitInterval_ = 20;
+	inline static float minScale_ = 0.1f;
+	inline static float maxScale_ = 0.5f;
 private:
 	void Emit();
 private:
@@ -60,14 +58,11 @@ private:
 	std::shared_ptr<Model> model_;
 	std::vector<std::unique_ptr<Particle>> particles_;
 	Random::RandomNumberGenerator rnd_;
-	EmitShape emitShapeType_; 
+	EmitShape emitShapeType_;
 	int emitTimer_ = 0;
 
 	//OOBB
 	Vector3 size_;
 	//Sphere
 	float radius_;
-
-	bool isDebug_ = false;
-	
 };

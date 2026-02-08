@@ -20,11 +20,13 @@ public:
     void Play(bool loop = false);
     void Stop();
 
-    void SetSound(const std::shared_ptr<Sound>& sound) { sound_ = sound; }
+    //void SetSound(const std::shared_ptr<Sound>& sound) { sound_ = sound; }
     void SetVolume(float volume);
     void SetPitch(float pitch);
 
     bool IsPlaying() const;
+
+    void OnDestroy();
 
 private:
     void Create();
