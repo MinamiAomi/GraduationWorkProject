@@ -23,17 +23,20 @@ RailcameraUI::RailcameraUI()
 	baseUI_.SetScale(frameBaseUI->GetSize());
 	baseUI_.SetAnchor({ 0.5f,0.5f });
 	baseUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	baseUI_.SetDrawOrder(0);
 
 	trollyIcon_.SetPosition({ 640.0f ,690.0f });
 	trollyIcon_.SetScale(trollyIcon->GetSize());
 	trollyIcon_.SetAnchor({ 0.5f,0.5f });
 	trollyIcon_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	trollyIcon_.SetDrawOrder(1);
 
 
 	deadLineIcon_.SetPosition({ 640.0f ,690.0f });
 	deadLineIcon_.SetScale(deadLineIcon->GetSize());
 	deadLineIcon_.SetAnchor({ 0.5f,0.5f });
 	deadLineIcon_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineIcon_.SetDrawOrder(2);
 }
 
 void RailcameraUI::Initialize()
