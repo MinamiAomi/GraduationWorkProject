@@ -25,16 +25,16 @@
 		{
 			"doubleSided":true,
 			"emissiveFactor":[
+				0.007186015136539936,
 				1,
-				1,
-				1
+				0
 			],
 			"emissiveTexture":{
 				"index":0
 			},
 			"extensions":{
 				"KHR_materials_emissive_strength":{
-					"emissiveStrength":2
+					"emissiveStrength":27.69999885559082
 				}
 			},
 			"name":"PendantLightBody",
@@ -159,7 +159,11 @@
 	],
 	"buffers":[
 		{
+<<<<<<< HEAD
 			"byteLength":29344,
+=======
+			"byteLength":30336,
+>>>>>>> master
 			"uri":"pendantLight.bin"
 		}
 	]

@@ -49,6 +49,18 @@ void GameScene::OnInitialize() {
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
 
+	directionalLights_.resize(kDirectionalLightCount);
+	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
+		auto& directionalLight = directionalLights_[i];
+		directionalLight = std::make_shared<DirectionalLight>();
+		directionalLight->color = Color(1.0f, 1.0f, 1.0f);
+		float t = Math::TwoPi * ((float)i / (float)kDirectionalLightCount);
+		directionalLight->direction = { std::cos(t), -1.0f , std::sin(t) };
+		directionalLight->intensity = 0.2f;
+		directionalLight->isActive = true;
+		RenderManager::GetInstance()->GetLightManager().Add(directionalLight);
+	}
+
 #pragma region RailSystem
 	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation(railcameraJson);
 	if (animationData) {
@@ -81,6 +93,8 @@ void GameScene::OnInitialize() {
 	for (auto& collider : trolley_->GetColliders()) {
 		collisionSystem_->RegisterCollider(collider);
 	}
+	batteryParticles_ = std::make_unique<BatteryParticles>();
+	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0),batsManager_.get());
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -127,14 +141,17 @@ void GameScene::OnInitialize() {
 #pragma region Bats
 	batsManager_ = std::make_unique<BatsManager>();
 	batsManager_->SetCamera(camera_.get());
+	batsManager_->SetColliderSystem(collisionSystem_.get());
+	//test
+	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+	batsManager_->Emit(mapData);
+
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
 #pragma region RailcameraUI
 	railcameraUI_ = std::make_unique<RailcameraUI>();
 	railcameraUI_->Initialize();
 #pragma endregion
-
-
 
 
 #ifdef _DEBUG
@@ -146,8 +163,8 @@ void GameScene::OnInitialize() {
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
-
-#ifndef _DEBUG
+	PowerEmitter::Debug();
+#ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -156,8 +173,8 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
+	
 #endif // _DEBUG
-
 #pragma region RailSystem
 
 	//現在のスピードを代入
@@ -186,6 +203,7 @@ void GameScene::OnUpdate() {
 
 #pragma region Trolley
 	trolley_->Update(deltaTime);
+	batteryParticles_->Update();
 #pragma endregion
 
 #pragma region Bats
@@ -212,7 +230,8 @@ void GameScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
-
+	batteryParticles_->Debug();
+	batteryParticles_->DebugDraw();
 	ImGui::Begin("RailAnimationPlayer");
 	if (railAnimationPlayer_->IsPlaying()) {
 		ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
@@ -332,6 +351,11 @@ void GameScene::OnUpdate() {
 	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
+	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
+		auto& directionalLight = directionalLights_[i];
+		directionalLight->DrawImGui(std::format("DirectionalLight{}", i));
+	}
+
 	if (ImGui::Button("ホットリロード（光物）")) {
 		sceneObjectManager_->Initialize();
 

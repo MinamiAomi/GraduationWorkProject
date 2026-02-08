@@ -42,26 +42,26 @@ void SkinCluster::Create(CommandContext& commandContext, const std::shared_ptr<M
     
     commandContext.CopyBufferRegion(vertexInfluenceBuffer_, 0, vertexInfluenceBufferAllocation.resource, vertexInfluenceBufferAllocation.offset, vertexInfluenceBuffer_.GetBufferSize());
     commandContext.TransitionResource(vertexInfluenceBuffer_, D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
-    commandContext.TransitionResource(skinnedVertexBuffer_, D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
+    commandContext.TransitionResource(skinnedVertexBuffer_, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
     commandContext.FlushResourceBarriers();
 
-    // レイトレ用にBLASを作成
-    blasDescs_.resize(model->GetMeshes().size());
-    for (uint32_t meshIndex = 0; meshIndex < blasDescs_.size(); ++meshIndex) {
-        auto& mesh = model->GetMeshes()[meshIndex];
-        auto& desc = blasDescs_[meshIndex];
-        desc.Type = D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES;
-        desc.Flags = D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE;
-        desc.Triangles.VertexBuffer.StartAddress = skinnedVertexBuffer_.GetGPUVirtualAddress() + (uint64_t)mesh.vertexOffset * skinnedVertexBuffer_.GetElementSize();
-        desc.Triangles.VertexBuffer.StrideInBytes = skinnedVertexBuffer_.GetElementSize();
-        desc.Triangles.VertexFormat = DXGI_FORMAT_R32G32B32_FLOAT;
-        desc.Triangles.VertexCount = mesh.vertexCount;
-        desc.Triangles.IndexBuffer = model->GetIndexBuffer().GetGPUVirtualAddress() + (uint64_t)mesh.indexOffset * model->GetIndexBuffer().GetElementSize();
-        desc.Triangles.IndexFormat = DXGI_FORMAT_R32_UINT;
-        desc.Triangles.IndexCount = mesh.indexCount;
+    //// レイトレ用にBLASを作成
+    //blasDescs_.resize(model->GetMeshes().size());
+    //for (uint32_t meshIndex = 0; meshIndex < blasDescs_.size(); ++meshIndex) {
+    //    auto& mesh = model->GetMeshes()[meshIndex];
+    //    auto& desc = blasDescs_[meshIndex];
+    //    desc.Type = D3D12_RAYTRACING_GEOMETRY_TYPE_TRIANGLES;
+    //    desc.Flags = D3D12_RAYTRACING_GEOMETRY_FLAG_OPAQUE;
+    //    desc.Triangles.VertexBuffer.StartAddress = skinnedVertexBuffer_.GetGPUVirtualAddress() + (uint64_t)mesh.vertexOffset * skinnedVertexBuffer_.GetElementSize();
+    //    desc.Triangles.VertexBuffer.StrideInBytes = skinnedVertexBuffer_.GetElementSize();
+    //    desc.Triangles.VertexFormat = DXGI_FORMAT_R32G32B32_FLOAT;
+    //    desc.Triangles.VertexCount = mesh.vertexCount;
+    //    desc.Triangles.IndexBuffer = model->GetIndexBuffer().GetGPUVirtualAddress() + (uint64_t)mesh.indexOffset * model->GetIndexBuffer().GetElementSize();
+    //    desc.Triangles.IndexFormat = DXGI_FORMAT_R32_UINT;
+    //    desc.Triangles.IndexCount = mesh.indexCount;
 
-    }
-    skinnedBLAS_.Create(L"Skinned BLAS", commandContext, blasDescs_, true);
+    //}
+    //skinnedBLAS_.Create(L"Skinned BLAS", commandContext, blasDescs_, true);
 
     Update(commandContext, skeleton);
 }

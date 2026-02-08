@@ -76,7 +76,22 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 void SceneObjectSystem::SceneObjectManager::Update()
 {
 	for (const auto& obj : pointLightObjects_) {
-		obj->Update();
+		obj->transform.UpdateMatrix();
+		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+		obj->powerEmitter_.Update();
+		obj->lightObject.Update();
+		// HPに応じて発光の強さを変える
+		auto ease = [](float t) {
+			return -(std::cos(Math::Pi * t) - 1.0f) / 2.0f;
+			};
+		float rate = ease(obj->lightObject.GetHp() / obj->lightObject.GetMaxHp());
+		for (uint32_t i = 0; i < obj->model.GetMaterials().size(); ++i) {
+			auto& materialInstance = obj->model.GetMaterials().at(i);
+			auto& originalMaterial = obj->model.GetModel()->GetMaterials().at(i);
+			materialInstance->emissive = Vector3(rate);
+			materialInstance->albedo = originalMaterial.albedo * std::clamp(rate, 0.1f, 1.0f);
+		}
+
 		//何かに当ったら
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
@@ -212,18 +227,11 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
 				pointLightObject->model.SetModel(modelHandle->Get());
-				// エラーマテリアル
-				pointLightObject->material = std::make_shared<Material>();
-				pointLightObject->material->albedo = { 1.0f, 0.2f, 0.6f };
-				pointLightObject->material->emissive = { 1.0f, 1.0f, 1.0f };
-
-				// 発光マテリアルを設定
-				if (!modelHandle->Get()->GetMaterials().empty()) {
-					auto& originalMaterials = modelHandle->Get()->GetMaterials().at(0);
-					(*pointLightObject->material) = originalMaterials;
-					pointLightObject->material->emissive = { 1.0f, 1.0f, 1.0f };
+				for (auto& originalMaterial : pointLightObject->model.GetModel()->GetMaterials()) {
+					auto destMaterial = pointLightObject->model.GetMaterials().emplace_back(std::make_shared<Material>());
+					(*destMaterial) = originalMaterial;
+					destMaterial->emissive = { 1.0f,1.0f,1.0f };
 				}
-				pointLightObject->model.SetMaterial(pointLightObject->material);
 			}
 			myCategory = uint32_t(CollisionCategory::LIGHT);
 			targetMask = uint32_t(CollisionCategory::FLASHLIGHT);
