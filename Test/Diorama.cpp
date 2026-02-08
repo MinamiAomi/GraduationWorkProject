@@ -42,6 +42,7 @@ void Diorama::Update()
 
 	transform_.rotate = Quaternion::MakeForYAxis(rotationY_);
 	transform_.UpdateMatrix();
+	collider_->center = transform_.worldMatrix.GetTranslate();
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
 #ifdef _DEBUG
