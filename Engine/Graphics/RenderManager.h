@@ -24,6 +24,7 @@
 #include "LineDrawer.h"
 #include "ParticleCore.h"
 #include "Sky.h"
+#include "FogPostEffect.h"
 
 #ifdef _DEBUG
 #define SHADER_DIRECTORY "../Engine/Graphics/Shader"
@@ -53,7 +54,6 @@ public:
     Transition& GetTransition() { return transition_; }
     SkinningManager& GetSkinningManager() { return skinningManager_; }
     LineDrawer& GetLineDrawer() { return lineDrawer_; }
-    Skybox& GetSkybox() { return skybox_; }
     LightingRenderingPass& GetLightingRenderingPass() { return lightingRenderingPass_; }
     PostEffect& GetPostEffect() { return postEffect_; }
     LightManager& GetLightManager() { return lightManager_; }
@@ -76,7 +76,6 @@ private:
     SkinningManager skinningManager_;
     GeometryRenderingPass geometryRenderingPass_;
     LightingRenderingPass lightingRenderingPass_;
-    Skybox skybox_;
     LineDrawer lineDrawer_;
     ParticleCore particleCore_;
 
@@ -87,6 +86,7 @@ private:
     PostEffect postEffect_;
     LightManager lightManager_;
     Sky sky_;
+    FogPostEffect fogPostEffect_;
     Timer timer_;
     std::weak_ptr<const Camera> camera_;
     std::weak_ptr<const DirectionalLight> sunLight_;

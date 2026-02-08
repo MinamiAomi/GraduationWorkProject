@@ -22,9 +22,7 @@ void ReleasedObjectTracker::AddObject(Microsoft::WRL::ComPtr<ID3D12Object> relea
 void ReleasedObjectTracker::AddDescriptor(uint32_t index, const std::shared_ptr<DescriptorHeap>& heap) {
     assert(heap);
     std::lock_guard<std::mutex> lock(mutex_);
-    ReleasedDescriptor descriptor;
-    descriptor.index = index;
-    descriptor.heap = heap;
+    auto descriptor = std::make_unique<ReleasedDescriptor>(index, heap);
     trackingDescriptorLists_.back().emplace_back(std::move(descriptor));
 }
 
@@ -48,6 +46,11 @@ void ReleasedObjectTracker::AllRelease() {
     for (auto& trackingObjecetList : trackingObjectLists_) {
         trackingObjecetList.clear();
     }
+}
+
+ReleasedObjectTracker::ReleasedDescriptor::ReleasedDescriptor(uint32_t index, const std::shared_ptr<DescriptorHeap>& heap) {
+    this->index = index;
+    this->heap = heap;
 }
 
 ReleasedObjectTracker::ReleasedDescriptor::~ReleasedDescriptor() {

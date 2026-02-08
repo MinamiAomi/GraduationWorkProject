@@ -2,7 +2,7 @@
 
 #include "PersistentData.h"
 #include "GameScene.h"
-
+#include "LevelManager.h"
 
 void StageSelectScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
@@ -22,10 +22,14 @@ void StageSelectScene::OnInitialize() {
 }
 
 void StageSelectScene::OnUpdate() {
-	if (input_->IsKeyTrigger(DIK_SPACE)) {
+	if (input_->IsKeyTrigger(DIK_1)) {
+		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL1);
 		SceneManager::GetInstance()->ChangeScene<GameScene>();
 	}
-
+	else if (input_->IsKeyTrigger(DIK_2)) {
+		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL2);
+		SceneManager::GetInstance()->ChangeScene<GameScene>();
+	}
 }
 
 void StageSelectScene::OnFinalize() {

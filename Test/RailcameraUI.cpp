@@ -12,44 +12,47 @@ RailcameraUI::RailcameraUI()
 	auto assetManager = AssetManager::GetInstance();
 
 	auto frameBaseUI = assetManager->textureMap.Get("ProgressBaseUI")->Get();
-	auto progressFrameUI = assetManager->textureMap.Get("ProgressFrame")->Get();
-	auto progressGaugeUI = assetManager->textureMap.Get("ProgressGauge")->Get();
+	auto trollyIcon = assetManager->textureMap.Get("TrollyIcon")->Get();
+	auto deadLineIcon = assetManager->textureMap.Get("DeadLineIcon")->Get();
 
 	baseUI_.SetTexture(frameBaseUI);
-	progressFrameUI_.SetTexture(progressFrameUI);
-	progressGaugeUI_.SetTexture(progressGaugeUI);
+	trollyIcon_.SetTexture(trollyIcon);
+	deadLineIcon_.SetTexture(deadLineIcon);
 
 	baseUI_.SetPosition({ 640.0f,360.0f });
 	baseUI_.SetScale(frameBaseUI->GetSize());
 	baseUI_.SetAnchor({ 0.5f,0.5f });
 	baseUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	baseUI_.SetDrawOrder(0);
 
-	progressFrameUI_.SetPosition({ 380.0f ,690.0f });
-	progressFrameUI_.SetScale(progressFrameUI->GetSize());
-	progressFrameUI_.SetAnchor({ 0.0f,0.5f });
-	progressFrameUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	trollyIcon_.SetPosition({ 640.0f ,690.0f });
+	trollyIcon_.SetScale(trollyIcon->GetSize());
+	trollyIcon_.SetAnchor({ 0.5f,0.5f });
+	trollyIcon_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	trollyIcon_.SetDrawOrder(1);
 
 
-	progressGaugeUI_.SetPosition({ 380.0f ,690.0f });
-	progressGaugeUI_.SetScale(progressGaugeUI->GetSize());
-	progressGaugeUI_.SetAnchor({ 0.0f,0.5f });
-	progressGaugeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineIcon_.SetPosition({ 640.0f ,690.0f });
+	deadLineIcon_.SetScale(deadLineIcon->GetSize());
+	deadLineIcon_.SetAnchor({ 0.5f,0.5f });
+	deadLineIcon_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineIcon_.SetDrawOrder(2);
 }
 
 void RailcameraUI::Initialize()
 {
 }
 
-void RailcameraUI::Update(float currentFrame)
+void RailcameraUI::Update(float currentTrollyFrame,float currentDeadlineFrame)
 {
-	float t = std::clamp(currentFrame, 0.0f, 1.0f);
-
-	progressGaugeUI_.SetScale({ std::lerp(0.0f, 520.0f, t), 50.0f });
-	progressGaugeUI_.SetUVRect({ {0.0f, 0.0f}, {t, 1.0f} }, Sprite::UVMode::UV);
+	float trollyT = std::clamp(currentTrollyFrame, 0.0f, 1.0f);
+	float deadlineT = std::clamp(currentDeadlineFrame, 0.0f, 1.0f);
+	trollyIcon_.SetUVRect({ {std::lerp(0.0f,-0.95f,trollyT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineIcon_.SetUVRect({ {std::lerp(0.0f,-0.95f,deadlineT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 
 #ifdef _DEBUG
-	progressGaugeUI_.DrawImGui("progressGaugeUI");
-	progressFrameUI_.DrawImGui("progressFrameUI");
+	trollyIcon_.DrawImGui("trollyIcon");
+	deadLineIcon_.DrawImGui("deadLineIcon");
 	baseUI_.DrawImGui("baseUI");
 #endif // _DEBUG
 }

@@ -5,7 +5,7 @@
 #include "Input/Input.h"
 #include "Scene/SceneManager.h"
 #include "GameSystem.h"
-#include "GameScene.h"
+#include "StageSelectScene.h"
 #include "LightDeviceInput.h"
 
 
@@ -161,7 +161,7 @@ void DeviceOptionsUI::UpdateMainMenu() {
         sprites_[GUI_OptionCursor_Triangle0]->SetIsActive(true);
         if (input->IsKeyTrigger(DIK_SPACE)) {
             // ゲームスタート
-            SceneManager::GetInstance()->ChangeScene<GameScene>(true);
+            SceneManager::GetInstance()->ChangeScene<StageSelectScene>(true);
         }
         break;
     }

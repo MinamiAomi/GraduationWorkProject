@@ -12,7 +12,8 @@
     "bat": "Bat/Bat.gltf",
     "testCube": "StaticMesh/testCube.gltf",
     "Brege": "StaticMesh/Bridge/bridge.gltf",
-    "Stage": "StaticMesh/StageModel/LEVEL1.gltf",
+    "Stage1": "StaticMesh/StageModel/LEVEL1.gltf",
+    "Stage2": "StaticMesh/StageModel/LEVEL2.gltf",
     "RANTAN": "StaticMesh/RANTAN.gltf",
     "O": "Ore_no_Tousougeki/O.gltf",
     "r": "Ore_no_Tousougeki/r.gltf",
@@ -27,10 +28,22 @@
     "i": "Ore_no_Tousougeki/i.gltf",
     "Crystal": "LightObject/Crystal.gltf",
     "Moss": "LightObject/Moss.gltf",
-    "PendantLight": "LightObject/PendantLight.gltf",
+    "PendantLight": "LightObject/PendantLight/PendantLight.gltf",
     "Helmet": "LightObject/Helmet/Helmet.gltf",
     "CoalTrolley": "LightObject/CoalTrolley/CoalTrolley.gltf",
-    "Box": "Box.gltf"
+    "BlueCrystal": "LightObject/BlueCrystal/BlueCrystal.gltf",
+    "Campfire": "LightObject/Campfire/Campfire.gltf",
+    "GoldTrolley": "LightObject/GoldTrolley/GoldTrolley.gltf",
+    "IceLantern": "LightObject/IceLertern/IceLantern.gltf",
+    "IlluminationArch": "LightObject/IlluminationArch/IlluminationArch.gltf",
+    "SnowFlake": "LightObject/SnowFlake/SnowFlake.gltf",
+    "StarFlake": "LightObject/StarFlake/StarFlake.gltf",
+
+    "Icicle": "Model/Icicle/Icicle.gltf",
+    "Skull": "Model/Skull/Skull.gltf",
+    "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
+    "Box": "Box.gltf",
+    "Bullet": "bullet.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -56,7 +69,26 @@
     "ProgressFrame" : "Progress/Texture/frame.png",
     "ProgressGauge" : "Progress/Texture/gauge.png",
     "ProgressBaseUI" : "Progress/Texture/baseUI.png",
+    "TrollyIcon" : "Progress/Texture/trollyIcon.png",
+    "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
 
     "white2x2":"white2x2.png"
+  },
+  "Animation" : {
+    "batAnim" : "Bat/Bat.gltf"
+  },
+  "Sound" : {
+    "SE_TROLLY_NORMAL" : "Sound/se_trolly2.mp3",
+    "SE_TROLLY_NITRO" : "Sound/se_trolly1.mp3",
+
+    "BGM_TITLE" : "Sound/bgm_title.mp3",
+    "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",
+    "BGM_TITLE_IMPATIENCE" : "Sound/bgm_title_impatience.mp3",
+
+    "BGM_INGAME_ALMOST_CLEAR" : "Sound/bgm_ingame_almost_clear.mp3",
+    "BGM_INGAME_ESCAPE1" : "Sound/bgm_ingame_escape1.mp3",
+    "BGM_INGAME_ESCAPE2" : "Sound/bgm_ingame_escape2.mp3",
+    "BGM_INGAME_ESCAPE3" : "Sound/bgm_ingame_escape3.mp3",
+    "BGM_INGAME_SAFETY" : "Sound/bgm_ingame_safety.mp3"
   }
 }

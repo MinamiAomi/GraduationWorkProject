@@ -33,6 +33,8 @@ void SkinningManager::Initialize() {
 }
 
 void SkinningManager::Add(Skeleton* skeleton, const std::shared_ptr<Model>& model) {
+    assert(!skinClusters_.contains(skeleton));
+
     skinClusters_[skeleton] = std::make_unique<SkinCluster>();
     CommandContext commandContext;
     commandContext.Start(D3D12_COMMAND_LIST_TYPE_DIRECT);
@@ -72,9 +74,9 @@ void SkinningManager::Update(CommandContext& commandContext) {
         commandContext.UAVBarrier(skinCluster->skinnedVertexBuffer_);
 
 
-        commandContext.TransitionResource(skinCluster->skinnedVertexBuffer_, D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
-        commandContext.FlushResourceBarriers();
-        skinCluster->skinnedBLAS_.Update(commandContext, skinCluster->blasDescs_);
+        //commandContext.TransitionResource(skinCluster->skinnedVertexBuffer_, D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE);
+        //commandContext.FlushResourceBarriers();
+        //skinCluster->skinnedBLAS_.Update(commandContext, skinCluster->blasDescs_);
         commandContext.TransitionResource(skinCluster->skinnedVertexBuffer_, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER);
         commandContext.FlushResourceBarriers();
         skeleton->updated_ = false;

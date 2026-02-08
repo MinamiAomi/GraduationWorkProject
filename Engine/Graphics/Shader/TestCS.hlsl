@@ -64,9 +64,9 @@ float PerlinNoise(float2 uv, float density) {
 float FractalSumNoise(float2 uv, float density) {
     float fn;
     fn = PerlinNoise(uv, density * 1.0f);
-    //fn += PerlinNoise(uv, density * 2.0f) * 1.0f /  4.0f;
-    //fn += PerlinNoise(uv, density * 4.0f) * 1.0f /  8.0f;
-    //fn += PerlinNoise(uv, density * 8.0f) * 1.0f / 16.0f;
+    fn += PerlinNoise(uv, density * 2.0f) * 0.5f;
+    fn += PerlinNoise(uv, density * 4.0f) * 0.25f;
+    fn += PerlinNoise(uv, density * 8.0f) * 0.125f;
     return fn;
 }
 

@@ -8,12 +8,12 @@ public:
 
 	void Initialize();
 
-	void Update(float currentFrame);
+	void Update(float currentTrollyFrame, float currentDeadlineFrame);
 
 
 private:
-	Sprite progressFrameUI_;
-	Sprite progressGaugeUI_;
+	Sprite trollyIcon_;
+	Sprite deadLineIcon_;
 
 	Sprite baseUI_;
 };

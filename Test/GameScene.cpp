@@ -17,6 +17,8 @@
 
 #include "AnimationLoader.h"
 
+#include "LevelManager.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -26,12 +28,41 @@ void GameScene::OnInitialize() {
 	input_ = Input::GetInstance();
 
 	camera_ = std::make_shared<Camera>();
+	auto currentLevel = LevelManager::GetInstance()->GetLevel();
+	std::string railcameraJson, staticMeshJson, stageName;
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
+		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
+		stageName = "Stage1";
+		break;
+	case LevelManager::Level::LEVEL2:
+		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
+		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
+		stageName = "Stage2";
+		break;
+	default:
+		break;
+	}
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
 
+	directionalLights_.resize(kDirectionalLightCount);
+	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
+		auto& directionalLight = directionalLights_[i];
+		directionalLight = std::make_shared<DirectionalLight>();
+		directionalLight->color = Color(1.0f, 1.0f, 1.0f);
+		float t = Math::TwoPi * ((float)i / (float)kDirectionalLightCount);
+		directionalLight->direction = { std::cos(t), -1.0f , std::sin(t) };
+		directionalLight->intensity = 0.2f;
+		directionalLight->isActive = true;
+		RenderManager::GetInstance()->GetLightManager().Add(directionalLight);
+	}
+
 #pragma region RailSystem
-	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation("Resources/RailCamera/railCamera.json");
+	auto animationData = AnimationUtils::AnimationLoader::LoadRailAnimation(railcameraJson);
 	if (animationData) {
 		railAnimationPlayer_ = std::make_unique<RailSystem::RailAnimationPlayer>
 			(
@@ -62,6 +93,8 @@ void GameScene::OnInitialize() {
 	for (auto& collider : trolley_->GetColliders()) {
 		collisionSystem_->RegisterCollider(collider);
 	}
+	batteryParticles_ = std::make_unique<BatteryParticles>();
+	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0),batsManager_.get());
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -74,13 +107,14 @@ void GameScene::OnInitialize() {
 
 
 #pragma region SceneObjectSystem
+
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
 
 	sceneObjectManager_->Initialize();
 
-	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+	auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile(staticMeshJson);
 
-	sceneObjectManager_->CreateObjects(result);
+	sceneObjectManager_->CreateObjects(result, stageName);
 
 	//Colliderセット
 	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
@@ -107,14 +141,17 @@ void GameScene::OnInitialize() {
 #pragma region Bats
 	batsManager_ = std::make_unique<BatsManager>();
 	batsManager_->SetCamera(camera_.get());
+	batsManager_->SetColliderSystem(collisionSystem_.get());
+	//test
+	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+	batsManager_->Emit(mapData);
+
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
 #pragma region RailcameraUI
 	railcameraUI_ = std::make_unique<RailcameraUI>();
 	railcameraUI_->Initialize();
 #pragma endregion
-
-
 
 
 #ifdef _DEBUG
@@ -126,8 +163,8 @@ void GameScene::OnInitialize() {
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
-
-#ifndef _DEBUG
+	PowerEmitter::Debug();
+#ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -136,8 +173,8 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
+	
 #endif // _DEBUG
-
 #pragma region RailSystem
 
 	//現在のスピードを代入
@@ -145,7 +182,7 @@ void GameScene::OnUpdate() {
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
 
-	
+
 
 #pragma endregion
 #pragma region Flashlight
@@ -166,6 +203,7 @@ void GameScene::OnUpdate() {
 
 #pragma region Trolley
 	trolley_->Update(deltaTime);
+	batteryParticles_->Update();
 #pragma endregion
 
 #pragma region Bats
@@ -173,7 +211,10 @@ void GameScene::OnUpdate() {
 	batsManager_->Update();
 #pragma endregion
 #pragma region RailcameraUI
-	railcameraUI_->Update((railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame));
+	railcameraUI_->Update(
+		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
+		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
+	);
 #pragma endregion
 
 
@@ -189,7 +230,8 @@ void GameScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
-
+	batteryParticles_->Debug();
+	batteryParticles_->DebugDraw();
 	ImGui::Begin("RailAnimationPlayer");
 	if (railAnimationPlayer_->IsPlaying()) {
 		ImGui::TextColored(ImVec4(0, 1, 0, 1), "Status: Playing >>");
@@ -309,12 +351,35 @@ void GameScene::OnUpdate() {
 	}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
+	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
+		auto& directionalLight = directionalLights_[i];
+		directionalLight->DrawImGui(std::format("DirectionalLight{}", i));
+	}
+
 	if (ImGui::Button("ホットリロード（光物）")) {
 		sceneObjectManager_->Initialize();
 
-		auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile("Resources/StaticMesh/Mint_staticMesh.json");
+		auto currentLevel = LevelManager::GetInstance()->GetLevel();
+		std::string railcameraJson, staticMeshJson, stageName;
+		switch (currentLevel)
+		{
+		case LevelManager::Level::LEVEL1:
+			railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
+			staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
+			stageName = "Stage1";
+			break;
+		case LevelManager::Level::LEVEL2:
+			railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
+			staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
+			stageName = "Stage2";
+			break;
+		default:
+			break;
+		}
 
-		sceneObjectManager_->CreateObjects(result);
+		auto result = SceneObjectSystem::SceneLoader::LoadSceneFromFile(staticMeshJson);
+
+		sceneObjectManager_->CreateObjects(result, stageName);
 
 		//Colliderセット
 		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {

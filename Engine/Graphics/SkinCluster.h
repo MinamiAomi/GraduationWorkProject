@@ -29,7 +29,7 @@ public:
 
     uint32_t GetNumVertices() const { return numVertices_; }
     const StructuredBuffer& GetSkinnedVertexBuffer() const { return skinnedVertexBuffer_; }
-    const BLAS& GetSkinnedBLAS() const { return skinnedBLAS_; }
+    //const BLAS& GetSkinnedBLAS() const { return skinnedBLAS_; }
 
 
 private:
@@ -38,7 +38,7 @@ private:
     StructuredBuffer vertexInfluenceBuffer_;
     StructuredBuffer matrixPaletteBuffer_;
     StructuredBuffer skinnedVertexBuffer_;
-    BLAS skinnedBLAS_;
-    std::vector<D3D12_RAYTRACING_GEOMETRY_DESC> blasDescs_;
+    //BLAS skinnedBLAS_;
+    //std::vector<D3D12_RAYTRACING_GEOMETRY_DESC> blasDescs_;
     uint32_t numVertices_;
 };

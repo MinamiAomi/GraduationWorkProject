@@ -5,6 +5,7 @@
 #include "AudioDevice.h"
 
 AudioSource::~AudioSource() {
+    AudioDevice::GetInstance()->RemoveAudioSource(this);
     Destroy();
 }
 
@@ -35,6 +36,7 @@ void AudioSource::Stop() {
     assert(sourceVoice_);
     HRESULT hr = S_FALSE;
     hr = sourceVoice_->Stop();
+    sourceVoice_->FlushSourceBuffers();
     assert(SUCCEEDED(hr));
 }
 
@@ -59,13 +61,14 @@ bool AudioSource::IsPlaying() const {
     return state.BuffersQueued > 0;
 }
 
+void AudioSource::OnDestroy() {
+    Destroy();
+}
+
 void AudioSource::Create() {
     assert(sound_);
     Destroy();
-    HRESULT hr = S_FALSE;
-    hr = AudioDevice::GetInstance()->GetXAudio2()->CreateSourceVoice(&sourceVoice_, sound_->GetWaveFormat());
-    assert(SUCCEEDED(hr));
-
+    sourceVoice_ = AudioDevice::GetInstance()->CreateAudioSource(this, sound_->GetWaveFormat());
 }
 
 void AudioSource::Destroy() {
