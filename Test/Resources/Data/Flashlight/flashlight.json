@@ -1,6 +1,6 @@
 {
     "battery": {
-        "addBattery_": 0.75,
+        "addBattery_": 0.5,
         "isLighting_": true,
         "maxBattery_": 100.0,
         "startFrame_": 120.0,

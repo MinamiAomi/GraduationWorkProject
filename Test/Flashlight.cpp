@@ -157,7 +157,8 @@ void Flashlight::UpdateLightPower()
 #ifdef _DEBUG
 	if (!isDebug_) {
 #endif // _DEBUG
-		if (railAnimationPlayer_->GetCurrentFrame() >= startFrame_ &&
+		if (railAnimationPlayer_ &&
+			railAnimationPlayer_->GetCurrentFrame() >= startFrame_ &&
 			!isHitFlashlight_) {
 			battery_ -= subBattery_;
 			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
