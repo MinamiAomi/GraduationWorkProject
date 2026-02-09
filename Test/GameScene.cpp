@@ -505,8 +505,6 @@ void GameScene::OnUpdate() {
 	if (input_->IsKeyTrigger(DIK_SPACE)) {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
 	}
-	    
-
 #endif
 
 	//ゲームオーバー

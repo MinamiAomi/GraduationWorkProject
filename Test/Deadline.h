@@ -16,7 +16,9 @@ public:
 	void SetAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
 	const RailSystem::RailAnimationPlayer* GetAnimationPlayer() const  {return railAnimationPlayer_; }
 	float GetCurrenFrame() const { return currentFrame_; }
-	float GetStartFrame() const { return startFrame_; }
+	
+	float GetStartFrameLevel1() const { return startFrameLevel1_; }
+	float GetStartFrameLevel2() const { return startFrameLevel2_; }
 
 	bool IsGameOver() { return isGameOver_; }
 private:
@@ -27,7 +29,9 @@ private:
 	DeadlineUI deadlineUI_;
 	const RailSystem::RailAnimationPlayer* railAnimationPlayer_;
 	float currentFrame_;
-	float startFrame_;
+	float startFrameLevel1_;
+	float startFrameLevel2_;
+	float startOffset_;
 	bool isGameOver_;
 
 

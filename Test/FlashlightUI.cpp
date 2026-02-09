@@ -32,6 +32,7 @@ FlashlightUI::FlashlightUI()
 
 void FlashlightUI::Initialize()
 {
+
 }
 
 void FlashlightUI::Update()
