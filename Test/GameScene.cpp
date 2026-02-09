@@ -28,6 +28,8 @@ void GameScene::OnInitialize() {
 	input_ = Input::GetInstance();
 
 	camera_ = std::make_shared<Camera>();
+
+
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
 	std::string railcameraJson, staticMeshJson, stageName;
 	switch (currentLevel)
@@ -36,6 +38,7 @@ void GameScene::OnInitialize() {
 		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
+
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
@@ -243,10 +246,6 @@ void GameScene::OnUpdate() {
 
 #pragma region Trolley
 	trolley_->Update(deltaTime);
-#pragma endregion
-
-#pragma region Flashlight
-	flashlight_->Update();
 #pragma endregion
 
 #pragma region Flashlight
