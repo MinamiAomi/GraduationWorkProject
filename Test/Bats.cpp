@@ -56,7 +56,7 @@ void Bats::Update()
 
 	for (auto it = bats_.begin(); it != bats_.end(); ) {
 
-		Bat* p = it->get(); 
+		auto p = *it; 
 		p->sideStepTime_ += 0.05f;
 
 		float amplitude = 0.5f;
@@ -157,7 +157,7 @@ void Bats::DebugDraw()
 
 void Bats::Emit(const Vector3& goalPos)
 {
-	auto newBat = std::make_unique<Bat>();
+	auto newBat = std::make_shared<Bat>();
 
 	newBat->modelInstance_.SetModel(model_);
 	newBat->skeleton_ = std::make_unique<Skeleton>();
@@ -216,5 +216,5 @@ void Bats::Emit(const Vector3& goalPos)
 
 	newBat->hp_ = 1.0f;
 
-	bats_.push_back(std::move(newBat));
+	bats_.push_back(newBat);
 }

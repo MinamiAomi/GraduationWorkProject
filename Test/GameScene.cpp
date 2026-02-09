@@ -192,13 +192,10 @@ void GameScene::OnUpdate() {
 
 
 #pragma endregion
-#pragma region Flashlight
-	flashlight_->Update();
-#pragma endregion
 
 #pragma region RailCameraSystem
 	railCameraSystem_->Update(deltaTime);
-	camera_->SetFov(railCameraSystem_->GetFov());
+	//camera_->SetFov(railCameraSystem_->GetFov());
 	camera_->SetRotate(railCameraSystem_->GetWorldRotation());
 	camera_->SetPosition(railCameraSystem_->GetWorldTranslate());
 #pragma endregion
@@ -210,7 +207,10 @@ void GameScene::OnUpdate() {
 
 #pragma region Trolley
 	trolley_->Update(deltaTime);
-	batteryParticles_->Update();
+#pragma endregion
+
+#pragma region Flashlight
+	flashlight_->Update();
 #pragma endregion
 
 #pragma region Bats
@@ -224,6 +224,7 @@ void GameScene::OnUpdate() {
 	);
 #pragma endregion
 
+	batteryParticles_->Update();
 
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();

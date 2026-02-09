@@ -25,6 +25,7 @@
 #include "ParticleCore.h"
 #include "Sky.h"
 #include "FogPostEffect.h"
+#include "FinalEffect.h"
 
 #ifdef _DEBUG
 #define SHADER_DIRECTORY "../Engine/Graphics/Shader"
@@ -87,6 +88,7 @@ private:
     LightManager lightManager_;
     Sky sky_;
     FogPostEffect fogPostEffect_;
+    FinalEffect finalEffect_;
     Timer timer_;
     std::weak_ptr<const Camera> camera_;
     std::weak_ptr<const DirectionalLight> sunLight_;
