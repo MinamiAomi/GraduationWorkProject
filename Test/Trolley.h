@@ -79,6 +79,7 @@ public:
 	const Flashlight* GetFlashlight() const { return flashlight_; }
 
 	const bool GetIsHitFlashlight()const { return isHitFlashlight_; }
+	const bool GetBatteryRemaining() const { return !flashlight_->GetBatteryRemaining(); }
 	const float GetCenterRate()const { return centerRate_; }
 
 	void SetState(const State& state);

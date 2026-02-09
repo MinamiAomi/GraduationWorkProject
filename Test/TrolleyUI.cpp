@@ -172,7 +172,7 @@ void TrolleyUI::Update()
     speedMeterTransform_.UpdateMatrix();
     speedMeterNeedleTransform_.UpdateMatrix();
 
-    if (trolley_->GetIsHitFlashlight()) {
+    if (trolley_->GetIsHitFlashlight() && trolley_->GetBatteryRemaining()) {
         float rate = trolley_->GetCenterRate();
 
         float baseSpeed = rate * 0.1f;

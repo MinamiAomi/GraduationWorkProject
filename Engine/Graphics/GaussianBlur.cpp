@@ -99,6 +99,9 @@ void GaussianBlur::Initialize(ColorBuffer* originalTexture) {
     }
 
     originalTexture_ = originalTexture;
+    horizontalBlurTexture_.SetClearColor(originalTexture_->GetClearColor());
+    verticalBlurTexture_.SetClearColor(originalTexture_->GetClearColor());
+
     horizontalBlurTexture_.Create(
         L"GaussianBlur HorizontalBlurTexture",
         originalTexture_->GetWidth() / 2,
@@ -124,7 +127,8 @@ void GaussianBlur::Render(CommandContext& commandContext) {
     commandContext.TransitionResource(*originalTexture_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(horizontalBlurTexture_, D3D12_RESOURCE_STATE_RENDER_TARGET);
     commandContext.SetRenderTarget(horizontalBlurTexture_.GetRTV());
-    commandContext.ClearColor(horizontalBlurTexture_);
+    float cc[4] = { 0.0f,0.0f,0.0f,0.0f };
+    commandContext.ClearColor(horizontalBlurTexture_, cc);
     commandContext.SetViewportAndScissorRect(0, 0, horizontalBlurTexture_.GetWidth(), horizontalBlurTexture_.GetHeight());
 
     commandContext.SetRootSignature(*gbRootSignature_);
@@ -136,7 +140,7 @@ void GaussianBlur::Render(CommandContext& commandContext) {
 
     commandContext.TransitionResource(horizontalBlurTexture_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(verticalBlurTexture_, D3D12_RESOURCE_STATE_RENDER_TARGET);
-    commandContext.ClearColor(verticalBlurTexture_);
+    commandContext.ClearColor(verticalBlurTexture_, cc);
     commandContext.SetRenderTarget(verticalBlurTexture_.GetRTV());
     commandContext.SetViewportAndScissorRect(0, 0, verticalBlurTexture_.GetWidth(), verticalBlurTexture_.GetHeight());
 

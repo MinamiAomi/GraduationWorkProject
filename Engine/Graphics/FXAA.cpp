@@ -14,6 +14,7 @@ void FXAA::Initialize(ColorBuffer* original) {
     assert(original);
     original_ = original;
 
+    result_.SetClearColor(original_->GetClearColor());
     result_.Create(L"FXAA Result", original_->GetWidth(), original_->GetHeight(), original_->GetFormat());
 
     CD3DX12_DESCRIPTOR_RANGE drs[1]{};
@@ -58,6 +59,7 @@ void FXAA::Render(CommandContext& commandContext) {
     commandContext.TransitionResource(*original_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.SetRenderTarget(result_.GetRTV());
     commandContext.SetViewportAndScissorRect(0, 0, result_.GetWidth(), result_.GetHeight());
+    commandContext.ClearColor(result_);
     commandContext.SetRootSignature(rootSignature_);
     commandContext.SetPipelineState(pipelineState_);
     commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

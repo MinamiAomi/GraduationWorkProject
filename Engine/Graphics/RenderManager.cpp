@@ -98,8 +98,9 @@ void RenderManager::Render() {
     commandContext_.TransitionResource(finalImageBuffer_, D3D12_RESOURCE_STATE_RENDER_TARGET);
     commandContext_.SetRenderTarget(finalImageBuffer_.GetRTV());
     commandContext_.SetViewportAndScissorRect(0, 0, finalImageBuffer_.GetWidth(), finalImageBuffer_.GetHeight());
+    commandContext_.ClearColor(finalImageBuffer_);
 
-
+    spriteRenderer_.Pre3DRender(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
     postEffect_.Render(commandContext_, fxaa_.GetResult());
     spriteRenderer_.Render(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
 

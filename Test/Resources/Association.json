@@ -55,8 +55,16 @@
     "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
     "Box": "Box.gltf",
     "Bullet": "bullet.gltf",
+
     "TitleTrolley":"TitleTrolley/TitileTrolley.gltf",
     "TitleStage":"TitleStage/TitleStage.gltf",
+
+    "GameOverOODAMA" : "GameOver/OODAMA/OODAMA.gltf",
+    "GameOverRail" : "GameOver/Rail/Rail.gltf",
+    "GameOverTrolley" : "GameOver/Trolley/Trolley.gltf",
+
+    "GameClearGoalAndRail" : "GameClear/GoalAndRail/GoalAndRail.gltf",
+    "GameClearTrolley" : "GameClear/Trolley/Trolley.gltf",
 
     "Triangle" : "triangle.gltf"
   },
@@ -101,7 +109,12 @@
   "Animation" : {
     "batAnim" : "Bat/Bat.gltf",
     "trolleyAnim" : "TitleTrolley/TitileTrolley.gltf",
-    "TitleStageAnim":"TitleStage/TitleStage.gltf"
+    "TitleStageAnim":"TitleStage/TitleStage.gltf",
+
+    "GameOverOODAMAAnim" : "GameOver/OODAMA/OODAMA.gltf",
+    "GameOverTrolleyAnim" : "GameOver/Trolley/Trolley.gltf",
+
+    "GameClearTrolleyAnim" : "GameClear/Trolley/Trolley.gltf"
   },
   "Sound" : {
     "SE_TROLLY_NORMAL" : "Sound/se_trolly2.wav",

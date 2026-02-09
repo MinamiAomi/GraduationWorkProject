@@ -25,6 +25,8 @@ public:
     /// <param name="bottom"></param>
     void Render(CommandContext& commandContext, float left, float top, float right, float bottom);
 
+    void Pre3DRender(CommandContext& commandContext, float left, float top, float right, float bottom);
+
 private:
     RootSignature rootSignature_;
     PipelineState pipelineState_;

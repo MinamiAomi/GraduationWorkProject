@@ -38,7 +38,7 @@ PSOutput main(PSInput input) {
     output.color += param_.weight[1].z * src_.Sample(sampler_, input.texcoord[6].zw);
     output.color += param_.weight[1].w * src_.Sample(sampler_, input.texcoord[7].zw);
     
-    output.color.w = 1.0f;
+    //output.color.w = 1.0f;
     
     return output;
 }

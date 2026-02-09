@@ -32,11 +32,13 @@ public:
 	void SetColor(const Color& color) { color_ = color; }
 	void SetDrawOrder(uint8_t drawOrder) { drawOrder_ = drawOrder; }
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
+    void SetPre3DRender(bool pre3DRender) { pre3DRender_ = pre3DRender; }
 
 	// ゲッター
 
 	uint8_t GetDrawOrder() const { return drawOrder_; }
 	bool GetIsActive() const { return isActive_; }
+    bool GetPre3DRender() const { return pre3DRender_; }
 
 #ifdef _DEBUG
 	void DrawImGui(const std::string& name);
@@ -58,5 +60,6 @@ private:
 	UVMode uvMode_ = UVMode::Texcoord;
 	Color color_ = Color::white;
 	uint8_t drawOrder_ = 0; // 小さいほど上に描画される レイヤーを表す値
+    bool pre3DRender_ = false;
 	bool isActive_ = true;
 };

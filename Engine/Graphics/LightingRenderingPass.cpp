@@ -16,9 +16,9 @@ namespace {
 }
 
 void LightingRenderingPass::Initialize(uint32_t width, uint32_t height) {
-    float clearColor[] = { 0.04f, 0.1f, 0.6f, 1.0f };
+    float clearColor[] = { 0.0f, 0.f, 0.0f, 0.0f };
     result_.SetClearColor(clearColor);
-    result_.Create(L"LightingRenderingPass Result", width, height, DXGI_FORMAT_R11G11B10_FLOAT);
+    result_.Create(L"LightingRenderingPass Result", width, height, DXGI_FORMAT_R10G10B10A2_UNORM);
 
     // ルートシグネチャ
     {
@@ -31,7 +31,6 @@ void LightingRenderingPass::Initialize(uint32_t width, uint32_t height) {
 
         CD3DX12_ROOT_PARAMETER rootParameters[RootIndex::NumRootParameters]{};
         rootParameters[RootIndex::Scene].InitAsConstantBufferView(0);
-        rootParameters[RootIndex::Sky].InitAsConstantBufferView(1);
         rootParameters[RootIndex::LightList].InitAsShaderResourceView(0);
         rootParameters[RootIndex::Albedo].InitAsDescriptorTable(1, &albedoRange);
         rootParameters[RootIndex::MetallicRoughness].InitAsDescriptorTable(1, &metallicRoughnessRange);
@@ -125,26 +124,7 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     sceneData.lightColor = { light.color.GetR(), light.color.GetG(), light.color.GetB() };
     sceneData.lightDirection = light.direction;
 
-    SkyParameter skyParameter;
-    skyParameter.sunPosition = RenderManager::GetInstance()->GetSky().GetSunDirection();
-    skyParameter.sunIntensity = 1300.0f;
-    skyParameter.sunIntensity = 1300.0f;
-    skyParameter.Kr = 0.0025f;
-    skyParameter.Km = 0.0010f;
-    skyParameter.innerRadius = 10000.0f;
-    skyParameter.outerRadius = 10250.0f;
-    Vector3 waveLength = { 0.680f, 0.550f, 0.440f };
-    skyParameter.invWaveLength.x = 1.0f / std::pow(waveLength.x, 4.0f);
-    skyParameter.invWaveLength.y = 1.0f / std::pow(waveLength.y, 4.0f);
-    skyParameter.invWaveLength.z = 1.0f / std::pow(waveLength.z, 4.0f);
-    skyParameter.scale = 1.0f / (skyParameter.outerRadius - skyParameter.innerRadius);
-    skyParameter.scaleDepth = 0.25f;
-    skyParameter.scaleOverScaleDepth = skyParameter.scale / skyParameter.scaleDepth;
-    skyParameter.g = -0.999f;
-    skyParameter.exposure = 0.05f;
-
     commandContext.SetDynamicConstantBufferView(RootIndex::Scene, sizeof(sceneData), &sceneData);
-    commandContext.SetDynamicConstantBufferView(RootIndex::Sky, sizeof(skyParameter), &skyParameter);
     commandContext.SetDescriptorTable(RootIndex::Albedo, geometryRenderingPass.GetAlbedo().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::MetallicRoughness, geometryRenderingPass.GetMetallicRoughnessFlag().GetSRV());
     commandContext.SetDescriptorTable(RootIndex::Normal, geometryRenderingPass.GetNormal().GetSRV());
@@ -265,26 +245,9 @@ void LightingRenderingPass::Render(CommandContext& commandContext, GeometryRende
     commandContext.SetPipelineState(pipelineState_);
     commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    SkyParameter skyParameter;
-    skyParameter.sunPosition = RenderManager::GetInstance()->GetSky().GetSunDirection();
-    skyParameter.sunIntensity = 1300.0f;
-    skyParameter.sunIntensity = 1300.0f;
-    skyParameter.Kr = 0.0025f;
-    skyParameter.Km = 0.0010f;
-    skyParameter.innerRadius = 10000.0f;
-    skyParameter.outerRadius = 10250.0f;
-    Vector3 waveLength = { 0.680f, 0.550f, 0.440f };
-    skyParameter.invWaveLength.x = 1.0f / std::pow(waveLength.x, 4.0f);
-    skyParameter.invWaveLength.y = 1.0f / std::pow(waveLength.y, 4.0f);
-    skyParameter.invWaveLength.z = 1.0f / std::pow(waveLength.z, 4.0f);
-    skyParameter.scale = 1.0f / (skyParameter.outerRadius - skyParameter.innerRadius);
-    skyParameter.scaleDepth = 0.25f;
-    skyParameter.scaleOverScaleDepth = skyParameter.scale / skyParameter.scaleDepth;
-    skyParameter.g = -0.999f;
-    skyParameter.exposure = 0.05f;
+   
 
     commandContext.SetDynamicConstantBufferView(RootIndex::Scene, sizeof(sceneData), &sceneData);
-    commandContext.SetDynamicConstantBufferView(RootIndex::Sky, sizeof(skyParameter), &skyParameter);
     if (sceneData.lightCount > 0) {
         commandContext.SetDynamicShaderResourceView(RootIndex::LightList, lightData.size() * sizeof(lightData[0]), lightData.data());
     }
