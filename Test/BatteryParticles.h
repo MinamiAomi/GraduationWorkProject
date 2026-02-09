@@ -23,7 +23,9 @@ public:
 	void Initialize(const Transform* transform, const BatsManager* batsManager);
 	void Update();
 	void DebugDraw();
+#ifdef _DEBUG
 	static void Debug();
+#endif // _DEBUG
 
 	void SetColor(Vector3 color) {
 		material_->albedo = color;

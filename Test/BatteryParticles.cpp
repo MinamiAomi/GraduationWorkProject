@@ -85,6 +85,8 @@ void BatteryParticles::DebugDraw()
 	lineDrawer.DrawSphere(transform_.worldMatrix.GetTranslate(), radius_, Vector4{ material_->albedo.x,material_->albedo.y,material_->albedo.z,1.0f });
 	
 }
+#ifdef _DEBUG
+
 
 void BatteryParticles::Debug()
 {
@@ -142,6 +144,7 @@ void BatteryParticles::Debug()
 	}
 	ImGui::End();
 }
+#endif // _DEBUG
 
 void BatteryParticles::Emit()
 {

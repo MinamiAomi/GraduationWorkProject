@@ -13,6 +13,7 @@ ConstantBuffer<Scene> g_Scene : register(b0);
 struct Instance {
     float4x4 worldMatrix;
     float4x4 worldInverseTransposeMatrix;
+    uint useLighting;
 };
 ConstantBuffer<Instance> g_Instance : register(b1);
 
@@ -21,10 +22,10 @@ struct Material {
     float metallic;
     float3 emissive;
     float roughness;
-    float emissiveThreshold;
     uint albedoMapIndex;
     uint metallicRoughnessMapIndex;
     uint normalMapIndex;
+    uint emissiveMapIndex;
 };
 ConstantBuffer<Material> g_Material : register(b2);
 
