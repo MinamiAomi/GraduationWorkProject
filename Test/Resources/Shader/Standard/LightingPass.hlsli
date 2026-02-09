@@ -25,7 +25,6 @@ struct Scene {
 };
 
 ConstantBuffer<Scene> g_Scene : register(b0);
-ConstantBuffer<SkyParameter> g_SkyParameter : register(b1);
 
 // Lights
 StructuredBuffer<Light> g_Lights : register(t0);
