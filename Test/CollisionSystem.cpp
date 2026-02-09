@@ -25,16 +25,13 @@ void CollisionSystem::CheckCollisions()
         }
     }
 
-    for (size_t i = 0; i < colliders.size(); ++i) {
-        for (size_t j = i + 1; j < colliders.size(); ++j) {
-
-            std::shared_ptr<Collider> a_ptr = colliders[i].lock();
-            std::shared_ptr<Collider> b_ptr = colliders[j].lock();
-
+    for (auto iter1 = colliders.begin(); iter1 != colliders.end(); ++iter1) {
+        for (auto iter2 = std::next(iter1); iter2 != colliders.end(); ++iter2) {
+            std::shared_ptr<Collider> a_ptr = iter1->lock();
+            std::shared_ptr<Collider> b_ptr = iter2->lock();
             // 2つのColliderで衝突判定を実行
             if (a_ptr && b_ptr) {
                 if (AreColliding(*a_ptr, *b_ptr)) {
-
                     //情報をリストに貯める
                     a_ptr->OnCollision(*b_ptr);
                     b_ptr->OnCollision(*a_ptr);

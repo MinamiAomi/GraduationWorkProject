@@ -30,6 +30,8 @@ Trolley::Trolley()
         std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
         nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
     }
+    nitroFizzSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO_FIZZ")->Get();
+    chargeSESource_ = assetManager->soundMap.Get("SE_TROLLY_CHARGE")->Get();
 
     //teilLight_ = std::make_shared<SpotLight>();
 
@@ -165,6 +167,13 @@ void Trolley::UpdateState(float deltaTime)
 
             if (isHitFlashlight_) {
                 currentCharge_ += accelerationRate_ * deltaTime * 60.0f * centerRate_;
+                
+                if (!chargeSESource_.IsPlaying()) {
+                    chargeSESource_.Play(false);
+                    auto t = std::sin((centerRate_ * Math::Pi) * 0.5f);
+                    chargeSESource_.SetVolume(t);
+                    chargeSESource_.SetPitch(0.7f + t * 0.3f);
+                }
             }
             else {
                 currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
@@ -360,6 +369,7 @@ void Trolley::RecoverFromNitro()
     currentCharge_ = batteryAfterNitro_;
     stateTimer_ = 0.0f;
     nitroAccumulateTimer_ = 0.0f;
+    nitroFizzSESource_.Play(false);
 }
 
 void Trolley::RecoverFromBurst()
