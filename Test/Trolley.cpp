@@ -169,7 +169,11 @@ void Trolley::UpdateState(float deltaTime)
 		if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
 
             if (isHitFlashlight_) {
-                currentCharge_ += accelerationRate_ * deltaTime * 60.0f * centerRate_;
+				float addCharge = 1.0f;
+				if (flashlight_->GetBatteryRemaining()) {
+					addCharge = 0.3f;
+				}
+                currentCharge_ += accelerationRate_ * addCharge * deltaTime * 60.0f * centerRate_;
                 
                 if (!chargeSESource_.IsPlaying()) {
                     chargeSESource_.Play(false);

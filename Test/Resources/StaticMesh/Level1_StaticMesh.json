@@ -4220,8 +4220,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4276,8 +4276,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4332,8 +4332,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4388,8 +4388,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4444,8 +4444,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4500,8 +4500,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4556,8 +4556,8 @@
           0.8915,
           0.8234
         ],
-        "intensity": 1.47,
-        "range": 10.0,
+        "intensity": 5.0,
+        "range": 12.0,
         "decay": 1.0
       },
       "collider": {
@@ -4895,6 +4895,13 @@
         "formation": [
           [
             false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             true,
             false,
             false,
@@ -4955,8 +4962,22 @@
         "formation": [
           [
             false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             true,
             false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
             false,
             false
           ],
@@ -4964,13 +4985,6 @@
             false,
             false,
             false,
-            true,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
             false,
             false
           ]
@@ -4994,9 +5008,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          790.155,
-          1165.1028,
-          -958.11
+          930.683,
+          351.7722,
+          -10.8056
         ],
         "rotate": [
           1.0,
@@ -5111,9 +5125,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          790.1942,
-          1165.851,
-          -958.4178
+          930.7222,
+          352.5203,
+          -11.1133
         ],
         "radius": 0.5
       }
@@ -5163,9 +5177,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          475.265,
-          391.6172,
-          -228.5596
+          786.9269,
+          401.0313,
+          -4.6245
         ],
         "rotate": [
           0.7597,
@@ -5265,9 +5279,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          475.4119,
-          391.6666,
-          -229.5655
+          787.0738,
+          401.0807,
+          -5.6304
         ],
         "radius": 0.5
       }
