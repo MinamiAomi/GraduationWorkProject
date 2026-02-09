@@ -59,7 +59,7 @@ void DeadlineUI::Update()
 		deadline_->GetAnimationPlayer()->GetCurrentFrame() > startWarning) {
 
 		warning_.SetIsActive(true);
-		count_ = 150;
+		count_ = maxCount_;
 		isOnce_ = true;
 	}
 
@@ -69,6 +69,15 @@ void DeadlineUI::Update()
 		warning_.SetIsActive(false);
 	}
 	else {
+		float progress = static_cast<float>(maxCount_ - count_) / maxCount_;
+
+		float blinkCount = 3.0f;
+
+		float alpha = std::sin(Math::Pi * progress * 2.0f * blinkCount);
+		alpha = (alpha + 1.0f) * 0.5f; 
+		alpha *= (1.0f - progress);    
+		warning_.SetColor(Color(1.0f, 1.0f, 1.0f, alpha));
+
 		count_--;
 	}
 
