@@ -188,7 +188,7 @@ void GameScene::OnInitialize() {
 	//inGameUI_.SetAnchor({ 0.5f,0.5f });
 	inGameUI_.SetScale({ texture->GetSize() });
 	inGameUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
-	inGameUI_.SetDrawOrder(4);
+	inGameUI_.SetDrawOrder(6);
 	inGameUI_.SetIsActive(true);
 
 	inGameUICount_ = 180;
@@ -258,9 +258,6 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
-
-
-
 #pragma endregion
 
 #pragma region RailCameraSystem
