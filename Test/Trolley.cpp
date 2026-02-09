@@ -24,6 +24,12 @@ Trolley::Trolley()
 
     normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
     nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
+    burstSESource_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
+    crashSESource_ = assetManager->soundMap.Get("SE_TROLLY_CRASH")->Get();
+    for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
+        std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
+        nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
+    }
 
     //teilLight_ = std::make_shared<SpotLight>();
 
@@ -88,6 +94,7 @@ void Trolley::Initialize()
 
 
     for (uint8_t i = 0; i < BatteryNum; i++) {
+        batteryTransforms_.at(i).SetParent(nullptr);
         batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
         //batteryTransforms_.at(i).SetParent(&transform_);
         batteryTransforms_.at(i).UpdateMatrix();
@@ -326,6 +333,26 @@ void Trolley::OnNitroState()
     stateTimer_ = 0.0f;
     nitroAccumulateTimer_ = 0.0f;
 
+    float SoundConstant[kNitroBoostSECount] = {
+        0.01f, 0.01f, 0.01f, 0.47f, 0.48f, 0.01f, 0.01f
+    };
+
+    float totalWeight = 0.0f;
+    for (float w : SoundConstant) totalWeight += w;
+
+    // 0 ～ totalWeight の間でランダム
+    float r = rnd_.NextFloatRange(0.0f, totalWeight);
+
+    int selected = 0;
+    for (int i = 0; i < kNitroBoostSECount; ++i) {
+        if (r < SoundConstant[i]) {
+            selected = i;
+            break;
+        }
+        r -= SoundConstant[i];
+    }
+
+    nitroBoostSESources_[selected].Play(false);
 }
 
 void Trolley::RecoverFromNitro()
@@ -377,6 +404,9 @@ void Trolley::OnBurstState()
     stateTimer_ = 0.0f;
     currentCharge_ = batteryAfterBurst_;
     nitroAccumulateTimer_ = 0.0f;
+    burstSESource_.Play(false);
+    burstSESource_.SetVolume(1.5f);
+    burstSESource_.SetPitch(2.0f);
 }
 
 float Trolley::CalculateCenterRate(const Vector3& center, float radius) {

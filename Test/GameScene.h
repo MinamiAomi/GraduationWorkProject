@@ -81,6 +81,8 @@ private:
 	std::unique_ptr<TutorialObject> trollyTutorial_;
 	std::unique_ptr<TutorialObject> flashlightTutorial_;
 
+	bool isPlay_ = true;
+
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;
 #endif // _DEBUG
