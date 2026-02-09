@@ -19,6 +19,8 @@
 
 #include "LevelManager.h"
 
+#include "TitleScene.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -215,10 +217,13 @@ void GameScene::OnUpdate() {
 		inGameUI_.SetIsActive(false);
 	}
 	else if (inGameUI_.GetIsActive()) {
-		float t = float(inGameUICount_) / float(180);
-		t = t * t * t * t * t;
+		float progress = 1.0f - (float(inGameUICount_) / 180.0f);
+
+		float t = 1.0f - std::powf(progress, 5);
+
 		inGameUI_.SetColor(Color(1.0f, 1.0f, 1.0f, t));
-		inGameUICount_--;
+
+		if (inGameUICount_ > 0) inGameUICount_--;
 	}
 
 #pragma region TutorialObject
@@ -274,6 +279,12 @@ void GameScene::OnUpdate() {
 	trolley_->Update(deltaTime);
 #pragma endregion
 
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+	//トロッコの回転まで最初に終わらせる
+	if (inGameUI_.GetIsActive()) { return; }
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
@@ -281,6 +292,7 @@ void GameScene::OnUpdate() {
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
 #pragma endregion
+
 #pragma region RailcameraUI
 	railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
@@ -290,9 +302,7 @@ void GameScene::OnUpdate() {
 
 	batteryParticles_->Update();
 
-#pragma region SceneObjectSystem
-	sceneObjectManager_->Update();
-#pragma endregion
+
 #pragma region Deadline
 	deadline_->Update(deltaTime);
 #pragma endregion
@@ -522,6 +532,12 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
 	}
 #endif
+
+	Input* input = Input::GetInstance();
+	if (input->IsKeyTrigger(DIK_ESCAPE)) {
+		// ゲームスタート
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+	}
 
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
