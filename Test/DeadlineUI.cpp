@@ -22,6 +22,7 @@ DeadlineUI::DeadlineUI()
 	warning_.SetAnchor({ 0.5f,0.5f });
 	warning_.SetScale({ texture->GetSize() });
 	warning_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
+	warning_.SetDrawOrder(5);
 
 }
 
