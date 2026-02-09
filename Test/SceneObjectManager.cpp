@@ -187,7 +187,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 					float damageProgress = 1.0f - hpRatio;
 
-					float t = 1.0f - std::powf(damageProgress, 5); 
+					float t = 1.0f - std::powf(damageProgress, 3); 
 
 					obj->transform.scale = Vector3(t, t, t);
 					obj->transform.UpdateMatrix();

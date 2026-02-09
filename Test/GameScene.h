@@ -83,6 +83,19 @@ private:
 
 	Sprite inGameUI_;
 	int inGameUICount_;
+	int inGameUIMaxCount_;
+
+	Sprite crackUI_;
+	Sprite gameFinishBackGround_;
+	int gameFinishCount_;
+	int gameFinishMaxCount_;
+	//クリア化ゲームオーバー化
+	bool isClear_;
+
+	//クリアorゲームオーバーしてアニメーションをスタートするフラグ
+	bool isGameFinishAnimation_;
+	//クリアorゲームオーバーアニメーションが終了したかどうかのフラグ
+	bool isGameFinalizeAnimation_;
 
 	bool isPlay_ = true;
 
