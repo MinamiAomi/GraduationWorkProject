@@ -15,6 +15,7 @@ public:
 	void Update();
 
 	void SetTrolley(const Trolley* trolley) { trolley_ = trolley; }
+	void SetIsActive(bool isActive);
 private:
 #ifdef _DEBUG
 	void DrawImGui();

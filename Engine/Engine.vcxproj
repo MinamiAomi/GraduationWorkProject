@@ -199,6 +199,7 @@
     <ClCompile Include="Framework\TextureAsset.cpp" />
     <ClCompile Include="Graphics\Animation.cpp" />
     <ClCompile Include="Graphics\Core\CommandManager.cpp" />
+    <ClCompile Include="Graphics\FinalEffect.cpp" />
     <ClCompile Include="Graphics\FogPostEffect.cpp" />
     <ClCompile Include="Graphics\ParticleCore.cpp" />
     <ClCompile Include="Graphics\Sky.cpp" />
@@ -281,6 +282,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneTransition.cpp" />
     <ClInclude Include="Graphics\Core\CommandManager.h" />
+    <ClInclude Include="Graphics\FinalEffect.h" />
     <ClInclude Include="Graphics\FogPostEffect.h" />
     <ClInclude Include="Graphics\ParticleCore.h" />
     <ClInclude Include="Graphics\SceneContext.h" />
@@ -921,6 +923,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\FogPostEffectCS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">4.0</ShaderModel>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Demo|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Shader\FinalEffectCS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>

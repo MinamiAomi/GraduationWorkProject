@@ -10,6 +10,8 @@
 #include "DeviceOptionsUI.h"
 #include "Bats.h"
 #include "Engine/Graphics/Animation.h"
+#include "CollisionSystem.h"
+#include "Flashlight.h"
 
 
 class TitleScene :
@@ -18,7 +20,6 @@ public:
 
 	struct AnimationModel {
 		ModelInstance modelInstance;
-		std::shared_ptr<Skeleton> skeleton;
 		Transform transform;
 		std::shared_ptr<AnimationAsset> animation;
 		float animationTime;
@@ -39,8 +40,12 @@ public:
 
 private:
 	Input* input_;
-	std::shared_ptr<DebugCamera> camera_;
-    std::unique_ptr<DeviceOptionsUI> deviceOptionsUI_;
+	Sprite title_;
+	std::shared_ptr<Camera> camera_;
+    //std::unique_ptr<DeviceOptionsUI> deviceOptionsUI_;
 	std::unique_ptr<AnimationModel> trolley_;
 	std::unique_ptr<AnimationModel> cave_;
+	std::unique_ptr<Flashlight> flashlight_;
+	std::unique_ptr<CollisionSystem> collisionSystem_;
+	std::shared_ptr<Collider> trolleyCollider_;
 };
