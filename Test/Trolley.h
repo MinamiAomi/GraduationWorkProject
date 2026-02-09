@@ -190,7 +190,7 @@ private:
 #pragma region Battery
 	std::array<Transform, BatteryNum> batteryTransforms_;
 	std::array<std::shared_ptr<SphereCollider>, BatteryNum> batteryColliders_;
-	std::array<Vector3, BatteryNum>batteryOffsets_;
+	std::array<Vector3, BatteryNum> batteryOffsets_;
 	float batteryRadius_;
 #pragma endregion
 
@@ -207,6 +207,8 @@ private:
 	AudioSource burstSESource_;
 	AudioSource crashSESource_;
     AudioSource nitroBoostSESources_[7];
+	AudioSource nitroFizzSESource_;
+    AudioSource chargeSESource_;
 #pragma endregion
 
 #ifdef _DEBUG
