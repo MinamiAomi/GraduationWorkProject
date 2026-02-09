@@ -15,7 +15,12 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Sign"
+			"name":"Sign",
+			"translation":[
+				210.46104431152344,
+				-1.5921761989593506,
+				-18.147750854492188
+			]
 		}
 	],
 	"materials":[
@@ -64,29 +69,29 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":180,
+			"count":164,
 			"max":[
-				214.9993896484375,
-				2.46779727935791,
-				-17.23578643798828
+				4.538346767425537,
+				4.059973239898682,
+				0.9119637608528137
 			],
 			"min":[
-				205.64651489257812,
-				-8.82999324798584,
-				-19.373281478881836
+				-4.814527988433838,
+				-7.237817287445068,
+				-1.2255313396453857
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":180,
+			"count":164,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":180,
+			"count":164,
 			"type":"VEC2"
 		},
 		{
@@ -99,26 +104,26 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":2160,
+			"byteLength":1968,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2160,
-			"byteOffset":2160,
+			"byteLength":1968,
+			"byteOffset":1968,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":1440,
-			"byteOffset":4320,
+			"byteLength":1312,
+			"byteOffset":3936,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":528,
-			"byteOffset":5760,
+			"byteOffset":5248,
 			"target":34963
 		}
 	],
@@ -130,7 +135,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":6288,
+			"byteLength":5776,
 			"uri":"SignFlashLight.bin"
 		}
 	]
