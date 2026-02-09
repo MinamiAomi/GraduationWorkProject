@@ -42,7 +42,7 @@ void StageSelectScene::OnInitialize() {
 	collisionSystem_->RegisterCollider(level1_->GetCollider());
 	collisionSystem_->RegisterCollider(level2_->GetCollider());
 
-	//iceSkyDome_.SetModel(iceSkyDome);
+	iceSkyDome_.SetModel(iceSkyDome);
 	stageSelectTerrain_.SetModel(stageSelectTerrain);
 
 	flashlight_ = std::make_unique<Flashlight>();

@@ -30,6 +30,8 @@ public:
 	const Transform& GetTransform() const { return transform_; }
 	void Pause() { isPause_ = true; }
 	void Play() { isPause_ = false; }
+
+	bool GetBatteryRemaining() const { return  (battery_ < maxBattery_ * 0.2f); }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
