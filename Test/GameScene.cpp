@@ -172,7 +172,7 @@ void GameScene::OnInitialize() {
 		t.translate = { 17.0f,1.7f,4.0f };
 		trollyTutorial_->Initialize(t, "TutorialTrolly");
 		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
-		t.translate = { 176.0f,2.35f,5.4f };
+		t.translate = { 225.0f,5.5f,22.0f };
 		flashlightTutorial_->Initialize(t, "TutorialFlashlight");
 		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
@@ -195,7 +195,6 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-#ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -204,9 +203,6 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
-
-#endif // _DEBUG
-
 #pragma region TutorialObject
 
 	switch (currentLevel)
@@ -218,9 +214,9 @@ void GameScene::OnUpdate() {
 			railAnimationPlayer_->Pause();
 			flashlight_->Pause();
 			trolley_->Pause();
- 			isPlay_ = false;
+			isPlay_ = false;
 		}
-		else if(!isPlay_) {
+		else if (!isPlay_) {
 			flashlight_->Play();
 			trolley_->Play();
 			railAnimationPlayer_->Play();

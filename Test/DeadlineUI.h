@@ -27,5 +27,6 @@ private:
 	float startLevel1Warning_;
 	float startLevel2Warning_;
 	int count_ = 0;
+	int maxCount_ = 150;
 	bool isOnce_;
 };
