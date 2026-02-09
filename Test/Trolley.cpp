@@ -24,6 +24,12 @@ Trolley::Trolley()
 
     normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
     nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
+    burstSESource_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
+    crashSESource_ = assetManager->soundMap.Get("SE_TROLLY_CRASH")->Get();
+    for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
+        std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
+        nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
+    }
 
     //teilLight_ = std::make_shared<SpotLight>();
 
@@ -330,6 +336,8 @@ void Trolley::OnNitroState()
     stateTimer_ = 0.0f;
     nitroAccumulateTimer_ = 0.0f;
 
+    auto soundNumber = rnd_.NextUIntRange(0, kNitroBoostSECount - 1);
+    nitroBoostSESources_[soundNumber].Play(false);
 }
 
 void Trolley::RecoverFromNitro()
@@ -381,6 +389,9 @@ void Trolley::OnBurstState()
     stateTimer_ = 0.0f;
     currentCharge_ = batteryAfterBurst_;
     nitroAccumulateTimer_ = 0.0f;
+    burstSESource_.Play(false);
+    burstSESource_.SetVolume(1.5f);
+    burstSESource_.SetPitch(2.0f);
 }
 
 float Trolley::CalculateCenterRate(const Vector3& center, float radius) {

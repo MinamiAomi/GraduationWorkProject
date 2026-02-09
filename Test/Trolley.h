@@ -200,8 +200,13 @@ private:
 #pragma endregion
 
 #pragma region Audio
+	const uint32_t kNitroBoostSECount = 7;
+
 	AudioSource normalSESource_;
 	AudioSource nitroSESource_;
+	AudioSource burstSESource_;
+	AudioSource crashSESource_;
+    AudioSource nitroBoostSESources_[7];
 #pragma endregion
 
 #ifdef _DEBUG

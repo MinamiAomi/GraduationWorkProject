@@ -78,12 +78,29 @@
     "batAnim" : "Bat/Bat.gltf"
   },
   "Sound" : {
-    "SE_TROLLY_NORMAL" : "Sound/se_trolly2.mp3",
-    "SE_TROLLY_NITRO" : "Sound/se_trolly1.mp3",
+    "SE_TROLLY_NORMAL" : "Sound/se_trolly2.wav",
+    "SE_TROLLY_NITRO" : "Sound/se_trolly1.wav",
+    "SE_TROLLY_BURST" : "Sound/se_Burst.mp3",
+    "SE_TROLLY_CRASH" : "Sound/se_Crash.mp3",
+    "SE_TROLLY_NITRO_BOOST0" : "Sound/se_NitroBoost_0.mp3",
+    "SE_TROLLY_NITRO_BOOST1" : "Sound/se_NitroBoost_1.mp3",
+    "SE_TROLLY_NITRO_BOOST2" : "Sound/se_NitroBoost_2.mp3",
+    "SE_TROLLY_NITRO_BOOST3" : "Sound/se_NitroBoost_3.mp3",
+    "SE_TROLLY_NITRO_BOOST4" : "Sound/se_NitroBoost_4.mp3",
+    "SE_TROLLY_NITRO_BOOST5" : "Sound/se_NitroBoost_5.mp3",
+    "SE_TROLLY_NITRO_BOOST6" : "Sound/se_NitroBoost_6.mp3",
 
     "SE_GAMESTART" : "Sound/se_GameStart.mp3",
     "SE_GAMECLEAR" : "Sound/se_GameClear.mp3",
     "SE_GAMEOVER" : "Sound/se_GameOver.mp3",
+
+    "SE_BAT_DEATH" : "Sound/se_BatDeath.mp3",
+    "SE_BAT_SPAWN" : "Sound/se_BatSpawn.mp3",
+
+    "SE_BOMB_GHOST_DEATH" : "Sound/se_BombGhostDeath.mp3",
+    "SE_BOMB_GHOST_SPAWN" : "Sound/se_BombGhostSpawn.mp3",
+
+    "SE_CHARGE" : "Sound/se_Charge.mp3",
 
     "BGM_TITLE" : "Sound/bgm_title.mp3",
     "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",
