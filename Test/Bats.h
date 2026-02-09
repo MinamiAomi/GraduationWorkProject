@@ -21,7 +21,7 @@ class Bats
 {
 public:
 
-	static const float batsFarLocate;
+	inline static float batsFarLocate = 5.0f;
 
 	struct Bat {
 		ModelInstance modelInstance_;

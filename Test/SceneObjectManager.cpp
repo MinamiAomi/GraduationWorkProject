@@ -182,10 +182,16 @@ void SceneObjectSystem::SceneObjectManager::Update()
 			for (auto& collider : obj->collider->GetCollidedWith()) {
 				if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
 					obj->SetDamage();
-					float t = obj->hp / obj->maxHp;
-					t = t * t * t * t * t;
+
+					float hpRatio = obj->hp / obj->maxHp;
+
+					float damageProgress = 1.0f - hpRatio;
+
+					float t = 1.0f - std::powf(damageProgress, 3); 
+
 					obj->transform.scale = Vector3(t, t, t);
 					obj->transform.UpdateMatrix();
+
 					if (!obj->isAlive) {
 						obj->collider = nullptr;
 					}

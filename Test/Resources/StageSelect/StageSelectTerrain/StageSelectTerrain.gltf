@@ -196,7 +196,7 @@
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":262,
+			"count":591,
 			"max":[
 				205.84225463867188,
 				81.9539794921875,
@@ -212,13 +212,13 @@
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":262,
+			"count":591,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":262,
+			"count":591,
 			"type":"VEC2"
 		},
 		{
@@ -333,98 +333,98 @@
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":3144,
+			"byteLength":7092,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3144,
-			"byteOffset":3144,
+			"byteLength":7092,
+			"byteOffset":7092,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2096,
-			"byteOffset":6288,
+			"byteLength":4728,
+			"byteOffset":14184,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2352,
-			"byteOffset":8384,
+			"byteOffset":18912,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":138600,
-			"byteOffset":10736,
+			"byteOffset":21264,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":138600,
-			"byteOffset":149336,
+			"byteOffset":159864,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":92400,
-			"byteOffset":287936,
+			"byteOffset":298464,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":39756,
-			"byteOffset":380336,
+			"byteOffset":390864,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":10632,
-			"byteOffset":420092,
+			"byteOffset":430620,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":10632,
-			"byteOffset":430724,
+			"byteOffset":441252,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":7088,
-			"byteOffset":441356,
+			"byteOffset":451884,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2952,
-			"byteOffset":448444,
+			"byteOffset":458972,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":13464,
-			"byteOffset":451396,
+			"byteOffset":461924,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":13464,
-			"byteOffset":464860,
+			"byteOffset":475388,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":8976,
-			"byteOffset":478324,
+			"byteOffset":488852,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":2976,
-			"byteOffset":487300,
+			"byteOffset":497828,
 			"target":34963
 		}
 	],
@@ -440,7 +440,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":490276,
+			"byteLength":500804,
 			"uri":"StageSelectTerrain.bin"
 		}
 	]

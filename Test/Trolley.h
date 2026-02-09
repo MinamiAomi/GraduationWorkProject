@@ -91,6 +91,8 @@ public:
 
 	void SetIsActive(bool isActive);
 
+	int batsNum_ = 0;
+
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);
@@ -181,6 +183,8 @@ private:
 	bool isHitFlashlight_ = false;
 
 	float centerRate_ = 0.0f;
+
+	float batDecrease_ = 1.0f;
 #pragma endregion
 
 #pragma region Banking

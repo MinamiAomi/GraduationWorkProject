@@ -19,6 +19,8 @@
 
 #include "LevelManager.h"
 
+#include "TitleScene.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -30,8 +32,10 @@ void GameScene::OnInitialize() {
 	bgmAudioSource_ = std::make_unique<AudioSource>();
 
 	camera_ = std::make_shared<Camera>();
+
+
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-	std::string railcameraJson, staticMeshJson, stageName;
+	std::string railcameraJson, staticMeshJson, stageName, inGameUI;
 	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
@@ -39,12 +43,16 @@ void GameScene::OnInitialize() {
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
         (*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME1")->Get();
+		inGameUI = "Level1StartUI";
+		RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.9f);
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
         (*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME2")->Get();
 		stageName = "Stage2";
+		inGameUI = "Level2StartUI";
+		RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
 		break;
 	default:
 		break;
@@ -114,7 +122,6 @@ void GameScene::OnInitialize() {
 	trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
 #pragma endregion
 
-
 #pragma region SceneObjectSystem
 
 	sceneObjectManager_ = std::make_unique<SceneObjectSystem::SceneObjectManager>();
@@ -151,17 +158,6 @@ void GameScene::OnInitialize() {
 	batsManager_ = std::make_unique<BatsManager>();
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->SetColliderSystem(collisionSystem_.get());
-	//test
-	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, false));
-
-	// 2. 真ん中の要素を true にする
-	// 行: 5の中央は 2
-	// 列: 6の中央は 2 または 3 (ここでは2を選択)
-	mapData[2][2] = true;
-
-	// 3. 実行
-	batsManager_->Emit(mapData);
-
 	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
@@ -191,6 +187,46 @@ void GameScene::OnInitialize() {
 		break;
 	}
 #pragma endregion
+#pragma region InGameUI
+	auto assetManager = AssetManager::GetInstance();
+
+	auto texture = assetManager->textureMap.Get(inGameUI)->Get();
+
+	inGameUI_.SetTexture(texture);
+	inGameUI_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
+	//inGameUI_.SetAnchor({ 0.5f,0.5f });
+	inGameUI_.SetScale({ texture->GetSize() });
+	inGameUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
+	inGameUI_.SetDrawOrder(6);
+	inGameUI_.SetIsActive(true);
+
+	isGameFinishAnimation_ = false;
+	isGameFinalizeAnimation_ = false;
+	isClear_ = true;
+	inGameUIMaxCount_ = 180;
+	inGameUICount_ = inGameUIMaxCount_;
+#pragma endregion
+
+#pragma region GameFinish
+	texture = assetManager->textureMap.Get("Crack")->Get();
+	crackUI_.SetTexture(texture);
+	crackUI_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
+	crackUI_.SetScale({ texture->GetSize() });
+	crackUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
+	crackUI_.SetDrawOrder(7);
+	crackUI_.SetIsActive(false);
+
+	texture = assetManager->textureMap.Get("white2x2")->Get();
+	gameFinishBackGround_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
+	gameFinishBackGround_.SetScale({ 1280.0f,720.0f });
+	gameFinishBackGround_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
+	gameFinishBackGround_.SetDrawOrder(6);
+	gameFinishBackGround_.SetIsActive(false);
+
+
+	gameFinishMaxCount_ = 180;
+	gameFinishCount_ = 0;
+#pragma endregion
 
 
 #ifdef _DEBUG
@@ -203,17 +239,45 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-#ifdef _DEBUG
-	if (deadline_->IsGameOver()) {
+	//終了処理
+	if (isGameFinishAnimation_&& !isGameFinalizeAnimation_) {
+		gameFinishCount_++;
+		float t = float(gameFinishCount_) / float(gameFinishMaxCount_);
+		Color color;
+		if (isClear_) {
+			color = Color(1.0f, 1.0f, 1.0f, t);
+		}
+		else {
+			color = Color(0.0f, 0.0f, 0.0f, t);
+		}
+		gameFinishBackGround_.SetColor(color);
+		if (gameFinishCount_ >= gameFinishMaxCount_) {
+			isGameFinalizeAnimation_ = true;
+		}
+		return;
+	}
+	else if (isGameFinishAnimation_ && isGameFinalizeAnimation_) {
+		if (!isClear_) {
+			SceneManager::GetInstance()->ChangeScene<GameOverScene>(false);
+		}else{
+			SceneManager::GetInstance()->ChangeScene<GameClearScene>(false);
+		}
 		return;
 	}
 
-	//一周終わったかどうか
-	if (railAnimationPlayer_->IsFinished()) {
-		return;
+	//最初のUIの処理
+	if (inGameUICount_ <= 0 && inGameUI_.GetIsActive()) {
+		inGameUI_.SetIsActive(false);
 	}
+	else if (inGameUI_.GetIsActive()) {
+		float progress = 1.0f - (float(inGameUICount_) / inGameUIMaxCount_);
 
-#endif // _DEBUG
+		float t = 1.0f - std::powf(progress, 5);
+
+		inGameUI_.SetColor(Color(1.0f, 1.0f, 1.0f, t));
+
+		if (inGameUICount_ > 0) inGameUICount_--;
+	}
 
 #pragma region TutorialObject
 
@@ -247,9 +311,6 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
-
-
-
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -268,10 +329,12 @@ void GameScene::OnUpdate() {
 	trolley_->Update(deltaTime);
 #pragma endregion
 
-#pragma region Flashlight
-	flashlight_->Update();
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
 #pragma endregion
 
+	//トロッコの回転まで最初に終わらせる
+	if (inGameUI_.GetIsActive()) { return; }
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
@@ -279,6 +342,7 @@ void GameScene::OnUpdate() {
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
 #pragma endregion
+
 #pragma region RailcameraUI
 	railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
@@ -288,9 +352,7 @@ void GameScene::OnUpdate() {
 
 	batteryParticles_->Update();
 
-#pragma region SceneObjectSystem
-	sceneObjectManager_->Update();
-#pragma endregion
+
 #pragma region Deadline
 	deadline_->Update(deltaTime);
 #pragma endregion
@@ -521,14 +583,25 @@ void GameScene::OnUpdate() {
 	}
 #endif
 
+	Input* input = Input::GetInstance();
+	if (input->IsKeyTrigger(DIK_ESCAPE)) {
+		// ゲームスタート
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+	}
+
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
-		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+		isClear_ = false;
+		isGameFinishAnimation_ = true;
+		crackUI_.SetIsActive(true);
+		gameFinishBackGround_.SetIsActive(true);
 	}
 
 	//一周終わったかどうか
 	if (railAnimationPlayer_->IsFinished()) {
-		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
+		isClear_ = true;
+		isGameFinishAnimation_ = true;
+		gameFinishBackGround_.SetIsActive(true);
 	}
 }
 

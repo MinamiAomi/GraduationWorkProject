@@ -31,7 +31,8 @@ private:
 	float currentFrame_;
 	float startFrameLevel1_;
 	float startFrameLevel2_;
-	float startOffset_;
+	float startOffsetLevel1_;
+	float startOffsetLevel2_;
 	bool isGameOver_;
 
 

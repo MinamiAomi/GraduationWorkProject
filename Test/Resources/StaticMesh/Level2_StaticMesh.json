@@ -3514,6 +3514,286 @@
       "collider": null
     },
     {
+      "name": "BlueCrystal.007",
+      "model_name": "BlueCrystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          489.9069,
+          -21.9769,
+          -60.1878
+        ],
+        "rotate": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ],
+        "scale": [
+          0.8549,
+          0.8549,
+          0.8549
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          490.0139,
+          -21.9867,
+          -59.6872
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "BlueCrystal.008",
+      "model_name": "BlueCrystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          490.9563,
+          10.1345,
+          -61.7198
+        ],
+        "rotate": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ],
+        "scale": [
+          0.2601,
+          0.2601,
+          0.2601
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          490.9889,
+          10.1315,
+          -61.5675
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "BlueCrystal.009",
+      "model_name": "BlueCrystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          488.0102,
+          13.335,
+          -61.9795
+        ],
+        "rotate": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ],
+        "scale": [
+          0.4974,
+          0.4974,
+          0.4974
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          488.0725,
+          13.3293,
+          -61.6882
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "BlueCrystal.010",
+      "model_name": "BlueCrystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          531.8759,
+          5.0718,
+          -52.475
+        ],
+        "rotate": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ],
+        "scale": [
+          0.8499,
+          0.8499,
+          0.8499
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          531.9824,
+          5.062,
+          -51.9773
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9877,
+          0.0,
+          0.1564,
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "BlueCrystal.011",
+      "model_name": "BlueCrystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          525.9416,
+          17.4449,
+          -54.9462
+        ],
+        "rotate": [
+          0.6552,
+          -0.1732,
+          -0.447,
+          0.5839
+        ],
+        "scale": [
+          0.8499,
+          0.8499,
+          0.8499
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "intensity": 5.0,
+        "range": 5.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          525.5529,
+          17.2448,
+          -54.6855
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.6552,
+          -0.1732,
+          -0.447,
+          0.5839
+        ]
+      }
+    },
+    {
       "name": "Icicle",
       "model_name": "Icicle",
       "type": "OBSTACLE",
@@ -3545,7 +3825,7 @@
           14.0757,
           -57.7316
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3555,7 +3835,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 120.0
+        "hp": 75.0
       }
     },
     {
@@ -3564,9 +3844,9 @@
       "type": "OBSTACLE",
       "srt": {
         "translate": [
-          448.5192,
-          44.0718,
-          -58.0133
+          448.5186,
+          44.5381,
+          -59.7639
         ],
         "rotate": [
           0.0,
@@ -3587,10 +3867,10 @@
         "type": "CAPSULE",
         "center": [
           448.5192,
-          44.0628,
+          44.5186,
           -61.9242
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3600,7 +3880,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 120.0
+        "hp": 75.0
       }
     },
     {
@@ -3635,7 +3915,7 @@
           76.3555,
           -60.2919
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3645,7 +3925,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 75.0
       }
     },
     {
@@ -3680,7 +3960,7 @@
           63.0756,
           -62.0421
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3690,7 +3970,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 75.0
       }
     },
     {
@@ -3725,7 +4005,7 @@
           56.9785,
           -61.2104
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3735,7 +4015,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 75.0
       }
     },
     {
@@ -3770,7 +4050,7 @@
           42.8577,
           -61.0953
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3780,7 +4060,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 75.0
       }
     },
     {
@@ -3815,7 +4095,7 @@
           -15.9845,
           -61.486
         ],
-        "radius": 0.5,
+        "radius": 1.41,
         "height": 1.0,
         "quaternion": [
           0.0,
@@ -3825,7 +4105,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 300.0
+        "hp": 75.0
       }
     },
     {
@@ -3855,6 +4135,23 @@
         "formation": [
           [
             false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
             true,
             false,
             false,
@@ -3865,9 +4162,11 @@
             false,
             false,
             false,
+            false,
             false
           ],
           [
+            false,
             false,
             false,
             false,
@@ -3918,16 +4217,35 @@
             false,
             false,
             false,
+            false,
             false
           ],
           [
             false,
-            true,
             false,
-            true,
+            false,
+            false,
+            false,
             false
           ],
           [
+            false,
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             false,
             false,
             false,
@@ -3978,16 +4296,35 @@
             false,
             false,
             false,
+            false,
             false
           ],
           [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
             true,
             false,
             false,
-            false,
-            true
+            false
           ],
           [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             false,
             false,
             false,
@@ -4038,9 +4375,19 @@
             false,
             false,
             false,
-            true
+            false,
+            false
           ],
           [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             false,
             false,
             true,
@@ -4048,7 +4395,16 @@
             false
           ],
           [
-            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
             false,
             false,
             false,
@@ -4064,66 +4420,6 @@
           475.2672,
           -8.1094,
           -61.6883
-        ],
-        "radius": 2.63
-      }
-    },
-    {
-      "name": "EnemySpown.004",
-      "model_name": null,
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          540.736,
-          12.4552,
-          -53.6676
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            true,
-            true,
-            true,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          540.736,
-          12.4552,
-          -53.6676
         ],
         "radius": 2.63
       }
@@ -4439,7 +4735,7 @@
         "formation": [
           [
             false,
-            true,
+            false,
             false,
             false,
             false,
@@ -4448,25 +4744,25 @@
           [
             false,
             false,
-            false,
-            false,
             true,
-            false
-          ],
-          [
-            false,
             true,
-            false,
-            false,
             false,
             false
           ],
           [
             false,
             false,
-            false,
-            false,
             true,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
             false
           ]
         ]
@@ -4528,9 +4824,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          622.7416,
-          46.1277,
-          -54.168
+          687.8019,
+          64.6836,
+          -50.8394
         ],
         "rotate": [
           0.2241,
@@ -4645,9 +4941,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          623.0474,
-          46.4398,
-          -53.0119
+          688.1077,
+          64.9957,
+          -49.6833
         ],
         "radius": 0.5
       }
@@ -4658,9 +4954,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          474.1266,
-          40.3382,
-          34.5387
+          569.1068,
+          63.9622,
+          34.5377
         ],
         "rotate": [
           0.586,
@@ -4760,9 +5056,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          474.1721,
-          40.5782,
-          34.8104
+          569.1524,
+          64.2023,
+          34.8095
         ],
         "radius": 0.5
       }

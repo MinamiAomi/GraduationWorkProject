@@ -1,4 +1,5 @@
 #include "BatsManager.h"
+#include "Trolley.h"
 
 void BatsManager::Initialize()
 {
@@ -7,20 +8,26 @@ void BatsManager::Initialize()
 
 void BatsManager::Update()
 {
+    uint32_t totalBatCount = 0; // 合計カウント用の変数
+
     for (auto it = batsManager_.begin(); it != batsManager_.end(); ) {
         // 更新処理
         (*it)->Update();
 
         // アクティブチェック
         if (!(*it)->IsActive()) {
-            // 削除して次の要素のイテレータを取得
             it = batsManager_.erase(it);
         }
         else {
-            // 削除しない場合は次へ進める
+            // アクティブなグループ内のコウモリの数を加算
+            // Batsクラスに GetBats() がある前提で、その size() を足します
+            totalBatCount += static_cast<uint32_t>((*it)->GetBats().size());
             ++it;
         }
     }
+
+    // カウントした総数を Trolley に代入
+    Trolley::GetInstance()->batsNum_ = totalBatCount;
 }
 
 void BatsManager::Emit(const std::vector<std::vector<bool>>& emit)

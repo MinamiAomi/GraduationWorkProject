@@ -63,6 +63,7 @@ void Trolley::Initialize()
 	JSON_LOAD(burstDuration_);
 	JSON_LOAD(batteryAfterNitro_);
 	JSON_LOAD(batteryAfterBurst_);
+	JSON_LOAD(batDecrease_);
 	JSON_ROOT();
 	JSON_OBJECT("Trolley");
 	JSON_LOAD(trolleyOffset_);
@@ -119,7 +120,7 @@ void Trolley::Initialize()
 	shakeRotation_ = Quaternion::identity;
 	shakeOffset_ = Vector3::zero;
 
-
+	batsNum_ = 0;
 
 	trolleyUI_.Initialize(transform_);
 }
@@ -169,6 +170,8 @@ void Trolley::UpdateState(float deltaTime)
 		if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
 
 			//バッテリーが十分でライトが当たっているとき
+			//Batsの数で減らす
+			currentCharge_ -= batsNum_ * batDecrease_;
 			if (isHitFlashlight_ &&
 				!flashlight_->GetBatteryRemaining()) {
 
@@ -186,7 +189,7 @@ void Trolley::UpdateState(float deltaTime)
 			else if (isHitFlashlight_ &&
 				flashlight_->GetBatteryRemaining()) {
 				//当ててないときよりもゆっくり減少
-				currentCharge_ -= decelerationRate_ * 0.7f * deltaTime * 60.0f;
+				currentCharge_ -= decelerationRate_ * 0.6f * deltaTime * 60.0f;
 			}
 			else {
 				currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
@@ -565,6 +568,7 @@ void Trolley::DrawImGui() {
 			JSON_SAVE(burstDuration_);
 			JSON_SAVE(batteryAfterNitro_);
 			JSON_SAVE(batteryAfterBurst_);
+			JSON_SAVE(batDecrease_);
 			JSON_ROOT();
 			JSON_OBJECT("Trolley");
 			JSON_SAVE(trolleyOffset_);
@@ -611,6 +615,7 @@ void Trolley::DrawImGui() {
 				ImGui::Spacing();
 				ImGui::DragFloat("光を当てた時の加速量", &accelerationRate_, 0.1f);
 				ImGui::DragFloat("自然減速量", &decelerationRate_, 0.1f);
+				ImGui::DragFloat("バット一体分の減少量", &batDecrease_, 0.1f,0.0f);
 				ImGui::TreePop();
 			}
 
