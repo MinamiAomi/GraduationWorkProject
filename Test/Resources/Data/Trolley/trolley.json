@@ -29,6 +29,7 @@
     },
     "TrollerSpeed": {
         "accelerationRate_": 0.4000000059604645,
+        "batDecrease_": 0.10000000149011612,
         "batteryAfterBurst_": 30.0,
         "batteryAfterNitro_": 80.0,
         "burstDuration_": 3.0,
