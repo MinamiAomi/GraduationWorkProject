@@ -19,6 +19,8 @@
 
 #include "LevelManager.h"
 
+#include "TitleScene.h"
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -31,19 +33,20 @@ void GameScene::OnInitialize() {
 
 
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-	std::string railcameraJson, staticMeshJson, stageName;
+	std::string railcameraJson, staticMeshJson, stageName, inGameUI;
 	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
 		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
-
+		inGameUI = "Level1StartUI";
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
 		stageName = "Stage2";
+		inGameUI = "Level2StartUI";
 		break;
 	default:
 		break;
@@ -175,6 +178,21 @@ void GameScene::OnInitialize() {
 		break;
 	}
 #pragma endregion
+#pragma region InGameUI
+	auto assetManager = AssetManager::GetInstance();
+
+	auto texture = assetManager->textureMap.Get(inGameUI)->Get();
+
+	inGameUI_.SetTexture(texture);
+	inGameUI_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
+	//inGameUI_.SetAnchor({ 0.5f,0.5f });
+	inGameUI_.SetScale({ texture->GetSize() });
+	inGameUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
+	inGameUI_.SetDrawOrder(6);
+	inGameUI_.SetIsActive(true);
+
+	inGameUICount_ = 180;
+#pragma endregion
 
 
 #ifdef _DEBUG
@@ -195,6 +213,19 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
+	if (inGameUICount_ <= 0 && inGameUI_.GetIsActive()) {
+		inGameUI_.SetIsActive(false);
+	}
+	else if (inGameUI_.GetIsActive()) {
+		float progress = 1.0f - (float(inGameUICount_) / 180.0f);
+
+		float t = 1.0f - std::powf(progress, 5);
+
+		inGameUI_.SetColor(Color(1.0f, 1.0f, 1.0f, t));
+
+		if (inGameUICount_ > 0) inGameUICount_--;
+	}
+
 #pragma region TutorialObject
 
 	switch (currentLevel)
@@ -227,9 +258,6 @@ void GameScene::OnUpdate() {
 	railAnimationPlayer_->SetPlaybackSpeed(trolley_->GetTrollySpeed());
 	//更新
 	railAnimationPlayer_->Update(deltaTime);
-
-
-
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -248,6 +276,12 @@ void GameScene::OnUpdate() {
 	trolley_->Update(deltaTime);
 #pragma endregion
 
+#pragma region SceneObjectSystem
+	sceneObjectManager_->Update();
+#pragma endregion
+
+	//トロッコの回転まで最初に終わらせる
+	if (inGameUI_.GetIsActive()) { return; }
 #pragma region Flashlight
 	flashlight_->Update();
 #pragma endregion
@@ -255,6 +289,7 @@ void GameScene::OnUpdate() {
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
 #pragma endregion
+
 #pragma region RailcameraUI
 	railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
@@ -264,9 +299,7 @@ void GameScene::OnUpdate() {
 
 	batteryParticles_->Update();
 
-#pragma region SceneObjectSystem
-	sceneObjectManager_->Update();
-#pragma endregion
+
 #pragma region Deadline
 	deadline_->Update(deltaTime);
 #pragma endregion
@@ -496,6 +529,12 @@ void GameScene::OnUpdate() {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
 	}
 #endif
+
+	Input* input = Input::GetInstance();
+	if (input->IsKeyTrigger(DIK_ESCAPE)) {
+		// ゲームスタート
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+	}
 
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
