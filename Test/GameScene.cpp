@@ -197,6 +197,33 @@ void GameScene::OnUpdate() {
 	}
 
 #endif // _DEBUG
+
+#pragma region TutorialObject
+
+	static bool isPlay = true;
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+		trollyTutorial_->Update();
+		flashlightTutorial_->Update();
+		if (trollyTutorial_->GetIsActive() || flashlightTutorial_->GetIsActive()) {
+			railAnimationPlayer_->Pause();
+			flashlight_->Pause();
+			trolley_->Pause();
+			isPlay = false;
+		}
+		else if(!isPlay) {
+			flashlight_->Play();
+			trolley_->Play();
+			railAnimationPlayer_->Play();
+		}
+		break;
+	case LevelManager::Level::LEVEL2:
+		break;
+	default:
+		break;
+	}
+#pragma endregion
 #pragma region RailSystem
 
 	//現在のスピードを代入
@@ -238,19 +265,7 @@ void GameScene::OnUpdate() {
 		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
 	);
 #pragma endregion
-#pragma region TutorialObject
-	switch (currentLevel)
-	{
-	case LevelManager::Level::LEVEL1:
-		trollyTutorial_->Update();
-		flashlightTutorial_->Update();
-		break;
-	case LevelManager::Level::LEVEL2:
-		break;
-	default:
-		break;
-	}
-#pragma endregion
+
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion

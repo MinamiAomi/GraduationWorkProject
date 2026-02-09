@@ -154,9 +154,8 @@ void Flashlight::UpdateCollision()
 
 void Flashlight::UpdateLightPower()
 {
-#ifdef _DEBUG
-	if (!isDebug_) {
-#endif // _DEBUG
+
+	if (!isPause_) {
 		if (railAnimationPlayer_ &&
 			railAnimationPlayer_->GetCurrentFrame() >= startFrame_ &&
 			!isHitFlashlight_) {
@@ -187,9 +186,7 @@ void Flashlight::UpdateLightPower()
 		else {
 			isLighting_ = true;
 		}
-#ifdef _DEBUG
 	}
-#endif // _DEBUG
 }
 
 void Flashlight::SpotLightDebugDraw() const
@@ -329,7 +326,7 @@ void Flashlight::DrawImGui()
 
 	// --- デバッグスイッチ ---
 	ImGui::Separator();
-	ImGui::Checkbox("デバッグ：システム有効化 (IsDebug)", &isDebug_);
+	ImGui::Checkbox("デバッグ：システム有効化 (IsDebug)", &isPause_);
 	ImGui::Checkbox("デバッグ：当たり判定描画 (Show Collider)", &isDebugDraw);
 
 	ImGui::End();

@@ -28,6 +28,8 @@ public:
 	bool GetIsLighting() const { return isLighting_; }
 	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
 	const Transform& GetTransform() const { return transform_; }
+	void Pause() { isPause_ = true; }
+	void Play() { isPause_ = false; }
 private:
 	void UpdateCollision();
 	void UpdateLightPower();
@@ -80,7 +82,5 @@ private:
 	float blinkTimer_ = 0.0f;
 #pragma endregion
 	std::shared_ptr<ConeCollider> collider_;
-#ifdef _DEBUG
-	bool isDebug_ = false;
-#endif // _DEBUG
+	bool isPause_ = false;
 };

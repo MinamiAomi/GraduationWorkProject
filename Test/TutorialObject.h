@@ -18,9 +18,12 @@ public:
 
 	void Update();
 
+	bool GetIsActive() { return sprite_.GetIsActive(); }
+
 	std::shared_ptr<SphereCollider> GetCollider() { return collider_; }
 private:
 	void OnCollision();
+
 	ModelInstance model_;
 	Sprite sprite_;
 	Transform transform_;
