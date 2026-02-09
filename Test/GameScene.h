@@ -98,6 +98,7 @@ private:
 	bool isGameFinalizeAnimation_;
 
 	std::unique_ptr<AudioSource> bgmAudioSource_;
+    std::unique_ptr<AudioSource> startSEAudioSource_;
 
 	bool isPlay_ = true;
 

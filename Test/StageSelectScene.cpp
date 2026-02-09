@@ -49,6 +49,10 @@ void StageSelectScene::OnInitialize() {
 	//flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	flashlight_->Initialize(&camera_->GetCamera()->GetTransform(), camera_->GetCamera().get());
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
+
+	bgmAudioSource_ = AssetManager::GetInstance()->soundMap.Get("BGM_STAGE_SELECT")->Get();
+	bgmAudioSource_.Play(true);
+	bgmAudioSource_.SetVolume(0.2f);
 }
 
 void StageSelectScene::OnUpdate() {
@@ -97,5 +101,5 @@ void StageSelectScene::OnUpdate() {
 }
 
 void StageSelectScene::OnFinalize() {
-
+	bgmAudioSource_.Stop();
 }

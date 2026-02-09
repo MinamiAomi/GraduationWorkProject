@@ -4,68 +4,81 @@
 
 Diorama::Diorama()
 {
-	collider_ = std::make_shared<SphereCollider>(
-		CollisionCategory::DIORAMA,
-		CollisionCategory::FLASHLIGHT,
-		Vector3::zero,
-		0.0f
-	);
+    collider_ = std::make_shared<SphereCollider>(
+        CollisionCategory::DIORAMA,
+        CollisionCategory::FLASHLIGHT,
+        Vector3::zero,
+        0.0f
+    );
 }
 
 void Diorama::Initialize(const std::string& name, const Vector3& position)
 {
 #ifdef _DEBUG
-	name_ = name;
+    name_ = name;
 #endif // _DEBUG
-	auto assetManager = AssetManager::GetInstance();
-	model_.SetModel(assetManager->modelMap.Get(name)->Get());
+    auto assetManager = AssetManager::GetInstance();
+    model_.SetModel(assetManager->modelMap.Get(name)->Get());
 
-	transform_.translate = position;
-	transform_.UpdateMatrix();
+    transform_.translate = position;
+    transform_.UpdateMatrix();
 
 
-	model_.SetWorldMatrix(transform_.worldMatrix);
-	collider_->center = transform_.worldMatrix.GetTranslate();
-	collider_->radius = 0.8f;
-	count_ = 0.0f;
+    model_.SetWorldMatrix(transform_.worldMatrix);
+    collider_->center = transform_.worldMatrix.GetTranslate();
+    collider_->radius = 0.8f;
+    count_ = 0.0f;
 }
 
 void Diorama::Update()
 {
-	if (OnCollision()) {
-		count_++;
-	}
-	else {
-		count_ = 0.0f;
-	}
-	rotationY_ += 0.005f + count_ * 0.001f;
+    if (OnCollision()) {
+        count_++;
+    }
+    else {
+        count_ = 0.0f;
+    }
 
-	transform_.rotate = Quaternion::MakeForYAxis(rotationY_);
-	transform_.UpdateMatrix();
-	collider_->center = transform_.worldMatrix.GetTranslate();
-	model_.SetWorldMatrix(transform_.worldMatrix);
+    rotationY_ += 0.005f + count_ * 0.001f;
+    switch (rotateAxis_)
+    {
+    case XAxis:
+        transform_.rotate = Quaternion::MakeForXAxis(rotationY_);
+        break;
+    case YAxis:
+        transform_.rotate = Quaternion::MakeForYAxis(rotationY_);
+        break;
+    case ZAxis:
+        transform_.rotate = Quaternion::MakeForZAxis(rotationY_);
+        break;
+    default:
+        break;
+    }
+    transform_.UpdateMatrix();
+    collider_->center = transform_.worldMatrix.GetTranslate();
+    model_.SetWorldMatrix(transform_.worldMatrix);
 
 #ifdef _DEBUG
-	DrawImGui();
+    DrawImGui();
 #endif // _DEBUG
 
 }
 
 bool Diorama::OnCollision()
 {
-	if (!collider_->GetCollidedWith().empty()) {
-		return true;
-	}
-	return false;
+    if (!collider_->GetCollidedWith().empty()) {
+        return true;
+    }
+    return false;
 }
 
 #ifdef _DEBUG
 void Diorama::DrawImGui()
 {
-	ImGui::Begin(name_.c_str());
-	ImGui::DragFloat3("translate", &transform_.translate.x);
-	ImGui::DragFloat3("scale", &transform_.scale.x);
-	ImGui::DragFloat("radius", &collider_->radius);
-	ImGui::End();
+    ImGui::Begin(name_.c_str());
+    ImGui::DragFloat3("translate", &transform_.translate.x);
+    ImGui::DragFloat3("scale", &transform_.scale.x);
+    ImGui::DragFloat("radius", &collider_->radius);
+    ImGui::End();
 }
 #endif // _DEBUG
