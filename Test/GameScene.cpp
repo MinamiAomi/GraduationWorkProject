@@ -41,12 +41,14 @@ void GameScene::OnInitialize() {
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
 		inGameUI = "Level1StartUI";
+		RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.9f);
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
 		stageName = "Stage2";
 		inGameUI = "Level2StartUI";
+		RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
 		break;
 	default:
 		break;
