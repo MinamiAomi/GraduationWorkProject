@@ -39,6 +39,9 @@
     "SnowFlake": "LightObject/SnowFlake/SnowFlake.gltf",
     "StarFlake": "LightObject/StarFlake/StarFlake.gltf",
 
+    "TutorialTrolly": "Tutorial/SignTrolley.gltf",
+    "TutorialFlashlight": "Tutorial/SignFlashLight.gltf",
+
     "DioramaLevel1": "StaticMesh/StageModel/dioramaLevel1.gltf",
     "DioramaLevel2": "StaticMesh/StageModel/dioramaLevel2.gltf",
 
@@ -78,6 +81,10 @@
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
+
+    
+    "TutorialTrolly": "Tutorial/flash_light.png",
+    "TutorialFlashlight": "Tutorial/trolly.png",
     
     "white2x2":"white2x2.png"
   },

@@ -153,7 +153,7 @@ void GameScene::OnInitialize() {
 	railcameraUI_->Initialize();
 #pragma endregion
 #pragma region TutorialObject
-	/*switch (currentLevel)
+	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
 	{
@@ -161,16 +161,18 @@ void GameScene::OnInitialize() {
 		flashlightTutorial_ = std::make_unique<TutorialObject>();
 		Transform t;
 		t.translate = { 17.0f,1.7f,4.0f };
-		trollyTutorial_->Initialize(t, "trollyTutorial");
-		t.translate = { 117.0f,2.35f,5.4f };
-		flashlightTutorial_->Initialize(t, "flashlightTutorial");
+		trollyTutorial_->Initialize(t, "TutorialTrolly");
+		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
+		t.translate = { 176.0f,2.35f,5.4f };
+		flashlightTutorial_->Initialize(t, "TutorialFlashlight");
+		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
 	break;
 	case LevelManager::Level::LEVEL2:
 		break;
 	default:
 		break;
-	}*/
+	}
 #pragma endregion
 
 
@@ -237,7 +239,7 @@ void GameScene::OnUpdate() {
 	);
 #pragma endregion
 #pragma region TutorialObject
-	/*switch (currentLevel)
+	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
 		trollyTutorial_->Update();
@@ -247,7 +249,7 @@ void GameScene::OnUpdate() {
 		break;
 	default:
 		break;
-	}*/
+	}
 #pragma endregion
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();

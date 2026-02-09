@@ -18,12 +18,23 @@ TutorialObject::TutorialObject()
 
 void TutorialObject::Initialize(const Transform& transform, const std::string& name)
 {
+	transform_ = transform;
+	transform_.UpdateMatrix();
+
+	collider_->center = transform_.translate;
+	collider_->radius = 1.0f;
+
+	name_ = name;
+
 	auto assetManager = AssetManager::GetInstance();
 
 	auto model = assetManager->modelMap.Get(name)->Get();
 	auto texture = assetManager->textureMap.Get(name)->Get();
 
 	model_.SetModel(model);
+
+	model_.SetWorldMatrix(transform_.worldMatrix);
+
 	sprite_.SetTexture(texture);
 
 	sprite_.SetPosition({ 1280.0f * 0.5f, 720.0f * 0.5f });
@@ -33,11 +44,6 @@ void TutorialObject::Initialize(const Transform& transform, const std::string& n
 	sprite_.SetIsActive(false);
 	sprite_.SetDrawOrder(5);
 
-	transform_ = transform;
-	transform_.UpdateMatrix();
-
-	collider_->center = transform_.translate;
-	collider_->radius = 1.0f;
 }
 
 void TutorialObject::Update()
@@ -46,13 +52,22 @@ void TutorialObject::Update()
 
 	collider_->center = transform_.translate;
 
+	model_.SetWorldMatrix(transform_.worldMatrix);
 	OnCollision();
+
+#ifdef _DEBUG
+	DrawImGui();
+#endif // _DEBUG
+
 }
 
 void TutorialObject::OnCollision()
 {
 	if (!collider_->GetCollidedWith().empty()) {
 		sprite_.SetIsActive(true);
+	}
+	else {
+		sprite_.SetIsActive(false);   
 	}
 }
 
@@ -67,6 +82,6 @@ void TutorialObject::DrawImGui()
 	transform_.rotate = Quaternion::MakeFromEulerAngle(euler);
 	ImGui::End();
 
-	sprite_.DrawImGui(name_);
+	sprite_.DrawImGui(name_ + "sprite");
 }
 #endif // _DEBUG
