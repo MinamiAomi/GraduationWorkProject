@@ -4,7 +4,7 @@
         "isLighting_": true,
         "maxBattery_": 100.0,
         "startFrame_": 120.0,
-        "subBattery_": 0.25
+        "subBattery_": 0.15000000596046448
     },
     "light": {
         "distanceFromCamera_": 10.0,
