@@ -22,14 +22,16 @@ Trolley::Trolley()
 		);
 	}
 
-	normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
-	nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
-	burstSESource_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
-	crashSESource_ = assetManager->soundMap.Get("SE_TROLLY_CRASH")->Get();
-	for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
-		std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
-		nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
-	}
+    normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
+    nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
+    burstSESource_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
+    crashSESource_ = assetManager->soundMap.Get("SE_TROLLY_CRASH")->Get();
+    for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
+        std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
+        nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
+    }
+    nitroFizzSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO_FIZZ")->Get();
+    chargeSESource_ = assetManager->soundMap.Get("SE_TROLLY_CHARGE")->Get();
 
 	//teilLight_ = std::make_shared<SpotLight>();
 
@@ -166,13 +168,20 @@ void Trolley::UpdateState(float deltaTime)
 	if (!isPause_) {
 		if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
 
-			if (isHitFlashlight_) {
-				currentCharge_ += accelerationRate_ * deltaTime * 60.0f * centerRate_;
-			}
-			else {
-				currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
-			}
-		}
+            if (isHitFlashlight_) {
+                currentCharge_ += accelerationRate_ * deltaTime * 60.0f * centerRate_;
+                
+                if (!chargeSESource_.IsPlaying()) {
+                    chargeSESource_.Play(false);
+                    auto t = std::sin((centerRate_ * Math::Pi) * 0.5f);
+                    chargeSESource_.SetVolume(t);
+                    chargeSESource_.SetPitch(0.7f + t * 0.3f);
+                }
+            }
+            else {
+                currentCharge_ -= decelerationRate_ * deltaTime * 60.0f;
+            }
+        }
 
 		currentCharge_ = std::clamp(currentCharge_, 0.0f, burstThreshold_);
 
@@ -359,10 +368,11 @@ void Trolley::OnNitroState()
 
 void Trolley::RecoverFromNitro()
 {
-	trollyState_ = State::Normal;
-	currentCharge_ = batteryAfterNitro_;
-	stateTimer_ = 0.0f;
-	nitroAccumulateTimer_ = 0.0f;
+    trollyState_ = State::Normal;
+    currentCharge_ = batteryAfterNitro_;
+    stateTimer_ = 0.0f;
+    nitroAccumulateTimer_ = 0.0f;
+    nitroFizzSESource_.Play(false);
 }
 
 void Trolley::RecoverFromBurst()

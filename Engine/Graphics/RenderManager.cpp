@@ -39,6 +39,7 @@ void RenderManager::Initialize() {
     bloom_.Initialize(&lightingRenderingPass_.GetResult());
     postEffect_.Initialize(finalImageBuffer_);
     fogPostEffect_.Initialize();
+    finalEffect_.Initialize();
 
     transition_.Initialize();
 
@@ -103,6 +104,8 @@ void RenderManager::Render() {
     spriteRenderer_.Render(commandContext_, 0.0f, 0.0f, (float)finalImageBuffer_.GetWidth(), (float)finalImageBuffer_.GetHeight());
 
     transition_.Dispatch(commandContext_, finalImageBuffer_);
+
+    //finalEffect_.Dispatch(commandContext_, finalImageBuffer_);
 
     auto& swapChainBuffer = swapChain_.GetColorBuffer(targetSwapChainBufferIndex);
 

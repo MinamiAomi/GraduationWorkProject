@@ -6,7 +6,7 @@
 
 
 
-void BatteryParticles::Initialize(const Transform* transform, const BatsManager* batsManager)
+void BatteryParticles::Initialize(const Transform* transform, BatsManager* batsManager)
 {
 	transform_.SetParent(transform, false);
 	auto assetManager = AssetManager::GetInstance();
@@ -47,6 +47,7 @@ void BatteryParticles::Update()
 {
 	material_->albedo = color_;
 	transform_.UpdateMatrix();
+	auto inverseParentMatrix = transform_.GetParent()->worldMatrix.Inverse();
 	if (Trolley::GetInstance()->GetIsHitFlashlight()) {
 		emitTimer_++;
 		if (emitTimer_ >= emitInterval_) {
@@ -55,25 +56,88 @@ void BatteryParticles::Update()
 		}
 	}
 
-	if (batsManager_->HasBats()) {
-		ToBatEmit();
+	if (batEmitCycle_++ >= batEmitInterval) {
+		batEmitCycle_ = 0;
+		for (auto& bats : batsManager_->GetBatsGroups()) {
+			for (auto& bat : bats->GetBats()) {
+				if (!bat->isDead_) {
+					ToBatEmit(bat);
+				}
+			}
+		}
 	}
+
 
 	for (auto it = particles_.begin(); it != particles_.end(); ) {
 
 		Particle* p = it->get();
+		bool isDead = false;
 
-		p->transform_.translate = p->transform_.translate + p->velocity_;
+		switch (p->type_)
+		{
+		case ParticleType::ToCharge:
+		{
+
+
+			p->transform_.scale.x -= p->scaleSpeed_;
+			p->transform_.scale.y -= p->scaleSpeed_;
+			p->transform_.scale.z -= p->scaleSpeed_;
+			p->transform_.translate = p->transform_.translate + p->velocity_;
+
+			isDead = p->transform_.scale.x <= 0.0f;
+			break;
+		}
+		case ParticleType::ToBat:
+		{
+			auto bat = p->targetBat_.lock();
+			if (bat && !bat->isDead_) {
+				auto parentLocalBat = bat->transform_.worldMatrix.GetTranslate() * inverseParentMatrix;
+				Vector3 toBat = (parentLocalBat - p->transform_.translate).Normalized();
+				p->velocity_ += toBat * toBatSpeed_;
+				p->velocity_ = p->velocity_.Normalized() * std::clamp(p->velocity_.Length(), 0.0f, 0.2f);
+				p->transform_.translate = p->transform_.translate + p->velocity_;
+
+				float current = (p->transform_.worldMatrix.GetTranslate() - bat->transform_.worldMatrix.GetTranslate()).Length();
+				float parent = (p->transform_.GetParent()->worldMatrix.GetTranslate() - bat->transform_.worldMatrix.GetTranslate()).Length();
+
+				float t = 1.0f - (current / parent);
+				t = 1.0f - std::pow(1.0f - t, 50.0f);
+				p->modelInstance_.GetMaterials()[0]->albedo.x = Math::Lerp(t, 0.46f, toBatMaterial_->albedo.x);
+				p->modelInstance_.GetMaterials()[0]->albedo.y = Math::Lerp(t, 0.94f, toBatMaterial_->albedo.y);
+				p->modelInstance_.GetMaterials()[0]->albedo.z = Math::Lerp(t, 1.0f, toBatMaterial_->albedo.z);
+
+
+				p->transform_.scale.x += p->scaleSpeed_;
+				p->transform_.scale.y += p->scaleSpeed_;
+				p->transform_.scale.z += p->scaleSpeed_;
+				p->transform_.scale.x = std::clamp(p->transform_.scale.x, 0.0f, 0.02f);
+				p->transform_.scale.y = std::clamp(p->transform_.scale.y, 0.0f, 0.02f);
+				p->transform_.scale.z = std::clamp(p->transform_.scale.z, 0.0f, 0.02f);
+
+
+
+				isDead = (bat->transform_.worldMatrix.GetTranslate() - p->transform_.worldMatrix.GetTranslate()).Length() < 5.0f;
+			}
+			else {
+				// ターゲットのコウモリがいなくなったら消す
+				isDead = true;
+			}
+
+
+			break;
+		}
+		break;
+		default:
+			break;
+		}
+
 
 		Quaternion deltaRot = Quaternion::MakeFromEulerAngle(p->angularVelocity_);
 		p->transform_.rotate = p->transform_.rotate * deltaRot;
 		p->transform_.rotate = p->transform_.rotate.Normalized();
 
-		p->transform_.scale.x -= p->scaleSpeed_;
-		p->transform_.scale.y -= p->scaleSpeed_;
-		p->transform_.scale.z -= p->scaleSpeed_;
 
-		if (p->transform_.scale.x <= 0.0f) {
+		if (isDead) {
 			it = particles_.erase(it);
 		}
 		else {
@@ -160,6 +224,8 @@ void BatteryParticles::Emit()
 {
 	auto newParticle = std::make_unique<Particle>();
 
+	newParticle->type_ = ParticleType::ToCharge;
+
 	newParticle->modelInstance_.SetModel(model_);
 	newParticle->modelInstance_.SetUseLighting(false);
 
@@ -217,16 +283,21 @@ void BatteryParticles::Emit()
 }
 
 
-void BatteryParticles::ToBatEmit()
+void BatteryParticles::ToBatEmit(const std::shared_ptr<Bats::Bat>& bat)
 {
 	auto newParticle = std::make_unique<Particle>();
 
+	newParticle->type_ = ParticleType::ToBat;
+
 	newParticle->modelInstance_.SetModel(model_);
 	newParticle->modelInstance_.SetUseLighting(false);
+	auto matInstance = std::make_shared<Material>();
+	*matInstance = *toBatMaterial_;
+	newParticle->modelInstance_.GetMaterials().emplace_back(matInstance);
 
 	newParticle->transform_.SetParent(&transform_, false);
 
-	newParticle->transform_.scale = { maxScale_, maxScale_, maxScale_ };
+	newParticle->transform_.scale = { minScale_, minScale_, minScale_ };
 
 	Vector3 randomRotEuler = {
 		rnd_.NextFloatRange(0.0f, 6.28f),
@@ -259,7 +330,9 @@ void BatteryParticles::ToBatEmit()
 		rnd_.NextFloatRange(0.0f, 1.0f)
 	};
 
-	newParticle->velocity_ = direction * toBatSpeed_;
+	newParticle->velocity_ = direction * toBatInitializeSpeed_;
+
+	newParticle->targetBat_ = bat;
 
 	newParticle->angularVelocity_ = {
 		rnd_.NextFloatRange(minAngularVelocity_.x, maxAngularVelocity_.x),
@@ -267,8 +340,7 @@ void BatteryParticles::ToBatEmit()
 		rnd_.NextFloatRange(minAngularVelocity_.z, maxAngularVelocity_.z)
 	};
 
-	newParticle->scaleSpeed_ = scaleDecay_;
-	newParticle->modelInstance_.GetMaterials().emplace_back(toBatMaterial_);
+	newParticle->scaleSpeed_ = toBatScaleSpeed_;
 
-	particles_.push_back(std::move(newParticle));
+	particles_.emplace_back(std::move(newParticle));
 }

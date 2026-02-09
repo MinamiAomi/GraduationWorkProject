@@ -357,6 +357,9 @@
     <ClCompile Include="Graphics\FogPostEffect.cpp">
       <Filter>Graphics\PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\FinalEffect.cpp">
+      <Filter>Graphics\PostEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\BaseScene.h">
@@ -695,6 +698,9 @@
     <ClInclude Include="Graphics\FogPostEffect.h">
       <Filter>Graphics\PostEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\FinalEffect.h">
+      <Filter>Graphics\PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shader\Lighting.hlsli">
@@ -869,6 +875,9 @@
       <Filter>Graphics\Shader\Raytracing\Pathtracing</Filter>
     </None>
     <None Include="Graphics\Shader\FogPostEffectCS.hlsl">
+      <Filter>Graphics\Shader\PostEffect</Filter>
+    </None>
+    <None Include="Graphics\Shader\FinalEffectCS.hlsl">
       <Filter>Graphics\Shader\PostEffect</Filter>
     </None>
   </ItemGroup>
