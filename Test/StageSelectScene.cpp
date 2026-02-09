@@ -23,6 +23,8 @@ void StageSelectScene::OnInitialize() {
 	}
 
 	auto texture = AssetManager::GetInstance()->textureMap.Get("StageSelect")->Get();
+	auto iceSkyDome = AssetManager::GetInstance()->modelMap.Get("IceSkyDome")->Get();
+	auto stageSelectTerrain = AssetManager::GetInstance()->modelMap.Get("StageSelectTerrain")->Get();
 
 	sprite_.SetTexture(texture);
 	sprite_.SetUVRect({ { 0.0f, 0.0f }, { 1.0f, 1.0f} }, Sprite::UVMode::UV);
@@ -37,6 +39,9 @@ void StageSelectScene::OnInitialize() {
 	
 	collisionSystem_->RegisterCollider(level1_->GetCollider());
 	collisionSystem_->RegisterCollider(level2_->GetCollider());
+
+	iceSkyDome_.SetModel(iceSkyDome);
+	stageSelectTerrain_.SetModel(stageSelectTerrain);
 
 	flashlight_ = std::make_unique<Flashlight>();
 	//flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());

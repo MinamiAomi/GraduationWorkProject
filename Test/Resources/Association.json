@@ -45,6 +45,9 @@
     "DioramaLevel1": "StaticMesh/StageModel/dioramaLevel1.gltf",
     "DioramaLevel2": "StaticMesh/StageModel/dioramaLevel2.gltf",
 
+    "StageSelectTerrain": "StageSelect/StageSelectTerrain/StageSelectTerrain.gltf",
+    "IceSkyDome": "StageSelect/IceSkyDome/IceSkyDome.gltf",
+
     
     "GoalGlowing": "Model/GoalGlowing/GoalGlowing.gltf",
     "Icicle": "Model/Icicle/Icicle.gltf",
