@@ -4,7 +4,9 @@
 #include "Engine/File/JsonConverter.h"
 
 #include "Trolley.h"
+#include "Scene/SceneManager.h"
 
+#include "GameScene.h"
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -81,8 +83,40 @@ TrolleyUI::TrolleyUI()
     nitroUI_.SetAnchor({ 0.5f,0.0f });
     nitroUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 
+	if (dynamic_cast<GameScene*>(SceneManager::GetInstance()->GetCurrentScene())) {
 
+		//model
+		speedMeterModel_.SetIsActive(true);
+		speedMeterNeedleModel_.SetIsActive(true);
+		effectModel_.SetIsActive(true);
+		insideModel_.SetIsActive(true);
+		outsideModel_.SetIsActive(true);
+		batteryModel_.SetIsActive(true);
 
+		//sprite
+		chargeUI_.SetIsActive(true);
+		baseUI_.SetIsActive(true);
+		overChargeUI_.SetIsActive(true);
+		nitroUI_.SetIsActive(true);
+		nitroBurstUI_.SetIsActive(true);
+		baseUI_.SetIsActive(true);
+	}
+	else {
+		//model
+		speedMeterModel_.SetIsActive(false);
+		speedMeterNeedleModel_.SetIsActive(false);
+		effectModel_.SetIsActive(false);
+		insideModel_.SetIsActive(false);
+		outsideModel_.SetIsActive(false);
+		batteryModel_.SetIsActive(false);
+		//sprite
+		chargeUI_.SetIsActive(false);
+		baseUI_.SetIsActive(false);
+		overChargeUI_.SetIsActive(false);
+		nitroUI_.SetIsActive(false);
+		nitroBurstUI_.SetIsActive(false);
+		baseUI_.SetIsActive(false);
+	}
 }
 
 void TrolleyUI::Initialize(const Transform& transform)
@@ -266,3 +300,21 @@ void TrolleyUI::UpdateSprite(Sprite& sprite, float t, float size)
 }
 
 #endif // _DEBUG
+
+void TrolleyUI::SetIsActive(bool isActive) {
+		//model
+	speedMeterModel_.SetIsActive(isActive);
+	speedMeterNeedleModel_.SetIsActive(isActive);
+	effectModel_.SetIsActive(isActive);
+	insideModel_.SetIsActive(isActive);
+	outsideModel_.SetIsActive(isActive);
+	batteryModel_.SetIsActive(isActive);
+
+	//sprite
+	chargeUI_.SetIsActive(isActive);
+	baseUI_.SetIsActive(isActive);
+	overChargeUI_.SetIsActive(isActive);
+	nitroUI_.SetIsActive(isActive);
+	nitroBurstUI_.SetIsActive(isActive);
+	baseUI_.SetIsActive(isActive);
+}
