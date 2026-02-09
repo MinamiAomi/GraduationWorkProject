@@ -6,6 +6,8 @@
 
 #include "Framework/AssetManager.h"
 
+#include "TitleScene.h"
+
 void StageSelectScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
@@ -40,7 +42,7 @@ void StageSelectScene::OnInitialize() {
 	collisionSystem_->RegisterCollider(level1_->GetCollider());
 	collisionSystem_->RegisterCollider(level2_->GetCollider());
 
-	iceSkyDome_.SetModel(iceSkyDome);
+	//iceSkyDome_.SetModel(iceSkyDome);
 	stageSelectTerrain_.SetModel(stageSelectTerrain);
 
 	flashlight_ = std::make_unique<Flashlight>();
@@ -68,6 +70,30 @@ void StageSelectScene::OnUpdate() {
 	}
 
 	collisionSystem_->CheckCollisions();
+
+	Input* input = Input::GetInstance();
+	if (input->IsKeyTrigger(DIK_ESCAPE)) {
+		// ゲームスタート
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+	}
+//#ifdef _DEBUG
+//	ImGui::Begin("StageModel");
+//	
+//	ipos = iceSkyDome_.GetWorldMatrix().GetTranslate();
+//	iscale= iceSkyDome_.GetWorldMatrix().GetScale();
+//	ImGui::DragFloat3("IcePos", &ipos.x);
+//	ImGui::DragFloat3("IceScale", &iscale.x);
+//	iceSkyDome_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(ipos, Quaternion::identity, iscale));
+//
+//	spos = stageSelectTerrain_.GetWorldMatrix().GetTranslate();
+//	sscale= stageSelectTerrain_.GetWorldMatrix().GetScale();
+//	ImGui::DragFloat3("StagePos", &spos.x);
+//	ImGui::DragFloat3("StageScale", &sscale.x);
+//	stageSelectTerrain_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(spos, Quaternion::identity, sscale));
+//
+//	ImGui::End();
+//#endif // _DEBUG
+
 }
 
 void StageSelectScene::OnFinalize() {
