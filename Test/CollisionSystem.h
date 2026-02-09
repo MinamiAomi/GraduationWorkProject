@@ -1,6 +1,6 @@
 #pragma once
 #include "Collider.h"
-#include <vector>
+#include <list>
 #include <memory>
 
 
@@ -20,5 +20,5 @@ public:
     bool AreColliding(Collider& a,Collider& b);
 
 private:
-    std::vector<std::weak_ptr<Collider>> colliders;
+    std::list<std::weak_ptr<Collider>> colliders;
 };

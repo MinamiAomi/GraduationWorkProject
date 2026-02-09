@@ -85,8 +85,10 @@
     "StageSelect": "StageSelect/stageSelect.png",
 
     
-    "TutorialTrolly": "Tutorial/flash_light.png",
-    "TutorialFlashlight": "Tutorial/trolly.png",
+    "TutorialTrolly": "Tutorial/trolly.png",
+    "TutorialFlashlight": "Tutorial/flash_light.png",
+
+    "Warning": "OODAMA/warning.png",
     
     "white2x2":"white2x2.png"
   },
@@ -107,6 +109,14 @@
     "SE_TROLLY_NITRO_BOOST4" : "Sound/se_NitroBoost_4.mp3",
     "SE_TROLLY_NITRO_BOOST5" : "Sound/se_NitroBoost_5.mp3",
     "SE_TROLLY_NITRO_BOOST6" : "Sound/se_NitroBoost_6.mp3",
+    "SE_TROLLY_NITRO_FIZZ" : "Sound/se_NitroFizz.wav",
+    "SE_TROLLY_CHARGE" : "Sound/se_Charge.wav",
+
+    "SE_TWINKLING0" : "Sound/se_Twinkling_0.mp3",
+    "SE_TWINKLING1" : "Sound/se_Twinkling_1.mp3",
+    "SE_TWINKLING2" : "Sound/se_Twinkling_2.mp3",
+    "SE_TWINKLING3" : "Sound/se_Twinkling_3.mp3",
+    "SE_TWINKLING4" : "Sound/se_Twinkling_4.mp3",
 
     "SE_GAMESTART" : "Sound/se_GameStart.mp3",
     "SE_GAMECLEAR" : "Sound/se_GameClear.mp3",
@@ -117,8 +127,6 @@
 
     "SE_BOMB_GHOST_DEATH" : "Sound/se_BombGhostDeath.mp3",
     "SE_BOMB_GHOST_SPAWN" : "Sound/se_BombGhostSpawn.mp3",
-
-    "SE_CHARGE" : "Sound/se_Charge.mp3",
 
     "BGM_TITLE" : "Sound/bgm_title.mp3",
     "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",

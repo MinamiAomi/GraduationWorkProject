@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphics/Model.h"
+#include "Graphics/Sprite.h"
 
 #include "Math/Transform.h"
 
@@ -13,8 +14,18 @@ public:
 
 	void SetDeadline(const Deadline* deadline) { deadline_ = deadline; }
 private:
+#ifdef _DEBUG
+	void DrawImGui();
+#endif // _DEBUG
+
 	const Deadline* deadline_;
 	ModelInstance  monster_;
 	Transform  monsterTransform_;
 	float monsterRotateTimer_;
+
+	Sprite warning_;
+	float startLevel1Warning_;
+	float startLevel2Warning_;
+	int count_ = 0;
+	bool isOnce_;
 };
