@@ -153,9 +153,10 @@ void GameScene::OnInitialize() {
 	railcameraUI_->Initialize();
 #pragma endregion
 #pragma region TutorialObject
-	switch (currentLevel)
+	/*switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
+	{
 		trollyTutorial_ = std::make_unique<TutorialObject>();
 		flashlightTutorial_ = std::make_unique<TutorialObject>();
 		Transform t;
@@ -163,12 +164,13 @@ void GameScene::OnInitialize() {
 		trollyTutorial_->Initialize(t, "trollyTutorial");
 		t.translate = { 117.0f,2.35f,5.4f };
 		flashlightTutorial_->Initialize(t, "flashlightTutorial");
-		break;
+	}
+	break;
 	case LevelManager::Level::LEVEL2:
 		break;
 	default:
 		break;
-	}
+	}*/
 #pragma endregion
 
 
@@ -235,7 +237,7 @@ void GameScene::OnUpdate() {
 	);
 #pragma endregion
 #pragma region TutorialObject
-	switch (currentLevel)
+	/*switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
 		trollyTutorial_->Update();
@@ -245,7 +247,7 @@ void GameScene::OnUpdate() {
 		break;
 	default:
 		break;
-	}
+	}*/
 #pragma endregion
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
@@ -388,7 +390,6 @@ void GameScene::OnUpdate() {
 	if (ImGui::Button("ホットリロード（光物）")) {
 		sceneObjectManager_->Initialize();
 
-		auto currentLevel = LevelManager::GetInstance()->GetLevel();
 		std::string railcameraJson, staticMeshJson, stageName;
 		switch (currentLevel)
 		{
