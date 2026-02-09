@@ -55,7 +55,7 @@ void Deadline::Update(float deltaTime)
 	if (!railAnimationPlayer_->IsFinished() &&
 		railAnimationPlayer_->IsPlaying() &&
 		startFrame <= playerCurrentFrame) {
-		if (currentFrame_ < startFrame) {
+		if (currentFrame_ < startFrame - startOffset_) {
 			currentFrame_ = startFrame - startOffset_;
 		}
 
