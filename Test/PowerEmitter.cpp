@@ -171,7 +171,7 @@ void PowerEmitter::Emit()
 	newParticle->modelInstance_.SetModel(model_);
 	newParticle->modelInstance_.SetUseLighting(false);
 
-	float startScale = rnd_.NextFloatRange(minScale_ , maxScale_ + (radius_ * 0.2f));
+	float startScale = rnd_.NextFloatRange(minScale_ , maxScale_ + (radius_ * 0.08f));
 	newParticle->transform_.scale = { startScale, startScale, startScale };
 
 	Vector3 randomRotEuler = {

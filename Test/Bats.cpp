@@ -94,6 +94,7 @@ void Bats::Update()
 
 		if (p->hp_ <= 0.0f && !p->isDead_) {
 			p->isDead_ = true;
+			p->particles_.isDead_ = true;
 			if (seCount_ < kSEMax) {
 				auto as = std::make_shared<AudioSource>();
 				(*as) = deathSESound_;
