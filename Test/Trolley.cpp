@@ -693,3 +693,9 @@ void Trolley::UpdateCollision()
         }
     }
 }
+
+
+void Trolley::SetIsActive(bool isActive) {
+    model_.SetIsActive(isActive);
+    trolleyUI_.SetIsActive(isActive);
+}

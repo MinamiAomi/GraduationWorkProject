@@ -86,6 +86,9 @@ public:
 
 	void Pause() { isPause_ = true; }
 	void Play() { isPause_ = false; }
+
+	void SetIsActive(bool isActive);
+
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);

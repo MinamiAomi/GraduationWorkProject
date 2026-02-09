@@ -6,6 +6,10 @@
 
 #include "Math/Color.h"
 
+#include "Scene/SceneManager.h"
+
+#include "GameScene.h"
+
 FlashlightUI::FlashlightUI()
 {
 	auto assetManager = AssetManager::GetInstance();
@@ -50,4 +54,14 @@ void FlashlightUI::Update()
 	batteryUI_.DrawImGui("batteryUI");
 #endif // _DEBUG
 
+	if (dynamic_cast<GameScene*>(SceneManager::GetInstance()->GetCurrentScene())) {
+		batteryUI_.SetIsActive(true);
+		frameUI_.SetIsActive(true);
+	}
+	else {
+		batteryUI_.SetIsActive(false);
+		frameUI_.SetIsActive(false);
+	}
+
+	
 }
