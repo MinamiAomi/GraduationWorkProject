@@ -195,7 +195,6 @@ void GameScene::OnInitialize() {
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-#ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
 	}
@@ -204,9 +203,6 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
-
-#endif // _DEBUG
-
 #pragma region TutorialObject
 
 	switch (currentLevel)
