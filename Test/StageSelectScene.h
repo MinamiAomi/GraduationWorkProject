@@ -38,5 +38,7 @@ private:
 	std::unique_ptr<Diorama> level2_;
 	std::unique_ptr<Flashlight> flashlight_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
+	ModelInstance iceSkyDome_;
+	ModelInstance stageSelectTerrain_;
 	Sprite sprite_;
 };
