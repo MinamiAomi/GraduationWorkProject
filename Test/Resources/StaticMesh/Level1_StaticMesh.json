@@ -4895,6 +4895,13 @@
         "formation": [
           [
             false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             true,
             false,
             false,
@@ -4955,8 +4962,22 @@
         "formation": [
           [
             false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             true,
             false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
             false,
             false
           ],
@@ -4964,13 +4985,6 @@
             false,
             false,
             false,
-            true,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
             false,
             false
           ]
@@ -4994,9 +5008,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          790.155,
-          1165.1028,
-          -958.11
+          889.3388,
+          591.0558,
+          -289.5065
         ],
         "rotate": [
           1.0,
@@ -5111,9 +5125,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          790.1942,
-          1165.851,
-          -958.4178
+          889.378,
+          591.804,
+          -289.8142
         ],
         "radius": 0.5
       }
@@ -5163,9 +5177,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          475.265,
-          391.6172,
-          -228.5596
+          695.2345,
+          398.2617,
+          -70.5074
         ],
         "rotate": [
           0.7597,
@@ -5265,9 +5279,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          475.4119,
-          391.6666,
-          -229.5655
+          695.3813,
+          398.3111,
+          -71.5133
         ],
         "radius": 0.5
       }
