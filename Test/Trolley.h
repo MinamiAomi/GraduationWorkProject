@@ -200,7 +200,7 @@ private:
 #pragma endregion
 
 #pragma region Audio
-	const uint32_t kNitroBoostSECount = 7;
+	static constexpr uint32_t kNitroBoostSECount = 7;
 
 	AudioSource normalSESource_;
 	AudioSource nitroSESource_;

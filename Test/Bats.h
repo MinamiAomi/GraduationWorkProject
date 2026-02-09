@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <list>
 #include <memory>
 
 #include "Math/MathUtils.h"
@@ -12,6 +13,7 @@
 #include "Collider.h"
 #include "BatsParticles.h"
 #include "BatsBullets.h"
+#include "Audio/AudioSource.h"
 
 class Camera;
 
@@ -50,17 +52,22 @@ public:
 
 	bool IsActive() { return isActive_; }
 
-	std::vector<std::unique_ptr<Bat>>& GetBats() { return bats_; }
+	std::list<std::unique_ptr<Bat>>& GetBats() { return bats_; }
 
 public:
 	std::shared_ptr<class AnimationAsset> animation_;
 private:
 	void Emit(const Vector3& goalPos);
 private:
-	
+	const uint32_t kSEMax = 3;
+
 	Transform transform_;
 	std::shared_ptr<Model> model_;
-	std::vector<std::unique_ptr<Bat>> bats_;
+	std::list<std::unique_ptr<Bat>> bats_;
+	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
+	std::shared_ptr<Sound> spawnSESound_;
+    std::shared_ptr<Sound> deathSESound_;
+	uint32_t seCount_ = 0;
 	Random::RandomNumberGenerator rnd_;
 	const Camera* camera_;
 	//Sphere

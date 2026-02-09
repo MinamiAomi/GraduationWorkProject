@@ -336,8 +336,26 @@ void Trolley::OnNitroState()
     stateTimer_ = 0.0f;
     nitroAccumulateTimer_ = 0.0f;
 
-    auto soundNumber = rnd_.NextUIntRange(0, kNitroBoostSECount - 1);
-    nitroBoostSESources_[soundNumber].Play(false);
+    float SoundConstant[kNitroBoostSECount] = {
+        0.01f, 0.01f, 0.01f, 0.47f, 0.48f, 0.01f, 0.01f
+    };
+
+    float totalWeight = 0.0f;
+    for (float w : SoundConstant) totalWeight += w;
+
+    // 0 ～ totalWeight の間でランダム
+    float r = rnd_.NextFloatRange(0.0f, totalWeight);
+
+    int selected = 0;
+    for (int i = 0; i < kNitroBoostSECount; ++i) {
+        if (r < SoundConstant[i]) {
+            selected = i;
+            break;
+        }
+        r -= SoundConstant[i];
+    }
+
+    nitroBoostSESources_[selected].Play(false);
 }
 
 void Trolley::RecoverFromNitro()

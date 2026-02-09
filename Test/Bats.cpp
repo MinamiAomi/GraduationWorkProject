@@ -14,6 +14,8 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	auto assetManager = AssetManager::GetInstance();
 	model_ = assetManager->modelMap.Get("bat")->Get();
 	animation_ = assetManager->animationMap.Get("batAnim");
+    spawnSESound_ = assetManager->soundMap.Get("SE_BAT_SPAWN")->Get();
+    deathSESound_ = assetManager->soundMap.Get("SE_BAT_DEATH")->Get();
 	radius_ = 5.0f;                       // Sphere用半径
 	camera_ = &camera;
 
@@ -48,6 +50,7 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 
 void Bats::Update()
 {
+	seCount_ = 0;
 	
 	transform_.UpdateMatrix();
 
@@ -89,8 +92,16 @@ void Bats::Update()
 
 		p->hp_ = std::clamp(p->hp_, 0.0f, 1.0f);
 
-		if (p->hp_ <= 0.0f) {
+		if (p->hp_ <= 0.0f && !p->isDead_) {
 			p->isDead_ = true;
+			if (seCount_ < kSEMax) {
+				auto as = std::make_shared<AudioSource>();
+				(*as) = deathSESound_;
+				as->SetVolume(0.7f);
+				as->Play(false);
+				playingAudioSourceList_.push_back(as);
+				seCount_++;
+			}
 		}
 
 		if (p->isDead_ == false) {
@@ -119,6 +130,15 @@ void Bats::Update()
 	if (bats_.empty()) {
 		isActive_ = false;
 	}
+
+	for (auto& audioSource : playingAudioSourceList_) {
+		if (!audioSource->IsPlaying()) {
+			audioSource.reset();
+		}
+	}
+	playingAudioSourceList_.remove_if([](const std::shared_ptr<AudioSource>& source) {
+		return source == nullptr;
+        });
 }
 
 void Bats::DebugDraw()
@@ -143,9 +163,17 @@ void Bats::Emit(const Vector3& goalPos)
 	newBat->skeleton_->Create(model_);
 	newBat->modelInstance_.SetSkeleton(newBat->skeleton_);
 	
-
 	newBat->particles_.Initialize(model_->GetRadius());
 	newBat->particles_.SetParent(&newBat->transform_);
+
+	if (seCount_ < kSEMax) {
+		auto as = std::make_shared<AudioSource>();
+		(*as) = spawnSESound_;
+		as->SetVolume(0.7f);
+		as->Play(false);
+		playingAudioSourceList_.push_back(as);
+		seCount_++;
+	}
 
 	//newBat->bullets_.Initialize(*camera_);
 	//newBat->bullets_.SetBatTransform(newBat->transform_);
