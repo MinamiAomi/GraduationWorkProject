@@ -143,17 +143,6 @@ void GameScene::OnInitialize() {
 	batsManager_ = std::make_unique<BatsManager>();
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->SetColliderSystem(collisionSystem_.get());
-	//test
-	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, false));
-
-	// 2. 真ん中の要素を true にする
-	// 行: 5の中央は 2
-	// 列: 6の中央は 2 または 3 (ここでは2を選択)
-	mapData[2][2] = true;
-
-	// 3. 実行
-	batsManager_->Emit(mapData);
-
 	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
