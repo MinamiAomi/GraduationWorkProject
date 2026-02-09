@@ -87,7 +87,11 @@ void BatsParticles::Initialize(float radius)
 	material_ = std::make_shared<Material>();
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
-	material_->albedo = Vector3{ 0.75f,0.2f,0.75f};
+	material_->albedo = color_;
+    absorptionMaterial_ = std::make_shared<Material>();
+    absorptionMaterial_->emissive = { 1.0f,1.0f,1.0f };
+    absorptionMaterial_->emissiveIntensity = 10.0f;
+    absorptionMaterial_->albedo = goalColor_;
 
     JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
     JSON_OBJECT("batsParticles");
@@ -112,6 +116,9 @@ void BatsParticles::Update()
     transform_.UpdateMatrix();
     if (isEmit_) {
         emitTimer_++;
+    }
+    else if(!isDead_){
+        AbsorptionEmit();
     }
     if ((emitTimer_ >= emitInterval_) && isEmit_) {
         Emit();
@@ -172,7 +179,7 @@ void BatsParticles::Emit()
     newParticle->modelInstance_.SetModel(model_);
     newParticle->modelInstance_.SetUseLighting(false);
 
-	float startScale = rnd_.NextFloatRange(minScale_ , maxScale_);
+	float startScale = rnd_.NextFloatRange(minScale_ * 1.5f, maxScale_ * 1.5f);
 	newParticle->transform_.scale = { startScale, startScale, startScale };
 
     Vector3 randomRotEuler = {
@@ -221,8 +228,6 @@ void BatsParticles::Emit()
 
     float speed = rnd_.NextFloatRange(minSpeed_, maxSpeed_);
 
-
-
     newParticle->velocity_ = randomDir * speed;
 
     newParticle->angularVelocity_ = {
@@ -233,6 +238,76 @@ void BatsParticles::Emit()
 
     newParticle->scaleSpeed_ = scaleDecay_;
     newParticle->modelInstance_.GetMaterials().emplace_back(material_);
+
+    particles_.push_back(std::move(newParticle));
+}
+
+void BatsParticles::AbsorptionEmit()
+{
+    auto newParticle = std::make_unique<Particle>();
+
+    newParticle->modelInstance_.SetModel(model_);
+    newParticle->modelInstance_.SetUseLighting(false);
+
+    float startScale = rnd_.NextFloatRange(minScale_ * 1.5f, maxScale_ * 1.5f);
+    newParticle->transform_.scale = { startScale, startScale, startScale };
+
+    Vector3 randomRotEuler = {
+        rnd_.NextFloatRange(0.0f, 6.28f),
+        rnd_.NextFloatRange(0.0f, 6.28f),
+        rnd_.NextFloatRange(0.0f, 6.28f)
+    };
+    newParticle->transform_.rotate = Quaternion::MakeFromEulerAngle(randomRotEuler);
+
+    Vector3 spawnPos = { 0.0f, 0.0f, 0.0f };
+    Vector3 emitterWorldPos = transform_.worldMatrix.GetTranslate();
+
+    if (emitShapeType_ == EmitShape::kSphere) {
+        while (true) {
+            Vector3 offset = {
+                rnd_.NextFloatRange(-1.0f, 1.0f),
+                rnd_.NextFloatRange(-1.0f, 1.0f),
+                rnd_.NextFloatRange(-1.0f, 1.0f)
+            };
+            if (offset.LengthSquare() <= 1.0f) {
+                spawnPos = emitterWorldPos + (offset * radius_);
+                break;
+            }
+        }
+    }
+    else if (emitShapeType_ == EmitShape::kBox) {
+        Vector3 localPos;
+        localPos.x = rnd_.NextFloatRange(-size_.x * 0.5f, size_.x * 0.5f);
+        localPos.y = rnd_.NextFloatRange(-size_.y * 0.5f, size_.y * 0.5f);
+        localPos.z = rnd_.NextFloatRange(-size_.z * 0.5f, size_.z * 0.5f);
+
+        Vector3 rotatedOffset = transform_.worldMatrix.GetRotate() * localPos;
+        spawnPos = emitterWorldPos + rotatedOffset;
+    }
+
+    newParticle->transform_.translate = spawnPos;
+
+    Vector3 randomDir = {
+        rnd_.NextFloatRange(minDirection_.x, maxDirection_.x),
+        rnd_.NextFloatRange(minDirection_.y, maxDirection_.y),
+        rnd_.NextFloatRange(minDirection_.z, maxDirection_.z)
+    };
+    if (randomDir.LengthSquare() != 0) {
+        randomDir = randomDir.Normalized();
+    }
+
+    float speed = rnd_.NextFloatRange(minSpeed_, maxSpeed_);
+
+    newParticle->velocity_ = randomDir * speed;
+
+    newParticle->angularVelocity_ = {
+        rnd_.NextFloatRange(minAngularVelocity_.x, maxAngularVelocity_.x),
+        rnd_.NextFloatRange(minAngularVelocity_.y, maxAngularVelocity_.y),
+        rnd_.NextFloatRange(minAngularVelocity_.z, maxAngularVelocity_.z)
+    };
+
+    newParticle->scaleSpeed_ = scaleDecay_;
+    newParticle->modelInstance_.GetMaterials().emplace_back(absorptionMaterial_);
 
     particles_.push_back(std::move(newParticle));
 }

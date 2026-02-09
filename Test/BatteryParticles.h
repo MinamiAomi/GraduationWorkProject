@@ -34,6 +34,7 @@ public:
 	void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
 public:
 	std::shared_ptr<Material> material_;
+	std::shared_ptr<Material> toBatMaterial_;
 	inline static float minSpeed_ = 0.002f;
 	inline static float maxSpeed_ = 0.003f;
 	inline static Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };

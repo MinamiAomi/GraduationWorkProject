@@ -43,7 +43,9 @@
     "Skull": "Model/Skull/Skull.gltf",
     "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
     "Box": "Box.gltf",
-    "Bullet": "bullet.gltf"
+    "Bullet": "bullet.gltf",
+    "TitleTrolley":"TitleTrolley/TitileTrolley.gltf",
+    "TitleStage":"TitleStage/TitleStage.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -75,7 +77,9 @@
     "white2x2":"white2x2.png"
   },
   "Animation" : {
-    "batAnim" : "Bat/Bat.gltf"
+    "batAnim" : "Bat/Bat.gltf",
+    "trolleyAnim" : "TitleTrolley/TitileTrolley.gltf",
+    "TitleStageAnim":"TitleStage/TitleStage.gltf"
   },
   "Sound" : {
     "SE_TROLLY_NORMAL" : "Sound/se_trolly2.wav",

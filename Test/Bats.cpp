@@ -91,6 +91,7 @@ void Bats::Update()
 
 		if (p->hp_ <= 0.0f) {
 			p->isDead_ = true;
+			p->particles_.isDead_ = true;
 		}
 
 		if (p->isDead_ == false) {

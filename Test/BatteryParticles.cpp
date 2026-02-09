@@ -19,6 +19,11 @@ void BatteryParticles::Initialize(const Transform* transform , const BatsManager
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
 	
+	toBatMaterial_ = std::make_shared<Material>();
+	toBatMaterial_->emissive = { 1.0f,1.0f,1.0f };
+	toBatMaterial_->emissiveIntensity = 10.0f;
+	toBatMaterial_->albedo = Vector3{ 0.75f,0.2f,0.75f };
+
 	batsManager_ = batsManager;
 
 	JSON_OPEN("Resources/Data/GameScene/batteryParticles.json");
@@ -48,6 +53,10 @@ void BatteryParticles::Update()
 			Emit();
 			emitTimer_ = 0;
 		}
+	}
+
+	if (batsManager_->HasBats()) {
+		ToBatEmit();
 	}
 
 	for (auto it = particles_.begin(); it != particles_.end(); ) {
@@ -160,6 +169,7 @@ void BatteryParticles::Emit()
 		rnd_.NextFloatRange(0.0f, 6.28f),
 		rnd_.NextFloatRange(0.0f, 6.28f)
 	};
+
 	newParticle->transform_.rotate = Quaternion::MakeFromEulerAngle(randomRotEuler);
 
 	Vector3 spawnPos = { 0, 0, 0 };
@@ -175,7 +185,6 @@ void BatteryParticles::Emit()
 			break;
 		}
 	}
-
 
 	newParticle->transform_.translate = spawnPos;
 
@@ -240,7 +249,12 @@ void BatteryParticles::ToBatEmit()
 
 	newParticle->transform_.UpdateMatrix();
 	
-	Vector3 direction = Vector3(batsManager_->GetRandomBatPosition() - newParticle->transform_.worldMatrix.GetTranslate()).Normalize();
+	Vector3 direction = { 
+		rnd_.NextFloatRange(-0.5f,0.5f),
+		rnd_.NextFloatRange(0.0f,1.0f),
+		rnd_.NextFloatRange(0.0f, 1.0f) 
+	};
+
 	newParticle->velocity_ = direction * toBatSpeed_;
 
 	newParticle->angularVelocity_ = {
@@ -250,7 +264,7 @@ void BatteryParticles::ToBatEmit()
 	};
 
 	newParticle->scaleSpeed_ = scaleDecay_;
-	newParticle->modelInstance_.GetMaterials().emplace_back(material_);
+	newParticle->modelInstance_.GetMaterials().emplace_back(toBatMaterial_);
 
 	particles_.push_back(std::move(newParticle));
 }
