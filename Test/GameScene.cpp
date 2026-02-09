@@ -86,6 +86,7 @@ void GameScene::OnInitialize() {
 
 #pragma region Trolley
 	trolley_ = Trolley::GetInstance();
+	trolley_->SetIsActive(true);
 	trolley_->SetParent(railAnimationPlayer_->GetTransform());
 	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
@@ -512,5 +513,5 @@ void GameScene::OnUpdate() {
 }
 
 void GameScene::OnFinalize() {
-
+	trolley_->SetIsActive(false);
 }
