@@ -172,7 +172,7 @@ void GameScene::OnInitialize() {
 		t.translate = { 17.0f,1.7f,4.0f };
 		trollyTutorial_->Initialize(t, "TutorialTrolly");
 		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
-		t.translate = { 0.0f,0.0f,0.0f};
+		t.translate = { 210.0f,-1.5f,18.1f };
 		flashlightTutorial_->Initialize(t, "TutorialFlashlight");
 		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
