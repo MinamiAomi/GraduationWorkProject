@@ -30,7 +30,7 @@ Flashlight::Flashlight()
 
 	collider_ = std::make_shared<ConeCollider>(
 		CollisionCategory::FLASHLIGHT,
-		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::PLAYER | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::OBSTACLE),
+		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::PLAYER | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::OBSTACLE | CollisionCategory::TUTORIAL),
 		Vector3::zero,
 		0.0f, 0.0f,
 
