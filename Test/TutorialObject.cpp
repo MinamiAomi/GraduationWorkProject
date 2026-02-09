@@ -37,7 +37,7 @@ void TutorialObject::Initialize(const Transform& transform, const std::string& n
 	model_.SetWorldMatrix(transform_.worldMatrix);
 
 	sprite_.SetTexture(texture);
-
+	sprite_.SetColor(Color::white);
 	sprite_.SetPosition({ 1280.0f * 0.5f, 720.0f * 0.5f });
 	sprite_.SetScale(texture->GetSize());
 	sprite_.SetAnchor({ 0.5f, 0.5f });

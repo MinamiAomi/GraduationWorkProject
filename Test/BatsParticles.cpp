@@ -4,7 +4,6 @@
 #include "Engine/Graphics/RenderManager.h"
 #include "Trolley.h"
 
-
 #ifdef _DEBUG
 
 

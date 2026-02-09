@@ -102,8 +102,8 @@ void GameScene::OnInitialize() {
 	railCameraSystem_ = std::make_unique<RailSystem::RailCameraSystem>();
 	railCameraSystem_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	railCameraSystem_->SetParent(trolley_->GetTransform());
-	trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
 	railCameraSystem_->Initialize();
+	trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
 #pragma endregion
 
 
@@ -264,6 +264,9 @@ void GameScene::OnUpdate() {
 	flashlight_->Update();
 #pragma endregion
 
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
@@ -343,9 +346,20 @@ void GameScene::OnUpdate() {
 	if (ImGui::Button("Reset")) {
 		railAnimationPlayer_->Loop();
 		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
-		trolley_->Initialize();
-		railCameraSystem_->Initialize();
 		deadline_->Initialize();
+
+		trolley_->SetParent(railAnimationPlayer_->GetTransform());
+		trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+		trolley_->SetFlashlight(flashlight_.get());
+		trolley_->Initialize();
+		batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
+
+		railCameraSystem_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+		railCameraSystem_->SetParent(trolley_->GetTransform());
+		railCameraSystem_->Initialize();
+		trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
+
+
 
 		//SceneObjectsリセット
 		sceneObjectManager_->ResetObjects();
@@ -381,33 +395,33 @@ void GameScene::OnUpdate() {
 	ImGui::End();
 
 	//一周終わったかどうか
-	if (railAnimationPlayer_->IsFinished()) {
-		flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
-		trolley_->Initialize();
-		railCameraSystem_->Initialize();
-		deadline_->Initialize();
+	//if (railAnimationPlayer_->IsFinished()) {
+	//	flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
+	//	trolley_->Initialize();
+	//	railCameraSystem_->Initialize();
+	//	deadline_->Initialize();
 
-		//SceneObjectsリセット
-		sceneObjectManager_->ResetObjects();
+	//	//SceneObjectsリセット
+	//	sceneObjectManager_->ResetObjects();
 
-		//Colliderセット
-		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		railAnimationPlayer_->Loop();
-	}
+	//	//Colliderセット
+	//	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	railAnimationPlayer_->Loop();
+	//}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
 	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
@@ -494,14 +508,11 @@ void GameScene::OnUpdate() {
 	}
 	ImGui::End();
 
-	//if (input_->IsKeyTrigger(DIK_SPACE)) {
-	//	SceneManager::GetInstance()->ChangeScene<GameOverScene>();
-	//}
-
-
+	if (input_->IsKeyTrigger(DIK_SPACE)) {
+		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
+	}
 #endif
 
-#ifndef DEBUG
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
@@ -511,7 +522,6 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
-#endif // DEBUG
 }
 
 void GameScene::OnFinalize() {

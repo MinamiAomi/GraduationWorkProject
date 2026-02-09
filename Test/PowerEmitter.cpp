@@ -110,9 +110,8 @@ void PowerEmitter::DebugDraw()
 		}
 	}
 }
+
 #ifdef _DEBUG
-
-
 void PowerEmitter::Debug()
 {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);

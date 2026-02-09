@@ -20,10 +20,12 @@ class BatteryParticles
 {
 public:
 
-    void Initialize(const Transform* transform, BatsManager* batsManager);
-    void Update();
-    void DebugDraw();
-    static void Debug();
+	void Initialize(const Transform* transform, BatsManager* batsManager);
+	void Update();
+	void DebugDraw();
+#ifdef _DEBUG
+	static void Debug();
+#endif // _DEBUG
 
     void SetColor(Vector3 color) {
         material_->albedo = color;
