@@ -3611,7 +3611,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 120.0
+        "hp": 75.0
       }
     },
     {
@@ -3646,8 +3646,8 @@
           44.5186,
           -61.9242
         ],
-        "radius": 2.0,
-        "height": 3.0,
+        "radius": 1.41,
+        "height": 1.0,
         "quaternion": [
           0.0,
           1.0,
@@ -3656,7 +3656,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 300.0
+        "hp": 75.0
       }
     },
     {
@@ -3691,8 +3691,8 @@
           76.3555,
           -60.2919
         ],
-        "radius": 2.0,
-        "height": 3.0,
+        "radius": 1.41,
+        "height": 1.0,
         "quaternion": [
           0.0,
           1.0,
@@ -3701,7 +3701,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 757.0
       }
     },
     {
@@ -3736,8 +3736,8 @@
           63.0756,
           -62.0421
         ],
-        "radius": 2.0,
-        "height": 3.0,
+        "radius": 1.41,
+        "height": 1.0,
         "quaternion": [
           0.0,
           1.0,
@@ -3746,7 +3746,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 757.0
       }
     },
     {
@@ -3781,8 +3781,8 @@
           56.9785,
           -61.2104
         ],
-        "radius": 2.0,
-        "height": 3.0,
+        "radius": 1.41,
+        "height": 1.0,
         "quaternion": [
           0.0,
           1.0,
@@ -3791,7 +3791,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 75.0
       }
     },
     {
@@ -3826,8 +3826,8 @@
           42.8577,
           -61.0953
         ],
-        "radius": 2.0,
-        "height": 3.0,
+        "radius": 1.41,
+        "height": 1.0,
         "quaternion": [
           0.0,
           1.0,
@@ -3836,7 +3836,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 10.0
+        "hp": 75.0
       }
     },
     {
@@ -3871,8 +3871,8 @@
           -15.9845,
           -61.486
         ],
-        "radius": 2.0,
-        "height": 3.0,
+        "radius": 1.41,
+        "height": 1.0,
         "quaternion": [
           0.0,
           1.0,
@@ -3881,7 +3881,7 @@
         ]
       },
       "obstacle_data": {
-        "hp": 300.0
+        "hp": 75.0
       }
     },
     {
@@ -3911,6 +3911,23 @@
         "formation": [
           [
             false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
             true,
             false,
             false,
@@ -3921,9 +3938,11 @@
             false,
             false,
             false,
+            false,
             false
           ],
           [
+            false,
             false,
             false,
             false,
@@ -3974,16 +3993,35 @@
             false,
             false,
             false,
+            false,
             false
           ],
           [
             false,
-            true,
             false,
-            true,
+            false,
+            false,
+            false,
             false
           ],
           [
+            false,
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             false,
             false,
             false,
@@ -4034,16 +4072,35 @@
             false,
             false,
             false,
+            false,
             false
           ],
           [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
             true,
             false,
             false,
-            false,
-            true
+            false
           ],
           [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             false,
             false,
             false,
@@ -4094,9 +4151,19 @@
             false,
             false,
             false,
-            true
+            false,
+            false
           ],
           [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
             false,
             false,
             true,
@@ -4104,7 +4171,16 @@
             false
           ],
           [
-            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
             false,
             false,
             false,
@@ -4120,66 +4196,6 @@
           475.2672,
           -8.1094,
           -61.6883
-        ],
-        "radius": 2.63
-      }
-    },
-    {
-      "name": "EnemySpown.004",
-      "model_name": null,
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          540.736,
-          12.4552,
-          -53.6676
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            true,
-            true,
-            true,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          540.736,
-          12.4552,
-          -53.6676
         ],
         "radius": 2.63
       }
@@ -4584,9 +4600,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          660.1166,
-          56.7877,
-          -52.2558
+          696.1073,
+          67.0528,
+          -50.4144
         ],
         "rotate": [
           0.2241,
@@ -4701,9 +4717,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          660.4224,
-          57.0997,
-          -51.0997
+          696.4131,
+          67.3649,
+          -49.2583
         ],
         "radius": 0.5
       }
@@ -4714,9 +4730,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          528.6898,
-          53.9095,
-          34.5387
+          581.2318,
+          66.9779,
+          34.5377
         ],
         "rotate": [
           0.586,
@@ -4816,9 +4832,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          528.7354,
-          54.1495,
-          34.8104
+          581.2774,
+          67.2179,
+          34.8095
         ],
         "radius": 0.5
       }

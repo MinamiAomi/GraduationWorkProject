@@ -7,7 +7,7 @@
 
 #include "Trolley.h"
 
-const float Bats::batsFarLocate = 20.0f;
+//const float Bats::batsFarLocate = 20.0f;
 
 Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 {
@@ -64,7 +64,7 @@ void Bats::Update()
 		//Vector3 sideOffset = p->transform_.rotate.GetRight() * std::sin(p->sideStepTime_ + phaseOffset) * amplitude;
 
 		p->goalTransform_.UpdateMatrix();
-		p->transform_.translate = Vector3::Lerp(1.0f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate());
+		p->transform_.translate = Vector3::Lerp(0.3f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate());
 		p->transform_.rotate = Quaternion::MakeLookRotation(camera_->GetPosition()- p->transform_.translate);
 
 		p->skeleton_->ApplyAnimation(animation_->Get()->GetAnimation("\u30a2\u30fc\u30de\u30c1\u30e5\u30a2Action"), p->animationTime_);
@@ -76,7 +76,7 @@ void Bats::Update()
 
 		if (p->collider_ && !p->collider_->GetCollidedWith().empty()) {
 
-			float damage = 0.01f;
+			float damage = 0.02f;
 			if (p->isDead_ == false) {
 				p->particles_.SetIsEmit(true);
 			}
