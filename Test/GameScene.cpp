@@ -94,7 +94,7 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider);
 	}
 	batteryParticles_ = std::make_unique<BatteryParticles>();
-	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0),batsManager_.get());
+	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -152,6 +152,24 @@ void GameScene::OnInitialize() {
 	railcameraUI_ = std::make_unique<RailcameraUI>();
 	railcameraUI_->Initialize();
 #pragma endregion
+#pragma region TutorialObject
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+		trollyTutorial_ = std::make_unique<TutorialObject>();
+		flashlightTutorial_ = std::make_unique<TutorialObject>();
+		Transform t;
+		t.translate = { 17.0f,1.7f,4.0f };
+		trollyTutorial_->Initialize(t, "trollyTutorial");
+		t.translate = { 117.0f,2.35f,5.4f };
+		flashlightTutorial_->Initialize(t, "flashlightTutorial");
+		break;
+	case LevelManager::Level::LEVEL2:
+		break;
+	default:
+		break;
+	}
+#pragma endregion
 
 
 #ifdef _DEBUG
@@ -163,7 +181,7 @@ void GameScene::OnInitialize() {
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
-	PowerEmitter::Debug();
+	auto currentLevel = LevelManager::GetInstance()->GetLevel();
 #ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
@@ -173,7 +191,7 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
-	
+
 #endif // _DEBUG
 #pragma region RailSystem
 
@@ -216,8 +234,19 @@ void GameScene::OnUpdate() {
 		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
 	);
 #pragma endregion
-
-
+#pragma region TutorialObject
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+		trollyTutorial_->Update();
+		flashlightTutorial_->Update();
+		break;
+	case LevelManager::Level::LEVEL2:
+		break;
+	default:
+		break;
+	}
+#pragma endregion
 #pragma region SceneObjectSystem
 	sceneObjectManager_->Update();
 #pragma endregion
@@ -225,11 +254,11 @@ void GameScene::OnUpdate() {
 	deadline_->Update(deltaTime);
 #pragma endregion
 
-
 #pragma region CollisionSystem
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
+	PowerEmitter::Debug();
 	batteryParticles_->Debug();
 	batteryParticles_->DebugDraw();
 	ImGui::Begin("RailAnimationPlayer");

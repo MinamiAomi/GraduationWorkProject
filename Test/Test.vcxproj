@@ -51,6 +51,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Trolley.cpp" />
     <ClCompile Include="TrolleyUI.cpp" />
+    <ClCompile Include="TutorialObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationLoader.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Trolley.h" />
     <ClInclude Include="TrolleyUI.h" />
     <ClInclude Include="AnimationUtils.h" />
+    <ClInclude Include="TutorialObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
