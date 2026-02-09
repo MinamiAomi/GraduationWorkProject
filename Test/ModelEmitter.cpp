@@ -17,7 +17,7 @@ void ModelEmitter::Initialize(EmitShape shape)
 	material_ = std::make_shared<Material>();
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
-	material_->albedo = { 1.0f,0.8f,0.0f };
+	material_->albedo = Vector3{ 0.56f,0.94f,1.0f };
 }
 
 void ModelEmitter::Update()
