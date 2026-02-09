@@ -94,7 +94,7 @@ std::array<Vector3, 8> Camera::GetFrustumVector3(float farClip) const
 {
     //View-Projection行列とその逆行列を計算
     Matrix4x4 projectionMatrix = Matrix4x4::MakePerspectiveProjection(projection_.perspective.fovY, projection_.perspective.aspectRaito, nearClip_, farClip);
-    Matrix4x4 viewProjectionMatrix = viewMatrix_ * projectionMatrix;
+    Matrix4x4 viewProjectionMatrix = Matrix4x4::MakeAffineInverse(Matrix4x4::MakeRotation(Quaternion{0.0f,0.0f,0.0f,1.0f}), transform_.translate) * projectionMatrix;
 
     const Matrix4x4 invViewProjMatrix = viewProjectionMatrix.Inverse();
 

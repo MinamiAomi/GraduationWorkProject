@@ -106,7 +106,7 @@ PSOutput main(PSInput input) {
         }
     }
 
-    float32_t3 ambient = material.diffuseReflectance * float32_t3(0.02f, 0.02f, 0.02f); // 少し暗めに調整
+    float32_t3 ambient = material.diffuseReflectance * float32_t3(0.00f, 0.00f, 0.00f); // 少し暗めに調整
 
     float32_t3 color = reflectedLight.directDiffuse + reflectedLight.directSpecular + ambient + material.emissive;
 

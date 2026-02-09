@@ -8,8 +8,8 @@
 
 void TitleScene::OnInitialize() {
 	auto assetManager = AssetManager::GetInstance();
-	const auto& model = assetManager->modelMap.Get("TitleTrolley")->Get();
 	const auto& caveModel = assetManager->modelMap.Get("TitleStage")->Get();
+	const auto& model = assetManager->modelMap.Get("TitleTrolley")->Get();
 
 	trolley_ = std::make_unique<AnimationModel>();
 	trolley_->modelInstance.SetModel(model);
@@ -45,50 +45,134 @@ void TitleScene::OnInitialize() {
 
 	flashlight_ = std::make_unique<Flashlight>();
 	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+
+	trolleyCollider_ = std::make_shared<SphereCollider>(
+		CollisionCategory::DIORAMA,
+		CollisionCategory::FLASHLIGHT,
+		Vector3::zero,
+		0.0f
+	);
+	trolleyCollider_->SetParent(&trolley_->transform);
+	trolleyCollider_->radius = 3.0f;
+	trolleyCollider_->center = Vector3{ -86.7f,1.0f,2.9f };
+
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
+	collisionSystem_->RegisterCollider(trolleyCollider_);
 
 
+	trolleyParticle_ = std::make_unique<ModelEmitter>();
+	trolleyParticle_->Initialize(EmitShape::kSphere);
+	trolleyParticle_->SetParent(&trolley_->transform);
+	trolleyParticle_->SetRadius(3.0f);
+	trolleyParticle_->SetOffset(Vector3{ -86.7f,0.0f,2.9f });
+
+	RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
+	isSceneChange_ = false;
+	shakeTimer = 0.0f;
+	chargeTimer = 0.0f;
+	isRunning = false;
 }
 
 void TitleScene::OnUpdate() {
 	camera_->UpdateMatrices();
 	flashlight_->Update();
 	collisionSystem_->CheckCollisions();
+	trolleyParticle_->Update();
+
+	Vector3 shakeOffset = Vector3::zero; // 振動による位置のズレ
+
+	// 1. 衝突判定（懐中電灯で照らされているか）
+	bool isIlluminated = !trolleyCollider_->GetCollidedWith().empty();
+
+	// 2. チャージと振動、およびパーティクル間隔の計算
+	if (isRunning) {
+		// 走り出している間は最大の振動とパーティクル頻度を維持
+		shakeTimer += 0.8f;
+		float intensity = 0.3f;
+		shakeOffset.x = std::sin(shakeTimer * 1.1f) * intensity;
+		shakeOffset.y = std::cos(shakeTimer * 0.9f) * intensity;
+		shakeOffset.z = std::sin(shakeTimer * 1.5f) * intensity;
+
+		// 走行中はパーティクルを最大頻度(1)で出し続ける
+		trolleyParticle_->emitInterval_ = uint32_t(1.0f);
+	}
+	else if (isIlluminated) {
+		// 照らされている間、チャージを蓄積
+		chargeTimer = std::min(chargeTimer + 0.008f, 1.0f);
+		shakeTimer += 0.6f;
+
+		// パーティクル間隔を 10.0f から 1.0f へ近づける (線形補間)
+		trolleyParticle_->emitInterval_ = uint32_t(10.0f + (1.0f - 10.0f) * chargeTimer);
+
+		// チャージ量に応じて震えを大きくする (最大 0.3m)
+		float intensity = chargeTimer * 0.3f;
+		shakeOffset.x = std::sin(shakeTimer * 1.1f) * intensity;
+		shakeOffset.y = std::cos(shakeTimer * 0.9f) * intensity;
+		shakeOffset.z = std::sin(shakeTimer * 1.5f) * intensity;
+
+		if (chargeTimer >= 1.0f) {
+			isRunning = true;
+		}
+	}
+	else {
+		// 照らしていない、かつ走り出していないならリセット
+		chargeTimer = std::max(chargeTimer - 0.005f, 0.0f);
+		shakeTimer = std::lerp(shakeTimer, 0.0f, 0.1f);
+		shakeOffset = Vector3::Lerp(0.1f, shakeOffset, Vector3::zero);
+
+		// 照らしていない時は間隔を戻す
+		trolleyParticle_->emitInterval_ = uint32_t(20.0f);
+	}
+
 	RenderManager::GetInstance()->SetCamera(camera_);
 
-  //  deviceOptionsUI_->Update();
-
+	// --- トロッコ（Trolley）のアニメーション更新 ---
 	const AnimationSet& anime = trolley_->animation->Get()->GetAnimation("\u5186\u67f1.002Action");
 	auto it = anime.nodeAnimations.find("TitleTrollory");
 
-	trolley_->animationTime += 0.016f / anime.duration;
-	if (trolley_->animationTime >= 1.0f) {
+	if (isRunning) {
+		trolley_->animationTime += 0.016f / anime.duration;
+
+		// ★アニメーションが終了（1.0以上）した時の処理
+		if (trolley_->animationTime >= 1.0f) {
+			trolley_->animationTime = 1.0f; // 1.0fに固定
+
+			// ★シーン遷移の実行
+			if (!isSceneChange_) {
+				isSceneChange_ = true;
+				SceneManager::GetInstance()->ChangeScene<StageSelectScene>(true);
+			}
+		}
+	}
+	else {
+		// 走っていないときは 0 フレーム目で固定
 		trolley_->animationTime = 0.0f;
 	}
 
 	if (it != anime.nodeAnimations.end()) {
 		const NodeAnimation& nodeAnim = it->second;
-
 		trolley_->transform.translate = CalculateValue(nodeAnim.translate, trolley_->animationTime);
 		trolley_->transform.rotate = CalculateValue(nodeAnim.rotate, trolley_->animationTime);
 		trolley_->transform.scale = CalculateValue(nodeAnim.scale, trolley_->animationTime);
 	}
 
+	// アニメーション位置に震え（オフセット）を加算
+	trolley_->transform.translate = trolley_->transform.translate + shakeOffset;
+
 	trolley_->transform.UpdateMatrix();
 	trolley_->modelInstance.SetWorldMatrix(trolley_->transform.worldMatrix);
 
-
+	// --- 背景（Cave）のアニメーション更新 ---
 	const AnimationSet& caveAnime = cave_->animation->Get()->GetAnimation("CaveAction");
-	it = caveAnime.nodeAnimations.find("Cave");
+	auto caveIt = caveAnime.nodeAnimations.find("Cave");
 
 	cave_->animationTime += 0.016f / caveAnime.duration;
 	if (cave_->animationTime >= 1.0f) {
 		cave_->animationTime = 0.0f;
 	}
 
-	if (it != caveAnime.nodeAnimations.end()) {
-		const NodeAnimation& nodeAnim = it->second;
-
+	if (caveIt != caveAnime.nodeAnimations.end()) {
+		const NodeAnimation& nodeAnim = caveIt->second;
 		cave_->transform.translate = CalculateValue(nodeAnim.translate, cave_->animationTime);
 		cave_->transform.rotate = CalculateValue(nodeAnim.rotate, cave_->animationTime);
 		cave_->transform.scale = CalculateValue(nodeAnim.scale, cave_->animationTime);
@@ -97,13 +181,12 @@ void TitleScene::OnUpdate() {
 	cave_->transform.UpdateMatrix();
 	cave_->modelInstance.SetWorldMatrix(cave_->transform.worldMatrix);
 
-	Input* input = Input::GetInstance();
-	if (input->IsKeyTrigger(DIK_SPACE)) {
-		// ゲームスタート
-		SceneManager::GetInstance()->ChangeScene<StageSelectScene>(true);
-	}
+	// --- デバッグ用などのシーン遷移（必要なければ削除可） ---
+	// Input* input = Input::GetInstance();
+	// if (input->IsKeyTrigger(DIK_SPACE)) {
+	// 	SceneManager::GetInstance()->ChangeScene<StageSelectScene>(true);
+	// }
 }
-
 void TitleScene::OnFinalize() {
 
 }

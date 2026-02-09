@@ -12,6 +12,7 @@
 #include "Engine/Graphics/Animation.h"
 #include "CollisionSystem.h"
 #include "Flashlight.h"
+#include "ModelEmitter.h"
 
 
 class TitleScene :
@@ -47,5 +48,11 @@ private:
 	std::unique_ptr<AnimationModel> cave_;
 	std::unique_ptr<Flashlight> flashlight_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
-	std::shared_ptr<Collider> trolleyCollider_;
+	std::shared_ptr<SphereCollider> trolleyCollider_;
+
+	std::unique_ptr<ModelEmitter> trolleyParticle_;
+	bool isSceneChange_ = false;
+	float shakeTimer = 0.0f;
+	float chargeTimer = 0.0f;
+	bool isRunning = false;
 };
