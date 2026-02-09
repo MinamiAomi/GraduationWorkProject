@@ -242,9 +242,6 @@ void GameScene::OnUpdate() {
 
 
 #pragma endregion
-#pragma region Flashlight
-	flashlight_->Update();
-#pragma endregion
 
 #pragma region RailCameraSystem
 	railCameraSystem_->Update(deltaTime);
@@ -263,6 +260,9 @@ void GameScene::OnUpdate() {
 	batteryParticles_->Update();
 #pragma endregion
 
+#pragma region Flashlight
+	flashlight_->Update();
+#pragma endregion
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
@@ -340,9 +340,20 @@ void GameScene::OnUpdate() {
 	if (ImGui::Button("Reset")) {
 		railAnimationPlayer_->Loop();
 		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
-		trolley_->Initialize();
-		railCameraSystem_->Initialize();
 		deadline_->Initialize();
+
+		trolley_->SetParent(railAnimationPlayer_->GetTransform());
+		trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+		trolley_->SetFlashlight(flashlight_.get());
+		trolley_->Initialize();
+		batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
+
+		railCameraSystem_->SetRailAnimationPlayer(railAnimationPlayer_.get());
+		railCameraSystem_->SetParent(trolley_->GetTransform());
+		railCameraSystem_->Initialize();
+		trolley_->SetBatteyParent(railCameraSystem_->GetTransform());
+
+
 
 		//SceneObjectsリセット
 		sceneObjectManager_->ResetObjects();

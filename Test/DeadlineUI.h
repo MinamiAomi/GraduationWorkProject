@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphics/Model.h"
+#include "Graphics/Sprite.h"
 
 #include "Math/Transform.h"
 
@@ -17,4 +18,8 @@ private:
 	ModelInstance  monster_;
 	Transform  monsterTransform_;
 	float monsterRotateTimer_;
+
+	Sprite warning_;
+	int count_ = 0;
+
 };
