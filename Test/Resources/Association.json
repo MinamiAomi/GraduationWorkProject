@@ -93,6 +93,9 @@
 
     "Warning": "OODAMA/warning.png",
     
+    "Level1StartUI": "InGameUI/level1Title.png",
+    "Level2StartUI": "InGameUI/level2Title.png",
+    
     "white2x2":"white2x2.png"
   },
   "Animation" : {

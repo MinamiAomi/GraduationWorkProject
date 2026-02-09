@@ -82,6 +82,7 @@ private:
 	std::unique_ptr<TutorialObject> flashlightTutorial_;
 
 	Sprite inGameUI_;
+	int inGameUICount_;
 
 	bool isPlay_ = true;
 

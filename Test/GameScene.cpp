@@ -31,19 +31,20 @@ void GameScene::OnInitialize() {
 
 
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
-	std::string railcameraJson, staticMeshJson, stageName;
+	std::string railcameraJson, staticMeshJson, stageName, inGameUI;
 	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
 		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
-
+		inGameUI = "Level1StartUI";
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
 		stageName = "Stage2";
+		inGameUI = "Level2StartUI";
 		break;
 	default:
 		break;
@@ -175,6 +176,21 @@ void GameScene::OnInitialize() {
 		break;
 	}
 #pragma endregion
+#pragma region InGameUI
+	auto assetManager = AssetManager::GetInstance();
+
+	auto texture = assetManager->textureMap.Get(inGameUI)->Get();
+
+	inGameUI_.SetTexture(texture);
+	inGameUI_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
+	//inGameUI_.SetAnchor({ 0.5f,0.5f });
+	inGameUI_.SetScale({ texture->GetSize() });
+	inGameUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
+	inGameUI_.SetDrawOrder(4);
+	inGameUI_.SetIsActive(true);
+
+	inGameUICount_ = 180;
+#pragma endregion
 
 
 #ifdef _DEBUG
@@ -195,6 +211,16 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
+	if (inGameUICount_ <= 0 && inGameUI_.GetIsActive()) {
+		inGameUI_.SetIsActive(false);
+	}
+	else if (inGameUI_.GetIsActive()) {
+		float t = float(inGameUICount_) / float(180);
+		t = t * t * t * t * t;
+		inGameUI_.SetColor(Color(1.0f, 1.0f, 1.0f, t));
+		inGameUICount_--;
+	}
+
 #pragma region TutorialObject
 
 	switch (currentLevel)
