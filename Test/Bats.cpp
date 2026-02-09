@@ -59,12 +59,12 @@ void Bats::Update()
 		auto p = *it; 
 		p->sideStepTime_ += 0.05f;
 
-		float amplitude = 0.5f;
-		float phaseOffset = (p->sideStepTime_ > 0.5f) ? 3.14159f : 0.0f;
-		Vector3 sideOffset = p->transform_.rotate.GetRight() * std::sin(p->sideStepTime_ + phaseOffset) * amplitude;
+		//float amplitude = 0.5f;
+		//float phaseOffset = (p->sideStepTime_ > 0.5f) ? 3.14159f : 0.0f;
+		//Vector3 sideOffset = p->transform_.rotate.GetRight() * std::sin(p->sideStepTime_ + phaseOffset) * amplitude;
 
 		p->goalTransform_.UpdateMatrix();
-		p->transform_.translate = Vector3::Lerp(0.05f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate() + sideOffset);
+		p->transform_.translate = Vector3::Lerp(1.0f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate());
 		p->transform_.rotate = Quaternion::MakeLookRotation(camera_->GetPosition()- p->transform_.translate);
 
 		p->skeleton_->ApplyAnimation(animation_->Get()->GetAnimation("\u30a2\u30fc\u30de\u30c1\u30e5\u30a2Action"), p->animationTime_);
@@ -185,7 +185,7 @@ void Bats::Emit(const Vector3& goalPos)
 		Vector3::zero,
 		model_->GetRadius());
 
-	newBat->goalTransform_.SetParent(&camera_->GetTransform());
+	newBat->goalTransform_.SetParent(&camera_->GetTransform(),false);
 	newBat->collider_->SetParent(&newBat->transform_);
 
 	newBat->goalTransform_.translate = goalPos - camera_->GetTransform().worldMatrix.GetTranslate();

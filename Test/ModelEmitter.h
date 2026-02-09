@@ -27,7 +27,7 @@ public:
 
 	void SetOffset(const Vector3& offset) { transform_.translate = offset; }
 	void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
-	void SetParent(Transform* parent) { transform_.SetParent(parent); }
+	void SetParent(Transform* parent) { transform_.SetParent(parent,false); }
 public:
 	std::shared_ptr<Material> material_;
 	float minSpeed_ = 0.05f;
