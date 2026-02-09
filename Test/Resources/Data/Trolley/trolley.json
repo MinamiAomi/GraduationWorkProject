@@ -33,7 +33,7 @@
         "batteryAfterNitro_": 80.0,
         "burstDuration_": 3.0,
         "burstSpeed_": 0.30000001192092896,
-        "burstThreshold_": 120.0,
+        "burstThreshold_": 125.0,
         "decelerationRate_": 0.10000000149011612,
         "maxNormalCharge_": 100.0,
         "maxSpeed_": 0.8999999761581421,
