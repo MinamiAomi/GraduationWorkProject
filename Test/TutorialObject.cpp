@@ -23,8 +23,9 @@ void TutorialObject::Initialize(const Transform& transform, const std::string& n
 
 	collider_->center = transform_.translate;
 	collider_->radius = 1.0f;
-
+#ifdef _DEBUG
 	name_ = name;
+#endif // _DEBUG
 
 	auto assetManager = AssetManager::GetInstance();
 

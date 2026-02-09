@@ -11,14 +11,14 @@
 #include "Graphics/Model.h"
 #include "ParticleDefine.h"
 
-
 class BatsParticles
 {
 public:
 
 	bool static isDebug;
-
+#ifdef _DEBUG
 	static void Debug();
+#endif // _DEBUG
 
 	void Initialize(float radius);
 	void Update();
@@ -39,6 +39,7 @@ public:
 	void SetParent(Transform* parent) { transform_.SetParent(parent); }
 public:
 	std::shared_ptr<Material> material_;
+	std::shared_ptr<Material> absorptionMaterial_;
 	inline static float minSpeed_ = 0.002f;
 	inline static float maxSpeed_ = 0.003f;
 	inline static Vector3 minAngularVelocity_ = { -0.05f, -0.05f, -0.05f };
@@ -50,10 +51,13 @@ public:
 	inline static int emitInterval_ = 20;
 	inline static float minScale_ = 0.1f;
 	inline static float maxScale_ = 0.5f;
+	inline static Vector3 color_ = Vector3{ 0.46f,0.94f,1.0f };
+	inline static Vector3 goalColor_ = Vector3{ 0.75f,0.2f,0.75f };
 
 	float scaleDecay_;
 private:
 	void Emit();
+	void AbsorptionEmit();
 private:
 	struct Particle {
 		ModelInstance modelInstance_;
@@ -71,7 +75,9 @@ private:
 	Random::RandomNumberGenerator rnd_;
 	EmitShape emitShapeType_; 
 	int emitTimer_ = 0;
-	
+public:
+	bool isDead_ = false;
+
 
 	//OOBB
 	Vector3 size_;

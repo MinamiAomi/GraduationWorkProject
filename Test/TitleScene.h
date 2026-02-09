@@ -8,15 +8,21 @@
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
 #include "DeviceOptionsUI.h"
-#include "ModelEmitter.h"
 #include "Bats.h"
+#include "Engine/Graphics/Animation.h"
 
 
 class TitleScene :
 	public BaseScene {
 public:
 
-	static const uint32_t stoneNum = 15;
+	struct AnimationModel {
+		ModelInstance modelInstance;
+		std::shared_ptr<Skeleton> skeleton;
+		Transform transform;
+		std::shared_ptr<AnimationAsset> animation;
+		float animationTime;
+	};
 
 	/// <summary>
 	/// 初期化
@@ -34,13 +40,7 @@ public:
 private:
 	Input* input_;
 	std::shared_ptr<DebugCamera> camera_;
-	std::unique_ptr<ModelInstance> stoneModels_[stoneNum];
-	std::unique_ptr<Transform> stoneTransforms_[stoneNum];
-	Vector3 stonePositions_[stoneNum];
-
-	//std::unique_ptr<ModelEmitter> modelEmitter_;
-	Vector3 testPos_;
-	Quaternion testQuatenion_;
     std::unique_ptr<DeviceOptionsUI> deviceOptionsUI_;
-	std::unique_ptr<Bats> bats_;
+	std::unique_ptr<AnimationModel> trolley_;
+	std::unique_ptr<AnimationModel> cave_;
 };
