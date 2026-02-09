@@ -85,8 +85,8 @@
     "StageSelect": "StageSelect/stageSelect.png",
 
     
-    "TutorialTrolly": "Tutorial/flash_light.png",
-    "TutorialFlashlight": "Tutorial/trolly.png",
+    "TutorialTrolly": "Tutorial/trolly.png",
+    "TutorialFlashlight": "Tutorial/flash_light.png",
     
     "white2x2":"white2x2.png"
   },

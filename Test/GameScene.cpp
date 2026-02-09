@@ -378,33 +378,33 @@ void GameScene::OnUpdate() {
 	ImGui::End();
 
 	//一周終わったかどうか
-	if (railAnimationPlayer_->IsFinished()) {
-		flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
-		trolley_->Initialize();
-		railCameraSystem_->Initialize();
-		deadline_->Initialize();
+	//if (railAnimationPlayer_->IsFinished()) {
+	//	flashlight_->Initialize(&railCameraSystem_->GetTransform(), camera_.get());
+	//	trolley_->Initialize();
+	//	railCameraSystem_->Initialize();
+	//	deadline_->Initialize();
 
-		//SceneObjectsリセット
-		sceneObjectManager_->ResetObjects();
+	//	//SceneObjectsリセット
+	//	sceneObjectManager_->ResetObjects();
 
-		//Colliderセット
-		for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
-			collisionSystem_->RegisterCollider(collider->collider);
-		}
-		railAnimationPlayer_->Loop();
-	}
+	//	//Colliderセット
+	//	for (const auto& collider : sceneObjectManager_->GetPointLightObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetEnemySpawnObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetGimmickTriggerObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetGimmickPointLightObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	for (const auto& collider : sceneObjectManager_->GetObstacleObjects()) {
+	//		collisionSystem_->RegisterCollider(collider->collider);
+	//	}
+	//	railAnimationPlayer_->Loop();
+	//}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
 	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
@@ -498,7 +498,6 @@ void GameScene::OnUpdate() {
 
 #endif
 
-#ifndef DEBUG
 	//ゲームオーバー
 	if (deadline_->IsGameOver()) {
 		SceneManager::GetInstance()->ChangeScene<GameOverScene>();
@@ -508,7 +507,6 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		SceneManager::GetInstance()->ChangeScene<GameClearScene>();
 	}
-#endif // DEBUG
 }
 
 void GameScene::OnFinalize() {
