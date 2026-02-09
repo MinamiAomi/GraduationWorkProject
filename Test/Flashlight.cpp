@@ -17,20 +17,20 @@ Flashlight::Flashlight()
 	auto assetManager = AssetManager::GetInstance();
 	lightModel_.SetModel(assetManager->modelMap.Get("flashlight")->Get());
 
-    spotLight_ = std::make_shared<SpotLight>();
-    spotLight_->position = transform_.worldMatrix.GetTranslate();
-    spotLight_->direction = transform_.worldMatrix.GetForward();
-    spotLight_->color = Color::white;
-    spotLight_->intensity = 2.5f;
-    spotLight_->range = lightRange_ + 100.0f;
-    spotLight_->angle = fovAngle_ * 0.5f;
-    spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
-    spotLight_->decay = 1.0f;
-    RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
+	spotLight_ = std::make_shared<SpotLight>();
+	spotLight_->position = transform_.worldMatrix.GetTranslate();
+	spotLight_->direction = transform_.worldMatrix.GetForward();
+	spotLight_->color = Color::white;
+	spotLight_->intensity = 2.5f;
+	spotLight_->range = lightRange_ + 100.0f;
+	spotLight_->angle = fovAngle_ * 0.5f;
+	spotLight_->falloffStartAngle = fovAngle_ * 0.45f;
+	spotLight_->decay = 1.0f;
+	RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
 
 	collider_ = std::make_shared<ConeCollider>(
 		CollisionCategory::FLASHLIGHT,
-		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::PLAYER | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::OBSTACLE | CollisionCategory::TUTORIAL),
+		(CollisionCategory::LIGHT | CollisionCategory::ENEMY | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::PLAYER | CollisionCategory::GIMMICKPOINTLIGHT | CollisionCategory::OBSTACLE | CollisionCategory::DIORAMA | CollisionCategory::TUTORIAL),
 		Vector3::zero,
 		0.0f, 0.0f,
 
@@ -95,11 +95,11 @@ void Flashlight::Update()
 
 	UpdateCollision();
 
-    spotLight_->position = transform_.worldMatrix.GetTranslate();
-    spotLight_->direction = transform_.worldMatrix.GetForward();
-    spotLight_->range = lightRange_ + 100.0f;
-    spotLight_->angle = fovAngle_ * 0.5f;
-    spotLight_->isActive = isLighting_;
+	spotLight_->position = transform_.worldMatrix.GetTranslate();
+	spotLight_->direction = transform_.worldMatrix.GetForward();
+	spotLight_->range = lightRange_ + 100.0f;
+	spotLight_->angle = fovAngle_ * 0.5f;
+	spotLight_->isActive = isLighting_;
 
 	flashlightUI_.Update();
 #ifdef _DEBUG
