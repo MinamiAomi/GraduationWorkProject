@@ -68,6 +68,9 @@ void TitleScene::OnInitialize() {
 
 	RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
 	isSceneChange_ = false;
+	shakeTimer = 0.0f;
+	chargeTimer = 0.0f;
+	isRunning = false;
 }
 
 void TitleScene::OnUpdate() {
@@ -75,11 +78,6 @@ void TitleScene::OnUpdate() {
 	flashlight_->Update();
 	collisionSystem_->CheckCollisions();
 	trolleyParticle_->Update();
-
-	// --- 振動・チャージ制御用のスタティック変数 ---
-	static float shakeTimer = 0.0f;    // 振動の周期用タイマー
-	static float chargeTimer = 0.0f;   // 0.0(静止) ～ 1.0(発進)
-	static bool isRunning = false;     // 走り出したかどうかのフラグ
 
 	Vector3 shakeOffset = Vector3::zero; // 振動による位置のズレ
 

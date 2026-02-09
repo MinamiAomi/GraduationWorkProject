@@ -52,4 +52,7 @@ private:
 
 	std::unique_ptr<ModelEmitter> trolleyParticle_;
 	bool isSceneChange_ = false;
+	float shakeTimer = 0.0f;
+	float chargeTimer = 0.0f;
+	bool isRunning = false;
 };
