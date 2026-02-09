@@ -19,7 +19,10 @@ enum class CollisionCategory : uint32_t {
 	GIMMICKTRIGGER = 1 << 4,
 	GIMMICKMOVER = 1 << 5,
 	GIMMICKPOINTLIGHT = 1 << 6,
-	OBSTACLE= 1 << 7,
+	OBSTACLE = 1 << 7,
+	DIORAMA = 1 << 8,
+	TUTORIAL = 1 << 9,
+
 
 	ALL = ~0u
 };

@@ -94,6 +94,7 @@ void GameScene::OnInitialize() {
 		collisionSystem_->RegisterCollider(collider);
 	}
 	batteryParticles_ = std::make_unique<BatteryParticles>();
+	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 #pragma endregion
 
 #pragma region RailCameraSystem
@@ -159,6 +160,28 @@ void GameScene::OnInitialize() {
 	railcameraUI_ = std::make_unique<RailcameraUI>();
 	railcameraUI_->Initialize();
 #pragma endregion
+#pragma region TutorialObject
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+	{
+		trollyTutorial_ = std::make_unique<TutorialObject>();
+		flashlightTutorial_ = std::make_unique<TutorialObject>();
+		Transform t;
+		t.translate = { 17.0f,1.7f,4.0f };
+		trollyTutorial_->Initialize(t, "TutorialTrolly");
+		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
+		t.translate = { 176.0f,2.35f,5.4f };
+		flashlightTutorial_->Initialize(t, "TutorialFlashlight");
+		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
+	}
+	break;
+	case LevelManager::Level::LEVEL2:
+		break;
+	default:
+		break;
+	}
+#pragma endregion
 
 
 #ifdef _DEBUG
@@ -170,7 +193,7 @@ void GameScene::OnInitialize() {
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
-	PowerEmitter::Debug();
+	auto currentLevel = LevelManager::GetInstance()->GetLevel();
 #ifdef _DEBUG
 	if (deadline_->IsGameOver()) {
 		return;
@@ -180,8 +203,35 @@ void GameScene::OnUpdate() {
 	if (railAnimationPlayer_->IsFinished()) {
 		return;
 	}
-	
+
 #endif // _DEBUG
+
+#pragma region TutorialObject
+
+	switch (currentLevel)
+	{
+	case LevelManager::Level::LEVEL1:
+		trollyTutorial_->Update();
+		flashlightTutorial_->Update();
+		if (trollyTutorial_->GetIsActive() || flashlightTutorial_->GetIsActive()) {
+			railAnimationPlayer_->Pause();
+			flashlight_->Pause();
+			trolley_->Pause();
+ 			isPlay_ = false;
+		}
+		else if(!isPlay_) {
+			flashlight_->Play();
+			trolley_->Play();
+			railAnimationPlayer_->Play();
+			isPlay_ = true;
+		}
+		break;
+	case LevelManager::Level::LEVEL2:
+		break;
+	default:
+		break;
+	}
+#pragma endregion
 #pragma region RailSystem
 
 	//現在のスピードを代入
@@ -233,11 +283,11 @@ void GameScene::OnUpdate() {
 	deadline_->Update(deltaTime);
 #pragma endregion
 
-
 #pragma region CollisionSystem
 	collisionSystem_->CheckCollisions();
 #pragma endregion
 #ifdef _DEBUG
+	PowerEmitter::Debug();
 	batteryParticles_->Debug();
 	batteryParticles_->DebugDraw();
 	ImGui::Begin("RailAnimationPlayer");
@@ -367,7 +417,6 @@ void GameScene::OnUpdate() {
 	if (ImGui::Button("ホットリロード（光物）")) {
 		sceneObjectManager_->Initialize();
 
-		auto currentLevel = LevelManager::GetInstance()->GetLevel();
 		std::string railcameraJson, staticMeshJson, stageName;
 		switch (currentLevel)
 		{

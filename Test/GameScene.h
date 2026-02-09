@@ -22,6 +22,8 @@
 #include "Trolley.h"
 #include "Deadline.h"
 #include "BatsManager.h"
+#include "TutorialObject.h"
+
 
 #include "RailcameraUI.h"
 
@@ -75,6 +77,11 @@ private:
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::unique_ptr<BatsManager> batsManager_;
 	std::unique_ptr<RailcameraUI> railcameraUI_;
+
+	std::unique_ptr<TutorialObject> trollyTutorial_;
+	std::unique_ptr<TutorialObject> flashlightTutorial_;
+
+	bool isPlay_ = true;
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;

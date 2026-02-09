@@ -159,6 +159,9 @@ void BatteryParticles::DebugDraw()
 
 }
 
+#ifdef _DEBUG
+
+
 void BatteryParticles::Debug()
 {
     ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
@@ -215,6 +218,7 @@ void BatteryParticles::Debug()
     }
     ImGui::End();
 }
+#endif // _DEBUG
 
 void BatteryParticles::Emit()
 {

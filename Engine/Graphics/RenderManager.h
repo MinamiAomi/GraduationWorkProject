@@ -57,6 +57,7 @@ public:
     LineDrawer& GetLineDrawer() { return lineDrawer_; }
     LightingRenderingPass& GetLightingRenderingPass() { return lightingRenderingPass_; }
     PostEffect& GetPostEffect() { return postEffect_; }
+    FogPostEffect& GetFogPostEffect() { return fogPostEffect_; }
     LightManager& GetLightManager() { return lightManager_; }
     Sky& GetSky() { return sky_; }
 

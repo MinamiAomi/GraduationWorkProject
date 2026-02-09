@@ -79,6 +79,12 @@
     <Filter Include="Game\LevelManager">
       <UniqueIdentifier>{79e18be2-fe02-435b-9d9b-29348f0b91da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Diorama">
+      <UniqueIdentifier>{15fac920-4ffd-445f-a0da-99c5883d2dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Tutorial">
+      <UniqueIdentifier>{23166b77-e772-49e9-926f-a7785f8a36ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -165,7 +171,6 @@
     </ClCompile>
     <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="AnimationLoader.cpp" />
-    <ClCompile Include="BatsManager.cpp" />
     <ClCompile Include="BatsParticles.cpp">
       <Filter>Game\Particle</Filter>
     </ClCompile>
@@ -176,6 +181,15 @@
       <Filter>Game\Particle</Filter>
     </ClCompile>
     <ClCompile Include="RailcameraUI.cpp" />
+    <ClCompile Include="Diorama.cpp">
+      <Filter>Game\Diorama</Filter>
+    </ClCompile>
+    <ClCompile Include="BatsManager.cpp">
+      <Filter>Game\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialObject.cpp">
+      <Filter>Game\Tutorial</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -304,6 +318,12 @@
     </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Game\LevelManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Diorama.h">
+      <Filter>Game\Diorama</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialObject.h">
+      <Filter>Game\Tutorial</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

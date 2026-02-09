@@ -162,9 +162,7 @@ void Trolley::Update(float deltaTime)
 
 void Trolley::UpdateState(float deltaTime)
 {
-#ifdef _DEBUG
-    if (!isDebugTrollySpeed_) {
-#endif // _DEBUG
+    if (!isPause_) {
         if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
 
             if (isHitFlashlight_) {
@@ -282,9 +280,7 @@ void Trolley::UpdateState(float deltaTime)
         default:
             break;
         }
-#ifdef _DEBUG
     }
-#endif // _DEBUG
 }
 
 void Trolley::UpdateBanking(float deltaTime)
@@ -524,7 +520,7 @@ void Trolley::DrawImGui() {
     // --- デバッグ用スイッチ ---
     ImGui::Separator();
     // 変数名そのままだとプランナーが触りづらいので機能名にする
-    ImGui::Checkbox("デバッグ：自然減速を停止", &isDebugTrollySpeed_);
+    ImGui::Checkbox("デバッグ：自然減速を停止", &isPause_);
 
     ImGui::End();
 

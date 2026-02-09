@@ -52,9 +52,7 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 
 
 
-#ifdef _DEBUG
 	if (isPlaying_) {
-#endif // _DEBUG
 		//デルタタイムをフレームの進みに変換
 		float frameIncrement = deltaTime * animationData_->railMetaData_.frameRate * playbackSpeed_;
 		currentFrame_ += frameIncrement;
@@ -77,7 +75,6 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 			realSpeed_ = 0.0f;
 		}
 		preCameraPosition_ = railTransform_.worldMatrix.GetTranslate();
-#ifdef _DEBUG
 	}
 	else {
 		auto result = AnimationUtils::CalculateCurrentTransform(
@@ -91,7 +88,6 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 		convertRailTransform_ = result.second;
 
 	}
-#endif // _DEBUG
 
 #ifdef _DEBUG
 	//DrawImGui();

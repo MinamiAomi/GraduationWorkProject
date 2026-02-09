@@ -83,6 +83,9 @@ public:
 	void SetState(const State& state);
 
 	const float GetBatteryRadius()const { return batteryRadius_; }
+
+	void Pause() { isPause_ = true; }
+	void Play() { isPause_ = false; }
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);
@@ -211,8 +214,6 @@ private:
     AudioSource chargeSESource_;
 #pragma endregion
 
-#ifdef _DEBUG
-	bool isDebugTrollySpeed_ = false;
-#endif // _DEBUG
+	bool isPause_ = false;
 #pragma endregion
 };

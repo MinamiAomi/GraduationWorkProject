@@ -16,8 +16,9 @@ class BatsParticles
 public:
 
 	bool static isDebug;
-
+#ifdef _DEBUG
 	static void Debug();
+#endif // _DEBUG
 
 	void Initialize(float radius);
 	void Update();

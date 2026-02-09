@@ -110,6 +110,8 @@ void PowerEmitter::DebugDraw()
 		}
 	}
 }
+#ifdef _DEBUG
+
 
 void PowerEmitter::Debug()
 {
@@ -163,6 +165,7 @@ void PowerEmitter::Debug()
 	}
 	ImGui::End();
 }
+#endif // _DEBUG
 
 void PowerEmitter::Emit()
 {
