@@ -712,3 +712,29 @@ void Trolley::SetIsActive(bool isActive) {
     model_.SetIsActive(isActive);
     trolleyUI_.SetIsActive(isActive);
 }
+
+void Trolley::Finalize() {
+	if (normalSESource_.IsPlaying()) {
+		normalSESource_.Stop();
+    }
+	if (nitroSESource_.IsPlaying()) {
+		nitroSESource_.Stop();
+    }
+	if (burstSESource_.IsPlaying()) {
+		burstSESource_.Stop();
+    }
+	if (crashSESource_.IsPlaying()) {
+		crashSESource_.Stop();
+    }
+	for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
+		if (nitroBoostSESources_[i].IsPlaying()) {
+			nitroBoostSESources_[i].Stop();
+		}
+    }
+    if (nitroFizzSESource_.IsPlaying()) {	
+		nitroFizzSESource_.Stop();
+    }
+    if (chargeSESource_.IsPlaying()) {
+		chargeSESource_.Stop();
+    }
+}

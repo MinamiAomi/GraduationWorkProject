@@ -81,6 +81,8 @@ private:
 	std::unique_ptr<TutorialObject> trollyTutorial_;
 	std::unique_ptr<TutorialObject> flashlightTutorial_;
 
+	std::unique_ptr<AudioSource> bgmAudioSource_;
+
 	bool isPlay_ = true;
 
 #ifdef _DEBUG

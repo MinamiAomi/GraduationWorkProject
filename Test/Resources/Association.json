@@ -53,7 +53,9 @@
     "Box": "Box.gltf",
     "Bullet": "bullet.gltf",
     "TitleTrolley":"TitleTrolley/TitileTrolley.gltf",
-    "TitleStage":"TitleStage/TitleStage.gltf"
+    "TitleStage":"TitleStage/TitleStage.gltf",
+
+    "Triangle" : "triangle.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -83,7 +85,8 @@
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
-
+    "GameClear": "gameClear.png",
+    "GameOver": "gameOver.png",
     
     "TutorialTrolly": "Tutorial/trolly.png",
     "TutorialFlashlight": "Tutorial/flash_light.png",
@@ -127,18 +130,9 @@
 
     "SE_BOMB_GHOST_DEATH" : "Sound/se_BombGhostDeath.mp3",
     "SE_BOMB_GHOST_SPAWN" : "Sound/se_BombGhostSpawn.mp3",
-
+    
     "BGM_TITLE" : "Sound/bgm_title.mp3",
-    "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",
-    "BGM_TITLE_IMPATIENCE" : "Sound/bgm_title_impatience.mp3",
-
-    "BGM_INGAME_ALMOST_CLEAR" : "Sound/bgm_ingame_almost_clear.mp3",
-    "BGM_INGAME_ESCAPE1" : "Sound/bgm_ingame_escape1.mp3",
-    "BGM_INGAME_ESCAPE2" : "Sound/bgm_ingame_escape2.mp3",
-    "BGM_INGAME_ESCAPE3" : "Sound/bgm_ingame_escape3.mp3",
-    "BGM_INGAME_SAFETY" : "Sound/bgm_ingame_safety.mp3",
-
-    "BGM_INGAME2_ESCAPE1" : "Sound/bgm_ingame2_escape1.mp3",
-    "BGM_INGAME2_ESCAPE2" : "Sound/bgm_ingame2_escape2.mp3"
+    "BGM_INGAME1" : "Sound/bgm_ingame_level1.mp3",
+    "BGM_INGAME2" : "Sound/bgm_ingame_level2.mp3"
   }
 }

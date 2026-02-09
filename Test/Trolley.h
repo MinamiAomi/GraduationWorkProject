@@ -39,6 +39,7 @@ public:
 
 	void Initialize();
 	void Update(float deltaTime);
+	void Finalize();
 
 	void SetParent(const Transform& transform) {
 		transform_.SetParent(&transform);

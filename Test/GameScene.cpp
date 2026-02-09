@@ -27,6 +27,8 @@ void GameScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
 
+	bgmAudioSource_ = std::make_unique<AudioSource>();
+
 	camera_ = std::make_shared<Camera>();
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
 	std::string railcameraJson, staticMeshJson, stageName;
@@ -36,15 +38,21 @@ void GameScene::OnInitialize() {
 		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
+        (*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME1")->Get();
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
+        (*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME2")->Get();
 		stageName = "Stage2";
 		break;
 	default:
 		break;
 	}
+
+    bgmAudioSource_->Play(true);
+    bgmAudioSource_->SetVolume(0.2f);
+
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 #pragma endregion
@@ -526,4 +534,6 @@ void GameScene::OnUpdate() {
 
 void GameScene::OnFinalize() {
 	trolley_->SetIsActive(false);
+    trolley_->Finalize();
+    bgmAudioSource_->Stop();
 }
