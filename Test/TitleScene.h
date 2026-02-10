@@ -13,6 +13,7 @@
 #include "CollisionSystem.h"
 #include "Flashlight.h"
 #include "ModelEmitter.h"
+#include "Audio/AudioSource.h"
 
 
 class TitleScene :
@@ -50,6 +51,7 @@ private:
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::shared_ptr<SphereCollider> trolleyCollider_;
 
+	AudioSource bgmAudioSource_;
 	std::unique_ptr<ModelEmitter> trolleyParticle_;
 	bool isSceneChange_ = false;
 	float shakeTimer = 0.0f;

@@ -12,6 +12,7 @@
 #include "Engine/Graphics/Animation.h"
 #include "Framework/AssetManager.h"
 #include "Graphics/LightManager.h"
+#include "Audio/AudioSource.h"
 
 #include "CollisionSystem.h"
 
@@ -53,5 +54,6 @@ private:
 	std::unique_ptr<AnimationModel> rail_;
 	std::unique_ptr<Flashlight> flashlight_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
+	AudioSource seAudioSource_;
 	Sprite sprite_;
 };

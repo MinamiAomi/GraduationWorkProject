@@ -48,7 +48,9 @@ void GameClearScene::OnInitialize() {
 	selectTriangleRight_ = std::make_unique<Diorama>();
 
 	selectTriangleLeft_->Initialize("Triangle", Vector3(-6.1f, -1.3f, 5.0f));
+    selectTriangleLeft_->SetRoateAxis(Diorama::YAxis);
 	selectTriangleRight_->Initialize("Triangle", Vector3(6.1f, -1.3f, 5.0f));
+    selectTriangleRight_->SetRoateAxis(Diorama::YAxis);
 
 	collisionSystem_->RegisterCollider(selectTriangleLeft_->GetCollider());
 	collisionSystem_->RegisterCollider(selectTriangleRight_->GetCollider());
@@ -71,6 +73,10 @@ void GameClearScene::OnInitialize() {
 	goal_ = std::make_unique<AnimationModel>();
     goal_->transform.SetParent(&parentTransform_, false);
 	goal_->modelInstance.SetModel(assetManager->modelMap.Get("GameClearGoalAndRail")->Get());
+
+    seAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_GAMECLEAR")->Get();
+    seAudioSource_.Play(false);
+    seAudioSource_.SetVolume(0.5f);
 }
 
 void GameClearScene::OnUpdate() {
@@ -86,9 +92,11 @@ void GameClearScene::OnUpdate() {
 	const AnimationSet& anime = trolley_->animation->Get()->GetAnimation("Animation");
 	auto it = anime.nodeAnimations.find("Trolley");
 
-	trolley_->animationTime += 0.016f / anime.duration;
-	if (trolley_->animationTime >= 1.0f) {
-		trolley_->animationTime = 0.0f;
+	if (trolley_->animationTime <= 1.0f) {
+		trolley_->animationTime += 0.016f / anime.duration;
+	}
+	else {
+		trolley_->animationTime = 1.0f;
 	}
 
 	if (it != anime.nodeAnimations.end()) {

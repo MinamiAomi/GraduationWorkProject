@@ -233,7 +233,11 @@ void GameScene::OnInitialize() {
 	debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
 #endif // _DEBUG
-
+	
+	startSEAudioSource_ = std::make_unique<AudioSource>();
+	(*startSEAudioSource_) = AssetManager::GetInstance()->soundMap.Get("SE_GAMESTART")->Get();
+    startSEAudioSource_->Play(false);
+    startSEAudioSource_->SetVolume(0.5f);
 }
 
 void GameScene::OnUpdate() {
