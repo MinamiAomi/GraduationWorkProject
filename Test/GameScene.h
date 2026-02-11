@@ -78,8 +78,8 @@ private:
 	std::unique_ptr<BatsManager> batsManager_;
 	//std::unique_ptr<RailcameraUI> railcameraUI_;
 
-	std::unique_ptr<TutorialObject> trollyTutorial_;
-	std::unique_ptr<TutorialObject> flashlightTutorial_;
+	//std::unique_ptr<TutorialObject> trollyTutorial_;
+	//std::unique_ptr<TutorialObject> flashlightTutorial_;
 
 	Sprite inGameUI_;
 	int inGameUICount_;
