@@ -7,7 +7,7 @@
 
 #include "Trolley.h"
 
-const float Bats::batsFarLocate = 20.0f;
+//const float Bats::batsFarLocate = 20.0f;
 
 Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 {
@@ -56,15 +56,15 @@ void Bats::Update()
 
 	for (auto it = bats_.begin(); it != bats_.end(); ) {
 
-		Bat* p = it->get(); 
+		auto p = *it; 
 		p->sideStepTime_ += 0.05f;
 
-		float amplitude = 0.5f;
-		float phaseOffset = (p->sideStepTime_ > 0.5f) ? 3.14159f : 0.0f;
-		Vector3 sideOffset = p->transform_.rotate.GetRight() * std::sin(p->sideStepTime_ + phaseOffset) * amplitude;
+		//float amplitude = 0.5f;
+		//float phaseOffset = (p->sideStepTime_ > 0.5f) ? 3.14159f : 0.0f;
+		//Vector3 sideOffset = p->transform_.rotate.GetRight() * std::sin(p->sideStepTime_ + phaseOffset) * amplitude;
 
 		p->goalTransform_.UpdateMatrix();
-		p->transform_.translate = Vector3::Lerp(0.05f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate() + sideOffset);
+		p->transform_.translate = Vector3::Lerp(0.3f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate());
 		p->transform_.rotate = Quaternion::MakeLookRotation(camera_->GetPosition()- p->transform_.translate);
 
 		p->skeleton_->ApplyAnimation(animation_->Get()->GetAnimation("\u30a2\u30fc\u30de\u30c1\u30e5\u30a2Action"), p->animationTime_);
@@ -76,7 +76,7 @@ void Bats::Update()
 
 		if (p->collider_ && !p->collider_->GetCollidedWith().empty()) {
 
-			float damage = 0.01f;
+			float damage = 0.02f;
 			if (p->isDead_ == false) {
 				p->particles_.SetIsEmit(true);
 			}
@@ -157,7 +157,7 @@ void Bats::DebugDraw()
 
 void Bats::Emit(const Vector3& goalPos)
 {
-	auto newBat = std::make_unique<Bat>();
+	auto newBat = std::make_shared<Bat>();
 
 	newBat->modelInstance_.SetModel(model_);
 	newBat->skeleton_ = std::make_unique<Skeleton>();
@@ -185,7 +185,7 @@ void Bats::Emit(const Vector3& goalPos)
 		Vector3::zero,
 		model_->GetRadius());
 
-	newBat->goalTransform_.SetParent(&camera_->GetTransform());
+	newBat->goalTransform_.SetParent(&camera_->GetTransform(),false);
 	newBat->collider_->SetParent(&newBat->transform_);
 
 	newBat->goalTransform_.translate = goalPos - camera_->GetTransform().worldMatrix.GetTranslate();
@@ -216,5 +216,5 @@ void Bats::Emit(const Vector3& goalPos)
 
 	newBat->hp_ = 1.0f;
 
-	bats_.push_back(std::move(newBat));
+	bats_.push_back(newBat);
 }

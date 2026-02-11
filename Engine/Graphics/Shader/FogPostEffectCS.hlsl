@@ -105,6 +105,11 @@ float32_t3 ApplyNoiseHeightFog(float32_t3 color, float32_t3 position) {
 
 [numthreads(8, 8, 1)]
 void main(uint32_t2 DTid : SV_DispatchThreadID) {
+    
+    if (g_Texture[DTid].w == 0.0f) {
+        return;
+    }
+    
     float32_t width, height;
     g_Texture.GetDimensions(width, height);
     float32_t2 uv = DTid.xy / float2(width, height);

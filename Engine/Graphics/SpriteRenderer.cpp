@@ -102,7 +102,7 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
     float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
 
     for (auto instance : instanceList) {
-        if (instance->isActive_) {
+        if (instance->isActive_ && !instance->GetPre3DRender()) {
 
             float reciWidth = 1.0f;
             float reciHeight = 1.0f;
@@ -162,4 +162,94 @@ void SpriteRenderer::Render(CommandContext& commandContext, float left, float to
         }
     }
 
+}
+
+void SpriteRenderer::Pre3DRender(CommandContext& commandContext, float left, float top, float right, float bottom) {
+    struct SceneConstant {
+        Matrix4x4 orthoMatrix;
+    };
+
+    struct Vertex {
+        Vector3 position;
+        Vector2 texcoord;
+        Vector4 color;
+    };
+
+    commandContext.SetRootSignature(rootSignature_);
+    commandContext.SetPipelineState(pipelineState_);
+    commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    SceneConstant sceneConstant;
+    sceneConstant.orthoMatrix = Matrix4x4::MakeOrthographicProjection(right - left, bottom - top, 0.0f, 1.0f);
+    sceneConstant.orthoMatrix *= Matrix4x4::MakeScaling({ 1.0f, 1.0f, 1.0f });
+    sceneConstant.orthoMatrix *= Matrix4x4::MakeTranslation({ -1.0f, -1.0f, 1.0f });
+    commandContext.SetDynamicConstantBufferView(SpriteRootIndex::Scene, sizeof(sceneConstant), &sceneConstant);
+
+    auto& instanceList = Sprite::instanceList_;
+    // 描画順並べる
+    instanceList.sort([](Sprite* a, Sprite* b) { return a->GetDrawOrder() < b->GetDrawOrder(); });
+
+    float screenScaleX = static_cast<float>(Engine::kWindowWidth) / 1280.0f;
+    float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
+
+    for (auto instance : instanceList) {
+        if (instance->isActive_ && instance->GetPre3DRender()) {
+
+            float reciWidth = 1.0f;
+            float reciHeight = 1.0f;
+            if (instance->texture_) {
+                reciWidth = 1.0f / (float)instance->texture_->GetWidth();
+                reciHeight = 1.0f / (float)instance->texture_->GetHeight();
+            }
+
+
+            float uvLeft = instance->uvRect_.base.x;
+            float uvRight = instance->uvRect_.base.x + instance->uvRect_.size.x;
+            float uvTop = instance->uvRect_.base.y;
+            float uvBottom = instance->uvRect_.base.y + instance->uvRect_.size.y;
+
+            if (instance->uvMode_ == Sprite::UVMode::Texcoord) {
+                uvLeft *= reciWidth;
+                uvRight *= reciWidth;
+                uvTop *= reciHeight;
+                uvBottom *= reciHeight;
+            }
+
+            Vector2 localVertices[] = {
+                { 0.0f, 0.0f },
+                { 0.0f, 1.0f },
+                { 1.0f, 1.0f },
+                { 1.0f, 0.0f },
+            };
+            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_) * Matrix3x3::MakeScaling({ screenScaleX, screenScaleY });;
+
+            for (auto& vertex : localVertices) {
+                vertex = vertex * matrix;
+            }
+
+            Vector4 color = static_cast<Vector4>(instance->color_);
+
+            Vertex vertices[] = {
+                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+                { { localVertices[1], 0.0f }, { uvLeft,  uvTop},    color },
+                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+                { { localVertices[3], 0.0f }, { uvRight, uvBottom}, color },
+
+            };
+
+            commandContext.SetDynamicVertexBuffer(0, 6, sizeof(vertices[0]), vertices);
+            if (instance->texture_) {
+                commandContext.SetDescriptorTable(SpriteRootIndex::Texture, instance->texture_->GetResource()->GetSRV());
+                //commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
+                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::AnisotropicWrap);
+            }
+            else {
+                commandContext.SetDescriptorTable(SpriteRootIndex::Texture, DefaultTexture::White.GetSRV());
+                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::PointClamp);
+            }
+            commandContext.Draw(6);
+        }
+    }
 }

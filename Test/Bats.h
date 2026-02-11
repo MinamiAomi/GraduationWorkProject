@@ -21,7 +21,7 @@ class Bats
 {
 public:
 
-	static const float batsFarLocate;
+	inline static float batsFarLocate = 8.0f;
 
 	struct Bat {
 		ModelInstance modelInstance_;
@@ -52,7 +52,7 @@ public:
 
 	bool IsActive() { return isActive_; }
 
-	std::list<std::unique_ptr<Bat>>& GetBats() { return bats_; }
+	std::list<std::shared_ptr<Bat>>& GetBats() { return bats_; }
 
 public:
 	std::shared_ptr<class AnimationAsset> animation_;
@@ -63,7 +63,7 @@ private:
 
 	Transform transform_;
 	std::shared_ptr<Model> model_;
-	std::list<std::unique_ptr<Bat>> bats_;
+	std::list<std::shared_ptr<Bat>> bats_;
 	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
 	std::shared_ptr<Sound> spawnSESound_;
     std::shared_ptr<Sound> deathSESound_;

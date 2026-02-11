@@ -50,6 +50,8 @@ public:
 
     // ゲッター
     SceneTransition& GetSceneTransition() { return sceneTransition_; }
+
+    BaseScene* GetCurrentScene() const { return currentScene_.get(); }
 private:
     // --- 永続オブジェクトを保持するコンテナ ---
     std::shared_ptr<PersistentData> persistentData_;

@@ -39,6 +39,7 @@ public:
 
 	void Initialize();
 	void Update(float deltaTime);
+	void Finalize();
 
 	void SetParent(const Transform& transform) {
 		transform_.SetParent(&transform);
@@ -78,6 +79,7 @@ public:
 	const Flashlight* GetFlashlight() const { return flashlight_; }
 
 	const bool GetIsHitFlashlight()const { return isHitFlashlight_; }
+	const bool GetBatteryRemaining() const { return !flashlight_->GetBatteryRemaining(); }
 	const float GetCenterRate()const { return centerRate_; }
 
 	void SetState(const State& state);
@@ -86,6 +88,11 @@ public:
 
 	void Pause() { isPause_ = true; }
 	void Play() { isPause_ = false; }
+
+	void SetIsActive(bool isActive);
+
+	int batsNum_ = 0;
+
 private:
 	void UpdateCollision();
 	void UpdateState(float deltaTime);
@@ -176,6 +183,8 @@ private:
 	bool isHitFlashlight_ = false;
 
 	float centerRate_ = 0.0f;
+
+	float batDecrease_ = 1.0f;
 #pragma endregion
 
 #pragma region Banking
@@ -193,7 +202,7 @@ private:
 #pragma region Battery
 	std::array<Transform, BatteryNum> batteryTransforms_;
 	std::array<std::shared_ptr<SphereCollider>, BatteryNum> batteryColliders_;
-	std::array<Vector3, BatteryNum>batteryOffsets_;
+	std::array<Vector3, BatteryNum> batteryOffsets_;
 	float batteryRadius_;
 #pragma endregion
 
@@ -210,6 +219,8 @@ private:
 	AudioSource burstSESource_;
 	AudioSource crashSESource_;
     AudioSource nitroBoostSESources_[7];
+	AudioSource nitroFizzSESource_;
+    AudioSource chargeSESource_;
 #pragma endregion
 
 	bool isPause_ = false;

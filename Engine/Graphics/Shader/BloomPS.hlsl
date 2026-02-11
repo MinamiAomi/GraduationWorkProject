@@ -30,7 +30,7 @@ PSOutput main(PSInput input) {
     bloom += blurTexture2_.Sample(sampler_, input.texcoord);
     bloom += blurTexture3_.Sample(sampler_, input.texcoord);
     bloom /= NUM_TEXTURES;
-    bloom.a = 1.0f;
+    //bloom.a = 1.0f;
 
     output.color = bloom;
     

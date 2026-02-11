@@ -138,6 +138,9 @@ float3 LinearToSRGB(float3 color) {
 
 PSOutput main(PSInput input) {
     PSOutput output;
+    if (g_Texture.Sample(g_Sampler, input.texcoord).a < 0.01f) {
+        discard;
+    }
     output.color.rgb = FXAA(input.texcoord);
     output.color.a = 1.0f;
     return output;

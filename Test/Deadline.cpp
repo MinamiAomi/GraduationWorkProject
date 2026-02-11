@@ -9,6 +9,8 @@
 #endif // _DEBUG
 
 
+#include "LevelManager.h"
+
 Deadline::Deadline()
 {
 	deadlineUI_.SetDeadline(this);
@@ -20,10 +22,14 @@ void Deadline::Initialize()
 	JSON_LOAD(minSpeed_);
 	JSON_LOAD(maxSpeed_);
 	JSON_LOAD(approachRate_);
-	JSON_LOAD(startFrame_);
+	JSON_LOAD(startFrameLevel1_);
+	JSON_LOAD(startFrameLevel2_);
+	JSON_LOAD(startOffsetLevel1_);
+	JSON_LOAD(startOffsetLevel2_);
 	JSON_ROOT();
 	JSON_CLOSE();
 	currentFrame_ = 0.0f;
+
 	isGameOver_ = false;
 
 	deadlineUI_.Initialize();
@@ -33,9 +39,29 @@ void Deadline::Update(float deltaTime)
 {
 	float playerCurrentFrame = railAnimationPlayer_->GetCurrentFrame();
 
+	float startFrame = 0.0f,startOffset=0.0f;
+
+	switch (LevelManager::GetInstance()->GetLevel())
+	{
+	case LevelManager::Level::LEVEL1:
+		startFrame = startFrameLevel1_;
+		startOffset = startOffsetLevel1_;
+		break;
+	case LevelManager::Level::LEVEL2:
+		startFrame = startFrameLevel2_;
+		startOffset = startOffsetLevel2_;
+		break;
+	default:
+		break;
+	}
+
 	if (!railAnimationPlayer_->IsFinished() &&
 		railAnimationPlayer_->IsPlaying() &&
-		startFrame_ <= playerCurrentFrame) {
+		startFrame <= playerCurrentFrame) {
+		if (currentFrame_ < startFrame - startOffset) {
+			currentFrame_ = startFrame - startOffset;
+		}
+
 		float distance = playerCurrentFrame - currentFrame_;
 
 		float targetSpeed = minSpeed_ + (distance * approachRate_);
@@ -67,7 +93,10 @@ void Deadline::DrawImGui()
 			JSON_SAVE(minSpeed_);
 			JSON_SAVE(maxSpeed_);
 			JSON_SAVE(approachRate_);
-			JSON_SAVE(startFrame_);
+			JSON_SAVE(startFrameLevel1_);
+			JSON_SAVE(startFrameLevel2_);
+			JSON_SAVE(startOffsetLevel1_);
+			JSON_SAVE(startOffsetLevel2_);
 			JSON_ROOT();
 			JSON_CLOSE();
 		}
@@ -75,7 +104,10 @@ void Deadline::DrawImGui()
 		ImGui::Separator();
 
 		auto railAnimationData = railAnimationPlayer_->GetRailAnimationDate();
-		ImGui::DragFloat("スタート位置オフセット", &startFrame_, 0.1f, float(railAnimationData->railMetaData_.startFrame), float(railAnimationData->railMetaData_.endFrame));
+		ImGui::DragFloat("スタート位置オフセットLevel1", &startFrameLevel1_, 0.1f, float(railAnimationData->railMetaData_.startFrame), float(railAnimationData->railMetaData_.endFrame));
+		ImGui::DragFloat("スタート位置オフセットLevel2", &startFrameLevel2_, 0.1f, float(railAnimationData->railMetaData_.startFrame), float(railAnimationData->railMetaData_.endFrame));
+		ImGui::DragFloat("スタート位置オフセットからどのくらい後ろにするかLevel1", &startOffsetLevel1_, 0.1f);
+		ImGui::DragFloat("スタート位置オフセットからどのくらい後ろにするかLevel2", &startOffsetLevel2_, 0.1f);
 
 		ImGui::Separator();
 		ImGui::Text("--- 追跡パラメータ調整 ---");

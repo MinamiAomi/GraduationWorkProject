@@ -2,5 +2,10 @@
     "approachRate_": 0.18000000715255737,
     "maxSpeed_": 30.0,
     "minSpeed_": 10.5,
-    "startFrame_": 360.0
+    "startFrameLevel1_": 300.0,
+    "startFrameLevel2_": 260.0,
+    "startFrame_": 360.0,
+    "startOffsetLevel1_": 100.0,
+    "startOffsetLevel2_": 100.0,
+    "startOffset_": 100.0
 }

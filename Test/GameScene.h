@@ -81,6 +81,25 @@ private:
 	std::unique_ptr<TutorialObject> trollyTutorial_;
 	std::unique_ptr<TutorialObject> flashlightTutorial_;
 
+	Sprite inGameUI_;
+	int inGameUICount_;
+	int inGameUIMaxCount_;
+
+	Sprite crackUI_;
+	Sprite gameFinishBackGround_;
+	int gameFinishCount_;
+	int gameFinishMaxCount_;
+	//クリア化ゲームオーバー化
+	bool isClear_;
+
+	//クリアorゲームオーバーしてアニメーションをスタートするフラグ
+	bool isGameFinishAnimation_;
+	//クリアorゲームオーバーアニメーションが終了したかどうかのフラグ
+	bool isGameFinalizeAnimation_;
+
+	std::unique_ptr<AudioSource> bgmAudioSource_;
+    std::unique_ptr<AudioSource> startSEAudioSource_;
+
 	bool isPlay_ = true;
 
 #ifdef _DEBUG

@@ -45,6 +45,9 @@
     "DioramaLevel1": "StaticMesh/StageModel/dioramaLevel1.gltf",
     "DioramaLevel2": "StaticMesh/StageModel/dioramaLevel2.gltf",
 
+    "StageSelectTerrain": "StageSelect/StageSelectTerrain/StageSelectTerrain.gltf",
+    "IceSkyDome": "StageSelect/IceSkyDome/IceSkyDome.gltf",
+
     
     "GoalGlowing": "Model/GoalGlowing/GoalGlowing.gltf",
     "Icicle": "Model/Icicle/Icicle.gltf",
@@ -52,8 +55,18 @@
     "FrozenBear": "Model/FrozenBear/FrozenBear.gltf",
     "Box": "Box.gltf",
     "Bullet": "bullet.gltf",
+
     "TitleTrolley":"TitleTrolley/TitileTrolley.gltf",
-    "TitleStage":"TitleStage/TitleStage.gltf"
+    "TitleStage":"TitleStage/TitleStage.gltf",
+
+    "GameOverOODAMA" : "GameOver/OODAMA/OODAMA.gltf",
+    "GameOverRail" : "GameOver/Rail/Rail.gltf",
+    "GameOverTrolley" : "GameOver/Trolley/Trolley.gltf",
+
+    "GameClearGoalAndRail" : "GameClear/GoalAndRail/GoalAndRail.gltf",
+    "GameClearTrolley" : "GameClear/Trolley/Trolley.gltf",
+
+    "Triangle" : "triangle.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -83,19 +96,30 @@
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
-
+    "GameClear": "gameClear.png",
+    "GameOver": "gameOver.png",
     
     "TutorialTrolly": "Tutorial/trolly.png",
     "TutorialFlashlight": "Tutorial/flash_light.png",
 
     "Warning": "OODAMA/warning.png",
     
+    "Level1StartUI": "InGameUI/level1Title.png",
+    "Level2StartUI": "InGameUI/level2Title.png",
+    "Crack": "InGameUI/crack.png",
+
+    
     "white2x2":"white2x2.png"
   },
   "Animation" : {
     "batAnim" : "Bat/Bat.gltf",
     "trolleyAnim" : "TitleTrolley/TitileTrolley.gltf",
-    "TitleStageAnim":"TitleStage/TitleStage.gltf"
+    "TitleStageAnim":"TitleStage/TitleStage.gltf",
+
+    "GameOverOODAMAAnim" : "GameOver/OODAMA/OODAMA.gltf",
+    "GameOverTrolleyAnim" : "GameOver/Trolley/Trolley.gltf",
+
+    "GameClearTrolleyAnim" : "GameClear/Trolley/Trolley.gltf"
   },
   "Sound" : {
     "SE_TROLLY_NORMAL" : "Sound/se_trolly2.wav",
@@ -109,6 +133,14 @@
     "SE_TROLLY_NITRO_BOOST4" : "Sound/se_NitroBoost_4.mp3",
     "SE_TROLLY_NITRO_BOOST5" : "Sound/se_NitroBoost_5.mp3",
     "SE_TROLLY_NITRO_BOOST6" : "Sound/se_NitroBoost_6.mp3",
+    "SE_TROLLY_NITRO_FIZZ" : "Sound/se_NitroFizz.wav",
+    "SE_TROLLY_CHARGE" : "Sound/se_Charge.wav",
+
+    "SE_TWINKLING0" : "Sound/se_Twinkling_0.mp3",
+    "SE_TWINKLING1" : "Sound/se_Twinkling_1.mp3",
+    "SE_TWINKLING2" : "Sound/se_Twinkling_2.mp3",
+    "SE_TWINKLING3" : "Sound/se_Twinkling_3.mp3",
+    "SE_TWINKLING4" : "Sound/se_Twinkling_4.mp3",
 
     "SE_GAMESTART" : "Sound/se_GameStart.mp3",
     "SE_GAMECLEAR" : "Sound/se_GameClear.mp3",
@@ -119,20 +151,10 @@
 
     "SE_BOMB_GHOST_DEATH" : "Sound/se_BombGhostDeath.mp3",
     "SE_BOMB_GHOST_SPAWN" : "Sound/se_BombGhostSpawn.mp3",
-
-    "SE_CHARGE" : "Sound/se_Charge.mp3",
-
+    
     "BGM_TITLE" : "Sound/bgm_title.mp3",
-    "BGM_TITLE_CREEPY" : "Sound/bgm_title_creepy.mp3",
-    "BGM_TITLE_IMPATIENCE" : "Sound/bgm_title_impatience.mp3",
-
-    "BGM_INGAME_ALMOST_CLEAR" : "Sound/bgm_ingame_almost_clear.mp3",
-    "BGM_INGAME_ESCAPE1" : "Sound/bgm_ingame_escape1.mp3",
-    "BGM_INGAME_ESCAPE2" : "Sound/bgm_ingame_escape2.mp3",
-    "BGM_INGAME_ESCAPE3" : "Sound/bgm_ingame_escape3.mp3",
-    "BGM_INGAME_SAFETY" : "Sound/bgm_ingame_safety.mp3",
-
-    "BGM_INGAME2_ESCAPE1" : "Sound/bgm_ingame2_escape1.mp3",
-    "BGM_INGAME2_ESCAPE2" : "Sound/bgm_ingame2_escape2.mp3"
+    "BGM_INGAME1" : "Sound/bgm_ingame_level1.mp3",
+    "BGM_INGAME2" : "Sound/bgm_ingame_level2.mp3",
+    "BGM_STAGE_SELECT" : "Sound/bgm_stageSelect.mp3"
   }
 }

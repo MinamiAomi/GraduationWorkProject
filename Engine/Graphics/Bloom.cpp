@@ -13,6 +13,7 @@ static const char kBloomPS[] = "BloomPS.hlsl";
 void Bloom::Initialize(ColorBuffer* originalTexture) {
     originalTexture_ = originalTexture;
 
+    luminanceTexture_.SetClearColor(originalTexture_->GetClearColor());
     luminanceTexture_.Create(
         L"Bloom LuminanceTexture", 
         originalTexture_->GetWidth(), 
@@ -90,7 +91,8 @@ void Bloom::Render(CommandContext& commandContext, uint32_t level) {
     commandContext.TransitionResource(*originalTexture_, D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
     commandContext.TransitionResource(luminanceTexture_, D3D12_RESOURCE_STATE_RENDER_TARGET);
     commandContext.SetRenderTarget(luminanceTexture_.GetRTV());
-    commandContext.ClearColor(luminanceTexture_);
+    float cc[4] = { 0.0f,0.0f,0.0f,0.0f };
+    commandContext.ClearColor(luminanceTexture_, cc);
     commandContext.SetViewportAndScissorRect(0, 0, luminanceTexture_.GetWidth(), luminanceTexture_.GetHeight());
 
     commandContext.SetRootSignature(rootSignature_);
