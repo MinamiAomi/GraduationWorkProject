@@ -1,7 +1,7 @@
 {
   "objects": [
     {
-      "name": "Crystal.001",
+      "name": "Crystal.052",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -57,7 +57,7 @@
       }
     },
     {
-      "name": "RANTAN.001",
+      "name": "RANTAN.002",
       "model_name": "RANTAN",
       "type": "POINTLIGHT",
       "srt": {
@@ -113,7 +113,7 @@
       }
     },
     {
-      "name": "Crystal.002",
+      "name": "Crystal.053",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -169,7 +169,7 @@
       }
     },
     {
-      "name": "Crystal.003",
+      "name": "Crystal.054",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -225,7 +225,7 @@
       }
     },
     {
-      "name": "Crystal.004",
+      "name": "Crystal.055",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -281,7 +281,7 @@
       }
     },
     {
-      "name": "Crystal.005",
+      "name": "Crystal.056",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -337,7 +337,7 @@
       }
     },
     {
-      "name": "Crystal.006",
+      "name": "Crystal.057",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -393,7 +393,7 @@
       }
     },
     {
-      "name": "Crystal.007",
+      "name": "Crystal.058",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -449,7 +449,7 @@
       }
     },
     {
-      "name": "Crystal.008",
+      "name": "Crystal.059",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -505,7 +505,7 @@
       }
     },
     {
-      "name": "Crystal.009",
+      "name": "Crystal.060",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -561,7 +561,7 @@
       }
     },
     {
-      "name": "Crystal.010",
+      "name": "Crystal.061",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -617,7 +617,7 @@
       }
     },
     {
-      "name": "Crystal.011",
+      "name": "Crystal.062",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -673,7 +673,7 @@
       }
     },
     {
-      "name": "Crystal.012",
+      "name": "Crystal.063",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -729,7 +729,7 @@
       }
     },
     {
-      "name": "Crystal.013",
+      "name": "Crystal.064",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -785,7 +785,7 @@
       }
     },
     {
-      "name": "Crystal.014",
+      "name": "Crystal.065",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -841,7 +841,7 @@
       }
     },
     {
-      "name": "Crystal.015",
+      "name": "Crystal.066",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -897,7 +897,7 @@
       }
     },
     {
-      "name": "Crystal.016",
+      "name": "Crystal.067",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -953,7 +953,7 @@
       }
     },
     {
-      "name": "Crystal.017",
+      "name": "Crystal.068",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1009,7 +1009,7 @@
       }
     },
     {
-      "name": "Crystal.018",
+      "name": "Crystal.069",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1065,7 +1065,7 @@
       }
     },
     {
-      "name": "Crystal.019",
+      "name": "Crystal.070",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1121,7 +1121,7 @@
       }
     },
     {
-      "name": "Crystal.020",
+      "name": "Crystal.071",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1177,7 +1177,7 @@
       }
     },
     {
-      "name": "Crystal.021",
+      "name": "Crystal.072",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1233,7 +1233,7 @@
       }
     },
     {
-      "name": "Crystal.022",
+      "name": "Crystal.073",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1289,7 +1289,7 @@
       }
     },
     {
-      "name": "Crystal.023",
+      "name": "Crystal.074",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1345,7 +1345,7 @@
       }
     },
     {
-      "name": "Crystal.024",
+      "name": "Crystal.075",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1401,7 +1401,7 @@
       }
     },
     {
-      "name": "Crystal.025",
+      "name": "Crystal.076",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1457,7 +1457,7 @@
       }
     },
     {
-      "name": "Crystal.026",
+      "name": "Crystal.077",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1513,7 +1513,7 @@
       }
     },
     {
-      "name": "Crystal.027",
+      "name": "Crystal.078",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1569,7 +1569,7 @@
       }
     },
     {
-      "name": "Crystal.028",
+      "name": "Crystal.079",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1625,7 +1625,7 @@
       }
     },
     {
-      "name": "Crystal.029",
+      "name": "Crystal.080",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1681,7 +1681,7 @@
       }
     },
     {
-      "name": "Crystal.030",
+      "name": "Crystal.081",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1737,7 +1737,7 @@
       }
     },
     {
-      "name": "Crystal.031",
+      "name": "Crystal.082",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1793,7 +1793,7 @@
       }
     },
     {
-      "name": "Crystal.032",
+      "name": "Crystal.083",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1849,7 +1849,7 @@
       }
     },
     {
-      "name": "Crystal.033",
+      "name": "Crystal.084",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1905,7 +1905,7 @@
       }
     },
     {
-      "name": "Crystal.034",
+      "name": "Crystal.085",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -1961,7 +1961,7 @@
       }
     },
     {
-      "name": "Crystal.035",
+      "name": "Crystal.086",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -2017,7 +2017,7 @@
       }
     },
     {
-      "name": "moss.001",
+      "name": "moss.023",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2073,7 +2073,7 @@
       }
     },
     {
-      "name": "moss.002",
+      "name": "moss.024",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2129,7 +2129,7 @@
       }
     },
     {
-      "name": "moss.003",
+      "name": "moss.025",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2185,7 +2185,7 @@
       }
     },
     {
-      "name": "moss.004",
+      "name": "moss.026",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2241,7 +2241,7 @@
       }
     },
     {
-      "name": "moss.005",
+      "name": "moss.027",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2297,7 +2297,7 @@
       }
     },
     {
-      "name": "moss.006",
+      "name": "moss.028",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2353,7 +2353,7 @@
       }
     },
     {
-      "name": "moss.007",
+      "name": "moss.029",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2409,7 +2409,7 @@
       }
     },
     {
-      "name": "moss.008",
+      "name": "moss.030",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2465,7 +2465,7 @@
       }
     },
     {
-      "name": "moss.009",
+      "name": "moss.031",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2521,7 +2521,7 @@
       }
     },
     {
-      "name": "moss.010",
+      "name": "moss.032",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2577,7 +2577,7 @@
       }
     },
     {
-      "name": "moss.011",
+      "name": "moss.033",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2633,7 +2633,7 @@
       }
     },
     {
-      "name": "moss.012",
+      "name": "moss.034",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2689,7 +2689,7 @@
       }
     },
     {
-      "name": "moss.013",
+      "name": "moss.035",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2745,7 +2745,7 @@
       }
     },
     {
-      "name": "moss.014",
+      "name": "moss.036",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2801,7 +2801,7 @@
       }
     },
     {
-      "name": "moss.015",
+      "name": "moss.037",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2857,7 +2857,7 @@
       }
     },
     {
-      "name": "moss.016",
+      "name": "moss.038",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2913,7 +2913,7 @@
       }
     },
     {
-      "name": "moss.017",
+      "name": "moss.039",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -2969,7 +2969,7 @@
       }
     },
     {
-      "name": "moss.018",
+      "name": "moss.040",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -3025,7 +3025,7 @@
       }
     },
     {
-      "name": "moss.019",
+      "name": "moss.041",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -3081,7 +3081,7 @@
       }
     },
     {
-      "name": "moss.020",
+      "name": "moss.042",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -3137,7 +3137,7 @@
       }
     },
     {
-      "name": "moss.021",
+      "name": "moss.043",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -3193,7 +3193,7 @@
       }
     },
     {
-      "name": "Crystal.036",
+      "name": "Crystal.087",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3249,7 +3249,7 @@
       }
     },
     {
-      "name": "Crystal.037",
+      "name": "Crystal.088",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3305,7 +3305,7 @@
       }
     },
     {
-      "name": "Crystal.038",
+      "name": "Crystal.089",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3361,7 +3361,7 @@
       }
     },
     {
-      "name": "Crystal.039",
+      "name": "Crystal.090",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3371,10 +3371,10 @@
           5.1108
         ],
         "rotate": [
-          0.5081,
-          0.3911,
-          -0.1772,
-          0.7467
+          0.5997,
+          0.2268,
+          0.0471,
+          0.766
         ],
         "scale": [
           1.2394,
@@ -3403,21 +3403,21 @@
         "type": "CAPSULE",
         "center": [
           1137.2748,
-          413.942,
-          5.5601
+          414.2885,
+          5.8042
         ],
         "radius": 0.5,
         "height": 1.0,
         "quaternion": [
-          0.5081,
-          0.3911,
-          -0.1772,
-          0.7467
+          0.5997,
+          0.2268,
+          0.0471,
+          0.766
         ]
       }
     },
     {
-      "name": "Crystal.040",
+      "name": "Crystal.091",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3473,7 +3473,7 @@
       }
     },
     {
-      "name": "Crystal.041",
+      "name": "Crystal.092",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3529,7 +3529,7 @@
       }
     },
     {
-      "name": "Crystal.042",
+      "name": "Crystal.093",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3585,7 +3585,7 @@
       }
     },
     {
-      "name": "Crystal.043",
+      "name": "Crystal.094",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3641,7 +3641,7 @@
       }
     },
     {
-      "name": "Crystal.044",
+      "name": "Crystal.095",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3697,7 +3697,7 @@
       }
     },
     {
-      "name": "Crystal.045",
+      "name": "Crystal.096",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3753,7 +3753,7 @@
       }
     },
     {
-      "name": "Crystal.046",
+      "name": "Crystal.097",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3809,7 +3809,7 @@
       }
     },
     {
-      "name": "moss.022",
+      "name": "moss.044",
       "model_name": "Moss",
       "type": "POINTLIGHT",
       "srt": {
@@ -3865,7 +3865,7 @@
       }
     },
     {
-      "name": "Crystal.047",
+      "name": "Crystal.098",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3921,7 +3921,7 @@
       }
     },
     {
-      "name": "Crystal.048",
+      "name": "Crystal.099",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
       "srt": {
@@ -3977,25 +3977,25 @@
       }
     },
     {
-      "name": "Helmet.002",
+      "name": "Helmet.007",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
-          1132.075,
-          404.6783,
-          -37.9587
+          1143.399,
+          398.104,
+          3.4238
         ],
         "rotate": [
-          0.1262,
-          0.3649,
-          -0.0762,
-          0.9193
+          0.8931,
+          -0.0948,
+          0.002,
+          -0.4397
         ],
         "scale": [
-          1.7209,
-          1.7209,
-          1.7209
+          0.9684,
+          0.9684,
+          0.9684
         ]
       },
       "enemy_spawn_data": null,
@@ -4018,22 +4018,22 @@
       "collider": {
         "type": "CAPSULE",
         "center": [
-          1132.4614,
-          404.5187,
-          -37.0948
+          1143.5461,
+          398.0588,
+          3.9416
         ],
         "radius": 0.5,
         "height": 1.0,
         "quaternion": [
-          0.1262,
-          0.3649,
-          -0.0762,
-          0.9193
+          0.8931,
+          -0.0948,
+          0.002,
+          -0.4397
         ]
       }
     },
     {
-      "name": "Helmet.003",
+      "name": "Helmet.008",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
@@ -4089,7 +4089,7 @@
       }
     },
     {
-      "name": "Helmet.004",
+      "name": "Helmet.009",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
@@ -4145,7 +4145,7 @@
       }
     },
     {
-      "name": "天ライト.001",
+      "name": "天ライト.008",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
@@ -4201,7 +4201,7 @@
       }
     },
     {
-      "name": "天ライト.002",
+      "name": "天ライト.009",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
@@ -4257,7 +4257,7 @@
       }
     },
     {
-      "name": "天ライト.003",
+      "name": "天ライト.010",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
@@ -4313,7 +4313,7 @@
       }
     },
     {
-      "name": "天ライト.004",
+      "name": "天ライト.011",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
@@ -4369,7 +4369,7 @@
       }
     },
     {
-      "name": "天ライト.005",
+      "name": "天ライト.012",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
@@ -4425,7 +4425,7 @@
       }
     },
     {
-      "name": "天ライト.006",
+      "name": "天ライト.013",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
@@ -4481,14 +4481,14 @@
       }
     },
     {
-      "name": "天ライト.007",
+      "name": "天ライト.014",
       "model_name": "PendantLight",
       "type": "POINTLIGHT",
       "srt": {
         "translate": [
           1121.8889,
           406.0102,
-          8.5534
+          7.8314
         ],
         "rotate": [
           1.0,
@@ -4524,7 +4524,7 @@
         "center": [
           1121.8888,
           406.0077,
-          10.1778
+          9.4557
         ],
         "radius": 0.5,
         "height": 0.01,
@@ -4537,7 +4537,7 @@
       }
     },
     {
-      "name": "CoalTrolley",
+      "name": "CoalTrolley.006",
       "model_name": "CoalTrolley",
       "type": "POINTLIGHT",
       "srt": {
@@ -4593,7 +4593,7 @@
       }
     },
     {
-      "name": "CoalTrolley.001",
+      "name": "CoalTrolley.007",
       "model_name": "CoalTrolley",
       "type": "POINTLIGHT",
       "srt": {
@@ -4649,7 +4649,7 @@
       }
     },
     {
-      "name": "Helmet",
+      "name": "Helmet.010",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
@@ -4705,7 +4705,7 @@
       }
     },
     {
-      "name": "Helmet.001",
+      "name": "Helmet.011",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
       "srt": {
@@ -4761,7 +4761,7 @@
       }
     },
     {
-      "name": "GoalGlowing.001",
+      "name": "GoalGlowing.003",
       "model_name": "GoalGlowing",
       "type": "POINTLIGHT",
       "srt": {
@@ -4802,7 +4802,679 @@
       "collider": null
     },
     {
-      "name": "EnemySpawn.001",
+      "name": "moss.045",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1121.4271,
+          419.9042,
+          14.4931
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1120.9437,
+          419.3215,
+          14.7887
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "moss.046",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1118.1173,
+          417.9625,
+          19.1261
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1117.6339,
+          417.3799,
+          19.4216
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "moss.047",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1115.985,
+          414.647,
+          16.2873
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1115.5016,
+          414.0643,
+          16.5829
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "moss.048",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1112.9674,
+          410.4502,
+          21.0328
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1112.484,
+          409.8675,
+          21.3283
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "moss.049",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1126.788,
+          422.7301,
+          16.3748
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1126.3046,
+          422.1475,
+          16.6704
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "Crystal.100",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1097.802,
+          396.4386,
+          1.2731
+        ],
+        "rotate": [
+          0.1185,
+          -0.2175,
+          0.0049,
+          -0.9688
+        ],
+        "scale": [
+          1.534,
+          1.5777,
+          1.6779
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1098.3035,
+          396.5202,
+          2.139
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1185,
+          -0.2175,
+          0.0049,
+          -0.9688
+        ]
+      }
+    },
+    {
+      "name": "Crystal.101",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1100.6951,
+          399.5815,
+          3.8305
+        ],
+        "rotate": [
+          0.3317,
+          0.2498,
+          -0.0302,
+          0.9092
+        ],
+        "scale": [
+          1.534,
+          1.5777,
+          1.6779
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1101.2024,
+          399.3193,
+          4.6562
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.3317,
+          0.2498,
+          -0.0302,
+          0.9092
+        ]
+      }
+    },
+    {
+      "name": "Crystal.102",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1103.5983,
+          401.7009,
+          9.2445
+        ],
+        "rotate": [
+          0.717,
+          0.0922,
+          0.058,
+          -0.6885
+        ],
+        "scale": [
+          1.7978,
+          1.849,
+          1.9665
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1103.5209,
+          401.5602,
+          10.4101
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.717,
+          0.0922,
+          0.058,
+          -0.6885
+        ]
+      }
+    },
+    {
+      "name": "moss.050",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1112.9674,
+          405.809,
+          16.8475
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1112.484,
+          405.2264,
+          17.143
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "moss.051",
+      "model_name": "Moss",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1124.9927,
+          418.9924,
+          19.7087
+        ],
+        "rotate": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ],
+        "scale": [
+          10.0,
+          10.0,
+          10.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          0.7063,
+          1.0,
+          0.014
+        ],
+        "intensity": 5.0,
+        "range": 10.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1124.5093,
+          418.4098,
+          20.0043
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1533,
+          -0.0017,
+          0.9753,
+          -0.1593
+        ]
+      }
+    },
+    {
+      "name": "Crystal.103",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1139.2961,
+          413.3381,
+          2.6032
+        ],
+        "rotate": [
+          0.1862,
+          0.2337,
+          0.054,
+          0.9528
+        ],
+        "scale": [
+          0.4713,
+          0.4847,
+          0.5155
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1139.4648,
+          413.337,
+          2.8614
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.1862,
+          0.2337,
+          0.054,
+          0.9528
+        ]
+      }
+    },
+    {
+      "name": "Crystal.104",
+      "model_name": "Crystal",
+      "type": "POINTLIGHT",
+      "srt": {
+        "translate": [
+          1139.821,
+          414.2865,
+          2.0261
+        ],
+        "rotate": [
+          0.9698,
+          -0.1255,
+          0.1207,
+          0.1708
+        ],
+        "scale": [
+          0.4713,
+          0.4847,
+          0.5155
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": null,
+      "point_light": {
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "color": [
+          1.0,
+          0.5758,
+          0.3432
+        ],
+        "intensity": 1.0,
+        "range": 25.0,
+        "decay": 1.0
+      },
+      "collider": {
+        "type": "CAPSULE",
+        "center": [
+          1139.8551,
+          414.3601,
+          2.3237
+        ],
+        "radius": 0.5,
+        "height": 1.0,
+        "quaternion": [
+          0.9698,
+          -0.1255,
+          0.1207,
+          0.1708
+        ]
+      }
+    },
+    {
+      "name": "EnemySpawn.003",
       "model_name": null,
       "type": "ENEMY_SPAWN",
       "srt": {
@@ -4869,7 +5541,7 @@
       }
     },
     {
-      "name": "EnemySpawn",
+      "name": "EnemySpawn.004",
       "model_name": null,
       "type": "ENEMY_SPAWN",
       "srt": {
@@ -4936,7 +5608,7 @@
       }
     },
     {
-      "name": "EnemySpawn.002",
+      "name": "EnemySpawn.005",
       "model_name": null,
       "type": "ENEMY_SPAWN",
       "srt": {
@@ -5000,6 +5672,329 @@
           0.1811
         ],
         "radius": 1.0
+      }
+    },
+    {
+      "name": "CoalTrolley.008",
+      "model_name": "CoalTrolley",
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          805.9548,
+          1073.6536,
+          -851.5983
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "POINTLIGHT",
+        "key": "GimickID3",
+        "duration": 120,
+        "is_cyclic": true,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 121.0,
+            "value": 120.0
+          }
+        ],
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 933.6774,
+              "y": 292.8488,
+              "z": 36.8431
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "x": 930.8918,
+              "y": 350.5637,
+              "z": -9.398
+            }
+          }
+        ],
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          }
+        ],
+        "light_params": {
+          "offset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "color": [
+            1.0,
+            0.9533,
+            0.3265
+          ],
+          "intensity": 5.0,
+          "range": 5.0,
+          "decay": 1.0
+        },
+        "path_points": [
+          [
+            933.6774,
+            292.8488,
+            36.8431
+          ],
+          [
+            933.4521,
+            306.0089,
+            28.4016
+          ],
+          [
+            933.4867,
+            320.3713,
+            20.506
+          ],
+          [
+            932.449,
+            341.5511,
+            1.0991
+          ],
+          [
+            930.8918,
+            350.5637,
+            -9.398
+          ]
+        ]
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          805.994,
+          1074.4017,
+          -851.9061
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "GimikckID3.001",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          893.8344,
+          386.4185,
+          0.6212
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          2.7669,
+          2.7669,
+          2.7669
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "GimickID3",
+        "isOnce": false
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          893.8344,
+          386.4185,
+          0.6212
+        ],
+        "radius": 1.25
+      }
+    },
+    {
+      "name": "CoalTrolley.009",
+      "model_name": "CoalTrolley",
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          510.3058,
+          392.6757,
+          -203.3821
+        ],
+        "rotate": [
+          0.7597,
+          -0.1005,
+          -0.1308,
+          0.629
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "MOVER",
+        "key": "Trolley_1",
+        "duration": 60,
+        "is_cyclic": false,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 61.0,
+            "value": 60.0
+          }
+        ],
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 805.793,
+              "y": 400.2118,
+              "z": 9.0245
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "x": 796.6519,
+              "y": 401.3251,
+              "z": 2.3631
+            }
+          }
+        ],
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          }
+        ],
+        "path_points": [
+          [
+            805.793,
+            400.2118,
+            9.0245
+          ],
+          [
+            803.1531,
+            401.0904,
+            6.8078
+          ],
+          [
+            801.2864,
+            401.3066,
+            5.6706
+          ],
+          [
+            798.4056,
+            401.3834,
+            3.624
+          ],
+          [
+            796.6519,
+            401.3251,
+            2.3631
+          ]
+        ]
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          510.4526,
+          392.7251,
+          -204.388
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "エンプティ.001",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "Trolley_1",
+        "isOnce": true
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "radius": 2.0
       }
     }
   ]
