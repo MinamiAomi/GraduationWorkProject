@@ -26,6 +26,8 @@ public:
     Quaternion GetOrientation() const;
     ConnectionState GetConnectionState() const;
 
+    void DrawImGui(const char* label);
+
 private:
     LightDeviceInput() = default;
     ~LightDeviceInput() = default;
@@ -40,6 +42,7 @@ private:
     
     Quaternion orientation_;
     Quaternion resetOrientation_;
+    bool isReseting_ = false;
 
     mutable std::mutex dataMutex_;
     std::thread communicationThread_;

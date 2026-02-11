@@ -178,10 +178,10 @@ void LightDeviceInput::CommunicationLoop() {
         Quaternion orientation;
         if (data.size() >= 4) {
 
-            orientation.w = std::stof(data[0]);
+            orientation.w = -std::stof(data[0]);
             orientation.x = std::stof(data[1]);
-            orientation.y = std::stof(data[2]);
-            orientation.z = std::stof(data[3]);
+            orientation.y = std::stof(data[3]);
+            orientation.z = std::stof(data[2]);
             if (orientation.LengthSquare() != 0.0f) {
                 orientation = orientation.Normalized();
             }
@@ -189,10 +189,33 @@ void LightDeviceInput::CommunicationLoop() {
 
         std::lock_guard<std::mutex> lock(dataMutex_);
 
-        orientation_.w = -orientation.w;
-        orientation_.x = orientation.x;
-        orientation_.y = orientation.z;
-        orientation_.z = orientation.y;
+        Quaternion swing, twist;
+        Vector3 axisZ = Vector3::forward;
+        Vector3 proj = Vector3::Dot({ orientation.x, orientation.y, orientation.z }, axisZ) * axisZ;
+        twist.x = proj.x; twist.y = proj.y; twist.z = proj.z; twist.w = orientation.w;
+        twist = twist.Normalized();
+        swing = orientation * twist.Conjugate();
+
+
+
+        float dot = std::min(1.0f, std::abs(Quaternion::Dot(orientation_, swing)));
+        float deltaAngle = 2.0f * std::acos(dot);
+        float minAlpha = 0.05f;
+        float maxAlpha = 0.8f;
+        float sensitivity = 10.0f;
+        float t = std::min(1.0f, deltaAngle * sensitivity);
+        float dynamicAlpha = Math::Lerp(t, minAlpha, maxAlpha);
+        orientation_ = Quaternion::Slerp(dynamicAlpha, orientation_, swing);
+
+        Vector3 forward = orientation_.GetForward();
+        bool nowUp = (forward.y > 0.8f);
+
+        if (nowUp && !isReseting_) {
+            float yaw = std::atan2(forward.x, forward.z);
+            // 上向きになった瞬間にリセットを開始する
+            resetOrientation_ = Quaternion::MakeForYAxis(yaw).Inverse();
+        }
+        isReseting_ = nowUp;
     }
 
 }
@@ -204,4 +227,14 @@ Quaternion LightDeviceInput::GetOrientation() const {
 
 LightDeviceInput::ConnectionState LightDeviceInput::GetConnectionState() const {
     return connectionState_.load();
+}
+
+void LightDeviceInput::DrawImGui(const char* label) {
+    label;
+
+#ifdef ENABLE_IMGUI
+#endif // ENABLE_IMGUI
+
+
+
 }
