@@ -67,8 +67,8 @@ void Deadline::Update(float deltaTime)
 		float targetSpeed = minSpeed_ + (distance * approachRate_);
 
 		currentActualSpeed_ = std::clamp(targetSpeed, minSpeed_, maxSpeed_);
-
-		currentFrame_ += currentActualSpeed_ * deltaTime;
+		deltaTime;
+		//currentFrame_ += currentActualSpeed_ * deltaTime;
 
 		if (currentFrame_ >= railAnimationPlayer_->GetCurrentFrame()) {
 			isGameOver_ = true;

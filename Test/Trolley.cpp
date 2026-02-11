@@ -41,7 +41,7 @@ Trolley::Trolley()
 
 	model_.SetModel(assetManager->modelMap.Get("trolley")->Get());
 
-	trolleyUI_.SetTrolley(this);
+	//trolleyUI_.SetTrolley(this);
 
 }
 void Trolley::Initialize()
@@ -122,7 +122,7 @@ void Trolley::Initialize()
 
 	batsNum_ = 0;
 
-	trolleyUI_.Initialize(transform_);
+	//trolleyUI_.Initialize(transform_);
 }
 
 void Trolley::Update(float deltaTime)
@@ -154,7 +154,7 @@ void Trolley::Update(float deltaTime)
 
 	// oto
 	UpdateSound();
-	trolleyUI_.Update();
+	//trolleyUI_.Update();
 
 #ifdef _DEBUG
 	DrawImGui();
@@ -725,7 +725,7 @@ void Trolley::UpdateCollision()
 
 void Trolley::SetIsActive(bool isActive) {
     model_.SetIsActive(isActive);
-    trolleyUI_.SetIsActive(isActive);
+    //trolleyUI_.SetIsActive(isActive);
 }
 
 void Trolley::Finalize() {

@@ -95,10 +95,10 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		//何かに当ったら
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
-			obj->lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
+			/*obj->lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
 			if (!obj->lightObject.GetIsAlive()) {
 				obj->collider = nullptr;
-			}
+			}*/
 
 		}
 	}
@@ -161,10 +161,10 @@ void SceneObjectSystem::SceneObjectManager::Update()
 			!obj->collider->GetCollidedWith().empty()) {
 			for (auto& collider : obj->collider->GetCollidedWith()) {
 				if ((collider->categoryBits == CollisionCategory::FLASHLIGHT)) {
-					pointlight.lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
+				/*	pointlight.lightObject.SetDamage(sceneObjectConfig_.pointLightParams.damageReceived);
 					if (!pointlight.lightObject.GetIsAlive()) {
 						obj->collider = nullptr;
-					}
+					}*/
 				}
 			}
 		}

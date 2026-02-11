@@ -36,7 +36,7 @@ Flashlight::Flashlight()
 
 		Quaternion::identity);
 
-	flashlightUI_.SetFlashlight(this);
+	//flashlightUI_.SetFlashlight(this);
 }
 
 void Flashlight::Initialize(const Transform* parentTransform, const Camera* parentCamera)
@@ -74,7 +74,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 
 	isHitFlashlight_ = false;
 
-	flashlightUI_.Initialize();
+	//flashlightUI_.Initialize();
 }
 
 void Flashlight::Update()
@@ -101,7 +101,7 @@ void Flashlight::Update()
 	spotLight_->angle = fovAngle_ * 0.5f;
 	spotLight_->isActive = isLighting_;
 
-	flashlightUI_.Update();
+	//flashlightUI_.Update();
 #ifdef _DEBUG
 	DrawImGui();
 #endif // _DEBUG
@@ -235,7 +235,9 @@ void Flashlight::Move() {
 		Vector3 clipCoords = { ndcX, ndcY, 1.0f };
 		Vector3 target = parentCamera_->GetProjectionMatrix().Inverse().ApplyTransformWDivide(clipCoords);
 
-		transform_.rotate = Quaternion::MakeLookRotation(target);
+		if (!isPause_) {
+			transform_.rotate = Quaternion::MakeLookRotation(target);
+		}
 
 		break;
 	}
@@ -417,7 +419,7 @@ void Flashlight::DrawImGui()
 
 	// スポットライトの当たり判定描画 (デバッグフラグがONの時のみ)
 	if (isDebugDraw) {
-		SpotLightDebugDraw();
+		//SpotLightDebugDraw();
 	}
 }
 #endif // _DEBUG

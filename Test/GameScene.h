@@ -76,7 +76,7 @@ private:
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::unique_ptr<BatsManager> batsManager_;
-	std::unique_ptr<RailcameraUI> railcameraUI_;
+	//std::unique_ptr<RailcameraUI> railcameraUI_;
 
 	std::unique_ptr<TutorialObject> trollyTutorial_;
 	std::unique_ptr<TutorialObject> flashlightTutorial_;

@@ -122,7 +122,7 @@ private:
 
 	const Flashlight* flashlight_;
 
-	TrolleyUI trolleyUI_;
+	//TrolleyUI trolleyUI_;
 
 #pragma region テールランプ
 	/*std::shared_ptr<SpotLight> teilLight_;

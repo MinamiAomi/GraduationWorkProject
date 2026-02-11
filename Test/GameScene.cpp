@@ -162,8 +162,8 @@ void GameScene::OnInitialize() {
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 #pragma endregion
 #pragma region RailcameraUI
-	railcameraUI_ = std::make_unique<RailcameraUI>();
-	railcameraUI_->Initialize();
+	//railcameraUI_ = std::make_unique<RailcameraUI>();
+	//railcameraUI_->Initialize();
 #pragma endregion
 #pragma region TutorialObject
 	switch (currentLevel)
@@ -348,10 +348,10 @@ void GameScene::OnUpdate() {
 #pragma endregion
 
 #pragma region RailcameraUI
-	railcameraUI_->Update(
+	/*railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
 		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
-	);
+	);*/
 #pragma endregion
 
 	batteryParticles_->Update();
@@ -553,30 +553,30 @@ void GameScene::OnUpdate() {
 		debugCamera_->Update();
 
 		//線描画
-		auto vertices = RailSystem::RailDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
+		//auto vertices = RailSystem::RailDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
-		auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
+		//auto& lineDrawer = RenderManager::GetInstance()->GetLineDrawer();
 
-		Vector4 color = { 0.0f,1.0f,1.0f,1.0 };
+		//Vector4 color = { 0.0f,1.0f,1.0f,1.0 };
 
-		//近平面
-		lineDrawer.AddLine(vertices[0], vertices[1], color);
-		lineDrawer.AddLine(vertices[1], vertices[2], color);
-		lineDrawer.AddLine(vertices[2], vertices[3], color);
-		lineDrawer.AddLine(vertices[3], vertices[0], color);
+		////近平面
+		//lineDrawer.AddLine(vertices[0], vertices[1], color);
+		//lineDrawer.AddLine(vertices[1], vertices[2], color);
+		//lineDrawer.AddLine(vertices[2], vertices[3], color);
+		//lineDrawer.AddLine(vertices[3], vertices[0], color);
 
 
-		//遠平面
-		lineDrawer.AddLine(vertices[4], vertices[5], color);
-		lineDrawer.AddLine(vertices[5], vertices[6], color);
-		lineDrawer.AddLine(vertices[6], vertices[7], color);
-		lineDrawer.AddLine(vertices[7], vertices[4], color);
+		////遠平面
+		//lineDrawer.AddLine(vertices[4], vertices[5], color);
+		//lineDrawer.AddLine(vertices[5], vertices[6], color);
+		//lineDrawer.AddLine(vertices[6], vertices[7], color);
+		//lineDrawer.AddLine(vertices[7], vertices[4], color);
 
-		//近平面と遠平面をつなぐ線
-		lineDrawer.AddLine(vertices[0], vertices[4], color);
-		lineDrawer.AddLine(vertices[1], vertices[5], color);
-		lineDrawer.AddLine(vertices[2], vertices[6], color);
-		lineDrawer.AddLine(vertices[3], vertices[7], color);
+		////近平面と遠平面をつなぐ線
+		//lineDrawer.AddLine(vertices[0], vertices[4], color);
+		//lineDrawer.AddLine(vertices[1], vertices[5], color);
+		//lineDrawer.AddLine(vertices[2], vertices[6], color);
+		//lineDrawer.AddLine(vertices[3], vertices[7], color);
 
 		RenderManager::GetInstance()->SetCamera(debugCamera_->GetCamera());
 	}

@@ -50,7 +50,7 @@ private:
 
 	std::shared_ptr<SpotLight> spotLight_;
 	ModelInstance lightModel_;
-	FlashlightUI flashlightUI_;
+	//FlashlightUI flashlightUI_;
 
 	//ライト自信のTransform
 	Transform transform_;
