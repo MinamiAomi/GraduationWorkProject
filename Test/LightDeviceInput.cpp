@@ -53,7 +53,7 @@ void LightDeviceInput::Finalize() {
 
 void LightDeviceInput::ResetOrientation() {
     std::lock_guard<std::mutex> lock(dataMutex_);
-    resetOrientation_ = orientation_.Inverse();
+    resetOrientation_ = orientation_.Conjugate();
 }
 
 void LightDeviceInput::InternalLoad() {
@@ -189,9 +189,9 @@ void LightDeviceInput::CommunicationLoop() {
 
         std::lock_guard<std::mutex> lock(dataMutex_);
 
-        orientation_.z = orientation.w;
-        orientation_.x = -orientation.x;
-        orientation_.y = -orientation.z;
+        orientation_.w = -orientation.w;
+        orientation_.x = orientation.x;
+        orientation_.y = orientation.z;
         orientation_.z = orientation.y;
     }
 
@@ -199,7 +199,7 @@ void LightDeviceInput::CommunicationLoop() {
 
 Quaternion LightDeviceInput::GetOrientation() const {
     std::lock_guard<std::mutex> lock(dataMutex_);
-    return orientation_ * resetOrientation_;
+    return resetOrientation_ * orientation_;
 }
 
 LightDeviceInput::ConnectionState LightDeviceInput::GetConnectionState() const {
