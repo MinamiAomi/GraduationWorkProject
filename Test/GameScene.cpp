@@ -170,15 +170,15 @@ void GameScene::OnInitialize() {
 	{
 	case LevelManager::Level::LEVEL1:
 	{
-		trollyTutorial_ = std::make_unique<TutorialObject>();
-		flashlightTutorial_ = std::make_unique<TutorialObject>();
-		Transform t;
-		t.translate = { 17.0f,1.7f,4.0f };
-		trollyTutorial_->Initialize(t, "TutorialTrolly");
-		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
-		t.translate = { 225.0f,5.5f,22.0f };
-		flashlightTutorial_->Initialize(t, "TutorialFlashlight");
-		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
+		//trollyTutorial_ = std::make_unique<TutorialObject>();
+		//flashlightTutorial_ = std::make_unique<TutorialObject>();
+		//Transform t;
+		//t.translate = { 17.0f,1.7f,4.0f };
+		//trollyTutorial_->Initialize(t, "TutorialTrolly");
+		//collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
+		//t.translate = { 225.0f,5.5f,22.0f };
+		//flashlightTutorial_->Initialize(t, "TutorialFlashlight");
+		//collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
 	break;
 	case LevelManager::Level::LEVEL2:
@@ -288,20 +288,20 @@ void GameScene::OnUpdate() {
 	switch (currentLevel)
 	{
 	case LevelManager::Level::LEVEL1:
-		trollyTutorial_->Update();
-		flashlightTutorial_->Update();
-		if (trollyTutorial_->GetIsActive() || flashlightTutorial_->GetIsActive()) {
-			railAnimationPlayer_->Pause();
-			flashlight_->Pause();
-			trolley_->Pause();
-			isPlay_ = false;
-		}
-		else if (!isPlay_) {
-			flashlight_->Play();
-			trolley_->Play();
-			railAnimationPlayer_->Play();
-			isPlay_ = true;
-		}
+		//trollyTutorial_->Update();
+		//flashlightTutorial_->Update();
+		//if (trollyTutorial_->GetIsActive() || flashlightTutorial_->GetIsActive()) {
+		//	railAnimationPlayer_->Pause();
+		//	flashlight_->Pause();
+		//	trolley_->Pause();
+		//	isPlay_ = false;
+		//}
+		//else if (!isPlay_) {
+		//	flashlight_->Play();
+		//	trolley_->Play();
+		//	railAnimationPlayer_->Play();
+		//	isPlay_ = true;
+		//}
 		break;
 	case LevelManager::Level::LEVEL2:
 		break;
