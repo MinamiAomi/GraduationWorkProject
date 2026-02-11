@@ -624,7 +624,7 @@ public:
         return Quaternion{ -x, -y, -z, w };
     }
     inline Quaternion Inverse() const noexcept {
-        return Conjugate() * (1.0f / Length());
+        return Conjugate() * (1.0f / LengthSquare());
     }
     inline constexpr Vector3 GetRight() const noexcept {
         float yw = y * w, zw = z * w;
