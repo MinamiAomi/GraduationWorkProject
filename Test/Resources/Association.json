@@ -108,6 +108,9 @@
     "Level2StartUI": "InGameUI/level2Title.png",
     "Crack": "InGameUI/crack.png",
 
+    "MouseUseing" : "mouse_useing.png",
+    "DeviceConnecting" : "device_connecting.png",
+    "DeviceUseing" : "device_useing.png",
     
     "white2x2":"white2x2.png"
   },

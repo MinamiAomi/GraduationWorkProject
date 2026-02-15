@@ -175,6 +175,7 @@ void LightDeviceInput::CommunicationLoop() {
 
         auto data = Split(response, ',');
 
+        Vector3 euler;
         Quaternion orientation;
         if (data.size() >= 4) {
 
@@ -195,8 +196,6 @@ void LightDeviceInput::CommunicationLoop() {
         twist.x = proj.x; twist.y = proj.y; twist.z = proj.z; twist.w = orientation.w;
         twist = twist.Normalized();
         swing = orientation * twist.Conjugate();
-
-
 
         float dot = std::min(1.0f, std::abs(Quaternion::Dot(orientation_, swing)));
         float deltaAngle = 2.0f * std::acos(dot);
