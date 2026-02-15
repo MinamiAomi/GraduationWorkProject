@@ -198,7 +198,9 @@ void SceneObjectSystem::SceneObjectManager::Update()
 				}
 				else if ((collider->categoryBits == CollisionCategory::PLAYER)) {
 					if (obj->isAlive) {
-						Trolley::GetInstance()->SetState(Trolley::State::Burst);
+						//止まる処理に変更してください
+						
+						//Trolley::GetInstance()->SetState(Trolley::State::Burst);
 						obj->model.SetIsActive(false);
 						obj->model.SetWorldMatrix(obj->transform.worldMatrix);
 						obj->collider = nullptr;

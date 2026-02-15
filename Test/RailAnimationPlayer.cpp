@@ -10,6 +10,7 @@
 
 #include "AnimationUtils.h"
 
+#include "LevelManager.h"
 #ifdef _DEBUG
 #include <iomanip>
 #include <sstream>
@@ -32,6 +33,10 @@ RailSystem::RailAnimationPlayer::RailAnimationPlayer(std::shared_ptr<const RailS
 	JSON_OPEN("Resources/Data/Trolley/trolley.json");
 	JSON_OBJECT("TrollerSpeed");
 	JSON_LOAD_BY_NAME("maxTrollySpeed_", playbackSpeed_);
+	JSON_CLOSE();
+	JSON_OPEN("Resources/Data/RailAnimationPlayer/railAnimationPlayer.json");
+	JSON_LOAD(level1GoalFrame_);
+	JSON_LOAD(level2GoalFrame_);
 	JSON_CLOSE();
 
 	railTransform_.UpdateMatrix();
@@ -90,7 +95,7 @@ void RailSystem::RailAnimationPlayer::Update(float deltaTime)
 	}
 
 #ifdef _DEBUG
-	//DrawImGui();
+	DrawImGui();
 #endif // _DEBUG
 
 }
@@ -116,6 +121,31 @@ void RailSystem::RailAnimationPlayer::Loop()
 {
 	isPlaying_ = true;
 	currentFrame_ = static_cast<float>(animationData_->railMetaData_.startFrame);
+}
+
+bool RailSystem::RailAnimationPlayer::IsFinished() const
+{
+	auto level = LevelManager::GetInstance()->GetLevel();
+	switch (level)
+	{
+	case LevelManager::Level::LEVEL1:
+	{
+		if (currentFrame_ >= level1GoalFrame_) {
+			return true;
+		}
+	}
+	break;
+	case LevelManager::Level::LEVEL2:
+	{
+		if (currentFrame_ >= level2GoalFrame_) {
+			return true;
+		}
+	}
+	break;
+	default:
+		break;
+	}
+	return false;
 }
 
 void RailSystem::RailAnimationPlayer::SetCurrentFrame(float frame)
@@ -419,9 +449,25 @@ Transform RailSystem::RailAnimationPlayer::EvaluateWorldCameraTransform(float fr
 void RailSystem::RailAnimationPlayer::DrawImGui()
 {
 	{
-		std::wostringstream woss;
-		woss << L"Current Frame: " << std::fixed << std::setprecision(2) << currentFrame_ << L"\n";
-		OutputDebugStringW(woss.str().c_str());
+		ImGui::Begin("GameScene");
+		if (ImGui::TreeNode("ゲームクリア制御（RailAnimationPlayer）")) {
+			// 保存ボタン
+			if (ImGui::Button("Save", ImVec2(-1.0f, 0.0f))) {
+				JSON_OPEN("Resources/Data/RailAnimationPlayer/railAnimationPlayer.json");
+				JSON_SAVE(level1GoalFrame_);
+				JSON_SAVE(level2GoalFrame_);
+				JSON_CLOSE();
+			}
+
+			ImGui::Separator();
+
+			ImGui::DragFloat("Level1ゴールのフレーム", &level1GoalFrame_);
+			ImGui::DragFloat("Level2ゴールのフレーム", &level2GoalFrame_);
+
+			ImGui::TreePop();
+		}
+		ImGui::End();
+
 	}
 }
 
