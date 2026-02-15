@@ -2,6 +2,8 @@
 
 #include "Framework/AssetManager.h"
 
+
+
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -16,25 +18,19 @@ TutorialObject::TutorialObject()
 	);
 }
 
-void TutorialObject::Initialize(const Transform& transform, const std::string& name)
+void TutorialObject::Initialize(const std::string& name, float frame)
 {
-	transform_ = transform;
-	transform_.UpdateMatrix();
 
 	collider_->center = transform_.translate;
-	collider_->radius = 1.0f;
+	collider_->radius = 0.0f;
+
 #ifdef _DEBUG
 	name_ = name;
 #endif // _DEBUG
 
 	auto assetManager = AssetManager::GetInstance();
 
-	auto model = assetManager->modelMap.Get(name)->Get();
 	auto texture = assetManager->textureMap.Get(name)->Get();
-
-	model_.SetModel(model);
-
-	model_.SetWorldMatrix(transform_.worldMatrix);
 
 	sprite_.SetTexture(texture);
 	sprite_.SetColor(Color::white);
@@ -45,15 +41,35 @@ void TutorialObject::Initialize(const Transform& transform, const std::string& n
 	sprite_.SetIsActive(false);
 	sprite_.SetDrawOrder(5);
 
+	isOnce_ = false;
+
+	drawFrame_ = frame;
+
+	maxTime_ = 120.0f;
+	currentTime_ = maxTime_;
 }
 
 void TutorialObject::Update()
 {
-	transform_.UpdateMatrix();
+	//一度出現してスプライトが出ていなけらば用済み
+	if (isOnce_ && !sprite_.GetIsActive()) {
+		return;
+	}
 
-	collider_->center = transform_.translate;
+	if (!isOnce_ && railAnimationPlayer_->GetCurrentFrame() >= drawFrame_) {
 
-	model_.SetWorldMatrix(transform_.worldMatrix);
+		isOnce_ = true;
+
+		sprite_.SetIsActive(true);
+
+		transform_.SetParent(&railAnimationPlayer_->GetTransform());
+		colliderOffset_ = { 0.0,-1.0f,8.0f };
+		transform_.translate = colliderOffset_;
+		transform_.UpdateMatrix();
+
+		collider_->center = transform_.worldMatrix.GetTranslate();
+		collider_->radius = 0.7f;
+	}
 	OnCollision();
 
 #ifdef _DEBUG
@@ -65,23 +81,28 @@ void TutorialObject::Update()
 void TutorialObject::OnCollision()
 {
 	if (!collider_->GetCollidedWith().empty()) {
-		sprite_.SetIsActive(true);
+		if (sprite_.GetIsActive()) {
+			currentTime_--;
+			if (currentTime_ <= 0.0f) {
+				sprite_.SetIsActive(false);
+			}
+			return;
+		}
 	}
-	else {
-		sprite_.SetIsActive(false);   
-	}
+	currentTime_ = maxTime_;
 }
 
 #ifdef _DEBUG
 void TutorialObject::DrawImGui()
 {
 	ImGui::Begin(name_.c_str());
-	ImGui::DragFloat3("translate", &transform_.translate.x);
-	Vector3 euler = transform_.rotate.EulerAngle();
-	ImGui::DragFloat3("rotation", &euler.x);
+	ImGui::DragFloat3("colliderOffset", &colliderOffset_.x);
 	ImGui::DragFloat("radius", &collider_->radius);
-	transform_.rotate = Quaternion::MakeFromEulerAngle(euler);
 	ImGui::End();
+
+	transform_.translate = colliderOffset_;
+	transform_.UpdateMatrix();
+	collider_->center = transform_.worldMatrix.GetTranslate();
 
 	sprite_.DrawImGui(name_ + "sprite");
 }
