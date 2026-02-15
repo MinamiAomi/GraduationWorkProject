@@ -601,7 +601,7 @@ void GameScene::OnUpdate() {
 		gameFinishBackGround_.SetIsActive(true);
 	}
 
-	//一周終わったかどうか
+	//クリアしたかどうか
 	if (railAnimationPlayer_->IsFinished()) {
 		isClear_ = true;
 		isGameFinishAnimation_ = true;

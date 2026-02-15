@@ -27,7 +27,7 @@ namespace RailSystem {
 
 		bool IsPlaying() const { return isPlaying_; }
 
-		bool IsFinished() const { return currentFrame_ >= totalDurationFrames_; }
+		bool IsFinished() const;
 
 		float GetRealSpeed() const { return realSpeed_; }
 
@@ -78,6 +78,8 @@ namespace RailSystem {
 		Transform convertRailTransform_;
 		Vector3 preCameraPosition_;
 		float realSpeed_;
+		float level1GoalFrame_;
+		float level2GoalFrame_;
 	};
 
 }

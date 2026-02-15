@@ -57,13 +57,12 @@ void Trolley::Initialize()
 	JSON_LOAD(decelerationRate_);
 	JSON_LOAD(maxNormalCharge_);
 	JSON_LOAD(nitroThreshold_);
-	JSON_LOAD(burstThreshold_);
 	JSON_LOAD(nitroChargeTime_);
 	JSON_LOAD(nitroDuration_);
-	JSON_LOAD(burstDuration_);
 	JSON_LOAD(batteryAfterNitro_);
-	JSON_LOAD(batteryAfterBurst_);
 	JSON_LOAD(batDecrease_);
+	JSON_LOAD(nitroAccelerationRate_);
+	JSON_LOAD(nitroDecelerationRate_);
 	JSON_ROOT();
 	JSON_OBJECT("Trolley");
 	JSON_LOAD(trolleyOffset_);
@@ -167,7 +166,8 @@ void Trolley::Update(float deltaTime)
 void Trolley::UpdateState(float deltaTime)
 {
 	if (!isPause_) {
-		if (trollyState_ != State::Nitro && trollyState_ != State::Burst) {
+		//通常時のバッテリーチャージ
+		if (trollyState_ != State::Nitro /*&& trollyState_ != State::Burst*/) {
 
 			//バッテリーが十分でライトが当たっているとき
 			//Batsの数で減らす
@@ -196,7 +196,7 @@ void Trolley::UpdateState(float deltaTime)
 			}
 		}
 
-		currentCharge_ = std::clamp(currentCharge_, 0.0f, burstThreshold_);
+		currentCharge_ = std::clamp(currentCharge_, 0.0f, nitroThreshold_);
 
 		switch (trollyState_)
 		{
@@ -219,12 +219,6 @@ void Trolley::UpdateState(float deltaTime)
 		{
 			currentSpeed_ = maxSpeed_;
 
-			//バースト判定
-			if (currentCharge_ >= burstThreshold_) {
-				OnBurstState();
-				return;
-			}
-
 			//ノーマル判定
 			if (currentCharge_ <= maxNormalCharge_) {
 				OnNormalState();
@@ -233,14 +227,14 @@ void Trolley::UpdateState(float deltaTime)
 
 			//ニトロ判定
 			if (currentCharge_ >= nitroThreshold_) {
-				nitroAccumulateTimer_ += deltaTime;
+				nitroAccumulateTimer_ += nitroAccelerationRate_;
 				// 規定時間維持できたら発動
 				if (nitroAccumulateTimer_ >= nitroChargeTime_) {
 					OnNitroState();
 				}
 			}
 			else {
-				nitroAccumulateTimer_ -= deltaTime;
+				nitroAccumulateTimer_ -= nitroDecelerationRate_;
 				nitroAccumulateTimer_ = std::max(nitroAccumulateTimer_, 0.0f);
 			}
 		}
@@ -250,48 +244,48 @@ void Trolley::UpdateState(float deltaTime)
 
 			currentSpeed_ = nitroSpeed_;
 
-			stateTimer_ += deltaTime;
+			stateTimer_++;
 			// ニトロ終了判定
 			if (stateTimer_ >= nitroDuration_) {
 				RecoverFromNitro();
 			}
 		}
 		break;
-		case Trolley::State::Burst:
-		{
-			currentSpeed_ = burstSpeed_;
-			stateTimer_ += deltaTime;
+		//case Trolley::State::Burst:
+		//{
+		//	currentSpeed_ = burstSpeed_;
+		//	stateTimer_ += deltaTime;
 
-			float timeRate = stateTimer_ / burstDuration_;
-			float decay = std::lerp(1.0f, 0.0f, std::clamp(timeRate, 0.0f, 1.0f));
+		//	float timeRate = stateTimer_ / burstDuration_;
+		//	float decay = std::lerp(1.0f, 0.0f, std::clamp(timeRate, 0.0f, 1.0f));
 
 
-			float shakeX = std::sin(stateTimer_ * 50.0f) * 0.8f * Math::ToRadian;
-			float shakeY = std::sin(stateTimer_ * 43.0f) * 0.1f * Math::ToRadian;
-			float shakeZ = std::sin(stateTimer_ * 60.0f) * 1.5f * Math::ToRadian;
+		//	float shakeX = std::sin(stateTimer_ * 50.0f) * 0.8f * Math::ToRadian;
+		//	float shakeY = std::sin(stateTimer_ * 43.0f) * 0.1f * Math::ToRadian;
+		//	float shakeZ = std::sin(stateTimer_ * 60.0f) * 1.5f * Math::ToRadian;
 
-			Vector3 noiseEuler = {
-				shakeX * decay,
-				shakeY * decay,
-				shakeZ * decay
-			};
+		//	Vector3 noiseEuler = {
+		//		shakeX * decay,
+		//		shakeY * decay,
+		//		shakeZ * decay
+		//	};
 
-			shakeRotation_ = Quaternion::MakeFromEulerAngle(noiseEuler);
+		//	shakeRotation_ = Quaternion::MakeFromEulerAngle(noiseEuler);
 
-			float posShakeAmount = 0.1f * decay;
+		//	float posShakeAmount = 0.1f * decay;
 
-			shakeOffset_ = {
-				rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount,
-				rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount,
-				0.0f
-			};
+		//	shakeOffset_ = {
+		//		rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount,
+		//		rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount,
+		//		0.0f
+		//	};
 
-			// バースト復帰判定
-			if (stateTimer_ >= burstDuration_) {
-				RecoverFromBurst();
+		//	// バースト復帰判定
+		//	if (stateTimer_ >= burstDuration_) {
+		//		RecoverFromBurst();
 
-			}
-		}
+		//	}
+		//}
 		break;
 		default:
 			break;
@@ -425,13 +419,13 @@ void Trolley::UpdateSound() {
 
 void Trolley::OnBurstState()
 {
-	trollyState_ = State::Burst;
-	stateTimer_ = 0.0f;
-	currentCharge_ = batteryAfterBurst_;
-	nitroAccumulateTimer_ = 0.0f;
-	burstSESource_.Play(false);
-	burstSESource_.SetVolume(1.5f);
-	burstSESource_.SetPitch(2.0f);
+	//trollyState_ = State::Burst;
+	//stateTimer_ = 0.0f;
+	//currentCharge_ = batteryAfterBurst_;
+	//nitroAccumulateTimer_ = 0.0f;
+	//burstSESource_.Play(false);
+	//burstSESource_.SetVolume(1.5f);
+	//burstSESource_.SetPitch(2.0f);
 }
 
 float Trolley::CalculateCenterRate(const Vector3& center, float radius) {
@@ -491,10 +485,10 @@ void Trolley::DrawImGui() {
 		stateStr = "NITRO";
 		stateColor = ImVec4(0.0f, 1.0f, 1.0f, 1.0f); // 水色
 		break;
-	case State::Burst:
-		stateStr = "BURST";
-		stateColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤
-		break;
+	//case State::Burst:
+	//	stateStr = "BURST";
+	//	stateColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤
+	//	break;
 	}
 	// STATEは見出しなので英語のまま強調
 	ImGui::TextColored(stateColor, "STATE: %s", stateStr);
@@ -506,22 +500,15 @@ void Trolley::DrawImGui() {
 
 	ImGui::Separator();
 
-	// --- バッテリーゲージ ---
-	// 全体(0~BurstThreshold)に対する割合
-	float batteryRatio = currentCharge_ / burstThreshold_;
-
 	// ゲージの色分け
-	if (trollyState_ == State::Burst)
-		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.0f, 0.2f, 0.2f, 1.0f)); // 赤
-	else if (currentCharge_ >= nitroThreshold_)
+	//if (trollyState_ == State::Burst)
+	//	ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.0f, 0.2f, 0.2f, 1.0f)); // 赤
+	//else
+	if (currentCharge_ >= nitroThreshold_)
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // オレンジ
 	else
 		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.2f, 0.8f, 0.2f, 1.0f)); // 緑
 
-	char buf[32];
-	// 数値だけだと何かわからないので日本語追加
-	sprintf_s(buf, "充電量: %.1f", currentCharge_);
-	ImGui::ProgressBar(batteryRatio, ImVec2(-1.0f, 0.0f), buf);
 	ImGui::PopStyleColor();
 
 	// --- ニトロ蓄積ゲージ (Overcharge時のみ表示) ---
@@ -562,13 +549,12 @@ void Trolley::DrawImGui() {
 			JSON_SAVE(decelerationRate_);
 			JSON_SAVE(maxNormalCharge_);
 			JSON_SAVE(nitroThreshold_);
-			JSON_SAVE(burstThreshold_);
 			JSON_SAVE(nitroChargeTime_);
 			JSON_SAVE(nitroDuration_);
-			JSON_SAVE(burstDuration_);
 			JSON_SAVE(batteryAfterNitro_);
-			JSON_SAVE(batteryAfterBurst_);
 			JSON_SAVE(batDecrease_);
+			JSON_SAVE(nitroAccelerationRate_);
+			JSON_SAVE(nitroDecelerationRate_);
 			JSON_ROOT();
 			JSON_OBJECT("Trolley");
 			JSON_SAVE(trolleyOffset_);
@@ -607,36 +593,39 @@ void Trolley::DrawImGui() {
 		if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
 
 			ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
-			if (ImGui::TreeNode("速度・加速度 (Speed & Accel)")) {
+			if (ImGui::TreeNode("トロッコの速度関連")) {
 				ImGui::DragFloat("通常時の最高速度", &maxSpeed_, 0.01f);
 				ImGui::DragFloat("通常時の最低速度", &minSpeed_, 0.01f);
 				ImGui::DragFloat("ニトロ時の最高速度", &nitroSpeed_, 0.01f);
 				ImGui::DragFloat("バースト時の最高速度", &burstSpeed_, 0.01f);
-				ImGui::Spacing();
-				ImGui::DragFloat("光を当てた時の加速量", &accelerationRate_, 0.1f);
-				ImGui::DragFloat("自然減速量", &decelerationRate_, 0.1f);
+
+				
+			
 				ImGui::DragFloat("バット一体分の減少量", &batDecrease_, 0.1f,0.0f);
 				ImGui::TreePop();
 			}
 
-			if (ImGui::TreeNode("しきい値・バッテリー容量 (Thresholds)")) {
-				// スライダーの説明を具体的に
-				ImGui::DragFloat("通常上限 (100%)", &maxNormalCharge_, 1.0f, 0.0f, nitroThreshold_);
-				ImGui::DragFloat("ニトロ発動ライン", &nitroThreshold_, 1.0f, maxNormalCharge_, burstThreshold_);
-				ImGui::DragFloat("バースト発生ライン", &burstThreshold_, 1.0f, nitroThreshold_, 300.0f);
-
+			if (ImGui::TreeNode("通常時のトロッコ関連")) {
+				ImGui::DragFloat("バッテリーの許容量 (100%)", &maxNormalCharge_, 1.0f, 0.0f, nitroThreshold_);
 				ImGui::Spacing();
-				ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "イベント終了後の残量");
-				ImGui::DragFloat("ニトロ終了後", &batteryAfterNitro_, 1.0f);
-				ImGui::DragFloat("バースト終了後", &batteryAfterBurst_, 1.0f);
+				ImGui::DragFloat("バッテリーゲージの加算量", &accelerationRate_, 0.1f);
+				ImGui::DragFloat("バッテリーゲージの減少量", &decelerationRate_, 0.1f);
 				ImGui::TreePop();
 			}
 
-			if (ImGui::TreeNode("時間制御 (Timings)")) {
-				ImGui::DragFloat("ニトロ発動に必要な維持時間", &nitroChargeTime_, 0.1f, 0.0f, 10.0f, "%.1f秒");
-				ImGui::DragFloat("ニトロ持続時間", &nitroDuration_, 0.1f, 0.0f, 10.0f, "%.1f秒");
-				ImGui::DragFloat("バースト演出時間", &burstDuration_, 0.1f, 0.0f, 10.0f, "%.1f秒");
+			if (ImGui::TreeNode("ニトロ関連のトロッコ関連")) {
+				ImGui::DragFloat("ニトロ発動ライン", &nitroThreshold_, 1.0f, maxNormalCharge_);
+				ImGui::Spacing();
+				ImGui::DragFloat("ニトロ発動に必要な維持時間", &nitroChargeTime_, 0.1f, 0.0f, 600.0f);
+				ImGui::DragFloat("ニトロ持続時間", &nitroDuration_, 0.1f, 0.0f, 10.0f);
+				ImGui::Spacing();
+				ImGui::DragFloat("ニトロゲージの加算量", &nitroAccelerationRate_, 0.1f);
+				ImGui::DragFloat("ニトロゲージの減少量", &nitroDecelerationRate_, 0.1f);
+				ImGui::Spacing();
+				ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.5f, 1.0f), "イベント終了後の残量");
+				ImGui::DragFloat("ニトロ終了後のバッテリー残量", &batteryAfterNitro_, 1.0f);
 				ImGui::TreePop();
+
 			}
 
 			ImGui::TreePop();
@@ -676,10 +665,10 @@ void Trolley::SetState(const State& state)
 		OnNitroState();
 	}
 	break;
-	case Trolley::State::Burst:
-	{
-		OnBurstState();
-	}
+	//case Trolley::State::Burst:
+	//{
+	//	OnBurstState();
+	//}
 	break;
 	default:
 		break;

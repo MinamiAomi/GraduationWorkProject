@@ -52,7 +52,6 @@ private:
 	Sprite baseUI_;
 
 	Sprite chargeUI_;
-	Sprite overChargeUI_;
 	Sprite nitroUI_;
 	Sprite nitroBurstUI_;
 

@@ -41,14 +41,12 @@ TrolleyUI::TrolleyUI()
 
     auto baseTexture = assetManager->textureMap.Get("TrolleyBase")->Get();
     auto chargeGaugeTexture = assetManager->textureMap.Get("TrolleyChargeGauge")->Get();
-    auto overChargeGaugeTexture = assetManager->textureMap.Get("TrolleyOverChargeGauge")->Get();
     auto nitroGaugeTexture = assetManager->textureMap.Get("TrolleyNitroGauge")->Get();
     auto nitroBurstTexture = assetManager->textureMap.Get("TrolleyNitroBurst")->Get();
 
 
     baseUI_.SetTexture(baseTexture);
     chargeUI_.SetTexture(chargeGaugeTexture);
-    overChargeUI_.SetTexture(overChargeGaugeTexture);
     nitroBurstUI_.SetTexture(nitroBurstTexture);
     nitroUI_.SetTexture(nitroGaugeTexture);
 
@@ -56,7 +54,7 @@ TrolleyUI::TrolleyUI()
     baseUI_.SetScale(baseTexture->GetSize());
     baseUI_.SetAnchor({ 0.5f, 0.0f });
     baseUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
-    baseUI_.SetDrawOrder(4);
+    baseUI_.SetDrawOrder(3);
 
     chargeUI_.SetPosition({ 1135.0f,60.0f });
     chargeUI_.SetScale(chargeGaugeTexture->GetSize());
@@ -64,18 +62,12 @@ TrolleyUI::TrolleyUI()
     chargeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
     chargeUI_.SetDrawOrder(1);
 
-    overChargeUI_.SetPosition({ 1135.0f,60.0f });
-    overChargeUI_.SetScale(overChargeGaugeTexture->GetSize());
-    overChargeUI_.SetAnchor({ 0.5f,0.0f });
-    overChargeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
-    overChargeUI_.SetDrawOrder(2);
-
     nitroBurstUI_.SetPosition({ 1135.0f,60.0f });
     nitroBurstUI_.SetScale(nitroBurstTexture->GetSize());
     nitroBurstUI_.SetAnchor({ 0.5f,0.0f });
     nitroBurstUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
     nitroBurstUI_.SetIsActive(false);
-    nitroBurstUI_.SetDrawOrder(3);
+    nitroBurstUI_.SetDrawOrder(2);
 
 
     nitroUI_.SetPosition({ 1090.0f,65.0f });
@@ -96,7 +88,6 @@ TrolleyUI::TrolleyUI()
 		//sprite
 		chargeUI_.SetIsActive(true);
 		baseUI_.SetIsActive(true);
-		overChargeUI_.SetIsActive(true);
 		nitroUI_.SetIsActive(true);
 		nitroBurstUI_.SetIsActive(true);
 		baseUI_.SetIsActive(true);
@@ -112,7 +103,6 @@ TrolleyUI::TrolleyUI()
 		//sprite
 		chargeUI_.SetIsActive(false);
 		baseUI_.SetIsActive(false);
-		overChargeUI_.SetIsActive(false);
 		nitroUI_.SetIsActive(false);
 		nitroBurstUI_.SetIsActive(false);
 		baseUI_.SetIsActive(false);
@@ -236,21 +226,14 @@ void TrolleyUI::Update()
     speedMeterModel_.SetWorldMatrix(speedMeterTransform_.worldMatrix);
     speedMeterNeedleModel_.SetWorldMatrix(speedMeterNeedleTransform_.worldMatrix);
 
-    float currentCharge = trolley_->GetCurrentCharge();
-    float maxNormalChargeTime = trolley_->GetMaxNormalCharge();
-    float burstThreshold = trolley_->GetBurstThreshold();
-
     float chargeT = std::clamp(trolley_->GetCurrentCharge() / trolley_->GetMaxNormalCharge(), 0.0f, 1.0f);
     float nitroT = std::clamp(trolley_->GetNitroAccumulateTimer() / trolley_->GetNitroChargeTime(), 0.0f, 1.0f);
-    float overChargeT = std::clamp((currentCharge - maxNormalChargeTime) / (burstThreshold - maxNormalChargeTime), 0.0f, 1.0f);
 
     chargeUI_.SetScale({ 170.0f, std::lerp(0.0f, 190.0f, chargeT) });
     nitroUI_.SetScale({ 140.0f,std::lerp(0.0f,  110.0f , nitroT) });
-    overChargeUI_.SetScale({ 170.0f, std::lerp(0.0f, 190.0f, overChargeT) });
 
     chargeUI_.SetUVRect({ {0.0f, 1.0f - chargeT}, {1.0f, chargeT} }, Sprite::UVMode::UV);
     nitroUI_.SetUVRect({ {0.0f, 1.0f - nitroT}, { 1.0f,nitroT} }, Sprite::UVMode::UV);
-    overChargeUI_.SetUVRect({ {0.0f, 1.0f - overChargeT}, {1.0f, overChargeT} }, Sprite::UVMode::UV);
 
     if (trolley_->GetState() == Trolley::State::Nitro) {
         nitroBurstUI_.SetIsActive(true);
@@ -262,7 +245,6 @@ void TrolleyUI::Update()
     DrawImGui();
     baseUI_.DrawImGui("TrolleyBaseUI");
     chargeUI_.DrawImGui("ChargeUI");
-    overChargeUI_.DrawImGui("OverChargeUI");
     nitroUI_.DrawImGui("NitroUI");
 #endif // _DEBUG
 
@@ -313,7 +295,6 @@ void TrolleyUI::SetIsActive(bool isActive) {
 	//sprite
 	chargeUI_.SetIsActive(isActive);
 	baseUI_.SetIsActive(isActive);
-	overChargeUI_.SetIsActive(isActive);
 	nitroUI_.SetIsActive(isActive);
 	nitroBurstUI_.SetIsActive(isActive);
 	baseUI_.SetIsActive(isActive);
