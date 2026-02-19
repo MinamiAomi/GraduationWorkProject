@@ -167,7 +167,7 @@ void Trolley::UpdateState(float deltaTime)
 {
 	if (!isPause_) {
 		//通常時のバッテリーチャージ
-		if (trollyState_ != State::Nitro /*&& trollyState_ != State::Burst*/) {
+		if (trollyState_ != State::Nitro && trollyState_ != State::Stop) {
 
 			//バッテリーが十分でライトが当たっているとき
 			//Batsの数で減らす
@@ -251,41 +251,10 @@ void Trolley::UpdateState(float deltaTime)
 			}
 		}
 		break;
-		//case Trolley::State::Burst:
-		//{
-		//	currentSpeed_ = burstSpeed_;
-		//	stateTimer_ += deltaTime;
+		case Trolley::State::Stop:
+		{
 
-		//	float timeRate = stateTimer_ / burstDuration_;
-		//	float decay = std::lerp(1.0f, 0.0f, std::clamp(timeRate, 0.0f, 1.0f));
-
-
-		//	float shakeX = std::sin(stateTimer_ * 50.0f) * 0.8f * Math::ToRadian;
-		//	float shakeY = std::sin(stateTimer_ * 43.0f) * 0.1f * Math::ToRadian;
-		//	float shakeZ = std::sin(stateTimer_ * 60.0f) * 1.5f * Math::ToRadian;
-
-		//	Vector3 noiseEuler = {
-		//		shakeX * decay,
-		//		shakeY * decay,
-		//		shakeZ * decay
-		//	};
-
-		//	shakeRotation_ = Quaternion::MakeFromEulerAngle(noiseEuler);
-
-		//	float posShakeAmount = 0.1f * decay;
-
-		//	shakeOffset_ = {
-		//		rnd_.NextFloatRange(-0.2f, 0.2f) * posShakeAmount,
-		//		rnd_.NextFloatRange(0.0f, 1.0f) * posShakeAmount,
-		//		0.0f
-		//	};
-
-		//	// バースト復帰判定
-		//	if (stateTimer_ >= burstDuration_) {
-		//		RecoverFromBurst();
-
-		//	}
-		//}
+		}
 		break;
 		default:
 			break;
@@ -392,6 +361,18 @@ void Trolley::RecoverFromBurst()
 	shakeOffset_ = Vector3::zero;
 }
 
+void Trolley::OnStopState()
+{
+	currentSpeed_ = 0.0f;
+	currentCharge_ = 0.0f;
+}
+
+void Trolley::RecoverFromStop()
+{
+	currentSpeed_ = maxSpeed_;
+	currentCharge_ = maxNormalCharge_;
+}
+
 void Trolley::UpdateSound() {
 	if (normalSESource_.IsPlaying()) {
 		// 速度がゼロなら音を止める
@@ -485,10 +466,10 @@ void Trolley::DrawImGui() {
 		stateStr = "NITRO";
 		stateColor = ImVec4(0.0f, 1.0f, 1.0f, 1.0f); // 水色
 		break;
-	//case State::Burst:
-	//	stateStr = "BURST";
-	//	stateColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤
-	//	break;
+		//case State::Burst:
+		//	stateStr = "BURST";
+		//	stateColor = ImVec4(1.0f, 0.2f, 0.2f, 1.0f); // 赤
+		//	break;
 	}
 	// STATEは見出しなので英語のまま強調
 	ImGui::TextColored(stateColor, "STATE: %s", stateStr);
@@ -599,9 +580,9 @@ void Trolley::DrawImGui() {
 				ImGui::DragFloat("ニトロ時の最高速度", &nitroSpeed_, 0.01f);
 				ImGui::DragFloat("バースト時の最高速度", &burstSpeed_, 0.01f);
 
-				
-			
-				ImGui::DragFloat("バット一体分の減少量", &batDecrease_, 0.1f,0.0f);
+
+
+				ImGui::DragFloat("バット一体分の減少量", &batDecrease_, 0.1f, 0.0f);
 				ImGui::TreePop();
 			}
 
@@ -648,6 +629,31 @@ void Trolley::DrawImGui() {
 
 void Trolley::SetState(const State& state)
 {
+	
+	switch (trollyState_)
+	{
+	case Trolley::State::Normal:
+	{
+	}
+	break;
+	case Trolley::State::Overcharge:
+	{
+	}
+	break;
+	case Trolley::State::Nitro:
+	{
+		RecoverFromNitro();
+	}
+	break;
+	case Trolley::State::Stop:
+	{
+		RecoverFromStop();
+	}
+	break;
+	default:
+		break;
+	}
+
 	switch (state)
 	{
 	case Trolley::State::Normal:
@@ -665,10 +671,10 @@ void Trolley::SetState(const State& state)
 		OnNitroState();
 	}
 	break;
-	//case Trolley::State::Burst:
-	//{
-	//	OnBurstState();
-	//}
+	case Trolley::State::Stop:
+	{
+		OnStopState();
+	}
 	break;
 	default:
 		break;
@@ -713,32 +719,32 @@ void Trolley::UpdateCollision()
 
 
 void Trolley::SetIsActive(bool isActive) {
-    model_.SetIsActive(isActive);
-    trolleyUI_.SetIsActive(isActive);
+	model_.SetIsActive(isActive);
+	trolleyUI_.SetIsActive(isActive);
 }
 
 void Trolley::Finalize() {
 	if (normalSESource_.IsPlaying()) {
 		normalSESource_.Stop();
-    }
+	}
 	if (nitroSESource_.IsPlaying()) {
 		nitroSESource_.Stop();
-    }
+	}
 	if (burstSESource_.IsPlaying()) {
 		burstSESource_.Stop();
-    }
+	}
 	if (crashSESource_.IsPlaying()) {
 		crashSESource_.Stop();
-    }
+	}
 	for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
 		if (nitroBoostSESources_[i].IsPlaying()) {
 			nitroBoostSESources_[i].Stop();
 		}
-    }
-    if (nitroFizzSESource_.IsPlaying()) {	
+	}
+	if (nitroFizzSESource_.IsPlaying()) {
 		nitroFizzSESource_.Stop();
-    }
-    if (chargeSESource_.IsPlaying()) {
+	}
+	if (chargeSESource_.IsPlaying()) {
 		chargeSESource_.Stop();
-    }
+	}
 }

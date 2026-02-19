@@ -6,6 +6,8 @@
 #include "SceneObjectData.h"
 #include "Framework/AssetManager.h"
 
+#include "Math/Random.h"
+
 #include "BatsManager.h"
 
 namespace SceneObjectSystem {
@@ -30,6 +32,8 @@ namespace SceneObjectSystem {
 
 		void SetBatsManager(BatsManager* batsManager) { batsManager_ = batsManager; }
 	private:
+		Random::RandomNumberGenerator rnd_;
+
 		// 共通の初期化処理を行うテンプレート関数
 		template <typename T>
 		void InitializeCommonObject(

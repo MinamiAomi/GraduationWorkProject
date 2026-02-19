@@ -235,12 +235,16 @@ namespace SceneObjectSystem {
 	}
 	void ObstacleObject::Update()
 	{
+		transform.translate = basePosition;
+		transform.UpdateMatrix();
+		model.SetWorldMatrix(transform.worldMatrix);
 	}
 	void ObstacleObject::SetDamage()
 	{
 		hp--;
 		if (hp <= 0) {
 			isAlive = false;
+			model.SetIsActive(false);
 		}
 	}
 }

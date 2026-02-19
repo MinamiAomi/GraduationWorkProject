@@ -351,9 +351,29 @@ void GameScene::OnUpdate() {
 #pragma endregion
 
 #pragma region RailcameraUI
+	bool startWarning = false;
+
+	switch (LevelManager::GetInstance()->GetLevel())
+	{
+	case LevelManager::Level::LEVEL1:
+	{
+		startWarning = railAnimationPlayer_->GetCurrentFrame() >= deadline_->GetStartFrameLevel1();
+	}
+		break;
+	case LevelManager::Level::LEVEL2:
+	{
+		startWarning = railAnimationPlayer_->GetCurrentFrame() >= deadline_->GetStartFrameLevel2();
+
+	}
+	break;
+	default:
+		break;
+	}
+	
 	railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
-		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
+		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
+		(startWarning)
 	);
 #pragma endregion
 
