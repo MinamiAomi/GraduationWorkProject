@@ -35,6 +35,7 @@ namespace {
 
         for (uint32_t meshIndex = 0; auto & destMesh : meshes) {
             const aiMesh* srcMesh = scene->mMeshes[meshIndex];
+            srcMesh->mName;
             assert(srcMesh->HasNormals());
 
             destMesh.vertexOffset = (uint32_t)vertices.size();
@@ -184,20 +185,21 @@ namespace {
         return materials;
     }
     // 再起的にノードを解析する
-    Node ParseNode(const aiNode* node) {
-        Node result;
+    std::unique_ptr<Node> ParseNode(const aiNode* node) {
+        std::unique_ptr<Node> result = std::make_unique<Node>();
         aiVector3D translate, scale;
         aiQuaternion rotate;
         node->mTransformation.Decompose(scale, rotate, translate);
-        result.transform.translate = { translate.x, translate.y, -translate.z };
-        result.transform.rotate = Quaternion{ -rotate.x, -rotate.y, rotate.z, rotate.w };
-        result.transform.scale = { scale.x, scale.y, scale.z };
-        result.localMatrix = Matrix4x4::MakeAffineTransform(result.transform.scale, result.transform.rotate, result.transform.translate);
-        result.name = node->mName.C_Str();
+        result->transform.translate = { translate.x, translate.y, -translate.z };
+        result->transform.rotate = Quaternion{ -rotate.x, -rotate.y, rotate.z, rotate.w };
+        result->transform.scale = { scale.x, scale.y, scale.z };
+        result->localMatrix = Matrix4x4::MakeAffineTransform(result->transform.scale, result->transform.rotate, result->transform.translate);
+        result->name = node->mName.C_Str();
+
         // 子供も解析する
-        result.children.resize(node->mNumChildren);
+        result->children.resize(node->mNumChildren);
         for (uint32_t i = 0; i < node->mNumChildren; ++i) {
-            result.children[i] = ParseNode(node->mChildren[i]);
+            result->children[i] = std::move(ParseNode(node->mChildren[i]));
         }
         return result;
     }
@@ -235,8 +237,8 @@ std::shared_ptr<Model> Model::Load(const std::filesystem::path& path) {
     assert(scene->HasMeshes());
 
     model->materials_ = ParseMaterials(scene, directory);
+    model->rootNode_ = std::move(ParseNode(scene->mRootNode));
     model->meshes_ = ParseMeshes(scene, model->materials_, model->vertices_, model->indices_, model->skinClusterData_);
-    model->rootNode_ = ParseNode(scene->mRootNode);
 
     for (const auto& vertex : model->vertices_) {
         // 各成分ごとに最小値と最大値を更新

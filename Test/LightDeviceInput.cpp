@@ -51,9 +51,9 @@ void LightDeviceInput::Finalize() {
     }
 }
 
-void LightDeviceInput::ResetOrientation() {
+void LightDeviceInput::ResetOrientation(const Vector3& direction) {
     std::lock_guard<std::mutex> lock(dataMutex_);
-    resetOrientation_ = orientation_.Conjugate();
+    resetOrientation_ = Quaternion::MakeLookRotation(direction) * orientation_.Conjugate();
 }
 
 void LightDeviceInput::InternalLoad() {
@@ -112,7 +112,7 @@ void LightDeviceInput::InternalLoad() {
         }
 
         // 1秒待機
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(2));
 
         DWORD bytesWritten = 0;
         if (!WriteFile(hPort, handshakeSend.c_str(), (DWORD)handshakeSend.length(), &bytesWritten, NULL)) {
@@ -177,7 +177,8 @@ void LightDeviceInput::CommunicationLoop() {
 
         Vector3 euler;
         Quaternion orientation;
-        if (data.size() >= 4) {
+        bool buttonPressed = false;
+        if (data.size() >= 5) {
 
             orientation.w = -std::stof(data[0]);
             orientation.x = std::stof(data[1]);
@@ -186,35 +187,45 @@ void LightDeviceInput::CommunicationLoop() {
             if (orientation.LengthSquare() != 0.0f) {
                 orientation = orientation.Normalized();
             }
+
+            if (data[4] == "T") {
+                buttonPressed = true;
+            }
+            else {
+                buttonPressed = false;
+            }
         }
 
         std::lock_guard<std::mutex> lock(dataMutex_);
 
-        Quaternion swing, twist;
+        buttonPressedPrev_ = buttonPressed_;
+        buttonPressed_ = buttonPressed;
+
+ /*       Quaternion swing, twist;
         Vector3 axisZ = Vector3::forward;
         Vector3 proj = Vector3::Dot({ orientation.x, orientation.y, orientation.z }, axisZ) * axisZ;
         twist.x = proj.x; twist.y = proj.y; twist.z = proj.z; twist.w = orientation.w;
         twist = twist.Normalized();
-        swing = orientation * twist.Conjugate();
+        swing = orientation * twist.Conjugate();*/
 
-        float dot = std::min(1.0f, std::abs(Quaternion::Dot(orientation_, swing)));
+        float dot = std::min(1.0f, std::abs(Quaternion::Dot(orientation_, orientation)));
         float deltaAngle = 2.0f * std::acos(dot);
         float minAlpha = 0.05f;
         float maxAlpha = 0.8f;
         float sensitivity = 10.0f;
         float t = std::min(1.0f, deltaAngle * sensitivity);
         float dynamicAlpha = Math::Lerp(t, minAlpha, maxAlpha);
-        orientation_ = Quaternion::Slerp(dynamicAlpha, orientation_, swing);
+        orientation_ = Quaternion::Slerp(dynamicAlpha, orientation_, orientation);
 
-        Vector3 forward = orientation_.GetForward();
-        bool nowUp = (forward.y > 0.8f);
-
-        if (nowUp && !isReseting_) {
-            float yaw = std::atan2(forward.x, forward.z);
-            // 上向きになった瞬間にリセットを開始する
-            resetOrientation_ = Quaternion::MakeForYAxis(yaw).Inverse();
-        }
-        isReseting_ = nowUp;
+        //Vector3 forward = orientation_.GetForward();
+        //bool nowUp = (forward.y > 0.8f);
+        //
+        //if (nowUp && !isReseting_) {
+        //    float yaw = std::atan2(forward.x, forward.z);
+        //    // 上向きになった瞬間にリセットを開始する
+        //    resetOrientation_ = Quaternion::MakeForYAxis(yaw).Inverse();
+        //}
+        //isReseting_ = nowUp;
     }
 
 }
@@ -226,6 +237,16 @@ Quaternion LightDeviceInput::GetOrientation() const {
 
 LightDeviceInput::ConnectionState LightDeviceInput::GetConnectionState() const {
     return connectionState_.load();
+}
+
+bool LightDeviceInput::IsButtonPressed() const {
+    std::lock_guard<std::mutex> lock(dataMutex_);
+    return buttonPressed_ == true;
+}
+
+bool LightDeviceInput::IsButtonTrigger() const {
+    std::lock_guard<std::mutex> lock(dataMutex_);
+    return buttonPressed_ == true && buttonPressedPrev_ == false;
 }
 
 void LightDeviceInput::DrawImGui(const char* label) {

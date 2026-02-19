@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationLoader.cpp" />
+    <ClCompile Include="AnimationTransform.cpp" />
     <ClCompile Include="AnimationUtils.cpp" />
     <ClCompile Include="Bats.cpp" />
     <ClCompile Include="BatsBullets.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="LightDeviceInput.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="ModelEmitter.h" />
+    <ClInclude Include="AnimationTransform.h" />
     <ClInclude Include="ParticleDefine.h" />
     <ClInclude Include="PersistentData.h" />
     <ClInclude Include="Flashlight.h" />

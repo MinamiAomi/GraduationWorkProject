@@ -16,6 +16,8 @@ public:
 
 	void SetTrolley(const Trolley* trolley) { trolley_ = trolley; }
 	void SetIsActive(bool isActive);
+    const Transform& GetBatterTransform() const { return batterTransform_; }
+
 private:
 #ifdef _DEBUG
 	void DrawImGui();

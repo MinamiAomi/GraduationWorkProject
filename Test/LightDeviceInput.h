@@ -21,10 +21,13 @@ public:
 
     void Initialize();
     void Finalize();
-    void ResetOrientation();
+    void ResetOrientation(const Vector3& direction = Vector3::forward);
 
     Quaternion GetOrientation() const;
     ConnectionState GetConnectionState() const;
+
+    bool IsButtonPressed() const;
+    bool IsButtonTrigger() const;
 
     void DrawImGui(const char* label);
 
@@ -42,6 +45,8 @@ private:
     
     Quaternion orientation_;
     Quaternion resetOrientation_;
+    bool buttonPressed_ = false; 
+    bool buttonPressedPrev_ = false;
     bool isReseting_ = false;
 
     mutable std::mutex dataMutex_;
