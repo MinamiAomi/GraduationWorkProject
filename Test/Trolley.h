@@ -33,7 +33,7 @@ public:
 		Normal,
 		Overcharge,
 		Nitro,
-		//Burst,
+		Stop,
 	};
 	Trolley();
 
@@ -99,11 +99,18 @@ private:
 	void UpdateBanking(float deltaTime);
 
 	void OnNormalState();
+
 	void OnOverchargeState();
+	
 	void OnNitroState();
 	void RecoverFromNitro();
+	
 	void OnBurstState();
 	void RecoverFromBurst();
+
+	void OnStopState();
+	void RecoverFromStop();
+
 	void UpdateSound();
 
 	//どこくらいライトの真ん中か計算
@@ -172,7 +179,7 @@ private:
 	
 	float currentSpeed_ = 0.0f;
 	// バッテリー残量
-	float currentCharge_ = 100.0f;
+	float currentCharge_ = 0.0f;
 
 	// ニトロ発動条件を満たしている時間累積
 	float nitroAccumulateTimer_ = 0.0f;

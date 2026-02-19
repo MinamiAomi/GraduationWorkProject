@@ -235,6 +235,9 @@ namespace SceneObjectSystem {
 	}
 	void ObstacleObject::Update()
 	{
+		transform.translate = basePosition;
+		transform.UpdateMatrix();
+		model.SetWorldMatrix(transform.worldMatrix);
 	}
 	void ObstacleObject::SetDamage()
 	{
