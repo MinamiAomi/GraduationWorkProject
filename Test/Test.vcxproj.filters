@@ -190,6 +190,15 @@
     <ClCompile Include="TutorialObject.cpp">
       <Filter>Game\Tutorial</Filter>
     </ClCompile>
+    <ClCompile Include="Ghosts.cpp">
+      <Filter>Game\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostsManager.cpp">
+      <Filter>Game\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostsParticles.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -324,6 +333,15 @@
     </ClInclude>
     <ClInclude Include="TutorialObject.h">
       <Filter>Game\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghosts.h">
+      <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostsManager.h">
+      <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="GhostsParticles.h">
+      <Filter>Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

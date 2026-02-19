@@ -33,6 +33,9 @@
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="Flashlight.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Ghosts.cpp" />
+    <ClCompile Include="GhostsManager.cpp" />
+    <ClCompile Include="GhostsParticles.cpp" />
     <ClCompile Include="LightDeviceInput.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="ModelEmitter.cpp" />
@@ -70,6 +73,9 @@
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="DeviceOptionsUI.h" />
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="Ghosts.h" />
+    <ClInclude Include="GhostsManager.h" />
+    <ClInclude Include="GhostsParticles.h" />
     <ClInclude Include="LightDeviceInput.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="ModelEmitter.h" />

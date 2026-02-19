@@ -19,7 +19,7 @@ void PowerEmitter::Initialize(EmitShape shape, const LightObject* parentLight)
 	maxScale_ = 0.2f;
 	material_ = std::make_shared<Material>();
 	material_->emissive = { 1.0f,1.0f,1.0f };
-	material_->emissiveIntensity = 10.0f;
+	material_->emissiveIntensity = 100.0f;
 	const Color color = parentLight->GetColor();
 	material_->albedo = Vector3{ color.GetR(),color.GetG(),color.GetB()};
 

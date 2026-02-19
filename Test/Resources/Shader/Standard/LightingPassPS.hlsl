@@ -28,11 +28,7 @@ PSOutput main(PSInput input) {
     
     // AlbedoのWが0の場合は計算しない
     if (g_Albedo.SampleLevel(g_DefaultSampler, input.texcoord, 0).w == 0.0f) {
-        float32_t3 position = GetWorldPosition(input.texcoord);
-
-        output.color.rgb = AtmosphericScattering(g_Scene.cameraPosition, normalize(position - g_Scene.cameraPosition), g_SkyParameter).rgb;
-        output.color.a = 1.0f;
-        return output;
+       discard;
     }
    
     float32_t3 position = GetWorldPosition(input.texcoord);

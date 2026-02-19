@@ -66,7 +66,8 @@
     "GameClearGoalAndRail" : "GameClear/GoalAndRail/GoalAndRail.gltf",
     "GameClearTrolley" : "GameClear/Trolley/Trolley.gltf",
 
-    "Triangle" : "triangle.gltf"
+    "Triangle" : "triangle.gltf",
+    "Ghost" : "BombGhost/BombGhost.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",

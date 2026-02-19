@@ -7,6 +7,7 @@
 #include "Framework/AssetManager.h"
 
 #include "BatsManager.h"
+#include "GhostsManager.h"
 
 namespace SceneObjectSystem {
 	class SceneObjectManager {
@@ -29,6 +30,7 @@ namespace SceneObjectSystem {
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 
 		void SetBatsManager(BatsManager* batsManager) { batsManager_ = batsManager; }
+		void SetGhostsManager(GhostsManager* ghostsManager) { ghostsManager_ = ghostsManager; }
 	private:
 		// 共通の初期化処理を行うテンプレート関数
 		template <typename T>
@@ -76,6 +78,7 @@ namespace SceneObjectSystem {
 		} sceneObjectConfig_;
 
 		BatsManager* batsManager_;
+		GhostsManager* ghostsManager_;
 	};
 
 	template<typename T>
