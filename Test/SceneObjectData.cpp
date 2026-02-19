@@ -244,6 +244,7 @@ namespace SceneObjectSystem {
 		hp--;
 		if (hp <= 0) {
 			isAlive = false;
+			model.SetIsActive(false);
 		}
 	}
 }

@@ -172,10 +172,6 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : obstacleObjects_) {
 
-
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-		obj->model.SetIsActive(true);
-
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 
@@ -191,8 +187,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 					//死んだときの処理
 					if (!obj->isAlive) {
 						obj->collider = nullptr;
-						obj->model.SetIsActive(false);
 						Trolley::GetInstance()->SetState(Trolley::State::Normal);
+						break;
 					}
 				}
 				else if ((collider->categoryBits == CollisionCategory::PLAYER)) {
