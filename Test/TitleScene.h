@@ -14,6 +14,7 @@
 #include "Flashlight.h"
 #include "ModelEmitter.h"
 #include "Audio/AudioSource.h"
+#include <Framework/AssetManager.h>
 
 
 class TitleScene :
@@ -50,6 +51,14 @@ private:
 	std::unique_ptr<Flashlight> flashlight_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::shared_ptr<SphereCollider> trolleyCollider_;
+
+	struct AnimeUI {
+        Sprite sprite;
+		float timer;
+		bool play = false;
+	};
+	std::array<std::unique_ptr<AnimeUI>, 3> deviceUIs_;
+	int deviceState_ = 0;
 
 	AudioSource bgmAudioSource_;
 	std::unique_ptr<ModelEmitter> trolleyParticle_;
