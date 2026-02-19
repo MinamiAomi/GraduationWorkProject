@@ -108,5 +108,7 @@ void StageSelectScene::OnUpdate() {
 }
 
 void StageSelectScene::OnFinalize() {
-	bgmAudioSource_.Stop();
+	if (bgmAudioSource_.IsPlaying()){
+		bgmAudioSource_.Stop();
+	}
 }

@@ -58,7 +58,7 @@ public:
     const std::vector<Index>& GetIndices() const { return indices_; }
     const std::vector<Material>& GetMaterials() const { return materials_; }
     const std::map<std::string, JointWeightData> GetSkinClusterData() const { return skinClusterData_; }
-    const Node& GetRootNode() const { return rootNode_; }
+    const std::unique_ptr<Node>& GetRootNode() const { return rootNode_; }
     size_t GetNumVertices() const { return vertices_.size(); }
     size_t GetNumIndices() const { return indices_.size(); }
     const Vector3& GetMin() const { return min_; }
@@ -84,7 +84,7 @@ private:
     float radius_;
 
     BLAS blas_;
-    Node rootNode_;
+    std::unique_ptr<Node> rootNode_;
 };
 
 class ModelInstance {

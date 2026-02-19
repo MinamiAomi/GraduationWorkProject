@@ -11,6 +11,7 @@
 #include "RailAnimationPlayer.h"
 #include "GameSystem.h"
 #include "LightDeviceInput.h"
+#include "Trolley.h"
 
 Flashlight::Flashlight()
 {
@@ -242,13 +243,17 @@ void Flashlight::Move() {
     case GameSystem::PlayDevice::LightDevice: {
         LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
         if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
-            if (input->IsKeyTrigger(DIK_R)) {
-                lightDeviceInput->ResetOrientation();
+            if (input->IsKeyTrigger(DIK_R) ||
+                lightDeviceInput->IsButtonPressed()) {
+                auto bat = Trolley::GetInstance()->GetBatteyTransform(0).worldMatrix.GetTranslate();
+                auto dir = bat * parentCamera_->GetViewMatrix();
+                dir.Normalize();
+                lightDeviceInput->ResetOrientation(dir);
             }
             Quaternion deviceOrientation = lightDeviceInput->GetOrientation();
             Vector3 euler = deviceOrientation.EulerAngle();
-            euler.y = std::clamp(euler.y, -35.0f * Math::ToRadian, 35.0f * Math::ToRadian);
-            euler.x = std::clamp(euler.x, -30.0f * Math::ToRadian, 25.0f * Math::ToRadian);
+            //euler.y = std::clamp(euler.y, -35.0f * Math::ToRadian, 35.0f * Math::ToRadian);
+            //euler.x = std::clamp(euler.x, -30.0f * Math::ToRadian, 25.0f * Math::ToRadian);
 
             transform_.rotate = Quaternion::MakeFromEulerAngle(euler);
         }

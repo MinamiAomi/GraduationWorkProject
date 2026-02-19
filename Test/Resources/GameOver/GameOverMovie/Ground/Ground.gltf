@@ -15,24 +15,37 @@
 	"nodes":[
 		{
 			"mesh":0,
-			"name":"Triangle"
+			"name":"Ground"
+		}
+	],
+	"animations":[
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				}
+			],
+			"name":"GroundAction",
+			"samplers":[
+				{
+					"input":4,
+					"interpolation":"LINEAR",
+					"output":5
+				}
+			]
 		}
 	],
 	"materials":[
 		{
 			"doubleSided":true,
-			"emissiveFactor":[
-				0.6000000238418579,
-				0.6000000238418579,
-				0.6000000238418579
-			],
-			"emissiveTexture":{
-				"index":0
-			},
 			"name":"\u30de\u30c6\u30ea\u30a2\u30eb",
 			"pbrMetallicRoughness":{
 				"baseColorTexture":{
-					"index":1
+					"index":0
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.5
@@ -41,7 +54,7 @@
 	],
 	"meshes":[
 		{
-			"name":"\u7acb\u65b9\u4f53.173",
+			"name":"\u5e73\u9762",
 			"primitives":[
 				{
 					"attributes":{
@@ -59,96 +72,115 @@
 		{
 			"sampler":0,
 			"source":0
-		},
-		{
-			"sampler":0,
-			"source":1
 		}
 	],
 	"images":[
 		{
 			"mimeType":"image/png",
-			"name":"TriangleGlowEmi",
-			"uri":"TriangleGlowEmi.png"
-		},
-		{
-			"mimeType":"image/png",
-			"name":"TriangleGlowTex",
-			"uri":"TriangleGlowTex.png"
+			"name":"GroundTex",
+			"uri":"GroundTex.png"
 		}
 	],
 	"accessors":[
 		{
 			"bufferView":0,
 			"componentType":5126,
-			"count":288,
+			"count":4,
 			"max":[
-				0.33880648016929626,
-				1.0543313026428223,
-				0.7318259477615356
+				30,
+				0,
+				30
 			],
 			"min":[
-				-0.3291948735713959,
-				-1.0255277156829834,
-				-1.353360652923584
+				-30,
+				0,
+				-30
 			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":1,
 			"componentType":5126,
-			"count":288,
+			"count":4,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
-			"count":288,
+			"count":4,
 			"type":"VEC2"
 		},
 		{
 			"bufferView":3,
 			"componentType":5123,
-			"count":384,
+			"count":6,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":4,
+			"componentType":5126,
+			"count":181,
+			"max":[
+				7.5
+			],
+			"min":[
+				0
+			],
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":5,
+			"componentType":5126,
+			"count":181,
+			"type":"VEC4"
 		}
 	],
 	"bufferViews":[
 		{
 			"buffer":0,
-			"byteLength":3456,
+			"byteLength":48,
 			"byteOffset":0,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3456,
-			"byteOffset":3456,
+			"byteLength":48,
+			"byteOffset":48,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":2304,
-			"byteOffset":6912,
+			"byteLength":32,
+			"byteOffset":96,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":768,
-			"byteOffset":9216,
+			"byteLength":12,
+			"byteOffset":128,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":724,
+			"byteOffset":140
+		},
+		{
+			"buffer":0,
+			"byteLength":2896,
+			"byteOffset":864
 		}
 	],
 	"samplers":[
 		{
-			"magFilter":9729,
-			"minFilter":9987
+			"magFilter":9728,
+			"minFilter":9984
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":9984,
-			"uri":"triangle.bin"
+			"byteLength":3760,
+			"uri":"Ground.bin"
 		}
 	]
 }

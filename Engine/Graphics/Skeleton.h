@@ -44,7 +44,7 @@ public:
     const std::map<std::string, int32_t>& GetJointMap() const { return jointMap_; }
 
 private:
-    int32_t CreateJoint(const Node& node, const std::optional<int32_t>& parent, std::vector<Joint>& joints);
+    int32_t CreateJoint(const std::unique_ptr<Node>& node, const std::optional<int32_t>& parent, std::vector<Joint>& joints);
 
     int32_t root_;
     std::map<std::string, int32_t> jointMap_;

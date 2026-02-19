@@ -190,6 +190,7 @@
     <ClCompile Include="TutorialObject.cpp">
       <Filter>Game\Tutorial</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -325,6 +326,7 @@
     <ClInclude Include="TutorialObject.h">
       <Filter>Game\Tutorial</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Test.rc" />

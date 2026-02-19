@@ -77,6 +77,7 @@ public:
 
 	const Transform& GetBatteyTransform(int i)const { return batteryTransforms_.at(i); }
 	const Flashlight* GetFlashlight() const { return flashlight_; }
+    const TrolleyUI& GetTrolleyUI() const { return trolleyUI_; }
 
 	const bool GetIsHitFlashlight()const { return isHitFlashlight_; }
 	const bool GetBatteryRemaining() const { return !flashlight_->GetBatteryRemaining(); }
