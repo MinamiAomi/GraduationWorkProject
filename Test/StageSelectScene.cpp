@@ -47,7 +47,7 @@ void StageSelectScene::OnInitialize() {
 
 	flashlight_ = std::make_unique<Flashlight>();
 	//flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
-	flashlight_->Initialize(&camera_->GetCamera()->GetTransform(), camera_->GetCamera().get());
+	flashlight_->Initialize(&camera_->GetCamera()->GetTransform(), camera_->GetCamera().get(), false);
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 
 	bgmAudioSource_ = AssetManager::GetInstance()->soundMap.Get("BGM_STAGE_SELECT")->Get();

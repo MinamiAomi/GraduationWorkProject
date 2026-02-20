@@ -12,7 +12,7 @@ Diorama::Diorama()
     );
 }
 
-void Diorama::Initialize(const std::string& name, const Vector3& position)
+void Diorama::Initialize(const std::string& name, const Vector3& position, const Quaternion& initialRotate)
 {
 #ifdef _DEBUG
     name_ = name;
@@ -21,7 +21,10 @@ void Diorama::Initialize(const std::string& name, const Vector3& position)
     model_.SetModel(assetManager->modelMap.Get(name)->Get());
 
     transform_.translate = position;
+    transform_.rotate = initialRotate;
     transform_.UpdateMatrix();
+
+    initialRotate_ = initialRotate;
 
 
     model_.SetWorldMatrix(transform_.worldMatrix);
@@ -39,17 +42,17 @@ void Diorama::Update()
         count_ = 0.0f;
     }
 
-    rotationY_ += 0.005f + count_ * 0.001f;
+    rotationY_ += 0.005f * rotateRate_ + count_ * 0.001f;
     switch (rotateAxis_)
     {
     case XAxis:
-        transform_.rotate = Quaternion::MakeForXAxis(rotationY_);
+        transform_.rotate = initialRotate_ * Quaternion::MakeForXAxis(rotationY_);
         break;
     case YAxis:
-        transform_.rotate = Quaternion::MakeForYAxis(rotationY_);
+        transform_.rotate = initialRotate_ * Quaternion::MakeForYAxis(rotationY_);
         break;
     case ZAxis:
-        transform_.rotate = Quaternion::MakeForZAxis(rotationY_);
+        transform_.rotate = initialRotate_ * Quaternion::MakeForZAxis(rotationY_);
         break;
     default:
         break;

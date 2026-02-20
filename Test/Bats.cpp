@@ -137,9 +137,6 @@ void Bats::Update()
 		}
 
 	}
-	if (bats_.empty()) {
-		isActive_ = false;
-	}
 
 	for (auto& audioSource : playingAudioSourceList_) {
 		if (!audioSource->IsPlaying()) {
@@ -149,6 +146,10 @@ void Bats::Update()
 	playingAudioSourceList_.remove_if([](const std::shared_ptr<AudioSource>& source) {
 		return source == nullptr;
         });
+
+	if (bats_.empty() && playingAudioSourceList_.empty()) {
+		isActive_ = false;
+	}
 }
 
 void Bats::DebugDraw()

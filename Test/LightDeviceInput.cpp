@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <chrono>
 
+#include "Debug/Debug.h"
 #include "Framework/Engine.h"
 #include "Framework/ThreadPool.h"
 
@@ -159,6 +160,10 @@ void LightDeviceInput::InternalLoad() {
 }
 
 void LightDeviceInput::CommunicationLoop() {
+
+    auto lastCheckTime = std::chrono::steady_clock::now();
+    int loopCount = 0;
+
     while (isRunning_.load()) {
         std::string response;
         char readBuffer[256] = {};
@@ -171,11 +176,23 @@ void LightDeviceInput::CommunicationLoop() {
             response += readBuffer[0];
         }
 
+        loopCount++;
+        auto now = std::chrono::steady_clock::now();
+        auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCheckTime).count();
+
+        if (elapsedMs >= 1000) {
+            receiveHz.store(loopCount);
+
+            Debug::Log(std::format("Receive per seconds : {}\n", loopCount));
+            
+            loopCount = 0;
+            lastCheckTime = now;
+        }
+
         std::erase_if(response, [](char c) { return c == '\n' || c == '\r'; });
 
         auto data = Split(response, ',');
 
-        Vector3 euler;
         Quaternion orientation;
         bool buttonPressed = false;
         if (data.size() >= 5) {
@@ -201,12 +218,12 @@ void LightDeviceInput::CommunicationLoop() {
         buttonPressedPrev_ = buttonPressed_;
         buttonPressed_ = buttonPressed;
 
- /*       Quaternion swing, twist;
-        Vector3 axisZ = Vector3::forward;
-        Vector3 proj = Vector3::Dot({ orientation.x, orientation.y, orientation.z }, axisZ) * axisZ;
-        twist.x = proj.x; twist.y = proj.y; twist.z = proj.z; twist.w = orientation.w;
-        twist = twist.Normalized();
-        swing = orientation * twist.Conjugate();*/
+        /*       Quaternion swing, twist;
+               Vector3 axisZ = Vector3::forward;
+               Vector3 proj = Vector3::Dot({ orientation.x, orientation.y, orientation.z }, axisZ) * axisZ;
+               twist.x = proj.x; twist.y = proj.y; twist.z = proj.z; twist.w = orientation.w;
+               twist = twist.Normalized();
+               swing = orientation * twist.Conjugate();*/
 
         float dot = std::min(1.0f, std::abs(Quaternion::Dot(orientation_, orientation)));
         float deltaAngle = 2.0f * std::acos(dot);
@@ -216,6 +233,8 @@ void LightDeviceInput::CommunicationLoop() {
         float t = std::min(1.0f, deltaAngle * sensitivity);
         float dynamicAlpha = Math::Lerp(t, minAlpha, maxAlpha);
         orientation_ = Quaternion::Slerp(dynamicAlpha, orientation_, orientation);
+
+        resetOrientation_ = Quaternion::MakeForYAxis(-0.004f * Math::ToRadian) * resetOrientation_;
 
         //Vector3 forward = orientation_.GetForward();
         //bool nowUp = (forward.y > 0.8f);
@@ -237,6 +256,10 @@ Quaternion LightDeviceInput::GetOrientation() const {
 
 LightDeviceInput::ConnectionState LightDeviceInput::GetConnectionState() const {
     return connectionState_.load();
+}
+
+int LightDeviceInput::GetReceiveHz() const {
+    return receiveHz.load();
 }
 
 bool LightDeviceInput::IsButtonPressed() const {

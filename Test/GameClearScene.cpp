@@ -56,17 +56,22 @@ void GameClearScene::OnInitialize() {
 	selectTriangleLeft_ = std::make_unique<Diorama>();
 	selectTriangleRight_ = std::make_unique<Diorama>();
 
-	selectTriangleLeft_->Initialize("Triangle", Vector3(-6.1f, -1.3f, 5.0f));
-    selectTriangleLeft_->SetRoateAxis(Diorama::YAxis);
-	selectTriangleRight_->Initialize("Triangle", Vector3(6.1f, -1.3f, 5.0f));
-    selectTriangleRight_->SetRoateAxis(Diorama::YAxis);
+	Vector3 leftPos = Vector3(-5.8f, -1.3f, 5.0f);
+	Vector3 leftFor = -Vector3::Cross(camera_->GetPosition() - leftPos,  Vector3::up);
+	selectTriangleLeft_->Initialize("Triangle", leftPos, Quaternion::MakeLookRotation(leftFor));
+    selectTriangleLeft_->SetRoateAxis(Diorama::ZAxis);
+	Vector3 rightPos = Vector3(5.8f, -1.3f, 5.0f);
+	Vector3 rightFor = Vector3::Cross(camera_->GetPosition() - rightPos, Vector3::up);
+	selectTriangleRight_->Initialize("Triangle", rightPos, Quaternion::MakeLookRotation(rightFor));
+    selectTriangleRight_->SetRoateAxis(Diorama::ZAxis);
+	selectTriangleRight_->SetRotateRate(-1.0f);
 
 	collisionSystem_->RegisterCollider(selectTriangleLeft_->GetCollider());
 	collisionSystem_->RegisterCollider(selectTriangleRight_->GetCollider());
 
 	flashlight_ = std::make_unique<Flashlight>();
 	//flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
-	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get(), false);
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 
     parentTransform_.translate = { 3.0f, -15.0f, 70.0f };
