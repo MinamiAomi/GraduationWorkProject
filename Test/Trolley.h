@@ -33,7 +33,7 @@ public:
 		Normal,
 		Overcharge,
 		Nitro,
-		Burst,
+		Stop,
 	};
 	Trolley();
 
@@ -65,7 +65,7 @@ public:
 	float GetCurrentCharge() const { return currentCharge_; }
 	float GetMaxNormalCharge() const { return maxNormalCharge_; }
 
-	float GetBurstThreshold() const { return burstThreshold_; }
+	//float GetBurstThreshold() const { return burstThreshold_; }
 
 	float GetNitroAccumulateTimer() const { return nitroAccumulateTimer_; }
 	float GetNitroChargeTime() const { return nitroChargeTime_; }
@@ -77,6 +77,7 @@ public:
 
 	const Transform& GetBatteyTransform(int i)const { return batteryTransforms_.at(i); }
 	const Flashlight* GetFlashlight() const { return flashlight_; }
+    const TrolleyUI& GetTrolleyUI() const { return trolleyUI_; }
 
 	const bool GetIsHitFlashlight()const { return isHitFlashlight_; }
 	const bool GetBatteryRemaining() const { return !flashlight_->GetBatteryRemaining(); }
@@ -99,11 +100,18 @@ private:
 	void UpdateBanking(float deltaTime);
 
 	void OnNormalState();
+
 	void OnOverchargeState();
+	
 	void OnNitroState();
 	void RecoverFromNitro();
+	
 	void OnBurstState();
 	void RecoverFromBurst();
+
+	void OnStopState();
+	void RecoverFromStop();
+
 	void UpdateSound();
 
 	//どこくらいライトの真ん中か計算
@@ -152,28 +160,27 @@ private:
 	// 自然減速
 	float decelerationRate_;
 
+	// ニトロゲージの加算量
+	float nitroAccelerationRate_;
+	// ニトロゲージの減少量
+	float nitroDecelerationRate_;
+
 	// 通常時のMAX
 	float maxNormalCharge_;
 	// ニトロ発動判定ライン
 	float nitroThreshold_;
-	// バースト発生ライン
-	float burstThreshold_;
 
 	// ニトロ発動に必要な維持時間
-	float nitroChargeTime_ = 3.0f;
+	float nitroChargeTime_ = 180.0f;
 	// ニトロ持続時間
-	float nitroDuration_ = 3.0f;
-	// バースト演出時間
-	float burstDuration_ = 2.0f;
+	float nitroDuration_ = 180.0f;
 
 	// ニトロ終了後のバッテリー量
 	float batteryAfterNitro_ = 80.0f;
-	// バースト後のバッテリー量
-	float batteryAfterBurst_ = 30.0f;
-
+	
 	float currentSpeed_ = 0.0f;
 	// バッテリー残量
-	float currentCharge_ = 100.0f;
+	float currentCharge_ = 0.0f;
 
 	// ニトロ発動条件を満たしている時間累積
 	float nitroAccumulateTimer_ = 0.0f;

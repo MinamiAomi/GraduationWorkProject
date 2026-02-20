@@ -7,6 +7,15 @@
 
 #include "Framework/AssetManager.h"
 
+namespace {
+	const char* oodamaModelName = "GameClear_Movie_OODAMA";
+	const char* groundModelName = "GameClear_Movie_Stage";
+	const char* trolleyModelName = "GameClear_Movie_Trolley";
+
+	const char* oodamaAnimName = "GameClear_Movie_OODAMA_Anim";
+	const char* trolleyAnimName = "GameClear_Movie_Trolley_Anim";
+}
+
 void GameClearScene::OnInitialize() {
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
@@ -42,7 +51,7 @@ void GameClearScene::OnInitialize() {
 	sprite_.SetUVRect({ { 0.0f, 0.0f }, { 1.0f, 1.0f} }, Sprite::UVMode::UV);
 	sprite_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
 	sprite_.SetScale({ 1280.0f , 720.0f });
-	sprite_.SetPre3DRender(true);
+	//sprite_.SetPre3DRender(true);
 
 	selectTriangleLeft_ = std::make_unique<Diorama>();
 	selectTriangleRight_ = std::make_unique<Diorama>();
@@ -60,19 +69,26 @@ void GameClearScene::OnInitialize() {
 	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 
-    parentTransform_.translate = { 5.0f, -10.0f, 40.0f };
-	parentTransform_.rotate = Quaternion::MakeFromEulerAngle({0.0f, -135.0f * Math::ToRadian, 0.0f});
+    parentTransform_.translate = { 3.0f, -15.0f, 70.0f };
+	parentTransform_.rotate = Quaternion::MakeFromEulerAngle({0.0f, 15.0f * Math::ToRadian, 0.0f});
 	parentTransform_.UpdateMatrix();
 
 	auto assetManager = AssetManager::GetInstance();
-	trolley_ = std::make_unique<AnimationModel>();
-    trolley_->transform.SetParent(&parentTransform_, false);
-	trolley_->modelInstance.SetModel(assetManager->modelMap.Get("GameClearTrolley")->Get());
-	trolley_->animation = assetManager->animationMap.Get("GameClearTrolleyAnim");
+    auto trolleyAnimAsset = assetManager->animationMap.Get(trolleyAnimName);
+    auto trolleyAnimationName = "Animation";
+    auto nodeName = "Trolley";
+    trolleyAnimationTransform_.transform.SetParent(&parentTransform_, false);
+	trolleyAnimationTransform_.Initialize(trolleyAnimAsset, trolleyAnimationName, nodeName);
+    trolleyModelInstance_.SetModel(assetManager->modelMap.Get(trolleyModelName)->Get());
 
-	goal_ = std::make_unique<AnimationModel>();
-    goal_->transform.SetParent(&parentTransform_, false);
-	goal_->modelInstance.SetModel(assetManager->modelMap.Get("GameClearGoalAndRail")->Get());
+    auto oodamaAnimAsset = assetManager->animationMap.Get(oodamaAnimName);
+    auto oodamaAnimationName = "Animation";
+    auto oodamaNodeName = "OODAMA";
+    oodamaAnimationTransform_.transform.SetParent(&parentTransform_, false);
+    oodamaAnimationTransform_.Initialize(oodamaAnimAsset, oodamaAnimationName, oodamaNodeName);
+    oodamaModelInstance_.SetModel(assetManager->modelMap.Get(oodamaModelName)->Get());
+
+    stageModelInstance_.SetModel(assetManager->modelMap.Get(groundModelName)->Get());
 
     seAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_GAMECLEAR")->Get();
     seAudioSource_.Play(false);
@@ -89,30 +105,15 @@ void GameClearScene::OnUpdate() {
 	selectTriangleLeft_->Update();
 	selectTriangleRight_->Update();
 
-	const AnimationSet& anime = trolley_->animation->Get()->GetAnimation("Animation");
-	auto it = anime.nodeAnimations.find("Trolley");
+	parentTransform_.UpdateMatrix();
 
-	if (trolley_->animationTime <= 1.0f) {
-		trolley_->animationTime += 0.016f / anime.duration;
-	}
-	else {
-		trolley_->animationTime = 1.0f;
-	}
+	float deltaTime = 1.0f / 60.0f;
+    trolleyAnimationTransform_.Update(deltaTime);
+    oodamaAnimationTransform_.Update(deltaTime);
 
-	if (it != anime.nodeAnimations.end()) {
-		const NodeAnimation& nodeAnim = it->second;
-
-		trolley_->transform.translate = CalculateValue(nodeAnim.translate, trolley_->animationTime);
-		trolley_->transform.rotate = CalculateValue(nodeAnim.rotate, trolley_->animationTime);
-		trolley_->transform.scale = CalculateValue(nodeAnim.scale, trolley_->animationTime);
-	}
-
-	trolley_->transform.UpdateMatrix();
-	trolley_->modelInstance.SetWorldMatrix(trolley_->transform.worldMatrix);
-
-
-    goal_->transform.UpdateMatrix();
-    goal_->modelInstance.SetWorldMatrix(goal_->transform.worldMatrix);
+    trolleyModelInstance_.SetWorldMatrix(trolleyAnimationTransform_.transform.worldMatrix);
+    oodamaModelInstance_.SetWorldMatrix(oodamaAnimationTransform_.transform.worldMatrix);
+    stageModelInstance_.SetWorldMatrix(parentTransform_.worldMatrix);
 
 	if (selectTriangleLeft_->GetIsActive()) {
 		SceneManager::GetInstance()->ChangeScene<StageSelectScene>(false);

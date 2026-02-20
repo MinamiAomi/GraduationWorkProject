@@ -8,7 +8,7 @@ public:
 
 	void Initialize();
 
-	void Update(float currentTrollyFrame, float currentDeadlineFrame);
+	void Update(float currentTrollyFrame, float currentDeadlineFrame, bool startWarning);
 
 
 private:
@@ -16,4 +16,5 @@ private:
 	Sprite deadLineIcon_;
 
 	Sprite baseUI_;
+	float flashTimer_;
 };

@@ -15,17 +15,11 @@
 #include "Audio/AudioSource.h"
 
 #include "CollisionSystem.h"
+#include "AnimationTransform.h"
 
 class GameClearScene :
 	public BaseScene {
 public:
-	struct AnimationModel {
-		ModelInstance modelInstance;
-		Transform transform;
-		std::shared_ptr<AnimationAsset> animation;
-		float animationTime;
-	};
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -48,8 +42,15 @@ private:
 	std::unique_ptr<Diorama> selectTriangleLeft_;
 	std::unique_ptr<Diorama> selectTriangleRight_;
 	Transform parentTransform_;
-	std::unique_ptr<AnimationModel> trolley_;
-	std::unique_ptr<AnimationModel> goal_;
+
+    ModelInstance trolleyModelInstance_;
+    AnimationTransform trolleyAnimationTransform_;
+
+    ModelInstance oodamaModelInstance_;
+    AnimationTransform oodamaAnimationTransform_;
+
+    ModelInstance stageModelInstance_;
+	
 	std::unique_ptr<Flashlight> flashlight_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	AudioSource seAudioSource_;

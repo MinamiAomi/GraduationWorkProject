@@ -13,6 +13,6 @@ struct Node {
     } transform;
     Matrix4x4 localMatrix;
     std::string name;
-    std::vector<Node> children;
+    std::vector<std::unique_ptr<Node>> children;
 };
 

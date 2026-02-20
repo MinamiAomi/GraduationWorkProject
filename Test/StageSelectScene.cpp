@@ -17,7 +17,7 @@ void StageSelectScene::OnInitialize() {
 	RenderManager::GetInstance()->SetCamera(camera_->GetCamera());
 
 	RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
-	
+
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 
 	if (persistentData_) {
@@ -38,7 +38,7 @@ void StageSelectScene::OnInitialize() {
 
 	level1_->Initialize("DioramaLevel1", Vector3(-2.3f, -1.0f, 1.0f));
 	level2_->Initialize("DioramaLevel2", Vector3(2.3f, -1.0f, 1.0f));
-	
+
 	collisionSystem_->RegisterCollider(level1_->GetCollider());
 	collisionSystem_->RegisterCollider(level2_->GetCollider());
 
@@ -53,24 +53,31 @@ void StageSelectScene::OnInitialize() {
 	bgmAudioSource_ = AssetManager::GetInstance()->soundMap.Get("BGM_STAGE_SELECT")->Get();
 	bgmAudioSource_.Play(true);
 	bgmAudioSource_.SetVolume(0.2f);
+
+	isSceneChange_ = false;
 }
 
 void StageSelectScene::OnUpdate() {
+	if (isSceneChange_) {
+		return;
+	}
 
 	camera_->Update();
 
 	flashlight_->Update();
-	
+
 	level1_->Update();
 	level2_->Update();
 
-	if (level1_->GetIsActive()) {
+	if (!isSceneChange_ && level1_->GetIsActive()) {
+		isSceneChange_ = true;
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL1);
-		SceneManager::GetInstance()->ChangeScene<GameScene>(false);
+		SceneManager::GetInstance()->ChangeScene<GameScene>(true);
 	}
-	else if (level2_->GetIsActive()) {
+	else if (!isSceneChange_ && level2_->GetIsActive()) {
+		isSceneChange_ = true;
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL2);
-		SceneManager::GetInstance()->ChangeScene<GameScene>(false);
+		SceneManager::GetInstance()->ChangeScene<GameScene>(true);
 	}
 
 	collisionSystem_->CheckCollisions();
@@ -80,26 +87,28 @@ void StageSelectScene::OnUpdate() {
 		// ゲームスタート
 		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
 	}
-//#ifdef _DEBUG
-//	ImGui::Begin("StageModel");
-//	
-//	ipos = iceSkyDome_.GetWorldMatrix().GetTranslate();
-//	iscale= iceSkyDome_.GetWorldMatrix().GetScale();
-//	ImGui::DragFloat3("IcePos", &ipos.x);
-//	ImGui::DragFloat3("IceScale", &iscale.x);
-//	iceSkyDome_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(ipos, Quaternion::identity, iscale));
-//
-//	spos = stageSelectTerrain_.GetWorldMatrix().GetTranslate();
-//	sscale= stageSelectTerrain_.GetWorldMatrix().GetScale();
-//	ImGui::DragFloat3("StagePos", &spos.x);
-//	ImGui::DragFloat3("StageScale", &sscale.x);
-//	stageSelectTerrain_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(spos, Quaternion::identity, sscale));
-//
-//	ImGui::End();
-//#endif // _DEBUG
+	//#ifdef _DEBUG
+	//	ImGui::Begin("StageModel");
+	//	
+	//	ipos = iceSkyDome_.GetWorldMatrix().GetTranslate();
+	//	iscale= iceSkyDome_.GetWorldMatrix().GetScale();
+	//	ImGui::DragFloat3("IcePos", &ipos.x);
+	//	ImGui::DragFloat3("IceScale", &iscale.x);
+	//	iceSkyDome_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(ipos, Quaternion::identity, iscale));
+	//
+	//	spos = stageSelectTerrain_.GetWorldMatrix().GetTranslate();
+	//	sscale= stageSelectTerrain_.GetWorldMatrix().GetScale();
+	//	ImGui::DragFloat3("StagePos", &spos.x);
+	//	ImGui::DragFloat3("StageScale", &sscale.x);
+	//	stageSelectTerrain_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(spos, Quaternion::identity, sscale));
+	//
+	//	ImGui::End();
+	//#endif // _DEBUG
 
 }
 
 void StageSelectScene::OnFinalize() {
-	bgmAudioSource_.Stop();
+	if (bgmAudioSource_.IsPlaying()){
+		bgmAudioSource_.Stop();
+	}
 }

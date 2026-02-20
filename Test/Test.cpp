@@ -18,6 +18,8 @@
 #include "GameSystem.h"
 #include "TitleScene.h"
 #include "GameScene.h"
+#include "GameClearScene.h"
+#include "GameOverScene.h"
 
 namespace {
     const char kResourceAssociationFile[] = "Resources/Association.json";

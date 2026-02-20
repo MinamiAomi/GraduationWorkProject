@@ -42,14 +42,14 @@ void GameScene::OnInitialize() {
 		railcameraJson = "Resources/RailCamera/Level1_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level1_StaticMesh.json";
 		stageName = "Stage1";
-        (*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME1")->Get();
+		(*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME1")->Get();
 		inGameUI = "Level1StartUI";
 		RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.9f);
 		break;
 	case LevelManager::Level::LEVEL2:
 		railcameraJson = "Resources/RailCamera/Level2_railCamera.json";
 		staticMeshJson = "Resources/StaticMesh/Level2_StaticMesh.json";
-        (*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME2")->Get();
+		(*bgmAudioSource_) = AssetManager::GetInstance()->soundMap.Get("BGM_INGAME2")->Get();
 		stageName = "Stage2";
 		inGameUI = "Level2StartUI";
 		RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
@@ -58,8 +58,8 @@ void GameScene::OnInitialize() {
 		break;
 	}
 
-    bgmAudioSource_->Play(true);
-    bgmAudioSource_->SetVolume(0.2f);
+	bgmAudioSource_->Play(true);
+	bgmAudioSource_->SetVolume(0.2f);
 
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
@@ -183,12 +183,14 @@ void GameScene::OnInitialize() {
 	{
 		trollyTutorial_ = std::make_unique<TutorialObject>();
 		flashlightTutorial_ = std::make_unique<TutorialObject>();
-		Transform t;
-		t.translate = { 17.0f,1.7f,4.0f };
-		trollyTutorial_->Initialize(t, "TutorialTrolly");
+
+		trollyTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
+		flashlightTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
+
+		trollyTutorial_->Initialize("TutorialTrolly", 0.0f);
 		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
-		t.translate = { 225.0f,5.5f,22.0f };
-		flashlightTutorial_->Initialize(t, "TutorialFlashlight");
+		
+		flashlightTutorial_->Initialize("TutorialFlashlight", 190.0f);
 		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
 	break;
@@ -244,18 +246,18 @@ void GameScene::OnInitialize() {
 	debugCamera_ = std::make_unique<DebugCamera>();
 	debugCamera_->Initialize();
 #endif // _DEBUG
-	
+
 	startSEAudioSource_ = std::make_unique<AudioSource>();
 	(*startSEAudioSource_) = AssetManager::GetInstance()->soundMap.Get("SE_GAMESTART")->Get();
-    startSEAudioSource_->Play(false);
-    startSEAudioSource_->SetVolume(0.5f);
+	startSEAudioSource_->Play(false);
+	startSEAudioSource_->SetVolume(0.5f);
 }
 
 void GameScene::OnUpdate() {
 	float deltaTime = 1.0f / 60.0f;
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
 	//終了処理
-	if (isGameFinishAnimation_&& !isGameFinalizeAnimation_) {
+	if (isGameFinishAnimation_ && !isGameFinalizeAnimation_) {
 		gameFinishCount_++;
 		float t = float(gameFinishCount_) / float(gameFinishMaxCount_);
 		Color color;
@@ -274,7 +276,8 @@ void GameScene::OnUpdate() {
 	else if (isGameFinishAnimation_ && isGameFinalizeAnimation_) {
 		if (!isClear_) {
 			SceneManager::GetInstance()->ChangeScene<GameOverScene>(false);
-		}else{
+		}
+		else {
 			SceneManager::GetInstance()->ChangeScene<GameClearScene>(false);
 		}
 		return;
@@ -363,9 +366,29 @@ void GameScene::OnUpdate() {
 #pragma endregion
 
 #pragma region RailcameraUI
+	bool startWarning = false;
+
+	switch (LevelManager::GetInstance()->GetLevel())
+	{
+	case LevelManager::Level::LEVEL1:
+	{
+		startWarning = railAnimationPlayer_->GetCurrentFrame() >= deadline_->GetStartFrameLevel1();
+	}
+		break;
+	case LevelManager::Level::LEVEL2:
+	{
+		startWarning = railAnimationPlayer_->GetCurrentFrame() >= deadline_->GetStartFrameLevel2();
+
+	}
+	break;
+	default:
+		break;
+	}
+	
 	railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
-		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame)
+		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
+		(startWarning)
 	);
 #pragma endregion
 
@@ -616,7 +639,7 @@ void GameScene::OnUpdate() {
 		gameFinishBackGround_.SetIsActive(true);
 	}
 
-	//一周終わったかどうか
+	//クリアしたかどうか
 	if (railAnimationPlayer_->IsFinished()) {
 		isClear_ = true;
 		isGameFinishAnimation_ = true;
@@ -626,6 +649,6 @@ void GameScene::OnUpdate() {
 
 void GameScene::OnFinalize() {
 	trolley_->SetIsActive(false);
-    trolley_->Finalize();
-    bgmAudioSource_->Stop();
+	trolley_->Finalize();
+	bgmAudioSource_->Stop();
 }

@@ -59,12 +59,12 @@
     "TitleTrolley":"TitleTrolley/TitileTrolley.gltf",
     "TitleStage":"TitleStage/TitleStage.gltf",
 
-    "GameOverOODAMA" : "GameOver/OODAMA/OODAMA.gltf",
-    "GameOverRail" : "GameOver/Rail/Rail.gltf",
-    "GameOverTrolley" : "GameOver/Trolley/Trolley.gltf",
+    "GameClear_Movie_OODAMA" : "GameClear/GameClearMovie/OODAMA/OODAMA.gltf",
+    "GameClear_Movie_Stage" : "GameClear/GameClearMovie/Stage/Stage.gltf",
+    "GameClear_Movie_Trolley" : "GameClear/GameClearMovie/Trolley/Trolley.gltf",
 
-    "GameClearGoalAndRail" : "GameClear/GoalAndRail/GoalAndRail.gltf",
-    "GameClearTrolley" : "GameClear/Trolley/Trolley.gltf",
+    "GameOver_Movie_Ground" : "GameOver/GameOverMovie/Ground/Ground.gltf",
+    "GameOver_Movie_Trolley" : "GameOver/GameOverMovie/Trolley/GameOverMovie.gltf",
 
     "Triangle" : "triangle.gltf",
     "Ghost" : "BombGhost/BombGhost.gltf"
@@ -97,8 +97,8 @@
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
-    "GameClear": "gameClear.png",
-    "GameOver": "gameOver.png",
+    "GameClear": "GameClear/gameClear.png",
+    "GameOver": "GameOver/gameOver.png",
     
     "TutorialTrolly": "Tutorial/trolly.png",
     "TutorialFlashlight": "Tutorial/flash_light.png",
@@ -109,6 +109,9 @@
     "Level2StartUI": "InGameUI/level2Title.png",
     "Crack": "InGameUI/crack.png",
 
+    "MouseUsing" : "mouse_useing.png",
+    "DeviceConnecting" : "device_connecting.png",
+    "DeviceUsing" : "device_useing.png",
     
     "white2x2":"white2x2.png"
   },
@@ -117,10 +120,8 @@
     "trolleyAnim" : "TitleTrolley/TitileTrolley.gltf",
     "TitleStageAnim":"TitleStage/TitleStage.gltf",
 
-    "GameOverOODAMAAnim" : "GameOver/OODAMA/OODAMA.gltf",
-    "GameOverTrolleyAnim" : "GameOver/Trolley/Trolley.gltf",
-
-    "GameClearTrolleyAnim" : "GameClear/Trolley/Trolley.gltf"
+    "GameClear_Movie_OODAMA_Anim" : "GameClear/GameClearMovie/OODAMA/OODAMA.gltf",
+    "GameClear_Movie_Trolley_Anim" : "GameClear/GameClearMovie/Trolley/Trolley.gltf"
   },
   "Sound" : {
     "SE_TROLLY_NORMAL" : "Sound/se_trolly2.wav",

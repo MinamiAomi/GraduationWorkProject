@@ -172,36 +172,29 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : obstacleObjects_) {
 
-
-		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-		obj->model.SetIsActive(true);
-
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 
 			for (auto& collider : obj->collider->GetCollidedWith()) {
 				if (collider->categoryBits == CollisionCategory::FLASHLIGHT) {
 					obj->SetDamage();
-
-					float hpRatio = obj->hp / obj->maxHp;
-
-					float damageProgress = 1.0f - hpRatio;
-
-					float t = 1.0f - std::powf(damageProgress, 3); 
-
-					obj->transform.scale = Vector3(t, t, t);
+					//シェイク
+					obj->transform.translate = obj->basePosition - Vector3(rnd_.NextFloatRange(-0.1f, 0.1f), rnd_.NextFloatRange(-0.1f, 0.1f), rnd_.NextFloatRange(-0.1f, 0.1f));
 					obj->transform.UpdateMatrix();
 
+					obj->model.SetWorldMatrix(obj->transform.worldMatrix);
+
+					//死んだときの処理
 					if (!obj->isAlive) {
 						obj->collider = nullptr;
+						Trolley::GetInstance()->SetState(Trolley::State::Normal);
+						break;
 					}
 				}
 				else if ((collider->categoryBits == CollisionCategory::PLAYER)) {
 					if (obj->isAlive) {
-						Trolley::GetInstance()->SetState(Trolley::State::Burst);
-						obj->model.SetIsActive(false);
-						obj->model.SetWorldMatrix(obj->transform.worldMatrix);
-						obj->collider = nullptr;
+						//つららのしょり頑張ってください
+						Trolley::GetInstance()->SetState(Trolley::State::Stop);
 					}
 				}
 			}
@@ -413,6 +406,9 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			targetMask = uint32_t(CollisionCategory::PLAYER | CollisionCategory::FLASHLIGHT);
 
 			InitializeCommonObject(obstacleObject, data, myCategory, targetMask);
+
+			obstacleObject->basePosition = obstacleObject->transform.translate;
+
 			obstacleObjects_.push_back(std::move(obstacleObject));
 		}
 		break;

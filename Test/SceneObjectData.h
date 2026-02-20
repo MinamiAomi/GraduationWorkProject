@@ -157,6 +157,7 @@ namespace SceneObjectSystem {
 		float maxHp;
 		ModelInstance model;
 		Transform transform;
+		Vector3 basePosition;
 		std::shared_ptr<Collider> collider;
 
 		void Update();

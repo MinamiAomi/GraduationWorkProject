@@ -22,18 +22,18 @@ void Skeleton::Create(const std::shared_ptr<Model>& model) {
     updated_ = true;
 }
 
-int32_t Skeleton::CreateJoint(const Node& node, const std::optional<int32_t>& parent, std::vector<Joint>& joints) {
+int32_t Skeleton::CreateJoint(const std::unique_ptr<Node>& node, const std::optional<int32_t>& parent, std::vector<Joint>& joints) {
     Joint joint;
-    joint.name = node.name;
-    joint.localMatrix = node.localMatrix;
+    joint.name = node->name;
+    joint.localMatrix = node->localMatrix;
     joint.skeletonSpaceMatrix = Matrix4x4::identity;
-    joint.transform.translate = node.transform.translate;
-    joint.transform.rotate = node.transform.rotate;
-    joint.transform.scale = node.transform.scale;
+    joint.transform.translate = node->transform.translate;
+    joint.transform.rotate = node->transform.rotate;
+    joint.transform.scale = node->transform.scale;
     joint.index = int32_t(joints.size());
     joint.parent = parent;
     joints.push_back(joint);
-    for (const Node& child : node.children) {
+    for (const auto& child : node->children) {
         int32_t childIndex = CreateJoint(child, joint.index, joints);
         joints[joint.index].children.push_back(childIndex);
     }
