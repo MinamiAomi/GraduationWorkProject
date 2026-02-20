@@ -42,7 +42,7 @@ Ghosts::Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	camera_ = &camera;
 
 	isActive_ = true;
-	material_ = std::make_shared<Material>();
+	material_ = std::make_shared<Material>(model_->GetMaterials()[1]);
 	material_->albedo = { 1.0f,1.0f,1.0f };
 	uint32_t splitX = static_cast<uint32_t>(data[0].size());
 	uint32_t splitY = static_cast<uint32_t>(data.size());
@@ -78,8 +78,12 @@ void Ghosts::Update()
 	transform_.UpdateMatrix();
 	attackTime_++;
 	material_->albedo = Vector3::Lerp(float(attackTime_) / float(ghostAttackFrame), { 1.0f,1.0f,1.0f }, goalColor_);
+	if (attackTime_ >= ghostAttackFrame) {
+		ghost_.size();
+	}
 	for (auto it = ghost_.begin(); it != ghost_.end(); ) {
 		auto p = *it;
+		p->modelInstance_.SetColor(material_->albedo);
 		p->sideStepTime_ += 0.05f;
 
 		float horizontalAmplitude = 0.5f; 
@@ -198,6 +202,7 @@ void Ghosts::Emit(const Vector3& goalPos)
 
 	newGhost->modelInstance_.SetModel(model_);
 
+	newGhost->modelInstance_.GetMaterials().emplace_back(std::make_shared<Material>(model_->GetMaterials()[0]));
 	newGhost->modelInstance_.GetMaterials().emplace_back(material_);
 
 	newGhost->particles_.Initialize(model_->GetRadius());

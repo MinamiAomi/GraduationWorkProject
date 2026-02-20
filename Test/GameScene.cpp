@@ -167,10 +167,7 @@ void GameScene::OnInitialize() {
 	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
 
 	//test
-	std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
 
-	// 3. 実行
-	ghostsManager_->Emit(mapData);
 #pragma endregion
 #pragma region RailcameraUI
 	railcameraUI_ = std::make_unique<RailcameraUI>();
@@ -536,6 +533,13 @@ void GameScene::OnUpdate() {
 	//}
 	static bool isDebugCamera = false;
 	ImGui::Begin("GameScene");
+
+
+	if (ImGui::Button("ghostEmit")) {
+		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+		ghostsManager_->Emit(mapData);
+	}
+
 	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
 		auto& directionalLight = directionalLights_[i];
 		directionalLight->DrawImGui(std::format("DirectionalLight{}", i));

@@ -93,7 +93,6 @@ void GhostsParticles::Debug() {
 		if (minScale_ > maxScale_) {
 			maxScale_ = minScale_ + 0.01f;
 		}
-		ImGui::DragFloat3("color_", &color_.x, 0.01f);
 
 		if (ImGui::Button("Save")) {
 			JSON_OPEN("Resources/Data/GameScene/ghostsParticles.json");
@@ -120,7 +119,6 @@ void GhostsParticles::Debug() {
 			JSON_SAVE_BY_NAME("fscaleDecay_", fscaleDecay_);
 			JSON_SAVE_BY_NAME("fminScale_", minScale_);
 			JSON_SAVE_BY_NAME("fmaxScale_", maxScale_);
-			JSON_SAVE_BY_NAME("color_", color_);
 			JSON_CLOSE();
 		}
 		ImGui::TreePop();
@@ -148,7 +146,7 @@ void GhostsParticles::Initialize(float radius)
 	absorptionMaterial_ = std::make_shared<Material>();
 	absorptionMaterial_->emissive = { 1.0f,1.0f,1.0f };
 	absorptionMaterial_->emissiveIntensity = 100.0f;
-	absorptionMaterial_->albedo = {1.0f,0.45f,0.0f};
+	absorptionMaterial_->albedo = {1.0f,0.05f,0.0f};
 	transform_.translate = {-0.176f,0.4f,-1.22f};
 
 	JSON_OPEN("Resources/Data/GameScene/ghostsParticles.json");
