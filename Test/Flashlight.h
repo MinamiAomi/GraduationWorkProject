@@ -13,76 +13,77 @@
 #include "Math/Random.h"
 
 namespace RailSystem {
-	class RailAnimationPlayer;
+    class RailAnimationPlayer;
 }
 
 class Flashlight {
 public:
-	Flashlight();
-	void Initialize(const Transform* parentTransform, const Camera* parentCamera);
-	void Update();
+    Flashlight();
+    void Initialize(const Transform* parentTransform, const Camera* parentCamera, bool isInGame);
+    void Update();
 
-	const std::shared_ptr<ConeCollider> GetCollider() const { return collider_; }
-	float GetBattery() const { return battery_; }
-	float GetMaxBattery() const { return maxBattery_; }
-	bool GetIsLighting() const { return isLighting_; }
-	void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
-	const Transform& GetTransform() const { return transform_; }
-	void Pause() { isPause_ = true; }
-	void Play() { isPause_ = false; }
+    const std::shared_ptr<ConeCollider> GetCollider() const { return collider_; }
+    float GetBattery() const { return battery_; }
+    float GetMaxBattery() const { return maxBattery_; }
+    bool GetIsLighting() const { return isLighting_; }
+    void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
+    const Transform& GetTransform() const { return transform_; }
+    void Pause() { isPause_ = true; }
+    void Play() { isPause_ = false; }
 
-	bool GetBatteryRemaining() const { return  (battery_ < maxBattery_ * 0.2f); }
+    bool GetBatteryRemaining() const { return  (battery_ < maxBattery_ * 0.2f); }
 private:
-	void UpdateCollision();
-	void UpdateLightPower();
-	void SpotLightDebugDraw() const;
-	void Move();
-	void DebugMove();
+    void UpdateCollision();
+    void UpdateLightPower();
+    void SpotLightDebugDraw() const;
+    void Move();
+    void DebugMove();
 #ifdef _DEBUG
-	void DrawImGui();
+    void DrawImGui();
 #endif // _DEBUG
 
-	Random::RandomNumberGenerator rnd_;
-	const Transform* parentTransform_ = nullptr;
-	const Camera* parentCamera_ = nullptr;
+    Random::RandomNumberGenerator rnd_;
+    const Transform* parentTransform_ = nullptr;
+    const Camera* parentCamera_ = nullptr;
 
-	const RailSystem::RailAnimationPlayer* railAnimationPlayer_;
+    const RailSystem::RailAnimationPlayer* railAnimationPlayer_;
 
-	std::shared_ptr<SpotLight> spotLight_;
-	ModelInstance lightModel_;
-	FlashlightUI flashlightUI_;
+    std::shared_ptr<SpotLight> spotLight_;
+    ModelInstance lightModel_;
+    FlashlightUI flashlightUI_;
 
-	//ライト自信のTransform
-	Transform transform_;
-	// カメラからの距離
-	float distanceFromCamera_ = 10.0f;
-	// カメラの球面を移動するための角度x
-	float sphericalAngleX_ = 0.0f;
-	// カメラの球面を移動するための角度y
-	float sphericalAngleY_ = 0.0f;
-	// ライトの視野角度
-	float fovAngle_ = 15.0f * Math::ToRadian;
-	// ライトの射程
-	float lightRange_ = 40.0f;
+    //ライト自信のTransform
+    Transform transform_;
+    // カメラからの距離
+    float distanceFromCamera_ = 10.0f;
+    // カメラの球面を移動するための角度x
+    float sphericalAngleX_ = 0.0f;
+    // カメラの球面を移動するための角度y
+    float sphericalAngleY_ = 0.0f;
+    // ライトの視野角度
+    float fovAngle_ = 15.0f * Math::ToRadian;
+    // ライトの射程
+    float lightRange_ = 40.0f;
 
 #pragma region ライトの電池残量関連
-	//ライトが当たっているか
-	bool isHitFlashlight_;
-	//現在の残量
-	float battery_;
-	//最大値
-	float maxBattery_;
-	//加算地
-	float addBattery_;
-	//減算地
-	float subBattery_;
-	//照らしているか
-	bool isLighting_;
-	//何フレーム目まで減らないか
-	float startFrame_;
+    //ライトが当たっているか
+    bool isHitFlashlight_;
+    //現在の残量
+    float battery_;
+    //最大値
+    float maxBattery_;
+    //加算地
+    float addBattery_;
+    //減算地
+    float subBattery_;
+    //照らしているか
+    bool isLighting_;
+    //何フレーム目まで減らないか
+    float startFrame_;
 
-	float blinkTimer_ = 0.0f;
+    float blinkTimer_ = 0.0f;
 #pragma endregion
-	std::shared_ptr<ConeCollider> collider_;
-	bool isPause_ = false;
+    std::shared_ptr<ConeCollider> collider_;
+    bool isPause_ = false;
+    bool isInGame_ = false;
 };

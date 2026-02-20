@@ -3,6 +3,7 @@
 #include <atomic>
 #include <thread>
 #include <mutex>
+#include <chrono>
 
 #include "Math/MathUtils.h"
 
@@ -25,6 +26,7 @@ public:
 
     Quaternion GetOrientation() const;
     ConnectionState GetConnectionState() const;
+    int GetReceiveHz() const;
 
     bool IsButtonPressed() const;
     bool IsButtonTrigger() const;
@@ -43,6 +45,8 @@ private:
 
     HANDLE hSerial_;
     
+    std::atomic<int> receiveHz{ 0 };
+
     Quaternion orientation_;
     Quaternion resetOrientation_;
     bool buttonPressed_ = false; 

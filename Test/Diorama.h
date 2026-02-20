@@ -17,12 +17,13 @@ public:
 
 	Diorama();
 
-	void Initialize(const std::string& name, const Vector3& position);
+	void Initialize(const std::string& name, const Vector3& position, const Quaternion& initialRotate = Quaternion::identity);
 
 	void Update();
 
 	std::shared_ptr<SphereCollider> GetCollider() { return collider_; }
-    void SetRoateAxis(RotateAxis axis) { rotateAxis_ = axis; }	
+    void SetRoateAxis(RotateAxis axis) { rotateAxis_ = axis; }
+	void SetRotateRate(float rotateRate) { rotateRate_ = rotateRate; }
 	bool GetIsActive() { return count_>= maxCount_; }
 private:
 	bool OnCollision();
@@ -33,8 +34,10 @@ private:
 	ModelInstance model_;
 	std::shared_ptr<SphereCollider> collider_;
 	Transform transform_;
+	Quaternion initialRotate_;
     RotateAxis rotateAxis_ = YAxis;
 	float maxCount_ = 240.0f;
 	float count_ = 0.0f;
+	float rotateRate_ = 1.0f;
 	float rotationY_ = 0.0f;
 };

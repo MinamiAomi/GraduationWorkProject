@@ -26,6 +26,8 @@
 #endif // _DEBUG
 
 void GameScene::OnInitialize() {
+	Trolley::CreateInstance();
+
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
 
@@ -96,7 +98,7 @@ void GameScene::OnInitialize() {
 #pragma region Flashlight
 	flashlight_ = std::make_unique<Flashlight>();
 	flashlight_->SetRailAnimationPlayer(railAnimationPlayer_.get());
-	flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+	flashlight_->Initialize(&camera_->GetTransform(), camera_.get(), true);
 	collisionSystem_->RegisterCollider(flashlight_->GetCollider());
 #pragma endregion
 
@@ -442,7 +444,7 @@ void GameScene::OnUpdate() {
 	// 停止
 	if (ImGui::Button("Reset")) {
 		railAnimationPlayer_->Loop();
-		flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+		flashlight_->Initialize(&camera_->GetTransform(), camera_.get(), true);
 		deadline_->Initialize();
 
 		trolley_->SetParent(railAnimationPlayer_->GetTransform());
@@ -636,4 +638,5 @@ void GameScene::OnFinalize() {
 	trolley_->SetIsActive(false);
 	trolley_->Finalize();
 	bgmAudioSource_->Stop();
+	Trolley::DestroyInstance();
 }

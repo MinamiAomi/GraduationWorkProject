@@ -46,7 +46,7 @@ void TitleScene::OnInitialize() {
 
 
     flashlight_ = std::make_unique<Flashlight>();
-    flashlight_->Initialize(&camera_->GetTransform(), camera_.get());
+    flashlight_->Initialize(&camera_->GetTransform(), camera_.get(), false);
 
     trolleyCollider_ = std::make_shared<SphereCollider>(
         CollisionCategory::DIORAMA,
@@ -156,6 +156,7 @@ void TitleScene::OnUpdate() {
     const AnimationSet& anime = trolley_->animation->Get()->GetAnimation("\u5186\u67f1.002Action");
     auto it = anime.nodeAnimations.find("TitleTrollory");
 
+
     if (isRunning) {
         trolley_->animationTime += 0.016f / anime.duration;
 
@@ -164,7 +165,7 @@ void TitleScene::OnUpdate() {
             trolley_->animationTime = 1.0f; // 1.0fに固定
 
             // ★シーン遷移の実行
-            if (!isSceneChange_ && LightDeviceInput::GetInstance()->GetConnectionState() != LightDeviceInput::ConnectionState::Connecting) {
+            if (!isSceneChange_) {
                 isSceneChange_ = true;
                 SceneManager::GetInstance()->ChangeScene<StageSelectScene>(true);
             }

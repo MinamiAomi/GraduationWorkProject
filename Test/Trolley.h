@@ -18,12 +18,15 @@
 
 class Trolley {
 public:
+	static Trolley* singletonInstance;
+	static Trolley* GetInstance() {
+		return singletonInstance;
+	}
+	static void CreateInstance();
+	static void DestroyInstance();
+
 	static const uint8_t BatteryNum = 1;
 
-	static Trolley* GetInstance() {
-		static Trolley instance;
-		return &instance;
-	}
 
 	// コピーと代入を禁止
 	Trolley(const Trolley&) = delete;

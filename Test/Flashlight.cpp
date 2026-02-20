@@ -40,7 +40,7 @@ Flashlight::Flashlight()
     flashlightUI_.SetFlashlight(this);
 }
 
-void Flashlight::Initialize(const Transform* parentTransform, const Camera* parentCamera)
+void Flashlight::Initialize(const Transform* parentTransform, const Camera* parentCamera, bool isInGame)
 {
     const Vector3 kFlashLightOffset = { 0.0f,0.0f,0.0f };
 
@@ -76,6 +76,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
     isHitFlashlight_ = false;
 
     flashlightUI_.Initialize();
+
+    isInGame_ = isInGame;
 }
 
 void Flashlight::Update()
@@ -245,10 +247,15 @@ void Flashlight::Move() {
         if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
             if (input->IsKeyTrigger(DIK_R) ||
                 lightDeviceInput->IsButtonPressed()) {
-                auto bat = Trolley::GetInstance()->GetBatteyTransform(0).worldMatrix.GetTranslate();
-                auto dir = bat * parentCamera_->GetViewMatrix();
-                dir.Normalize();
-                lightDeviceInput->ResetOrientation(dir);
+                if (isInGame_) {
+                    auto bat = Trolley::GetInstance()->GetBatteyTransform(0).worldMatrix.GetTranslate();
+                    auto dir = bat * parentCamera_->GetViewMatrix();
+                    dir.Normalize();
+                    lightDeviceInput->ResetOrientation(dir);
+                }
+                else {
+                    lightDeviceInput->ResetOrientation();
+                }
             }
             Quaternion deviceOrientation = lightDeviceInput->GetOrientation();
             Vector3 euler = deviceOrientation.EulerAngle();

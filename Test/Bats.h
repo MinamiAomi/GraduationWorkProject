@@ -59,7 +59,7 @@ public:
 private:
 	void Emit(const Vector3& goalPos);
 private:
-	const uint32_t kSEMax = 3;
+	const uint32_t kSEMax = 10;
 
 	Transform transform_;
 	std::shared_ptr<Model> model_;
