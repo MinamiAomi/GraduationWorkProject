@@ -55,7 +55,8 @@ public:
 
 	const Transform& GetTransform() { return transform_; }
 
-	std::array<std::shared_ptr<SphereCollider>, BatteryNum> GetColliders() { return batteryColliders_; }
+	std::array<std::shared_ptr<SphereCollider>, BatteryNum> GetBatteryColliders() { return batteryColliders_; }
+	std::shared_ptr<SphereCollider> GetTrolleyCollider() { return trolleyCollider_; }
 
 	//速度
 	float GetTrollySpeed() const { return currentSpeed_; }
@@ -131,6 +132,12 @@ private:
 	const Flashlight* flashlight_;
 
 	TrolleyUI trolleyUI_;
+
+	std::shared_ptr<SphereCollider> trolleyCollider_;
+	
+	Transform trolleyColliderTransform_;
+	Vector3 trolleyColliderOffset_;
+	float trolleyColliderRadius_;
 
 #pragma region テールランプ
 	/*std::shared_ptr<SpotLight> teilLight_;

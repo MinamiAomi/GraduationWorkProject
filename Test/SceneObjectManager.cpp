@@ -107,7 +107,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 			for (auto& collider : obj->collider->GetCollidedWith()) {
-				if ((collider->categoryBits == CollisionCategory::PLAYER)) {
+				if ((collider->categoryBits == CollisionCategory::TROLLEY)) {
 					//スポーン
 					batsManager_->Emit(obj->formation);
 					obj->collider = nullptr;
@@ -172,6 +172,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 	for (const auto& obj : obstacleObjects_) {
 
+		obj->Update();
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 
@@ -191,7 +192,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 						break;
 					}
 				}
-				else if ((collider->categoryBits == CollisionCategory::PLAYER)) {
+				else if ((collider->categoryBits == CollisionCategory::TROLLEY)) {
 					if (obj->isAlive) {
 						//つららのしょり頑張ってください
 						Trolley::GetInstance()->SetState(Trolley::State::Stop);
@@ -241,6 +242,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			if (data.pointLightData) {
 				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
 				pointLightObject->lightObject.SetModel(pointLightObject->model.GetModel());
+				pointLightObject->lightObject.GetModelResource();
 
 				float scale = std::max({
 					pointLightObject->transform.scale.x,
@@ -284,7 +286,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			enemySpawn->isOnce = data.enemySpawnData->isOnce;
 
 			myCategory = uint32_t(CollisionCategory::ENEMY);
-			targetMask = uint32_t(CollisionCategory::FLASHLIGHT | CollisionCategory::PLAYER);
+			targetMask = uint32_t(CollisionCategory::FLASHLIGHT | CollisionCategory::TROLLEY);
 
 			InitializeCommonObject(enemySpawn, data, myCategory, targetMask);
 
@@ -324,7 +326,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				trigger->isOnce = data.gimmickTriggers->isOnce;
 
 				myCategory = uint32_t(CollisionCategory::GIMMICKTRIGGER);
-				targetMask = uint32_t(CollisionCategory::PLAYER);
+				targetMask = uint32_t(CollisionCategory::TROLLEY);
 
 				InitializeCommonObject(trigger, data, myCategory, targetMask);
 				gimmickTriggerObjects_.push_back(std::move(trigger));
@@ -333,6 +335,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				const auto& assetManager = AssetManager::GetInstance();
 				if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
 					pointlight->model.SetModel(modelHandle->Get());
+					pointlight->model.SetIsActive(true);
 				}
 				const auto& moverData = data.gimmickPointlights->gimmickMoverData;
 
@@ -396,6 +399,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			if (auto modelHandle = assetManager->modelMap.Get(data.modelName.value())) {
 				obstacleObject->model.SetModel(modelHandle->Get());
+				obstacleObject->model.SetIsActive(true);
 			}
 
 			obstacleObject->hp = data.obstacles->hp;
@@ -403,7 +407,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 			obstacleObject->isAlive = true;
 
 			myCategory = uint32_t(CollisionCategory::OBSTACLE);
-			targetMask = uint32_t(CollisionCategory::PLAYER | CollisionCategory::FLASHLIGHT);
+			targetMask = uint32_t(CollisionCategory::TROLLEY | CollisionCategory::FLASHLIGHT);
 
 			InitializeCommonObject(obstacleObject, data, myCategory, targetMask);
 

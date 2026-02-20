@@ -15,12 +15,20 @@ Trolley::Trolley()
 
 	for (auto& collider : batteryColliders_) {
 		collider = std::make_shared<SphereCollider>(
-			CollisionCategory::PLAYER,
+			CollisionCategory::TROLLEYBATTERY,
 			(CollisionCategory::ENEMY | CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
 			Vector3::zero,
 			0.0f
 		);
 	}
+
+	trolleyCollider_ = std::make_shared<SphereCollider>(
+		CollisionCategory::TROLLEY,
+		(CollisionCategory::ENEMY | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
+		Vector3::zero,
+		0.0f
+	);
+
 
 	normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
 	nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
@@ -64,6 +72,10 @@ void Trolley::Initialize()
 	JSON_LOAD(nitroAccelerationRate_);
 	JSON_LOAD(nitroDecelerationRate_);
 	JSON_ROOT();
+	JSON_OBJECT("TrolleyCollider");
+	JSON_LOAD(trolleyColliderOffset_);
+	JSON_LOAD(trolleyColliderRadius_);
+	JSON_ROOT();
 	JSON_OBJECT("Trolley");
 	JSON_LOAD(trolleyOffset_);
 	JSON_ROOT();
@@ -83,6 +95,7 @@ void Trolley::Initialize()
 
 	transform_.translate = trolleyOffset_;
 	transform_.UpdateMatrix();
+
 	model_.SetWorldMatrix(transform_.worldMatrix);
 	trollyState_ = State::Normal;
 	currentSpeed_ = 0.0f;
@@ -95,7 +108,6 @@ void Trolley::Initialize()
 	stateTimer_ = 0.0f;
 
 	isHitFlashlight_ = false;
-
 
 	for (uint8_t i = 0; i < BatteryNum; i++) {
 		batteryTransforms_.at(i).SetParent(nullptr);
@@ -121,6 +133,11 @@ void Trolley::Initialize()
 
 	batsNum_ = 0;
 
+	trolleyColliderTransform_.SetParent(&transform_);
+	trolleyColliderTransform_.UpdateMatrix();
+
+
+
 	trolleyUI_.Initialize(transform_);
 }
 
@@ -136,6 +153,14 @@ void Trolley::Update(float deltaTime)
 	transform_.translate = trolleyOffset_ + shakeOffset_;
 	transform_.rotate = bankRotation * shakeRotation_;
 	transform_.UpdateMatrix();
+
+	trolleyColliderTransform_.translate = trolleyColliderOffset_;
+
+	trolleyColliderTransform_.UpdateMatrix();
+
+	trolleyCollider_->center = trolleyColliderTransform_.worldMatrix.GetTranslate();
+	trolleyCollider_->radius = trolleyColliderRadius_;
+
 	//teilLightTransform_.translate = teilOffset_;
 	//teilLightTransform_.UpdateMatrix();
 	model_.SetWorldMatrix(transform_.worldMatrix);
@@ -537,6 +562,12 @@ void Trolley::DrawImGui() {
 			JSON_SAVE(nitroAccelerationRate_);
 			JSON_SAVE(nitroDecelerationRate_);
 			JSON_ROOT();
+
+			JSON_OBJECT("TrolleyCollider");
+			JSON_SAVE(trolleyColliderOffset_);
+			JSON_SAVE(trolleyColliderRadius_);
+			JSON_ROOT();
+
 			JSON_OBJECT("Trolley");
 			JSON_SAVE(trolleyOffset_);
 			JSON_ROOT();
@@ -563,11 +594,21 @@ void Trolley::DrawImGui() {
 		}
 
 		if (ImGui::TreeNode("当たり判定 (Collision)")) {
-			for (uint8_t i = 0; i < BatteryNum; i++) {
-				std::string key = "判定オフセット" + std::to_string(i) + ":";
-				ImGui::DragFloat3(key.c_str(), &batteryOffsets_.at(i).x, 0.01f);
+			if (ImGui::TreeNode("トロッコ")) {
+				ImGui::DragFloat3("当たり判定オフセット", &trolleyColliderOffset_.x, 0.01f);
+				ImGui::DragFloat("判定半径 (Radius)", &trolleyColliderRadius_, 0.01f);
+				ImGui::TreePop();
 			}
-			ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
+
+			if (ImGui::TreeNode("バッテリー")) {
+				for (uint8_t i = 0; i < BatteryNum; i++) {
+					std::string key = "判定オフセット" + std::to_string(i) + ":";
+					ImGui::DragFloat3(key.c_str(), &batteryOffsets_.at(i).x, 0.01f);
+				}
+				ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
+				ImGui::TreePop();
+			}
+
 			ImGui::TreePop();
 		}
 
@@ -629,7 +670,7 @@ void Trolley::DrawImGui() {
 
 void Trolley::SetState(const State& state)
 {
-	
+
 	switch (trollyState_)
 	{
 	case Trolley::State::Normal:
@@ -693,7 +734,7 @@ void Trolley::UpdateCollision()
 				{
 				case CollisionCategory::NONE:
 					break;
-				case CollisionCategory::PLAYER:
+				case CollisionCategory::TROLLEYBATTERY:
 					break;
 				case CollisionCategory::FLASHLIGHT:
 				{
@@ -705,6 +746,8 @@ void Trolley::UpdateCollision()
 				case CollisionCategory::LIGHT:
 					break;
 				case CollisionCategory::ENEMY:
+					break;
+				case CollisionCategory::TROLLEY:
 					break;
 				case CollisionCategory::ALL:
 					break;
