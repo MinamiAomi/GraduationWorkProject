@@ -172,6 +172,10 @@ void Trolley::UpdateState(float deltaTime)
 			//バッテリーが十分でライトが当たっているとき
 			//Batsの数で減らす
 			currentCharge_ -= batsNum_ * batDecrease_;
+			if (ghostDamage_ > 0.0f) {
+				currentCharge_ -= ghostDamage_;
+				ghostDamage_ = 0.0f;
+			}
 			if (isHitFlashlight_ &&
 				!flashlight_->GetBatteryRemaining()) {
 

@@ -532,6 +532,8 @@ void GameScene::OnUpdate() {
 	//	railAnimationPlayer_->Loop();
 	//}
 	static bool isDebugCamera = false;
+
+	Ghosts::Debug();
 	ImGui::Begin("GameScene");
 
 

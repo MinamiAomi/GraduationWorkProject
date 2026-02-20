@@ -62,7 +62,7 @@ private:
 	std::shared_ptr<Material> material_;
 	Vector3 goalColor_ = { 1.0f,0.0f,0.0f };
 private:
-	const uint32_t kSEMax = 3;
+	const uint32_t kSEMax = 4;
 	int attackTime_ = 0;
 	Transform transform_;
 	std::shared_ptr<Model> model_;
@@ -70,6 +70,7 @@ private:
 	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
 	std::shared_ptr<Sound> spawnSESound_;
     std::shared_ptr<Sound> deathSESound_;
+	std::shared_ptr<Sound> explodeSESound_;
 	uint32_t seCount_ = 0;
 	Random::RandomNumberGenerator rnd_;
 	const Camera* camera_;
@@ -77,6 +78,7 @@ private:
 	float radius_;
 
 	bool isActive_ = false;
+	bool isExploded = false;
 
 };
 

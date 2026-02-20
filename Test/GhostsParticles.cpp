@@ -88,10 +88,10 @@ void GhostsParticles::Debug() {
 			fscaleDecay_ = 0.01f;
 		}
 		
-		ImGui::DragFloat("minScale_", &minScale_, 0.01f);
-		ImGui::DragFloat("maxScale_", &maxScale_, 0.01f, minScale_);
-		if (minScale_ > maxScale_) {
-			maxScale_ = minScale_ + 0.01f;
+		ImGui::DragFloat("fminScale_", &fminScale_, 0.01f);
+		ImGui::DragFloat("fmaxScale_", &fmaxScale_, 0.01f, fminScale_);
+		if (fminScale_ > fmaxScale_) {
+			fmaxScale_ = fminScale_ + 0.01f;
 		}
 
 		if (ImGui::Button("Save")) {
@@ -117,8 +117,8 @@ void GhostsParticles::Debug() {
 			JSON_SAVE_BY_NAME("fminDirection_", fminDirection_);
 			JSON_SAVE_BY_NAME("fmaxDirection_", fmaxDirection_);
 			JSON_SAVE_BY_NAME("fscaleDecay_", fscaleDecay_);
-			JSON_SAVE_BY_NAME("fminScale_", minScale_);
-			JSON_SAVE_BY_NAME("fmaxScale_", maxScale_);
+			JSON_SAVE_BY_NAME("fminScale_", fminScale_);
+			JSON_SAVE_BY_NAME("fmaxScale_", fmaxScale_);
 			JSON_CLOSE();
 		}
 		ImGui::TreePop();

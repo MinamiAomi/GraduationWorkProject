@@ -36,8 +36,9 @@ Ghosts::Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	attackTime_ = 0;
 	auto assetManager = AssetManager::GetInstance();
 	model_ = assetManager->modelMap.Get("Ghost")->Get();
-    spawnSESound_ = assetManager->soundMap.Get("SE_BAT_SPAWN")->Get();
-    deathSESound_ = assetManager->soundMap.Get("SE_BAT_DEATH")->Get();
+    spawnSESound_ = assetManager->soundMap.Get("SE_BOMB_GHOST_SPAWN")->Get();
+    deathSESound_ = assetManager->soundMap.Get("SE_BOMB_GHOST_DEATH")->Get();
+	explodeSESound_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
 	radius_ = 5.0f;                       // Sphere用半径
 	camera_ = &camera;
 
@@ -69,6 +70,7 @@ Ghosts::Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera)
 			}
 		}
 	}
+	isExploded = false;
 	
 }
 
@@ -78,8 +80,18 @@ void Ghosts::Update()
 	transform_.UpdateMatrix();
 	attackTime_++;
 	material_->albedo = Vector3::Lerp(float(attackTime_) / float(ghostAttackFrame), { 1.0f,1.0f,1.0f }, goalColor_);
-	if (attackTime_ >= ghostAttackFrame) {
-		ghost_.size();
+	if (attackTime_ >= ghostAttackFrame && !isExploded && ghost_.size() != 0) {
+		float sumDamage = ghost_.size() * ghostAttackDamage;
+		Trolley::GetInstance()->ghostDamage_ = sumDamage;
+		isExploded = true;
+		if (seCount_ < kSEMax) {
+			auto as = std::make_shared<AudioSource>();
+			(*as) = explodeSESound_;
+			as->SetVolume(0.7f);
+			as->Play(false);
+			playingAudioSourceList_.push_back(as);
+			seCount_++;
+		}
 	}
 	for (auto it = ghost_.begin(); it != ghost_.end(); ) {
 		auto p = *it;
