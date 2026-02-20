@@ -22,11 +22,13 @@ Trolley::Trolley()
 		);
 	}
 
-	trolleyCollider_ = std::make_shared<SphereCollider>(
+	trolleyCollider_ = std::make_shared<CapsuleCollider>(
 		CollisionCategory::TROLLEY,
 		(CollisionCategory::ENEMY | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
 		Vector3::zero,
-		0.0f
+		0.0f,
+		0.0f,
+		Quaternion::identity
 	);
 
 
@@ -74,7 +76,9 @@ void Trolley::Initialize()
 	JSON_ROOT();
 	JSON_OBJECT("TrolleyCollider");
 	JSON_LOAD(trolleyColliderOffset_);
+	JSON_LOAD(trolleyColliderHeight_);
 	JSON_LOAD(trolleyColliderRadius_);
+	JSON_LOAD(trolleyColliderQuaternion_);
 	JSON_ROOT();
 	JSON_OBJECT("Trolley");
 	JSON_LOAD(trolleyOffset_);
@@ -155,11 +159,14 @@ void Trolley::Update(float deltaTime)
 	transform_.UpdateMatrix();
 
 	trolleyColliderTransform_.translate = trolleyColliderOffset_;
+	trolleyColliderTransform_.rotate = trolleyColliderQuaternion_;
 
 	trolleyColliderTransform_.UpdateMatrix();
 
 	trolleyCollider_->center = trolleyColliderTransform_.worldMatrix.GetTranslate();
 	trolleyCollider_->radius = trolleyColliderRadius_;
+	trolleyCollider_->quaternion = trolleyColliderTransform_.worldMatrix.GetRotate();
+	trolleyCollider_->height = trolleyColliderHeight_;
 
 	//teilLightTransform_.translate = teilOffset_;
 	//teilLightTransform_.UpdateMatrix();
@@ -569,7 +576,9 @@ void Trolley::DrawImGui() {
 
 			JSON_OBJECT("TrolleyCollider");
 			JSON_SAVE(trolleyColliderOffset_);
+			JSON_SAVE(trolleyColliderHeight_);
 			JSON_SAVE(trolleyColliderRadius_);
+			JSON_SAVE(trolleyColliderQuaternion_);
 			JSON_ROOT();
 
 			JSON_OBJECT("Trolley");
@@ -599,8 +608,13 @@ void Trolley::DrawImGui() {
 
 		if (ImGui::TreeNode("当たり判定 (Collision)")) {
 			if (ImGui::TreeNode("トロッコ")) {
+				static Vector3 rotate = { 0.0f,0.0f,0.0f };
+
 				ImGui::DragFloat3("当たり判定オフセット", &trolleyColliderOffset_.x, 0.01f);
-				ImGui::DragFloat("判定半径 (Radius)", &trolleyColliderRadius_, 0.01f);
+				ImGui::DragFloat("判定半径", &trolleyColliderRadius_, 0.01f);
+				ImGui::DragFloat("高さ", &trolleyColliderHeight_, 0.01f);
+				ImGui::DragFloat3("回転", &rotate.x, 0.01f);
+				trolleyColliderQuaternion_ = Quaternion::MakeFromEulerAngle(rotate);
 				ImGui::TreePop();
 			}
 
