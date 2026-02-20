@@ -22,6 +22,7 @@
 #include "Trolley.h"
 #include "Deadline.h"
 #include "BatsManager.h"
+#include "GhostsManager.h"
 #include "TutorialObject.h"
 
 
@@ -36,6 +37,8 @@
 #include "Collider.h"
 #include "CollisionSystem.h"
 #include "BatteryParticles.h"
+
+#include "Ghosts.h"
 
 class GameScene :
 	public BaseScene {
@@ -76,6 +79,7 @@ private:
 
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	std::unique_ptr<BatsManager> batsManager_;
+	std::unique_ptr<GhostsManager> ghostsManager_;
 	std::unique_ptr<RailcameraUI> railcameraUI_;
 
 	std::unique_ptr<TutorialObject> trollyTutorial_;

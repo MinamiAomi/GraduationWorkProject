@@ -94,6 +94,7 @@ public:
 	void SetIsActive(bool isActive);
 
 	int batsNum_ = 0;
+	float ghostDamage_ = 0;
 
 private:
 	void UpdateCollision();

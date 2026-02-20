@@ -162,6 +162,14 @@ void GameScene::OnInitialize() {
 	batsManager_->SetColliderSystem(collisionSystem_.get());
 	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
+
+	ghostsManager_ = std::make_unique<GhostsManager>();
+	ghostsManager_->SetCamera(camera_.get());
+	ghostsManager_->SetColliderSystem(collisionSystem_.get());
+	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
+
+	//test
+
 #pragma endregion
 #pragma region RailcameraUI
 	railcameraUI_ = std::make_unique<RailcameraUI>();
@@ -350,6 +358,10 @@ void GameScene::OnUpdate() {
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
+
+	ghostsManager_->SetCamera(camera_.get());
+	ghostsManager_->Update();
+	GhostsParticles::Debug();
 #pragma endregion
 
 #pragma region RailcameraUI
@@ -522,7 +534,16 @@ void GameScene::OnUpdate() {
 	//	railAnimationPlayer_->Loop();
 	//}
 	static bool isDebugCamera = false;
+
+	Ghosts::Debug();
 	ImGui::Begin("GameScene");
+
+
+	if (ImGui::Button("ghostEmit")) {
+		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+		ghostsManager_->Emit(mapData);
+	}
+
 	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
 		auto& directionalLight = directionalLights_[i];
 		directionalLight->DrawImGui(std::format("DirectionalLight{}", i));
