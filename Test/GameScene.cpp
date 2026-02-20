@@ -109,9 +109,11 @@ void GameScene::OnInitialize() {
 	trolley_->SetRailAnimationPlayer(railAnimationPlayer_.get());
 	trolley_->SetFlashlight(flashlight_.get());
 	trolley_->Initialize();
-	for (auto& collider : trolley_->GetColliders()) {
+	for (auto& collider : trolley_->GetBatteryColliders()) {
 		collisionSystem_->RegisterCollider(collider);
 	}
+	collisionSystem_->RegisterCollider(trolley_->GetTrolleyCollider());
+
 	batteryParticles_ = std::make_unique<BatteryParticles>();
 	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 #pragma endregion
@@ -162,6 +164,14 @@ void GameScene::OnInitialize() {
 	batsManager_->SetColliderSystem(collisionSystem_.get());
 	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
+
+	ghostsManager_ = std::make_unique<GhostsManager>();
+	ghostsManager_->SetCamera(camera_.get());
+	ghostsManager_->SetColliderSystem(collisionSystem_.get());
+	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
+
+	//test
+
 #pragma endregion
 #pragma region RailcameraUI
 	railcameraUI_ = std::make_unique<RailcameraUI>();
@@ -180,7 +190,7 @@ void GameScene::OnInitialize() {
 
 		trollyTutorial_->Initialize("TutorialTrolly", 0.0f);
 		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
-		
+
 		flashlightTutorial_->Initialize("TutorialFlashlight", 190.0f);
 		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
@@ -350,6 +360,10 @@ void GameScene::OnUpdate() {
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->Update();
+
+	ghostsManager_->SetCamera(camera_.get());
+	ghostsManager_->Update();
+	GhostsParticles::Debug();
 #pragma endregion
 
 #pragma region RailcameraUI
@@ -361,7 +375,7 @@ void GameScene::OnUpdate() {
 	{
 		startWarning = railAnimationPlayer_->GetCurrentFrame() >= deadline_->GetStartFrameLevel1();
 	}
-		break;
+	break;
 	case LevelManager::Level::LEVEL2:
 	{
 		startWarning = railAnimationPlayer_->GetCurrentFrame() >= deadline_->GetStartFrameLevel2();
@@ -371,7 +385,7 @@ void GameScene::OnUpdate() {
 	default:
 		break;
 	}
-	
+
 	railcameraUI_->Update(
 		(railAnimationPlayer_->GetCurrentFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
 		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
@@ -522,7 +536,16 @@ void GameScene::OnUpdate() {
 	//	railAnimationPlayer_->Loop();
 	//}
 	static bool isDebugCamera = false;
+
+	Ghosts::Debug();
 	ImGui::Begin("GameScene");
+
+
+	if (ImGui::Button("ghostEmit")) {
+		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+		ghostsManager_->Emit(mapData);
+	}
+
 	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {
 		auto& directionalLight = directionalLights_[i];
 		directionalLight->DrawImGui(std::format("DirectionalLight{}", i));

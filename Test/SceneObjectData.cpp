@@ -242,7 +242,7 @@ namespace SceneObjectSystem {
 	void ObstacleObject::SetDamage()
 	{
 		hp--;
-		if (hp <= 0) {
+		if (hp < 0) {
 			isAlive = false;
 			model.SetIsActive(false);
 		}

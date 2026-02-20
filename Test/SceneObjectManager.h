@@ -9,6 +9,7 @@
 #include "Math/Random.h"
 
 #include "BatsManager.h"
+#include "GhostsManager.h"
 
 namespace SceneObjectSystem {
 	class SceneObjectManager {
@@ -31,6 +32,7 @@ namespace SceneObjectSystem {
 		const std::vector<std::unique_ptr<SceneObjectSystem::SceneObjectData>>& GetSceneObjectData()const { return sceneObjectData_; }
 
 		void SetBatsManager(BatsManager* batsManager) { batsManager_ = batsManager; }
+		void SetGhostsManager(GhostsManager* ghostsManager) { ghostsManager_ = ghostsManager; }
 	private:
 		Random::RandomNumberGenerator rnd_;
 
@@ -80,6 +82,7 @@ namespace SceneObjectSystem {
 		} sceneObjectConfig_;
 
 		BatsManager* batsManager_;
+		GhostsManager* ghostsManager_;
 	};
 
 	template<typename T>

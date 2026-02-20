@@ -58,7 +58,8 @@ public:
 
 	const Transform& GetTransform() { return transform_; }
 
-	std::array<std::shared_ptr<SphereCollider>, BatteryNum> GetColliders() { return batteryColliders_; }
+	std::array<std::shared_ptr<SphereCollider>, BatteryNum> GetBatteryColliders() { return batteryColliders_; }
+	std::shared_ptr<CapsuleCollider> GetTrolleyCollider() { return trolleyCollider_; }
 
 	//速度
 	float GetTrollySpeed() const { return currentSpeed_; }
@@ -96,6 +97,7 @@ public:
 	void SetIsActive(bool isActive);
 
 	int batsNum_ = 0;
+	float ghostDamage_ = 0;
 
 private:
 	void UpdateCollision();
@@ -134,6 +136,14 @@ private:
 	const Flashlight* flashlight_;
 
 	TrolleyUI trolleyUI_;
+
+	std::shared_ptr<CapsuleCollider> trolleyCollider_;
+	
+	Transform trolleyColliderTransform_;
+	Vector3 trolleyColliderOffset_;
+	float trolleyColliderHeight_;
+	float trolleyColliderRadius_;
+	Quaternion trolleyColliderQuaternion_;
 
 #pragma region テールランプ
 	/*std::shared_ptr<SpotLight> teilLight_;

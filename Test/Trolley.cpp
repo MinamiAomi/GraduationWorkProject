@@ -29,25 +29,35 @@ Trolley::Trolley()
 {
     auto assetManager = AssetManager::GetInstance();
 
-    for (auto& collider : batteryColliders_) {
-        collider = std::make_shared<SphereCollider>(
-            CollisionCategory::PLAYER,
-            (CollisionCategory::ENEMY | CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
-            Vector3::zero,
-            0.0f
-        );
-    }
+	for (auto& collider : batteryColliders_) {
+		collider = std::make_shared<SphereCollider>(
+			CollisionCategory::TROLLEYBATTERY,
+			(CollisionCategory::ENEMY | CollisionCategory::FLASHLIGHT | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
+			Vector3::zero,
+			0.0f
+		);
+	}
 
-    normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
-    nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
-    burstSESource_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
-    crashSESource_ = assetManager->soundMap.Get("SE_TROLLY_CRASH")->Get();
-    for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
-        std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
-        nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
-    }
-    nitroFizzSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO_FIZZ")->Get();
-    chargeSESource_ = assetManager->soundMap.Get("SE_TROLLY_CHARGE")->Get();
+	trolleyCollider_ = std::make_shared<CapsuleCollider>(
+		CollisionCategory::TROLLEY,
+		(CollisionCategory::ENEMY | CollisionCategory::GIMMICKTRIGGER | CollisionCategory::OBSTACLE),
+		Vector3::zero,
+		0.0f,
+		0.0f,
+		Quaternion::identity
+	);
+
+
+	normalSESource_ = assetManager->soundMap.Get("SE_TROLLY_NORMAL")->Get();
+	nitroSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO")->Get();
+	burstSESource_ = assetManager->soundMap.Get("SE_TROLLY_BURST")->Get();
+	crashSESource_ = assetManager->soundMap.Get("SE_TROLLY_CRASH")->Get();
+	for (uint32_t i = 0; i < kNitroBoostSECount; i++) {
+		std::string soundName = "SE_TROLLY_NITRO_BOOST" + std::to_string(i);
+		nitroBoostSESources_[i] = assetManager->soundMap.Get(soundName)->Get();
+	}
+	nitroFizzSESource_ = assetManager->soundMap.Get("SE_TROLLY_NITRO_FIZZ")->Get();
+	chargeSESource_ = assetManager->soundMap.Get("SE_TROLLY_CHARGE")->Get();
 
     //teilLight_ = std::make_shared<SpotLight>();
 
@@ -62,46 +72,53 @@ Trolley::Trolley()
 }
 void Trolley::Initialize()
 {
-    JSON_OPEN("Resources/Data/Trolley/trolley.json");
-    JSON_OBJECT("TrollerSpeed");
-    JSON_LOAD(startFrame_);
-    JSON_LOAD(maxSpeed_);
-    JSON_LOAD(minSpeed_);
-    JSON_LOAD(burstSpeed_);
-    JSON_LOAD(nitroSpeed_);
-    JSON_LOAD(accelerationRate_);
-    JSON_LOAD(decelerationRate_);
-    JSON_LOAD(maxNormalCharge_);
-    JSON_LOAD(nitroThreshold_);
-    JSON_LOAD(nitroChargeTime_);
-    JSON_LOAD(nitroDuration_);
-    JSON_LOAD(batteryAfterNitro_);
-    JSON_LOAD(batDecrease_);
-    JSON_LOAD(nitroAccelerationRate_);
-    JSON_LOAD(nitroDecelerationRate_);
-    JSON_ROOT();
-    JSON_OBJECT("Trolley");
-    JSON_LOAD(trolleyOffset_);
-    JSON_ROOT();
-    JSON_OBJECT("Battery");
-    for (uint8_t i = 0; i < BatteryNum; i++) {
-        std::string key = "batteryOffset:" + std::to_string(i);
-        JSON_LOAD_BY_NAME(key.c_str(), batteryOffsets_.at(i));
-    }
-    JSON_LOAD(batteryRadius_);
-    JSON_ROOT();
-    JSON_OBJECT("Banking");
-    JSON_LOAD(bankingAmount_);
-    JSON_LOAD(bankingSmoothTime_);
-    JSON_LOAD(lookAheadForBank_);
-    JSON_ROOT();
-    JSON_CLOSE();
+	JSON_OPEN("Resources/Data/Trolley/trolley.json");
+	JSON_OBJECT("TrollerSpeed");
+	JSON_LOAD(startFrame_);
+	JSON_LOAD(maxSpeed_);
+	JSON_LOAD(minSpeed_);
+	JSON_LOAD(burstSpeed_);
+	JSON_LOAD(nitroSpeed_);
+	JSON_LOAD(accelerationRate_);
+	JSON_LOAD(decelerationRate_);
+	JSON_LOAD(maxNormalCharge_);
+	JSON_LOAD(nitroThreshold_);
+	JSON_LOAD(nitroChargeTime_);
+	JSON_LOAD(nitroDuration_);
+	JSON_LOAD(batteryAfterNitro_);
+	JSON_LOAD(batDecrease_);
+	JSON_LOAD(nitroAccelerationRate_);
+	JSON_LOAD(nitroDecelerationRate_);
+	JSON_ROOT();
+	JSON_OBJECT("TrolleyCollider");
+	JSON_LOAD(trolleyColliderOffset_);
+	JSON_LOAD(trolleyColliderHeight_);
+	JSON_LOAD(trolleyColliderRadius_);
+	JSON_LOAD(trolleyColliderQuaternion_);
+	JSON_ROOT();
+	JSON_OBJECT("Trolley");
+	JSON_LOAD(trolleyOffset_);
+	JSON_ROOT();
+	JSON_OBJECT("Battery");
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		std::string key = "batteryOffset:" + std::to_string(i);
+		JSON_LOAD_BY_NAME(key.c_str(), batteryOffsets_.at(i));
+	}
+	JSON_LOAD(batteryRadius_);
+	JSON_ROOT();
+	JSON_OBJECT("Banking");
+	JSON_LOAD(bankingAmount_);
+	JSON_LOAD(bankingSmoothTime_);
+	JSON_LOAD(lookAheadForBank_);
+	JSON_ROOT();
+	JSON_CLOSE();
 
-    transform_.translate = trolleyOffset_;
-    transform_.UpdateMatrix();
-    model_.SetWorldMatrix(transform_.worldMatrix);
-    trollyState_ = State::Normal;
-    currentSpeed_ = 0.0f;
+	transform_.translate = trolleyOffset_;
+	transform_.UpdateMatrix();
+
+	model_.SetWorldMatrix(transform_.worldMatrix);
+	trollyState_ = State::Normal;
+	currentSpeed_ = 0.0f;
 
     currentCharge_ = 0.0f;
 
@@ -112,15 +129,14 @@ void Trolley::Initialize()
 
     isHitFlashlight_ = false;
 
-
-    for (uint8_t i = 0; i < BatteryNum; i++) {
-        batteryTransforms_.at(i).SetParent(nullptr);
-        batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
-        //batteryTransforms_.at(i).SetParent(&transform_);
-        batteryTransforms_.at(i).UpdateMatrix();
-        batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
-        batteryColliders_.at(i)->radius = batteryRadius_;
-    }
+	for (uint8_t i = 0; i < BatteryNum; i++) {
+		batteryTransforms_.at(i).SetParent(nullptr);
+		batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
+		//batteryTransforms_.at(i).SetParent(&transform_);
+		batteryTransforms_.at(i).UpdateMatrix();
+		batteryColliders_.at(i)->center = batteryTransforms_.at(i).worldMatrix.GetTranslate();
+		batteryColliders_.at(i)->radius = batteryRadius_;
+	}
 
     //teilOffset_ = { 0.0f,5.0f,-2.0f };
     //teilLight_->position = teilLightTransform_.worldMatrix.GetTranslate() + teilOffset_;
@@ -137,7 +153,12 @@ void Trolley::Initialize()
 
     batsNum_ = 0;
 
-    trolleyUI_.Initialize(transform_);
+	trolleyColliderTransform_.SetParent(&transform_);
+	trolleyColliderTransform_.UpdateMatrix();
+
+
+
+	trolleyUI_.Initialize(transform_);
 }
 
 void Trolley::Update(float deltaTime)
@@ -149,12 +170,23 @@ void Trolley::Update(float deltaTime)
 
     Quaternion bankRotation = Quaternion::MakeFromAngleAxis(currentBankAngle_, Vector3(0.0f, 0.0f, 1.0f));
 
-    transform_.translate = trolleyOffset_ + shakeOffset_;
-    transform_.rotate = bankRotation * shakeRotation_;
-    transform_.UpdateMatrix();
-    //teilLightTransform_.translate = teilOffset_;
-    //teilLightTransform_.UpdateMatrix();
-    model_.SetWorldMatrix(transform_.worldMatrix);
+	transform_.translate = trolleyOffset_ + shakeOffset_;
+	transform_.rotate = bankRotation * shakeRotation_;
+	transform_.UpdateMatrix();
+
+	trolleyColliderTransform_.translate = trolleyColliderOffset_;
+	trolleyColliderTransform_.rotate = trolleyColliderQuaternion_;
+
+	trolleyColliderTransform_.UpdateMatrix();
+
+	trolleyCollider_->center = trolleyColliderTransform_.worldMatrix.GetTranslate();
+	trolleyCollider_->radius = trolleyColliderRadius_;
+	trolleyCollider_->quaternion = trolleyColliderTransform_.worldMatrix.GetRotate();
+	trolleyCollider_->height = trolleyColliderHeight_;
+
+	//teilLightTransform_.translate = teilOffset_;
+	//teilLightTransform_.UpdateMatrix();
+	model_.SetWorldMatrix(transform_.worldMatrix);
 
     for (uint8_t i = 0; i < BatteryNum; i++) {
         batteryTransforms_.at(i).translate = batteryOffsets_.at(i);
@@ -185,11 +217,15 @@ void Trolley::UpdateState(float deltaTime)
         //通常時のバッテリーチャージ
         if (trollyState_ != State::Nitro && trollyState_ != State::Stop) {
 
-            //バッテリーが十分でライトが当たっているとき
-            //Batsの数で減らす
-            currentCharge_ -= batsNum_ * batDecrease_;
-            if (isHitFlashlight_ &&
-                !flashlight_->GetBatteryRemaining()) {
+			//バッテリーが十分でライトが当たっているとき
+			//Batsの数で減らす
+			currentCharge_ -= batsNum_ * batDecrease_;
+			if (ghostDamage_ > 0.0f) {
+				currentCharge_ -= ghostDamage_;
+				ghostDamage_ = 0.0f;
+			}
+			if (isHitFlashlight_ &&
+				!flashlight_->GetBatteryRemaining()) {
 
                 currentCharge_ += accelerationRate_ * deltaTime * 60.0f * centerRate_;
 
@@ -536,40 +572,48 @@ void Trolley::DrawImGui() {
         if (ImGui::Button("Save", ImVec2(-1.0f, 0.0f))) {
             JSON_OPEN("Resources/Data/Trolley/trolley.json");
 
-            JSON_OBJECT("TrollerSpeed");
-            JSON_SAVE(startFrame_);
-            JSON_SAVE(maxSpeed_);
-            JSON_SAVE(minSpeed_);
-            JSON_SAVE(burstSpeed_);
-            JSON_SAVE(nitroSpeed_);
-            JSON_SAVE(accelerationRate_);
-            JSON_SAVE(decelerationRate_);
-            JSON_SAVE(maxNormalCharge_);
-            JSON_SAVE(nitroThreshold_);
-            JSON_SAVE(nitroChargeTime_);
-            JSON_SAVE(nitroDuration_);
-            JSON_SAVE(batteryAfterNitro_);
-            JSON_SAVE(batDecrease_);
-            JSON_SAVE(nitroAccelerationRate_);
-            JSON_SAVE(nitroDecelerationRate_);
-            JSON_ROOT();
-            JSON_OBJECT("Trolley");
-            JSON_SAVE(trolleyOffset_);
-            JSON_ROOT();
-            JSON_OBJECT("Battery");
-            for (uint8_t i = 0; i < BatteryNum; i++) {
-                std::string key = "batteryOffset:" + std::to_string(i);
-                JSON_SAVE_BY_NAME(key.c_str(), batteryOffsets_.at(i));
-            }
-            JSON_SAVE(batteryRadius_);
-            JSON_ROOT();
-            JSON_OBJECT("Banking");
-            JSON_SAVE(bankingAmount_);
-            JSON_SAVE(bankingSmoothTime_);
-            JSON_SAVE(lookAheadForBank_);
-            JSON_ROOT();
-            JSON_CLOSE();
-        }
+			JSON_OBJECT("TrollerSpeed");
+			JSON_SAVE(startFrame_);
+			JSON_SAVE(maxSpeed_);
+			JSON_SAVE(minSpeed_);
+			JSON_SAVE(burstSpeed_);
+			JSON_SAVE(nitroSpeed_);
+			JSON_SAVE(accelerationRate_);
+			JSON_SAVE(decelerationRate_);
+			JSON_SAVE(maxNormalCharge_);
+			JSON_SAVE(nitroThreshold_);
+			JSON_SAVE(nitroChargeTime_);
+			JSON_SAVE(nitroDuration_);
+			JSON_SAVE(batteryAfterNitro_);
+			JSON_SAVE(batDecrease_);
+			JSON_SAVE(nitroAccelerationRate_);
+			JSON_SAVE(nitroDecelerationRate_);
+			JSON_ROOT();
+
+			JSON_OBJECT("TrolleyCollider");
+			JSON_SAVE(trolleyColliderOffset_);
+			JSON_SAVE(trolleyColliderHeight_);
+			JSON_SAVE(trolleyColliderRadius_);
+			JSON_SAVE(trolleyColliderQuaternion_);
+			JSON_ROOT();
+
+			JSON_OBJECT("Trolley");
+			JSON_SAVE(trolleyOffset_);
+			JSON_ROOT();
+			JSON_OBJECT("Battery");
+			for (uint8_t i = 0; i < BatteryNum; i++) {
+				std::string key = "batteryOffset:" + std::to_string(i);
+				JSON_SAVE_BY_NAME(key.c_str(), batteryOffsets_.at(i));
+			}
+			JSON_SAVE(batteryRadius_);
+			JSON_ROOT();
+			JSON_OBJECT("Banking");
+			JSON_SAVE(bankingAmount_);
+			JSON_SAVE(bankingSmoothTime_);
+			JSON_SAVE(lookAheadForBank_);
+			JSON_ROOT();
+			JSON_CLOSE();
+		}
 
         ImGui::Separator();
 
@@ -578,16 +622,31 @@ void Trolley::DrawImGui() {
             ImGui::TreePop();
         }
 
-        if (ImGui::TreeNode("当たり判定 (Collision)")) {
-            for (uint8_t i = 0; i < BatteryNum; i++) {
-                std::string key = "判定オフセット" + std::to_string(i) + ":";
-                ImGui::DragFloat3(key.c_str(), &batteryOffsets_.at(i).x, 0.01f);
-            }
-            ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
-            ImGui::TreePop();
-        }
+		if (ImGui::TreeNode("当たり判定 (Collision)")) {
+			if (ImGui::TreeNode("トロッコ")) {
+				static Vector3 rotate = { 0.0f,0.0f,0.0f };
 
-        if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
+				ImGui::DragFloat3("当たり判定オフセット", &trolleyColliderOffset_.x, 0.01f);
+				ImGui::DragFloat("判定半径", &trolleyColliderRadius_, 0.01f);
+				ImGui::DragFloat("高さ", &trolleyColliderHeight_, 0.01f);
+				ImGui::DragFloat3("回転", &rotate.x, 0.01f);
+				trolleyColliderQuaternion_ = Quaternion::MakeFromEulerAngle(rotate);
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("バッテリー")) {
+				for (uint8_t i = 0; i < BatteryNum; i++) {
+					std::string key = "判定オフセット" + std::to_string(i) + ":";
+					ImGui::DragFloat3(key.c_str(), &batteryOffsets_.at(i).x, 0.01f);
+				}
+				ImGui::DragFloat("判定半径 (Radius)", &batteryRadius_, 0.01f);
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("パラメータ設定 (Parameters)")) {
 
             ImGui::DragFloat("のろのろ進み始めるフレーム", &startFrame_, 0.01f);
             if (ImGui::TreeNode("トロッコの速度関連")) {
@@ -646,29 +705,29 @@ void Trolley::DrawImGui() {
 void Trolley::SetState(const State& state)
 {
 
-    switch (trollyState_)
-    {
-    case Trolley::State::Normal:
-    {
-    }
-    break;
-    case Trolley::State::Overcharge:
-    {
-    }
-    break;
-    case Trolley::State::Nitro:
-    {
-        RecoverFromNitro();
-    }
-    break;
-    case Trolley::State::Stop:
-    {
-        RecoverFromStop();
-    }
-    break;
-    default:
-        break;
-    }
+	switch (trollyState_)
+	{
+	case Trolley::State::Normal:
+	{
+	}
+	break;
+	case Trolley::State::Overcharge:
+	{
+	}
+	break;
+	case Trolley::State::Nitro:
+	{
+		RecoverFromNitro();
+	}
+	break;
+	case Trolley::State::Stop:
+	{
+		RecoverFromStop();
+	}
+	break;
+	default:
+		break;
+	}
 
     switch (state)
     {
@@ -702,31 +761,33 @@ void Trolley::UpdateCollision()
     isHitFlashlight_ = false;
     centerRate_ = 0.0f;
 
-    for (auto& collider : batteryColliders_) {
-        if (!collider->GetCollidedWith().empty()) {
-            for (const auto& collidedWith : collider->GetCollidedWith()) {
-                switch (collidedWith->categoryBits)
-                {
-                case CollisionCategory::NONE:
-                    break;
-                case CollisionCategory::PLAYER:
-                    break;
-                case CollisionCategory::FLASHLIGHT:
-                {
-                    isHitFlashlight_ = true;
+	for (auto& collider : batteryColliders_) {
+		if (!collider->GetCollidedWith().empty()) {
+			for (const auto& collidedWith : collider->GetCollidedWith()) {
+				switch (collidedWith->categoryBits)
+				{
+				case CollisionCategory::NONE:
+					break;
+				case CollisionCategory::TROLLEYBATTERY:
+					break;
+				case CollisionCategory::FLASHLIGHT:
+				{
+					isHitFlashlight_ = true;
 
-                    centerRate_ = CalculateCenterRate(collider->center, collider->radius);
-                }
-                break;
-                case CollisionCategory::LIGHT:
-                    break;
-                case CollisionCategory::ENEMY:
-                    break;
-                case CollisionCategory::ALL:
-                    break;
-                default:
-                    break;
-                }
+					centerRate_ = CalculateCenterRate(collider->center, collider->radius);
+				}
+				break;
+				case CollisionCategory::LIGHT:
+					break;
+				case CollisionCategory::ENEMY:
+					break;
+				case CollisionCategory::TROLLEY:
+					break;
+				case CollisionCategory::ALL:
+					break;
+				default:
+					break;
+				}
 
             }
         }

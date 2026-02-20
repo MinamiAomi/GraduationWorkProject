@@ -66,7 +66,8 @@
     "GameOver_Movie_Ground" : "GameOver/GameOverMovie/Ground/Ground.gltf",
     "GameOver_Movie_Trolley" : "GameOver/GameOverMovie/Trolley/GameOverMovie.gltf",
 
-    "Triangle" : "triangle.gltf"
+    "Triangle" : "triangle.gltf",
+    "Ghost" : "BombGhost/BombGhost.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",

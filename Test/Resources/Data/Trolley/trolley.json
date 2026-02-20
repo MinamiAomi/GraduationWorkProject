@@ -58,6 +58,21 @@
             0.0
         ]
     },
+    "TrolleyCollider": {
+        "trolleyColliderHeight_": 10.0,
+        "trolleyColliderOffset_": [
+            0.0,
+            0.0,
+            7.239999771118164
+        ],
+        "trolleyColliderQuaternion_": [
+            0.6997160315513611,
+            0.0,
+            0.0,
+            0.7144210338592529
+        ],
+        "trolleyColliderRadius_": 1.0
+    },
     "addFrame_": 12.0,
     "startFrame_": 60.0
 }

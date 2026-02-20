@@ -14,34 +14,36 @@
 #include "BatsParticles.h"
 #include "BatsBullets.h"
 #include "Audio/AudioSource.h"
+#include "GhostsParticles.h"
 
 class Camera;
 
-class Bats
+class Ghosts
 {
 public:
 
-	inline static float batsFarLocate = 12.0f;
+	inline static float ghostsFarLocate = 12.0f;
 
-	struct Bat {
+	inline static int ghostAttackFrame = 60 * 15;
+	inline static float ghostAttackDamage = 1.0f;
+
+	struct Ghost {
 		ModelInstance modelInstance_;
-		std::shared_ptr<Skeleton> skeleton_;
 		Transform transform_;
 		Transform goalTransform_;
 		std::shared_ptr<SphereCollider> collider_;
-		BatsParticles particles_;
-		//BatsBullets bullets_;
-		float animationTime_;
-		float goalT;
+		GhostsParticles particles_;
 		bool isUp_;
 		float sideStepTime_;
+		float goalT;
 		float hp_;
 		bool isDead_;
 	};
 
-	Bats(const std::vector<std::vector<bool>>& data, const Camera& camera);
+	Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera);
 	void Update();
 	void DebugDraw();
+	static void Debug();
 
 	void SetRadius(float radius) { radius_ = radius; }
 
@@ -53,21 +55,22 @@ public:
 
 	bool IsActive() { return isActive_; }
 
-	std::list<std::shared_ptr<Bat>>& GetBats() { return bats_; }
+	std::list<std::shared_ptr<Ghost>>& GetGhosts() { return ghost_; }
 
-public:
-	std::shared_ptr<class AnimationAsset> animation_;
 private:
 	void Emit(const Vector3& goalPos);
+	std::shared_ptr<Material> material_;
+	Vector3 goalColor_ = { 1.0f,0.0f,0.0f };
 private:
-	const uint32_t kSEMax = 10;
-
+	const uint32_t kSEMax = 4;
+	int attackTime_ = 0;
 	Transform transform_;
 	std::shared_ptr<Model> model_;
-	std::list<std::shared_ptr<Bat>> bats_;
+	std::list<std::shared_ptr<Ghost>> ghost_;
 	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
 	std::shared_ptr<Sound> spawnSESound_;
     std::shared_ptr<Sound> deathSESound_;
+	std::shared_ptr<Sound> explodeSESound_;
 	uint32_t seCount_ = 0;
 	Random::RandomNumberGenerator rnd_;
 	const Camera* camera_;
@@ -75,6 +78,7 @@ private:
 	float radius_;
 
 	bool isActive_ = false;
+	bool isExploded = false;
 
 };
 

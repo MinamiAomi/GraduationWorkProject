@@ -12,7 +12,7 @@
 
 enum class CollisionCategory : uint32_t {
 	NONE = 0,
-	PLAYER = 1 << 0,
+	TROLLEYBATTERY = 1 << 0,
 	FLASHLIGHT = 1 << 1,
 	LIGHT = 1 << 2,
 	ENEMY = 1 << 3,
@@ -22,6 +22,7 @@ enum class CollisionCategory : uint32_t {
 	OBSTACLE = 1 << 7,
 	DIORAMA = 1 << 8,
 	TUTORIAL = 1 << 9,
+	TROLLEY= 1 << 10,
 
 
 	ALL = ~0u

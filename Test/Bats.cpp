@@ -63,8 +63,17 @@ void Bats::Update()
 		//float phaseOffset = (p->sideStepTime_ > 0.5f) ? 3.14159f : 0.0f;
 		//Vector3 sideOffset = p->transform_.rotate.GetRight() * std::sin(p->sideStepTime_ + phaseOffset) * amplitude;
 
+		static const float ghostSpeed = 0.01f;
+
 		p->goalTransform_.UpdateMatrix();
-		p->transform_.translate = Vector3::Lerp(0.3f, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate());
+		p->goalT += ghostSpeed;
+		if (p->goalT > 1.0f) {
+			p->goalT = 1.0f;
+			p->transform_.translate = p->goalTransform_.worldMatrix.GetTranslate();
+		}
+		else {
+			p->transform_.translate = Vector3::Lerp(p->goalT, p->transform_.translate, p->goalTransform_.worldMatrix.GetTranslate());
+		}
 		p->transform_.rotate = Quaternion::MakeLookRotation(camera_->GetPosition()- p->transform_.translate);
 
 		p->skeleton_->ApplyAnimation(animation_->Get()->GetAnimation("\u30a2\u30fc\u30de\u30c1\u30e5\u30a2Action"), p->animationTime_);
@@ -216,6 +225,8 @@ void Bats::Emit(const Vector3& goalPos)
 	newBat->isDead_ = false;
 
 	newBat->hp_ = 1.0f;
+
+	newBat->goalT = 0.0f;
 
 	bats_.push_back(newBat);
 }
