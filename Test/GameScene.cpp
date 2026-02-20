@@ -209,13 +209,13 @@ void GameScene::OnInitialize() {
 	//inGameUI_.SetAnchor({ 0.5f,0.5f });
 	inGameUI_.SetScale({ texture->GetSize() });
 	inGameUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
-	inGameUI_.SetDrawOrder(6);
+	inGameUI_.SetDrawOrder(7);
 	inGameUI_.SetIsActive(true);
 
 	isGameFinishAnimation_ = false;
 	isGameFinalizeAnimation_ = false;
 	isClear_ = true;
-	inGameUIMaxCount_ = 180;
+	inGameUIMaxCount_ = 180 * 2;
 	inGameUICount_ = inGameUIMaxCount_;
 #pragma endregion
 
@@ -229,11 +229,14 @@ void GameScene::OnInitialize() {
 	crackUI_.SetIsActive(false);
 
 	texture = assetManager->textureMap.Get("white2x2")->Get();
+
+	gameFinishBackGround_.SetTexture(texture);
 	gameFinishBackGround_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
 	gameFinishBackGround_.SetScale({ 1280.0f,720.0f });
 	gameFinishBackGround_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
 	gameFinishBackGround_.SetDrawOrder(6);
-	gameFinishBackGround_.SetIsActive(false);
+	gameFinishBackGround_.SetColor(Color(0.0f, 0.0f, 0.0f, 1.0f));
+	gameFinishBackGround_.SetIsActive(true);
 
 
 	gameFinishMaxCount_ = 180;
@@ -289,9 +292,18 @@ void GameScene::OnUpdate() {
 	else if (inGameUI_.GetIsActive()) {
 		float progress = 1.0f - (float(inGameUICount_) / inGameUIMaxCount_);
 
-		float t = 1.0f - std::powf(progress, 5);
+		float alphaBase = 1.0f - std::abs(progress - 0.5f) * 2.0f;
+
+		alphaBase = std::max(0.0f, alphaBase);
+
+		float t = std::powf(alphaBase, 5);
 
 		inGameUI_.SetColor(Color(1.0f, 1.0f, 1.0f, t));
+
+		//半分を超えたら
+		if (inGameUICount_ <= inGameUIMaxCount_ / 2) {
+			gameFinishBackGround_.SetColor(Color(0.0f, 0.0f, 0.0f, t));
+		}
 
 		if (inGameUICount_ > 0) inGameUICount_--;
 	}
