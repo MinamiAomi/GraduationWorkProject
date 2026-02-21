@@ -43,7 +43,9 @@ public:
 	Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera);
 	void Update();
 	void DebugDraw();
+#ifdef _DEBUG
 	static void Debug();
+#endif // _DEBUG
 
 	void SetRadius(float radius) { radius_ = radius; }
 

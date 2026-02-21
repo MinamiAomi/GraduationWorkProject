@@ -7,6 +7,8 @@
 
 #include "Trolley.h"
 
+#include "LevelManager.h"
+
 #ifdef _DEBUG
 #include "Graphics/RenderManager.h"
 #endif // _DEBUG
@@ -109,7 +111,27 @@ void SceneObjectSystem::SceneObjectManager::Update()
 			for (auto& collider : obj->collider->GetCollidedWith()) {
 				if ((collider->categoryBits == CollisionCategory::TROLLEY)) {
 					//スポーン
-					batsManager_->Emit(obj->formation);
+					auto level = LevelManager::GetInstance()->GetLevel();
+					switch (level)
+					{
+
+					case LevelManager::Level::LEVEL1:
+					{
+						batsManager_->Emit(obj->formation);
+
+					}
+					break;
+					case LevelManager::Level::LEVEL2:
+					{
+						ghostsManager_->Emit(obj->formation);
+
+					}
+					break;
+					default:
+						break;
+					}
+
+
 					obj->collider = nullptr;
 				}
 			}
@@ -358,7 +380,7 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				pointlight->mover.isCyclic = moverData.isCyclic;
 				pointlight->mover.isActive = false;
 
-				auto result = AnimationUtils::CalculateCurrentTransform(mover->evalTimeKeys, mover->moverAnimation.positionKeys, mover->moverAnimation.rotationKeys, 0.0f);
+				auto result = AnimationUtils::CalculateCurrentTransform(pointlight->mover.evalTimeKeys, pointlight->mover.moverAnimation.positionKeys, pointlight->mover.moverAnimation.rotationKeys, 0.0f);
 				mover->transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(result.first.translate);
 				mover->transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(result.first.rotate);
 				mover->transform.UpdateMatrix();

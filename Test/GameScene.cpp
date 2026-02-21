@@ -188,7 +188,7 @@ void GameScene::OnInitialize() {
 		trollyTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
 		flashlightTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
 
-		trollyTutorial_->Initialize("TutorialTrolly", 0.0f);
+		trollyTutorial_->Initialize("TutorialTrolly", 1.0f);
 		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
 
 		flashlightTutorial_->Initialize("TutorialFlashlight", 190.0f);
@@ -375,7 +375,10 @@ void GameScene::OnUpdate() {
 
 	ghostsManager_->SetCamera(camera_.get());
 	ghostsManager_->Update();
+
+#ifdef _DEBUG
 	GhostsParticles::Debug();
+#endif // _DEBUG
 #pragma endregion
 
 #pragma region RailcameraUI

@@ -7,6 +7,7 @@
 
 #include "Trolley.h"
 
+#ifdef _DEBUG
 void Ghosts::Debug() {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("Ghosts")) {
@@ -24,6 +25,7 @@ void Ghosts::Debug() {
 	}
 	ImGui::End();
 }
+#endif // _DEBUG
 
 Ghosts::Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera)
 {
