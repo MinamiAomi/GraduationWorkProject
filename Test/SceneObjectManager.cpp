@@ -238,6 +238,8 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			InitializeCommonObject(pointLightObject, data, myCategory, targetMask);
 
+			pointLightObject->model.SetWorldMatrix(pointLightObject->transform.worldMatrix);
+
 			//ライトの設定
 			if (data.pointLightData) {
 				pointLightObject->lightObject.Initialize(&pointLightObject->transform);
@@ -290,6 +292,8 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 
 			InitializeCommonObject(enemySpawn, data, myCategory, targetMask);
 
+
+
 			enemySpawnObjects_.push_back(std::move(enemySpawn));
 		}
 		break;
@@ -317,6 +321,14 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				targetMask = uint32_t(CollisionCategory::NONE);
 
 				InitializeCommonObject(mover, data, myCategory, targetMask);
+
+				auto result = AnimationUtils::CalculateCurrentTransform(mover->evalTimeKeys, mover->moverAnimation.positionKeys, mover->moverAnimation.rotationKeys, 0.0f);
+				mover->transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(result.first.translate);
+				mover->transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(result.first.rotate);
+				mover->transform.UpdateMatrix();
+				mover->model.SetWorldMatrix(mover->transform.worldMatrix);
+
+
 				gimmickMoverObjects_.push_back(std::move(mover));
 			}
 			else if (data.gimmickTriggers.has_value()) {
@@ -345,6 +357,12 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 				pointlight->mover.evalTimeKeys = moverData.evalTimeKeys;
 				pointlight->mover.isCyclic = moverData.isCyclic;
 				pointlight->mover.isActive = false;
+
+				auto result = AnimationUtils::CalculateCurrentTransform(mover->evalTimeKeys, mover->moverAnimation.positionKeys, mover->moverAnimation.rotationKeys, 0.0f);
+				mover->transform.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(result.first.translate);
+				mover->transform.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(result.first.rotate);
+				mover->transform.UpdateMatrix();
+				mover->model.SetWorldMatrix(mover->transform.worldMatrix);
 
 				//ライトの設定
 				if (data.gimmickPointlights) {
