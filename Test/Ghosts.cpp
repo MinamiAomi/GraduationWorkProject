@@ -12,6 +12,7 @@ void Ghosts::Debug() {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("Ghosts")) {
 
+		ImGui::DragFloat("ghostsFarLocate", &ghostsFarLocate);
 		ImGui::DragInt("ghostAttackFrame", &ghostAttackFrame);
 		ImGui::DragFloat("ghostAttackDamage", &ghostAttackDamage,0.1f);
 		ImGui::DragFloat("damage", &damage, 0.1f);
@@ -19,6 +20,7 @@ void Ghosts::Debug() {
 		if (ImGui::Button("Save")) {
 			JSON_OPEN("Resources/Data/GameScene/ghosts.json");
 			JSON_OBJECT("ghosts");
+			JSON_SAVE_BY_NAME("ghostsFarLocate", ghostsFarLocate);
 			JSON_SAVE_BY_NAME("damage", damage);
 			JSON_SAVE_BY_NAME("heal", heal);
 			JSON_SAVE_BY_NAME("ghostAttackFrame", ghostAttackFrame);
@@ -36,6 +38,7 @@ Ghosts::Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera)
 
 	JSON_OPEN("Resources/Data/GameScene/ghosts.json");
 	JSON_OBJECT("ghosts");
+	JSON_LOAD_BY_NAME("ghostsFarLocate", ghostsFarLocate);
 	JSON_LOAD_BY_NAME("ghostAttackFrame", ghostAttackFrame);
 	JSON_LOAD_BY_NAME("ghostAttackDamage", ghostAttackDamage);
 	JSON_LOAD_BY_NAME("damage", damage);
