@@ -24,6 +24,7 @@ public:
 	inline static float batsFarLocate = 12.0f;
 	inline static float damage = 0.2f;
 	inline static float heal = 0.1f;
+	inline static float batteryDamage = 0.1f;
 
 	struct Bat {
 		ModelInstance modelInstance_;

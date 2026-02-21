@@ -4,6 +4,7 @@
 
 #include "Engine/File/JsonConverter.h"
 
+#include "Bats.h"
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
@@ -86,7 +87,6 @@ void Trolley::Initialize()
 	JSON_LOAD(nitroChargeTime_);
 	JSON_LOAD(nitroDuration_);
 	JSON_LOAD(batteryAfterNitro_);
-	JSON_LOAD(batDecrease_);
 	JSON_LOAD(nitroAccelerationRate_);
 	JSON_LOAD(nitroDecelerationRate_);
 	JSON_ROOT();
@@ -219,7 +219,7 @@ void Trolley::UpdateState(float deltaTime)
 
 			//バッテリーが十分でライトが当たっているとき
 			//Batsの数で減らす
-			currentCharge_ -= batsNum_ * batDecrease_;
+            currentCharge_ -= batsNum_ * Bats::batteryDamage;
 			if (ghostDamage_ > 0.0f) {
 				currentCharge_ -= ghostDamage_;
 				ghostDamage_ = 0.0f;
@@ -585,7 +585,6 @@ void Trolley::DrawImGui() {
 			JSON_SAVE(nitroChargeTime_);
 			JSON_SAVE(nitroDuration_);
 			JSON_SAVE(batteryAfterNitro_);
-			JSON_SAVE(batDecrease_);
 			JSON_SAVE(nitroAccelerationRate_);
 			JSON_SAVE(nitroDecelerationRate_);
 			JSON_ROOT();
@@ -657,7 +656,6 @@ void Trolley::DrawImGui() {
 
 
 
-                ImGui::DragFloat("バット一体分の減少量", &batDecrease_, 0.1f, 0.0f);
                 ImGui::TreePop();
             }
 

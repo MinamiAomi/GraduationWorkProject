@@ -14,15 +14,17 @@ void Bats::Debug() {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
 	if (ImGui::TreeNode("Bats")) {
 
-		ImGui::DragFloat("damage", &damage,0.1f);
-		ImGui::DragFloat("heal", &heal, 0.1f);
-		ImGui::DragFloat("batsFarLocate", &batsFarLocate, 0.1f);
+		ImGui::DragFloat("damage", &damage,0.1f,0.0f);
+		ImGui::DragFloat("heal", &heal, 0.1f,0.0f);
+		ImGui::DragFloat("batsFarLocate", &batsFarLocate, 0.1f,0.0f);
+		ImGui::DragFloat("batteryDamage", &batteryDamage, 0.1f,0.0f);
 		if (ImGui::Button("Save")) {
 			JSON_OPEN("Resources/Data/GameScene/bats.json");
 			JSON_OBJECT("bats");
 			JSON_SAVE_BY_NAME("damage", damage);
 			JSON_SAVE_BY_NAME("heal", heal);
 			JSON_SAVE_BY_NAME("batsFarLocate", batsFarLocate);
+			JSON_SAVE_BY_NAME("batteryDamage", batteryDamage);
 			JSON_CLOSE();
 		}
 		ImGui::TreePop();
@@ -42,6 +44,7 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	JSON_LOAD_BY_NAME("damage", damage);
 	JSON_LOAD_BY_NAME("heal", heal);
 	JSON_LOAD_BY_NAME("batsFarLocate", batsFarLocate);
+	JSON_LOAD_BY_NAME("batteryDamage", batteryDamage);
 	JSON_CLOSE();
 
 	auto assetManager = AssetManager::GetInstance();
