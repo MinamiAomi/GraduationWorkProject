@@ -22,6 +22,8 @@ class Bats
 public:
 
 	inline static float batsFarLocate = 12.0f;
+	inline static float damage = 0.2f;
+	inline static float heal = 0.1f;
 
 	struct Bat {
 		ModelInstance modelInstance_;
@@ -42,6 +44,10 @@ public:
 	Bats(const std::vector<std::vector<bool>>& data, const Camera& camera);
 	void Update();
 	void DebugDraw();
+#ifdef _DEBUG
+	static void Debug();
+#endif // _DEBUG
+
 
 	void SetRadius(float radius) { radius_ = radius; }
 

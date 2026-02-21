@@ -14,9 +14,13 @@ void Ghosts::Debug() {
 
 		ImGui::DragInt("ghostAttackFrame", &ghostAttackFrame);
 		ImGui::DragFloat("ghostAttackDamage", &ghostAttackDamage,0.1f);
+		ImGui::DragFloat("damage", &damage, 0.1f);
+		ImGui::DragFloat("heal", &heal, 0.1f);
 		if (ImGui::Button("Save")) {
 			JSON_OPEN("Resources/Data/GameScene/ghosts.json");
 			JSON_OBJECT("ghosts");
+			JSON_SAVE_BY_NAME("damage", damage);
+			JSON_SAVE_BY_NAME("heal", heal);
 			JSON_SAVE_BY_NAME("ghostAttackFrame", ghostAttackFrame);
 			JSON_SAVE_BY_NAME("ghostAttackDamage", ghostAttackDamage);
 			JSON_CLOSE();
@@ -34,6 +38,8 @@ Ghosts::Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	JSON_OBJECT("ghosts");
 	JSON_LOAD_BY_NAME("ghostAttackFrame", ghostAttackFrame);
 	JSON_LOAD_BY_NAME("ghostAttackDamage", ghostAttackDamage);
+	JSON_LOAD_BY_NAME("damage", damage);
+	JSON_LOAD_BY_NAME("heal", heal);
 	JSON_CLOSE();
 	attackTime_ = 0;
 	auto assetManager = AssetManager::GetInstance();
@@ -89,7 +95,7 @@ void Ghosts::Update()
 		if (seCount_ < kSEMax) {
 			auto as = std::make_shared<AudioSource>();
 			(*as) = explodeSESound_;
-			as->SetVolume(0.7f);
+			as->SetVolume(1.0f);
 			as->Play(false);
 			playingAudioSourceList_.push_back(as);
 			seCount_++;
@@ -129,7 +135,6 @@ void Ghosts::Update()
 
 		if (p->collider_ && !p->collider_->GetCollidedWith().empty()) {
 
-			float damage = 0.02f;
 			if (p->isDead_ == false) {
 				//p->particles_.SetIsHit(true);
 			}
@@ -139,7 +144,6 @@ void Ghosts::Update()
 		else {
 			
 			//p->particles_.SetIsHit(false);
-			float heal = 0.01f;
 			p->hp_ += heal;
 		}
 
@@ -152,7 +156,7 @@ void Ghosts::Update()
 		if (p->hp_ <= 0.0f && !p->isDead_) {
 			p->isDead_ = true;
 			p->particles_.isDead_ = true;
-			if (seCount_ < kSEMax) {
+			if (seCount_ < kSEMax && !isExploded) {
 				auto as = std::make_shared<AudioSource>();
 				(*as) = deathSESound_;
 				as->SetVolume(0.7f);
@@ -183,10 +187,6 @@ void Ghosts::Update()
 		}
 
 	}
-	if (ghost_.empty()) {
-		isActive_ = false;
-	}
-
 	for (auto& audioSource : playingAudioSourceList_) {
 		if (!audioSource->IsPlaying()) {
 			audioSource.reset();
@@ -194,7 +194,11 @@ void Ghosts::Update()
 	}
 	playingAudioSourceList_.remove_if([](const std::shared_ptr<AudioSource>& source) {
 		return source == nullptr;
-        });
+		});
+
+	if (ghost_.empty() && playingAudioSourceList_.empty()) {
+		isActive_ = false;
+	}
 }
 
 void Ghosts::DebugDraw()

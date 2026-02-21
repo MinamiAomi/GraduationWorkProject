@@ -553,6 +553,7 @@ void GameScene::OnUpdate() {
 	static bool isDebugCamera = false;
 
 	Ghosts::Debug();
+	Bats::Debug();
 	ImGui::Begin("GameScene");
 
 

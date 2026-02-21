@@ -27,6 +27,9 @@ public:
 	inline static int ghostAttackFrame = 60 * 15;
 	inline static float ghostAttackDamage = 1.0f;
 
+	inline static float damage = 0.2f;
+	inline static float heal = 0.1f;
+
 	struct Ghost {
 		ModelInstance modelInstance_;
 		Transform transform_;
@@ -64,7 +67,7 @@ private:
 	std::shared_ptr<Material> material_;
 	Vector3 goalColor_ = { 1.0f,0.0f,0.0f };
 private:
-	const uint32_t kSEMax = 4;
+	const uint32_t kSEMax = 10;
 	int attackTime_ = 0;
 	Transform transform_;
 	std::shared_ptr<Model> model_;

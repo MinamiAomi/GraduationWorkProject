@@ -9,8 +9,41 @@
 
 //const float Bats::batsFarLocate = 20.0f;
 
+#ifdef _DEBUG
+void Bats::Debug() {
+	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
+	if (ImGui::TreeNode("Bats")) {
+
+		ImGui::DragFloat("damage", &damage,0.1f);
+		ImGui::DragFloat("heal", &heal, 0.1f);
+		ImGui::DragFloat("batsFarLocate", &batsFarLocate, 0.1f);
+		if (ImGui::Button("Save")) {
+			JSON_OPEN("Resources/Data/GameScene/bats.json");
+			JSON_OBJECT("bats");
+			JSON_SAVE_BY_NAME("damage", damage);
+			JSON_SAVE_BY_NAME("heal", heal);
+			JSON_SAVE_BY_NAME("batsFarLocate", batsFarLocate);
+			JSON_CLOSE();
+		}
+		ImGui::TreePop();
+	}
+	ImGui::End();
+}
+#endif // _DEBUG
+
+
 Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 {
+
+
+
+	JSON_OPEN("Resources/Data/GameScene/ghosts.json");
+	JSON_OBJECT("ghosts");
+	JSON_LOAD_BY_NAME("damage", damage);
+	JSON_LOAD_BY_NAME("heal", heal);
+	JSON_LOAD_BY_NAME("batsFarLocate", batsFarLocate);
+	JSON_CLOSE();
+
 	auto assetManager = AssetManager::GetInstance();
 	model_ = assetManager->modelMap.Get("bat")->Get();
 	animation_ = assetManager->animationMap.Get("batAnim");
@@ -85,7 +118,6 @@ void Bats::Update()
 
 		if (p->collider_ && !p->collider_->GetCollidedWith().empty()) {
 
-			float damage = 0.02f;
 			if (p->isDead_ == false) {
 				p->particles_.SetIsEmit(true);
 			}
@@ -95,7 +127,6 @@ void Bats::Update()
 		else {
 			
 			p->particles_.SetIsEmit(false);
-			float heal = 0.01f;
 			p->hp_ += heal;
 		}
 
