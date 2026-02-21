@@ -1,3 +1,8 @@
 {
-    "ghosts": {}
+    "ghosts": {
+        "damage": 0.019999999552965164,
+        "ghostAttackDamage": 50.0,
+        "ghostAttackFrame": 500,
+        "heal": 0.10000000149011612
+    }
 }
