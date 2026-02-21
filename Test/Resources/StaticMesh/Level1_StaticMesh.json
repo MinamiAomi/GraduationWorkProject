@@ -5001,6 +5001,329 @@
         ],
         "radius": 1.0
       }
+    },
+    {
+      "name": "CoalTrolley.003",
+      "model_name": "CoalTrolley",
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          881.0561,
+          638.9953,
+          -345.3405
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "POINTLIGHT",
+        "key": "GimickID3",
+        "duration": 120,
+        "is_cyclic": false,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 121.0,
+            "value": 120.0
+          }
+        ],
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 933.6774,
+              "y": 292.8488,
+              "z": 36.8431
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "x": 930.8918,
+              "y": 350.5637,
+              "z": -9.398
+            }
+          }
+        ],
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          },
+          {
+            "frame": 121.0,
+            "value": {
+              "w": 1.0,
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            }
+          }
+        ],
+        "light_params": {
+          "offset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "color": [
+            1.0,
+            0.9533,
+            0.3265
+          ],
+          "intensity": 5.0,
+          "range": 5.0,
+          "decay": 1.0
+        },
+        "path_points": [
+          [
+            933.6774,
+            292.8488,
+            36.8431
+          ],
+          [
+            933.4521,
+            306.0089,
+            28.4016
+          ],
+          [
+            933.4867,
+            320.3713,
+            20.506
+          ],
+          [
+            932.449,
+            341.5511,
+            1.0991
+          ],
+          [
+            930.8918,
+            350.5637,
+            -9.398
+          ]
+        ]
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          881.0953,
+          639.7435,
+          -345.6482
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "GimikckID3",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          893.8344,
+          386.4185,
+          0.6212
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          2.7669,
+          2.7669,
+          2.7669
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "GimickID3",
+        "isOnce": false
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          893.8344,
+          386.4185,
+          0.6212
+        ],
+        "radius": 1.25
+      }
+    },
+    {
+      "name": "CoalTrolley.002",
+      "model_name": "CoalTrolley",
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          676.8651,
+          397.7068,
+          -83.706
+        ],
+        "rotate": [
+          0.7597,
+          -0.1005,
+          -0.1308,
+          0.629
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "MOVER",
+        "key": "Trolley_1",
+        "duration": 60,
+        "is_cyclic": false,
+        "curve_eval_time": [
+          {
+            "frame": 1.0,
+            "value": 0.0
+          },
+          {
+            "frame": 61.0,
+            "value": 60.0
+          }
+        ],
+        "position": [
+          {
+            "frame": 1.0,
+            "value": {
+              "x": 805.793,
+              "y": 400.2118,
+              "z": 9.0245
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "x": 796.6519,
+              "y": 401.3251,
+              "z": 2.3631
+            }
+          }
+        ],
+        "rotation": [
+          {
+            "frame": 1.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          },
+          {
+            "frame": 61.0,
+            "value": {
+              "w": 0.7597,
+              "x": -0.1005,
+              "y": -0.1308,
+              "z": 0.629
+            }
+          }
+        ],
+        "path_points": [
+          [
+            805.793,
+            400.2118,
+            9.0245
+          ],
+          [
+            803.1531,
+            401.0904,
+            6.8078
+          ],
+          [
+            801.2864,
+            401.3066,
+            5.6706
+          ],
+          [
+            798.4056,
+            401.3834,
+            3.624
+          ],
+          [
+            796.6519,
+            401.3251,
+            2.3631
+          ]
+        ]
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          677.0119,
+          397.7562,
+          -84.7119
+        ],
+        "radius": 0.5
+      }
+    },
+    {
+      "name": "エンプティ",
+      "model_name": null,
+      "type": "GIMMICK",
+      "srt": {
+        "translate": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": null,
+      "gimmick_data": {
+        "subtype": "TRIGGER",
+        "key": "Trolley_1",
+        "isOnce": true
+      },
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          767.7239,
+          398.6198,
+          0.2962
+        ],
+        "radius": 2.0
+      }
     }
   ]
 }
