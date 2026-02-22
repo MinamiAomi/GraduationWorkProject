@@ -62,6 +62,20 @@ namespace SceneObjectSystem {
 		bool isOnce;
 		std::vector<std::vector<bool>> formation;
 		std::shared_ptr<Collider> collider;
+
+		std::optional<std::string> name;
+		std::optional<Transform> transform;
+
+	};
+
+	struct EnemySpawnObject {
+		bool hasTriggered = false;
+		bool isOnce;
+		std::vector<std::vector<bool>> formation;
+		std::shared_ptr<Collider> collider;
+
+		std::optional<ModelInstance> model;
+		Transform transform;
 	};
 
 	struct GimmickTriggerData {

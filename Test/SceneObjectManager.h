@@ -23,7 +23,7 @@ namespace SceneObjectSystem {
 
 		//ゲームで使う方	
 		const std::vector<std::unique_ptr<SceneObjectSystem::PointLightObject>>& GetPointLightObjects()const { return pointLightObjects_; }
-		const std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>>& GetEnemySpawnObjects()const { return enemySpawnObjects_; }
+		const std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnObject>>& GetEnemySpawnObjects()const { return enemySpawnObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>>& GetGimmickMoverObjects()const { return gimmickMoverObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>>& GetGimmickTriggerObjects()const { return gimmickTriggerObjects_; }
 		const std::vector<std::unique_ptr<SceneObjectSystem::GimmickPointLightObject>>& GetGimmickPointLightObjects()const { return gimmickPointLightObjects_; }
@@ -52,7 +52,7 @@ namespace SceneObjectSystem {
 		ModelInstance stageObjects_;
 		//ゲームで使う方
 		std::vector<std::unique_ptr<SceneObjectSystem::PointLightObject>> pointLightObjects_;
-		std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnData>> enemySpawnObjects_;
+		std::vector<std::unique_ptr<SceneObjectSystem::EnemySpawnObject>> enemySpawnObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickMoverObject>> gimmickMoverObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickTriggerObject>> gimmickTriggerObjects_;
 		std::vector<std::unique_ptr<SceneObjectSystem::GimmickPointLightObject>> gimmickPointLightObjects_;

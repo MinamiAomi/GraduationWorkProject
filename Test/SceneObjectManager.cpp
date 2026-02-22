@@ -109,6 +109,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 		if (obj->collider &&
 			!obj->collider->GetCollidedWith().empty()) {
 			for (auto& collider : obj->collider->GetCollidedWith()) {
+				//トロッコにあたったよ
 				if ((collider->categoryBits == CollisionCategory::TROLLEY)) {
 					//スポーン
 					auto level = LevelManager::GetInstance()->GetLevel();
@@ -130,9 +131,12 @@ void SceneObjectSystem::SceneObjectManager::Update()
 					default:
 						break;
 					}
-
-
 					obj->collider = nullptr;
+
+					//モデルがあったらここで処理してね
+					if (obj->model.has_value()) {
+
+					}
 				}
 			}
 		}
@@ -303,23 +307,46 @@ void SceneObjectSystem::SceneObjectManager::BuildRuntimeObjects()
 		break;
 		case SceneObjectSystem::ObjectType::EnemySpawn:
 		{
-			auto enemySpawn = std::make_unique<EnemySpawnData>();
+			auto enemySpawn = std::make_unique<EnemySpawnObject>();
 
 			enemySpawn->formation = data.enemySpawnData->formation;
 			enemySpawn->hasTriggered = false;
 			enemySpawn->isOnce = data.enemySpawnData->isOnce;
 
 			myCategory = uint32_t(CollisionCategory::ENEMY);
-			targetMask = uint32_t(CollisionCategory::FLASHLIGHT | CollisionCategory::TROLLEY);
+			targetMask = uint32_t(CollisionCategory::TROLLEY);
 
 			InitializeCommonObject(enemySpawn, data, myCategory, targetMask);
+
+			if (data.enemySpawnData->name.has_value() && data.enemySpawnData->transform.has_value()) {
+				const auto& assetManager = AssetManager::GetInstance();
+
+				if (auto modelHandle = assetManager->modelMap.Get(data.enemySpawnData->name.value())) {
+					enemySpawn->model.emplace();
+
+					enemySpawn->model->SetModel(modelHandle->Get());
+					enemySpawn->model->SetIsActive(true);
+				}
+
+				Transform t;
+				const auto& spawnTrans = data.enemySpawnData->transform.value();
+				t.scale = SceneObjectSystem::SceneObjectConverter::ConvertSizeToLeftHand(spawnTrans.scale);
+				t.rotate = SceneObjectSystem::SceneObjectConverter::ConvertRotateToLeftHand(spawnTrans.rotate);
+				t.translate = SceneObjectSystem::SceneObjectConverter::ConvertTranslateToLeftHand(spawnTrans.translate);
+
+				enemySpawn->transform = Transform();
+				enemySpawn->transform = t;
+				enemySpawn->transform.UpdateMatrix();
+
+				enemySpawn->model->SetWorldMatrix(enemySpawn->transform.worldMatrix);
+			}
+
 
 
 
 			enemySpawnObjects_.push_back(std::move(enemySpawn));
 		}
 		break;
-
 		case SceneObjectSystem::ObjectType::Gimmick:
 		{
 			auto mover = std::make_unique<GimmickMoverObject>();

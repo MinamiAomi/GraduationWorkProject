@@ -616,6 +616,8 @@ void GameScene::OnUpdate() {
 	if (isDebugCamera) {
 		debugCamera_->Update();
 
+		ImGui::Text("DebugCameraPos:x:%fy:%fz:%f", debugCamera_->GetCamera()->GetPosition().x, debugCamera_->GetCamera()->GetPosition().y, debugCamera_->GetCamera()->GetPosition().z);
+
 		//線描画
 		auto vertices = RailSystem::RailDebugUtils::CalculateFrustum(camera_->GetViewMatrix(), camera_->GetProjectionMatrix());
 
