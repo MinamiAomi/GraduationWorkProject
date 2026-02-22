@@ -4114,7 +4114,7 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          262.8048,
+          262.805,
           -0.025,
           -14.6408
         ],
@@ -4173,14 +4173,33 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            262.805,
+            -0.025,
+            6.69
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          262.8048,
+          262.805,
           -0.025,
           -14.6408
         ],
@@ -4193,8 +4212,8 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          401.5131,
-          -0.1821,
+          401.5517,
+          -0.129,
           -58.7258
         ],
         "rotate": [
@@ -4252,15 +4271,34 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            405.401,
+            2.4846,
+            -58.7258
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          401.5131,
-          -0.1821,
+          401.5517,
+          -0.129,
           -58.7258
         ],
         "radius": 2.63
@@ -4331,7 +4369,9 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": false,
+        "model_info": null
       },
       "gimmick_data": null,
       "point_light": null,
@@ -4410,7 +4450,9 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": false,
+        "model_info": null
       },
       "gimmick_data": null,
       "point_light": null,
@@ -4422,148 +4464,6 @@
           -61.6883
         ],
         "radius": 2.63
-      }
-    },
-    {
-      "name": "tomb.005",
-      "model_name": "tomb.005",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          264.0401,
-          -1.9616,
-          -15.5597
-        ],
-        "radius": 0.5
-      }
-    },
-    {
-      "name": "tomb.006",
-      "model_name": "tomb.006",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          404.4797,
-          2.0507,
-          -56.7898
-        ],
-        "radius": 0.5
       }
     },
     {
@@ -4623,7 +4523,9 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": false,
+        "model_info": null
       },
       "gimmick_data": null,
       "point_light": null,
@@ -4694,7 +4596,9 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": false,
+        "model_info": null
       },
       "gimmick_data": null,
       "point_light": null,
@@ -4765,7 +4669,9 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": false,
+        "model_info": null
       },
       "gimmick_data": null,
       "point_light": null,
@@ -4824,8 +4730,8 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          480.7296,
-          -25.9903,
+          457.6957,
+          -55.3326,
           -60.7348
         ],
         "rotate": [
@@ -4941,8 +4847,8 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          481.0354,
-          -25.6782,
+          458.0015,
+          -55.0205,
           -59.5787
         ],
         "radius": 0.5
@@ -4954,9 +4860,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          231.6245,
-          -19.9778,
-          34.5385
+          210.504,
+          -41.4125,
+          65.3847
         ],
         "rotate": [
           0.586,
@@ -5056,9 +4962,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          231.67,
-          -19.7378,
-          34.8102
+          210.5495,
+          -41.1725,
+          65.6565
         ],
         "radius": 0.5
       }

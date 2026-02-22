@@ -114,6 +114,26 @@ namespace SceneObjectSystem {
 		if (j.contains("isOnce")) {
 			j.at("isOnce").get_to(p.isOnce);
 		}
+		if (j.contains("model_info") && !j.at("model_info").is_null()) {
+			const auto& m = j.at("model_info");
+
+			p.name = m.at("name").get<std::string>();
+
+			Transform t;
+			auto pos = m.at("offset").get<std::vector<float>>();
+			auto rot = m.at("rotate").get<std::vector<float>>();
+			auto scl = m.at("scale").get<std::vector<float>>();
+
+			t.translate = { pos[0], pos[1], pos[2] };
+			t.rotate = Quaternion::MakeFromEulerAngle(Vector3(rot[0], rot[1], rot[2]));
+			t.scale = { scl[0], scl[1], scl[2] };
+			p.transform = t;
+		}
+		else {
+			p.name = std::nullopt;
+			p.transform = std::nullopt;
+		}
+
 	}
 	void from_json(const nlohmann::json& j, GimmickTriggerData& p)
 	{
