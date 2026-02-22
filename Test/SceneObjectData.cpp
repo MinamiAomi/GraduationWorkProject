@@ -125,7 +125,8 @@ namespace SceneObjectSystem {
 			auto scl = m.at("scale").get<std::vector<float>>();
 
 			t.translate = { pos[0], pos[1], pos[2] };
-			t.rotate = Quaternion::MakeFromEulerAngle(Vector3(rot[0], rot[1], rot[2]));
+
+			t.rotate = Quaternion::MakeFromEulerAngle(Vector3(rot[0]*Math::ToRadian, rot[1] * Math::ToRadian, rot[2] * Math::ToRadian));
 			t.scale = { scl[0], scl[1], scl[2] };
 			p.transform = t;
 		}
