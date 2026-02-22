@@ -47,9 +47,5 @@ private:
 
 	bool isSceneChange_;
 
-#ifdef _DEBUG
-	Transform modelTransform_;
-	ModelInstance model_;
-#endif // DEBUG
 
 };
