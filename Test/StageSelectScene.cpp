@@ -9,9 +9,6 @@
 #include "TitleScene.h"
 
 void StageSelectScene::OnInitialize() {
-
-	const auto& assetManager = AssetManager::GetInstance();
-
 	persistentData_ = SceneManager::GetInstance()->GetPersistentData();
 	input_ = Input::GetInstance();
 
