@@ -406,6 +406,7 @@ void GameScene::OnUpdate() {
 		(deadline_->GetCurrenFrame() / railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame),
 		(startWarning)
 	);
+	railcameraUI_->SetStartAnimation(deadline_->GetDeadlineUI().GetIsAnimationEnd());
 #pragma endregion
 
 	batteryParticles_->Update();

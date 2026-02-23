@@ -95,8 +95,10 @@
     "ProgressFrame" : "Progress/Texture/frame.png",
     "ProgressGauge" : "Progress/Texture/gauge.png",
     "ProgressBaseUI" : "Progress/Texture/baseUI.png",
+    "ProgressBaseOtherUI" : "Progress/Texture/ui_other.png",
     "TrollyIcon" : "Progress/Texture/trollyIcon.png",
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
+    "SG" : "Progress/Texture/sg.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
     "GameClear": "GameClear/gameClear.png",

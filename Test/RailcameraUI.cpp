@@ -12,12 +12,16 @@ RailcameraUI::RailcameraUI()
 	auto assetManager = AssetManager::GetInstance();
 
 	auto frameBaseUI = assetManager->textureMap.Get("ProgressBaseUI")->Get();
+	auto frameBaseOtherUI = assetManager->textureMap.Get("ProgressBaseOtherUI")->Get();
 	auto trollyIcon = assetManager->textureMap.Get("TrollyIcon")->Get();
 	auto deadLineIcon = assetManager->textureMap.Get("DeadLineIcon")->Get();
+	auto sg = assetManager->textureMap.Get("SG")->Get();
 
 	baseUI_.SetTexture(frameBaseUI);
-	trollyIcon_.SetTexture(trollyIcon);
-	deadLineIcon_.SetTexture(deadLineIcon);
+	baseOtherUI_.SetTexture(frameBaseOtherUI);
+	trollyIcon_.sprite.SetTexture(trollyIcon);
+	deadLineIcon_.sprite.SetTexture(deadLineIcon);
+	sg_.sprite.SetTexture(sg);
 
 	baseUI_.SetPosition({ 640.0f,360.0f });
 	baseUI_.SetScale(frameBaseUI->GetSize());
@@ -25,40 +29,63 @@ RailcameraUI::RailcameraUI()
 	baseUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	baseUI_.SetDrawOrder(0);
 
-	trollyIcon_.SetPosition({ 640.0f ,690.0f });
-	trollyIcon_.SetScale(trollyIcon->GetSize());
-	trollyIcon_.SetAnchor({ 0.5f,0.5f });
-	trollyIcon_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
-	trollyIcon_.SetDrawOrder(1);
+	baseOtherUI_.SetPosition({ 640.0f,360.0f });
+	baseOtherUI_.SetScale(frameBaseOtherUI->GetSize());
+	baseOtherUI_.SetAnchor({ 0.5f,0.5f });
+	baseOtherUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	baseOtherUI_.SetDrawOrder(0);
+	baseOtherUI_.SetIsActive(false);
+
+	trollyIcon_.position = { 640.0f, 690.0f };
+	trollyIcon_.size = trollyIcon->GetSize();
+	trollyIcon_.sprite.SetPosition(trollyIcon_.position);
+	trollyIcon_.sprite.SetScale(trollyIcon_.size);
+	trollyIcon_.sprite.SetAnchor({ 0.5f,0.5f });
+	trollyIcon_.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	trollyIcon_.sprite.SetDrawOrder(1);
+	trollyIcon_.sprite.SetIsActive(false);
 
 
-	deadLineIcon_.SetPosition({ 640.0f ,690.0f });
-	deadLineIcon_.SetScale(deadLineIcon->GetSize());
-	deadLineIcon_.SetAnchor({ 0.5f,0.5f });
-	deadLineIcon_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
-	deadLineIcon_.SetDrawOrder(2);
+	deadLineIcon_.size = deadLineIcon->GetSize();
+	deadLineIcon_.position = { 640.0f ,690.0f };
+	deadLineIcon_.sprite.SetPosition(deadLineIcon_.position);
+	deadLineIcon_.sprite.SetScale(deadLineIcon_.size);
+	deadLineIcon_.sprite.SetAnchor({ 0.5f,0.5f });
+	deadLineIcon_.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineIcon_.sprite.SetDrawOrder(2);
+	deadLineIcon_.sprite.SetIsActive(false);
+
+	sg_.size = sg->GetSize();
+	sg_.position = { 640.0f,686.0f };
+	sg_.sprite.SetPosition(sg_.position);
+	sg_.sprite.SetScale(sg_.size);
+	sg_.sprite.SetAnchor({ 0.5f,0.5f });
+	sg_.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	sg_.sprite.SetDrawOrder(0);
+	sg_.sprite.SetIsActive(false);
 }
 
 void RailcameraUI::Initialize()
 {
 	flashTimer_ = 0.0f;
+	animationOffset_ = { 0.0f,-250.0f };
+	animationSize_ = 1.5f;
 }
 
 void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, bool startWarning)
 {
 	float trollyT = std::clamp(currentTrollyFrame, 0.0f, 1.0f);
 	float deadlineT = std::clamp(currentDeadlineFrame, 0.0f, 1.0f);
-	trollyIcon_.SetUVRect({ {std::lerp(0.0f,-0.95f,trollyT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
-	deadLineIcon_.SetUVRect({ {std::lerp(0.0f,-0.95f,deadlineT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	trollyIcon_.sprite.SetUVRect({ {std::lerp(0.0f,-0.95f,trollyT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineIcon_.sprite.SetUVRect({ {std::lerp(0.0f,-0.95f,deadlineT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 
-
+	//赤く点滅
 	if (startWarning) {
-
-
 		float distance = std::abs(trollyT - deadlineT);
 
 		float threshold = 0.03f;
 		Vector4 uiColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		Vector4 uiOtherColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 		if (distance < threshold) {
 			flashTimer_ += 0.1f;
@@ -70,15 +97,43 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 			float g_b_ratio = 1.0f - (sinValue);
 			uiColor.y = g_b_ratio;
 			uiColor.z = g_b_ratio;
+			uiOtherColor = uiColor;
+			uiOtherColor.w = sinValue;
+			baseOtherUI_.SetIsActive(true);
 		}
 		else {
 			flashTimer_ = 0.0f;
+			baseOtherUI_.SetIsActive(false);
 		}
 		baseUI_.SetColor(Color(uiColor));
+
+		baseOtherUI_.SetColor(Color(uiOtherColor));
 	}
+
+	if (isAnimation_) {
+		trollyIcon_.sprite.SetIsActive(true);
+		deadLineIcon_.sprite.SetIsActive(true);
+		sg_.sprite.SetIsActive(true);
+		float t = std::clamp(animationTimer_ / animationEndTime_, 0.0f, 1.0f);
+
+
+		trollyIcon_.sprite.SetPosition(Vector2::Lerp(t, (trollyIcon_.position + animationOffset_), trollyIcon_.position));
+		deadLineIcon_.sprite.SetPosition(Vector2::Lerp(t, (deadLineIcon_.position + animationOffset_), deadLineIcon_.position));
+		sg_.sprite.SetPosition(Vector2::Lerp(t, (sg_.position + animationOffset_), sg_.position));
+
+		trollyIcon_.sprite.SetScale(Vector2::Lerp(t, (trollyIcon_.size * animationSize_), trollyIcon_.size));
+		deadLineIcon_.sprite.SetScale(Vector2::Lerp(t, (deadLineIcon_.size * animationSize_), deadLineIcon_.size));
+		sg_.sprite.SetScale(Vector2::Lerp(t, (sg_.size * animationSize_), sg_.size));
+
+		animationTimer_ += 1.0f;
+	}
+
 #ifdef _DEBUG
-	trollyIcon_.DrawImGui("trollyIcon");
-	deadLineIcon_.DrawImGui("deadLineIcon");
-	baseUI_.DrawImGui("baseUI");
+	trollyIcon_.sprite.DrawImGui("trollyIcon");
+	deadLineIcon_.sprite.DrawImGui("deadLineIcon");
+	sg_.sprite.DrawImGui("sg");
+	baseOtherUI_.DrawImGui("baseOtherUI");
+	ImGui::DragFloat2("animationOffset", &animationOffset_.x);
+	ImGui::DragFloat("animationSize", &animationSize_, 0.1f);
 #endif // _DEBUG
 }

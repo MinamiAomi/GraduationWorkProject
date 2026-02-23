@@ -13,6 +13,8 @@ public:
 	void Update();
 
 	void SetDeadline(const Deadline* deadline) { deadline_ = deadline; }
+
+	const bool GetIsAnimationEnd() const { return isAnimationEnd_; }
 private:
 #ifdef _DEBUG
 	void DrawImGui();
@@ -29,4 +31,5 @@ private:
 	int count_ = 0;
 	int maxCount_ = 150;
 	bool isOnce_;
+	bool isAnimationEnd_;
 };

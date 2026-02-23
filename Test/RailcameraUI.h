@@ -10,11 +10,27 @@ public:
 
 	void Update(float currentTrollyFrame, float currentDeadlineFrame, bool startWarning);
 
-
+	void SetStartAnimation(bool flag) { isAnimation_ = flag; }
 private:
-	Sprite trollyIcon_;
-	Sprite deadLineIcon_;
+	struct SpriteData {
+		Sprite sprite;
+		Vector2 size;
+		Vector2 position;
+	};
+
+	SpriteData trollyIcon_;
+	SpriteData deadLineIcon_;
+	SpriteData sg_;
 
 	Sprite baseUI_;
+	Sprite baseOtherUI_;
 	float flashTimer_;
+
+	bool isAnimation_;
+
+	Vector2 animationOffset_;
+	float animationSize_;
+
+	float animationTimer_;
+	float animationEndTime_ = 120.0f;
 };

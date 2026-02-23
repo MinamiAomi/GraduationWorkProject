@@ -37,6 +37,7 @@ void DeadlineUI::Initialize()
 	warning_.SetIsActive(false);
 	count_ = 0;
 	isOnce_ = false;
+	isAnimationEnd_ = false;
 }
 
 void DeadlineUI::Update()
@@ -67,6 +68,7 @@ void DeadlineUI::Update()
 		isOnce_ &&
 		count_ <= 0) {
 		warning_.SetIsActive(false);
+		isAnimationEnd_ = true;
 	}
 	else {
 		float progress = static_cast<float>(maxCount_ - count_) / maxCount_;
@@ -84,7 +86,6 @@ void DeadlineUI::Update()
 	if (!monster_.IsActive() &&
 		deadline_->GetCurrenFrame() > 0.0f) {
 		monster_.SetIsActive(true);
-
 	}
 
 
