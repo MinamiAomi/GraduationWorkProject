@@ -48,8 +48,5 @@ private:
 
 	bool isSceneChange_;
 
-#ifdef _DEBUG
-	Vector3 ipos, iscale, spos, sscale;
-#endif // DEBUG
 
 };

@@ -91,29 +91,10 @@ void StageSelectScene::OnUpdate() {
 		// ゲームスタート
 		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
 	}
-
-	//#ifdef _DEBUG
-	//	ImGui::Begin("StageModel");
-	//	
-	//	ipos = iceSkyDome_.GetWorldMatrix().GetTranslate();
-	//	iscale= iceSkyDome_.GetWorldMatrix().GetScale();
-	//	ImGui::DragFloat3("IcePos", &ipos.x);
-	//	ImGui::DragFloat3("IceScale", &iscale.x);
-	//	iceSkyDome_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(ipos, Quaternion::identity, iscale));
-	//
-	//	spos = stageSelectTerrain_.GetWorldMatrix().GetTranslate();
-	//	sscale= stageSelectTerrain_.GetWorldMatrix().GetScale();
-	//	ImGui::DragFloat3("StagePos", &spos.x);
-	//	ImGui::DragFloat3("StageScale", &sscale.x);
-	//	stageSelectTerrain_.SetWorldMatrix(Matrix4x4::MakeAffineTransform(spos, Quaternion::identity, sscale));
-	//
-	//	ImGui::End();
-	//#endif // _DEBUG
-
 }
 
 void StageSelectScene::OnFinalize() {
-	if (bgmAudioSource_.IsPlaying()){
+	if (bgmAudioSource_.IsPlaying()) {
 		bgmAudioSource_.Stop();
 	}
 	if (seSelectAudioSource_.IsPlaying()) {

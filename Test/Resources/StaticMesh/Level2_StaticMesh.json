@@ -1,6 +1,79 @@
 {
   "objects": [
     {
+      "name": "tomb.011",
+      "model_name": "tomb.011",
+      "type": "ENEMY_SPAWN",
+      "srt": {
+        "translate": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotate": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "enemy_spawn_data": {
+        "isOnce": true,
+        "formation": [
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        ],
+        "has_model": false,
+        "model_info": null
+      },
+      "gimmick_data": null,
+      "point_light": null,
+      "collider": {
+        "type": "SPHERE",
+        "center": [
+          404.4797,
+          2.0507,
+          -56.7898
+        ],
+        "radius": 0.5
+      }
+    },
+    {
       "name": "Helmet.005",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
@@ -4025,7 +4098,7 @@
       "srt": {
         "translate": [
           483.3665,
-          42.8667,
+          37.1923,
           -57.1845
         ],
         "rotate": [
@@ -4047,7 +4120,7 @@
         "type": "CAPSULE",
         "center": [
           483.3665,
-          42.8577,
+          37.1834,
           -61.0953
         ],
         "radius": 0.21,
@@ -4114,9 +4187,9 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          262.8048,
-          -0.025,
-          -14.6408
+          235.773,
+          -0.0485,
+          1.7347
         ],
         "rotate": [
           1.0,
@@ -4173,16 +4246,35 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            235.773,
+            -0.0485,
+            2.7347
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          262.8048,
-          -0.025,
-          -14.6408
+          235.773,
+          -0.0485,
+          1.7347
         ],
         "radius": 2.63
       }
@@ -4193,7 +4285,7 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          401.5131,
+          401.513,
           -0.1821,
           -58.7258
         ],
@@ -4252,14 +4344,33 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            401.513,
+            -0.1821,
+            -57.7258
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          401.5131,
+          401.513,
           -0.1821,
           -58.7258
         ],
@@ -4272,7 +4383,7 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          488.0093,
+          488.009,
           44.2586,
           -63.0448
         ],
@@ -4331,14 +4442,33 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            488.009,
+            44.2586,
+            -62.0448
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          488.0093,
+          488.009,
           44.2586,
           -63.0448
         ],
@@ -4351,15 +4481,15 @@
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          475.2672,
+          475.267,
           -8.1094,
           -61.6883
         ],
         "rotate": [
-          1.0,
+          0.1045,
           0.0,
           0.0,
-          0.0
+          0.9945
         ],
         "scale": [
           1.0,
@@ -4410,14 +4540,33 @@
             false,
             false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            475.267,
+            -8.1094,
+            -60.6883
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            168.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          475.2672,
+          475.267,
           -8.1094,
           -61.6883
         ],
@@ -4425,298 +4574,14 @@
       }
     },
     {
-      "name": "tomb.005",
-      "model_name": "tomb.005",
+      "name": "EnemySpown.004",
+      "model_name": null,
       "type": "ENEMY_SPAWN",
       "srt": {
         "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          264.0401,
-          -1.9616,
-          -15.5597
-        ],
-        "radius": 0.5
-      }
-    },
-    {
-      "name": "tomb.006",
-      "model_name": "tomb.006",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          404.4797,
-          2.0507,
-          -56.7898
-        ],
-        "radius": 0.5
-      }
-    },
-    {
-      "name": "tomb.007",
-      "model_name": "tomb.007",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          488.9843,
-          43.5196,
-          -62.1705
-        ],
-        "radius": 0.5
-      }
-    },
-    {
-      "name": "tomb.008",
-      "model_name": "tomb.008",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ]
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          476.845,
-          -6.8067,
-          -60.5679
-        ],
-        "radius": 0.5
-      }
-    },
-    {
-      "name": "tomb.009",
-      "model_name": "tomb.009",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
+          541.256,
+          12.4906,
+          -53.3317
         ],
         "rotate": [
           1.0,
@@ -4764,19 +4629,46 @@
             false,
             false,
             false
+          ],
+          [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
           ]
-        ]
+        ],
+        "has_model": true,
+        "model_info": {
+          "name": "Tomb",
+          "offset": [
+            541.256,
+            12.4906,
+            -52.3317
+          ],
+          "rotate": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            3.0,
+            3.0,
+            3.0
+          ]
+        }
       },
       "gimmick_data": null,
       "point_light": null,
       "collider": {
         "type": "SPHERE",
         "center": [
-          542.1267,
-          12.4823,
-          -50.5145
+          541.256,
+          12.4906,
+          -53.3317
         ],
-        "radius": 1.49
+        "radius": 2.63
       }
     },
     {
@@ -4824,9 +4716,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          480.7296,
-          -25.9903,
-          -60.7348
+          668.8834,
+          59.2879,
+          -51.8073
         ],
         "rotate": [
           0.2241,
@@ -4941,9 +4833,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          481.0354,
-          -25.6782,
-          -59.5787
+          669.1892,
+          59.6,
+          -50.6512
         ],
         "radius": 0.5
       }
@@ -4954,9 +4846,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          231.6245,
-          -19.9778,
-          34.5385
+          541.4882,
+          57.0931,
+          34.5387
         ],
         "rotate": [
           0.586,
@@ -5056,9 +4948,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          231.67,
-          -19.7378,
-          34.8102
+          541.5338,
+          57.3331,
+          34.8104
         ],
         "radius": 0.5
       }
