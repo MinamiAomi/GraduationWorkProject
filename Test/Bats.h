@@ -75,6 +75,7 @@ private:
 	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
 	std::shared_ptr<Sound> spawnSESound_;
     std::shared_ptr<Sound> deathSESound_;
+	std::shared_ptr<Sound> drainSESound_;
 	uint32_t seCount_ = 0;
 	Random::RandomNumberGenerator rnd_;
 	const Camera* camera_;

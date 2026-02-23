@@ -78,6 +78,7 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
     flashlightUI_.Initialize();
 
     isInGame_ = isInGame;
+    isReset_ = true;
 }
 
 void Flashlight::Update()
@@ -226,6 +227,7 @@ void Flashlight::Move() {
     GameSystem* gameSystem = GameSystem::GetInstance();
     Input* input = Input::GetInstance();
 
+    // ゲームシステムのプレイ中のデバイスに応じて操作方法を切り替える
     auto playDevice = gameSystem->GetPlayDevice();
     switch (playDevice)
     {
@@ -246,9 +248,10 @@ void Flashlight::Move() {
     }
     case GameSystem::PlayDevice::LightDevice: {
         LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
+        // ライトデバイスが接続されている場合
         if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
-            if (input->IsKeyTrigger(DIK_R) ||
-                lightDeviceInput->IsButtonPressed()) {
+            // ライトデバイスのボタンが押されたらリセット
+            if (isReset_ && lightDeviceInput->IsButtonPressed()) {
                 if (isInGame_) {
                     auto bat = Trolley::GetInstance()->GetBatteyTransform(0).worldMatrix.GetTranslate();
                     auto dir = bat * parentCamera_->GetViewMatrix();
