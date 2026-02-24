@@ -16,6 +16,7 @@ RailcameraUI::RailcameraUI()
 	auto trollyIcon = assetManager->textureMap.Get("TrollyIcon")->Get();
 	auto deadLineIcon = assetManager->textureMap.Get("DeadLineIcon")->Get();
 	auto sg = assetManager->textureMap.Get("SG")->Get();
+	auto deadLineWarningText = assetManager->textureMap.Get("DeadLineWarningText")->Get();
 	auto circle = assetManager->textureMap.Get("Circle")->Get();
 
 
@@ -65,6 +66,15 @@ RailcameraUI::RailcameraUI()
 	sg_.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	sg_.sprite.SetDrawOrder(0);
 	sg_.sprite.SetIsActive(false);
+
+	deadLineWarningText_.size = deadLineWarningText->GetSize();
+	deadLineWarningText_.position = { 640.0f,650.0f };
+	deadLineWarningText_.sprite.SetPosition(deadLineWarningText_.position);
+	deadLineWarningText_.sprite.SetScale(deadLineWarningText_.size);
+	deadLineWarningText_.sprite.SetAnchor({ 0.5f,0.5f });
+	deadLineWarningText_.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+	deadLineWarningText_.sprite.SetDrawOrder(0);
+	deadLineWarningText_.sprite.SetIsActive(false);
 
 	for (auto& spriteData : circleSprite_) {
 		spriteData.size = circle->GetSize();
@@ -149,6 +159,7 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 
 		if (animationTimer_ == animationEndTime_) {
 			isCircleSprite_ = true;
+			deadLineWarningText_.sprite.SetIsActive(true);
 		}
 	}
 
@@ -208,5 +219,6 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 	ImGui::DragFloat2("animationOffset", &animationOffset_.x);
 	ImGui::DragFloat("animationSize", &animationSize_, 0.1f);
 	ImGui::DragFloat2("circlePosition_", &circleCurrentPosition_.x);
+	deadLineWarningText_.sprite.DrawImGui("deadLineWarningText");
 #endif // _DEBUG
 }

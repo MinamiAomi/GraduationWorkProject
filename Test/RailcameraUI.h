@@ -24,6 +24,8 @@ private:
 	SpriteData deadLineIcon_;
 	SpriteData sg_;
 
+	SpriteData deadLineWarningText_;
+
 	Sprite baseUI_;
 	Sprite baseOtherUI_;
 	float flashTimer_;

@@ -98,6 +98,7 @@
     "TrollyIcon" : "Progress/Texture/trollyIcon.png",
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
     "SG" : "Progress/Texture/sg.png",
+    "DeadLineWarningText" : "Progress/Texture/DeadLineWarningText.png",
     "Circle" : "Progress/Texture/circle.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
