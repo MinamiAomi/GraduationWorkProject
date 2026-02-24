@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include "Graphics/Sprite.h"
 
 class RailcameraUI {
@@ -33,4 +35,11 @@ private:
 
 	float animationTimer_;
 	float animationEndTime_ = 120.0f;
+
+	static const int CircleNum = 5;
+	std::array<SpriteData, CircleNum> circleSprite_;
+	Vector2 circleCurrentPosition_;
+	Vector2 circleStratPosition_;
+	Vector2 circleEndPosition_;
+	float animationTime_;
 };

@@ -16,6 +16,8 @@ RailcameraUI::RailcameraUI()
 	auto trollyIcon = assetManager->textureMap.Get("TrollyIcon")->Get();
 	auto deadLineIcon = assetManager->textureMap.Get("DeadLineIcon")->Get();
 	auto sg = assetManager->textureMap.Get("SG")->Get();
+	auto circle = assetManager->textureMap.Get("Circle")->Get();
+
 
 	baseUI_.SetTexture(frameBaseUI);
 	baseOtherUI_.SetTexture(frameBaseOtherUI);
@@ -63,6 +65,15 @@ RailcameraUI::RailcameraUI()
 	sg_.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	sg_.sprite.SetDrawOrder(0);
 	sg_.sprite.SetIsActive(false);
+
+	for (auto& spriteData : circleSprite_) {
+		spriteData.size = circle->GetSize();
+		spriteData.position = { 1280.0f * 0.5f,720.0f * 0.5f };
+		spriteData.sprite.SetTexture(circle);
+		spriteData.sprite.SetAnchor({ 0.5f,0.5f });
+		spriteData.sprite.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+		spriteData.sprite.SetIsActive(false);
+	}
 }
 
 void RailcameraUI::Initialize()
@@ -70,14 +81,21 @@ void RailcameraUI::Initialize()
 	flashTimer_ = 0.0f;
 	animationOffset_ = { 0.0f,-250.0f };
 	animationSize_ = 1.5f;
+
+	circleStratPosition_ = { 390.0f,685.0f };
+	circleEndPosition_ = { 890.0f,685.0f };
 }
 
 void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, bool startWarning)
 {
 	float trollyT = std::clamp(currentTrollyFrame, 0.0f, 1.0f);
 	float deadlineT = std::clamp(currentDeadlineFrame, 0.0f, 1.0f);
+
 	trollyIcon_.sprite.SetUVRect({ {std::lerp(0.0f,-0.95f,trollyT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	deadLineIcon_.sprite.SetUVRect({ {std::lerp(0.0f,-0.95f,deadlineT),0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
+
+
+
 
 	//赤く点滅
 	if (startWarning) {
@@ -128,6 +146,49 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 		animationTimer_ += 1.0f;
 	}
 
+	float cycleTime = 180.0f;
+
+	float dangerLevel = 0.0f;
+	float speed = 1.0f;
+	if (startWarning) {
+		float distance = std::abs(trollyT - deadlineT);
+		float threshold = 0.15f;
+		if (distance < threshold) {
+			dangerLevel = 1.0f - std::clamp(distance / threshold, 0.0f, 1.0f);
+			speed = 1.0f + (dangerLevel * 2.0f);
+		}
+
+		for (auto& spriteData : circleSprite_) {
+			spriteData.sprite.SetIsActive(true);
+		}
+	}
+
+	animationTime_ = std::fmod(animationTime_ + speed, cycleTime);
+
+	int activeCircles = 3 + static_cast<int>(dangerLevel * (CircleNum - 3));
+
+	for (int i = 0; i < CircleNum; ++i) {
+		if (i >= activeCircles) {
+			circleSprite_[i].sprite.SetIsActive(false);
+			continue;
+		}
+		circleSprite_[i].sprite.SetIsActive(true);
+
+		float currentInterval = cycleTime / activeCircles;
+		float t = std::fmod(animationTime_ + (i * currentInterval), cycleTime) / cycleTime;
+
+		float maxScale = 2.0f + (dangerLevel * 4.0f);
+		Vector2 currentSize = circleSprite_[i].size * (1.0f + t * maxScale);
+		circleSprite_[i].sprite.SetScale(currentSize);
+
+		float rb = 1.0f - (dangerLevel * 0.8f);
+		float alpha = (1.0f - t) * (0.2f + dangerLevel * 0.6f);
+		circleSprite_[i].sprite.SetColor({ 1.0f, rb, rb, alpha });
+
+		circleCurrentPosition_ = Vector2::Lerp(deadlineT, circleStratPosition_, circleEndPosition_);
+		circleSprite_[i].sprite.SetPosition(circleCurrentPosition_);
+	}
+
 #ifdef _DEBUG
 	trollyIcon_.sprite.DrawImGui("trollyIcon");
 	deadLineIcon_.sprite.DrawImGui("deadLineIcon");
@@ -135,5 +196,6 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 	baseOtherUI_.DrawImGui("baseOtherUI");
 	ImGui::DragFloat2("animationOffset", &animationOffset_.x);
 	ImGui::DragFloat("animationSize", &animationSize_, 0.1f);
+	ImGui::DragFloat2("circlePosition_", &circleCurrentPosition_.x);
 #endif // _DEBUG
 }
