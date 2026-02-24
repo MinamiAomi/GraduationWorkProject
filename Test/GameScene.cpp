@@ -189,10 +189,8 @@ void GameScene::OnInitialize() {
 		flashlightTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
 
 		trollyTutorial_->Initialize("TutorialTrolly", 1.0f);
-		collisionSystem_->RegisterCollider(trollyTutorial_->GetCollider());
 
 		flashlightTutorial_->Initialize("TutorialFlashlight", 190.0f);
-		collisionSystem_->RegisterCollider(flashlightTutorial_->GetCollider());
 	}
 	break;
 	case LevelManager::Level::LEVEL2:

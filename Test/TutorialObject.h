@@ -14,7 +14,6 @@
 
 class TutorialObject {
 public:
-	TutorialObject();
 
 	void Initialize(const std::string& name, float frame);
 
@@ -23,20 +22,16 @@ public:
 	bool GetIsActive() { return sprite_.GetIsActive(); }
 
 	void SetRailCameraPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
-
-	std::shared_ptr<SphereCollider> GetCollider() { return collider_; }
 private:
-	void OnCollision();
+
+	void CheckInput();
 
 	Sprite sprite_;
 	Transform transform_;
-	std::shared_ptr<SphereCollider> collider_;
 
 	const RailSystem::RailAnimationPlayer* railAnimationPlayer_;
 
 	float drawFrame_;
-
-	Vector3 colliderOffset_;
 
 	bool isOnce_;
 
