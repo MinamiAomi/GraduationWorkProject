@@ -36,6 +36,8 @@ private:
 	float animationTimer_;
 	float animationEndTime_ = 120.0f;
 
+	bool isCircleSprite_;
+
 	static const int CircleNum = 5;
 	std::array<SpriteData, CircleNum> circleSprite_;
 	Vector2 circleCurrentPosition_;
