@@ -54,6 +54,8 @@ void StageSelectScene::OnInitialize() {
 	bgmAudioSource_.Play(true);
 	bgmAudioSource_.SetVolume(0.2f);
 
+    seSelectAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_STAGE_SELECT")->Get();
+
 	isSceneChange_ = false;
 }
 
@@ -73,11 +75,13 @@ void StageSelectScene::OnUpdate() {
 		isSceneChange_ = true;
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL1);
 		SceneManager::GetInstance()->ChangeScene<GameScene>(true);
+        seSelectAudioSource_.Play(false);
 	}
 	else if (!isSceneChange_ && level2_->GetIsActive()) {
 		isSceneChange_ = true;
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL2);
 		SceneManager::GetInstance()->ChangeScene<GameScene>(true);
+        seSelectAudioSource_.Play(false);
 	}
 
 	collisionSystem_->CheckCollisions();
@@ -93,4 +97,7 @@ void StageSelectScene::OnFinalize() {
 	if (bgmAudioSource_.IsPlaying()) {
 		bgmAudioSource_.Stop();
 	}
+	if (seSelectAudioSource_.IsPlaying()) {
+		seSelectAudioSource_.Stop();
+    }
 }

@@ -30,7 +30,9 @@ public:
     const Transform& GetTransform() const { return transform_; }
     void Pause() { isPause_ = true; }
     void Play() { isPause_ = false; }
-
+    
+    void SetIsReset(bool isReset) { isReset_ = isReset; }
+    
     bool GetBatteryRemaining() const { return  (battery_ < maxBattery_ * 0.2f); }
 private:
     void UpdateCollision();
@@ -86,4 +88,5 @@ private:
     std::shared_ptr<ConeCollider> collider_;
     bool isPause_ = false;
     bool isInGame_ = false;
+    bool isReset_ = true;
 };
