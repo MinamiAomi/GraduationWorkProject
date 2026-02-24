@@ -21,5 +21,6 @@ private:
 
 	Sprite frameUI_;
 	Sprite batteryUI_;
+	Vector2 batteryUISize_;
 
 };

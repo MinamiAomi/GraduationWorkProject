@@ -52,6 +52,7 @@ Bats::Bats(const std::vector<std::vector<bool>>& data, const Camera& camera)
 	animation_ = assetManager->animationMap.Get("batAnim");
     spawnSESound_ = assetManager->soundMap.Get("SE_BAT_SPAWN")->Get();
     deathSESound_ = assetManager->soundMap.Get("SE_BAT_DEATH")->Get();
+    drainSESound_ = assetManager->soundMap.Get("SE_BAT_DRAIN")->Get();
 	radius_ = 5.0f;                       // Sphere用半径
 	camera_ = &camera;
 
@@ -138,6 +139,19 @@ void Bats::Update()
 		if (p->hp_ <= 0.0f && !p->isDead_) {
 			p->isDead_ = true;
 			p->particles_.isDead_ = true;
+
+			auto soundIt  = std::find_if(playingAudioSourceList_.begin(), playingAudioSourceList_.end(), [this](const std::shared_ptr<AudioSource>& source) {
+				return source->IsPlaying() && source->GetSound() == drainSESound_;
+                });
+			if (soundIt != playingAudioSourceList_.end()) {
+				auto drainSound = *soundIt;
+				if (drainSound->IsPlaying()) {
+					drainSound->Stop();
+					drainSound.reset();
+				}
+                playingAudioSourceList_.erase(soundIt);
+			}
+
 			if (seCount_ < kSEMax) {
 				auto as = std::make_shared<AudioSource>();
 				(*as) = deathSESound_;
@@ -216,6 +230,15 @@ void Bats::Emit(const Vector3& goalPos)
 		(*as) = spawnSESound_;
 		as->SetVolume(0.7f);
 		as->Play(false);
+		playingAudioSourceList_.push_back(as);
+		seCount_++;
+	}
+
+	if (seCount_ < kSEMax) {
+		auto as = std::make_shared<AudioSource>();
+		(*as) = drainSESound_;
+		as->SetVolume(0.5f);
+		as->Play(true);
 		playingAudioSourceList_.push_back(as);
 		seCount_++;
 	}

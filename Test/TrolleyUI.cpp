@@ -57,22 +57,25 @@ TrolleyUI::TrolleyUI()
 	baseUI_.SetDrawOrder(3);
 	baseUI_.SetIsActive(false);
 
-	chargeUI_.SetPosition({ 745.0f,18.0f});
-	chargeUI_.SetScale(chargeGaugeTexture->GetSize());
+	chargeUISize_ = chargeGaugeTexture->GetSize();
+	chargeUI_.SetPosition({ 1134.0f,60.0f});
+	chargeUI_.SetScale(chargeUISize_);
 	chargeUI_.SetAnchor({ 0.5f,0.0f });
 	chargeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	chargeUI_.SetDrawOrder(1);
 
-	nitroBurstUI_.SetPosition({ 745.0f,18.0f });
-	nitroBurstUI_.SetScale(nitroBurstTexture->GetSize());
+	nitroBurstUISize_ = nitroBurstTexture->GetSize();
+	nitroBurstUI_.SetPosition({ 1134.0f,60.0f });
+	nitroBurstUI_.SetScale(nitroBurstUISize_);
 	nitroBurstUI_.SetAnchor({ 0.5f,0.0f });
 	nitroBurstUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	nitroBurstUI_.SetIsActive(false);
 	nitroBurstUI_.SetDrawOrder(2);
 
 
-	nitroUI_.SetPosition({ 770.0f,18.0f });
-	nitroUI_.SetScale(nitroGaugeTexture->GetSize());
+	nitroUISize_ = nitroGaugeTexture->GetSize();
+	nitroUI_.SetPosition({ 1090.0f,66.0f });
+	nitroUI_.SetScale(nitroUISize_);
 	nitroUI_.SetAnchor({ 0.5f,0.0f });
 	nitroUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 
@@ -230,8 +233,8 @@ void TrolleyUI::Update()
 	float chargeT = std::clamp(trolley_->GetCurrentCharge() / trolley_->GetMaxNormalCharge(), 0.0f, 1.0f);
 	float nitroT = std::clamp(trolley_->GetNitroAccumulateTimer() / trolley_->GetNitroChargeTime(), 0.0f, 1.0f);
 
-	chargeUI_.SetScale({ 60.0f, std::lerp(0.0f, 180.0f, chargeT) });
-	nitroUI_.SetScale({ 50.0f,std::lerp(0.0f,  120.0f, nitroT) });
+	chargeUI_.SetScale({ chargeUISize_.x, std::lerp(0.0f, chargeUISize_.y, chargeT) });
+	nitroUI_.SetScale({ nitroUISize_.x,std::lerp(0.0f,  nitroUISize_.y, nitroT) });
 
 	chargeUI_.SetUVRect({ {0.0f, 1.0f - chargeT}, {1.0f, chargeT} }, Sprite::UVMode::UV);
 	nitroUI_.SetUVRect({ {0.0f, 1.0f - nitroT}, { 1.0f,nitroT} }, Sprite::UVMode::UV);

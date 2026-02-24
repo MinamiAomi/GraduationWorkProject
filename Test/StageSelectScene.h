@@ -44,6 +44,7 @@ private:
 	Sprite sprite_;
 
     AudioSource bgmAudioSource_;
+	AudioSource seSelectAudioSource_;
 
 	bool isSceneChange_;
 

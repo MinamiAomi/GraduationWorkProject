@@ -26,6 +26,8 @@ public:
 
     bool IsPlaying() const;
 
+    std::shared_ptr<Sound> GetSound() const { return sound_; }
+
     void OnDestroy();
 
 private:

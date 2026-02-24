@@ -36,7 +36,7 @@ private:
 	Transform transform_;
 	Quaternion initialRotate_;
     RotateAxis rotateAxis_ = YAxis;
-	float maxCount_ = 240.0f;
+	float maxCount_ = 180.0f;
 	float count_ = 0.0f;
 	float rotateRate_ = 1.0f;
 	float rotationY_ = 0.0f;

@@ -2,27 +2,17 @@
 
 #include "Framework/AssetManager.h"
 
-
+#include "GameSystem.h"
+#include "LightDeviceInput.h"
+#include "Input/Input.h"
 
 #ifdef _DEBUG
 #include "Graphics/ImGuiManager.h"
 #endif // _DEBUG
 
-TutorialObject::TutorialObject()
-{
-	collider_ = std::make_shared<SphereCollider>(
-		CollisionCategory::TUTORIAL,
-		CollisionCategory::FLASHLIGHT,
-		Vector3::zero,
-		0.0f
-	);
-}
-
 void TutorialObject::Initialize(const std::string& name, float frame)
 {
 
-	collider_->center = transform_.translate;
-	collider_->radius = 0.0f;
 
 #ifdef _DEBUG
 	name_ = name;
@@ -40,6 +30,17 @@ void TutorialObject::Initialize(const std::string& name, float frame)
 	sprite_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	sprite_.SetIsActive(false);
 	sprite_.SetDrawOrder(5);
+
+	texture = assetManager->textureMap.Get("Pusing")->Get();
+	flashLightSpriteSize_ = texture->GetSize();
+	currentRect_ = 0.0f;
+	flashLightSprite_.SetTexture(texture);
+	flashLightSprite_.SetPosition({ 1280.0f * 0.5f, 110.0f });
+	flashLightSprite_.SetScale({ flashLightSpriteSize_.x * 0.5f, flashLightSpriteSize_.y });
+	flashLightSprite_.SetAnchor({ 0.5f, 0.5f });
+	flashLightSprite_.SetUVRect({ {currentRect_,0.0f} ,{0.5f,1.0f} }, Sprite::UVMode::UV);
+	flashLightSprite_.SetIsActive(false);
+	flashLightSprite_.SetDrawOrder(6);
 
 	isOnce_ = false;
 
@@ -61,16 +62,24 @@ void TutorialObject::Update()
 		isOnce_ = true;
 
 		sprite_.SetIsActive(true);
+		flashLightSprite_.SetIsActive(true);
 
 		transform_.SetParent(&railAnimationPlayer_->GetTransform());
-		colliderOffset_ = { 0.0,-1.0f,8.0f };
-		transform_.translate = colliderOffset_;
 		transform_.UpdateMatrix();
 
-		collider_->center = transform_.worldMatrix.GetTranslate();
-		collider_->radius = 0.7f;
 	}
-	OnCollision();
+	if (sprite_.GetIsActive()) {
+		animationTime_ = std::fmod(animationTime_ + 1.0f, (60.0f));
+		if (animationTime_ == 0.0f) {
+			currentRect_ = (currentRect_ == 0.0f) ? 0.5f : 0.0f;
+
+		}
+
+
+		flashLightSprite_.SetUVRect({ {currentRect_,0.0f} ,{0.5f,1.0f} }, Sprite::UVMode::UV);
+		CheckInput();
+	}
+
 
 #ifdef _DEBUG
 	DrawImGui();
@@ -78,32 +87,41 @@ void TutorialObject::Update()
 
 }
 
-void TutorialObject::OnCollision()
+void TutorialObject::CheckInput()
 {
-	if (!collider_->GetCollidedWith().empty()) {
-		if (sprite_.GetIsActive()) {
-			currentTime_--;
-			if (currentTime_ <= 0.0f) {
-				sprite_.SetIsActive(false);
-			}
-			return;
+	GameSystem* gameSystem = GameSystem::GetInstance();
+	Input* input = Input::GetInstance();
+
+	auto playDevice = gameSystem->GetPlayDevice();
+	switch (playDevice)
+	{
+	case GameSystem::PlayDevice::KeyboardMouse: {
+		if (input->IsMouseTrigger(0)) {
+			sprite_.SetIsActive(false);
+			flashLightSprite_.SetIsActive(false);
 		}
+
+		break;
 	}
-	currentTime_ = maxTime_;
+	case GameSystem::PlayDevice::LightDevice: {
+		LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
+		if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
+			if (lightDeviceInput->IsButtonPressed()) {
+				sprite_.SetIsActive(false);
+				flashLightSprite_.SetIsActive(false);
+			}
+		}
+		break;
+	}
+	}
 }
 
 #ifdef _DEBUG
 void TutorialObject::DrawImGui()
 {
-	ImGui::Begin(name_.c_str());
-	ImGui::DragFloat3("colliderOffset", &colliderOffset_.x);
-	ImGui::DragFloat("radius", &collider_->radius);
-	ImGui::End();
-
-	transform_.translate = colliderOffset_;
 	transform_.UpdateMatrix();
-	collider_->center = transform_.worldMatrix.GetTranslate();
 
 	sprite_.DrawImGui(name_ + "sprite");
+	flashLightSprite_.DrawImGui("flashLightSprite_");
 }
 #endif // _DEBUG

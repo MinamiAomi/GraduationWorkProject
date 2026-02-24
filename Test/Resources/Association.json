@@ -94,8 +94,12 @@
     "ProgressFrame" : "Progress/Texture/frame.png",
     "ProgressGauge" : "Progress/Texture/gauge.png",
     "ProgressBaseUI" : "Progress/Texture/baseUI.png",
+    "ProgressBaseOtherUI" : "Progress/Texture/ui_other.png",
     "TrollyIcon" : "Progress/Texture/trollyIcon.png",
     "DeadLineIcon" : "Progress/Texture/deadLineIcon.png",
+    "SG" : "Progress/Texture/sg.png",
+    "DeadLineWarningText" : "Progress/Texture/DeadLineWarningText.png",
+    "Circle" : "Progress/Texture/circle.png",
     
     "StageSelect": "StageSelect/stageSelect.png",
     "GameClear": "GameClear/gameClear.png",
@@ -103,6 +107,8 @@
     
     "TutorialTrolly": "Tutorial/trolly.png",
     "TutorialFlashlight": "Tutorial/flash_light.png",
+    "Icicle": "Tutorial/icicle.png",
+    "Pusing": "Tutorial/pusing.png",
 
     "Warning": "OODAMA/warning.png",
     
@@ -151,13 +157,19 @@
 
     "SE_BAT_DEATH" : "Sound/se_BatDeath.mp3",
     "SE_BAT_SPAWN" : "Sound/se_BatSpawn.mp3",
+    "SE_BAT_DRAIN" : "Sound/se_BatDrain.mp3",
 
     "SE_BOMB_GHOST_DEATH" : "Sound/se_BombGhostDeath.mp3",
     "SE_BOMB_GHOST_SPAWN" : "Sound/se_BombGhostSpawn.mp3",
+    
+    "SE_TITLE_TROLLEY" : "Sound/se_TitleTrolleyLoop.wav",
+
+    "SE_STAGE_SELECT" : "Sound/se_SelectStart.wav",
     
     "BGM_TITLE" : "Sound/bgm_title.mp3",
     "BGM_INGAME1" : "Sound/bgm_ingame_level1.mp3",
     "BGM_INGAME2" : "Sound/bgm_ingame_level2.mp3",
     "BGM_STAGE_SELECT" : "Sound/bgm_stageSelect.mp3"
+
   }
 }
