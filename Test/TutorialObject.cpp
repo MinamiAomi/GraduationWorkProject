@@ -31,6 +31,17 @@ void TutorialObject::Initialize(const std::string& name, float frame)
 	sprite_.SetIsActive(false);
 	sprite_.SetDrawOrder(5);
 
+	texture = assetManager->textureMap.Get("Pusing")->Get();
+	flashLightSpriteSize_ = texture->GetSize();
+	currentRect_ = 0.0f;
+	flashLightSprite_.SetTexture(texture);
+	flashLightSprite_.SetPosition({ 1280.0f * 0.5f, 110.0f });
+	flashLightSprite_.SetScale({ flashLightSpriteSize_.x * 0.5f, flashLightSpriteSize_.y });
+	flashLightSprite_.SetAnchor({ 0.5f, 0.5f });
+	flashLightSprite_.SetUVRect({ {currentRect_,0.0f} ,{0.5f,1.0f} }, Sprite::UVMode::UV);
+	flashLightSprite_.SetIsActive(false);
+	flashLightSprite_.SetDrawOrder(6);
+
 	isOnce_ = false;
 
 	drawFrame_ = frame;
@@ -51,12 +62,21 @@ void TutorialObject::Update()
 		isOnce_ = true;
 
 		sprite_.SetIsActive(true);
+		flashLightSprite_.SetIsActive(true);
 
 		transform_.SetParent(&railAnimationPlayer_->GetTransform());
 		transform_.UpdateMatrix();
 
 	}
 	if (sprite_.GetIsActive()) {
+		animationTime_ = std::fmod(animationTime_ + 1.0f, (60.0f));
+		if (animationTime_ == 0.0f) {
+			currentRect_ = (currentRect_ == 0.0f) ? 0.5f : 0.0f;
+
+		}
+
+
+		flashLightSprite_.SetUVRect({ {currentRect_,0.0f} ,{0.5f,1.0f} }, Sprite::UVMode::UV);
 		CheckInput();
 	}
 
@@ -78,6 +98,7 @@ void TutorialObject::CheckInput()
 	case GameSystem::PlayDevice::KeyboardMouse: {
 		if (input->IsMouseTrigger(0)) {
 			sprite_.SetIsActive(false);
+			flashLightSprite_.SetIsActive(false);
 		}
 
 		break;
@@ -87,6 +108,7 @@ void TutorialObject::CheckInput()
 		if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
 			if (lightDeviceInput->IsButtonPressed()) {
 				sprite_.SetIsActive(false);
+				flashLightSprite_.SetIsActive(false);
 			}
 		}
 		break;
@@ -100,5 +122,6 @@ void TutorialObject::DrawImGui()
 	transform_.UpdateMatrix();
 
 	sprite_.DrawImGui(name_ + "sprite");
+	flashLightSprite_.DrawImGui("flashLightSprite_");
 }
 #endif // _DEBUG

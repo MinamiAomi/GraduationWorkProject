@@ -57,5 +57,10 @@ private:
 	Sprite nitroUI_;
 	Sprite nitroBurstUI_;
 
+
+	Vector2 chargeUISize_;
+	Vector2 nitroUISize_;
+	Vector2 nitroBurstUISize_;
+
 	Random::RandomNumberGenerator rnd_;
 };

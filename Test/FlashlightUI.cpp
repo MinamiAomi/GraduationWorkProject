@@ -28,9 +28,10 @@ FlashlightUI::FlashlightUI()
 	frameUI_.SetIsActive(false);
 
 
-	batteryUI_.SetPosition({ 532.0f,18.0f});
+	batteryUISize_ = flashlightGauge->GetSize();
+	batteryUI_.SetPosition({ 150.0f,60.0f });
 	batteryUI_.SetAnchor({ 0.5f,0.0f });
-	batteryUI_.SetScale({ flashlightGauge->GetSize() });
+	batteryUI_.SetScale({ batteryUISize_ });
 	batteryUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
 	batteryUI_.SetDrawOrder(1);
 
@@ -47,9 +48,9 @@ void FlashlightUI::Update()
 	float t = flashlight_->GetBattery() / flashlight_->GetMaxBattery();
 	t = std::clamp(t, 0.0f, 1.0f);
 
-	float maxHeight = 180.0f;
+	float maxHeight = batteryUISize_.y;
 
-	batteryUI_.SetScale({ 60.0f, maxHeight * t });
+	batteryUI_.SetScale({ batteryUISize_.x, maxHeight * t });
 
 	batteryUI_.SetUVRect({ {0.0f, 1.0f - t}, {1.0f, t} }, Sprite::UVMode::UV);
 #ifdef _DEBUG

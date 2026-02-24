@@ -27,6 +27,13 @@ private:
 	void CheckInput();
 
 	Sprite sprite_;
+	Sprite flashLightSprite_;
+
+	Vector2 flashLightSpriteSize_;
+	float currentRect_; 
+	
+	float animationTime_;
+
 	Transform transform_;
 
 	const RailSystem::RailAnimationPlayer* railAnimationPlayer_;

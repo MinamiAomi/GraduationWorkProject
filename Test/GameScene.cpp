@@ -209,7 +209,7 @@ void GameScene::OnInitialize() {
 	//inGameUI_.SetAnchor({ 0.5f,0.5f });
 	inGameUI_.SetScale({ texture->GetSize() });
 	inGameUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
-	inGameUI_.SetDrawOrder(7);
+	inGameUI_.SetDrawOrder(8);
 	inGameUI_.SetIsActive(true);
 
 	isGameFinishAnimation_ = false;
@@ -225,7 +225,7 @@ void GameScene::OnInitialize() {
 	crackUI_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
 	crackUI_.SetScale({ texture->GetSize() });
 	crackUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
-	crackUI_.SetDrawOrder(7);
+	crackUI_.SetDrawOrder(8);
 	crackUI_.SetIsActive(false);
 
 	texture = assetManager->textureMap.Get("white2x2")->Get();
@@ -234,7 +234,7 @@ void GameScene::OnInitialize() {
 	gameFinishBackGround_.SetPosition({ 1280.0f * 0.5f,720.0f * 0.5f });
 	gameFinishBackGround_.SetScale({ 1280.0f,720.0f });
 	gameFinishBackGround_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
-	gameFinishBackGround_.SetDrawOrder(6);
+	gameFinishBackGround_.SetDrawOrder(7);
 	gameFinishBackGround_.SetColor(Color(0.0f, 0.0f, 0.0f, 1.0f));
 	gameFinishBackGround_.SetIsActive(true);
 
@@ -319,12 +319,14 @@ void GameScene::OnUpdate() {
 			railAnimationPlayer_->Pause();
 			flashlight_->Pause();
 			trolley_->Pause();
+			flashlight_->SetIsReset(false);
 			isPlay_ = false;
 		}
 		else if (!isPlay_) {
 			flashlight_->Play();
 			trolley_->Play();
 			railAnimationPlayer_->Play();
+			flashlight_->SetIsReset(true);
 			isPlay_ = true;
 		}
 		break;
