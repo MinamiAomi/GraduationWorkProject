@@ -69,6 +69,7 @@ RailcameraUI::RailcameraUI()
 
 	deadLineWarningText_.size = deadLineWarningText->GetSize();
 	deadLineWarningText_.position = { 640.0f,650.0f };
+	deadLineWarningText_.sprite.SetTexture(deadLineWarningText);
 	deadLineWarningText_.sprite.SetPosition(deadLineWarningText_.position);
 	deadLineWarningText_.sprite.SetScale(deadLineWarningText_.size);
 	deadLineWarningText_.sprite.SetAnchor({ 0.5f,0.5f });
