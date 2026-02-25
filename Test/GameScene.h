@@ -39,6 +39,8 @@
 #include "BatteryParticles.h"
 
 #include "Ghosts.h"
+#include "IcicleParticle.h"
+#include "TombDebtris.h"
 
 class GameScene :
 	public BaseScene {
@@ -105,6 +107,9 @@ private:
     std::unique_ptr<AudioSource> startSEAudioSource_;
 
 	bool isPlay_ = true;
+
+	std::unique_ptr<IcicleParticle> icicleParticle_;
+	std::unique_ptr<TombDebtris> tombDebtris;
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;

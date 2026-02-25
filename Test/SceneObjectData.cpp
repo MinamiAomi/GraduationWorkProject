@@ -268,4 +268,30 @@ namespace SceneObjectSystem {
 			model.SetIsActive(false);
 		}
 	}
+	bool ObstacleObject::GetRatio()
+	{
+		// 現在どのセクションにいるかを計算 (0〜3)
+		// 1.0fに近いほど値が大きく、0に近いほど小さくなる
+		float ratio = hp / maxHp;
+		int currentSection;
+
+		if (ratio >= 0.75f)      currentSection = 3;
+		else if (ratio >= 0.50f) currentSection = 2;
+		else if (ratio >= 0.25f) currentSection = 1;
+		else                     currentSection = 0;
+
+		// 初回実行時は比較対象がないので、現在のセクションを保存してfalseを返す
+		if (lastSection == -1) {
+			lastSection = currentSection;
+			return false;
+		}
+
+		// 前回のセクションと異なる（＝区切りを越えた）場合
+		if (currentSection != lastSection) {
+			lastSection = currentSection; // 状態を更新
+			return true;                  // 通知を送る
+		}
+
+		return false;
+	}
 }

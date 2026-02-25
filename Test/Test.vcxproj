@@ -37,6 +37,8 @@
     <ClCompile Include="Ghosts.cpp" />
     <ClCompile Include="GhostsManager.cpp" />
     <ClCompile Include="GhostsParticles.cpp" />
+    <ClCompile Include="IcicleBreak.cpp" />
+    <ClCompile Include="IcicleParticle.cpp" />
     <ClCompile Include="LightDeviceInput.cpp" />
     <ClCompile Include="LightObject.cpp" />
     <ClCompile Include="ModelEmitter.cpp" />
@@ -53,6 +55,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TombDebtris.cpp" />
     <ClCompile Include="Trolley.cpp" />
     <ClCompile Include="TrolleyUI.cpp" />
     <ClCompile Include="TutorialObject.cpp" />
@@ -77,6 +80,8 @@
     <ClInclude Include="Ghosts.h" />
     <ClInclude Include="GhostsManager.h" />
     <ClInclude Include="GhostsParticles.h" />
+    <ClInclude Include="IcicleBreak.h" />
+    <ClInclude Include="IcicleParticle.h" />
     <ClInclude Include="LightDeviceInput.h" />
     <ClInclude Include="LightObject.h" />
     <ClInclude Include="ModelEmitter.h" />
@@ -103,6 +108,7 @@
     <ClInclude Include="Test.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TombDebtris.h" />
     <ClInclude Include="Trolley.h" />
     <ClInclude Include="TrolleyUI.h" />
     <ClInclude Include="AnimationUtils.h" />

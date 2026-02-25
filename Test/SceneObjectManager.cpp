@@ -24,6 +24,11 @@ void SceneObjectSystem::SceneObjectManager::Initialize()
 	obstacleObjects_.clear();
 
 	sceneObjectData_.clear();
+	
+	icicleParticle_ = std::make_unique<IcicleParticle>();
+	icicleParticle_->Initialize();
+	tombDebtris_ = std::make_unique<TombDebtris>();
+	icicleBreak_ = std::make_unique<IcicleBreak>();
 }
 
 void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData, const std::string& stageName)
@@ -77,6 +82,9 @@ void SceneObjectSystem::SceneObjectManager::ResetObjects()
 
 void SceneObjectSystem::SceneObjectManager::Update()
 {
+	tombDebtris_->Update();
+	icicleParticle_->Update();
+	icicleBreak_->Update();
 	for (const auto& obj : pointLightObjects_) {
 		obj->transform.UpdateMatrix();
 		obj->model.SetWorldMatrix(obj->transform.worldMatrix);
@@ -135,7 +143,8 @@ void SceneObjectSystem::SceneObjectManager::Update()
 
 					//モデルがあったらここで処理してね
 					if (obj->model.has_value()) {
-
+						obj->model->SetIsActive(false);
+						tombDebtris_->Emit(obj->transform);
 					}
 				}
 			}
@@ -215,6 +224,7 @@ void SceneObjectSystem::SceneObjectManager::Update()
 					if (!obj->isAlive) {
 						obj->collider = nullptr;
 						Trolley::GetInstance()->SetState(Trolley::State::Normal);
+						icicleBreak_->Emit(obj->transform);
 						break;
 					}
 				}
@@ -222,7 +232,11 @@ void SceneObjectSystem::SceneObjectManager::Update()
 					if (obj->isAlive) {
 						//つららのしょり頑張ってください
 						Trolley::GetInstance()->SetState(Trolley::State::Stop);
+						
 					}
+				}
+				if (obj->GetRatio()) {
+					icicleParticle_->Emit(obj->transform.worldMatrix.GetTranslate());
 				}
 			}
 		}

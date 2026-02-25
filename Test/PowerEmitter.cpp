@@ -115,7 +115,7 @@ void PowerEmitter::DebugDraw()
 void PowerEmitter::Debug()
 {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
-	if (ImGui::TreeNode("BatsParticles")) {
+	if (ImGui::TreeNode("PowerEmitter")) {
 
 		ImGui::DragFloat("minSpeed_", &minSpeed_, 0.01f);
 		ImGui::DragFloat("maxSpeed_", &maxSpeed_, 0.01f, minSpeed_);
@@ -147,7 +147,7 @@ void PowerEmitter::Debug()
 		}
 
 		if (ImGui::Button("Save")) {
-			JSON_OPEN("Resources/Data/GameScene/batsParticles.json");
+			JSON_OPEN("Resources/Data/GameScene/powerEmitter.json");
 			JSON_OBJECT("powerEmitter");
 			JSON_SAVE_BY_NAME("minSpeed_", minSpeed_);
 			JSON_SAVE_BY_NAME("maxSpeed_", maxSpeed_);
