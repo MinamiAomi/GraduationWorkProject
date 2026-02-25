@@ -12,8 +12,6 @@
 
 void TutorialObject::Initialize(const std::string& name, float frame)
 {
-
-
 #ifdef _DEBUG
 	name_ = name;
 #endif // _DEBUG
@@ -44,6 +42,8 @@ void TutorialObject::Initialize(const std::string& name, float frame)
 
 	isOnce_ = false;
 
+	isActive_ = false;
+
 	drawFrame_ = frame;
 
 	maxTime_ = 120.0f;
@@ -54,13 +54,38 @@ void TutorialObject::Update()
 {
 	//一度出現してスプライトが出ていなけらば用済み
 	if (isOnce_ && !sprite_.GetIsActive()) {
+		if (!isActive_) {
+			return;
+		}
+		GameSystem* gameSystem = GameSystem::GetInstance();
+		Input* input = Input::GetInstance();
+		auto playDevice = gameSystem->GetPlayDevice();
+		switch (playDevice)
+		{
+		case GameSystem::PlayDevice::KeyboardMouse: {
+			if (input->IsMouseRelease(0)) {
+				isActive_ = false;
+			}
+
+			break;
+		}
+		case GameSystem::PlayDevice::LightDevice: {
+			LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
+			if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
+				if (lightDeviceInput->IsButtonRelease()) {
+					isActive_ = false;
+				}
+			}
+			break;
+		}
+		}
 		return;
 	}
-
+	//出現
 	if (!isOnce_ && railAnimationPlayer_->GetCurrentFrame() >= drawFrame_) {
 
 		isOnce_ = true;
-
+		isActive_ = true;
 		sprite_.SetIsActive(true);
 		flashLightSprite_.SetIsActive(true);
 
@@ -106,7 +131,7 @@ void TutorialObject::CheckInput()
 	case GameSystem::PlayDevice::LightDevice: {
 		LightDeviceInput* lightDeviceInput = LightDeviceInput::GetInstance();
 		if (lightDeviceInput->GetConnectionState() == LightDeviceInput::ConnectionState::Connected) {
-			if (lightDeviceInput->IsButtonPressed()) {
+			if (lightDeviceInput->IsButtonTrigger()) {
 				sprite_.SetIsActive(false);
 				flashLightSprite_.SetIsActive(false);
 			}

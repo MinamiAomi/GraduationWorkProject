@@ -19,7 +19,7 @@ public:
 
 	void Update();
 
-	bool GetIsActive() { return sprite_.GetIsActive(); }
+	bool GetIsActive() { return isActive_; }
 
 	void SetRailCameraPlayer(const RailSystem::RailAnimationPlayer* railAnimationPlayer) { railAnimationPlayer_ = railAnimationPlayer; }
 private:
@@ -30,8 +30,8 @@ private:
 	Sprite flashLightSprite_;
 
 	Vector2 flashLightSpriteSize_;
-	float currentRect_; 
-	
+	float currentRect_;
+
 	float animationTime_;
 
 	Transform transform_;
@@ -46,6 +46,7 @@ private:
 
 	float currentTime_;
 
+	bool isActive_;
 #ifdef _DEBUG
 	std::string name_;
 	void DrawImGui();

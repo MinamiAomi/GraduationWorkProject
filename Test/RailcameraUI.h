@@ -24,6 +24,8 @@ private:
 	SpriteData deadLineIcon_;
 	SpriteData sg_;
 
+	SpriteData deadLineWarningText_;
+
 	Sprite baseUI_;
 	Sprite baseOtherUI_;
 	float flashTimer_;
@@ -35,6 +37,8 @@ private:
 
 	float animationTimer_;
 	float animationEndTime_ = 120.0f;
+
+	bool isCircleSprite_;
 
 	static const int CircleNum = 5;
 	std::array<SpriteData, CircleNum> circleSprite_;

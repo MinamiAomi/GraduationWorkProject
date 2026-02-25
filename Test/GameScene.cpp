@@ -194,6 +194,11 @@ void GameScene::OnInitialize() {
 	}
 	break;
 	case LevelManager::Level::LEVEL2:
+		
+		icicleTutorial_ = std::make_unique<TutorialObject>();
+		icicleTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
+		icicleTutorial_->Initialize("Icicle", 850.0f);
+
 		break;
 	default:
 		break;
@@ -341,6 +346,21 @@ void GameScene::OnUpdate() {
 		}
 		break;
 	case LevelManager::Level::LEVEL2:
+		icicleTutorial_->Update();
+		if (icicleTutorial_->GetIsActive()) {
+			railAnimationPlayer_->Pause();
+			flashlight_->Pause();
+			trolley_->Pause();
+			flashlight_->SetIsReset(false);
+			isPlay_ = false;
+		}
+		else if (!isPlay_) {
+			flashlight_->Play();
+			trolley_->Play();
+			railAnimationPlayer_->Play();
+			flashlight_->SetIsReset(true);
+			isPlay_ = true;
+		}
 		break;
 	default:
 		break;
