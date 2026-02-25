@@ -9,52 +9,57 @@
 
 class LightDeviceInput {
 public:
-    enum class ConnectionState {
-        // 未接続
-        Disconnected,
-        // 接続中
-        Connecting,
-        // 接続完了
-        Connected
-    };
+	enum class ConnectionState {
+		// 未接続
+		Disconnected,
+		// 接続中
+		Connecting,
+		// 接続完了
+		Connected
+	};
 
-    static LightDeviceInput* GetInstance();
+	static LightDeviceInput* GetInstance();
 
-    void Initialize();
-    void Finalize();
-    void ResetOrientation(const Vector3& direction = Vector3::forward);
+	void Initialize();
+	void Update();
+	void Finalize();
+	void ResetOrientation(const Vector3& direction = Vector3::forward);
 
-    Quaternion GetOrientation() const;
-    ConnectionState GetConnectionState() const;
-    int GetReceiveHz() const;
+	Quaternion GetOrientation() const;
+	ConnectionState GetConnectionState() const;
+	int GetReceiveHz() const;
 
-    bool IsButtonPressed() const;
-    bool IsButtonTrigger() const;
+	bool IsButtonPressed() const;
+	bool IsButtonTrigger() const;
+	bool IsButtonRelease() const;
 
-    void DrawImGui(const char* label);
+	void DrawImGui(const char* label);
 
 private:
-    LightDeviceInput() = default;
-    ~LightDeviceInput() = default;
-    LightDeviceInput(const LightDeviceInput&) = delete;
-    LightDeviceInput& operator=(const LightDeviceInput&) = delete;
+	LightDeviceInput() = default;
+	~LightDeviceInput() = default;
+	LightDeviceInput(const LightDeviceInput&) = delete;
+	LightDeviceInput& operator=(const LightDeviceInput&) = delete;
 
-    void InternalLoad();
-    void StartReceiving();
-    void CommunicationLoop();
+	void InternalLoad();
+	void StartReceiving();
+	void CommunicationLoop();
 
-    HANDLE hSerial_;
-    
-    std::atomic<int> receiveHz{ 0 };
+	HANDLE hSerial_;
 
-    Quaternion orientation_;
-    Quaternion resetOrientation_;
-    bool buttonPressed_ = false; 
-    bool buttonPressedPrev_ = false;
-    bool isReseting_ = false;
+	std::atomic<int> receiveHz{ 0 };
 
-    mutable std::mutex dataMutex_;
-    std::thread communicationThread_;
-    std::atomic<bool> isRunning_{ false };
-    std::atomic<ConnectionState> connectionState_{ ConnectionState::Disconnected };
+	Quaternion orientation_;
+	Quaternion resetOrientation_;
+	bool buttonPressed_ = false;
+	bool buttonPressedPrev_ = false;
+	bool isReseting_ = false;
+
+	std::atomic<bool> rawButtonPressed_{ false };
+	std::atomic<bool> wasPressedSinceLastUpdate_{ false };
+
+	mutable std::mutex dataMutex_;
+	std::thread communicationThread_;
+	std::atomic<bool> isRunning_{ false };
+	std::atomic<ConnectionState> connectionState_{ ConnectionState::Disconnected };
 };

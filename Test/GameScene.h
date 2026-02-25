@@ -84,6 +84,7 @@ private:
 
 	std::unique_ptr<TutorialObject> trollyTutorial_;
 	std::unique_ptr<TutorialObject> flashlightTutorial_;
+	std::unique_ptr<TutorialObject> icicleTutorial_;
 
 	Sprite inGameUI_;
 	int inGameUICount_;
