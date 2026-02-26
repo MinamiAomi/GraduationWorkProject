@@ -102,10 +102,16 @@ void GameClearScene::OnInitialize() {
 
 	clearParticles_ = std::make_unique<ClearParticles>();
 	clearParticles_->Initialize();
+
+	timer_.Start();
+	isSceneChange_ = false;
 }
 
 void GameClearScene::OnUpdate() {
 
+	if (isSceneChange_) {
+		return;
+    }
 
 	flashlight_->Update();
 	camera_->UpdateMatrices();
@@ -125,11 +131,21 @@ void GameClearScene::OnUpdate() {
     stageModelInstance_.SetWorldMatrix(parentTransform_.worldMatrix);
 
 	if (selectTriangleLeft_->GetIsActive()) {
-		SceneManager::GetInstance()->ChangeScene<StageSelectScene>(false);
+		SceneManager::GetInstance()->ChangeScene<StageSelectScene>(true);
+		isSceneChange_ = true;
 	}
 	else if (selectTriangleRight_->GetIsActive()) {
-		SceneManager::GetInstance()->ChangeScene<TitleScene>(false);
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+		isSceneChange_ = true;
 	}
+
+
+    bool elapsedTitleReturn = timer_.HasElapsed<std::chrono::minutes>(5);
+	if (elapsedTitleReturn) {
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+		isSceneChange_ = true;
+    }
+
 
 	collisionSystem_->CheckCollisions();
 

@@ -57,6 +57,8 @@ void StageSelectScene::OnInitialize() {
 
     seSelectAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_STAGE_SELECT")->Get();
 
+	timer_.Start();
+
 	isSceneChange_ = false;
 
 	textUI_ = std::make_unique<TextUI>();
@@ -92,9 +94,12 @@ void StageSelectScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 
 	Input* input = Input::GetInstance();
-	if (input->IsKeyTrigger(DIK_ESCAPE)) {
+	// 5分だとタイトルに戻る
+	bool elapsedTitleReturn = timer_.HasElapsed<std::chrono::minutes>(30);
+	if (input->IsKeyTrigger(DIK_ESCAPE) || elapsedTitleReturn) {
 		// ゲームスタート
 		SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+		isSceneChange_ = true;
 	}
 }
 

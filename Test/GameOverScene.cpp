@@ -96,6 +96,9 @@ void GameOverScene::OnInitialize() {
     seAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_GAMEOVER")->Get();
     seAudioSource_.Play(false);
     seAudioSource_.SetVolume(0.5f);
+
+    isSceneChange_ = false;
+    timer_.Start();
 }
 
 void GameOverScene::OnUpdate() {
@@ -113,11 +116,17 @@ void GameOverScene::OnUpdate() {
     trolleyModelInstance_.SetWorldMatrix(parentTransform_.worldMatrix);
 
     if (selectTriangleLeft_->GetIsActive()) {
-        SceneManager::GetInstance()->ChangeScene<GameScene>(false);
-        
+        SceneManager::GetInstance()->ChangeScene<GameScene>(true);
+        isSceneChange_ = true;
     }
     else if (selectTriangleRight_->GetIsActive()) {
-        SceneManager::GetInstance()->ChangeScene<TitleScene>(false);
+        SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+        isSceneChange_ = true;
+    }
+    bool elapsedTitleReturn = timer_.HasElapsed<std::chrono::minutes>(5);
+    if (elapsedTitleReturn) {
+        SceneManager::GetInstance()->ChangeScene<TitleScene>(true);
+        isSceneChange_ = true;
     }
 
     collisionSystem_->CheckCollisions();

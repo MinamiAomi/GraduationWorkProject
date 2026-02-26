@@ -13,6 +13,7 @@
 #include "Framework/AssetManager.h"
 #include "Graphics/LightManager.h"
 #include "Audio/AudioSource.h"
+#include "Utility/Utility.h"
 
 #include "CollisionSystem.h"
 #include "AnimationTransform.h"
@@ -57,5 +58,9 @@ private:
 	AudioSource seAudioSource_;
 	Sprite sprite_;
 
+    Utility::Timer timer_;
+
 	std::unique_ptr<ClearParticles> clearParticles_;
+
+	bool isSceneChange_;
 };
