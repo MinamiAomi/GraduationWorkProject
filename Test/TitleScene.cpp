@@ -275,7 +275,7 @@ void TitleScene::OnUpdate() {
                 }
                 t = std::sin((1.0f - deviceUIs_[i]->timer) * Math::HalfPi);
             }
-            float y = t * waitPos + 720.0f;
+            float y = t * waitPos + 7;
             deviceUIs_[i]->sprite.SetPosition({ 0.0f, y });
         }
     }
