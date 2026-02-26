@@ -72,7 +72,7 @@ void ClearParticles::Initialize()
 	JSON_LOAD_BY_NAME("colorR_", colorR_);
 	JSON_LOAD_BY_NAME("colorG_", colorG_);
 	JSON_LOAD_BY_NAME("colorB_", colorB_);
-	JSON_SAVE_BY_NAME("position_", position_);
+	JSON_LOAD_BY_NAME("position_", position_);
 	JSON_LOAD_BY_NAME("minAngularVelocity_", minAngularVelocity_);
 	JSON_LOAD_BY_NAME("maxAngularVelocity_", maxAngularVelocity_);
 	JSON_CLOSE();
