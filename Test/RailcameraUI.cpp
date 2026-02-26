@@ -115,8 +115,8 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 		float distance = std::abs(trollyT - deadlineT);
 
 		float threshold = 0.03f;
-		Vector4 uiColor = { 1.0f, 1.0f, 1.0f, 1.0f };
-		Vector4 uiOtherColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+		Vector4 uiColor = { 0.5f, 1.0f, 1.0f, 1.0f };
+		Vector4 uiOtherColor = { 0.5f, 1.0f, 1.0f, 1.0f };
 
 		if (distance < threshold) {
 			flashTimer_ += 0.1f;
@@ -125,19 +125,21 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 
 			//float alertIntensity = 1.0f - (distance / threshold);
 
-			float g_b_ratio = 1.0f - (sinValue);
+			float g_b_ratio = std::lerp(0.0f, 0.5f, (1.0f - (sinValue)));
 			uiColor.y = g_b_ratio;
 			uiColor.z = g_b_ratio;
 			uiOtherColor = uiColor;
 			uiOtherColor.w = sinValue;
 			baseOtherUI_.SetIsActive(true);
+			deadLineWarningText_.sprite.SetIsActive(true);
 		}
 		else {
 			flashTimer_ = 0.0f;
 			baseOtherUI_.SetIsActive(false);
+			deadLineWarningText_.sprite.SetIsActive(false);
 		}
 		baseUI_.SetColor(Color(uiColor));
-
+		deadLineWarningText_.sprite.SetColor({ 1.0f,1.0f,1.0f,uiOtherColor.w });
 		baseOtherUI_.SetColor(Color(uiOtherColor));
 	}
 
@@ -160,7 +162,7 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 
 		if (animationTimer_ == animationEndTime_) {
 			isCircleSprite_ = true;
-			deadLineWarningText_.sprite.SetIsActive(true);
+
 		}
 	}
 
