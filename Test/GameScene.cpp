@@ -65,6 +65,7 @@ void GameScene::OnInitialize() {
 
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
+	collisionSystem_->Initialize();
 #pragma endregion
 
 	directionalLights_.resize(kDirectionalLightCount);
@@ -194,7 +195,7 @@ void GameScene::OnInitialize() {
 	}
 	break;
 	case LevelManager::Level::LEVEL2:
-		
+
 		icicleTutorial_ = std::make_unique<TutorialObject>();
 		icicleTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
 		icicleTutorial_->Initialize("Icicle", 850.0f);
@@ -336,6 +337,7 @@ void GameScene::OnUpdate() {
 			trolley_->Pause();
 			flashlight_->SetIsReset(false);
 			isPlay_ = false;
+			collisionSystem_->SetIsActive(false);
 		}
 		else if (!isPlay_) {
 			flashlight_->Play();
@@ -343,6 +345,7 @@ void GameScene::OnUpdate() {
 			railAnimationPlayer_->Play();
 			flashlight_->SetIsReset(true);
 			isPlay_ = true;
+			collisionSystem_->SetIsActive(true);
 		}
 		break;
 	case LevelManager::Level::LEVEL2:
@@ -353,6 +356,7 @@ void GameScene::OnUpdate() {
 			trolley_->Pause();
 			flashlight_->SetIsReset(false);
 			isPlay_ = false;
+			collisionSystem_->SetIsActive(false);
 		}
 		else if (!isPlay_) {
 			flashlight_->Play();
@@ -360,6 +364,7 @@ void GameScene::OnUpdate() {
 			railAnimationPlayer_->Play();
 			flashlight_->SetIsReset(true);
 			isPlay_ = true;
+			collisionSystem_->SetIsActive(true);
 		}
 		break;
 	default:
@@ -401,10 +406,15 @@ void GameScene::OnUpdate() {
 #pragma endregion
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
-	batsManager_->Update();
+	if (isPlay_) {
+		batsManager_->Update();
+	}
 
 	ghostsManager_->SetCamera(camera_.get());
-	ghostsManager_->Update();
+	if (isPlay_) {
+		ghostsManager_->Update();
+	}
+
 
 #ifdef _DEBUG
 	GhostsParticles::Debug();

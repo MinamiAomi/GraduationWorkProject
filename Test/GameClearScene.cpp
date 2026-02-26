@@ -40,6 +40,7 @@ void GameClearScene::OnInitialize() {
 	}
 
 	collisionSystem_ = std::make_unique<CollisionSystem>();
+	collisionSystem_->Initialize();
 
 	if (persistentData_) {
 		persistentData_->score_->num = 0;

@@ -43,6 +43,7 @@ void GameOverScene::OnInitialize() {
     RenderManager::GetInstance()->GetLightManager().Add(spotLight_);
 
     collisionSystem_ = std::make_unique<CollisionSystem>();
+    collisionSystem_->Initialize();
 
     if (persistentData_) {
         persistentData_->score_->num = 0;
