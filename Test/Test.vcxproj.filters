@@ -200,6 +200,15 @@
       <Filter>Game\Particle</Filter>
     </ClCompile>
     <ClCompile Include="AnimationTransform.cpp" />
+    <ClCompile Include="IcicleParticle.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="TombDebtris.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="IcicleBreak.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -345,6 +354,15 @@
       <Filter>Game\Particle</Filter>
     </ClInclude>
     <ClInclude Include="AnimationTransform.h" />
+    <ClInclude Include="IcicleParticle.h">
+      <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="TombDebtris.h">
+      <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="IcicleBreak.h">
+      <Filter>Game\Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Test.rc" />

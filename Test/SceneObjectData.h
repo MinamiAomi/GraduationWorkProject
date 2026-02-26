@@ -173,9 +173,11 @@ namespace SceneObjectSystem {
 		Transform transform;
 		Vector3 basePosition;
 		std::shared_ptr<Collider> collider;
+		int lastSection = -1;
 
 		void Update();
 		void SetDamage();
+		bool GetRatio();
 	};
 
 

@@ -68,7 +68,15 @@
     "GameOver_Movie_Trolley" : "GameOver/GameOverMovie/Trolley/GameOverMovie.gltf",
 
     "Triangle" : "triangle.gltf",
-    "Ghost" : "BombGhost/BombGhost.gltf"
+    "Ghost" : "BombGhost/BombGhost.gltf",
+
+    "TombBreakL" : "TombBreakL/TombBreak.gltf",
+    "TombBreakR" : "TombBreakR/TombBreak.gltf",
+    "IcicleBreak0" : "IcicleBreak0/IcicleBreak.gltf",
+    "IcicleBreak1" : "IcicleBreak1/IcicleBreak.gltf",
+    "IcicleBreak2" : "IcicleBreak2/IcicleBreak.gltf",
+    "IcicleBreak3" : "IcicleBreak3/IcicleBreak.gltf",
+    "IcicleDebris" : "IcicleDebris/IcicleDebris.gltf"
   },
   "Texture" : {
     "DCUI_Back" : "TestResource/Back.png",
@@ -128,7 +136,15 @@
     "TitleStageAnim":"TitleStage/TitleStage.gltf",
 
     "GameClear_Movie_OODAMA_Anim" : "GameClear/GameClearMovie/OODAMA/OODAMA.gltf",
-    "GameClear_Movie_Trolley_Anim" : "GameClear/GameClearMovie/Trolley/Trolley.gltf"
+    "GameClear_Movie_Trolley_Anim" : "GameClear/GameClearMovie/Trolley/Trolley.gltf",
+
+    "TombBreakLAnim" : "TombBreakL/TombBreak.gltf",
+    "TombBreakRAnim" : "TombBreakR/TombBreak.gltf",
+
+    "IcicleBreak0Anim" : "IcicleBreak0/IcicleBreak.gltf",
+    "IcicleBreak1Anim" : "IcicleBreak1/IcicleBreak.gltf",
+    "IcicleBreak2Anim" : "IcicleBreak2/IcicleBreak.gltf",
+    "IcicleBreak3Anim" : "IcicleBreak3/IcicleBreak.gltf"
   },
   "Sound" : {
     "SE_TROLLY_NORMAL" : "Sound/se_trolly2.wav",

@@ -259,9 +259,19 @@ void GameScene::OnInitialize() {
 	(*startSEAudioSource_) = AssetManager::GetInstance()->soundMap.Get("SE_GAMESTART")->Get();
 	startSEAudioSource_->Play(false);
 	startSEAudioSource_->SetVolume(0.5f);
+
+	icicleParticle_ = std::make_unique<IcicleParticle>();
+	icicleParticle_->Initialize();
+	icicleParticle_->SetParent(&Trolley::GetInstance()->GetTransform());
+	icicleParticle_->SetOffset({ 0.0f,2.0f,3.0f });
+
+	tombDebtris = std::make_unique<TombDebtris>();
+	tombDebtris->Initialize();
 }
 
 void GameScene::OnUpdate() {
+	icicleParticle_->Update();
+	tombDebtris->Update();
 	float deltaTime = 1.0f / 60.0f;
 	auto currentLevel = LevelManager::GetInstance()->GetLevel();
 	//終了処理
@@ -581,7 +591,14 @@ void GameScene::OnUpdate() {
 	Ghosts::Debug();
 	Bats::Debug();
 	ImGui::Begin("GameScene");
+	IcicleParticle::Debug();
+	if (ImGui::Button("ParticleEmit")) {
+		icicleParticle_->Emit();
+	}
 
+	if (ImGui::Button("TombEmit")) {
+		tombDebtris->Emit(trolley_->GetTransform());
+	}
 
 	if (ImGui::Button("ghostEmit")) {
 		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));

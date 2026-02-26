@@ -11,6 +11,10 @@
 #include "BatsManager.h"
 #include "GhostsManager.h"
 
+#include "IcicleParticle.h"
+#include "TombDebtris.h"
+#include "IcicleBreak.h"
+
 namespace SceneObjectSystem {
 	class SceneObjectManager {
 	public:
@@ -83,6 +87,11 @@ namespace SceneObjectSystem {
 
 		BatsManager* batsManager_;
 		GhostsManager* ghostsManager_;
+
+		//Particle
+		std::unique_ptr<IcicleParticle> icicleParticle_;
+		std::unique_ptr<TombDebtris> tombDebtris_;
+		std::unique_ptr<IcicleBreak> icicleBreak_;
 	};
 
 	template<typename T>
