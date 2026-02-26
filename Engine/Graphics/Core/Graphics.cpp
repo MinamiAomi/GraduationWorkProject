@@ -151,7 +151,7 @@ Graphics* Graphics::GetInstance() {
 
 void Graphics::Initialize() {
     CreateDevice();
-    CheckFeatureSupport();
+    //CheckFeatureSupport();
 
     commandManager_.Create();
 
