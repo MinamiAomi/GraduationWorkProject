@@ -16,6 +16,7 @@
 #include "Audio/AudioSource.h"
 #include <Framework/AssetManager.h>
 
+#include "TextUI.h"
 
 class TitleScene :
 	public BaseScene {
@@ -50,6 +51,7 @@ private:
 	std::unique_ptr<AnimationModel> cave_;
 	std::unique_ptr<Flashlight> flashlight_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
+	std::unique_ptr<TextUI> textUI_;
 	std::shared_ptr<SphereCollider> trolleyCollider_;
 
 	struct AnimeUI {

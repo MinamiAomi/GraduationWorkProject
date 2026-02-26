@@ -85,6 +85,9 @@
     <Filter Include="Game\Tutorial">
       <UniqueIdentifier>{23166b77-e772-49e9-926f-a7785f8a36ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\TextUI">
+      <UniqueIdentifier>{109f70c6-9a6f-4a17-afcc-01e2bafb704c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="ClearParticles.cpp">
       <Filter>Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Game\TextUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,6 +374,9 @@
     </ClInclude>
     <ClInclude Include="ClearParticles.h">
       <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>Game\TextUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

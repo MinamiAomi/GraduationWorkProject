@@ -55,6 +55,7 @@
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TombDebtris.cpp" />
     <ClCompile Include="Trolley.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="StageSelectScene.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="TextUI.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="TombDebtris.h" />
     <ClInclude Include="Trolley.h" />

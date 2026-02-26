@@ -127,6 +127,8 @@
     "MouseUsing" : "mouse_useing.png",
     "DeviceConnecting" : "device_connecting.png",
     "DeviceUsing" : "device_useing.png",
+
+    "Bottom" : "Bottom/bottom.png",
     
     "white2x2":"white2x2.png"
   },

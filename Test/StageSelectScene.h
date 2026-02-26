@@ -12,6 +12,8 @@
 #include "Diorama.h"
 #include "Audio/AudioSource.h"
 
+#include "TextUI.h"
+
 #include "CollisionSystem.h"
 
 class StageSelectScene :
@@ -38,6 +40,7 @@ private:
 	std::unique_ptr<Diorama> level1_;
 	std::unique_ptr<Diorama> level2_;
 	std::unique_ptr<Flashlight> flashlight_;
+	std::unique_ptr<TextUI> textUI_;
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	ModelInstance iceSkyDome_;
 	ModelInstance stageSelectTerrain_;

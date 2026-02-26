@@ -58,6 +58,9 @@ void StageSelectScene::OnInitialize() {
     seSelectAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_STAGE_SELECT")->Get();
 
 	isSceneChange_ = false;
+
+	textUI_ = std::make_unique<TextUI>();
+	textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
 }
 
 void StageSelectScene::OnUpdate() {
@@ -71,6 +74,7 @@ void StageSelectScene::OnUpdate() {
 
 	level1_->Update();
 	level2_->Update();
+	textUI_->Update();
 
 	if (!isSceneChange_ && level1_->GetIsActive()) {
 		isSceneChange_ = true;
