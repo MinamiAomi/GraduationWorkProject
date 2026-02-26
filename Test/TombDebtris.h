@@ -14,6 +14,9 @@
 #include "Engine/Graphics/Animation.h"
 #include <Framework/AssetManager.h>
 
+#include "Audio/AudioSource.h"
+
+
 class TombDebtris
 {
 public:
@@ -29,6 +32,8 @@ private:
 		float animationTime;
 		float duration_;
 	};
+	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
+	std::shared_ptr<Sound> spawnSESound_;
 	std::vector<std::unique_ptr<ModelInfo>> modelInfo_;
 };
 

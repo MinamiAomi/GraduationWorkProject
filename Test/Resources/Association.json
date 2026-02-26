@@ -185,7 +185,9 @@
     "BGM_TITLE" : "Sound/bgm_title.mp3",
     "BGM_INGAME1" : "Sound/bgm_ingame_level1.mp3",
     "BGM_INGAME2" : "Sound/bgm_ingame_level2.mp3",
-    "BGM_STAGE_SELECT" : "Sound/bgm_stageSelect.mp3"
+    "BGM_STAGE_SELECT" : "Sound/bgm_stageSelect.mp3",
 
+    "SE_TOMB_BREAK" : "Sound/se_TombBreak.mp3",
+    "SE_ICICLE_BREAK" : "Sound/se_IcicleBreak.mp3"
   }
 }

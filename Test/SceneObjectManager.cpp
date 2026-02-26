@@ -28,7 +28,9 @@ void SceneObjectSystem::SceneObjectManager::Initialize()
 	icicleParticle_ = std::make_unique<IcicleParticle>();
 	icicleParticle_->Initialize();
 	tombDebtris_ = std::make_unique<TombDebtris>();
+	tombDebtris_->Initialize();
 	icicleBreak_ = std::make_unique<IcicleBreak>();
+	icicleBreak_->Initialize();
 }
 
 void SceneObjectSystem::SceneObjectManager::CreateObjects(const std::vector<SceneObjectSystem::SceneObjectData>& objectData, const std::string& stageName)

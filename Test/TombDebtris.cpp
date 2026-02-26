@@ -6,7 +6,8 @@
 
 void TombDebtris::Initialize()
 {
-	
+	auto assetManager = AssetManager::GetInstance();
+	spawnSESound_ = assetManager->soundMap.Get("SE_TOMB_BREAK")->Get();
 }
 
 void TombDebtris::Update()
@@ -75,4 +76,10 @@ void TombDebtris::Emit(const Transform& copyTransform)
 
 	modelInfo_.push_back(std::move(newTomb));
 	
+
+	auto as = std::make_shared<AudioSource>();
+	(*as) = spawnSESound_;
+	as->SetVolume(0.7f);
+	as->Play(false);
+	playingAudioSourceList_.push_back(as);
 }

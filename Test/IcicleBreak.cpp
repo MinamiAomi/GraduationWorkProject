@@ -6,7 +6,8 @@
 
 void IcicleBreak::Initialize()
 {
-	
+	auto assetManager = AssetManager::GetInstance();
+	spawnSESound_ = assetManager->soundMap.Get("SE_ICICLE_BREAK")->Get();
 }
 
 void IcicleBreak::Update()
@@ -103,4 +104,9 @@ void IcicleBreak::Emit(const Transform& copyTransform)
 
 	modelInfo_.push_back(std::move(newTomb));
 	
+	auto as = std::make_shared<AudioSource>();
+	(*as) = spawnSESound_;
+	as->SetVolume(0.5f);
+	as->Play(false);
+	playingAudioSourceList_.push_back(as);
 }

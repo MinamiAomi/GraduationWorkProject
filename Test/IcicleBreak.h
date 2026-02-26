@@ -14,6 +14,8 @@
 #include "Engine/Graphics/Animation.h"
 #include <Framework/AssetManager.h>
 
+#include "Audio/AudioSource.h"
+
 class IcicleBreak
 {
 public:
@@ -30,5 +32,7 @@ private:
 		float duration_;
 	};
 	std::vector<std::unique_ptr<ModelInfo>> modelInfo_;
+	std::list<std::shared_ptr<AudioSource>> playingAudioSourceList_;
+	std::shared_ptr<Sound> spawnSESound_;
 };
 

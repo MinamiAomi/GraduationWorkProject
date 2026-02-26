@@ -16,6 +16,7 @@
 
 #include "CollisionSystem.h"
 #include "AnimationTransform.h"
+#include "ClearParticles.h"
 
 class GameClearScene :
 	public BaseScene {
@@ -55,4 +56,6 @@ private:
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	AudioSource seAudioSource_;
 	Sprite sprite_;
+
+	std::unique_ptr<ClearParticles> clearParticles_;
 };

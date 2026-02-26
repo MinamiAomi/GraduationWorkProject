@@ -98,6 +98,9 @@ void GameClearScene::OnInitialize() {
     seAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_GAMECLEAR")->Get();
     seAudioSource_.Play(false);
     seAudioSource_.SetVolume(0.5f);
+
+	clearParticles_ = std::make_unique<ClearParticles>();
+	clearParticles_->Initialize();
 }
 
 void GameClearScene::OnUpdate() {
@@ -128,6 +131,13 @@ void GameClearScene::OnUpdate() {
 	}
 
 	collisionSystem_->CheckCollisions();
+
+	clearParticles_->Update();
+#ifdef _DEBUG
+	ClearParticles::Debug();
+	clearParticles_->DebugDraw();
+#endif // _DEBUG
+
 }
 
 void GameClearScene::OnFinalize() {

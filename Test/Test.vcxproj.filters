@@ -209,6 +209,9 @@
     <ClCompile Include="IcicleBreak.cpp">
       <Filter>Game\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="ClearParticles.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -361,6 +364,9 @@
       <Filter>Game\Particle</Filter>
     </ClInclude>
     <ClInclude Include="IcicleBreak.h">
+      <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ClearParticles.h">
       <Filter>Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
