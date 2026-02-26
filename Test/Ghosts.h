@@ -76,6 +76,7 @@ private:
 	std::shared_ptr<Sound> spawnSESound_;
     std::shared_ptr<Sound> deathSESound_;
 	std::shared_ptr<Sound> explodeSESound_;
+	std::shared_ptr<Sound> fuseSound_;
 	uint32_t seCount_ = 0;
 	Random::RandomNumberGenerator rnd_;
 	const Camera* camera_;
