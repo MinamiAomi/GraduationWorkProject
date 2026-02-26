@@ -195,7 +195,7 @@ void GameScene::OnInitialize() {
 	}
 	break;
 	case LevelManager::Level::LEVEL2:
-		
+
 		icicleTutorial_ = std::make_unique<TutorialObject>();
 		icicleTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
 		icicleTutorial_->Initialize("Icicle", 850.0f);
@@ -406,10 +406,15 @@ void GameScene::OnUpdate() {
 #pragma endregion
 #pragma region Bats
 	batsManager_->SetCamera(camera_.get());
-	batsManager_->Update();
+	if (isPlay_) {
+		batsManager_->Update();
+	}
 
 	ghostsManager_->SetCamera(camera_.get());
-	ghostsManager_->Update();
+	if (isPlay_) {
+		ghostsManager_->Update();
+	}
+
 
 #ifdef _DEBUG
 	GhostsParticles::Debug();
