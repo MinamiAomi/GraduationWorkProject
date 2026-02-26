@@ -188,6 +188,7 @@
     "BGM_STAGE_SELECT" : "Sound/bgm_stageSelect.mp3",
 
     "SE_TOMB_BREAK" : "Sound/se_TombBreak.mp3",
-    "SE_ICICLE_BREAK" : "Sound/se_IcicleBreak.mp3"
+    "SE_ICICLE_BREAK" : "Sound/se_IcicleBreak.mp3",
+    "SE_GHOST_FUZE" : "Sound/GhostFuze.mp3"
   }
 }
