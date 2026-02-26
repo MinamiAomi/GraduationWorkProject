@@ -13,6 +13,7 @@
 #include "Framework/AssetManager.h"
 #include "Graphics/LightManager.h"
 #include "Audio/AudioSource.h"
+#include "Utility/Utility.h"
 
 #include "CollisionSystem.h"
 
@@ -49,4 +50,7 @@ private:
 	std::unique_ptr<CollisionSystem> collisionSystem_;
 	AudioSource seAudioSource_;
 	Sprite sprite_;
+
+    Utility::Timer timer_;
+	bool isSceneChange_;
 };

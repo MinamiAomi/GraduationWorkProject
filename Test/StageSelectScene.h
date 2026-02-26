@@ -11,6 +11,7 @@
 #include "Flashlight.h"
 #include "Diorama.h"
 #include "Audio/AudioSource.h"
+#include "Utility/Utility.h"
 
 #include "CollisionSystem.h"
 
@@ -45,6 +46,8 @@ private:
 
     AudioSource bgmAudioSource_;
 	AudioSource seSelectAudioSource_;
+
+	Utility::Timer timer_;
 
 	bool isSceneChange_;
 

@@ -78,8 +78,8 @@ void TitleScene::OnInitialize() {
     for (int i = 0; i < 3; ++i) {
         deviceUIs_[i] = std::make_unique<AnimeUI>();
         deviceUIs_[i]->sprite.SetTexture(assetManager->textureMap.Get(texName[i])->Get());
-        deviceUIs_[i]->sprite.SetAnchor({ 0.0f, 0.0f });
-        deviceUIs_[i]->sprite.SetPosition({ 0.0f, -60.0f });
+        deviceUIs_[i]->sprite.SetAnchor({ 0.0f, 1.0f });
+        deviceUIs_[i]->sprite.SetPosition({ 0.0f, 720.0f + 60.0f });
         deviceUIs_[i]->sprite.SetScale({ 400.0f, 60.0f });
         deviceUIs_[i]->sprite.SetUVRect({ { 0.0f, 0.0f }, { 1.0f, 1.0f } }, Sprite::UVMode::UV);
         deviceUIs_[i]->sprite.SetIsActive(false);
@@ -88,7 +88,7 @@ void TitleScene::OnInitialize() {
         deviceUIs_[i]->sprite.SetDrawOrder(0);
     }
     deviceState_ = 0;
-    deviceUIs_[0]->sprite.SetPosition({ 0.0f, 0.0f });
+    deviceUIs_[0]->sprite.SetPosition({ 0.0f, 720.0f });
     deviceUIs_[0]->sprite.SetIsActive(true);
     deviceUIs_[0]->timer = 1.0f;
     deviceUIs_[0]->sprite.SetDrawOrder(1);
@@ -253,7 +253,7 @@ void TitleScene::OnUpdate() {
     }
 
     float speed = 1.0f / 60.0f;
-    float waitPos = -60.0f;
+    float waitPos = 60.0f;
 
     for (int i = 0; i < 3; ++i) {
         if (deviceUIs_[i]->play) {
@@ -275,7 +275,7 @@ void TitleScene::OnUpdate() {
                 }
                 t = std::sin((1.0f - deviceUIs_[i]->timer) * Math::HalfPi);
             }
-            float y = t * waitPos;
+            float y = t * waitPos + 720.0f;
             deviceUIs_[i]->sprite.SetPosition({ 0.0f, y });
         }
     }
