@@ -43,7 +43,7 @@ void TitleScene::OnInitialize() {
     title_.SetScale({ 1280.0f, 720.0f });
 
     collisionSystem_ = std::make_unique<CollisionSystem>();
-
+    collisionSystem_->Initialize();
 
     flashlight_ = std::make_unique<Flashlight>();
     flashlight_->Initialize(&camera_->GetTransform(), camera_.get(), false);

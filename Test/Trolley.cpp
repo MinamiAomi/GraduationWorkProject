@@ -355,6 +355,7 @@ void Trolley::UpdateBanking(float deltaTime)
 void Trolley::OnNormalState()
 {
     trollyState_ = State::Normal;
+    currentCharge_ = batteryAfterNitro_;
     stateTimer_ = 0.0f;
     nitroAccumulateTimer_ = 0.0f;
 }

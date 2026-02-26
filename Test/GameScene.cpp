@@ -65,6 +65,7 @@ void GameScene::OnInitialize() {
 
 #pragma region CollisionSystem
 	collisionSystem_ = std::make_unique<CollisionSystem>();
+	collisionSystem_->Initialize();
 #pragma endregion
 
 	directionalLights_.resize(kDirectionalLightCount);
@@ -326,6 +327,7 @@ void GameScene::OnUpdate() {
 			trolley_->Pause();
 			flashlight_->SetIsReset(false);
 			isPlay_ = false;
+			collisionSystem_->SetIsActive(false);
 		}
 		else if (!isPlay_) {
 			flashlight_->Play();
@@ -333,6 +335,7 @@ void GameScene::OnUpdate() {
 			railAnimationPlayer_->Play();
 			flashlight_->SetIsReset(true);
 			isPlay_ = true;
+			collisionSystem_->SetIsActive(true);
 		}
 		break;
 	case LevelManager::Level::LEVEL2:
@@ -343,6 +346,7 @@ void GameScene::OnUpdate() {
 			trolley_->Pause();
 			flashlight_->SetIsReset(false);
 			isPlay_ = false;
+			collisionSystem_->SetIsActive(false);
 		}
 		else if (!isPlay_) {
 			flashlight_->Play();
@@ -350,6 +354,7 @@ void GameScene::OnUpdate() {
 			railAnimationPlayer_->Play();
 			flashlight_->SetIsReset(true);
 			isPlay_ = true;
+			collisionSystem_->SetIsActive(true);
 		}
 		break;
 	default:

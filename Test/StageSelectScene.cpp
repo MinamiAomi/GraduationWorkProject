@@ -19,6 +19,7 @@ void StageSelectScene::OnInitialize() {
 	RenderManager::GetInstance()->GetFogPostEffect().SetFogFactor(0.2f);
 
 	collisionSystem_ = std::make_unique<CollisionSystem>();
+	collisionSystem_->Initialize();
 
 	if (persistentData_) {
 		persistentData_->score_->num = 0;
