@@ -103,6 +103,10 @@ void GameOverScene::OnInitialize() {
 
 void GameOverScene::OnUpdate() {
 
+    if (isSceneChange_) {
+        return;
+    }
+
     flashlight_->Update();
     camera_->UpdateMatrices();
 

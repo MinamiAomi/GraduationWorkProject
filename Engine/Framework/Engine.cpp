@@ -36,7 +36,7 @@ void Engine::Run(Game* game) {
     g_game = game;
 
     g_threadPool = std::make_unique<ThreadPool>();
-    const wchar_t kWindowTitle[] = L"俺ノ灯走劇.";
+    const wchar_t kWindowTitle[] = L"俺ノ灯走劇";
     g_gameWindow = GameWindow::GetInstance();
     g_gameWindow->Initialize(kWindowTitle, kWindowWidth, kWindowHeight);
 
