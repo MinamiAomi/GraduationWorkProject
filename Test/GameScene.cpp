@@ -191,7 +191,7 @@ void GameScene::OnInitialize() {
 
 		trollyTutorial_->Initialize("TutorialTrolly", 1.0f);
 
-		flashlightTutorial_->Initialize("TutorialFlashlight", 190.0f);
+		flashlightTutorial_->Initialize("TutorialFlashlight", 370.0f);
 	}
 	break;
 	case LevelManager::Level::LEVEL2:
