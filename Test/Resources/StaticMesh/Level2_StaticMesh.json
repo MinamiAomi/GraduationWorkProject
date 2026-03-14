@@ -1,79 +1,6 @@
 {
   "objects": [
     {
-      "name": "tomb.011",
-      "model_name": "tomb.011",
-      "type": "ENEMY_SPAWN",
-      "srt": {
-        "translate": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "rotate": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ],
-        "scale": [
-          1.0,
-          1.0,
-          1.0
-        ]
-      },
-      "enemy_spawn_data": {
-        "isOnce": true,
-        "formation": [
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            true,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          [
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
-          ]
-        ],
-        "has_model": false,
-        "model_info": null
-      },
-      "gimmick_data": null,
-      "point_light": null,
-      "collider": {
-        "type": "SPHERE",
-        "center": [
-          404.4797,
-          2.0507,
-          -56.7898
-        ],
-        "radius": 0.5
-      }
-    },
-    {
       "name": "Helmet.005",
       "model_name": "Helmet",
       "type": "POINTLIGHT",
@@ -3917,8 +3844,8 @@
       "type": "OBSTACLE",
       "srt": {
         "translate": [
-          448.5186,
-          44.5381,
+          444.1174,
+          38.9066,
           -59.7639
         ],
         "rotate": [
@@ -3939,8 +3866,8 @@
       "collider": {
         "type": "CAPSULE",
         "center": [
-          448.5192,
-          44.5186,
+          444.118,
+          38.887,
           -61.9242
         ],
         "radius": 1.41,
@@ -4142,8 +4069,8 @@
       "type": "OBSTACLE",
       "srt": {
         "translate": [
-          485.2383,
-          -15.977,
+          491.8451,
+          -13.629,
           -58.2336
         ],
         "rotate": [
@@ -4164,8 +4091,8 @@
       "collider": {
         "type": "CAPSULE",
         "center": [
-          485.2383,
-          -15.9845,
+          491.8451,
+          -13.6365,
           -61.486
         ],
         "radius": 1.41,
@@ -4486,10 +4413,10 @@
           -61.6883
         ],
         "rotate": [
-          0.1045,
+          0.9945,
           0.0,
           0.0,
-          0.9945
+          -0.1045
         ],
         "scale": [
           1.0,
@@ -4552,7 +4479,7 @@
           "rotate": [
             0.0,
             0.0,
-            168.0
+            -20.0
           ],
           "scale": [
             1.0,
@@ -4716,9 +4643,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          668.8834,
-          59.2879,
-          -51.8073
+          479.8812,
+          -27.714,
+          -60.7348
         ],
         "rotate": [
           0.2241,
@@ -4833,9 +4760,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          669.1892,
-          59.6,
-          -50.6512
+          480.187,
+          -27.4019,
+          -59.5787
         ],
         "radius": 0.5
       }
@@ -4846,9 +4773,9 @@
       "type": "GIMMICK",
       "srt": {
         "translate": [
-          541.4882,
-          57.0931,
-          34.5387
+          228.93,
+          -20.648,
+          34.5385
         ],
         "rotate": [
           0.586,
@@ -4948,9 +4875,9 @@
       "collider": {
         "type": "SPHERE",
         "center": [
-          541.5338,
-          57.3331,
-          34.8104
+          228.9756,
+          -20.408,
+          34.8102
         ],
         "radius": 0.5
       }
