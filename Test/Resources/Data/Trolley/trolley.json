@@ -37,7 +37,7 @@
         "burstThreshold_": 125.0,
         "decelerationRate_": 0.10000000149011612,
         "maxNormalCharge_": 100.0,
-        "maxSpeed_": 0.8999999761581421,
+        "maxSpeed_": 1.0,
         "maxTrollySpeed_": 1.0,
         "minSpeed_": 0.20000000298023224,
         "nitroAccelerationRate_": 1.0,
@@ -66,10 +66,10 @@
             7.239999771118164
         ],
         "trolleyColliderQuaternion_": [
-            0.6997160315513611,
             0.0,
             0.0,
-            0.7144210338592529
+            0.7144210338592529,
+            0.6997160315513611
         ],
         "trolleyColliderRadius_": 1.0
     },
