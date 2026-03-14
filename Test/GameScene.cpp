@@ -267,6 +267,8 @@ void GameScene::OnInitialize() {
 
 	tombDebtris = std::make_unique<TombDebtris>();
 	tombDebtris->Initialize();
+
+	timer_.Start();
 }
 
 void GameScene::OnUpdate() {
@@ -720,6 +722,11 @@ void GameScene::OnUpdate() {
 		isClear_ = true;
 		isGameFinishAnimation_ = true;
 		gameFinishBackGround_.SetIsActive(true);
+	}
+
+	bool elapsedTitleReturn = timer_.HasElapsed<std::chrono::minutes>(5);
+	if (elapsedTitleReturn) {
+		SceneManager::GetInstance()->ChangeScene<TitleScene>(false);
 	}
 }
 

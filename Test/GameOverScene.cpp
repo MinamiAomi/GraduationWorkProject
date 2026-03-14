@@ -97,6 +97,9 @@ void GameOverScene::OnInitialize() {
     seAudioSource_.Play(false);
     seAudioSource_.SetVolume(0.5f);
 
+    textUI_ = std::make_unique<TextUI>();
+    textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
+
     isSceneChange_ = false;
     timer_.Start();
 }
@@ -104,9 +107,11 @@ void GameOverScene::OnInitialize() {
 void GameOverScene::OnUpdate() {
 
     if (isSceneChange_) {
+
         return;
     }
 
+    textUI_->Update();
     flashlight_->Update();
     camera_->UpdateMatrices();
 
