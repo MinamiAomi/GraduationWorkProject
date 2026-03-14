@@ -103,6 +103,9 @@ void GameClearScene::OnInitialize() {
 	clearParticles_ = std::make_unique<ClearParticles>();
 	clearParticles_->Initialize();
 
+	textUI_ = std::make_unique<TextUI>();
+	textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
+
 	timer_.Start();
 	isSceneChange_ = false;
 }
@@ -112,6 +115,7 @@ void GameClearScene::OnUpdate() {
 	if (isSceneChange_) {
 		return;
     }
+	textUI_->Update();
 
 	flashlight_->Update();
 	camera_->UpdateMatrices();

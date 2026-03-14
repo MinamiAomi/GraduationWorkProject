@@ -17,6 +17,8 @@
 
 #include "CollisionSystem.h"
 
+#include "TextUI.h"
+
 class StageSelectScene :
 	public BaseScene {
 public:

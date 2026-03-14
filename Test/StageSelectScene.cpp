@@ -70,6 +70,7 @@ void StageSelectScene::OnUpdate() {
 		return;
 	}
 
+	textUI_->Update();
 	camera_->Update();
 
 	flashlight_->Update();

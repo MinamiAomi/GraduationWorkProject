@@ -17,6 +17,8 @@
 
 #include "CollisionSystem.h"
 
+#include "TextUI.h"
+
 class GameOverScene :
 	public BaseScene {
 public:
@@ -52,5 +54,8 @@ private:
 	Sprite sprite_;
 
     Utility::Timer timer_;
+
+	std::unique_ptr<TextUI> textUI_;
+
 	bool isSceneChange_;
 };

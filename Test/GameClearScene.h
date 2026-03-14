@@ -19,6 +19,8 @@
 #include "AnimationTransform.h"
 #include "ClearParticles.h"
 
+#include "TextUI.h"
+
 class GameClearScene :
 	public BaseScene {
 public:
@@ -61,6 +63,8 @@ private:
     Utility::Timer timer_;
 
 	std::unique_ptr<ClearParticles> clearParticles_;
+
+	std::unique_ptr<TextUI> textUI_;
 
 	bool isSceneChange_;
 };

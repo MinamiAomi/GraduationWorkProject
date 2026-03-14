@@ -42,6 +42,8 @@
 #include "IcicleParticle.h"
 #include "TombDebtris.h"
 
+#include "Utility/Utility.h"
+
 class GameScene :
 	public BaseScene {
 public:
@@ -111,6 +113,8 @@ private:
 
 	std::unique_ptr<IcicleParticle> icicleParticle_;
 	std::unique_ptr<TombDebtris> tombDebtris;
+
+	Utility::Timer timer_;
 
 #ifdef _DEBUG
 	std::unique_ptr<DebugCamera> debugCamera_;
