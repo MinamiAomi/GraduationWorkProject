@@ -136,11 +136,12 @@ namespace SceneObjectSystem {
 					0.0f,
 					Quaternion::identity
 				);
-
 				const auto& colData = sourceData.capsuleCollisionData.value();
+
 				capsuleCol->center = colData.center;
 				capsuleCol->quaternion = colData.quaternion;
 				capsuleCol->radius = colData.radius;
+
 				capsuleCol->height = colData.height;
 
 				targetObj->collider = capsuleCol;

@@ -904,10 +904,13 @@ inline void CapsuleCollider::DrawDebug(const Vector4& color) const {
 	GetWorldSegment(start, end);
 	float r = GetWorldRadius();
 
+	lineDrawer.AddLine(start, end, Vector4(1, 1, 1, 1));
+
 	lineDrawer.DrawSphere(start, r, color);
 	lineDrawer.DrawSphere(end, r, color);
 
 	Quaternion rot = GetWorldOrientation();
+	Vector3 up = rot * Vector3(0, 1, 0);
 	Vector3 right = rot * Vector3(1, 0, 0) * r;
 	Vector3 fwd = rot * Vector3(0, 0, 1) * r;
 
