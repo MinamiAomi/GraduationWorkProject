@@ -171,8 +171,7 @@ void GameScene::OnInitialize() {
 	ghostsManager_->SetColliderSystem(collisionSystem_.get());
 	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
 
-	//test
-
+	// test
 #pragma endregion
 #pragma region RailcameraUI
 	railcameraUI_ = std::make_unique<RailcameraUI>();
@@ -610,6 +609,11 @@ void GameScene::OnUpdate() {
 	if (ImGui::Button("ghostEmit")) {
 		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
 		ghostsManager_->Emit(mapData);
+	}
+
+	if (ImGui::Button("batEmit")) {
+		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+		batsManager_->Emit(mapData);
 	}
 
 	for (uint32_t i = 0; i < kDirectionalLightCount; ++i) {

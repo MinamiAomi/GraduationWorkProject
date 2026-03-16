@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Bats.h"
+#include "MonsterParticle.h"
 #include "CollisionSystem.h"
 
 class Camera;
@@ -23,4 +24,5 @@ private:
 	const Camera* camera_;
 	CollisionSystem* collisionSystem_;
 	std::list<std::unique_ptr<Bats>> batsManager_;
+	//std::unique_ptr<MonsterParticle> monsterParticle_;
 };

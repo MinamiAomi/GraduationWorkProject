@@ -40,6 +40,27 @@ public:
 		float sideStepTime_;
 		float hp_;
 		bool isDead_;
+		int lastSection_ = -1;
+
+		bool GetRatio() {
+			float ratio = hp_;
+			int currentSection;
+			if (ratio >= 0.75f)      currentSection = 3;
+			else if (ratio >= 0.50f) currentSection = 2;
+			else if (ratio >= 0.25f) currentSection = 1;
+			else                     currentSection = 0;
+
+			if (lastSection_ == -1) {
+				lastSection_ = currentSection;
+				return false;
+			}
+
+			if (currentSection != lastSection_) {
+				lastSection_ = currentSection;
+				return true;
+			}
+			return false;
+		}
 	};
 
 	Bats(const std::vector<std::vector<bool>>& data, const Camera& camera);

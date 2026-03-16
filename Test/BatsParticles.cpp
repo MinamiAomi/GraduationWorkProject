@@ -122,7 +122,7 @@ void BatsParticles::Update()
 		emitTimer_++;
 	}
 	else if (!isDead_) {
-		AbsorptionEmit();
+		//AbsorptionEmit();
 	}
 	if ((emitTimer_ >= emitInterval_) && isEmit_) {
 		Emit();

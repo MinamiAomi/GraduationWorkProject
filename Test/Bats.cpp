@@ -131,7 +131,7 @@ void Bats::Update()
 		else {
 			
 			p->particles_.SetIsEmit(false);
-			p->hp_ += heal;
+			//p->hp_ += heal;
 		}
 
 		p->hp_ = std::clamp(p->hp_, 0.0f, 1.0f);

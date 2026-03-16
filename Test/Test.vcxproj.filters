@@ -218,6 +218,9 @@
     <ClCompile Include="TextUI.cpp">
       <Filter>Game\TextUI</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterParticle.cpp">
+      <Filter>Game\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -377,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="TextUI.h">
       <Filter>Game\TextUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterParticle.h">
+      <Filter>Game\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
