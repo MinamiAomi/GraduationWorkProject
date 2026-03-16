@@ -4,13 +4,13 @@
 void BatsManager::Initialize()
 {
 	batsManager_.clear();
-   // monsterParticle_ = std::make_unique<MonsterParticle>();
-   // monsterParticle_->Initialize();
+    monsterParticle_ = std::make_unique<MonsterParticle>();
+    monsterParticle_->Initialize();
 }
 
 void BatsManager::Update()
 {  
-   // monsterParticle_->Update();
+    monsterParticle_->Update();
     uint32_t totalBatCount = 0;
     for (auto it = batsManager_.begin(); it != batsManager_.end(); ) {
         (*it)->Update();
@@ -22,7 +22,7 @@ void BatsManager::Update()
             for (auto& bat : (*it)->GetBats()) {
                 // HPが区切りを越えたタイミングでパーティクル発生
                 if (bat->GetRatio()) {
-                    //monsterParticle_->EmitBatParticle(bat->transform_.translate); // 関数名・引数は要変更
+                    monsterParticle_->EmitBatParticle(bat->transform_.translate); // 関数名・引数は要変更
                 }
             }
 

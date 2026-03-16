@@ -4,26 +4,28 @@
 void GhostsManager::Initialize()
 {
     ghostsManager_.clear();
+    monsterParticle_ = std::make_unique<MonsterParticle>();
+    monsterParticle_->Initialize();
 }
 
 void GhostsManager::Update()
 {
 
+    monsterParticle_->Update();
     for (auto it = ghostsManager_.begin(); it != ghostsManager_.end(); ) {
-        // 更新処理
         (*it)->Update();
-
-        // アクティブチェック
         if (!(*it)->IsActive()) {
             it = ghostsManager_.erase(it);
         }
         else {
-            // アクティブなグループ内のコウモリの数を加算
-            // Batsクラスに GetBats() がある前提で、その size() を足します
+            for (auto& ghost : (*it)->GetGhosts()) {
+                if (ghost->GetRatio()) {
+                    monsterParticle_->EmitGhostParticle(ghost->transform_.translate);
+                }
+            }
             ++it;
         }
     }
-
 }
 
 void GhostsManager::Emit(const std::vector<std::vector<bool>>& emit)

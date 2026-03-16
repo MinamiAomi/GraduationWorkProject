@@ -6,6 +6,7 @@
 
 #include "Ghosts.h"
 #include "CollisionSystem.h"
+#include "MonsterParticle.h"
 
 class Camera;
 class GhostsManager {
@@ -23,4 +24,5 @@ private:
 	const Camera* camera_;
 	CollisionSystem* collisionSystem_;
 	std::list<std::unique_ptr<Ghosts>> ghostsManager_;
+	std::unique_ptr<MonsterParticle> monsterParticle_;
 };

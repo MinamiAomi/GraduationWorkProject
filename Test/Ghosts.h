@@ -41,6 +41,31 @@ public:
 		float goalT;
 		float hp_;
 		bool isDead_;
+
+		bool isAudioStop_ = false;
+		float deathTimer_ = 0.0f;
+		static constexpr float kDeathDuration = 0.05f;
+		int lastSection_ = -1;
+		bool isDeadSound = false;
+		bool GetRatio() {
+			float ratio = hp_;
+			int currentSection;
+			if (ratio >= 0.75f)      currentSection = 3;
+			else if (ratio >= 0.50f) currentSection = 2;
+			else if (ratio >= 0.25f) currentSection = 1;
+			else                     currentSection = 0;
+
+			if (lastSection_ == -1) {
+				lastSection_ = currentSection;
+				return false;
+			}
+
+			if (currentSection != lastSection_) {
+				lastSection_ = currentSection;
+				return true;
+			}
+			return false;
+		}
 	};
 
 	Ghosts(const std::vector<std::vector<bool>>& data, const Camera& camera);

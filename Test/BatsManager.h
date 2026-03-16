@@ -24,5 +24,5 @@ private:
 	const Camera* camera_;
 	CollisionSystem* collisionSystem_;
 	std::list<std::unique_ptr<Bats>> batsManager_;
-	//std::unique_ptr<MonsterParticle> monsterParticle_;
+	std::unique_ptr<MonsterParticle> monsterParticle_;
 };

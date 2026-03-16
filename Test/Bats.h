@@ -40,7 +40,11 @@ public:
 		float sideStepTime_;
 		float hp_;
 		bool isDead_;
+		bool isAudioStop_ = false;
+		float deathTimer_ = 0.0f;
+		static constexpr float kDeathDuration = 0.05f;
 		int lastSection_ = -1;
+		bool isDeadSound = false;
 
 		bool GetRatio() {
 			float ratio = hp_;

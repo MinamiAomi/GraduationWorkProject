@@ -161,12 +161,14 @@ void GameScene::OnInitialize() {
 #pragma endregion
 #pragma region Bats
 	batsManager_ = std::make_unique<BatsManager>();
+	batsManager_->Initialize();
 	batsManager_->SetCamera(camera_.get());
 	batsManager_->SetColliderSystem(collisionSystem_.get());
 	batteryParticles_->Initialize(&trolley_->GetBatteyTransform(0), batsManager_.get());
 	sceneObjectManager_->SetBatsManager(batsManager_.get());
 
 	ghostsManager_ = std::make_unique<GhostsManager>();
+	ghostsManager_->Initialize();
 	ghostsManager_->SetCamera(camera_.get());
 	ghostsManager_->SetColliderSystem(collisionSystem_.get());
 	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
@@ -598,6 +600,7 @@ void GameScene::OnUpdate() {
 	Bats::Debug();
 	ImGui::Begin("GameScene");
 	IcicleParticle::Debug();
+	MonsterParticle::Debug();
 	if (ImGui::Button("ParticleEmit")) {
 		icicleParticle_->Emit();
 	}
@@ -612,7 +615,9 @@ void GameScene::OnUpdate() {
 	}
 
 	if (ImGui::Button("batEmit")) {
-		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, true));
+		std::vector<std::vector<bool>> mapData(5, std::vector<bool>(6, false));
+		mapData[2][2] = true;
+		mapData[2][3] = true;
 		batsManager_->Emit(mapData);
 	}
 

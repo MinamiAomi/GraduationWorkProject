@@ -123,7 +123,7 @@ void Bats::Update()
 		if (p->collider_ && !p->collider_->GetCollidedWith().empty()) {
 
 			if (p->isDead_ == false) {
-				p->particles_.SetIsEmit(true);
+				//p->particles_.SetIsEmit(true);
 			}
 			p->hp_ -= damage;
 
@@ -137,22 +137,16 @@ void Bats::Update()
 		p->hp_ = std::clamp(p->hp_, 0.0f, 1.0f);
 
 		if (p->hp_ <= 0.0f && !p->isDead_) {
-			p->isDead_ = true;
+			// タイマーをカウントアップ
+			p->deathTimer_ += 1.0f / 60.0f; // フレームレートに応じて調整
+
+			float t = std::clamp(p->deathTimer_ / Bat::kDeathDuration, 0.0f, 1.0f);
+			float scale = std::lerp(1.0f, 0.0f, t);
+			p->transform_.scale = Vector3(scale, scale, scale);
+
 			p->particles_.isDead_ = true;
-
-			auto soundIt  = std::find_if(playingAudioSourceList_.begin(), playingAudioSourceList_.end(), [this](const std::shared_ptr<AudioSource>& source) {
-				return source->IsPlaying() && source->GetSound() == drainSESound_;
-                });
-			if (soundIt != playingAudioSourceList_.end()) {
-				auto drainSound = *soundIt;
-				if (drainSound->IsPlaying()) {
-					drainSound->Stop();
-					drainSound.reset();
-				}
-                playingAudioSourceList_.erase(soundIt);
-			}
-
-			if (seCount_ < kSEMax) {
+			if (seCount_ < kSEMax && !p->isDeadSound ) {
+				p->isDeadSound = true;
 				auto as = std::make_shared<AudioSource>();
 				(*as) = deathSESound_;
 				as->SetVolume(0.7f);
@@ -160,10 +154,33 @@ void Bats::Update()
 				playingAudioSourceList_.push_back(as);
 				seCount_++;
 			}
+
+			if (t >= 1.0f) {
+				p->isDead_ = true;
+				p->particles_.isDead_ = true;
+
+
+				if (!p->isAudioStop_) {
+					p->isAudioStop_ = true;
+					auto soundIt = std::find_if(playingAudioSourceList_.begin(), playingAudioSourceList_.end(), [this](const std::shared_ptr<AudioSource>& source) {
+						return source->IsPlaying() && source->GetSound() == drainSESound_;
+						});
+					if (soundIt != playingAudioSourceList_.end()) {
+						auto drainSound = *soundIt;
+						if (drainSound->IsPlaying()) {
+							drainSound->Stop();
+							drainSound.reset();
+						}
+						playingAudioSourceList_.erase(soundIt);
+					}
+
+				}
+				
+			}
 		}
 
 		if (p->isDead_ == false) {
-			p->transform_.scale = Vector3(p->hp_, p->hp_, p->hp_);
+			//p->transform_.scale = Vector3(p->hp_, p->hp_, p->hp_);
 		}
 		else {
 			p->particles_.SetIsEmit(false);
