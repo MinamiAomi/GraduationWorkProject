@@ -13,6 +13,8 @@
 #include "LightDeviceInput.h"
 #include "Trolley.h"
 
+#include "LevelManager.h"
+
 Flashlight::Flashlight()
 {
 	auto assetManager = AssetManager::GetInstance();
@@ -63,7 +65,8 @@ void Flashlight::Initialize(const Transform* parentTransform, const Camera* pare
 	JSON_LOAD(maxBattery_);
 	JSON_LOAD(addBattery_);
 	JSON_LOAD(subBattery_);
-	JSON_LOAD(startFrame_);
+	JSON_LOAD(level1StartFrame_);
+	JSON_LOAD(level2StartFrame_);
 	JSON_LOAD(isLighting_);
 	JSON_ROOT();
 	JSON_CLOSE();
@@ -162,8 +165,22 @@ void Flashlight::UpdateLightPower()
 {
 
 	if (!isPause_) {
+		float startFrame = 0.0f;
+
+		switch (LevelManager::GetInstance()->GetLevel())
+		{
+		case LevelManager::Level::LEVEL1:
+			startFrame = level1StartFrame_;
+			break;
+
+		case LevelManager::Level::LEVEL2:
+			startFrame = level2StartFrame_;
+			break;
+		default:
+			break;
+		}
 		if (railAnimationPlayer_ &&
-			railAnimationPlayer_->GetCurrentFrame() >= startFrame_ &&
+			railAnimationPlayer_->GetCurrentFrame() >= startFrame &&
 			!isHitFlashlight_) {
 			battery_ -= subBattery_;
 			battery_ = std::clamp(battery_, 0.0f, maxBattery_);
@@ -372,7 +389,8 @@ void Flashlight::DrawImGui()
 			JSON_SAVE(maxBattery_);
 			JSON_SAVE(addBattery_);
 			JSON_SAVE(subBattery_);
-			JSON_SAVE(startFrame_);
+			JSON_SAVE(level1StartFrame_);
+			JSON_SAVE(level2StartFrame_);
 			JSON_SAVE(isLighting_);
 			JSON_ROOT();
 			JSON_CLOSE();
@@ -418,7 +436,8 @@ void Flashlight::DrawImGui()
 			// 単位や用途がわかるように補足
 			ImGui::DragFloat("回復量 (Add)", &addBattery_, 1.0f, 0.0f, maxBattery_, "+%.3f / item");
 			ImGui::DragFloat("消費速度 (Drain)", &subBattery_, 0.01f, 0.0f, 10.0f, "-%.3f / frame");
-			ImGui::DragFloat("消費が始まるフレーム (Start)", &startFrame_, 0.1f, float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame), "%.2f / frame目");
+			ImGui::DragFloat("ステージ1:消費が始まるフレーム (Start)", &level1StartFrame_, 0.1f, float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame), "%.2f / frame目");
+			ImGui::DragFloat("ステージ2:消費が始まるフレーム (Start)", &level2StartFrame_, 0.1f, float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.startFrame), float(railAnimationPlayer_->GetRailAnimationDate()->railMetaData_.endFrame), "%.2f / frame目");
 
 
 			ImGui::TreePop();
