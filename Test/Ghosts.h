@@ -47,6 +47,7 @@ public:
 		static constexpr float kDeathDuration = 0.05f;
 		int lastSection_ = -1;
 		bool isDeadSound = false;
+		float shakeTime_ = 0.0f;
 		bool GetRatio() {
 			float ratio = hp_;
 			int currentSection;
