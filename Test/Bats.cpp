@@ -123,9 +123,26 @@ void Bats::Update()
 		if (p->collider_ && !p->collider_->GetCollidedWith().empty()) {
 
 			if (p->isDead_ == false) {
-				//p->particles_.SetIsEmit(true);
+				// 揺れ時間を加算
+				p->shakeTime_ += 1.0f / 60.0f;
+
+				// サイン波で左右・上下に揺れる
+				float shakeAmplitude = 0.15f;
+				float shakeFreq = 30.0f;
+				Vector3 right = p->transform_.rotate.GetRight();
+				Vector3 up = p->transform_.rotate.GetUp();
+				Vector3 shakeOffset =
+					right * std::sin(p->shakeTime_ * shakeFreq) * shakeAmplitude +
+					up * std::sin(p->shakeTime_ * shakeFreq * 1.3f + 1.0f) * shakeAmplitude * 0.6f;
+				p->transform_.translate += shakeOffset;
+
+				// スケールを脈動させて縮む感じ
+				float scaleFreq = 15.0f;
+				float scalePulse = 1.0f - 0.2f * std::abs(std::sin(p->shakeTime_ * scaleFreq));
+				p->transform_.scale = Vector3(scalePulse, scalePulse, scalePulse);
 			}
 			p->hp_ -= damage;
+			//ここで揺れる処理
 
 		}
 		else {
