@@ -199,7 +199,7 @@ void GameScene::OnInitialize() {
 
 		icicleTutorial_ = std::make_unique<TutorialObject>();
 		icicleTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
-		icicleTutorial_->Initialize("Icicle", 810.0f);
+		icicleTutorial_->Initialize("Icicle", 700.0f);
 
 		break;
 	default:
