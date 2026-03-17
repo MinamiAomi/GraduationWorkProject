@@ -81,7 +81,8 @@ private:
     //照らしているか
     bool isLighting_;
     //何フレーム目まで減らないか
-    float startFrame_;
+    float level1StartFrame_;
+    float level2StartFrame_;
 
     float blinkTimer_ = 0.0f;
 #pragma endregion

@@ -86,3 +86,13 @@ bool CollisionSystem::AreColliding(Collider& a, Collider& b)
 
 	return result;
 }
+
+void CollisionSystem::SetIsActive(bool flag)
+{
+	isActive_ = flag;
+	for (const auto& weak_ptr : colliders) {
+		if (auto ptr = weak_ptr.lock()) {
+			ptr->ClearCollisionInfo();
+		}
+	}
+}

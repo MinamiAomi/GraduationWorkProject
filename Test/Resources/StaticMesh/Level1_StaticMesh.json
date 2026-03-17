@@ -4802,62 +4802,6 @@
       "collider": null
     },
     {
-      "name": "Crystal.052",
-      "model_name": "Crystal",
-      "type": "POINTLIGHT",
-      "srt": {
-        "translate": [
-          330.5544,
-          58.1675,
-          9.0164
-        ],
-        "rotate": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ],
-        "scale": [
-          4.6684,
-          4.6684,
-          4.6684
-        ]
-      },
-      "enemy_spawn_data": null,
-      "gimmick_data": null,
-      "point_light": {
-        "offset": [
-          0.0,
-          0.0,
-          0.0
-        ],
-        "color": [
-          1.0,
-          0.9056,
-          0.8885
-        ],
-        "intensity": 10.0,
-        "range": 53.12,
-        "decay": 1.0
-      },
-      "collider": {
-        "type": "CAPSULE",
-        "center": [
-          331.4301,
-          57.9487,
-          11.6624
-        ],
-        "radius": 0.5,
-        "height": 1.0,
-        "quaternion": [
-          0.3144,
-          0.1116,
-          0.0202,
-          0.9425
-        ]
-      }
-    },
-    {
       "name": "Crystal.053",
       "model_name": "Crystal",
       "type": "POINTLIGHT",
