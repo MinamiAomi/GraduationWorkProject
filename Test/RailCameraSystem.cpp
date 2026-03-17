@@ -23,6 +23,9 @@ void RailSystem::RailCameraSystem::Initialize()
 	JSON_OBJECT("LookAhead");
 	JSON_LOAD(futureFrame_);
 	JSON_ROOT();
+	JSON_OBJECT("CameraShake");
+	JSON_LOAD(shakeRange_);
+	JSON_ROOT();
 	JSON_CLOSE();
 
 	Reset();
@@ -38,6 +41,10 @@ void RailSystem::RailCameraSystem::Reset()
 	UpdateFov(1.0f / 60.0f);
 	UpdateLookAhead(1.0f / 60.0f);
 
+	isCameraShake_ = false;
+	cameraShakeTime_ = 0.0f;
+	shakeOffset_ = Vector3::zero;
+
 	currentLookRotation_ = Quaternion::identity;
 }
 
@@ -45,13 +52,14 @@ void RailSystem::RailCameraSystem::Update(float deltaTime)
 {
 	UpdateFov(deltaTime);
 	UpdateLookAhead(deltaTime);
+	UpdateCameraShake();
 
 	float currentFrame = railCameraAnimationPlayer_->GetCurrentFrame();
 
 	Vector3 localPos = railCameraAnimationPlayer_->EvaluateLocalCameraPosition(currentFrame);
 	Quaternion blenderLocalRotation = railCameraAnimationPlayer_->EvaluateLocalCameraRotation(currentFrame);
 
-	transform_.translate = localPos + cameraOffset_;
+	transform_.translate = localPos + cameraOffset_ + shakeOffset_;
 
 	if (transform_.GetParent()) {
 		Quaternion parentInverseRotation = transform_.GetParent()->worldMatrix.GetRotate().Inverse();
@@ -164,6 +172,21 @@ void RailSystem::RailCameraSystem::UpdateLookAhead(float deltaTime)
 	}
 }
 
+void RailSystem::RailCameraSystem::UpdateCameraShake()
+{
+	if (!isCameraShake_) { return; }
+	cameraShakeTime_ -= 1.0f;
+
+	shakeOffset_.x = rnd_.NextFloatRange(-shakeRange_, shakeRange_);
+	shakeOffset_.y = rnd_.NextFloatRange(-shakeRange_, shakeRange_);
+
+	if (cameraShakeTime_ <= 0.0f) {
+		isCameraShake_ = false;
+		cameraShakeTime_ = 0.0f;
+		shakeOffset_ = Vector3::zero;
+	}
+}
+
 #ifdef _DEBUG
 void RailSystem::RailCameraSystem::DrawImGui()
 {
@@ -196,6 +219,12 @@ void RailSystem::RailCameraSystem::DrawImGui()
 			JSON_OBJECT("LookAhead");
 			JSON_SAVE(futureFrame_);
 			JSON_ROOT(); // Object終了
+
+			// --- CameraShake階層 ---
+			JSON_OBJECT("CameraShake");
+			JSON_SAVE(shakeRange_);
+			JSON_ROOT(); // Object終了
+
 
 			JSON_CLOSE();
 		}
@@ -248,6 +277,15 @@ void RailSystem::RailCameraSystem::DrawImGui()
 		if (ImGui::TreeNode("注視点制御 (LookAt)")) {
 			// カメラがレールの「どれくらい先」を見るか
 			ImGui::DragFloat("先読みフレーム数 (Prediction)", &futureFrame_, 0.1f, 0.0f, 120.0f, "%.1f frames");
+			ImGui::TreePop();
+		}
+
+		if (ImGui::TreeNode("カメラシェイク (CameraShake)")) {
+			ImGui::DragFloat("シェイクする幅 (ShakeRange)", &shakeRange_, 0.1f, 0.0f, 5.0f);
+			if (ImGui::Button("CameraShake")) {
+				SetCameraShake(120.0f);
+			}
+
 			ImGui::TreePop();
 		}
 

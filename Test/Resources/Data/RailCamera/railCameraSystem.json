@@ -4,6 +4,9 @@
         "bankingSmoothTime_": 1.0,
         "lookAheadForBank_": 10.0
     },
+    "CameraShake": {
+        "shakeRange_": 0.07999999821186066
+    },
     "Fov": {
         "baseFov_": 0.7853981852531433,
         "fovLerpSpeed_": 1.0,

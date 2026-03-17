@@ -16,6 +16,11 @@
 #include "Audio/AudioSource.h"
 #include "GhostsParticles.h"
 
+
+namespace RailSystem {
+	class RailCameraSystem;
+}
+
 class Camera;
 
 class Ghosts
@@ -76,6 +81,8 @@ public:
 	static void Debug();
 #endif // _DEBUG
 
+	void SetRailCameraSystem(RailSystem::RailCameraSystem* railCameraSystem) { railCameraSystem_ = railCameraSystem; }
+
 	void SetRadius(float radius) { radius_ = radius; }
 
 	void SetCamera(const Camera* camera) { camera_ = camera; }
@@ -92,6 +99,9 @@ private:
 	void Emit(const Vector3& goalPos);
 	std::shared_ptr<Material> material_;
 	Vector3 goalColor_ = { 1.0f,0.0f,0.0f };
+
+	RailSystem::RailCameraSystem* railCameraSystem_;
+
 private:
 	const uint32_t kSEMax = 10;
 	int attackTime_ = 0;

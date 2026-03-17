@@ -4,6 +4,7 @@
 
 #include "RailAnimationPlayer.h"
 #include "Math/Transform.h"
+#include "Math/Random.h"
 
 namespace RailSystem {
 	class RailCameraSystem {
@@ -16,6 +17,12 @@ namespace RailSystem {
 
 		void SetRailAnimationPlayer(const RailSystem::RailAnimationPlayer* railCameraAnimationPlayer) { railCameraAnimationPlayer_ = railCameraAnimationPlayer; }
 		void SetParent(const Transform& transform) { transform_.SetParent(&transform); }
+
+		void SetCameraShake(float time) {
+			isCameraShake_ = true;
+			cameraShakeTime_ = time;
+		}
+
 		float GetFov()const { return currentFov_; }
 		const Transform& GetTransform()const { return transform_; }
 		const Quaternion& GetLocalRotation() const { return transform_.rotate; }
@@ -25,6 +32,7 @@ namespace RailSystem {
 	private:
 		void UpdateFov(float deltaTime);
 		void UpdateLookAhead(float deltaTime);
+		void UpdateCameraShake();
 #ifdef _DEBUG
 		void DrawImGui();
 #endif // _DEBUG
@@ -46,5 +54,13 @@ namespace RailSystem {
 		Quaternion currentLookRotation_;
 		float futureFrame_;
 #pragma endregion
+#pragma region CameraShake
+		Random::RandomNumberGenerator rnd_;
+		bool isCameraShake_;
+		float cameraShakeTime_;
+		float shakeRange_;
+		Vector3 shakeOffset_;
+#pragma endregion
+
 	};
 }

@@ -171,6 +171,7 @@ void GameScene::OnInitialize() {
 	ghostsManager_->Initialize();
 	ghostsManager_->SetCamera(camera_.get());
 	ghostsManager_->SetColliderSystem(collisionSystem_.get());
+	ghostsManager_->SetRailCameraSystem(railCameraSystem_.get());
 	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
 
 	// test
