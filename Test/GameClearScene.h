@@ -21,6 +21,8 @@
 
 #include "TextUI.h"
 
+#include "CircleGauge.h"
+
 class GameClearScene :
 	public BaseScene {
 public:
@@ -65,6 +67,9 @@ private:
 	std::unique_ptr<ClearParticles> clearParticles_;
 
 	std::unique_ptr<TextUI> textUI_;
+
+	std::unique_ptr<CircleGauge> selectTriangleLeftCircleGauge_;
+	std::unique_ptr<CircleGauge> selectTriangleRightCircleGauge_;
 
 	bool isSceneChange_;
 };

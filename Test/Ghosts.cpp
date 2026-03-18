@@ -7,6 +7,8 @@
 
 #include "Trolley.h"
 
+#include "RailCameraSystem.h"
+
 #ifdef _DEBUG
 void Ghosts::Debug() {
 	ImGui::Begin("GameScene", nullptr, ImGuiWindowFlags_MenuBar);
@@ -102,6 +104,9 @@ void Ghosts::Update()
 		float sumDamage = ghost_.size() * ghostAttackDamage;
 		Trolley::GetInstance()->ghostDamage_ = sumDamage;
 		isExploded = true;
+
+		//カメラシェイク
+		railCameraSystem_->SetCameraShake(45.0f);
 		if (seCount_ < kSEMax) {
 			auto as = std::make_shared<AudioSource>();
 			(*as) = explodeSESound_;

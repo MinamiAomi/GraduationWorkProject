@@ -74,25 +74,25 @@ void TitleScene::OnInitialize() {
 	chargeTimer = 0.0f;
 	isRunning = false;
 
-    const std::string texName[3] = { "MouseUsing","DeviceConnecting","DeviceUsing" };
-    for (int i = 0; i < 3; ++i) {
-        deviceUIs_[i] = std::make_unique<AnimeUI>();
-        deviceUIs_[i]->sprite.SetTexture(assetManager->textureMap.Get(texName[i])->Get());
+	const std::string texName[3] = { "MouseUsing","DeviceConnecting","DeviceUsing" };
+	for (int i = 0; i < 3; ++i) {
+		deviceUIs_[i] = std::make_unique<AnimeUI>();
+		deviceUIs_[i]->sprite.SetTexture(assetManager->textureMap.Get(texName[i])->Get());
 		deviceUIs_[i]->sprite.SetAnchor({ 0.0f, 1.0f });
 		deviceUIs_[i]->sprite.SetColor({ 1.0f,1.0f,1.0f,0.4f });
-        deviceUIs_[i]->sprite.SetPosition({ 0.0f, 720.0f + 60.0f });
-        deviceUIs_[i]->sprite.SetScale({ 400.0f, 60.0f });
-        deviceUIs_[i]->sprite.SetUVRect({ { 0.0f, 0.0f }, { 1.0f, 1.0f } }, Sprite::UVMode::UV);
-        deviceUIs_[i]->sprite.SetIsActive(false);
-        deviceUIs_[i]->timer = 0.0f;
-        deviceUIs_[i]->play = false;
-        deviceUIs_[i]->sprite.SetDrawOrder(0);
-    }
-    deviceState_ = 0;
-    deviceUIs_[0]->sprite.SetPosition({ 0.0f, 720.0f });
-    deviceUIs_[0]->sprite.SetIsActive(true);
-    deviceUIs_[0]->timer = 1.0f;
-    deviceUIs_[0]->sprite.SetDrawOrder(1);
+		deviceUIs_[i]->sprite.SetPosition({ 0.0f, 720.0f + 60.0f });
+		deviceUIs_[i]->sprite.SetScale({ 400.0f, 60.0f });
+		deviceUIs_[i]->sprite.SetUVRect({ { 0.0f, 0.0f }, { 1.0f, 1.0f } }, Sprite::UVMode::UV);
+		deviceUIs_[i]->sprite.SetIsActive(false);
+		deviceUIs_[i]->timer = 0.0f;
+		deviceUIs_[i]->play = false;
+		deviceUIs_[i]->sprite.SetDrawOrder(0);
+	}
+	deviceState_ = 0;
+	deviceUIs_[0]->sprite.SetPosition({ 0.0f, 720.0f });
+	deviceUIs_[0]->sprite.SetIsActive(true);
+	deviceUIs_[0]->timer = 1.0f;
+	deviceUIs_[0]->sprite.SetDrawOrder(1);
 
 	bgmAudioSource_ = assetManager->soundMap.Get("BGM_TITLE")->Get();
 	bgmAudioSource_.Play(true);
@@ -100,6 +100,10 @@ void TitleScene::OnInitialize() {
 
 	textUI_ = std::make_unique<TextUI>();
 	textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
+
+	circleGauge_ = std::make_unique<CircleGauge>();
+	circleGauge_->Initialize(1.0f, { 376.0f,225.0f});
+
 }
 
 void TitleScene::OnUpdate() {
@@ -108,6 +112,8 @@ void TitleScene::OnUpdate() {
 	collisionSystem_->CheckCollisions();
 	trolleyParticle_->Update();
 	textUI_->Update();
+
+	circleGauge_->Update(chargeTimer);
 	Vector3 shakeOffset = Vector3::zero; // 振動による位置のズレ
 
 	// 1. 衝突判定（懐中電灯で照らされているか）
@@ -141,6 +147,8 @@ void TitleScene::OnUpdate() {
 
 		if (chargeTimer >= 1.0f) {
 			isRunning = true;
+			//俺が追加0.0fにすることで円ゲージを非表示にまずいかな？
+			chargeTimer = 0.0f;
 		}
 	}
 	else {
@@ -255,33 +263,33 @@ void TitleScene::OnUpdate() {
 		deviceUIs_[deviceStatePrev]->sprite.SetDrawOrder(0);
 	}
 
-    float speed = 1.0f / 60.0f;
-    float waitPos = 60.0f;
+	float speed = 1.0f / 60.0f;
+	float waitPos = 60.0f;
 
-    for (int i = 0; i < 3; ++i) {
-        if (deviceUIs_[i]->play) {
-            float t = 0;
-            if (i == deviceState_) {
-                deviceUIs_[i]->timer += speed;
-                if (deviceUIs_[i]->timer >= 1.0f) {
-                    deviceUIs_[i]->timer = 1.0f;
-                    deviceUIs_[i]->play = false;
-                }
-                t = 1.0f - std::cos((1.0f - deviceUIs_[i]->timer) * Math::HalfPi);
-            }
-            else {
-                deviceUIs_[i]->timer -= speed;
-                if (deviceUIs_[i]->timer <= 0.0f) {
-                    deviceUIs_[i]->timer = 0.0f;
-                    deviceUIs_[i]->play = false;
-                    deviceUIs_[i]->sprite.SetIsActive(false);
-                }
-                t = std::sin((1.0f - deviceUIs_[i]->timer) * Math::HalfPi);
-            }
-            float y = t * waitPos + 720.0f;
-            deviceUIs_[i]->sprite.SetPosition({ 0.0f, y });
-        }
-    }
+	for (int i = 0; i < 3; ++i) {
+		if (deviceUIs_[i]->play) {
+			float t = 0;
+			if (i == deviceState_) {
+				deviceUIs_[i]->timer += speed;
+				if (deviceUIs_[i]->timer >= 1.0f) {
+					deviceUIs_[i]->timer = 1.0f;
+					deviceUIs_[i]->play = false;
+				}
+				t = 1.0f - std::cos((1.0f - deviceUIs_[i]->timer) * Math::HalfPi);
+			}
+			else {
+				deviceUIs_[i]->timer -= speed;
+				if (deviceUIs_[i]->timer <= 0.0f) {
+					deviceUIs_[i]->timer = 0.0f;
+					deviceUIs_[i]->play = false;
+					deviceUIs_[i]->sprite.SetIsActive(false);
+				}
+				t = std::sin((1.0f - deviceUIs_[i]->timer) * Math::HalfPi);
+			}
+			float y = t * waitPos + 720.0f;
+			deviceUIs_[i]->sprite.SetPosition({ 0.0f, y });
+		}
+	}
 }
 void TitleScene::OnFinalize() {
 	bgmAudioSource_.Stop();

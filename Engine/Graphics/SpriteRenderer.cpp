@@ -13,243 +13,277 @@
 
 const wchar_t kSpriteVertexShadedr[] = L"SpriteVS.hlsl";
 const wchar_t kSpritePixelShadedr[] = L"SpritePS.hlsl";
+const wchar_t kCircleGaugeShadedr[] = L"CircleGaugePS.hlsl";
 
 struct SpriteRootIndex {
-    enum Index {
-        Scene = 0,
-        Texture,
-        Sampler,
+	enum Index {
+		Scene = 0,
+		ExtraParam,
+		Texture,
+		Sampler,
 
-        NumParameters
-    };
+		NumParameters
+	};
 };
 
 void SpriteRenderer::Initialize(const ColorBuffer& colorBuffer) {
-    CD3DX12_DESCRIPTOR_RANGE srvRange[1]{};
-    srvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+	CD3DX12_DESCRIPTOR_RANGE srvRange[1]{};
+	srvRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 
-    CD3DX12_DESCRIPTOR_RANGE samplerRange{};
-    samplerRange.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER, 1, 0);
+	CD3DX12_DESCRIPTOR_RANGE samplerRange{};
+	samplerRange.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER, 1, 0);
 
-    CD3DX12_ROOT_PARAMETER rootParameters[SpriteRootIndex::NumParameters]{};
-    rootParameters[SpriteRootIndex::Scene].InitAsConstantBufferView(0);
-    rootParameters[SpriteRootIndex::Texture].InitAsDescriptorTable(1, &srvRange[0]);
-    rootParameters[SpriteRootIndex::Sampler].InitAsDescriptorTable(1, &samplerRange);
+	CD3DX12_ROOT_PARAMETER rootParameters[SpriteRootIndex::NumParameters]{};
+	rootParameters[SpriteRootIndex::Scene].InitAsConstantBufferView(0);
+	rootParameters[SpriteRootIndex::ExtraParam].InitAsConstantBufferView(1);
+	rootParameters[SpriteRootIndex::Texture].InitAsDescriptorTable(1, &srvRange[0]);
+	rootParameters[SpriteRootIndex::Sampler].InitAsDescriptorTable(1, &samplerRange);
 
-    D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc{};
-    rootSignatureDesc.NumParameters = _countof(rootParameters);
-    rootSignatureDesc.pParameters = rootParameters;
-    rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-    rootSignature_.Create(L"Sprite RootSignature", rootSignatureDesc);
+	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc{};
+	rootSignatureDesc.NumParameters = _countof(rootParameters);
+	rootSignatureDesc.pParameters = rootParameters;
+	rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+	rootSignature_.Create(L"Sprite RootSignature", rootSignatureDesc);
 
-    D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineStateDesc{};
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineStateDesc{};
 
-    pipelineStateDesc.pRootSignature = rootSignature_;
+	pipelineStateDesc.pRootSignature = rootSignature_;
 
-    D3D12_INPUT_ELEMENT_DESC inputElements[] = {
-         { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-         { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-         { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-    };
-    D3D12_INPUT_LAYOUT_DESC inputLayout{};
-    inputLayout.NumElements = _countof(inputElements);
-    inputLayout.pInputElementDescs = inputElements;
-    pipelineStateDesc.InputLayout = inputLayout;
+	D3D12_INPUT_ELEMENT_DESC inputElements[] = {
+		 { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		 { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		 { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+	};
+	D3D12_INPUT_LAYOUT_DESC inputLayout{};
+	inputLayout.NumElements = _countof(inputElements);
+	inputLayout.pInputElementDescs = inputElements;
+	pipelineStateDesc.InputLayout = inputLayout;
 
-    auto shaderManager = ShaderManager::GetInstance();
-    auto vs = shaderManager->Compile(kSpriteVertexShadedr, ShaderManager::kVertex);
-    auto ps = shaderManager->Compile(kSpritePixelShadedr, ShaderManager::kPixel);
+	auto shaderManager = ShaderManager::GetInstance();
+	auto vs = shaderManager->Compile(kSpriteVertexShadedr, ShaderManager::kVertex);
+	auto ps = shaderManager->Compile(kSpritePixelShadedr, ShaderManager::kPixel);
 
-    pipelineStateDesc.VS = CD3DX12_SHADER_BYTECODE(vs->GetBufferPointer(), vs->GetBufferSize());
-    pipelineStateDesc.PS = CD3DX12_SHADER_BYTECODE(ps->GetBufferPointer(), ps->GetBufferSize());
+	pipelineStateDesc.VS = CD3DX12_SHADER_BYTECODE(vs->GetBufferPointer(), vs->GetBufferSize());
+	pipelineStateDesc.PS = CD3DX12_SHADER_BYTECODE(ps->GetBufferPointer(), ps->GetBufferSize());
 
-    pipelineStateDesc.BlendState = Helper::BlendAlpha;
-    pipelineStateDesc.RasterizerState = Helper::RasterizerNoCull;
-    pipelineStateDesc.NumRenderTargets = 1;
-    pipelineStateDesc.RTVFormats[0] = colorBuffer.GetFormat();
-    pipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
-    pipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-    pipelineStateDesc.SampleDesc.Count = 1;
-    pipelineState_.Create(L"Sprite PipelineState", pipelineStateDesc);
+	pipelineStateDesc.BlendState = Helper::BlendAlpha;
+	pipelineStateDesc.RasterizerState = Helper::RasterizerNoCull;
+	pipelineStateDesc.NumRenderTargets = 1;
+	pipelineStateDesc.RTVFormats[0] = colorBuffer.GetFormat();
+	pipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
+	pipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	pipelineStateDesc.SampleDesc.Count = 1;
+	pipelineState_.Create(L"Sprite PipelineState", pipelineStateDesc);
+
+	ps = shaderManager->Compile(kCircleGaugeShadedr, ShaderManager::kPixel);
+
+	pipelineStateDesc.VS = CD3DX12_SHADER_BYTECODE(vs->GetBufferPointer(), vs->GetBufferSize());
+	pipelineStateDesc.PS = CD3DX12_SHADER_BYTECODE(ps->GetBufferPointer(), ps->GetBufferSize());
+
+	circleGaugePipelineState_.Create(L"CircleGauge PipelineState", pipelineStateDesc);
 }
 
 void SpriteRenderer::Render(CommandContext& commandContext, float left, float top, float right, float bottom) {
-    struct SceneConstant {
-        Matrix4x4 orthoMatrix;
-    };
+	struct SceneConstant {
+		Matrix4x4 orthoMatrix;
+	};
 
-    struct Vertex {
-        Vector3 position;
-        Vector2 texcoord;
-        Vector4 color;
-    };
+	struct ExtraParam {
+		float progress;
+		Vector3 padding;
+	};
 
-    commandContext.SetRootSignature(rootSignature_);
-    commandContext.SetPipelineState(pipelineState_);
-    commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	struct Vertex {
+		Vector3 position;
+		Vector2 texcoord;
+		Vector4 color;
+	};
 
-    SceneConstant sceneConstant;
-    sceneConstant.orthoMatrix = Matrix4x4::MakeOrthographicProjection(right - left, bottom - top, 0.0f, 1.0f);
-    sceneConstant.orthoMatrix *= Matrix4x4::MakeScaling({ 1.0f, 1.0f, 1.0f });
-    sceneConstant.orthoMatrix *= Matrix4x4::MakeTranslation({ -1.0f, -1.0f, 1.0f });
-    commandContext.SetDynamicConstantBufferView(SpriteRootIndex::Scene, sizeof(sceneConstant), &sceneConstant);
+	commandContext.SetRootSignature(rootSignature_);
+	
+	
+	commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    auto& instanceList = Sprite::instanceList_;
-    // 描画順並べる
-    instanceList.sort([](Sprite* a, Sprite* b) { return a->GetDrawOrder() < b->GetDrawOrder(); });
+	SceneConstant sceneConstant;
+	sceneConstant.orthoMatrix = Matrix4x4::MakeOrthographicProjection(right - left, bottom - top, 0.0f, 1.0f);
+	sceneConstant.orthoMatrix *= Matrix4x4::MakeScaling({ 1.0f, 1.0f, 1.0f });
+	sceneConstant.orthoMatrix *= Matrix4x4::MakeTranslation({ -1.0f, -1.0f, 1.0f });
+	commandContext.SetDynamicConstantBufferView(SpriteRootIndex::Scene, sizeof(sceneConstant), &sceneConstant);
 
-    float screenScaleX = static_cast<float>(Engine::kWindowWidth) / 1280.0f;
-    float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
+	auto& instanceList = Sprite::instanceList_;
+	// 描画順並べる
+	instanceList.sort([](Sprite* a, Sprite* b) { return a->GetDrawOrder() < b->GetDrawOrder(); });
 
-    for (auto instance : instanceList) {
-        if (instance->isActive_ && !instance->GetPre3DRender()) {
+	float screenScaleX = static_cast<float>(Engine::kWindowWidth) / 1280.0f;
+	float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
 
-            float reciWidth = 1.0f;
-            float reciHeight = 1.0f;
-            if (instance->texture_) {
-                reciWidth = 1.0f / (float)instance->texture_->GetWidth();
-                reciHeight = 1.0f / (float)instance->texture_->GetHeight();
-            }
+	for (auto instance : instanceList) {
+		if (instance->isActive_ && !instance->GetPre3DRender()) {
+
+			//俺が変更した描画のタイミングでpipelineを切り替える
+			if (instance->GetIsCircleGauge()) {
+				commandContext.SetPipelineState(circleGaugePipelineState_);
+			}
+			else {
+				commandContext.SetPipelineState(pipelineState_);
+			}
+
+			float reciWidth = 1.0f;
+			float reciHeight = 1.0f;
+			if (instance->texture_) {
+				reciWidth = 1.0f / (float)instance->texture_->GetWidth();
+				reciHeight = 1.0f / (float)instance->texture_->GetHeight();
+			}
 
 
-            float uvLeft = instance->uvRect_.base.x;
-            float uvRight = instance->uvRect_.base.x + instance->uvRect_.size.x;
-            float uvTop = instance->uvRect_.base.y;
-            float uvBottom = instance->uvRect_.base.y + instance->uvRect_.size.y;
+			float uvLeft = instance->uvRect_.base.x;
+			float uvRight = instance->uvRect_.base.x + instance->uvRect_.size.x;
+			float uvTop = instance->uvRect_.base.y;
+			float uvBottom = instance->uvRect_.base.y + instance->uvRect_.size.y;
 
-            if (instance->uvMode_ == Sprite::UVMode::Texcoord) {
-                uvLeft *= reciWidth;
-                uvRight *= reciWidth;
-                uvTop *= reciHeight;
-                uvBottom *= reciHeight;
-            }
+			if (instance->uvMode_ == Sprite::UVMode::Texcoord) {
+				uvLeft *= reciWidth;
+				uvRight *= reciWidth;
+				uvTop *= reciHeight;
+				uvBottom *= reciHeight;
+			}
 
-            Vector2 localVertices[] = {
-                { 0.0f, 0.0f },
-                { 0.0f, 1.0f },
-                { 1.0f, 1.0f },
-                { 1.0f, 0.0f },
-            };
-            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_) * Matrix3x3::MakeScaling({ screenScaleX, screenScaleY });;
+			Vector2 localVertices[] = {
+				{ 0.0f, 0.0f },
+				{ 0.0f, 1.0f },
+				{ 1.0f, 1.0f },
+				{ 1.0f, 0.0f },
+			};
+			Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_) * Matrix3x3::MakeScaling({ screenScaleX, screenScaleY });;
 
-            for (auto& vertex : localVertices) {
-                vertex = vertex * matrix;
-            }
+			for (auto& vertex : localVertices) {
+				vertex = vertex * matrix;
+			}
 
-            Vector4 color = static_cast<Vector4>(instance->color_);
+			Vector4 color = static_cast<Vector4>(instance->color_);
 
-            Vertex vertices[] = {
-                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
-                { { localVertices[1], 0.0f }, { uvLeft,  uvTop},    color },
-                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
-                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
-                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
-                { { localVertices[3], 0.0f }, { uvRight, uvBottom}, color },
+			Vertex vertices[] = {
+				{ { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+				{ { localVertices[1], 0.0f }, { uvLeft,  uvTop},    color },
+				{ { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+				{ { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+				{ { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+				{ { localVertices[3], 0.0f }, { uvRight, uvBottom}, color },
 
-            };
+			};
+			ExtraParam extraParam;
 
-            commandContext.SetDynamicVertexBuffer(0, 6, sizeof(vertices[0]), vertices);
-            if (instance->texture_) {
-                commandContext.SetDescriptorTable(SpriteRootIndex::Texture, instance->texture_->GetResource()->GetSRV());
-                //commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
-                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::AnisotropicWrap);
-            }
-            else {
-                commandContext.SetDescriptorTable(SpriteRootIndex::Texture, DefaultTexture::White.GetSRV());
-                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::PointClamp);
-            }
-            commandContext.Draw(6);
-        }
-    }
+			if (instance->GetIsCircleGauge()) {
+				extraParam.progress = instance->GetCircleGaugeProgress();
+			}
+
+			commandContext.SetDynamicVertexBuffer(0, 6, sizeof(vertices[0]), vertices);
+			commandContext.SetDynamicConstantBufferView(SpriteRootIndex::ExtraParam, sizeof(extraParam), &extraParam);
+		
+			if (instance->texture_) {
+				commandContext.SetDescriptorTable(SpriteRootIndex::Texture, instance->texture_->GetResource()->GetSRV());
+				//commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
+				commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::AnisotropicWrap);
+			}
+			else {
+				commandContext.SetDescriptorTable(SpriteRootIndex::Texture, DefaultTexture::White.GetSRV());
+				commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::PointClamp);
+			}
+			commandContext.Draw(6);
+		}
+	}
 
 }
 
 void SpriteRenderer::Pre3DRender(CommandContext& commandContext, float left, float top, float right, float bottom) {
-    struct SceneConstant {
-        Matrix4x4 orthoMatrix;
-    };
+	struct SceneConstant {
+		Matrix4x4 orthoMatrix;
+	};
 
-    struct Vertex {
-        Vector3 position;
-        Vector2 texcoord;
-        Vector4 color;
-    };
+	struct Vertex {
+		Vector3 position;
+		Vector2 texcoord;
+		Vector4 color;
+	};
 
-    commandContext.SetRootSignature(rootSignature_);
-    commandContext.SetPipelineState(pipelineState_);
-    commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	commandContext.SetRootSignature(rootSignature_);
+	commandContext.SetPipelineState(pipelineState_);
+	commandContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    SceneConstant sceneConstant;
-    sceneConstant.orthoMatrix = Matrix4x4::MakeOrthographicProjection(right - left, bottom - top, 0.0f, 1.0f);
-    sceneConstant.orthoMatrix *= Matrix4x4::MakeScaling({ 1.0f, 1.0f, 1.0f });
-    sceneConstant.orthoMatrix *= Matrix4x4::MakeTranslation({ -1.0f, -1.0f, 1.0f });
-    commandContext.SetDynamicConstantBufferView(SpriteRootIndex::Scene, sizeof(sceneConstant), &sceneConstant);
+	SceneConstant sceneConstant;
+	sceneConstant.orthoMatrix = Matrix4x4::MakeOrthographicProjection(right - left, bottom - top, 0.0f, 1.0f);
+	sceneConstant.orthoMatrix *= Matrix4x4::MakeScaling({ 1.0f, 1.0f, 1.0f });
+	sceneConstant.orthoMatrix *= Matrix4x4::MakeTranslation({ -1.0f, -1.0f, 1.0f });
+	commandContext.SetDynamicConstantBufferView(SpriteRootIndex::Scene, sizeof(sceneConstant), &sceneConstant);
 
-    auto& instanceList = Sprite::instanceList_;
-    // 描画順並べる
-    instanceList.sort([](Sprite* a, Sprite* b) { return a->GetDrawOrder() < b->GetDrawOrder(); });
+	auto& instanceList = Sprite::instanceList_;
+	// 描画順並べる
+	instanceList.sort([](Sprite* a, Sprite* b) { return a->GetDrawOrder() < b->GetDrawOrder(); });
 
-    float screenScaleX = static_cast<float>(Engine::kWindowWidth) / 1280.0f;
-    float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
+	float screenScaleX = static_cast<float>(Engine::kWindowWidth) / 1280.0f;
+	float screenScaleY = static_cast<float>(Engine::kWindowHeight) / 720.0f;
 
-    for (auto instance : instanceList) {
-        if (instance->isActive_ && instance->GetPre3DRender()) {
-
-            float reciWidth = 1.0f;
-            float reciHeight = 1.0f;
-            if (instance->texture_) {
-                reciWidth = 1.0f / (float)instance->texture_->GetWidth();
-                reciHeight = 1.0f / (float)instance->texture_->GetHeight();
-            }
+	for (auto instance : instanceList) {
+		if (instance->isActive_ && instance->GetPre3DRender()) {
 
 
-            float uvLeft = instance->uvRect_.base.x;
-            float uvRight = instance->uvRect_.base.x + instance->uvRect_.size.x;
-            float uvTop = instance->uvRect_.base.y;
-            float uvBottom = instance->uvRect_.base.y + instance->uvRect_.size.y;
 
-            if (instance->uvMode_ == Sprite::UVMode::Texcoord) {
-                uvLeft *= reciWidth;
-                uvRight *= reciWidth;
-                uvTop *= reciHeight;
-                uvBottom *= reciHeight;
-            }
+			float reciWidth = 1.0f;
+			float reciHeight = 1.0f;
+			if (instance->texture_) {
+				reciWidth = 1.0f / (float)instance->texture_->GetWidth();
+				reciHeight = 1.0f / (float)instance->texture_->GetHeight();
+			}
 
-            Vector2 localVertices[] = {
-                { 0.0f, 0.0f },
-                { 0.0f, 1.0f },
-                { 1.0f, 1.0f },
-                { 1.0f, 0.0f },
-            };
-            Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_) * Matrix3x3::MakeScaling({ screenScaleX, screenScaleY });;
 
-            for (auto& vertex : localVertices) {
-                vertex = vertex * matrix;
-            }
+			float uvLeft = instance->uvRect_.base.x;
+			float uvRight = instance->uvRect_.base.x + instance->uvRect_.size.x;
+			float uvTop = instance->uvRect_.base.y;
+			float uvBottom = instance->uvRect_.base.y + instance->uvRect_.size.y;
 
-            Vector4 color = static_cast<Vector4>(instance->color_);
+			if (instance->uvMode_ == Sprite::UVMode::Texcoord) {
+				uvLeft *= reciWidth;
+				uvRight *= reciWidth;
+				uvTop *= reciHeight;
+				uvBottom *= reciHeight;
+			}
 
-            Vertex vertices[] = {
-                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
-                { { localVertices[1], 0.0f }, { uvLeft,  uvTop},    color },
-                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
-                { { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
-                { { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
-                { { localVertices[3], 0.0f }, { uvRight, uvBottom}, color },
+			Vector2 localVertices[] = {
+				{ 0.0f, 0.0f },
+				{ 0.0f, 1.0f },
+				{ 1.0f, 1.0f },
+				{ 1.0f, 0.0f },
+			};
+			Matrix3x3 matrix = Matrix3x3::MakeTranslation(-instance->anchor_) * Matrix3x3::MakeAffineTransform(instance->scale_, instance->rotate_, instance->position_) * Matrix3x3::MakeScaling({ screenScaleX, screenScaleY });;
 
-            };
+			for (auto& vertex : localVertices) {
+				vertex = vertex * matrix;
+			}
 
-            commandContext.SetDynamicVertexBuffer(0, 6, sizeof(vertices[0]), vertices);
-            if (instance->texture_) {
-                commandContext.SetDescriptorTable(SpriteRootIndex::Texture, instance->texture_->GetResource()->GetSRV());
-                //commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
-                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::AnisotropicWrap);
-            }
-            else {
-                commandContext.SetDescriptorTable(SpriteRootIndex::Texture, DefaultTexture::White.GetSRV());
-                commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::PointClamp);
-            }
-            commandContext.Draw(6);
-        }
-    }
+			Vector4 color = static_cast<Vector4>(instance->color_);
+
+			Vertex vertices[] = {
+				{ { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+				{ { localVertices[1], 0.0f }, { uvLeft,  uvTop},    color },
+				{ { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+				{ { localVertices[0], 0.0f }, { uvLeft,  uvBottom}, color },
+				{ { localVertices[2], 0.0f }, { uvRight, uvTop},    color },
+				{ { localVertices[3], 0.0f }, { uvRight, uvBottom}, color },
+
+			};
+
+
+			commandContext.SetDynamicVertexBuffer(0, 6, sizeof(vertices[0]), vertices);
+			if (instance->texture_) {
+				commandContext.SetDescriptorTable(SpriteRootIndex::Texture, instance->texture_->GetResource()->GetSRV());
+				//commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, instance->texture_->GetSampler());
+				commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::AnisotropicWrap);
+			}
+			else {
+				commandContext.SetDescriptorTable(SpriteRootIndex::Texture, DefaultTexture::White.GetSRV());
+				commandContext.SetDescriptorTable(SpriteRootIndex::Sampler, SamplerManager::PointClamp);
+			}
+			commandContext.Draw(6);
+		}
+	}
 }

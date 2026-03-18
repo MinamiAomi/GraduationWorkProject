@@ -88,6 +88,9 @@
     <Filter Include="Game\TextUI">
       <UniqueIdentifier>{109f70c6-9a6f-4a17-afcc-01e2bafb704c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\CircleGauge">
+      <UniqueIdentifier>{f9c821cf-eb22-4902-9fce-ab3c2ab4e106}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="MonsterParticle.cpp">
       <Filter>Game\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleGauge.cpp">
+      <Filter>Game\CircleGauge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,6 +389,9 @@
     </ClInclude>
     <ClInclude Include="MonsterParticle.h">
       <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleGauge.h">
+      <Filter>Game\CircleGauge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

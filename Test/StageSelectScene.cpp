@@ -55,7 +55,7 @@ void StageSelectScene::OnInitialize() {
 	bgmAudioSource_.Play(true);
 	bgmAudioSource_.SetVolume(0.2f);
 
-    seSelectAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_STAGE_SELECT")->Get();
+	seSelectAudioSource_ = AssetManager::GetInstance()->soundMap.Get("SE_STAGE_SELECT")->Get();
 
 	timer_.Start();
 
@@ -63,6 +63,11 @@ void StageSelectScene::OnInitialize() {
 
 	textUI_ = std::make_unique<TextUI>();
 	textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
+
+	level1CircleGauge_ = std::make_unique<CircleGauge>();
+	level2CircleGauge_ = std::make_unique<CircleGauge>();
+	level1CircleGauge_->Initialize(1.1f, { 350.0f,370.0f });
+	level2CircleGauge_->Initialize(1.1f, { 920.0f,370.0f });
 }
 
 void StageSelectScene::OnUpdate() {
@@ -79,17 +84,20 @@ void StageSelectScene::OnUpdate() {
 	level2_->Update();
 	textUI_->Update();
 
+	level1CircleGauge_->Update(level1_->GetProgress());
+	level2CircleGauge_->Update(level2_->GetProgress());
+
 	if (!isSceneChange_ && level1_->GetIsActive()) {
 		isSceneChange_ = true;
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL1);
 		SceneManager::GetInstance()->ChangeScene<GameScene>(true);
-        seSelectAudioSource_.Play(false);
+		seSelectAudioSource_.Play(false);
 	}
 	else if (!isSceneChange_ && level2_->GetIsActive()) {
 		isSceneChange_ = true;
 		LevelManager::GetInstance()->SetLevel(LevelManager::Level::LEVEL2);
 		SceneManager::GetInstance()->ChangeScene<GameScene>(true);
-        seSelectAudioSource_.Play(false);
+		seSelectAudioSource_.Play(false);
 	}
 
 	collisionSystem_->CheckCollisions();
@@ -110,5 +118,5 @@ void StageSelectScene::OnFinalize() {
 	}
 	if (seSelectAudioSource_.IsPlaying()) {
 		seSelectAudioSource_.Stop();
-    }
+	}
 }

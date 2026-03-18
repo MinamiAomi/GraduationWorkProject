@@ -19,6 +19,8 @@
 
 #include "TextUI.h"
 
+#include "CircleGauge.h"
+
 class GameOverScene :
 	public BaseScene {
 public:
@@ -56,6 +58,8 @@ private:
     Utility::Timer timer_;
 
 	std::unique_ptr<TextUI> textUI_;
+	std::unique_ptr<CircleGauge> selectTriangleLeftCircleGauge_;
+	std::unique_ptr<CircleGauge> selectTriangleRightCircleGauge_;
 
 	bool isSceneChange_;
 };

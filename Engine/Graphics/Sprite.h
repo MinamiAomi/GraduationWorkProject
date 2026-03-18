@@ -27,19 +27,27 @@ public:
 	void SetPosition(const Vector2& position) { position_ = position; }
 	void SetRotate(float rotate) { rotate_ = rotate; }
 	void SetScale(const Vector2& scale) { scale_ = scale; }
+
 	void SetAnchor(const Vector2& anchor) { anchor_ = anchor; }
 	void SetUVRect(const Rect& rect, UVMode mode = UVMode::Texcoord) { uvRect_ = rect, uvMode_ = mode; }
 	void SetColor(const Color& color) { color_ = color; }
 	void SetDrawOrder(uint8_t drawOrder) { drawOrder_ = drawOrder; }
 	void SetIsActive(bool isActive) { isActive_ = isActive; }
-    void SetPre3DRender(bool pre3DRender) { pre3DRender_ = pre3DRender; }
+	void SetPre3DRender(bool pre3DRender) { pre3DRender_ = pre3DRender; }
 
+	//俺が追加
+	void SetIsCircleGauge(bool isCircleGauge) { isCircleGauge_ = isCircleGauge; }
+	void SetCircleGaugeProgress(float circleGaugeProgress) { circleGaugeProgress_ = circleGaugeProgress; }
 	// ゲッター
 
 	uint8_t GetDrawOrder() const { return drawOrder_; }
 	bool GetIsActive() const { return isActive_; }
-    bool GetPre3DRender() const { return pre3DRender_; }
+	bool GetPre3DRender() const { return pre3DRender_; }
+	const Vector2& GetScale()const { return scale_; }
 
+	//俺が追加
+	bool GetIsCircleGauge() const { return isCircleGauge_; }
+	float GetCircleGaugeProgress()const { return circleGaugeProgress_; }
 #ifdef _DEBUG
 	void DrawImGui(const std::string& name);
 #endif // _DEBUG
@@ -60,6 +68,10 @@ private:
 	UVMode uvMode_ = UVMode::Texcoord;
 	Color color_ = Color::white;
 	uint8_t drawOrder_ = 0; // 小さいほど上に描画される レイヤーを表す値
-    bool pre3DRender_ = false;
+	bool pre3DRender_ = false;
 	bool isActive_ = true;
+
+	//俺が追加提出2日前だからほんまごめん
+	bool isCircleGauge_ = false;
+	float circleGaugeProgress_ = 0.0f;
 };

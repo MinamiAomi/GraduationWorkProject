@@ -23,6 +23,7 @@
     <ClCompile Include="BatsManager.cpp" />
     <ClCompile Include="BatsParticles.cpp" />
     <ClCompile Include="BatteryParticles.cpp" />
+    <ClCompile Include="CircleGauge.cpp" />
     <ClCompile Include="ClearParticles.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Deadline.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="BatsManager.h" />
     <ClInclude Include="BatsParticles.h" />
     <ClInclude Include="BatteryParticles.h" />
+    <ClInclude Include="CircleGauge.h" />
     <ClInclude Include="ClearParticles.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionSystem.h" />

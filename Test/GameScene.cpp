@@ -171,6 +171,7 @@ void GameScene::OnInitialize() {
 	ghostsManager_->Initialize();
 	ghostsManager_->SetCamera(camera_.get());
 	ghostsManager_->SetColliderSystem(collisionSystem_.get());
+	ghostsManager_->SetRailCameraSystem(railCameraSystem_.get());
 	sceneObjectManager_->SetGhostsManager(ghostsManager_.get());
 
 	// test
@@ -199,7 +200,7 @@ void GameScene::OnInitialize() {
 
 		icicleTutorial_ = std::make_unique<TutorialObject>();
 		icicleTutorial_->SetRailCameraPlayer(railAnimationPlayer_.get());
-		icicleTutorial_->Initialize("Icicle", 810.0f);
+		icicleTutorial_->Initialize("Icicle", 700.0f);
 
 		break;
 	default:
