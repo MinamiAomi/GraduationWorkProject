@@ -27,6 +27,7 @@ public:
 	void SetPosition(const Vector2& position) { position_ = position; }
 	void SetRotate(float rotate) { rotate_ = rotate; }
 	void SetScale(const Vector2& scale) { scale_ = scale; }
+	
 	void SetAnchor(const Vector2& anchor) { anchor_ = anchor; }
 	void SetUVRect(const Rect& rect, UVMode mode = UVMode::Texcoord) { uvRect_ = rect, uvMode_ = mode; }
 	void SetColor(const Color& color) { color_ = color; }
@@ -39,7 +40,7 @@ public:
 	uint8_t GetDrawOrder() const { return drawOrder_; }
 	bool GetIsActive() const { return isActive_; }
     bool GetPre3DRender() const { return pre3DRender_; }
-
+	const Vector2& GetScale()const { return scale_; }
 #ifdef _DEBUG
 	void DrawImGui(const std::string& name);
 #endif // _DEBUG

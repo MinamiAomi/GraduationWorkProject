@@ -129,6 +129,11 @@
     "DeviceUsing" : "device_useing.png",
 
     "Bottom" : "Bottom/bottom.png",
+
+    "LeftGauge" : "CircleGauge/DonutsGaugeOverL.png",
+    "RightGauge" : "CircleGauge/DonutsGaugeOverR.png",
+    "CircleFrame" : "CircleGauge/DonutsGaugeUnder.png",
+    "HideGauge" : "CircleGauge/DonutsGaugeUnderL.png",
     
     "white2x2":"white2x2.png"
   },
