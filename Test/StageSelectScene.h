@@ -19,6 +19,8 @@
 
 #include "TextUI.h"
 
+#include "CircleGauge.h"
+
 class StageSelectScene :
 	public BaseScene {
 public:
@@ -53,6 +55,9 @@ private:
 	AudioSource seSelectAudioSource_;
 
 	Utility::Timer timer_;
+
+	std::unique_ptr<CircleGauge> level1CircleGauge_;
+	std::unique_ptr<CircleGauge> level2CircleGauge_;
 
 	bool isSceneChange_;
 

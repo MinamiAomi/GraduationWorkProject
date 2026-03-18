@@ -7,10 +7,11 @@
 #include "Graphics/Model.h"
 #include "Collider.h"
 
+
 class Diorama {
 public:
 	enum RotateAxis {
-		XAxis, 
+		XAxis,
 		YAxis,
 		ZAxis
 	};
@@ -22,9 +23,11 @@ public:
 	void Update();
 
 	std::shared_ptr<SphereCollider> GetCollider() { return collider_; }
-    void SetRoateAxis(RotateAxis axis) { rotateAxis_ = axis; }
+	void SetRoateAxis(RotateAxis axis) { rotateAxis_ = axis; }
 	void SetRotateRate(float rotateRate) { rotateRate_ = rotateRate; }
-	bool GetIsActive() { return count_>= maxCount_; }
+	bool GetIsActive() { return count_ >= maxCount_; }
+
+	float GetProgress() const { return std::clamp(count_ / maxCount_, 0.0f, 1.0f); }
 private:
 	bool OnCollision();
 #ifdef _DEBUG
@@ -35,7 +38,7 @@ private:
 	std::shared_ptr<SphereCollider> collider_;
 	Transform transform_;
 	Quaternion initialRotate_;
-    RotateAxis rotateAxis_ = YAxis;
+	RotateAxis rotateAxis_ = YAxis;
 	float maxCount_ = 180.0f;
 	float count_ = 0.0f;
 	float rotateRate_ = 1.0f;

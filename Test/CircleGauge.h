@@ -32,7 +32,8 @@ private:
 		Vector2 offset;
 	};
 
-	std::array<SpriteElement, GaugePart::Count> gaugeParts_;
+	//std::array<SpriteElement, GaugePart::Count> gaugeParts_;
+	SpriteElement gauge_;
 
 	Vector2 gaugeBasePosition_;
 };

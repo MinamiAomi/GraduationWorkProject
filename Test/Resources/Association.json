@@ -132,6 +132,7 @@
 
     "LeftGauge" : "CircleGauge/DonutsGaugeOverL.png",
     "RightGauge" : "CircleGauge/DonutsGaugeOverR.png",
+    "CircleGauge" : "CircleGauge/DonutsGaugeOvert.png",
     "CircleFrame" : "CircleGauge/DonutsGaugeUnder.png",
     "HideGauge" : "CircleGauge/DonutsGaugeUnderL.png",
     

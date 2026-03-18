@@ -102,7 +102,7 @@ void TitleScene::OnInitialize() {
 	textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
 
 	circleGauge_ = std::make_unique<CircleGauge>();
-	circleGauge_->Initialize(1.0f, { 370.0f,220.0f});
+	circleGauge_->Initialize(1.0f, { 376.0f,225.0f});
 
 }
 
