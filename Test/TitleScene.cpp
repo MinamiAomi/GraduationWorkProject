@@ -38,9 +38,10 @@ void TitleScene::OnInitialize() {
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/titleLog.png");
 
 	title_.SetTexture(texture);
-	title_.SetUVRect({ { 0.0f, 0.0f }, { 1280.0f, 720.0f } });
+	title_.SetUVRect({ {0.0f, 0.0f}, {1.0f, 1.0f} }, Sprite::UVMode::UV);
+	title_.SetAnchor({ 0.5f,0.5f });
 	title_.SetPosition({ 1280.0f / 2.0f, 720.0f / 2.0f });
-	title_.SetScale({ 1280.0f, 720.0f });
+	title_.SetScale({ texture->GetSize()});
 
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 	collisionSystem_->Initialize();
