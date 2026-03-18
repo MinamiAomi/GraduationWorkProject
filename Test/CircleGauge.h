@@ -11,6 +11,7 @@ public:
 	void Initialize(float size,const Vector2& screenPos);
 
 	void Update(float progress);
+
 private:
 #ifdef _DEBUG
 	void DebugDraw();

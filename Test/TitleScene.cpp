@@ -147,6 +147,8 @@ void TitleScene::OnUpdate() {
 
 		if (chargeTimer >= 1.0f) {
 			isRunning = true;
+			//俺が追加0.0fにすることで円ゲージを非表示にまずいかな？
+			chargeTimer = 0.0f;
 		}
 	}
 	else {

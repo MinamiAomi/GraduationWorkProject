@@ -67,7 +67,7 @@ void StageSelectScene::OnInitialize() {
 	level1CircleGauge_ = std::make_unique<CircleGauge>();
 	level2CircleGauge_ = std::make_unique<CircleGauge>();
 	level1CircleGauge_->Initialize(1.1f, { 350.0f,370.0f });
-	level2CircleGauge_->Initialize(1.1f, { -920.0f,370.0f });
+	level2CircleGauge_->Initialize(1.1f, { 920.0f,370.0f });
 }
 
 void StageSelectScene::OnUpdate() {
