@@ -36,12 +36,12 @@ void TitleScene::OnInitialize() {
 	//  deviceOptionsUI_->Initialize();
 
 	std::shared_ptr<Texture> texture = Texture::Load("Resources/titleLog.png");
-
 	title_.SetTexture(texture);
 	title_.SetUVRect({ {0.0f, 0.0f}, {1.0f, 1.0f} }, Sprite::UVMode::UV);
 	title_.SetAnchor({ 0.5f,0.5f });
 	title_.SetPosition({ 1280.0f / 2.0f, 720.0f / 2.0f });
-	title_.SetScale({ texture->GetSize()});
+	//解像度の問題らしいこの変な数字
+	title_.SetScale({ texture->GetSize() * 0.65f });
 
 	collisionSystem_ = std::make_unique<CollisionSystem>();
 	collisionSystem_->Initialize();
@@ -103,7 +103,7 @@ void TitleScene::OnInitialize() {
 	textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
 
 	circleGauge_ = std::make_unique<CircleGauge>();
-	circleGauge_->Initialize(1.0f, { 376.0f,225.0f});
+	circleGauge_->Initialize(1.0f, { 376.0f,225.0f });
 
 }
 
