@@ -51,7 +51,7 @@ CircleGauge::CircleGauge()
 	gauge_.sprite.SetDrawOrder(uint8_t(0));
 	gauge_.sprite.SetUVRect({ {0.0f, 0.0f}, {1.0f, 1.0f} }, Sprite::UVMode::UV);
 	gauge_.sprite.SetIsCircleGauge(true);
-	gauge_.sprite.SetColor(Color({ (200.0f / 255.0f),(210.0f/255.0f),(30.0f/255.0f)}));
+	//gauge_.sprite.SetColor(Color({ (200.0f / 255.0f),(210.0f/255.0f),(30.0f/255.0f)}));
 
 }
 
