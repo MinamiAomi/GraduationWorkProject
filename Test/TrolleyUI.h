@@ -59,7 +59,9 @@ private:
 
 
 	Vector2 chargeUISize_;
+	Vector2 chargeUIPosition_;
 	Vector2 nitroUISize_;
+	Vector2 nitroUIPosition_;
 	Vector2 nitroBurstUISize_;
 
 	Random::RandomNumberGenerator rnd_;
