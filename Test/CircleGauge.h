@@ -15,7 +15,6 @@ public:
 private:
 #ifdef _DEBUG
 	void DebugDraw();
-	float size_;
 #endif // _DEBUG
 
 
@@ -37,4 +36,6 @@ private:
 	SpriteElement gauge_;
 
 	Vector2 gaugeBasePosition_;
+	float size_;
+
 };

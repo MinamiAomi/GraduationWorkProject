@@ -60,13 +60,10 @@ void CircleGauge::Initialize(float size, const Vector2& screenPos)
 	//for (auto& gaugePart : gaugeParts_) {
 	//	gaugePart.sprite.SetScale(gaugePart.spriteScale * size);
 	//}
+	size_ = size;
 	gaugeBasePosition_ = screenPos;
 	gauge_.sprite.SetPosition(gaugeBasePosition_ + gauge_.offset);
 	gauge_.sprite.SetScale(gauge_.spriteScale * size_);
-
-#ifdef _DEBUG
-	size_ = size;
-#endif // _DEBUG
 
 }
 
