@@ -51,6 +51,7 @@ CircleGauge::CircleGauge()
 	gauge_.sprite.SetDrawOrder(uint8_t(0));
 	gauge_.sprite.SetUVRect({ {0.0f, 0.0f}, {1.0f, 1.0f} }, Sprite::UVMode::UV);
 	gauge_.sprite.SetIsCircleGauge(true);
+	gauge_.sprite.SetColor(Color({ (200.0f / 255.0f),(210.0f/255.0f),(30.0f/255.0f)}));
 
 }
 
@@ -72,7 +73,7 @@ void CircleGauge::Initialize(float size, const Vector2& screenPos)
 void CircleGauge::Update(float progress)
 {
 #ifdef _DEBUG
-	//DebugDraw();
+	DebugDraw();
 #endif // _DEBUG
 	//float p = std::clamp(progress, 0.0f, 1.0f);
 
@@ -117,6 +118,7 @@ void CircleGauge::Update(float progress)
 		part.sprite.SetPosition(gaugeBasePosition_ + part.offset);
 	}*/
 	
+	
 	gauge_.sprite.SetCircleGaugeProgress(progress);
 	gauge_.sprite.SetPosition(gaugeBasePosition_ + gauge_.offset);
 	gauge_.sprite.SetScale(gauge_.spriteScale * size_);
@@ -125,6 +127,8 @@ void CircleGauge::Update(float progress)
 #ifdef _DEBUG
 void CircleGauge::DebugDraw()
 {
+
+	gauge_.sprite.DrawImGui("gauge");
 	ImGui::Begin("CircleGauge");
 	ImGui::DragFloat("size", &size_, 0.1f);
 	ImGui::DragFloat2("basePos", &gaugeBasePosition_.x, 0.1f);

@@ -154,7 +154,7 @@ void TitleScene::OnUpdate() {
 	}
 	else {
 		// 照らしていない、かつ走り出していないならリセット
-		chargeTimer = std::max(chargeTimer - 0.005f, 0.0f);
+		chargeTimer = std::max(chargeTimer - 0.01f, 0.0f);
 		shakeTimer = std::lerp(shakeTimer, 0.0f, 0.1f);
 		shakeOffset = Vector3::Lerp(0.1f, shakeOffset, Vector3::zero);
 
