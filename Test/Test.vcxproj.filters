@@ -221,6 +221,9 @@
     <ClCompile Include="MonsterParticle.cpp">
       <Filter>Game\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteParticles.cpp">
+      <Filter>Game\Flashlight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -383,6 +386,9 @@
     </ClInclude>
     <ClInclude Include="MonsterParticle.h">
       <Filter>Game\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteParticles.h">
+      <Filter>Game\Flashlight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

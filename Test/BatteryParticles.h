@@ -36,6 +36,7 @@ public:
     void SetQuaternion(const Quaternion& offset) { transform_.rotate = offset; }
 public:
     std::shared_ptr<Material> material_;
+    std::shared_ptr<Material> overMaterial_;
     std::shared_ptr<Material> toBatMaterial_;
     inline static float minSpeed_ = 0.002f;
     inline static float maxSpeed_ = 0.003f;
@@ -46,6 +47,7 @@ public:
     inline static float minScale_ = 0.1f;
     inline static float maxScale_ = 0.5f;
     inline static Vector3 color_ = { 1.0f,1.0f,1.0f };
+    inline static Vector3 overColor_ = { 1.0f,1.0f,1.0f };
     inline static float toBatSpeed_ = 0.01f;
     inline static float toBatInitializeSpeed_ = 0.02f;
     inline static float toBatScaleSpeed_ = 0.01f;

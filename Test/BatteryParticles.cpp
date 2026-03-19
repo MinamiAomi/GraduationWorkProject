@@ -18,6 +18,10 @@ void BatteryParticles::Initialize(const Transform* transform, BatsManager* batsM
 	material_ = std::make_shared<Material>();
 	material_->emissive = { 1.0f,1.0f,1.0f };
 	material_->emissiveIntensity = 10.0f;
+	overMaterial_ = std::make_shared<Material>();
+	overMaterial_->emissive = { 1.0f,1.0f,1.0f };
+	overMaterial_->emissiveIntensity = 10.0f;
+
 
 	toBatMaterial_ = std::make_shared<Material>();
 	toBatMaterial_->emissive = { 1.0f,1.0f,1.0f };
@@ -37,18 +41,22 @@ void BatteryParticles::Initialize(const Transform* transform, BatsManager* batsM
 	JSON_LOAD_BY_NAME("minScale_", minScale_);
 	JSON_LOAD_BY_NAME("maxScale_", maxScale_);
 	JSON_LOAD_BY_NAME("color_", color_);
+	JSON_LOAD_BY_NAME("overColor_", overColor_);
 	JSON_LOAD_BY_NAME("toBatSpeed_", toBatSpeed_);
 	JSON_LOAD_BY_NAME("toBatScaleSpeed_", toBatScaleSpeed_);
 	JSON_CLOSE();
 	material_->albedo = color_;
+	overMaterial_->albedo = overColor_;
 }
 
 void BatteryParticles::Update()
 {
 	material_->albedo = color_;
+	overMaterial_->albedo = overColor_;
+
 	transform_.UpdateMatrix();
 	auto inverseParentMatrix = transform_.GetParent()->worldMatrix.Inverse();
-	if (Trolley::GetInstance()->GetIsHitFlashlight()) {
+	if (Trolley::GetInstance()->GetIsHitFlashlight() && !Trolley::GetInstance()->GetFlashlight()->GetBatteryRemaining()) {
 		emitTimer_++;
 		if (emitTimer_ >= emitInterval_) {
 			Emit();
@@ -195,6 +203,7 @@ void BatteryParticles::Debug()
 			maxScale_ = minScale_ + 0.0000001f;
 		}
 		ImGui::DragFloat3("color_", &color_.x, 0.01f);
+		ImGui::DragFloat3("overColor_", &overColor_.x, 0.01f);
 		ImGui::DragFloat("toBatSpeed_", &toBatSpeed_, 0.0001f, 0.0f, 1.0f, "%.10f");
 		ImGui::DragFloat("toBatScaleSpeed_", &toBatScaleSpeed_, 0.0001f, 0.0f, 1.0f, "%.10f");
 		if (ImGui::Button("Save")) {
@@ -209,6 +218,7 @@ void BatteryParticles::Debug()
 			JSON_SAVE_BY_NAME("minScale_", minScale_);
 			JSON_SAVE_BY_NAME("maxScale_", maxScale_);
 			JSON_SAVE_BY_NAME("color_", color_);
+			JSON_SAVE_BY_NAME("overColor_", overColor_);
 			JSON_SAVE_BY_NAME("toBatSpeed_", toBatSpeed_);
 			JSON_SAVE_BY_NAME("toBatScaleSpeed_", toBatScaleSpeed_);
 			JSON_CLOSE();
@@ -277,7 +287,15 @@ void BatteryParticles::Emit()
 	};
 
 	newParticle->scaleSpeed_ = scaleDecay_;
-	newParticle->modelInstance_.GetMaterials().emplace_back(material_);
+	const auto& state = Trolley::GetInstance()->GetState();
+
+
+	if (state == Trolley::State::Normal) {
+		newParticle->modelInstance_.GetMaterials().emplace_back(material_);
+	}
+	else if (state == Trolley::State::Overcharge) {
+		newParticle->modelInstance_.GetMaterials().emplace_back(overMaterial_);
+	}
 
 	particles_.push_back(std::move(newParticle));
 }

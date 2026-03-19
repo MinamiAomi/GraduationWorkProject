@@ -130,7 +130,9 @@
 
     "Bottom" : "Bottom/bottom.png",
     
-    "white2x2":"white2x2.png"
+    "white2x2":"white2x2.png",
+
+    "effect": "effect.png"
   },
   "Animation" : {
     "batAnim" : "Bat/Bat.gltf",

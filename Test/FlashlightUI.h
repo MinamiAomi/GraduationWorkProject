@@ -3,6 +3,8 @@
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
 #include "Graphics/Sprite.h"
+#include "SpriteParticles.h"
+#include "SpriteParticles.h"
 
 
 class Flashlight;
@@ -22,5 +24,6 @@ private:
 	Sprite frameUI_;
 	Sprite batteryUI_;
 	Vector2 batteryUISize_;
+	SpriteParticles sprite_;
 
 };

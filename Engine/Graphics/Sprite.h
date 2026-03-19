@@ -39,6 +39,7 @@ public:
 	uint8_t GetDrawOrder() const { return drawOrder_; }
 	bool GetIsActive() const { return isActive_; }
     bool GetPre3DRender() const { return pre3DRender_; }
+	const Color& GetColor() const { return color_; }
 
 #ifdef _DEBUG
 	void DrawImGui(const std::string& name);
