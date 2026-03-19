@@ -100,6 +100,12 @@ void GameOverScene::OnInitialize() {
     textUI_ = std::make_unique<TextUI>();
     textUI_->Initialize({ 1280.0f * 0.5f,0.0f });
 
+    selectTriangleLeftCircleGauge_ = std::make_unique<CircleGauge>();
+    selectTriangleRightCircleGauge_ = std::make_unique<CircleGauge>();
+
+    selectTriangleLeftCircleGauge_->Initialize(0.8f, {120.0f,240.0f});
+    selectTriangleRightCircleGauge_->Initialize(0.8f, { 1160.0f,240.0f });
+
     isSceneChange_ = false;
     timer_.Start();
 }
@@ -117,6 +123,9 @@ void GameOverScene::OnUpdate() {
 
     selectTriangleLeft_->Update();
     selectTriangleRight_->Update();
+
+    selectTriangleLeftCircleGauge_->Update(selectTriangleLeft_->GetProgress());
+    selectTriangleRightCircleGauge_->Update(selectTriangleRight_->GetProgress());
 
     parentTransform_.rotate *= Quaternion::MakeFromEulerAngle({ 0.0f, 0.25f * Math::ToRadian, 0.0f });
     parentTransform_.UpdateMatrix();

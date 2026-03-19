@@ -886,4 +886,9 @@
       <Filter>Externals\ImGui</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Test\Resources\Shader\CircleGaugePS.hlsl">
+      <Filter>Graphics\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

@@ -31,6 +31,7 @@ void Diorama::Initialize(const std::string& name, const Vector3& position, const
     collider_->center = transform_.worldMatrix.GetTranslate();
     collider_->radius = 0.8f;
     count_ = 0.0f;
+
 }
 
 void Diorama::Update()
