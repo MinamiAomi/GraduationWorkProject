@@ -58,15 +58,19 @@ TrolleyUI::TrolleyUI()
 	baseUI_.SetIsActive(false);
 
 	chargeUISize_ = chargeGaugeTexture->GetSize();
-	chargeUI_.SetPosition({ 1134.0f,60.0f});
+	chargeUIPosition_ = { 1134.0f,60.0f };
+	chargeUI_.SetPosition(chargeUIPosition_);
 	chargeUI_.SetScale(chargeUISize_);
+	chargeUI_.SetColor(Color({ 255.0f / 255.0f,206.0f / 255.0f,0.0f }));
 	chargeUI_.SetAnchor({ 0.5f,0.0f });
 	chargeUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	chargeUI_.SetDrawOrder(1);
 
 	nitroBurstUISize_ = nitroBurstTexture->GetSize();
+
 	nitroBurstUI_.SetPosition({ 1134.0f,60.0f });
 	nitroBurstUI_.SetScale(nitroBurstUISize_);
+	nitroBurstUI_.SetColor(Color({ 0.0f,190.0f / 255.0f,217.0f / 255.0f }));
 	nitroBurstUI_.SetAnchor({ 0.5f,0.0f });
 	nitroBurstUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 	nitroBurstUI_.SetIsActive(false);
@@ -74,9 +78,11 @@ TrolleyUI::TrolleyUI()
 
 
 	nitroUISize_ = nitroGaugeTexture->GetSize();
-	nitroUI_.SetPosition({ 1090.0f,66.0f });
+	nitroUIPosition_ = { 1090.0f,66.0f };
+	nitroUI_.SetPosition(nitroUIPosition_);
 	nitroUI_.SetScale(nitroUISize_);
 	nitroUI_.SetAnchor({ 0.5f,0.0f });
+	nitroUI_.SetColor(Color({ 0.0f,190.0f / 255.0f,217.0f / 255.0f }));
 	nitroUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 
 	if (dynamic_cast<GameScene*>(SceneManager::GetInstance()->GetCurrentScene())) {
@@ -244,6 +250,17 @@ void TrolleyUI::Update()
 	}
 	else {
 		nitroBurstUI_.SetIsActive(false);
+	}
+
+	chargeUI_.SetPosition(chargeUIPosition_);
+	nitroUI_.SetPosition(nitroUIPosition_);
+
+	//蝙蝠に吸われているとき
+	if (trolley_->GetState() != Trolley::State::Nitro) {
+		if (trolley_->batsNum_ > 0) {
+			chargeUI_.SetPosition(chargeUIPosition_ + Vector2(rnd_.NextFloatRange(-5.0f, 5.0f), 0.0f));
+			nitroUI_.SetPosition(nitroUIPosition_ + Vector2(rnd_.NextFloatRange(-5.0f, 5.0f), 0.0f));
+		}
 	}
 #ifdef _DEBUG
 	DrawImGui();

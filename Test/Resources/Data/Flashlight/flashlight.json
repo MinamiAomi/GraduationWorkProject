@@ -1,8 +1,8 @@
 {
     "battery": {
         "addBattery_": 0.5,
-        "isLighting_": false,
-        "level1StartFrame_": 220.0,
+        "isLighting_": true,
+        "level1StartFrame_": 200.0,
         "level2StartFrame_": 120.0,
         "maxBattery_": 100.0,
         "startFrame_": 120.0,

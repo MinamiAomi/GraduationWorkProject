@@ -6,6 +6,7 @@
 #include "SpriteParticles.h"
 #include "SpriteParticles.h"
 
+#include "Math/Random.h"
 
 class Flashlight;
 class FlashlightUI {
@@ -24,6 +25,8 @@ private:
 	Sprite frameUI_;
 	Sprite batteryUI_;
 	Vector2 batteryUISize_;
+	Vector2 batteryUIPosition_;
 	SpriteParticles sprite_;
 
+	Random::RandomNumberGenerator rnd_;
 };
