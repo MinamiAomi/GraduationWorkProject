@@ -31,6 +31,7 @@ FlashlightUI::FlashlightUI()
 	batteryUISize_ = flashlightGauge->GetSize();
 	batteryUI_.SetPosition({ 150.0f,60.0f });
 	batteryUI_.SetAnchor({ 0.5f,0.0f });
+	batteryUI_.SetColor(Color({ 255.0f / 255.0f,206.0f / 255.0f,0.0f }));
 	batteryUI_.SetScale({ batteryUISize_ });
 	batteryUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
 	batteryUI_.SetDrawOrder(1);

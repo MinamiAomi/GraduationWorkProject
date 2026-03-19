@@ -82,6 +82,7 @@ TrolleyUI::TrolleyUI()
 	nitroUI_.SetPosition(nitroUIPosition_);
 	nitroUI_.SetScale(nitroUISize_);
 	nitroUI_.SetAnchor({ 0.5f,0.0f });
+	nitroUI_.SetColor(Color({ 0.0f,190.0f / 255.0f,217.0f / 255.0f }));
 	nitroUI_.SetUVRect({ {0.0f,0.0f} ,{1.0f,1.0f} }, Sprite::UVMode::UV);
 
 	if (dynamic_cast<GameScene*>(SceneManager::GetInstance()->GetCurrentScene())) {
