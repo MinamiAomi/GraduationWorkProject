@@ -29,7 +29,8 @@ FlashlightUI::FlashlightUI()
 
 
 	batteryUISize_ = flashlightGauge->GetSize();
-	batteryUI_.SetPosition({ 150.0f,60.0f });
+	batteryUIPosition_ = { 150.0f,60.0f };
+	batteryUI_.SetPosition(batteryUIPosition_);
 	batteryUI_.SetAnchor({ 0.5f,0.0f });
 	batteryUI_.SetColor(Color({ 255.0f / 255.0f,206.0f / 255.0f,0.0f }));
 	batteryUI_.SetScale({ batteryUISize_ });
@@ -54,6 +55,13 @@ void FlashlightUI::Update()
 	batteryUI_.SetScale({ batteryUISize_.x, maxHeight * t });
 
 	batteryUI_.SetUVRect({ {0.0f, 1.0f - t}, {1.0f, t} }, Sprite::UVMode::UV);
+
+	if (!flashlight_->GetBatteryRemaining()) {
+		batteryUI_.SetPosition(batteryUIPosition_);
+	}
+	else {
+		batteryUI_.SetPosition(batteryUIPosition_ + Vector2(rnd_.NextFloatRange(-5.0f, 5.0f), 0.0f));
+	}
 #ifdef _DEBUG
 	frameUI_.DrawImGui("flashlightFrame");
 	batteryUI_.DrawImGui("batteryUI");
@@ -67,6 +75,4 @@ void FlashlightUI::Update()
 		batteryUI_.SetIsActive(false);
 		frameUI_.SetIsActive(false);
 	}
-
-
 }
