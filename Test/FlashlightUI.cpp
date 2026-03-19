@@ -37,15 +37,18 @@ FlashlightUI::FlashlightUI()
 	batteryUI_.SetUVRect({ {0.0f,0.0f },{1.0f,1.0f} }, Sprite::UVMode::UV);
 	batteryUI_.SetDrawOrder(1);
 
+	sprite_.Initialize();
 }
 
 void FlashlightUI::Initialize()
 {
-
+	sprite_.Initialize();
 }
 
 void FlashlightUI::Update()
 {
+
+	sprite_.Update();
 
 	float t = flashlight_->GetBattery() / flashlight_->GetMaxBattery();
 	t = std::clamp(t, 0.0f, 1.0f);

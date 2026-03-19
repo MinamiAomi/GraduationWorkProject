@@ -227,6 +227,9 @@
     <ClCompile Include="CircleGauge.cpp">
       <Filter>Game\CircleGauge</Filter>
     </ClCompile>
+    <ClCompile Include="SpriteParticles.cpp">
+      <Filter>Game\Flashlight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Test.h">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="CircleGauge.h">
       <Filter>Game\CircleGauge</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteParticles.h">
+      <Filter>Game\Flashlight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

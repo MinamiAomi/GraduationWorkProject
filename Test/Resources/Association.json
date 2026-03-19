@@ -136,7 +136,9 @@
     "CircleFrame" : "CircleGauge/DonutsGaugeUnder.png",
     "HideGauge" : "CircleGauge/DonutsGaugeUnderL.png",
     
-    "white2x2":"white2x2.png"
+    "white2x2":"white2x2.png",
+
+    "effect": "effect.png"
   },
   "Animation" : {
     "batAnim" : "Bat/Bat.gltf",

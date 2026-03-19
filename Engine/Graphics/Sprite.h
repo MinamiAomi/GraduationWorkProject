@@ -42,8 +42,9 @@ public:
 
 	uint8_t GetDrawOrder() const { return drawOrder_; }
 	bool GetIsActive() const { return isActive_; }
-	bool GetPre3DRender() const { return pre3DRender_; }
 	const Vector2& GetScale()const { return scale_; }
+    bool GetPre3DRender() const { return pre3DRender_; }
+	const Color& GetColor() const { return color_; }
 
 	//俺が追加
 	bool GetIsCircleGauge() const { return isCircleGauge_; }

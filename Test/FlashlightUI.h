@@ -3,6 +3,8 @@
 #include "Math/Transform.h"
 #include "Graphics/Model.h"
 #include "Graphics/Sprite.h"
+#include "SpriteParticles.h"
+#include "SpriteParticles.h"
 
 #include "Math/Random.h"
 
@@ -24,6 +26,7 @@ private:
 	Sprite batteryUI_;
 	Vector2 batteryUISize_;
 	Vector2 batteryUIPosition_;
+	SpriteParticles sprite_;
 
 	Random::RandomNumberGenerator rnd_;
 };
