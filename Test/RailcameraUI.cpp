@@ -115,10 +115,11 @@ void RailcameraUI::Update(float currentTrollyFrame, float currentDeadlineFrame, 
 		float distance = std::abs(trollyT - deadlineT);
 
 		float threshold = 0.03f;
-		Vector4 uiColor = { 0.5f, 1.0f, 1.0f, 1.0f };
+		Vector4 uiColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 		Vector4 uiOtherColor = { 0.5f, 1.0f, 1.0f, 1.0f };
 
 		if (distance < threshold) {
+			uiColor = { 0.5f, 1.0f, 1.0f, 1.0f };
 			flashTimer_ += 0.1f;
 
 			float sinValue = (std::sin(flashTimer_) + 1.0f) * 0.5f;
