@@ -39,7 +39,7 @@ PSOutput main(PSInput input) {
         angle += TWO_PI;
     }
     
-    float threshold = extraParam_.progress * TWO_PI;
+    float threshold = extraParam.progress * TWO_PI;
     
     if (angle > threshold) {
         discard;
